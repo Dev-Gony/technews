@@ -16,6 +16,36 @@ GEMINI_MODEL = "gemini-3.1-flash-lite"
 
 MAX_CONTENT_LENGTH = 12000
 
+SENT_ARTICLES_FILE = "sent_articles.json"
+
+
+def load_sent_articles():
+    if not os.path.exists(SENT_ARTICLES_FILE):
+        return []
+
+    try:
+        with open(SENT_ARTICLES_FILE, "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        if isinstance(data, list):
+            return data
+
+        return []
+
+    except Exception as error:
+        print("sent_articles.json 읽기 실패:", error)
+        return []
+
+
+def save_sent_articles(sent_articles):
+    with open(SENT_ARTICLES_FILE, "w", encoding="utf-8") as file:
+        json.dump(
+            sent_articles,
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+
 
 def get_latest_article():
     request = urllib.request.Request(
@@ -49,13 +79,33 @@ def get_latest_article():
 
 
 def clean_html(text):
-    text = re.sub(r"<script.*?</script>", " ", text, flags=re.S | re.I)
-    text = re.sub(r"<style.*?</style>", " ", text, flags=re.S | re.I)
-    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(
+        r"<script.*?</script>",
+        " ",
+        text,
+        flags=re.S | re.I
+    )
+
+    text = re.sub(
+        r"<style.*?</style>",
+        " ",
+        text,
+        flags=re.S | re.I
+    )
+
+    text = re.sub(
+        r"<[^>]+>",
+        " ",
+        text
+    )
 
     text = unescape(text)
 
-    text = re.sub(r"\s+", " ", text)
+    text = re.sub(
+        r"\s+",
+        " ",
+        text
+    )
 
     return text.strip()
 
@@ -69,8 +119,14 @@ def get_article_content(article):
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=20) as response:
-            html = response.read().decode("utf-8", errors="ignore")
+        with urllib.request.urlopen(
+            request,
+            timeout=20
+        ) as response:
+            html = response.read().decode(
+                "utf-8",
+                errors="ignore"
+            )
 
         cleaned = clean_html(html)
 
@@ -82,7 +138,9 @@ def get_article_content(article):
     except Exception as error:
         print("본문 가져오기 실패:", error)
 
-        fallback = clean_html(article["description"])
+        fallback = clean_html(
+            article["description"]
+        )
 
         return fallback[:MAX_CONTENT_LENGTH]
 
@@ -167,7 +225,10 @@ G마켓
         method="POST",
     )
 
-    with urllib.request.urlopen(request, timeout=60) as response:
+    with urllib.request.urlopen(
+        request,
+        timeout=60
+    ) as response:
         result = json.loads(
             response.read().decode("utf-8")
         )
@@ -179,7 +240,9 @@ G마켓
         print("Gemini 응답:")
         print(result)
 
-        raise RuntimeError("Gemini 응답을 해석하지 못했습니다.")
+        raise RuntimeError(
+            "Gemini 응답을 해석하지 못했습니다."
+        )
 
 
 def send_to_slack(article, summary):
@@ -211,7 +274,10 @@ def send_to_slack(article, summary):
         method="POST",
     )
 
-    with urllib.request.urlopen(request, timeout=20) as response:
+    with urllib.request.urlopen(
+        request,
+        timeout=20
+    ) as response:
         result = response.read().decode("utf-8")
 
     if result != "ok":
@@ -221,19 +287,43 @@ def send_to_slack(article, summary):
 
 
 def main():
-    print("1. G마켓 최신 게시글 확인")
+    print("1. 이미 보낸 게시글 목록 불러오기")
+
+    sent_articles = load_sent_articles()
+
+    print(
+        "현재까지 보낸 글 수:",
+        len(sent_articles)
+    )
+
+    print("2. G마켓 최신 게시글 확인")
 
     article = get_latest_article()
 
-    print("게시글:", article["title"])
+    print(
+        "최신 게시글:",
+        article["title"]
+    )
 
-    print("2. 게시글 본문 가져오기")
+    article_url = article["link"]
+
+    if article_url in sent_articles:
+        print("이미 보낸 게시글입니다.")
+        print("Slack 전송을 생략합니다.")
+        return
+
+    print("새로운 게시글입니다.")
+
+    print("3. 게시글 본문 가져오기")
 
     content = get_article_content(article)
 
-    print("본문 길이:", len(content))
+    print(
+        "본문 길이:",
+        len(content)
+    )
 
-    print("3. Gemini 요약 요청")
+    print("4. Gemini 요약 요청")
 
     summary = summarize_with_gemini(
         article,
@@ -242,7 +332,7 @@ def main():
 
     print("Gemini 요약 완료")
 
-    print("4. Slack 전송")
+    print("5. Slack 전송")
 
     send_to_slack(
         article,
@@ -250,6 +340,17 @@ def main():
     )
 
     print("Slack 전송 완료")
+
+    print("6. 보낸 게시글 기록")
+
+    sent_articles.append(article_url)
+
+    save_sent_articles(sent_articles)
+
+    print(
+        "현재까지 보낸 글 수:",
+        len(sent_articles)
+    )
 
 
 if __name__ == "__main__":
