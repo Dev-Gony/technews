@@ -20,7 +20,7 @@ RECENT_ARTICLE_LIMIT = 10
 
 # 처음 기준점을 잡을 때만 True
 # 기준점 등록이 끝난 뒤에는 False로 바꿔야 함
-INITIALIZE_ONLY = True
+INITIALIZE_ONLY = False
 
 
 BLOGS = [
