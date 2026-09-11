@@ -457,9 +457,11 @@ def process_blog(
         article["title"]
     )
 
-    article_url = (
-        article["link"]
-    )
+    article_url = normalize_article_url(
+    article["link"]
+        )
+
+    article["link"] = article_url
 
     if not article_url:
         raise RuntimeError(
