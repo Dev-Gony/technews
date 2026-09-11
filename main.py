@@ -22,7 +22,7 @@ RECENT_ARTICLE_LIMIT = 10
 
 # 새 블로그를 추가해서 기준점을 잡을 때 True
 # 초기화가 끝난 뒤에는 False
-INITIALIZE_ONLY = True
+INITIALIZE_ONLY = False
 
 
 BLOGS = [
