@@ -1,10 +1,11 @@
+import os
+import json
 import urllib.request
 import urllib.parse
-import xml.etree.ElementTree as ET
-import json
-import os
-import re
 from html import unescape
+
+import feedparser
+from bs4 import BeautifulSoup
 
 
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
@@ -12,9 +13,9 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 GEMINI_MODEL = "gemini-3.1-flash-lite"
 
-MAX_CONTENT_LENGTH = 12000
-
 SENT_ARTICLES_FILE = "sent_articles.json"
+
+MAX_CONTENT_LENGTH = 12000
 
 
 BLOGS = [
@@ -55,11 +56,7 @@ def load_sent_articles():
         return []
 
     except Exception as error:
-        print(
-            "sent_articles.json 읽기 실패:",
-            error
-        )
-
+        print("발송 기록 읽기 실패:", error)
         return []
 
 
@@ -77,71 +74,6 @@ def save_sent_articles(sent_articles):
             indent=2
         )
 
-
-def download_rss(rss_url):
-    request = urllib.request.Request(
-        rss_url,
-        headers={
-            "User-Agent": (
-                "Mozilla/5.0 "
-                "(compatible; TechNewsBot/1.0)"
-            )
-        }
-    )
-
-    with urllib.request.urlopen(
-        request,
-        timeout=30
-    ) as response:
-
-        return response.read()
-
-
-def get_latest_article(blog):
-    rss_data = download_rss(
-        blog["rss"]
-    )
-
-    root = ET.fromstring(
-        rss_data
-    )
-
-    item = root.find(
-        "./channel/item"
-    )
-
-    if item is None:
-        raise RuntimeError(
-            "RSS에서 게시글을 찾지 못했습니다."
-        )
-
-    title = item.findtext(
-        "title",
-        default="제목 없음"
-    )
-
-    link = item.findtext(
-        "link",
-        default=""
-    )
-
-    pub_date = item.findtext(
-        "pubDate",
-        default=""
-    )
-
-    description = item.findtext(
-        "description",
-        default=""
-    )
-
-    return {
-        "company": blog["name"],
-        "title": title.strip(),
-        "link": link.strip(),
-        "pub_date": pub_date.strip(),
-        "description": description.strip(),
-    }
 
 def normalize_article_url(url):
     if not url:
@@ -162,51 +94,216 @@ def normalize_article_url(url):
     return normalized.rstrip("/")
 
 
-def clean_html(text):
-    if not text:
+def clean_html(html_text):
+    if not html_text:
         return ""
 
-    text = re.sub(
-        r"<script.*?</script>",
-        " ",
-        text,
-        flags=re.S | re.I
+    soup = BeautifulSoup(
+        html_text,
+        "html.parser"
     )
 
-    text = re.sub(
-        r"<style.*?</style>",
-        " ",
-        text,
-        flags=re.S | re.I
+    for tag in soup(
+        [
+            "script",
+            "style",
+            "noscript",
+            "svg",
+        ]
+    ):
+        tag.decompose()
+
+    text = soup.get_text(
+        separator="\n"
     )
 
-    text = re.sub(
-        r"<[^>]+>",
-        " ",
-        text
+    text = unescape(text)
+
+    lines = []
+
+    for line in text.splitlines():
+
+        line = line.strip()
+
+        if line:
+            lines.append(line)
+
+    cleaned = "\n".join(lines)
+
+    return cleaned
+
+
+def get_feed(blog):
+    print(
+        f"RSS 요청: {blog['rss']}"
     )
 
-    text = unescape(
-        text
+    feed = feedparser.parse(
+        blog["rss"],
+        agent=(
+            "Mozilla/5.0 "
+            "(compatible; TechNewsBot/1.0)"
+        )
     )
 
-    text = re.sub(
-        r"\s+",
-        " ",
-        text
+    if not feed.entries:
+        raise RuntimeError(
+            "RSS에서 게시글을 찾지 못했습니다."
+        )
+
+    if getattr(
+        feed,
+        "bozo",
+        False
+    ):
+        print(
+            "RSS 경고:",
+            getattr(
+                feed,
+                "bozo_exception",
+                "알 수 없는 RSS 오류"
+            )
+        )
+
+    return feed
+
+
+def get_latest_article(blog):
+    feed = get_feed(blog)
+
+    entry = feed.entries[0]
+
+    title = entry.get(
+        "title",
+        "제목 없음"
     )
 
-    return text.strip()
+    link = entry.get(
+        "link",
+        ""
+    )
+
+    normalized_url = normalize_article_url(
+        link
+    )
+
+    pub_date = (
+        entry.get("published")
+        or entry.get("updated")
+        or ""
+    )
+
+    summary = entry.get(
+        "summary",
+        ""
+    )
+
+    rss_content = ""
+
+    if "content" in entry:
+
+        try:
+            contents = entry.get(
+                "content",
+                []
+            )
+
+            if contents:
+                rss_content = contents[0].get(
+                    "value",
+                    ""
+                )
+
+        except Exception as error:
+            print(
+                "RSS 본문 추출 실패:",
+                error
+            )
+
+    return {
+        "company": blog["name"],
+        "title": title.strip(),
+        "link": normalized_url,
+        "pub_date": pub_date.strip(),
+        "summary": summary,
+        "rss_content": rss_content,
+    }
 
 
-def get_article_content(article):
+def get_content_from_rss(article):
+    rss_content = article.get(
+        "rss_content",
+        ""
+    )
+
+    if rss_content:
+
+        cleaned = clean_html(
+            rss_content
+        )
+
+        if len(cleaned) >= 200:
+
+            print(
+                "RSS 안의 본문을 사용합니다."
+            )
+
+            return cleaned[
+                :MAX_CONTENT_LENGTH
+            ]
+
+    summary = article.get(
+        "summary",
+        ""
+    )
+
+    if summary:
+
+        cleaned_summary = clean_html(
+            summary
+        )
+
+        if len(cleaned_summary) >= 200:
+
+            print(
+                "RSS 요약문을 사용합니다."
+            )
+
+            return cleaned_summary[
+                :MAX_CONTENT_LENGTH
+            ]
+
+    return ""
+
+
+def download_article_page(article):
+    url = article["link"]
+
+    if not url:
+        return ""
+
+    print(
+        "원문 페이지에서 본문을 가져옵니다."
+    )
+
     request = urllib.request.Request(
-        article["link"],
+        url,
         headers={
             "User-Agent": (
                 "Mozilla/5.0 "
-                "(compatible; TechNewsBot/1.0)"
-            )
+                "(Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 "
+                "(KHTML, like Gecko) "
+                "Chrome/120.0 Safari/537.36"
+            ),
+            "Accept": (
+                "text/html,"
+                "application/xhtml+xml,"
+                "application/xml;q=0.9,*/*;q=0.8"
+            ),
+            "Accept-Language": (
+                "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
+            ),
         }
     )
 
@@ -221,30 +318,44 @@ def get_article_content(article):
                 errors="ignore"
             )
 
-        cleaned = clean_html(
+        content = clean_html(
             html
         )
 
-        if len(cleaned) > MAX_CONTENT_LENGTH:
-            cleaned = cleaned[
-                :MAX_CONTENT_LENGTH
-            ]
-
-        return cleaned
+        return content[
+            :MAX_CONTENT_LENGTH
+        ]
 
     except Exception as error:
+
         print(
-            "본문 가져오기 실패:",
+            "본문 페이지 가져오기 실패:",
             error
         )
 
-        fallback = clean_html(
-            article["description"]
-        )
+        return ""
 
-        return fallback[
-            :MAX_CONTENT_LENGTH
-        ]
+
+def get_article_content(article):
+    rss_content = get_content_from_rss(
+        article
+    )
+
+    if rss_content:
+        return rss_content
+
+    page_content = download_article_page(
+        article
+    )
+
+    if page_content:
+        return page_content
+
+    print(
+        "본문을 충분히 가져오지 못했습니다."
+    )
+
+    return ""
 
 
 def summarize_with_gemini(
@@ -252,14 +363,21 @@ def summarize_with_gemini(
     content
 ):
     if not GEMINI_API_KEY:
+
         raise RuntimeError(
             "GEMINI_API_KEY가 없습니다."
+        )
+
+    if not content:
+
+        raise RuntimeError(
+            "요약할 본문이 없습니다."
         )
 
     prompt = f"""
 너는 개발자를 위한 기술 블로그 브리핑 편집자다.
 
-아래 기술 블로그 글을 읽고 한국어로 쉽게 정리해라.
+아래 글의 실제 내용을 바탕으로 한국어로 정리해라.
 
 회사:
 {article["company"]}
@@ -273,37 +391,82 @@ def summarize_with_gemini(
 본문:
 {content}
 
+
 다음 형식을 반드시 지켜라.
 
+
 [한눈에 보기]
+
 이 글이 무엇에 관한 글인지
+개발을 잘 모르는 사람도 이해할 수 있도록
 2~3문장으로 설명한다.
 
+
+[왜 이 글을 썼나]
+
+작성자가 어떤 문제나 상황 때문에
+이 기술 또는 방법을 고민했는지 설명한다.
+
+
 [핵심 내용]
-- 중요한 내용 3~5개
-- 어떤 문제를 해결하려 했는지
-- 어떤 기술이나 방법을 사용했는지
-- 결과가 있다면 어떤 결과가 있었는지
+
+중요한 내용을 3~5개로 정리한다.
+
+각 항목은 너무 짧은 단어만 쓰지 말고
+왜 중요한지도 설명한다.
+
+
+[사용한 기술 / 방법]
+
+글에서 실제로 언급된 기술,
+도구, 구조, 설계 방법 등이 있다면 정리한다.
+
+기술이 없다면 억지로 만들지 않는다.
+
+
+[결과]
+
+글에서 실제 결과가 언급되어 있다면 정리한다.
+
+성능 개선 수치나 결과가 본문에 없다면
+추측하지 않는다.
+
 
 [알아둬야 할 것]
-- 개발자가 이 글에서 알아두면 좋은 개념
-- 실제 프로젝트에 적용할 때 주의할 점
-- 추가로 공부하면 좋은 내용
+
+이 글을 이해하거나
+실제 프로젝트에 활용하기 위해
+알아두면 좋은 개념을 쉽게 설명한다.
+
+
+[추가로 공부하면 좋은 것]
+
+이 글과 연결해서 공부하면 좋은 주제를
+2~4개 추천한다.
+
 
 [난이도]
+
 초급 / 중급 / 고급 중 하나
 
+
 [추천 대상]
-어떤 개발자에게 도움이 되는 글인지
-한 줄로 작성한다.
+
+어떤 개발자나 학습자에게
+특히 도움이 되는 글인지 한 줄로 작성한다.
+
 
 규칙:
-- 본문에 없는 사실은 만들어내지 않는다.
-- 확인되지 않은 수치나 결과를 추측하지 않는다.
-- 어려운 기술 용어는 쉽게 설명한다.
-- 너무 길게 작성하지 않는다.
-- 원문 URL은 요약 내용에 포함하지 않는다.
-- 본문이 불완전하면 그 사실을 밝힌다.
+
+- 본문에 없는 사실을 만들지 않는다.
+- 수치와 결과를 추측하지 않는다.
+- 제목만 보고 내용을 추측하지 않는다.
+- 어려운 기술 용어는 쉽게 풀어서 설명한다.
+- 한국어로 작성한다.
+- 기술명과 제품명은 원래 이름을 유지한다.
+- 광고성 문구는 무시한다.
+- 웹페이지 메뉴와 관련 없는 문구는 무시한다.
+- 원문 URL은 결과에 넣지 않는다.
 """
 
     url = (
@@ -322,7 +485,10 @@ def summarize_with_gemini(
                     }
                 ]
             }
-        ]
+        ],
+        "generationConfig": {
+            "temperature": 0.2
+        }
     }
 
     data = json.dumps(
@@ -342,7 +508,7 @@ def summarize_with_gemini(
 
     with urllib.request.urlopen(
         request,
-        timeout=60
+        timeout=90
     ) as response:
 
         result = json.loads(
@@ -352,6 +518,7 @@ def summarize_with_gemini(
         )
 
     try:
+
         return (
             result["candidates"][0]
             ["content"]["parts"][0]
@@ -378,24 +545,26 @@ def send_to_slack(
     summary
 ):
     if not SLACK_WEBHOOK_URL:
+
         raise RuntimeError(
             "SLACK_WEBHOOK_URL이 없습니다."
         )
 
     message_text = (
-        "📰 *새 기술 블로그 글*\n\n"
-        f"*회사*\n"
-        f"{article['company']}\n\n"
+        "━━━━━━━━━━━━━━━━━━\n"
+        "📰 *새 기술 블로그 글*\n"
+        "━━━━━━━━━━━━━━━━━━\n\n"
 
-        f"*제목*\n"
-        f"{article['title']}\n\n"
+        f"🏢 *{article['company']}*\n\n"
+
+        f"📌 *{article['title']}*\n\n"
 
         f"{summary}\n\n"
 
-        f"*작성일*\n"
+        f"📅 *게시일*\n"
         f"{article['pub_date']}\n\n"
 
-        f"*원문*\n"
+        f"🔗 *원문*\n"
         f"{article['link']}"
     )
 
@@ -430,6 +599,7 @@ def send_to_slack(
         )
 
     if result != "ok":
+
         raise RuntimeError(
             f"Slack 전송 실패: {result}"
         )
@@ -457,18 +627,21 @@ def process_blog(
         article["title"]
     )
 
-    article_url = normalize_article_url(
-    article["link"]
-        )
+    print(
+        "정규화 URL:",
+        article["link"]
+    )
 
-    article["link"] = article_url
+    article_url = article["link"]
 
     if not article_url:
+
         raise RuntimeError(
             "게시글 URL이 없습니다."
         )
 
     if article_url in sent_articles:
+
         print(
             "이미 보낸 글입니다."
         )
@@ -484,18 +657,17 @@ def process_blog(
     )
 
     print(
-        "본문 길이:",
+        "최종 본문 길이:",
         len(content)
     )
 
     if not content:
+
         print(
-            "본문이 비어 있습니다."
+            "본문이 없어 AI 요약을 하지 않습니다."
         )
 
-        content = (
-            "본문을 충분히 가져오지 못했습니다."
-        )
+        return False
 
     print(
         "Gemini 요약 요청"
@@ -508,6 +680,10 @@ def process_blog(
 
     print(
         "Gemini 요약 완료"
+    )
+
+    print(
+        "Slack 전송"
     )
 
     send_to_slack(
@@ -535,9 +711,7 @@ def process_blog(
 
 
 def main():
-    sent_articles = (
-        load_sent_articles()
-    )
+    sent_articles = load_sent_articles()
 
     print(
         "================================"
@@ -568,6 +742,7 @@ def main():
     for blog in BLOGS:
 
         try:
+
             was_new = process_blog(
                 blog,
                 sent_articles
@@ -588,7 +763,7 @@ def main():
             )
 
             print(
-                error
+                repr(error)
             )
 
             print(
@@ -618,6 +793,11 @@ def main():
     print(
         "오류:",
         error_count
+    )
+
+    print(
+        "현재 발송 기록:",
+        len(sent_articles)
     )
 
     print(
