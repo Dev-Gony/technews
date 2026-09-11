@@ -21,7 +21,7 @@ RECENT_ARTICLE_LIMIT = 10
 # 새로운 블로그를 대량 추가했기 때문에
 # 이번 실행에서는 과거 글을 Slack으로 보내지 않고
 # 기준점만 등록한다.
-INITIALIZE_ONLY = False
+INITIALIZE_ONLY = True
 
 
 BLOGS = [
@@ -43,7 +43,7 @@ BLOGS = [
     },
     {
         "name": "우아한형제들",
-        "rss": "https://techblog.woowahan.com/feed",
+        "rss": "https://techblog.woowahan.com/feed/",
     },
     {
         "name": "요기요",
@@ -59,7 +59,7 @@ BLOGS = [
     },
     {
         "name": "쏘카",
-        "rss": "https://tech.socarcorp.kr/feed",
+        "rss": "https://tech.socar.kr/feed",
     },
     {
         "name": "직방",
@@ -71,7 +71,7 @@ BLOGS = [
     },
     {
         "name": "마켓컬리",
-        "rss": "https://helloworld.kurly.com/feed.xml",
+        "rss": "https://helloworld.kurly.com/rss.xml",
     },
     {
         "name": "당근",
