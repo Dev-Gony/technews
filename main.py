@@ -143,6 +143,24 @@ def get_latest_article(blog):
         "description": description.strip(),
     }
 
+def normalize_article_url(url):
+    if not url:
+        return ""
+
+    parsed = urllib.parse.urlsplit(url)
+
+    normalized = urllib.parse.urlunsplit(
+        (
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path,
+            "",
+            ""
+        )
+    )
+
+    return normalized.rstrip("/")
+
 
 def clean_html(text):
     if not text:
