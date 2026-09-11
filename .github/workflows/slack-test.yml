@@ -6,14 +6,20 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: tech-news-bot
+  cancel-in-progress: false
+
 jobs:
   tech-news:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
       - name: Download repository
         uses: actions/checkout@v7
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -38,4 +44,6 @@ jobs:
 
           git add sent_articles.json
           git commit -m "Update sent article history"
-          git push
+
+          git pull --rebase origin main
+          git push origin main
