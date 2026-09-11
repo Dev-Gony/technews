@@ -16,6 +16,10 @@ GEMINI_MODEL = "gemini-3.1-flash-lite"
 SENT_ARTICLES_FILE = "sent_articles.json"
 
 MAX_CONTENT_LENGTH = 12000
+RECENT_ARTICLE_LIMIT = 10
+
+# 처음 기준점을 잡을 때만 True
+# 기준점 등록이 끝난 뒤에는 False로 바꿔야 함
 INITIALIZE_ONLY = True
 
 
@@ -67,7 +71,6 @@ def save_sent_articles(sent_articles):
         "w",
         encoding="utf-8"
     ) as file:
-
         json.dump(
             sent_articles,
             file,
@@ -123,7 +126,6 @@ def clean_html(html_text):
     lines = []
 
     for line in text.splitlines():
-
         line = line.strip()
 
         if line:
@@ -242,13 +244,11 @@ def get_content_from_rss(article):
     )
 
     if rss_content:
-
         cleaned = clean_html(
             rss_content
         )
 
         if len(cleaned) >= 200:
-
             print(
                 "RSS 안의 본문을 사용합니다."
             )
@@ -263,13 +263,11 @@ def get_content_from_rss(article):
     )
 
     if summary:
-
         cleaned_summary = clean_html(
             summary
         )
 
         if len(cleaned_summary) >= 200:
-
             print(
                 "RSS 요약문을 사용합니다."
             )
@@ -307,7 +305,8 @@ def download_article_page(article):
                 "application/xml;q=0.9,*/*;q=0.8"
             ),
             "Accept-Language": (
-                "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
+                "ko-KR,ko;q=0.9,"
+                "en-US;q=0.8,en;q=0.7"
             ),
         }
     )
@@ -317,7 +316,6 @@ def download_article_page(article):
             request,
             timeout=30
         ) as response:
-
             html = response.read().decode(
                 "utf-8",
                 errors="ignore"
@@ -332,7 +330,6 @@ def download_article_page(article):
         ]
 
     except Exception as error:
-
         print(
             "본문 페이지 가져오기 실패:",
             error
@@ -363,18 +360,13 @@ def get_article_content(article):
     return ""
 
 
-def summarize_with_gemini(
-    article,
-    content
-):
+def summarize_with_gemini(article, content):
     if not GEMINI_API_KEY:
-
         raise RuntimeError(
             "GEMINI_API_KEY가 없습니다."
         )
 
     if not content:
-
         raise RuntimeError(
             "요약할 본문이 없습니다."
         )
@@ -396,73 +388,49 @@ def summarize_with_gemini(
 본문:
 {content}
 
-
 다음 형식을 반드시 지켜라.
 
-
 [한눈에 보기]
-
 이 글이 무엇에 관한 글인지
 개발을 잘 모르는 사람도 이해할 수 있도록
 2~3문장으로 설명한다.
 
-
 [왜 이 글을 썼나]
-
 작성자가 어떤 문제나 상황 때문에
 이 기술 또는 방법을 고민했는지 설명한다.
 
-
 [핵심 내용]
-
 중요한 내용을 3~5개로 정리한다.
-
 각 항목은 너무 짧은 단어만 쓰지 말고
 왜 중요한지도 설명한다.
 
-
 [사용한 기술 / 방법]
-
 글에서 실제로 언급된 기술,
 도구, 구조, 설계 방법 등이 있다면 정리한다.
-
 기술이 없다면 억지로 만들지 않는다.
 
-
 [결과]
-
 글에서 실제 결과가 언급되어 있다면 정리한다.
-
 성능 개선 수치나 결과가 본문에 없다면
 추측하지 않는다.
 
-
 [알아둬야 할 것]
-
 이 글을 이해하거나
 실제 프로젝트에 활용하기 위해
 알아두면 좋은 개념을 쉽게 설명한다.
 
-
 [추가로 공부하면 좋은 것]
-
 이 글과 연결해서 공부하면 좋은 주제를
 2~4개 추천한다.
 
-
 [난이도]
-
 초급 / 중급 / 고급 중 하나
 
-
 [추천 대상]
-
 어떤 개발자나 학습자에게
 특히 도움이 되는 글인지 한 줄로 작성한다.
 
-
 규칙:
-
 - 본문에 없는 사실을 만들지 않는다.
 - 수치와 결과를 추측하지 않는다.
 - 제목만 보고 내용을 추측하지 않는다.
@@ -515,7 +483,6 @@ def summarize_with_gemini(
         request,
         timeout=90
     ) as response:
-
         result = json.loads(
             response.read().decode(
                 "utf-8"
@@ -523,7 +490,6 @@ def summarize_with_gemini(
         )
 
     try:
-
         return (
             result["candidates"][0]
             ["content"]["parts"][0]
@@ -534,7 +500,6 @@ def summarize_with_gemini(
         KeyError,
         IndexError
     ):
-
         print(
             "Gemini 응답:",
             result
@@ -545,12 +510,8 @@ def summarize_with_gemini(
         )
 
 
-def send_to_slack(
-    article,
-    summary
-):
+def send_to_slack(article, summary):
     if not SLACK_WEBHOOK_URL:
-
         raise RuntimeError(
             "SLACK_WEBHOOK_URL이 없습니다."
         )
@@ -596,7 +557,6 @@ def send_to_slack(
         request,
         timeout=30
     ) as response:
-
         result = (
             response
             .read()
@@ -604,10 +564,48 @@ def send_to_slack(
         )
 
     if result != "ok":
-
         raise RuntimeError(
             f"Slack 전송 실패: {result}"
         )
+
+
+def initialize_blog_articles(
+    new_articles,
+    sent_articles
+):
+    print(
+        "초기화 모드입니다."
+    )
+
+    added_count = 0
+
+    for article in new_articles:
+        article_url = article["link"]
+
+        if (
+            article_url
+            and article_url not in sent_articles
+        ):
+            sent_articles.append(
+                article_url
+            )
+
+            added_count += 1
+
+    save_sent_articles(
+        sent_articles
+    )
+
+    print(
+        "기준점으로 등록한 글 수:",
+        added_count
+    )
+
+    print(
+        "Slack 전송은 하지 않습니다."
+    )
+
+    return 0
 
 
 def process_blog(
@@ -625,7 +623,7 @@ def process_blog(
 
     articles = get_recent_articles(
         blog,
-        limit=10
+        limit=RECENT_ARTICLE_LIMIT
     )
 
     print(
@@ -658,47 +656,19 @@ def process_blog(
 
         return 0
 
-        if INITIALIZE_ONLY:
-        print(
-            "초기화 모드입니다."
-        )
-
-        added_count = 0
-
-        for article in new_articles:
-            article_url = article["link"]
-
-            if (
-                article_url
-                and article_url not in sent_articles
-            ):
-                sent_articles.append(
-                    article_url
-                )
-
-                added_count += 1
-
-        save_sent_articles(
+    if INITIALIZE_ONLY:
+        return initialize_blog_articles(
+            new_articles,
             sent_articles
         )
 
-        print(
-            "기준점으로 등록한 글 수:",
-            added_count
-        )
-
-        print(
-            "Slack 전송은 하지 않습니다."
-        )
-
-        return 0
-
+    # RSS는 보통 최신 글부터 나오므로
+    # 오래된 새 글부터 처리하도록 순서를 뒤집는다.
     new_articles.reverse()
 
     sent_count = 0
 
     for article in new_articles:
-
         print()
         print(
             "-" * 40
@@ -750,6 +720,10 @@ def process_blog(
 
         print(
             "Gemini 요약 완료"
+        )
+
+        print(
+            "Slack 전송"
         )
 
         try:
@@ -809,6 +783,11 @@ def main():
     )
 
     print(
+        "초기화 모드:",
+        INITIALIZE_ONLY
+    )
+
+    print(
         "================================"
     )
 
@@ -817,34 +796,31 @@ def main():
     error_count = 0
 
     for blog in BLOGS:
+        try:
+            sent_count = process_blog(
+                blog,
+                sent_articles
+            )
 
-    try:
+            success_count += 1
+            new_count += sent_count
 
-        sent_count = process_blog(
-            blog,
-            sent_articles
-        )
+        except Exception as error:
+            error_count += 1
 
-        success_count += 1
-        new_count += sent_count
+            print()
+            print(
+                f"[오류] {blog['name']}"
+            )
 
-    except Exception as error:
+            print(
+                repr(error)
+            )
 
-        error_count += 1
-
-        print()
-        print(
-            f"[오류] {blog['name']}"
-        )
-
-        print(
-            repr(error)
-        )
-
-        print(
-            "이 블로그는 건너뛰고 "
-            "다음 블로그를 확인합니다."
-        )
+            print(
+                "이 블로그는 건너뛰고 "
+                "다음 블로그를 확인합니다."
+            )
 
     print()
     print(
@@ -861,7 +837,7 @@ def main():
     )
 
     print(
-        "새 글:",
+        "실제 Slack 발송 글:",
         new_count
     )
 
