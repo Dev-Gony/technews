@@ -1,1 +1,38 @@
 
+name: Slack connection test
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Send Slack test message
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "::error::SLACK_WEBHOOK_URL is not configured."
+            exit 1
+          fi
+
+          response=$(curl --fail --silent --show-error \
+            --connect-timeout 10 \
+            --max-time 30 \
+            -X POST \
+            -H 'Content-Type: application/json' \
+            --data '{"text":"GitHub Actions 연결 테스트입니다. 이 메시지가 보이면 GitHub에서 Slack으로 보내는 데 성공한 것입니다."}' \
+            "$SLACK_WEBHOOK_URL")
+
+          if [ "$response" != "ok" ]; then
+            echo "::error::Slack did not return ok."
+            exit 1
+          fi
+
+          echo "Slack message sent successfully."
