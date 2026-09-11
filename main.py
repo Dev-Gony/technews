@@ -168,66 +168,70 @@ def get_feed(blog):
     return feed
 
 
-def get_latest_article(blog):
+def get_recent_articles(blog, limit=10):
     feed = get_feed(blog)
 
-    entry = feed.entries[0]
+    articles = []
 
-    title = entry.get(
-        "title",
-        "제목 없음"
-    )
+    for entry in feed.entries[:limit]:
+        title = entry.get(
+            "title",
+            "제목 없음"
+        )
 
-    link = entry.get(
-        "link",
-        ""
-    )
+        link = entry.get(
+            "link",
+            ""
+        )
 
-    normalized_url = normalize_article_url(
-        link
-    )
+        normalized_url = normalize_article_url(
+            link
+        )
 
-    pub_date = (
-        entry.get("published")
-        or entry.get("updated")
-        or ""
-    )
+        pub_date = (
+            entry.get("published")
+            or entry.get("updated")
+            or ""
+        )
 
-    summary = entry.get(
-        "summary",
-        ""
-    )
+        summary = entry.get(
+            "summary",
+            ""
+        )
 
-    rss_content = ""
+        rss_content = ""
 
-    if "content" in entry:
-
-        try:
-            contents = entry.get(
-                "content",
-                []
-            )
-
-            if contents:
-                rss_content = contents[0].get(
-                    "value",
-                    ""
+        if "content" in entry:
+            try:
+                contents = entry.get(
+                    "content",
+                    []
                 )
 
-        except Exception as error:
-            print(
-                "RSS 본문 추출 실패:",
-                error
-            )
+                if contents:
+                    rss_content = contents[0].get(
+                        "value",
+                        ""
+                    )
 
-    return {
-        "company": blog["name"],
-        "title": title.strip(),
-        "link": normalized_url,
-        "pub_date": pub_date.strip(),
-        "summary": summary,
-        "rss_content": rss_content,
-    }
+            except Exception as error:
+                print(
+                    "RSS 본문 추출 실패:",
+                    error
+                )
+
+        articles.append(
+            {
+                "company": blog["name"],
+                "title": title.strip(),
+                "link": normalized_url,
+                "pub_date": pub_date.strip(),
+                "summary": summary,
+                "rss_content": rss_content,
+            }
+        )
+
+    return articles
 
 
 def get_content_from_rss(article):
@@ -618,96 +622,133 @@ def process_blog(
         f"확인 중: {blog['name']}"
     )
 
-    article = get_latest_article(
-        blog
+    articles = get_recent_articles(
+        blog,
+        limit=10
     )
 
     print(
-        "최신 글:",
-        article["title"]
+        "RSS에서 확인한 글 수:",
+        len(articles)
     )
+
+    new_articles = []
+
+    for article in articles:
+        article_url = article["link"]
+
+        if not article_url:
+            continue
+
+        if article_url not in sent_articles:
+            new_articles.append(
+                article
+            )
 
     print(
-        "정규화 URL:",
-        article["link"]
+        "새 글 수:",
+        len(new_articles)
     )
 
-    article_url = article["link"]
-
-    if not article_url:
-
-        raise RuntimeError(
-            "게시글 URL이 없습니다."
+    if not new_articles:
+        print(
+            "새 글이 없습니다."
         )
 
-    if article_url in sent_articles:
+        return 0
+
+    new_articles.reverse()
+
+    sent_count = 0
+
+    for article in new_articles:
+
+        print()
+        print(
+            "-" * 40
+        )
 
         print(
-            "이미 보낸 글입니다."
+            "처리할 글:",
+            article["title"]
         )
-
-        return False
-
-    print(
-        "새 글 발견"
-    )
-
-    content = get_article_content(
-        article
-    )
-
-    print(
-        "최종 본문 길이:",
-        len(content)
-    )
-
-    if not content:
 
         print(
-            "본문이 없어 AI 요약을 하지 않습니다."
+            "URL:",
+            article["link"]
         )
 
-        return False
+        content = get_article_content(
+            article
+        )
 
-    print(
-        "Gemini 요약 요청"
-    )
+        print(
+            "최종 본문 길이:",
+            len(content)
+        )
 
-    summary = summarize_with_gemini(
-        article,
-        content
-    )
+        if not content:
+            print(
+                "본문이 없어 이 글은 건너뜁니다."
+            )
 
-    print(
-        "Gemini 요약 완료"
-    )
+            continue
 
-    print(
-        "Slack 전송"
-    )
+        print(
+            "Gemini 요약 요청"
+        )
 
-    send_to_slack(
-        article,
-        summary
-    )
+        try:
+            summary = summarize_with_gemini(
+                article,
+                content
+            )
 
-    print(
-        "Slack 전송 완료"
-    )
+        except Exception as error:
+            print(
+                "Gemini 요약 실패:",
+                repr(error)
+            )
 
-    sent_articles.append(
-        article_url
-    )
+            continue
 
-    save_sent_articles(
-        sent_articles
-    )
+        print(
+            "Gemini 요약 완료"
+        )
 
-    print(
-        "발송 기록 저장 완료"
-    )
+        try:
+            send_to_slack(
+                article,
+                summary
+            )
 
-    return True
+        except Exception as error:
+            print(
+                "Slack 전송 실패:",
+                repr(error)
+            )
+
+            continue
+
+        print(
+            "Slack 전송 완료"
+        )
+
+        sent_articles.append(
+            article["link"]
+        )
+
+        save_sent_articles(
+            sent_articles
+        )
+
+        print(
+            "발송 기록 저장 완료"
+        )
+
+        sent_count += 1
+
+    return sent_count
 
 
 def main():
@@ -741,35 +782,33 @@ def main():
 
     for blog in BLOGS:
 
-        try:
+    try:
 
-            was_new = process_blog(
-                blog,
-                sent_articles
-            )
+        sent_count = process_blog(
+            blog,
+            sent_articles
+        )
 
-            success_count += 1
+        success_count += 1
+        new_count += sent_count
 
-            if was_new:
-                new_count += 1
+    except Exception as error:
 
-        except Exception as error:
+        error_count += 1
 
-            error_count += 1
+        print()
+        print(
+            f"[오류] {blog['name']}"
+        )
 
-            print()
-            print(
-                f"[오류] {blog['name']}"
-            )
+        print(
+            repr(error)
+        )
 
-            print(
-                repr(error)
-            )
-
-            print(
-                "이 블로그는 건너뛰고 "
-                "다음 블로그를 확인합니다."
-            )
+        print(
+            "이 블로그는 건너뛰고 "
+            "다음 블로그를 확인합니다."
+        )
 
     print()
     print(
