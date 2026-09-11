@@ -21,7 +21,7 @@ RECENT_ARTICLE_LIMIT = 10
 # 새로운 블로그를 대량 추가했기 때문에
 # 이번 실행에서는 과거 글을 Slack으로 보내지 않고
 # 기준점만 등록한다.
-INITIALIZE_ONLY = True
+INITIALIZE_ONLY = False
 
 
 BLOGS = [
