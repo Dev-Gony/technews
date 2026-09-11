@@ -18,15 +18,20 @@ SENT_ARTICLES_FILE = "sent_articles.json"
 MAX_CONTENT_LENGTH = 12000
 RECENT_ARTICLE_LIMIT = 10
 
-# 처음 기준점을 잡을 때만 True
-# 기준점 등록이 끝난 뒤에는 False로 바꿔야 함
-INITIALIZE_ONLY = False
+# 새로운 블로그를 대량 추가했기 때문에
+# 이번 실행에서는 과거 글을 Slack으로 보내지 않고
+# 기준점만 등록한다.
+INITIALIZE_ONLY = True
 
 
 BLOGS = [
+    # =========================
+    # 국내
+    # =========================
+
     {
-        "name": "G마켓",
-        "rss": "https://dev.gmarket.com/rss",
+        "name": "네이버 D2",
+        "rss": "https://d2.naver.com/d2.atom",
     },
     {
         "name": "네이버 플레이스",
@@ -37,8 +42,81 @@ BLOGS = [
         "rss": "https://medium.com/feed/coupang-engineering",
     },
     {
+        "name": "우아한형제들",
+        "rss": "https://techblog.woowahan.com/feed",
+    },
+    {
+        "name": "요기요",
+        "rss": "https://techblog.yogiyo.co.kr/feed",
+    },
+    {
+        "name": "토스",
+        "rss": "https://toss.tech/rss.xml",
+    },
+    {
+        "name": "뱅크샐러드",
+        "rss": "https://blog.banksalad.com/rss.xml",
+    },
+    {
+        "name": "쏘카",
+        "rss": "https://tech.socarcorp.kr/feed",
+    },
+    {
+        "name": "직방",
+        "rss": "https://medium.com/feed/zigbang",
+    },
+    {
+        "name": "G마켓",
+        "rss": "https://dev.gmarket.com/rss",
+    },
+    {
+        "name": "마켓컬리",
+        "rss": "https://helloworld.kurly.com/feed.xml",
+    },
+    {
         "name": "당근",
         "rss": "https://medium.com/feed/daangn",
+    },
+    {
+        "name": "LINE Engineering",
+        "rss": "https://engineering.linecorp.com/ko/feed/index.html",
+    },
+    {
+        "name": "데브시스터즈",
+        "rss": "https://tech.devsisters.com/rss.xml",
+    },
+    {
+        "name": "왓챠",
+        "rss": "https://medium.com/feed/watcha",
+    },
+    {
+        "name": "무신사",
+        "rss": "https://medium.com/feed/musinsa-tech",
+    },
+
+    # =========================
+    # 국외
+    # =========================
+
+    {
+        "name": "Google Developers",
+        "rss": "https://developers.googleblog.com/feeds/posts/default/",
+    },
+    {
+        "name": "Apple Developer",
+        "rss": "https://developer.apple.com/news/rss/news.rss",
+    },
+    {
+        "name": "GitHub Blog",
+        "rss": "https://github.blog/feed/",
+    },
+    {
+        "name": "Meta Engineering",
+        "rss": "https://engineering.fb.com/feed/",
+    },
+    {
+        "name": "Netflix TechBlog",
+        "rss": "https://netflixtechblog.com/feed",
     },
 ]
 
@@ -66,13 +144,16 @@ def load_sent_articles():
 
 
 def save_sent_articles(sent_articles):
+    # 중복 URL 자체도 한 번 제거
+    unique_articles = list(dict.fromkeys(sent_articles))
+
     with open(
         SENT_ARTICLES_FILE,
         "w",
         encoding="utf-8"
     ) as file:
         json.dump(
-            sent_articles,
+            unique_articles,
             file,
             ensure_ascii=False,
             indent=2
@@ -113,6 +194,7 @@ def clean_html(html_text):
             "style",
             "noscript",
             "svg",
+            "iframe",
         ]
     ):
         tag.decompose()
@@ -131,9 +213,7 @@ def clean_html(html_text):
         if line:
             lines.append(line)
 
-    cleaned = "\n".join(lines)
-
-    return cleaned
+    return "\n".join(lines)
 
 
 def get_feed(blog):
@@ -372,9 +452,12 @@ def summarize_with_gemini(article, content):
         )
 
     prompt = f"""
-너는 개발자를 위한 기술 블로그 브리핑 편집자다.
+너는 개발자를 위한 기술 뉴스 브리핑 편집자다.
 
-아래 글의 실제 내용을 바탕으로 한국어로 정리해라.
+아래 회사 기술 블로그 글의 실제 본문을 읽고
+한국어로 이해하기 쉽게 정리해라.
+
+해외 글이어도 결과는 한국어로 작성한다.
 
 회사:
 {article["company"]}
@@ -388,58 +471,87 @@ def summarize_with_gemini(article, content):
 본문:
 {content}
 
+
 다음 형식을 반드시 지켜라.
 
+
 [한눈에 보기]
+
 이 글이 무엇에 관한 글인지
-개발을 잘 모르는 사람도 이해할 수 있도록
+개발 경험이 많지 않은 사람도 이해할 수 있도록
 2~3문장으로 설명한다.
 
+
 [왜 이 글을 썼나]
-작성자가 어떤 문제나 상황 때문에
-이 기술 또는 방법을 고민했는지 설명한다.
+
+작성자가 어떤 문제 또는 필요 때문에
+이 주제를 다루게 되었는지 설명한다.
+
 
 [핵심 내용]
-중요한 내용을 3~5개로 정리한다.
-각 항목은 너무 짧은 단어만 쓰지 말고
-왜 중요한지도 설명한다.
+
+가장 중요한 내용을 3~5개로 정리한다.
+
+각 내용은 단순한 키워드만 적지 말고
+왜 중요한지도 쉽게 설명한다.
+
 
 [사용한 기술 / 방법]
-글에서 실제로 언급된 기술,
-도구, 구조, 설계 방법 등이 있다면 정리한다.
-기술이 없다면 억지로 만들지 않는다.
+
+본문에서 실제로 사용한 기술,
+프레임워크, 언어, 도구,
+아키텍처 또는 방법론이 있다면 정리한다.
+
+본문에 없는 기술은 추측하지 않는다.
+
 
 [결과]
-글에서 실제 결과가 언급되어 있다면 정리한다.
-성능 개선 수치나 결과가 본문에 없다면
-추측하지 않는다.
+
+실제로 어떤 결과를 얻었는지 정리한다.
+
+본문에 정확한 성능 수치나 결과가 없다면
+수치를 만들어내지 않는다.
+
 
 [알아둬야 할 것]
-이 글을 이해하거나
-실제 프로젝트에 활용하기 위해
-알아두면 좋은 개념을 쉽게 설명한다.
+
+이 글을 읽을 때 꼭 이해해야 하는
+기술 개념이나 배경 지식을 설명한다.
+
+중학생이나 고등학생도
+큰 흐름을 이해할 수 있을 정도로
+어려운 개념은 쉽게 풀어서 설명한다.
+
 
 [추가로 공부하면 좋은 것]
-이 글과 연결해서 공부하면 좋은 주제를
-2~4개 추천한다.
+
+이 글에서 이어서 공부해볼 만한
+기술 또는 개념 2~4개를 추천한다.
+
+각각 왜 공부하면 좋은지도 짧게 작성한다.
+
 
 [난이도]
+
 초급 / 중급 / 고급 중 하나
 
+
 [추천 대상]
-어떤 개발자나 학습자에게
-특히 도움이 되는 글인지 한 줄로 작성한다.
+
+어떤 개발자 또는 학습자에게
+특히 도움이 되는 글인지 작성한다.
+
 
 규칙:
-- 본문에 없는 사실을 만들지 않는다.
+
+- 반드시 제공된 본문에 근거해서 작성한다.
+- 본문에 없는 사실은 만들지 않는다.
 - 수치와 결과를 추측하지 않는다.
-- 제목만 보고 내용을 추측하지 않는다.
-- 어려운 기술 용어는 쉽게 풀어서 설명한다.
-- 한국어로 작성한다.
-- 기술명과 제품명은 원래 이름을 유지한다.
-- 광고성 문구는 무시한다.
-- 웹페이지 메뉴와 관련 없는 문구는 무시한다.
-- 원문 URL은 결과에 넣지 않는다.
+- 제목만 가지고 내용을 추측하지 않는다.
+- 어려운 용어는 쉽게 설명한다.
+- 기술명과 제품명은 원래 영문 이름을 유지해도 된다.
+- 광고, 메뉴, 사이트 안내 등 글과 관계없는 부분은 무시한다.
+- 원문 URL은 결과 안에 넣지 않는다.
 """
 
     url = (
@@ -662,8 +774,8 @@ def process_blog(
             sent_articles
         )
 
-    # RSS는 보통 최신 글부터 나오므로
-    # 오래된 새 글부터 처리하도록 순서를 뒤집는다.
+    # RSS는 보통 최신 순서라서
+    # 오래된 새 글부터 Slack에 보내도록 뒤집음
     new_articles.reverse()
 
     sent_count = 0
@@ -792,8 +904,10 @@ def main():
     )
 
     success_count = 0
-    new_count = 0
+    sent_count_total = 0
     error_count = 0
+
+    failed_blogs = []
 
     for blog in BLOGS:
         try:
@@ -803,10 +917,14 @@ def main():
             )
 
             success_count += 1
-            new_count += sent_count
+            sent_count_total += sent_count
 
         except Exception as error:
             error_count += 1
+
+            failed_blogs.append(
+                blog["name"]
+            )
 
             print()
             print(
@@ -838,7 +956,7 @@ def main():
 
     print(
         "실제 Slack 발송 글:",
-        new_count
+        sent_count_total
     )
 
     print(
@@ -850,6 +968,12 @@ def main():
         "현재 발송 기록:",
         len(sent_articles)
     )
+
+    if failed_blogs:
+        print(
+            "실패 블로그:",
+            ", ".join(failed_blogs)
+        )
 
     print(
         "================================"
