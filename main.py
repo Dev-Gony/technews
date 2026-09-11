@@ -16,6 +16,7 @@ GEMINI_MODEL = "gemini-3.1-flash-lite"
 SENT_ARTICLES_FILE = "sent_articles.json"
 
 MAX_CONTENT_LENGTH = 12000
+INITIALIZE_ONLY = True
 
 
 BLOGS = [
@@ -653,6 +654,41 @@ def process_blog(
     if not new_articles:
         print(
             "새 글이 없습니다."
+        )
+
+        return 0
+
+        if INITIALIZE_ONLY:
+        print(
+            "초기화 모드입니다."
+        )
+
+        added_count = 0
+
+        for article in new_articles:
+            article_url = article["link"]
+
+            if (
+                article_url
+                and article_url not in sent_articles
+            ):
+                sent_articles.append(
+                    article_url
+                )
+
+                added_count += 1
+
+        save_sent_articles(
+            sent_articles
+        )
+
+        print(
+            "기준점으로 등록한 글 수:",
+            added_count
+        )
+
+        print(
+            "Slack 전송은 하지 않습니다."
         )
 
         return 0
