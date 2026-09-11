@@ -1,8 +1,10 @@
 import os
 import json
+import re
 import urllib.request
 import urllib.parse
 from html import unescape
+from urllib.parse import urljoin, urlsplit
 
 import feedparser
 from bs4 import BeautifulSoup
@@ -18,104 +20,117 @@ SENT_ARTICLES_FILE = "sent_articles.json"
 MAX_CONTENT_LENGTH = 12000
 RECENT_ARTICLE_LIMIT = 10
 
-# 새로운 블로그를 대량 추가했기 때문에
-# 이번 실행에서는 과거 글을 Slack으로 보내지 않고
-# 기준점만 등록한다.
-INITIALIZE_ONLY = False
+# 새 블로그를 추가해서 기준점을 잡을 때 True
+# 초기화가 끝난 뒤에는 False
+INITIALIZE_ONLY = True
 
 
 BLOGS = [
-    # =========================
-    # 국내
-    # =========================
-
     {
         "name": "네이버 D2",
+        "type": "rss",
         "rss": "https://d2.naver.com/d2.atom",
     },
     {
         "name": "네이버 플레이스",
+        "type": "rss",
         "rss": "https://medium.com/feed/naver-place-dev",
     },
     {
         "name": "쿠팡",
+        "type": "rss",
         "rss": "https://medium.com/feed/coupang-engineering",
     },
     {
         "name": "우아한형제들",
-        "rss": "https://techblog.woowahan.com/feed/",
+        "type": "html",
+        "url": "https://techblog.woowahan.com/",
+        "html_type": "woowahan",
     },
     {
         "name": "요기요",
+        "type": "rss",
         "rss": "https://techblog.yogiyo.co.kr/feed",
     },
     {
         "name": "토스",
+        "type": "rss",
         "rss": "https://toss.tech/rss.xml",
     },
     {
         "name": "뱅크샐러드",
+        "type": "rss",
         "rss": "https://blog.banksalad.com/rss.xml",
     },
     {
         "name": "쏘카",
-        "rss": "https://tech.socar.kr/feed",
+        "type": "html",
+        "url": "https://tech.socar.kr/posts",
+        "html_type": "socar",
     },
     {
         "name": "직방",
+        "type": "rss",
         "rss": "https://medium.com/feed/zigbang",
     },
     {
         "name": "G마켓",
+        "type": "rss",
         "rss": "https://dev.gmarket.com/rss",
     },
     {
         "name": "마켓컬리",
+        "type": "rss",
         "rss": "https://helloworld.kurly.com/rss.xml",
     },
     {
         "name": "당근",
+        "type": "rss",
         "rss": "https://medium.com/feed/daangn",
     },
     {
         "name": "LINE Engineering",
+        "type": "rss",
         "rss": "https://engineering.linecorp.com/ko/feed/index.html",
     },
     {
         "name": "데브시스터즈",
+        "type": "rss",
         "rss": "https://tech.devsisters.com/rss.xml",
     },
     {
         "name": "왓챠",
+        "type": "rss",
         "rss": "https://medium.com/feed/watcha",
     },
     {
         "name": "무신사",
+        "type": "rss",
         "rss": "https://medium.com/feed/musinsa-tech",
     },
-
-    # =========================
-    # 국외
-    # =========================
-
     {
         "name": "Google Developers",
+        "type": "rss",
         "rss": "https://developers.googleblog.com/feeds/posts/default/",
     },
     {
         "name": "Apple Developer",
+        "type": "rss",
         "rss": "https://developer.apple.com/news/rss/news.rss",
     },
     {
         "name": "GitHub Blog",
+        "type": "rss",
         "rss": "https://github.blog/feed/",
     },
     {
         "name": "Meta Engineering",
+        "type": "rss",
         "rss": "https://engineering.fb.com/feed/",
     },
     {
         "name": "Netflix TechBlog",
+        "type": "rss",
         "rss": "https://netflixtechblog.com/feed",
     },
 ]
@@ -144,8 +159,9 @@ def load_sent_articles():
 
 
 def save_sent_articles(sent_articles):
-    # 중복 URL 자체도 한 번 제거
-    unique_articles = list(dict.fromkeys(sent_articles))
+    unique_articles = list(
+        dict.fromkeys(sent_articles)
+    )
 
     with open(
         SENT_ARTICLES_FILE,
@@ -216,6 +232,44 @@ def clean_html(html_text):
     return "\n".join(lines)
 
 
+def download_html(url):
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 "
+                "(Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 "
+                "(KHTML, like Gecko) "
+                "Chrome/120.0 Safari/537.36"
+            ),
+            "Accept": (
+                "text/html,"
+                "application/xhtml+xml,"
+                "application/xml;q=0.9,*/*;q=0.8"
+            ),
+            "Accept-Language": (
+                "ko-KR,ko;q=0.9,"
+                "en-US;q=0.8,en;q=0.7"
+            ),
+        }
+    )
+
+    with urllib.request.urlopen(
+        request,
+        timeout=30
+    ) as response:
+        return response.read().decode(
+            "utf-8",
+            errors="ignore"
+        )
+
+
+# =========================================================
+# RSS 처리
+# =========================================================
+
+
 def get_feed(blog):
     print(
         f"RSS 요청: {blog['rss']}"
@@ -251,7 +305,10 @@ def get_feed(blog):
     return feed
 
 
-def get_recent_articles(blog, limit=10):
+def get_rss_articles(
+    blog,
+    limit
+):
     feed = get_feed(blog)
 
     articles = []
@@ -317,6 +374,236 @@ def get_recent_articles(blog, limit=10):
     return articles
 
 
+# =========================================================
+# HTML 방식
+# =========================================================
+
+
+def get_woowahan_articles(
+    blog,
+    limit
+):
+    print(
+        f"HTML 목록 요청: {blog['url']}"
+    )
+
+    html = download_html(
+        blog["url"]
+    )
+
+    soup = BeautifulSoup(
+        html,
+        "html.parser"
+    )
+
+    articles = []
+    seen_urls = set()
+
+    for tag in soup.find_all(
+        "a",
+        href=True
+    ):
+        href = tag.get(
+            "href",
+            ""
+        )
+
+        full_url = urljoin(
+            blog["url"],
+            href
+        )
+
+        parsed = urlsplit(
+            full_url
+        )
+
+        # 우아한형제들 글 주소:
+        # /12345/ 형태
+        if not re.fullmatch(
+            r"/\d+/?",
+            parsed.path
+        ):
+            continue
+
+        url = normalize_article_url(
+            full_url
+        )
+
+        if url in seen_urls:
+            continue
+
+        title = tag.get_text(
+            " ",
+            strip=True
+        )
+
+        if not title:
+            continue
+
+        seen_urls.add(url)
+
+        articles.append(
+            {
+                "company": blog["name"],
+                "title": title,
+                "link": url,
+                "pub_date": "",
+                "summary": "",
+                "rss_content": "",
+            }
+        )
+
+        if len(articles) >= limit:
+            break
+
+    if not articles:
+        raise RuntimeError(
+            "우아한형제들 글 목록을 찾지 못했습니다."
+        )
+
+    return articles
+
+
+def get_socar_articles(
+    blog,
+    limit
+):
+    print(
+        f"HTML 목록 요청: {blog['url']}"
+    )
+
+    html = download_html(
+        blog["url"]
+    )
+
+    soup = BeautifulSoup(
+        html,
+        "html.parser"
+    )
+
+    articles = []
+    seen_urls = set()
+
+    for tag in soup.find_all(
+        "a",
+        href=True
+    ):
+        href = tag.get(
+            "href",
+            ""
+        )
+
+        full_url = urljoin(
+            blog["url"],
+            href
+        )
+
+        parsed = urlsplit(
+            full_url
+        )
+
+        # 실제 쏘카 글 주소 예:
+        # /dev/2026/07/22/agentic-engineering-in-production
+        if not re.fullmatch(
+            r"/dev/\d{4}/\d{2}/\d{2}/[^/]+/?",
+            parsed.path
+        ):
+            continue
+
+        url = normalize_article_url(
+            full_url
+        )
+
+        if url in seen_urls:
+            continue
+
+        title = tag.get_text(
+            " ",
+            strip=True
+        )
+
+        if not title:
+            continue
+
+        seen_urls.add(url)
+
+        articles.append(
+            {
+                "company": blog["name"],
+                "title": title,
+                "link": url,
+                "pub_date": "",
+                "summary": "",
+                "rss_content": "",
+            }
+        )
+
+        if len(articles) >= limit:
+            break
+
+    if not articles:
+        raise RuntimeError(
+            "쏘카 글 목록을 찾지 못했습니다."
+        )
+
+    return articles
+
+
+def get_html_articles(
+    blog,
+    limit
+):
+    html_type = blog.get(
+        "html_type"
+    )
+
+    if html_type == "woowahan":
+        return get_woowahan_articles(
+            blog,
+            limit
+        )
+
+    if html_type == "socar":
+        return get_socar_articles(
+            blog,
+            limit
+        )
+
+    raise RuntimeError(
+        "지원하지 않는 HTML 수집 방식입니다."
+    )
+
+
+def get_recent_articles(
+    blog,
+    limit=10
+):
+    source_type = blog.get(
+        "type"
+    )
+
+    if source_type == "rss":
+        return get_rss_articles(
+            blog,
+            limit
+        )
+
+    if source_type == "html":
+        return get_html_articles(
+            blog,
+            limit
+        )
+
+    raise RuntimeError(
+        f"알 수 없는 수집 방식: {source_type}"
+    )
+
+
+# =========================================================
+# 본문 수집
+# =========================================================
+
+
 def get_content_from_rss(article):
     rss_content = article.get(
         "rss_content",
@@ -359,7 +646,9 @@ def get_content_from_rss(article):
     return ""
 
 
-def download_article_page(article):
+def download_article_page(
+    article
+):
     url = article["link"]
 
     if not url:
@@ -369,41 +658,30 @@ def download_article_page(article):
         "원문 페이지에서 본문을 가져옵니다."
     )
 
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": (
-                "Mozilla/5.0 "
-                "(Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 "
-                "(KHTML, like Gecko) "
-                "Chrome/120.0 Safari/537.36"
-            ),
-            "Accept": (
-                "text/html,"
-                "application/xhtml+xml,"
-                "application/xml;q=0.9,*/*;q=0.8"
-            ),
-            "Accept-Language": (
-                "ko-KR,ko;q=0.9,"
-                "en-US;q=0.8,en;q=0.7"
-            ),
-        }
-    )
-
     try:
-        with urllib.request.urlopen(
-            request,
-            timeout=30
-        ) as response:
-            html = response.read().decode(
-                "utf-8",
-                errors="ignore"
-            )
-
-        content = clean_html(
-            html
+        html = download_html(
+            url
         )
+
+        soup = BeautifulSoup(
+            html,
+            "html.parser"
+        )
+
+        # 가능하면 article/main 영역을 먼저 사용
+        main_content = (
+            soup.find("article")
+            or soup.find("main")
+        )
+
+        if main_content:
+            content = clean_html(
+                str(main_content)
+            )
+        else:
+            content = clean_html(
+                html
+            )
 
         return content[
             :MAX_CONTENT_LENGTH
@@ -418,7 +696,9 @@ def download_article_page(article):
         return ""
 
 
-def get_article_content(article):
+def get_article_content(
+    article
+):
     rss_content = get_content_from_rss(
         article
     )
@@ -440,7 +720,15 @@ def get_article_content(article):
     return ""
 
 
-def summarize_with_gemini(article, content):
+# =========================================================
+# Gemini
+# =========================================================
+
+
+def summarize_with_gemini(
+    article,
+    content
+):
     if not GEMINI_API_KEY:
         raise RuntimeError(
             "GEMINI_API_KEY가 없습니다."
@@ -622,7 +910,15 @@ def summarize_with_gemini(article, content):
         )
 
 
-def send_to_slack(article, summary):
+# =========================================================
+# Slack
+# =========================================================
+
+
+def send_to_slack(
+    article,
+    summary
+):
     if not SLACK_WEBHOOK_URL:
         raise RuntimeError(
             "SLACK_WEBHOOK_URL이 없습니다."
@@ -640,7 +936,7 @@ def send_to_slack(article, summary):
         f"{summary}\n\n"
 
         f"📅 *게시일*\n"
-        f"{article['pub_date']}\n\n"
+        f"{article['pub_date'] or '본문에서 확인'}\n\n"
 
         f"🔗 *원문*\n"
         f"{article['link']}"
@@ -679,6 +975,11 @@ def send_to_slack(article, summary):
         raise RuntimeError(
             f"Slack 전송 실패: {result}"
         )
+
+
+# =========================================================
+# 초기화 / 처리
+# =========================================================
 
 
 def initialize_blog_articles(
@@ -733,13 +1034,18 @@ def process_blog(
         f"확인 중: {blog['name']}"
     )
 
+    print(
+        "수집 방식:",
+        blog["type"]
+    )
+
     articles = get_recent_articles(
         blog,
         limit=RECENT_ARTICLE_LIMIT
     )
 
     print(
-        "RSS에서 확인한 글 수:",
+        "확인한 글 수:",
         len(articles)
     )
 
@@ -774,8 +1080,6 @@ def process_blog(
             sent_articles
         )
 
-    # RSS는 보통 최신 순서라서
-    # 오래된 새 글부터 Slack에 보내도록 뒤집음
     new_articles.reverse()
 
     sent_count = 0
@@ -832,10 +1136,6 @@ def process_blog(
 
         print(
             "Gemini 요약 완료"
-        )
-
-        print(
-            "Slack 전송"
         )
 
         try:
