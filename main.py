@@ -21,42 +21,30 @@ SENT_ARTICLES_FILE = "sent_articles.json"
 
 MAX_CONTENT_LENGTH = 12000
 RECENT_ARTICLE_LIMIT = 10
-
-# 하루에 Gemini로 처리할 최대 새 글 수
-# 예상치 못하게 글이 많이 잡혀도 API 호출 폭주를 막는다.
 MAX_ARTICLES_PER_RUN = 10
 
-# 기준점 등록은 끝났으므로 운영에서는 False
 INITIALIZE_ONLY = False
 
 
 BLOGS = [
-
-    # =====================================================
-    # 국내
-    # =====================================================
-
     {
         "name": "네이버 D2",
         "enabled": True,
         "type": "rss",
         "rss": "https://d2.naver.com/d2.atom",
     },
-
     {
         "name": "네이버 플레이스",
         "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/naver-place-dev",
     },
-
     {
         "name": "쿠팡",
         "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/coupang-engineering",
     },
-
     {
         "name": "우아한형제들",
         "enabled": False,
@@ -64,28 +52,24 @@ BLOGS = [
         "url": "https://techblog.woowahan.com/",
         "html_type": "woowahan",
     },
-
     {
         "name": "요기요",
         "enabled": True,
         "type": "rss",
         "rss": "https://techblog.yogiyo.co.kr/feed",
     },
-
     {
         "name": "토스",
         "enabled": True,
         "type": "rss",
         "rss": "https://toss.tech/rss.xml",
     },
-
     {
         "name": "뱅크샐러드",
         "enabled": True,
         "type": "rss",
         "rss": "https://blog.banksalad.com/rss.xml",
     },
-
     {
         "name": "쏘카",
         "enabled": True,
@@ -93,56 +77,48 @@ BLOGS = [
         "url": "https://tech.socar.kr/posts",
         "html_type": "socar",
     },
-
     {
         "name": "직방",
         "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/zigbang",
     },
-
     {
         "name": "G마켓",
         "enabled": True,
         "type": "rss",
         "rss": "https://dev.gmarket.com/rss",
     },
-
     {
         "name": "마켓컬리",
         "enabled": True,
         "type": "rss",
         "rss": "https://helloworld.kurly.com/rss.xml",
     },
-
     {
         "name": "당근",
         "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/daangn",
     },
-
     {
         "name": "LINE Engineering",
         "enabled": True,
         "type": "rss",
         "rss": "https://engineering.linecorp.com/ko/feed/index.html",
     },
-
     {
         "name": "데브시스터즈",
         "enabled": True,
         "type": "rss",
         "rss": "https://tech.devsisters.com/rss.xml",
     },
-
     {
         "name": "왓챠",
         "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/watcha",
     },
-
     {
         "name": "무신사",
         "enabled": True,
@@ -150,102 +126,84 @@ BLOGS = [
         "rss": "https://medium.com/feed/musinsa-tech",
     },
 
-
-    # =====================================================
-    # 해외
-    # =====================================================
-
     {
         "name": "Google Developers",
         "enabled": True,
         "type": "rss",
         "rss": "https://developers.googleblog.com/feeds/posts/default/",
     },
-
     {
         "name": "Apple Developer",
         "enabled": True,
         "type": "rss",
         "rss": "https://developer.apple.com/news/rss/news.rss",
     },
-
     {
         "name": "GitHub Blog",
         "enabled": True,
         "type": "rss",
         "rss": "https://github.blog/feed/",
     },
-
     {
         "name": "Meta Engineering",
         "enabled": True,
         "type": "rss",
         "rss": "https://engineering.fb.com/feed/",
     },
-
     {
         "name": "Netflix TechBlog",
         "enabled": True,
         "type": "rss",
         "rss": "https://netflixtechblog.com/feed",
     },
-
     {
         "name": "Google Play",
         "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/googleplaydev",
     },
-
     {
         "name": "Airbnb Engineering",
         "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/airbnb-engineering",
     },
-
     {
         "name": "Slack Engineering",
         "enabled": True,
         "type": "rss",
         "rss": "https://slack.engineering/feed/",
     },
-
     {
         "name": "Spotify Engineering",
         "enabled": True,
         "type": "rss",
         "rss": "https://engineering.atspotify.com/feed/",
     },
-
     {
         "name": "Stripe",
         "enabled": True,
         "type": "rss",
         "rss": "https://stripe.com/blog/feed.rss",
     },
-
     {
         "name": "Cloudflare",
         "enabled": True,
         "type": "rss",
         "rss": "https://blog.cloudflare.com/rss/",
     },
-
     {
         "name": "AWS Architecture",
         "enabled": True,
         "type": "rss",
         "rss": "https://aws.amazon.com/blogs/architecture/feed/",
     },
-
     {
         "name": "AWS Compute",
         "enabled": True,
         "type": "rss",
         "rss": "https://aws.amazon.com/blogs/compute/feed/",
     },
-
     {
         "name": "Uber Engineering",
         "enabled": True,
@@ -254,11 +212,6 @@ BLOGS = [
         "html_type": "uber",
     },
 ]
-
-
-# =========================================================
-# 기록
-# =========================================================
 
 
 def load_sent_articles():
@@ -299,11 +252,6 @@ def save_sent_articles(sent_articles):
             ensure_ascii=False,
             indent=2
         )
-
-
-# =========================================================
-# URL / HTML
-# =========================================================
 
 
 def normalize_article_url(url):
@@ -394,11 +342,6 @@ def download_html(url):
             "utf-8",
             errors="ignore"
         )
-
-
-# =========================================================
-# RSS
-# =========================================================
 
 
 def get_feed(blog):
@@ -501,11 +444,6 @@ def get_rss_articles(blog, limit):
         )
 
     return articles
-
-
-# =========================================================
-# HTML 수집
-# =========================================================
 
 
 def get_socar_articles(blog, limit):
@@ -702,11 +640,6 @@ def get_recent_articles(
     )
 
 
-# =========================================================
-# 본문
-# =========================================================
-
-
 def get_content_from_rss(article):
     rss_content = article.get(
         "rss_content",
@@ -793,67 +726,11 @@ def get_article_content(article):
     )
 
 
-# =========================================================
-# Gemini
-# =========================================================
-
-
-def summarize_with_gemini(
-    article,
-    content
-):
+def call_gemini(prompt):
     if not GEMINI_API_KEY:
         raise RuntimeError(
             "GEMINI_API_KEY가 없습니다."
         )
-
-    prompt = f"""
-너는 개발자를 위한 기술 블로그 브리핑 편집자다.
-
-아래 글을 읽고 한국어로 이해하기 쉽게 정리한다.
-
-회사:
-{article["company"]}
-
-제목:
-{article["title"]}
-
-게시일:
-{article["pub_date"]}
-
-본문:
-{content}
-
-다음 형식을 반드시 사용한다.
-
-[한눈에 보기]
-핵심을 2~3문장으로 설명한다.
-
-[핵심 내용]
-중요한 내용을 3~5개 정리한다.
-
-[사용한 기술 / 방법]
-실제 본문에 등장하는 기술과 방법을 정리한다.
-
-[알아둬야 할 것]
-이 글에서 꼭 이해하면 좋은 개념을 쉽게 설명한다.
-
-[추가로 공부하면 좋은 것]
-이어 공부하면 좋은 주제 2~3개와 이유를 적는다.
-
-[난이도]
-초급 / 중급 / 고급
-
-[추천 대상]
-누가 읽으면 좋은지 한 줄로 작성한다.
-
-규칙:
-- 본문에 없는 사실은 만들지 않는다.
-- 수치를 추측하지 않는다.
-- 해외 글도 한국어로 작성한다.
-- 기술명과 제품명은 원래 이름을 유지한다.
-- 메뉴, 광고, 푸터 등 관련 없는 내용은 무시한다.
-"""
 
     url = (
         "https://generativelanguage.googleapis.com/"
@@ -906,12 +783,160 @@ def summarize_with_gemini(
     )
 
 
-# =========================================================
-# Slack Digest
-# =========================================================
+def summarize_article(
+    article,
+    content
+):
+    prompt = f"""
+너는 개발자를 위한 기술 블로그 요약 편집자다.
+
+아래 글을 읽고 한국어로 간단하고 정확하게 요약한다.
+
+회사:
+{article["company"]}
+
+제목:
+{article["title"]}
+
+게시일:
+{article["pub_date"]}
+
+본문:
+{content}
+
+다음 형식으로만 작성한다.
+
+[한줄 요약]
+글의 핵심을 한 문장으로 설명한다.
+
+[핵심 내용]
+- 중요한 내용 3개
+- 각 항목은 1~2문장
+
+[알아둬야 할 것]
+이 글에서 꼭 이해해야 할 개념을
+쉽게 2~3문장으로 설명한다.
+
+[추천 대상]
+누가 읽으면 좋은지 한 줄로 작성한다.
+
+규칙:
+- 본문에 없는 사실은 만들지 않는다.
+- 숫자나 성능 결과를 추측하지 않는다.
+- 해외 글도 한국어로 작성한다.
+- 기술명은 원래 이름을 유지한다.
+"""
+
+    return call_gemini(
+        prompt
+    )
 
 
-def split_slack_messages(text, limit=3500):
+def create_daily_editorial(
+    summarized_articles
+):
+    editorial_input = []
+
+    for index, item in enumerate(
+        summarized_articles,
+        start=1
+    ):
+        article = item["article"]
+
+        editorial_input.append(
+            f"""
+글 {index}
+
+회사:
+{article["company"]}
+
+제목:
+{article["title"]}
+
+요약:
+{item["summary"]}
+"""
+        )
+
+    combined = "\n".join(
+        editorial_input
+    )
+
+    prompt = f"""
+너는 개발자를 위한 아침 기술 브리핑의 편집장이다.
+
+오늘 발견된 기술 블로그 글들의 요약이 아래에 있다.
+
+{combined}
+
+이 글들을 서로 비교해서
+오늘 아침에 읽을 가치가 높은 순서와
+공통적인 기술 흐름을 정리해라.
+
+다음 형식으로 작성한다.
+
+[오늘 꼭 볼 글 번호]
+가장 중요한 글 최대 3개의 번호만
+중요한 순서대로 쉼표로 작성한다.
+
+예:
+2, 5, 1
+
+[오늘의 기술 키워드]
+오늘 글들에서 반복되거나 중요하게 등장한
+기술 키워드 3~5개를 쉼표로 작성한다.
+
+[오늘의 한줄 포인트]
+오늘 기술 글들을 전체적으로 봤을 때
+개발자가 기억하면 좋은 흐름을
+한 문장으로 작성한다.
+
+[왜 이 3개를 골랐나]
+선정한 글 각각에 대해
+왜 읽어볼 가치가 있는지
+한 문장씩 작성한다.
+
+규칙:
+- 제공된 요약만 사용한다.
+- 없는 사실을 만들지 않는다.
+- 특정 회사가 유명하다는 이유만으로 우선하지 않는다.
+- 실무 적용 가능성
+- 기술적 중요성
+- 학습 가치
+를 기준으로 판단한다.
+"""
+
+    return call_gemini(
+        prompt
+    )
+
+
+def parse_top_indices(editorial):
+    match = re.search(
+        r"\[오늘 꼭 볼 글 번호\]\s*([0-9,\s]+)",
+        editorial
+    )
+
+    if not match:
+        return []
+
+    values = []
+
+    for raw in match.group(1).split(","):
+        raw = raw.strip()
+
+        if raw.isdigit():
+            values.append(
+                int(raw)
+            )
+
+    return values[:3]
+
+
+def split_slack_messages(
+    text,
+    limit=3500
+):
     messages = []
 
     while len(text) > limit:
@@ -980,6 +1005,8 @@ def send_slack_text(text):
 
 def build_digest(
     summarized_articles,
+    editorial,
+    top_indices,
     failed_blogs
 ):
     now = datetime.now(
@@ -997,31 +1024,115 @@ def build_digest(
         "",
         f"오늘 새 글: *{len(summarized_articles)}개*",
         "",
+        "━━━━━━━━━━━━━━━━━━",
+        "🔥 *오늘 꼭 볼 글*",
+        "",
     ]
 
-    for index, item in enumerate(
-        summarized_articles,
+    top_set = set(
+        top_indices
+    )
+
+    for position, index in enumerate(
+        top_indices,
         start=1
     ):
+        if (
+            index < 1
+            or index > len(
+                summarized_articles
+            )
+        ):
+            continue
+
+        item = summarized_articles[
+            index - 1
+        ]
+
         article = item["article"]
-        summary = item["summary"]
 
         parts.extend(
             [
-                "━━━━━━━━━━━━━━━━━━",
-                f"*{index}. {article['company']}*",
+                f"*{position}. {article['company']}*",
                 f"*{article['title']}*",
                 "",
-                summary,
+                item["summary"],
                 "",
                 f"🔗 {article['link']}",
                 "",
             ]
         )
 
+    remaining = []
+
+    for index, item in enumerate(
+        summarized_articles,
+        start=1
+    ):
+        if index in top_set:
+            continue
+
+        remaining.append(
+            item
+        )
+
+    if remaining:
+        parts.extend(
+            [
+                "━━━━━━━━━━━━━━━━━━",
+                "📚 *나머지 새 글*",
+                "",
+            ]
+        )
+
+        for item in remaining:
+            article = item["article"]
+
+            one_line = item[
+                "summary"
+            ]
+
+            one_line_match = re.search(
+                r"\[한줄 요약\]\s*(.+?)(?:\n|$)",
+                one_line,
+                re.S
+            )
+
+            if one_line_match:
+                one_line = (
+                    one_line_match
+                    .group(1)
+                    .strip()
+                )
+            else:
+                one_line = (
+                    one_line
+                    .replace("\n", " ")
+                    [:180]
+                )
+
+            parts.extend(
+                [
+                    f"• *{article['company']}* — {article['title']}",
+                    f"  {one_line}",
+                    f"  🔗 {article['link']}",
+                    "",
+                ]
+            )
+
+    parts.extend(
+        [
+            "━━━━━━━━━━━━━━━━━━",
+            "💡 *오늘의 편집 노트*",
+            "",
+            editorial,
+        ]
+    )
+
     if failed_blogs:
         parts.extend(
             [
+                "",
                 "━━━━━━━━━━━━━━━━━━",
                 "⚠️ *수집 실패*",
                 ", ".join(
@@ -1031,11 +1142,6 @@ def build_digest(
         )
 
     return "\n".join(parts)
-
-
-# =========================================================
-# Main
-# =========================================================
 
 
 def main():
@@ -1105,7 +1211,6 @@ def main():
                 len(new_articles)
             )
 
-            # 오래된 새 글부터
             new_articles.reverse()
 
             candidate_articles.extend(
@@ -1134,8 +1239,6 @@ def main():
             "새 글이 없습니다."
         )
 
-        # 실패 사이트가 있어도
-        # 매일 빈 Slack 메시지를 보내지는 않는다.
         return
 
     candidate_articles = (
@@ -1149,7 +1252,7 @@ def main():
     for article in candidate_articles:
         print()
         print(
-            "처리:",
+            "요약 처리:",
             article["company"],
             "-",
             article["title"]
@@ -1167,7 +1270,7 @@ def main():
 
                 continue
 
-            summary = summarize_with_gemini(
+            summary = summarize_article(
                 article,
                 content
             )
@@ -1192,18 +1295,55 @@ def main():
 
         return
 
+    print()
+    print(
+        "오늘의 편집 브리핑 생성"
+    )
+
+    try:
+        editorial = create_daily_editorial(
+            summarized_articles
+        )
+
+    except Exception as error:
+        print(
+            "편집 브리핑 생성 실패:",
+            repr(error)
+        )
+
+        editorial = (
+            "[오늘의 기술 키워드]\n"
+            "편집 요약 생성 실패\n\n"
+            "[오늘의 한줄 포인트]\n"
+            "개별 글 요약은 정상적으로 생성되었습니다."
+        )
+
+    top_indices = parse_top_indices(
+        editorial
+    )
+
+    if not top_indices:
+        top_indices = list(
+            range(
+                1,
+                min(
+                    3,
+                    len(
+                        summarized_articles
+                    )
+                ) + 1
+            )
+        )
+
     digest = build_digest(
         summarized_articles,
+        editorial,
+        top_indices,
         failed_blogs
     )
 
     messages = split_slack_messages(
         digest
-    )
-
-    print(
-        "Slack 메시지 조각:",
-        len(messages)
     )
 
     for index, message in enumerate(
@@ -1218,8 +1358,6 @@ def main():
             message
         )
 
-    # Slack 발송이 모두 성공한 뒤에만
-    # 이번 글들을 기록한다.
     for item in summarized_articles:
         sent_articles.append(
             item["article"]["link"]
@@ -1234,7 +1372,7 @@ def main():
     )
 
     print(
-        "새 발송 기록:",
+        "발송 글:",
         len(summarized_articles)
     )
 
