@@ -24,7 +24,7 @@ RECENT_ARTICLE_LIMIT = 10
 # 현재 글들을 먼저 "기준점"으로 등록한다.
 #
 # 최초 1회 실행 후 반드시 False로 변경한다.
-INITIALIZE_ONLY = True
+INITIALIZE_ONLY = False
 
 
 BLOGS = [
