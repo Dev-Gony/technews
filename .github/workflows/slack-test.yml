@@ -1,7 +1,11 @@
-name: Tech news test
+name: Daily Tech News
 
 on:
   workflow_dispatch:
+
+  schedule:
+    - cron: "57 5 * * *"
+      timezone: "Asia/Seoul"
 
 permissions:
   contents: write
