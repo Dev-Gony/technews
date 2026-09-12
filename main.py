@@ -20,120 +20,249 @@ SENT_ARTICLES_FILE = "sent_articles.json"
 MAX_CONTENT_LENGTH = 12000
 RECENT_ARTICLE_LIMIT = 10
 
-# 새 블로그를 추가해서 기준점을 잡을 때 True
-# 초기화가 끝난 뒤에는 False
-INITIALIZE_ONLY = False
+# 새로운 블로그를 추가했기 때문에
+# 현재 글들을 먼저 "기준점"으로 등록한다.
+#
+# 최초 1회 실행 후 반드시 False로 변경한다.
+INITIALIZE_ONLY = True
 
 
 BLOGS = [
+
+    # =====================================================
+    # 국내
+    # =====================================================
+
     {
         "name": "네이버 D2",
+        "enabled": True,
         "type": "rss",
         "rss": "https://d2.naver.com/d2.atom",
     },
+
     {
         "name": "네이버 플레이스",
+        "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/naver-place-dev",
     },
+
     {
         "name": "쿠팡",
+        "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/coupang-engineering",
     },
+
+    # GitHub Actions 환경에서 현재 HTTP 403 발생.
+    # 나중에 별도 수집 방식으로 해결 예정.
     {
         "name": "우아한형제들",
+        "enabled": False,
         "type": "html",
         "url": "https://techblog.woowahan.com/",
         "html_type": "woowahan",
     },
+
     {
         "name": "요기요",
+        "enabled": True,
         "type": "rss",
         "rss": "https://techblog.yogiyo.co.kr/feed",
     },
+
     {
         "name": "토스",
+        "enabled": True,
         "type": "rss",
         "rss": "https://toss.tech/rss.xml",
     },
+
     {
         "name": "뱅크샐러드",
+        "enabled": True,
         "type": "rss",
         "rss": "https://blog.banksalad.com/rss.xml",
     },
+
     {
         "name": "쏘카",
+        "enabled": True,
         "type": "html",
         "url": "https://tech.socar.kr/posts",
         "html_type": "socar",
     },
+
     {
         "name": "직방",
+        "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/zigbang",
     },
+
     {
         "name": "G마켓",
+        "enabled": True,
         "type": "rss",
         "rss": "https://dev.gmarket.com/rss",
     },
+
     {
         "name": "마켓컬리",
+        "enabled": True,
         "type": "rss",
         "rss": "https://helloworld.kurly.com/rss.xml",
     },
+
     {
         "name": "당근",
+        "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/daangn",
     },
+
     {
         "name": "LINE Engineering",
+        "enabled": True,
         "type": "rss",
         "rss": "https://engineering.linecorp.com/ko/feed/index.html",
     },
+
     {
         "name": "데브시스터즈",
+        "enabled": True,
         "type": "rss",
         "rss": "https://tech.devsisters.com/rss.xml",
     },
+
     {
         "name": "왓챠",
+        "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/watcha",
     },
+
     {
         "name": "무신사",
+        "enabled": True,
         "type": "rss",
         "rss": "https://medium.com/feed/musinsa-tech",
     },
+
+
+    # =====================================================
+    # 해외 - 기존
+    # =====================================================
+
     {
         "name": "Google Developers",
+        "enabled": True,
         "type": "rss",
         "rss": "https://developers.googleblog.com/feeds/posts/default/",
     },
+
     {
         "name": "Apple Developer",
+        "enabled": True,
         "type": "rss",
         "rss": "https://developer.apple.com/news/rss/news.rss",
     },
+
     {
         "name": "GitHub Blog",
+        "enabled": True,
         "type": "rss",
         "rss": "https://github.blog/feed/",
     },
+
     {
         "name": "Meta Engineering",
+        "enabled": True,
         "type": "rss",
         "rss": "https://engineering.fb.com/feed/",
     },
+
     {
         "name": "Netflix TechBlog",
+        "enabled": True,
         "type": "rss",
         "rss": "https://netflixtechblog.com/feed",
     },
+
+
+    # =====================================================
+    # 해외 - 신규 추가
+    # =====================================================
+
+    {
+        "name": "Google Play",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://medium.com/feed/googleplaydev",
+    },
+
+    {
+        "name": "Airbnb Engineering",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://medium.com/feed/airbnb-engineering",
+    },
+
+    {
+        "name": "Slack Engineering",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://slack.engineering/feed/",
+    },
+
+    {
+        "name": "Spotify Engineering",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://engineering.atspotify.com/feed/",
+    },
+
+    {
+        "name": "Stripe",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://stripe.com/blog/feed.rss",
+    },
+
+    {
+        "name": "Cloudflare",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://blog.cloudflare.com/rss/",
+    },
+
+    {
+        "name": "AWS Architecture",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://aws.amazon.com/blogs/architecture/feed/",
+    },
+
+    {
+        "name": "AWS Compute",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://aws.amazon.com/blogs/compute/feed/",
+    },
+
+    {
+        "name": "Uber Engineering",
+        "enabled": True,
+        "type": "html",
+        "url": "https://www.uber.com/us/en/blog/engineering/",
+        "html_type": "uber",
+    },
 ]
+
+
+# =========================================================
+# 발송 기록
+# =========================================================
 
 
 def load_sent_articles():
@@ -154,7 +283,11 @@ def load_sent_articles():
         return []
 
     except Exception as error:
-        print("발송 기록 읽기 실패:", error)
+        print(
+            "발송 기록 읽기 실패:",
+            error
+        )
+
         return []
 
 
@@ -176,6 +309,11 @@ def save_sent_articles(sent_articles):
         )
 
 
+# =========================================================
+# URL
+# =========================================================
+
+
 def normalize_article_url(url):
     if not url:
         return ""
@@ -195,6 +333,11 @@ def normalize_article_url(url):
     return normalized.rstrip("/")
 
 
+# =========================================================
+# HTML 정리
+# =========================================================
+
+
 def clean_html(html_text):
     if not html_text:
         return ""
@@ -211,6 +354,7 @@ def clean_html(html_text):
             "noscript",
             "svg",
             "iframe",
+            "form",
         ]
     ):
         tag.decompose()
@@ -232,6 +376,11 @@ def clean_html(html_text):
     return "\n".join(lines)
 
 
+# =========================================================
+# HTTP
+# =========================================================
+
+
 def download_html(url):
     request = urllib.request.Request(
         url,
@@ -241,17 +390,22 @@ def download_html(url):
                 "(Windows NT 10.0; Win64; x64) "
                 "AppleWebKit/537.36 "
                 "(KHTML, like Gecko) "
-                "Chrome/120.0 Safari/537.36"
+                "Chrome/125.0 Safari/537.36"
             ),
+
             "Accept": (
                 "text/html,"
                 "application/xhtml+xml,"
-                "application/xml;q=0.9,*/*;q=0.8"
+                "application/xml;q=0.9,"
+                "*/*;q=0.8"
             ),
+
             "Accept-Language": (
                 "ko-KR,ko;q=0.9,"
                 "en-US;q=0.8,en;q=0.7"
             ),
+
+            "Cache-Control": "no-cache",
         }
     )
 
@@ -266,7 +420,7 @@ def download_html(url):
 
 
 # =========================================================
-# RSS 처리
+# RSS
 # =========================================================
 
 
@@ -309,7 +463,9 @@ def get_rss_articles(
     blog,
     limit
 ):
-    feed = get_feed(blog)
+    feed = get_feed(
+        blog
+    )
 
     articles = []
 
@@ -349,9 +505,12 @@ def get_rss_articles(
                 )
 
                 if contents:
-                    rss_content = contents[0].get(
-                        "value",
-                        ""
+                    rss_content = (
+                        contents[0]
+                        .get(
+                            "value",
+                            ""
+                        )
                     )
 
             except Exception as error:
@@ -375,7 +534,98 @@ def get_rss_articles(
 
 
 # =========================================================
-# HTML 방식
+# HTML - 쏘카
+# =========================================================
+
+
+def get_socar_articles(
+    blog,
+    limit
+):
+    print(
+        f"HTML 목록 요청: {blog['url']}"
+    )
+
+    html = download_html(
+        blog["url"]
+    )
+
+    soup = BeautifulSoup(
+        html,
+        "html.parser"
+    )
+
+    articles = []
+    seen_urls = set()
+
+    for tag in soup.find_all(
+        "a",
+        href=True
+    ):
+        href = tag.get(
+            "href",
+            ""
+        )
+
+        full_url = urljoin(
+            blog["url"],
+            href
+        )
+
+        parsed = urlsplit(
+            full_url
+        )
+
+        if not re.fullmatch(
+            r"/dev/\d{4}/\d{2}/\d{2}/[^/]+/?",
+            parsed.path
+        ):
+            continue
+
+        url = normalize_article_url(
+            full_url
+        )
+
+        if url in seen_urls:
+            continue
+
+        title = tag.get_text(
+            " ",
+            strip=True
+        )
+
+        if not title:
+            continue
+
+        seen_urls.add(
+            url
+        )
+
+        articles.append(
+            {
+                "company": blog["name"],
+                "title": title,
+                "link": url,
+                "pub_date": "",
+                "summary": "",
+                "rss_content": "",
+            }
+        )
+
+        if len(articles) >= limit:
+            break
+
+    if not articles:
+        raise RuntimeError(
+            "쏘카 글 목록을 찾지 못했습니다."
+        )
+
+    return articles
+
+
+# =========================================================
+# HTML - 우아한형제들
+# 현재 비활성화
 # =========================================================
 
 
@@ -417,8 +667,6 @@ def get_woowahan_articles(
             full_url
         )
 
-        # 우아한형제들 글 주소:
-        # /12345/ 형태
         if not re.fullmatch(
             r"/\d+/?",
             parsed.path
@@ -440,7 +688,9 @@ def get_woowahan_articles(
         if not title:
             continue
 
-        seen_urls.add(url)
+        seen_urls.add(
+            url
+        )
 
         articles.append(
             {
@@ -464,7 +714,12 @@ def get_woowahan_articles(
     return articles
 
 
-def get_socar_articles(
+# =========================================================
+# HTML - Uber
+# =========================================================
+
+
+def get_uber_articles(
     blog,
     limit
 ):
@@ -502,11 +757,18 @@ def get_socar_articles(
             full_url
         )
 
-        # 실제 쏘카 글 주소 예:
-        # /dev/2026/07/22/agentic-engineering-in-production
+        # Uber Engineering의 개별 글은
+        # /us/en/blog/글-slug/
+        # 형태로 제공된다.
         if not re.fullmatch(
-            r"/dev/\d{4}/\d{2}/\d{2}/[^/]+/?",
+            r"/us/en/blog/[^/]+/?",
             parsed.path
+        ):
+            continue
+
+        # 목록 페이지 자체 등 제외
+        if parsed.path.rstrip("/") == (
+            "/us/en/blog/engineering"
         ):
             continue
 
@@ -522,10 +784,12 @@ def get_socar_articles(
             strip=True
         )
 
-        if not title:
+        if len(title) < 5:
             continue
 
-        seen_urls.add(url)
+        seen_urls.add(
+            url
+        )
 
         articles.append(
             {
@@ -543,10 +807,15 @@ def get_socar_articles(
 
     if not articles:
         raise RuntimeError(
-            "쏘카 글 목록을 찾지 못했습니다."
+            "Uber Engineering 글 목록을 찾지 못했습니다."
         )
 
     return articles
+
+
+# =========================================================
+# HTML 라우터
+# =========================================================
 
 
 def get_html_articles(
@@ -557,21 +826,32 @@ def get_html_articles(
         "html_type"
     )
 
-    if html_type == "woowahan":
-        return get_woowahan_articles(
-            blog,
-            limit
-        )
-
     if html_type == "socar":
         return get_socar_articles(
             blog,
             limit
         )
 
+    if html_type == "woowahan":
+        return get_woowahan_articles(
+            blog,
+            limit
+        )
+
+    if html_type == "uber":
+        return get_uber_articles(
+            blog,
+            limit
+        )
+
     raise RuntimeError(
-        "지원하지 않는 HTML 수집 방식입니다."
+        f"지원하지 않는 HTML 방식: {html_type}"
     )
+
+
+# =========================================================
+# 최근 글 가져오기
+# =========================================================
 
 
 def get_recent_articles(
@@ -600,11 +880,13 @@ def get_recent_articles(
 
 
 # =========================================================
-# 본문 수집
+# 본문
 # =========================================================
 
 
-def get_content_from_rss(article):
+def get_content_from_rss(
+    article
+):
     rss_content = article.get(
         "rss_content",
         ""
@@ -668,7 +950,6 @@ def download_article_page(
             "html.parser"
         )
 
-        # 가능하면 article/main 영역을 먼저 사용
         main_content = (
             soup.find("article")
             or soup.find("main")
@@ -678,6 +959,7 @@ def download_article_page(
             content = clean_html(
                 str(main_content)
             )
+
         else:
             content = clean_html(
                 html
@@ -740,12 +1022,11 @@ def summarize_with_gemini(
         )
 
     prompt = f"""
-너는 개발자를 위한 기술 뉴스 브리핑 편집자다.
+너는 개발자를 위한 기술 블로그 브리핑 편집자다.
 
-아래 회사 기술 블로그 글의 실제 본문을 읽고
-한국어로 이해하기 쉽게 정리해라.
+아래 글을 읽고 한국어로 정리한다.
 
-해외 글이어도 결과는 한국어로 작성한다.
+해외 글이라도 결과는 한국어로 작성한다.
 
 회사:
 {article["company"]}
@@ -760,63 +1041,55 @@ def summarize_with_gemini(
 {content}
 
 
-다음 형식을 반드시 지켜라.
+다음 형식을 반드시 사용한다.
 
 
 [한눈에 보기]
 
-이 글이 무엇에 관한 글인지
-개발 경험이 많지 않은 사람도 이해할 수 있도록
-2~3문장으로 설명한다.
+이 글이 무엇에 관한 것인지
+2~3문장으로 쉽게 설명한다.
 
 
 [왜 이 글을 썼나]
 
-작성자가 어떤 문제 또는 필요 때문에
-이 주제를 다루게 되었는지 설명한다.
+작성자가 어떤 문제나 필요 때문에
+이 주제를 다루었는지 설명한다.
 
 
 [핵심 내용]
 
-가장 중요한 내용을 3~5개로 정리한다.
+핵심을 3~5개로 정리한다.
 
-각 내용은 단순한 키워드만 적지 말고
-왜 중요한지도 쉽게 설명한다.
+단순한 키워드 나열이 아니라
+왜 중요한지도 설명한다.
 
 
 [사용한 기술 / 방법]
 
-본문에서 실제로 사용한 기술,
-프레임워크, 언어, 도구,
-아키텍처 또는 방법론이 있다면 정리한다.
-
-본문에 없는 기술은 추측하지 않는다.
+실제 본문에 등장하는 기술,
+프레임워크, 라이브러리,
+인프라, 아키텍처 또는 방법을 정리한다.
 
 
 [결과]
 
-실제로 어떤 결과를 얻었는지 정리한다.
+본문에 실제 결과가 있다면 정리한다.
 
-본문에 정확한 성능 수치나 결과가 없다면
-수치를 만들어내지 않는다.
+수치가 없으면 수치를 만들어내지 않는다.
 
 
 [알아둬야 할 것]
 
-이 글을 읽을 때 꼭 이해해야 하는
-기술 개념이나 배경 지식을 설명한다.
-
-중학생이나 고등학생도
-큰 흐름을 이해할 수 있을 정도로
-어려운 개념은 쉽게 풀어서 설명한다.
+이 글을 이해하기 위해 알아두면 좋은
+개념이나 배경지식을 쉽게 설명한다.
 
 
 [추가로 공부하면 좋은 것]
 
-이 글에서 이어서 공부해볼 만한
-기술 또는 개념 2~4개를 추천한다.
+연결해서 공부하면 좋은 기술 또는
+개념을 2~4개 추천한다.
 
-각각 왜 공부하면 좋은지도 짧게 작성한다.
+왜 공부하면 좋은지도 간단히 설명한다.
 
 
 [난이도]
@@ -826,20 +1099,20 @@ def summarize_with_gemini(
 
 [추천 대상]
 
-어떤 개발자 또는 학습자에게
-특히 도움이 되는 글인지 작성한다.
+어떤 개발자나 학습자에게
+도움이 될지 한 줄로 설명한다.
 
 
 규칙:
 
-- 반드시 제공된 본문에 근거해서 작성한다.
-- 본문에 없는 사실은 만들지 않는다.
-- 수치와 결과를 추측하지 않는다.
-- 제목만 가지고 내용을 추측하지 않는다.
-- 어려운 용어는 쉽게 설명한다.
-- 기술명과 제품명은 원래 영문 이름을 유지해도 된다.
-- 광고, 메뉴, 사이트 안내 등 글과 관계없는 부분은 무시한다.
-- 원문 URL은 결과 안에 넣지 않는다.
+- 반드시 제공된 본문에 근거한다.
+- 본문에 없는 사실을 만들지 않는다.
+- 숫자나 성능 결과를 추측하지 않는다.
+- 제목만 보고 내용을 추측하지 않는다.
+- 어려운 기술 용어는 쉽게 설명한다.
+- 주요 기술명과 제품명은 원래 이름을 유지한다.
+- 광고, 메뉴, 푸터 등 관련 없는 문구는 무시한다.
+- 원문 URL을 요약 내용에 반복하지 않는다.
 """
 
     url = (
@@ -859,6 +1132,7 @@ def summarize_with_gemini(
                 ]
             }
         ],
+
         "generationConfig": {
             "temperature": 0.2
         }
@@ -874,7 +1148,8 @@ def summarize_with_gemini(
         url,
         data=data,
         headers={
-            "Content-Type": "application/json"
+            "Content-Type":
+                "application/json"
         },
         method="POST"
     )
@@ -936,7 +1211,7 @@ def send_to_slack(
         f"{summary}\n\n"
 
         f"📅 *게시일*\n"
-        f"{article['pub_date'] or '본문에서 확인'}\n\n"
+        f"{article['pub_date'] or '미확인'}\n\n"
 
         f"🔗 *원문*\n"
         f"{article['link']}"
@@ -956,7 +1231,8 @@ def send_to_slack(
         SLACK_WEBHOOK_URL,
         data=data,
         headers={
-            "Content-Type": "application/json"
+            "Content-Type":
+                "application/json"
         },
         method="POST"
     )
@@ -978,7 +1254,7 @@ def send_to_slack(
 
 
 # =========================================================
-# 초기화 / 처리
+# 초기화
 # =========================================================
 
 
@@ -993,11 +1269,14 @@ def initialize_blog_articles(
     added_count = 0
 
     for article in new_articles:
-        article_url = article["link"]
+        article_url = (
+            article["link"]
+        )
 
         if (
             article_url
-            and article_url not in sent_articles
+            and article_url
+            not in sent_articles
         ):
             sent_articles.append(
                 article_url
@@ -1021,11 +1300,17 @@ def initialize_blog_articles(
     return 0
 
 
+# =========================================================
+# 블로그 처리
+# =========================================================
+
+
 def process_blog(
     blog,
     sent_articles
 ):
     print()
+
     print(
         "=" * 60
     )
@@ -1052,12 +1337,17 @@ def process_blog(
     new_articles = []
 
     for article in articles:
-        article_url = article["link"]
+        article_url = (
+            article["link"]
+        )
 
         if not article_url:
             continue
 
-        if article_url not in sent_articles:
+        if (
+            article_url
+            not in sent_articles
+        ):
             new_articles.append(
                 article
             )
@@ -1080,12 +1370,15 @@ def process_blog(
             sent_articles
         )
 
+    # RSS는 대부분 최신글부터 제공한다.
+    # Slack에는 오래된 새 글부터 보낸다.
     new_articles.reverse()
 
     sent_count = 0
 
     for article in new_articles:
         print()
+
         print(
             "-" * 40
         )
@@ -1111,7 +1404,7 @@ def process_blog(
 
         if not content:
             print(
-                "본문이 없어 이 글은 건너뜁니다."
+                "본문이 없어 건너뜁니다."
             )
 
             continue
@@ -1156,6 +1449,8 @@ def process_blog(
             "Slack 전송 완료"
         )
 
+        # Slack 발송에 성공한 경우에만
+        # 이미 보낸 글로 기록한다.
         sent_articles.append(
             article["link"]
         )
@@ -1173,8 +1468,33 @@ def process_blog(
     return sent_count
 
 
+# =========================================================
+# main
+# =========================================================
+
+
 def main():
-    sent_articles = load_sent_articles()
+    sent_articles = (
+        load_sent_articles()
+    )
+
+    enabled_blogs = [
+        blog
+        for blog in BLOGS
+        if blog.get(
+            "enabled",
+            True
+        )
+    ]
+
+    disabled_blogs = [
+        blog["name"]
+        for blog in BLOGS
+        if not blog.get(
+            "enabled",
+            True
+        )
+    ]
 
     print(
         "================================"
@@ -1185,8 +1505,13 @@ def main():
     )
 
     print(
-        "등록 블로그:",
+        "전체 등록:",
         len(BLOGS)
+    )
+
+    print(
+        "활성 블로그:",
+        len(enabled_blogs)
     )
 
     print(
@@ -1199,6 +1524,14 @@ def main():
         INITIALIZE_ONLY
     )
 
+    if disabled_blogs:
+        print(
+            "비활성:",
+            ", ".join(
+                disabled_blogs
+            )
+        )
+
     print(
         "================================"
     )
@@ -1209,15 +1542,20 @@ def main():
 
     failed_blogs = []
 
-    for blog in BLOGS:
+    for blog in enabled_blogs:
         try:
-            sent_count = process_blog(
-                blog,
-                sent_articles
+            sent_count = (
+                process_blog(
+                    blog,
+                    sent_articles
+                )
             )
 
             success_count += 1
-            sent_count_total += sent_count
+
+            sent_count_total += (
+                sent_count
+            )
 
         except Exception as error:
             error_count += 1
@@ -1227,6 +1565,7 @@ def main():
             )
 
             print()
+
             print(
                 f"[오류] {blog['name']}"
             )
@@ -1241,6 +1580,7 @@ def main():
             )
 
     print()
+
     print(
         "================================"
     )
@@ -1272,7 +1612,9 @@ def main():
     if failed_blogs:
         print(
             "실패 블로그:",
-            ", ".join(failed_blogs)
+            ", ".join(
+                failed_blogs
+            )
         )
 
     print(
