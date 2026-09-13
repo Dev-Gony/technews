@@ -1149,6 +1149,25 @@ def parse_top_indices(editorial):
     return values[:3]
 
 
+def remove_internal_editorial_sections(
+    editorial
+):
+    cleaned_editorial = re.sub(
+        r"\[오늘 꼭 볼 글 번호\]\s*.*?(?=\n\[|\Z)",
+        "",
+        editorial,
+        flags=re.S
+    ).strip()
+
+    cleaned_editorial = re.sub(
+        r"\n{3,}",
+        "\n\n",
+        cleaned_editorial
+    )
+
+    return cleaned_editorial
+
+
 def split_slack_messages(
     text,
     limit=3500
@@ -1341,12 +1360,16 @@ def build_digest(
                 ]
             )
 
+    cleaned_editorial = remove_internal_editorial_sections(
+        editorial
+    )
+
     parts.extend(
         [
             "━━━━━━━━━━━━━━━━━━",
             "💡 *오늘의 편집 노트*",
             "",
-            editorial,
+            cleaned_editorial,
         ]
     )
 
