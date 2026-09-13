@@ -1,10 +1,10 @@
-import time
-import urllib.error
 import os
 import json
 import re
+import time
 import urllib.request
 import urllib.parse
+import urllib.error
 from html import unescape
 from urllib.parse import urljoin, urlsplit
 from datetime import datetime
@@ -311,6 +311,40 @@ def clean_html(html_text):
     return "\n".join(lines)
 
 
+def clean_slack_text(text):
+    if not text:
+        return ""
+
+    text = unescape(text)
+
+    text = text.replace("\\-", "•")
+    text = text.replace("\\*", "*")
+    text = text.replace("\\_", "_")
+    text = text.replace("\\.", ".")
+    text = text.replace("\\(", "(")
+    text = text.replace("\\)", ")")
+
+    text = re.sub(
+        r"\*\*(.+?)\*\*",
+        r"*\1*",
+        text
+    )
+
+    text = re.sub(
+        r"(?m)^-\s+",
+        "• ",
+        text
+    )
+
+    text = re.sub(
+        r"\n{3,}",
+        "\n\n",
+        text
+    )
+
+    return text.strip()
+
+
 def download_html(url):
     request = urllib.request.Request(
         url,
@@ -387,9 +421,11 @@ def get_rss_articles(blog, limit):
     articles = []
 
     for entry in feed.entries[:limit]:
-        title = entry.get(
-            "title",
-            "제목 없음"
+        title = unescape(
+            entry.get(
+                "title",
+                "제목 없음"
+            ).strip()
         )
 
         link = normalize_article_url(
@@ -437,7 +473,7 @@ def get_rss_articles(blog, limit):
         articles.append(
             {
                 "company": blog["name"],
-                "title": title.strip(),
+                "title": title,
                 "link": link,
                 "pub_date": pub_date.strip(),
                 "summary": summary,
@@ -489,9 +525,11 @@ def get_socar_articles(blog, limit):
         if url in seen_urls:
             continue
 
-        title = tag.get_text(
-            " ",
-            strip=True
+        title = unescape(
+            tag.get_text(
+                " ",
+                strip=True
+            )
         )
 
         if not title:
@@ -567,9 +605,11 @@ def get_uber_articles(blog, limit):
         if url in seen_urls:
             continue
 
-        title = tag.get_text(
-            " ",
-            strip=True
+        title = unescape(
+            tag.get_text(
+                " ",
+                strip=True
+            )
         )
 
         if len(title) < 5:
@@ -696,7 +736,6 @@ def download_article_page(article):
             content = clean_html(
                 str(main_content)
             )
-
         else:
             content = clean_html(
                 html
@@ -796,21 +835,11 @@ def call_gemini(prompt):
                     )
                 )
 
-            try:
-                text = (
-                    result["candidates"][0]
-                    ["content"]["parts"][0]
-                    ["text"]
-                )
-
-            except (
-                KeyError,
-                IndexError
-            ):
-                raise RuntimeError(
-                    "Gemini 응답에 "
-                    "텍스트가 없습니다."
-                )
+            text = (
+                result["candidates"][0]
+                ["content"]["parts"][0]
+                ["text"]
+            )
 
             print(
                 "Gemini 요청 성공"
@@ -843,9 +872,6 @@ def call_gemini(prompt):
                 error_body[:1000]
             )
 
-            # 429: 요청 제한
-            # 500/502/503/504:
-            # 서버의 일시적인 문제
             retryable_codes = {
                 429,
                 500,
@@ -868,8 +894,7 @@ def call_gemini(prompt):
             )
 
             print(
-                f"{wait_seconds}초 후 "
-                "다시 시도합니다."
+                f"{wait_seconds}초 후 다시 시도"
             )
 
             time.sleep(
@@ -893,8 +918,7 @@ def call_gemini(prompt):
             )
 
             print(
-                f"{wait_seconds}초 후 "
-                "다시 시도합니다."
+                f"{wait_seconds}초 후 다시 시도"
             )
 
             time.sleep(
@@ -927,31 +951,39 @@ def summarize_article(
 본문:
 {content}
 
-다음 형식으로만 작성한다.
+다음 형식을 반드시 사용한다.
 
 [한줄 요약]
-글의 핵심을 한 문장으로 설명한다.
+핵심을 한 문장으로 설명한다.
 
 [핵심 내용]
-- 중요한 내용 3개
-- 각 항목은 1~2문장
+• 중요한 내용 3개
+• 각 항목은 1~2문장
+• Markdown의 ** 문법은 사용하지 않는다.
 
 [알아둬야 할 것]
-이 글에서 꼭 이해해야 할 개념을
-쉽게 2~3문장으로 설명한다.
+• 핵심 개념 1~3개를 쉽게 설명한다.
+• 불필요하게 길게 쓰지 않는다.
 
 [추천 대상]
 누가 읽으면 좋은지 한 줄로 작성한다.
 
 규칙:
 - 본문에 없는 사실은 만들지 않는다.
-- 숫자나 성능 결과를 추측하지 않는다.
+- 숫자나 결과를 추측하지 않는다.
 - 해외 글도 한국어로 작성한다.
 - 기술명은 원래 이름을 유지한다.
+- Slack에서 읽기 쉽게 작성한다.
+- *, **, -, # 같은 Markdown 장식을 남발하지 않는다.
+- 목록은 반드시 • 기호를 사용한다.
 """
 
-    return call_gemini(
+    result = call_gemini(
         prompt
+    )
+
+    return clean_slack_text(
+        result
     )
 
 
@@ -994,7 +1026,7 @@ def create_daily_editorial(
 {combined}
 
 
-사용자의 우선 관심 분야는 다음과 같다.
+사용자의 우선 관심 분야:
 
 1. AI Agent / Agentic Workflow
 2. LLM / RAG / MCP
@@ -1010,30 +1042,25 @@ def create_daily_editorial(
 
 중요도 판단 기준:
 
-- 실제 실무에 적용할 수 있는가
-- 새로운 기술 흐름을 이해하는 데 도움이 되는가
-- AI / 데이터 / 자동화와 관련성이 높은가
-- 기업이 실제 문제를 어떻게 해결했는가
-- 성능, 비용, 생산성, 안정성 개선 사례가 있는가
-- 학습 가치가 높은가
+• 실제 실무에 적용할 수 있는가
+• 새로운 기술 흐름을 이해하는 데 도움이 되는가
+• AI / 데이터 / 자동화와 관련성이 높은가
+• 기업이 실제 문제를 어떻게 해결했는가
+• 성능, 비용, 생산성, 안정성 개선 사례가 있는가
+• 학습 가치가 높은가
 
-위 관심 분야와 직접 관련된 글에는
-중요도 판단에서 가산점을 준다.
+AI라는 단어가 포함됐다는 이유만으로
+무조건 높은 점수를 주면 안 된다.
 
-하지만 단순히 AI라는 단어가 들어갔다는 이유만으로
-높게 평가하면 안 된다.
-
-실제 내용의 깊이와 실무 활용 가능성을
-함께 판단해야 한다.
+내용의 깊이와 실제 활용 가능성을 함께 판단한다.
 
 
-다음 형식으로만 작성한다.
+다음 형식으로 작성한다.
 
 
 [오늘 꼭 볼 글 번호]
 
-가장 읽을 가치가 높은 글을
-최대 3개 선정한다.
+가장 읽을 가치가 높은 글을 최대 3개 선정한다.
 
 번호만 중요도 순서대로 쉼표로 작성한다.
 
@@ -1043,14 +1070,8 @@ def create_daily_editorial(
 
 [오늘의 기술 키워드]
 
-오늘 글 전체에서 중요하게 등장한
 기술 키워드 또는 개념을
-3~5개 선정한다.
-
-쉼표로 작성한다.
-
-예:
-AI Agent, Kubernetes, RAG, Observability
+3~5개 쉼표로 작성한다.
 
 
 [오늘의 한줄 포인트]
@@ -1058,58 +1079,51 @@ AI Agent, Kubernetes, RAG, Observability
 오늘 기술 글 전체를 관통하는 흐름을
 한국어 한 문장으로 작성한다.
 
-너무 추상적으로 쓰지 말고
-개발자가 기억할 만한 내용으로 작성한다.
-
 
 [오늘 왜 중요한가]
 
-오늘 올라온 글들을 종합했을 때
-개발자 또는 데이터/AI 학습자가
+오늘 글들을 종합했을 때
+개발자 또는 AI/데이터 학습자가
 왜 관심을 가져야 하는지
 2~3문장으로 설명한다.
 
 
-[왜 이 3개를 골랐나]
+[왜 이 글들을 골랐나]
 
-선정한 각 글에 대해 다음 형식으로 작성한다.
+선정한 글 각각에 대해
+왜 읽을 가치가 있는지 한 문장씩 작성한다.
 
-1번 글:
-선정 이유 한 문장
-
-2번 글:
-선정 이유 한 문장
-
-3번 글:
-선정 이유 한 문장
-
-실제 선정된 글 번호에 맞춰 작성한다.
+글이 1개면 1개만,
+글이 2개면 2개만,
+글이 3개 이상이면 최대 3개만 작성한다.
 
 
 [오늘 공부해볼 것]
 
-오늘 글들을 바탕으로
-사용자가 20~30분 정도 추가로 공부하면 좋은
+오늘 글을 바탕으로
+20~30분 정도 추가 공부하면 좋은
 주제 1~3개를 추천한다.
 
-각 주제마다 왜 공부하면 좋은지도
-짧게 작성한다.
+각 주제마다 이유도 짧게 작성한다.
 
 
 규칙:
 
-- 제공된 글 요약에 없는 사실을 만들지 않는다.
-- 특정 회사가 유명하다는 이유만으로 우선하지 않는다.
-- 사용자의 관심 분야와 관련성이 높아도
-  내용이 얕으면 과도하게 높게 평가하지 않는다.
-- 기술적으로 깊이가 있어도
-  실무 활용도가 낮으면 그 점도 고려한다.
+- 제공된 요약에 없는 사실을 만들지 않는다.
+- 회사 인지도만으로 우선순위를 정하지 않는다.
 - 홍보성 글보다 실제 기술 문제 해결 사례를 우선한다.
-- 실제 수치나 결과가 있다면 중요하게 고려한다.
-- 모든 결과는 한국어로 작성한다.
+- 실제 수치나 운영 결과가 있다면 중요하게 고려한다.
+- Slack에서 읽기 쉽게 작성한다.
+- 목록은 • 기호를 사용한다.
+- ** 같은 Markdown 강조 문법은 사용하지 않는다.
 """
-    return call_gemini(
+
+    result = call_gemini(
         prompt
+    )
+
+    return clean_slack_text(
+        result
     )
 
 
@@ -1160,7 +1174,9 @@ def split_slack_messages(
         ].lstrip()
 
     if text:
-        messages.append(text)
+        messages.append(
+            text
+        )
 
     return messages
 
@@ -1222,12 +1238,15 @@ def build_digest(
     )
 
     parts = [
-    f"🌅 *{date_text} 오늘의 Tech Digest*",
-    "",
-    "AI · 데이터 · 자동화 · 백엔드 중심 아침 기술 브리핑",
-    "",
-    f"오늘 새 글: *{len(summarized_articles)}개*",
-    "",
+        f"🌅 *{date_text} 오늘의 Tech Digest*",
+        "",
+        "AI · 데이터 · 자동화 · 백엔드 중심 아침 기술 브리핑",
+        "",
+        f"오늘 새 글: *{len(summarized_articles)}개*",
+        "",
+        "━━━━━━━━━━━━━━━━━━",
+        "🔥 *오늘 꼭 볼 글*",
+        "",
     ]
 
     top_set = set(
@@ -1293,18 +1312,19 @@ def build_digest(
                 "summary"
             ]
 
-            one_line_match = re.search(
+            match = re.search(
                 r"\[한줄 요약\]\s*(.+?)(?:\n|$)",
                 one_line,
                 re.S
             )
 
-            if one_line_match:
+            if match:
                 one_line = (
-                    one_line_match
+                    match
                     .group(1)
                     .strip()
                 )
+
             else:
                 one_line = (
                     one_line
@@ -1342,7 +1362,9 @@ def build_digest(
             ]
         )
 
-    return "\n".join(parts)
+    return clean_slack_text(
+        "\n".join(parts)
+    )
 
 
 def main():
