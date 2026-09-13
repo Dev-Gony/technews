@@ -1,3 +1,5 @@
+import time
+import urllib.error
 import os
 import json
 import re
@@ -754,32 +756,153 @@ def call_gemini(prompt):
         }
     }
 
-    request = urllib.request.Request(
-        url,
-        data=json.dumps(
-            body
-        ).encode("utf-8"),
-        headers={
-            "Content-Type":
-                "application/json"
-        },
-        method="POST"
+    data = json.dumps(
+        body
+    ).encode(
+        "utf-8"
     )
 
-    with urllib.request.urlopen(
-        request,
-        timeout=90
-    ) as response:
-        result = json.loads(
-            response.read().decode(
-                "utf-8"
-            )
+    max_attempts = 4
+
+    for attempt in range(
+        1,
+        max_attempts + 1
+    ):
+        print(
+            f"Gemini 요청 시도 "
+            f"{attempt}/{max_attempts}"
         )
 
-    return (
-        result["candidates"][0]
-        ["content"]["parts"][0]
-        ["text"]
+        request = urllib.request.Request(
+            url,
+            data=data,
+            headers={
+                "Content-Type":
+                    "application/json"
+            },
+            method="POST"
+        )
+
+        try:
+            with urllib.request.urlopen(
+                request,
+                timeout=90
+            ) as response:
+                result = json.loads(
+                    response
+                    .read()
+                    .decode(
+                        "utf-8"
+                    )
+                )
+
+            try:
+                text = (
+                    result["candidates"][0]
+                    ["content"]["parts"][0]
+                    ["text"]
+                )
+
+            except (
+                KeyError,
+                IndexError
+            ):
+                raise RuntimeError(
+                    "Gemini 응답에 "
+                    "텍스트가 없습니다."
+                )
+
+            print(
+                "Gemini 요청 성공"
+            )
+
+            return text
+
+        except urllib.error.HTTPError as error:
+            status_code = error.code
+
+            try:
+                error_body = (
+                    error
+                    .read()
+                    .decode(
+                        "utf-8",
+                        errors="ignore"
+                    )
+                )
+
+            except Exception:
+                error_body = ""
+
+            print(
+                "Gemini HTTP 오류:",
+                status_code
+            )
+
+            print(
+                error_body[:1000]
+            )
+
+            # 429: 요청 제한
+            # 500/502/503/504:
+            # 서버의 일시적인 문제
+            retryable_codes = {
+                429,
+                500,
+                502,
+                503,
+                504,
+            }
+
+            if (
+                status_code
+                not in retryable_codes
+            ):
+                raise
+
+            if attempt >= max_attempts:
+                raise
+
+            wait_seconds = (
+                3 * (2 ** (attempt - 1))
+            )
+
+            print(
+                f"{wait_seconds}초 후 "
+                "다시 시도합니다."
+            )
+
+            time.sleep(
+                wait_seconds
+            )
+
+        except (
+            TimeoutError,
+            urllib.error.URLError
+        ) as error:
+            print(
+                "Gemini 네트워크 오류:",
+                repr(error)
+            )
+
+            if attempt >= max_attempts:
+                raise
+
+            wait_seconds = (
+                3 * (2 ** (attempt - 1))
+            )
+
+            print(
+                f"{wait_seconds}초 후 "
+                "다시 시도합니다."
+            )
+
+            time.sleep(
+                wait_seconds
+            )
+
+    raise RuntimeError(
+        "Gemini 요청이 모두 실패했습니다."
     )
 
 
