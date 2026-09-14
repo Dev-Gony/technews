@@ -495,6 +495,12 @@ def get_rss_articles(
     articles = []
 
     for entry in feed.entries[:limit]:
+        if blog["name"] == "GeekNews":
+            print("GeekNews entry title:", entry.get("title"))
+            print("GeekNews entry link:", entry.get("link"))
+            print("GeekNews entry id:", entry.get("id"))
+            print("GeekNews entry links:", entry.get("links"))
+            print("-" * 40)
         title = unescape(
             entry.get(
                 "title",
