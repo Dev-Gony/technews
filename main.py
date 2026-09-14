@@ -225,7 +225,7 @@ BLOGS = [
         "name": "GeekNews",
         "enabled": True,
         "type": "rss",
-        "rss": "https://news.hada.io/rss/news",
+        "rss": "https://feeds.feedburner.com/geeknews-feed",
         "recent_limit": GEEKNEWS_RECENT_ARTICLE_LIMIT,
         "source_kind": "curation",
     },
@@ -515,6 +515,76 @@ def get_feed(blog):
     return feed
 
 
+def get_entry_link(
+    entry,
+    blog
+):
+    candidates = []
+
+    if blog.get("name") == "GeekNews":
+        for item in entry.get(
+            "links",
+            []
+        ):
+            if not isinstance(
+                item,
+                dict
+            ):
+                continue
+
+            rel = item.get(
+                "rel",
+                "alternate"
+            )
+
+            href = item.get(
+                "href",
+                ""
+            )
+
+            if (
+                rel == "alternate"
+                and href
+            ):
+                candidates.append(
+                    href
+                )
+
+        candidates.extend(
+            [
+                entry.get(
+                    "link",
+                    ""
+                ),
+                entry.get(
+                    "id",
+                    ""
+                ),
+            ]
+        )
+
+    else:
+        candidates.append(
+            entry.get(
+                "link",
+                ""
+            )
+        )
+
+    for candidate in candidates:
+        if not candidate:
+            continue
+
+        normalized = normalize_article_url(
+            candidate
+        )
+
+        if normalized:
+            return normalized
+
+    return ""
+
+
 def get_rss_articles(
     blog,
     limit
@@ -533,11 +603,9 @@ def get_rss_articles(
             ).strip()
         )
 
-        link = normalize_article_url(
-            entry.get(
-                "link",
-                ""
-            )
+        link = get_entry_link(
+            entry,
+            blog
         )
 
         pub_date = (

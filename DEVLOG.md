@@ -766,3 +766,36 @@ Gemini는 각 글을 다음 기준으로 0~5점씩 평가합니다.
 - 작은 단위의 반복 테스트
 
 처음에는 단순한 RSS 요약 봇으로 시작했지만, 현재는 여러 데이터 소스를 수집하고 AI가 사용자 관심사와 실무 가치를 기준으로 콘텐츠를 선별한 뒤 필요한 수준으로 요약하는 뉴스 큐레이션 자동화 시스템으로 발전했습니다.
+
+---
+
+## 2026-09-14. GeekNews Feed/Atom 링크 처리 안정화
+
+### 문제
+
+GeekNews를 일반 RSS 소스와 같은 방식으로 처리하면서 `entry.link`만 신뢰하고 있었습니다. GeekNews는 Atom 구조를 사용하고 링크 정보가 `links` 배열의 `rel=alternate`에 들어갈 수 있어, 피드 형식 변화에 따라 링크를 안정적으로 얻지 못할 가능성이 있었습니다.
+
+또한 기존 설정은 `https://news.hada.io/rss/news`를 사용하고 있었습니다. 별도 구현을 조사하는 과정에서 `NomaDamas/k-skill`의 `geeknews-search`가 GeekNews 공개 FeedBurner Atom 피드(`https://feeds.feedburner.com/geeknews-feed`)를 읽기 전용 소스로 사용하는 것을 확인했습니다.
+
+### 해결
+
+GeekNews만 다음 순서로 링크를 찾도록 전용 fallback을 추가했습니다.
+
+    Atom rel=alternate href
+    → entry.link
+    → entry.id
+    → normalize_article_url()
+
+그리고 GeekNews RSS 주소를 공개 FeedBurner 피드로 변경했습니다.
+
+`k-skill` 자체를 프로젝트 의존성으로 추가하지는 않았습니다. 이 봇은 30여 개 소스를 주기적으로 수집하고 신규 판별, 중복 제거, Gemini 선별/요약, Slack 발송, 처리 이력 저장까지 수행하는 운영 자동화이므로, GeekNews 조회용 CLI를 중간에 추가하면 Node/npx 의존성과 실패 지점만 늘어나기 때문입니다.
+
+### 결과
+
+- 기존 `feedparser` 기반 공통 RSS 구조 유지
+- GeekNews에만 Atom 링크 fallback 적용
+- 외부 Skill/CLI 런타임 의존성 없음
+- 기존 신규 글 판별 및 `sent_articles.json` 중복 방지 흐름 그대로 사용
+
+장애 확인 시 GeekNews 항목의 `title`, `link`, `links`, `id` 순으로 확인하면 됩니다.
+

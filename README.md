@@ -63,6 +63,14 @@ RSS, Atom Feed 또는 HTML Parsing을 이용해 약 30개의 소스를 확인합
 
 GeekNews는 기업 기술 블로그 외의 새로운 기술 콘텐츠를 발견하기 위한 보조 큐레이션 소스로 사용합니다.
 
+#### GeekNews 수집 방식
+
+GeekNews는 일반 기업 블로그와 달리 FeedBurner의 공개 Atom 피드(`https://feeds.feedburner.com/geeknews-feed`)를 사용합니다.
+
+Atom 항목의 링크 형식 차이로 인해 GeekNews만 링크를 별도로 정규화합니다. 링크 후보는 `rel=alternate`의 `href`를 가장 먼저 사용하고, 없으면 `entry.link`, 마지막으로 `entry.id`를 fallback으로 사용합니다. 이렇게 얻은 URL도 기존 `normalize_article_url()`을 거쳐 `topic?id=` 식별자는 유지하면서 추적용 Query Parameter는 제거합니다.
+
+`NomaDamas/k-skill`의 `geeknews-search` 구현도 동일한 공개 FeedBurner 피드를 사용하는 것을 확인했지만, 이 프로젝트에서는 해당 Skill/CLI를 런타임 의존성으로 추가하지 않았습니다. Tech News Bot 자체의 Python 수집 흐름 안에서 직접 처리해 GitHub Actions 의존성과 운영 복잡도를 늘리지 않는 방향을 선택했습니다.
+
 ### 2. 신규 글 판별 및 중복 제거
 
 한 번 처리한 글은 `sent_articles.json`에 URL을 저장합니다.
