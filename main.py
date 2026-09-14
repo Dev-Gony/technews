@@ -22,8 +22,12 @@ GEMINI_MODEL = "gemini-3.1-flash-lite"
 SENT_ARTICLES_FILE = "sent_articles.json"
 
 MAX_CONTENT_LENGTH = 12000
-RECENT_ARTICLE_LIMIT = 10
-MAX_ARTICLES_PER_RUN = 10
+
+DEFAULT_RECENT_ARTICLE_LIMIT = 10
+GEEKNEWS_RECENT_ARTICLE_LIMIT = 30
+
+PREFILTER_TEXT_LENGTH = 800
+PREFILTER_SCORE_THRESHOLD = 9
 
 INITIALIZE_ONLY = False
 
@@ -213,6 +217,14 @@ BLOGS = [
         "url": "https://www.uber.com/us/en/blog/engineering/",
         "html_type": "uber",
     },
+    {
+        "name": "GeekNews",
+        "enabled": True,
+        "type": "rss",
+        "rss": "https://news.hada.io/rss/news",
+        "recent_limit": GEEKNEWS_RECENT_ARTICLE_LIMIT,
+        "source_kind": "curation",
+    },
 ]
 
 
@@ -234,13 +246,19 @@ def load_sent_articles():
         return []
 
     except Exception as error:
-        print("발송 기록 읽기 실패:", error)
+        print(
+            "발송 기록 읽기 실패:",
+            error
+        )
+
         return []
 
 
 def save_sent_articles(sent_articles):
     unique_articles = list(
-        dict.fromkeys(sent_articles)
+        dict.fromkeys(
+            sent_articles
+        )
     )
 
     with open(
@@ -260,7 +278,9 @@ def normalize_article_url(url):
     if not url:
         return ""
 
-    parsed = urllib.parse.urlsplit(url)
+    parsed = urllib.parse.urlsplit(
+        url
+    )
 
     return urllib.parse.urlunsplit(
         (
@@ -271,6 +291,29 @@ def normalize_article_url(url):
             ""
         )
     )
+
+
+def normalize_title_for_dedupe(title):
+    if not title:
+        return ""
+
+    normalized = unescape(
+        title
+    ).lower()
+
+    normalized = re.sub(
+        r"\s+",
+        " ",
+        normalized
+    )
+
+    normalized = re.sub(
+        r"[^0-9a-z가-힣 ]",
+        "",
+        normalized
+    )
+
+    return normalized.strip()
 
 
 def clean_html(html_text):
@@ -298,7 +341,9 @@ def clean_html(html_text):
         separator="\n"
     )
 
-    text = unescape(text)
+    text = unescape(
+        text
+    )
 
     lines = []
 
@@ -306,23 +351,47 @@ def clean_html(html_text):
         line = line.strip()
 
         if line:
-            lines.append(line)
+            lines.append(
+                line
+            )
 
-    return "\n".join(lines)
+    return "\n".join(
+        lines
+    )
 
 
 def clean_slack_text(text):
     if not text:
         return ""
 
-    text = unescape(text)
+    text = unescape(
+        text
+    )
 
-    text = text.replace("\\-", "•")
-    text = text.replace("\\*", "*")
-    text = text.replace("\\_", "_")
-    text = text.replace("\\.", ".")
-    text = text.replace("\\(", "(")
-    text = text.replace("\\)", ")")
+    text = text.replace(
+        "\\-",
+        "•"
+    )
+    text = text.replace(
+        "\\*",
+        "*"
+    )
+    text = text.replace(
+        "\\_",
+        "_"
+    )
+    text = text.replace(
+        "\\.",
+        "."
+    )
+    text = text.replace(
+        "\\(",
+        "("
+    )
+    text = text.replace(
+        "\\)",
+        ")"
+    )
 
     text = re.sub(
         r"\*\*(.+?)\*\*",
@@ -415,8 +484,13 @@ def get_feed(blog):
     return feed
 
 
-def get_rss_articles(blog, limit):
-    feed = get_feed(blog)
+def get_rss_articles(
+    blog,
+    limit
+):
+    feed = get_feed(
+        blog
+    )
 
     articles = []
 
@@ -478,13 +552,20 @@ def get_rss_articles(blog, limit):
                 "pub_date": pub_date.strip(),
                 "summary": summary,
                 "rss_content": rss_content,
+                "source_kind": blog.get(
+                    "source_kind",
+                    "direct"
+                ),
             }
         )
 
     return articles
 
 
-def get_socar_articles(blog, limit):
+def get_socar_articles(
+    blog,
+    limit
+):
     print(
         f"HTML 목록 요청: {blog['url']}"
     )
@@ -505,7 +586,10 @@ def get_socar_articles(blog, limit):
     ):
         full_url = urljoin(
             blog["url"],
-            tag.get("href", "")
+            tag.get(
+                "href",
+                ""
+            )
         )
 
         parsed = urlsplit(
@@ -535,7 +619,9 @@ def get_socar_articles(blog, limit):
         if not title:
             continue
 
-        seen_urls.add(url)
+        seen_urls.add(
+            url
+        )
 
         articles.append(
             {
@@ -545,10 +631,16 @@ def get_socar_articles(blog, limit):
                 "pub_date": "",
                 "summary": "",
                 "rss_content": "",
+                "source_kind": blog.get(
+                    "source_kind",
+                    "direct"
+                ),
             }
         )
 
-        if len(articles) >= limit:
+        if len(
+            articles
+        ) >= limit:
             break
 
     if not articles:
@@ -559,7 +651,10 @@ def get_socar_articles(blog, limit):
     return articles
 
 
-def get_uber_articles(blog, limit):
+def get_uber_articles(
+    blog,
+    limit
+):
     print(
         f"HTML 목록 요청: {blog['url']}"
     )
@@ -580,7 +675,10 @@ def get_uber_articles(blog, limit):
     ):
         full_url = urljoin(
             blog["url"],
-            tag.get("href", "")
+            tag.get(
+                "href",
+                ""
+            )
         )
 
         parsed = urlsplit(
@@ -593,7 +691,9 @@ def get_uber_articles(blog, limit):
         ):
             continue
 
-        if parsed.path.rstrip("/") == (
+        if parsed.path.rstrip(
+            "/"
+        ) == (
             "/us/en/blog/engineering"
         ):
             continue
@@ -612,10 +712,14 @@ def get_uber_articles(blog, limit):
             )
         )
 
-        if len(title) < 5:
+        if len(
+            title
+        ) < 5:
             continue
 
-        seen_urls.add(url)
+        seen_urls.add(
+            url
+        )
 
         articles.append(
             {
@@ -625,10 +729,16 @@ def get_uber_articles(blog, limit):
                 "pub_date": "",
                 "summary": "",
                 "rss_content": "",
+                "source_kind": blog.get(
+                    "source_kind",
+                    "direct"
+                ),
             }
         )
 
-        if len(articles) >= limit:
+        if len(
+            articles
+        ) >= limit:
             break
 
     if not articles:
@@ -639,7 +749,10 @@ def get_uber_articles(blog, limit):
     return articles
 
 
-def get_html_articles(blog, limit):
+def get_html_articles(
+    blog,
+    limit
+):
     html_type = blog.get(
         "html_type"
     )
@@ -663,7 +776,7 @@ def get_html_articles(blog, limit):
 
 def get_recent_articles(
     blog,
-    limit=10
+    limit=DEFAULT_RECENT_ARTICLE_LIMIT
 ):
     if blog["type"] == "rss":
         return get_rss_articles(
@@ -682,89 +795,161 @@ def get_recent_articles(
     )
 
 
-def get_content_from_rss(article):
-    rss_content = article.get(
-        "rss_content",
-        ""
-    )
+def deduplicate_candidate_articles(
+    articles
+):
+    deduplicated = []
+    url_positions = {}
+    title_positions = {}
 
-    if rss_content:
-        cleaned = clean_html(
-            rss_content
-        )
-
-        if len(cleaned) >= 200:
-            return cleaned[
-                :MAX_CONTENT_LENGTH
-            ]
-
-    summary = article.get(
-        "summary",
-        ""
-    )
-
-    if summary:
-        cleaned = clean_html(
-            summary
-        )
-
-        if len(cleaned) >= 200:
-            return cleaned[
-                :MAX_CONTENT_LENGTH
-            ]
-
-    return ""
-
-
-def download_article_page(article):
-    try:
-        html = download_html(
-            article["link"]
-        )
-
-        soup = BeautifulSoup(
-            html,
-            "html.parser"
-        )
-
-        main_content = (
-            soup.find("article")
-            or soup.find("main")
-        )
-
-        if main_content:
-            content = clean_html(
-                str(main_content)
+    for article in articles:
+        url_key = normalize_article_url(
+            article.get(
+                "link",
+                ""
             )
-        else:
-            content = clean_html(
-                html
+        )
+
+        title_key = normalize_title_for_dedupe(
+            article.get(
+                "title",
+                ""
+            )
+        )
+
+        duplicate_position = None
+
+        if (
+            url_key
+            and url_key in url_positions
+        ):
+            duplicate_position = (
+                url_positions[url_key]
             )
 
-        return content[
-            :MAX_CONTENT_LENGTH
+        elif (
+            title_key
+            and title_key in title_positions
+        ):
+            duplicate_position = (
+                title_positions[title_key]
+            )
+
+        if duplicate_position is None:
+            position = len(
+                deduplicated
+            )
+
+            deduplicated.append(
+                article
+            )
+
+            if url_key:
+                url_positions[
+                    url_key
+                ] = position
+
+            if title_key:
+                title_positions[
+                    title_key
+                ] = position
+
+            continue
+
+        existing = deduplicated[
+            duplicate_position
         ]
 
-    except Exception as error:
-        print(
-            "본문 페이지 가져오기 실패:",
-            error
+        existing_kind = existing.get(
+            "source_kind",
+            "direct"
         )
 
+        new_kind = article.get(
+            "source_kind",
+            "direct"
+        )
+
+        if (
+            existing_kind == "curation"
+            and new_kind == "direct"
+        ):
+            deduplicated[
+                duplicate_position
+            ] = article
+
+            if url_key:
+                url_positions[
+                    url_key
+                ] = duplicate_position
+
+            if title_key:
+                title_positions[
+                    title_key
+                ] = duplicate_position
+
+    return deduplicated
+
+
+def get_prefilter_text(
+    article
+):
+    rss_content = clean_html(
+        article.get(
+            "rss_content",
+            ""
+        )
+    )
+
+    summary = clean_html(
+        article.get(
+            "summary",
+            ""
+        )
+    )
+
+    text = rss_content or summary
+
+    return text[
+        :PREFILTER_TEXT_LENGTH
+    ]
+
+
+def extract_json_text(text):
+    if not text:
         return ""
 
+    text = text.strip()
 
-def get_article_content(article):
-    content = get_content_from_rss(
-        article
+    fenced_match = re.search(
+        r"```(?:json)?\s*(.*?)```",
+        text,
+        re.S | re.I
     )
 
-    if content:
-        return content
+    if fenced_match:
+        text = fenced_match.group(
+            1
+        ).strip()
 
-    return download_article_page(
-        article
+    first_bracket = text.find(
+        "["
     )
+
+    last_bracket = text.rfind(
+        "]"
+    )
+
+    if (
+        first_bracket >= 0
+        and last_bracket > first_bracket
+    ):
+        return text[
+            first_bracket:
+            last_bracket + 1
+        ]
+
+    return text
 
 
 def call_gemini(prompt):
@@ -930,16 +1115,384 @@ def call_gemini(prompt):
     )
 
 
+def select_relevant_articles(
+    candidate_articles
+):
+    if not candidate_articles:
+        return [], []
+
+    article_inputs = []
+
+    for index, article in enumerate(
+        candidate_articles,
+        start=1
+    ):
+        preview = get_prefilter_text(
+            article
+        )
+
+        article_inputs.append(
+            f"""
+기사 번호: {index}
+출처: {article["company"]}
+출처 유형: {article.get("source_kind", "direct")}
+제목: {article["title"]}
+게시일: {article["pub_date"]}
+RSS 미리보기:
+{preview if preview else "(미리보기 없음)"}
+"""
+        )
+
+    combined = "\n".join(
+        article_inputs
+    )
+
+    prompt = f"""
+너는 개발자와 IT 실무자를 위한 기술 뉴스 편집자다.
+
+아래는 오늘 새로 발견된 기술 콘텐츠 후보들이다.
+
+아직 각 글의 전체 본문을 읽기 전이다.
+제목과 RSS 미리보기만 보고
+상세 본문을 읽을 가치가 있는 글을 선별해야 한다.
+
+사용자의 우선 관심 분야:
+
+1. AI Agent / Agentic Workflow
+2. LLM / RAG / MCP
+3. Python
+4. 데이터 분석
+5. SQL
+6. 업무 자동화
+7. 서버 / 클라우드 / 인프라
+8. 백엔드 아키텍처
+9. 실제 기업의 기술 적용 사례
+10. 비용 절감 / 성능 개선 / 운영 효율화
+11. 개발 생산성 / Developer Tools
+12. GitHub 및 소프트웨어 개발 워크플로
+
+판단 기준은 세 가지다.
+
+relevance:
+사용자의 관심 분야 및 현재 학습/개발 방향과 얼마나 관련 있는지
+0~5점
+
+practical_value:
+실무, 프로젝트, 학습에 실제로 활용할 가치가 얼마나 있는지
+0~5점
+
+significance:
+새로운 기술 변화, 중요한 발표, 보안 이슈,
+업계 변화 또는 알아둘 가치가 얼마나 큰지
+0~5점
+
+total_score는 세 점수의 합계다.
+
+기본적으로 total_score가
+{PREFILTER_SCORE_THRESHOLD}점 이상이면 selected를 true로 한다.
+
+하지만 다음과 같은 경우에는
+점수가 조금 낮더라도 selected를 true로 할 수 있다.
+
+- 개발자가 알아야 할 큰 보안 사고
+- 주요 플랫폼이나 개발도구의 중요한 변경
+- AI 또는 소프트웨어 산업의 큰 변화
+- 널리 사용되는 기술의 중대한 장애나 정책 변화
+
+반대로 다음 글은 제외하는 쪽으로 판단한다.
+
+- 단순 홍보성 콘텐츠
+- 기술적 내용이 거의 없는 기업 소식
+- 제목만 자극적이고 실질 내용이 약한 글
+- 사용자의 관심 분야와 거의 무관하고 업계 중요도도 낮은 글
+- 동일하거나 사실상 같은 주제의 반복 콘텐츠
+
+직접 구독 중인 기업 기술블로그는
+사용자가 의도적으로 선택한 출처라는 점을 약간 고려할 수 있다.
+
+GeekNews는 새로운 콘텐츠를 발견하기 위한 큐레이션 출처다.
+GeekNews라는 이유만으로 점수를 높이거나 낮추지 않는다.
+
+중요:
+선정 개수를 미리 정하지 않는다.
+
+볼 가치가 있는 글이 2개면 2개만 선택하고,
+볼 가치가 있는 글이 12개면 12개 모두 선택한다.
+
+결과는 반드시 JSON 배열만 반환한다.
+
+다른 설명이나 Markdown 코드블록은 출력하지 않는다.
+
+각 요소 형식:
+
+{{
+  "index": 1,
+  "relevance": 0,
+  "practical_value": 0,
+  "significance": 0,
+  "total_score": 0,
+  "selected": true,
+  "reason": "선정 또는 제외 이유를 한국어 한 문장으로 작성"
+}}
+
+후보 목록:
+
+{combined}
+"""
+
+    result = call_gemini(
+        prompt
+    )
+
+    json_text = extract_json_text(
+        result
+    )
+
+    parsed = json.loads(
+        json_text
+    )
+
+    if not isinstance(
+        parsed,
+        list
+    ):
+        raise ValueError(
+            "기사 선별 결과가 JSON 배열이 아닙니다."
+        )
+
+    decisions = {}
+
+    for item in parsed:
+        if not isinstance(
+            item,
+            dict
+        ):
+            continue
+
+        try:
+            index = int(
+                item.get(
+                    "index"
+                )
+            )
+
+        except (
+            TypeError,
+            ValueError
+        ):
+            continue
+
+        if (
+            index < 1
+            or index > len(
+                candidate_articles
+            )
+        ):
+            continue
+
+        decisions[
+            index
+        ] = item
+
+    selected_articles = []
+    excluded_articles = []
+
+    for index, article in enumerate(
+        candidate_articles,
+        start=1
+    ):
+        decision = decisions.get(
+            index
+        )
+
+        if decision is None:
+            article[
+                "selection_score"
+            ] = None
+
+            article[
+                "selection_reason"
+            ] = (
+                "Gemini 선별 결과에 해당 번호가 없어 "
+                "안전하게 상세 분석 대상으로 포함"
+            )
+
+            selected_articles.append(
+                article
+            )
+
+            continue
+
+        try:
+            total_score = int(
+                decision.get(
+                    "total_score",
+                    0
+                )
+            )
+
+        except (
+            TypeError,
+            ValueError
+        ):
+            total_score = 0
+
+        selected = decision.get(
+            "selected",
+            False
+        )
+
+        if isinstance(
+            selected,
+            str
+        ):
+            selected = (
+                selected
+                .strip()
+                .lower()
+                == "true"
+            )
+
+        article[
+            "selection_score"
+        ] = total_score
+
+        article[
+            "selection_reason"
+        ] = str(
+            decision.get(
+                "reason",
+                ""
+            )
+        ).strip()
+
+        if selected:
+            selected_articles.append(
+                article
+            )
+
+        else:
+            excluded_articles.append(
+                article
+            )
+
+    return (
+        selected_articles,
+        excluded_articles
+    )
+
+
+def get_content_from_rss(article):
+    rss_content = article.get(
+        "rss_content",
+        ""
+    )
+
+    if rss_content:
+        cleaned = clean_html(
+            rss_content
+        )
+
+        if len(
+            cleaned
+        ) >= 200:
+            return cleaned[
+                :MAX_CONTENT_LENGTH
+            ]
+
+    summary = article.get(
+        "summary",
+        ""
+    )
+
+    if summary:
+        cleaned = clean_html(
+            summary
+        )
+
+        if len(
+            cleaned
+        ) >= 200:
+            return cleaned[
+                :MAX_CONTENT_LENGTH
+            ]
+
+    return ""
+
+
+def download_article_page(article):
+    try:
+        html = download_html(
+            article["link"]
+        )
+
+        soup = BeautifulSoup(
+            html,
+            "html.parser"
+        )
+
+        main_content = (
+            soup.find("article")
+            or soup.find("main")
+        )
+
+        if main_content:
+            content = clean_html(
+                str(
+                    main_content
+                )
+            )
+
+        else:
+            content = clean_html(
+                html
+            )
+
+        return content[
+            :MAX_CONTENT_LENGTH
+        ]
+
+    except Exception as error:
+        print(
+            "본문 페이지 가져오기 실패:",
+            error
+        )
+
+        return ""
+
+
+def get_article_content(article):
+    content = get_content_from_rss(
+        article
+    )
+
+    if content:
+        return content
+
+    return download_article_page(
+        article
+    )
+
+
 def summarize_article(
     article,
     content
 ):
+    selection_score = article.get(
+        "selection_score"
+    )
+
+    selection_reason = article.get(
+        "selection_reason",
+        ""
+    )
+
     prompt = f"""
 너는 개발자를 위한 기술 블로그 요약 편집자다.
 
 아래 글을 읽고 한국어로 간단하고 정확하게 요약한다.
 
-회사:
+출처:
 {article["company"]}
 
 제목:
@@ -947,6 +1500,12 @@ def summarize_article(
 
 게시일:
 {article["pub_date"]}
+
+1차 선별 점수:
+{selection_score}
+
+1차 선별 이유:
+{selection_reason}
 
 본문:
 {content}
@@ -996,17 +1555,25 @@ def create_daily_editorial(
         summarized_articles,
         start=1
     ):
-        article = item["article"]
+        article = item[
+            "article"
+        ]
 
         editorial_input.append(
             f"""
 글 {index}
 
-회사:
+출처:
 {article["company"]}
 
 제목:
 {article["title"]}
+
+1차 선별 점수:
+{article.get("selection_score")}
+
+1차 선별 이유:
+{article.get("selection_reason", "")}
 
 요약:
 {item["summary"]}
@@ -1021,7 +1588,7 @@ def create_daily_editorial(
 너는 개발자와 IT 실무자를 위한
 아침 기술 뉴스레터의 편집장이다.
 
-오늘 발견된 기술 블로그 글들의 요약이 아래에 있다.
+오늘 선별된 기술 글들의 요약이 아래에 있다.
 
 {combined}
 
@@ -1038,6 +1605,8 @@ def create_daily_editorial(
 8. 백엔드 아키텍처
 9. 실제 기업의 기술 적용 사례
 10. 비용 절감 / 성능 개선 / 운영 효율화
+11. 개발 생산성 / Developer Tools
+12. GitHub 및 소프트웨어 개발 워크플로
 
 
 중요도 판단 기준:
@@ -1048,6 +1617,7 @@ def create_daily_editorial(
 • 기업이 실제 문제를 어떻게 해결했는가
 • 성능, 비용, 생산성, 안정성 개선 사례가 있는가
 • 학습 가치가 높은가
+• 개발 생태계에서 중요도가 높은 변화인가
 
 AI라는 단어가 포함됐다는 이유만으로
 무조건 높은 점수를 주면 안 된다.
@@ -1060,7 +1630,9 @@ AI라는 단어가 포함됐다는 이유만으로
 
 [오늘 꼭 볼 글 번호]
 
-가장 읽을 가치가 높은 글을 최대 3개 선정한다.
+오늘 선별된 글 중에서도
+가장 우선해서 읽을 가치가 높은 글을
+최대 3개 선정한다.
 
 번호만 중요도 순서대로 쉼표로 작성한다.
 
@@ -1090,8 +1662,9 @@ AI라는 단어가 포함됐다는 이유만으로
 
 [왜 이 글들을 골랐나]
 
-선정한 글 각각에 대해
-왜 읽을 가치가 있는지 한 문장씩 작성한다.
+오늘 꼭 볼 글로 선정한 각각의 글에 대해
+왜 우선해서 읽을 가치가 있는지
+한 문장씩 작성한다.
 
 글이 1개면 1개만,
 글이 2개면 2개만,
@@ -1138,7 +1711,9 @@ def parse_top_indices(editorial):
 
     values = []
 
-    for raw in match.group(1).split(","):
+    for raw in match.group(
+        1
+    ).split(","):
         raw = raw.strip()
 
         if raw.isdigit():
@@ -1174,7 +1749,9 @@ def split_slack_messages(
 ):
     messages = []
 
-    while len(text) > limit:
+    while len(
+        text
+    ) > limit:
         split_at = text.rfind(
             "\n",
             0,
@@ -1231,7 +1808,9 @@ def send_slack_text(text):
         result = (
             response
             .read()
-            .decode("utf-8")
+            .decode(
+                "utf-8"
+            )
         )
 
     if result != "ok":
@@ -1244,7 +1823,9 @@ def build_digest(
     summarized_articles,
     editorial,
     top_indices,
-    failed_blogs
+    failed_blogs,
+    candidate_count,
+    excluded_count
 ):
     now = datetime.now(
         ZoneInfo(
@@ -1261,7 +1842,9 @@ def build_digest(
         "",
         "AI · 데이터 · 자동화 · 백엔드 중심 아침 기술 브리핑",
         "",
-        f"오늘 새 글: *{len(summarized_articles)}개*",
+        f"오늘 확인한 새 글: *{candidate_count}개*",
+        f"AI 선별 후 읽을 글: *{len(summarized_articles)}개*",
+        f"선별 제외: *{excluded_count}개*",
         "",
         "━━━━━━━━━━━━━━━━━━",
         "🔥 *오늘 꼭 볼 글*",
@@ -1288,11 +1871,24 @@ def build_digest(
             index - 1
         ]
 
-        article = item["article"]
+        article = item[
+            "article"
+        ]
+
+        score = article.get(
+            "selection_score"
+        )
+
+        score_text = ""
+
+        if score is not None:
+            score_text = (
+                f" · 선별점수 {score}/15"
+            )
 
         parts.extend(
             [
-                f"*{position}. {article['company']}*",
+                f"*{position}. {article['company']}*{score_text}",
                 f"*{article['title']}*",
                 "",
                 item["summary"],
@@ -1319,13 +1915,15 @@ def build_digest(
         parts.extend(
             [
                 "━━━━━━━━━━━━━━━━━━",
-                "📚 *나머지 새 글*",
+                "📚 *그 외 읽을 가치가 있는 글*",
                 "",
             ]
         )
 
         for item in remaining:
-            article = item["article"]
+            article = item[
+                "article"
+            ]
 
             one_line = item[
                 "summary"
@@ -1347,21 +1945,37 @@ def build_digest(
             else:
                 one_line = (
                     one_line
-                    .replace("\n", " ")
+                    .replace(
+                        "\n",
+                        " "
+                    )
                     [:180]
+                )
+
+            score = article.get(
+                "selection_score"
+            )
+
+            score_text = ""
+
+            if score is not None:
+                score_text = (
+                    f" [{score}/15]"
                 )
 
             parts.extend(
                 [
-                    f"• *{article['company']}* — {article['title']}",
+                    f"• *{article['company']}*{score_text} — {article['title']}",
                     f"  {one_line}",
                     f"  🔗 {article['link']}",
                     "",
                 ]
             )
 
-    cleaned_editorial = remove_internal_editorial_sections(
-        editorial
+    cleaned_editorial = (
+        remove_internal_editorial_sections(
+            editorial
+        )
     )
 
     parts.extend(
@@ -1386,7 +2000,9 @@ def build_digest(
         )
 
     return clean_slack_text(
-        "\n".join(parts)
+        "\n".join(
+            parts
+        )
     )
 
 
@@ -1415,12 +2031,16 @@ def main():
 
     print(
         "활성 블로그:",
-        len(enabled_blogs)
+        len(
+            enabled_blogs
+        )
     )
 
     print(
         "기존 발송 기록:",
-        len(sent_articles)
+        len(
+            sent_articles
+        )
     )
 
     print(
@@ -1439,9 +2059,19 @@ def main():
                 blog["name"]
             )
 
+            recent_limit = blog.get(
+                "recent_limit",
+                DEFAULT_RECENT_ARTICLE_LIMIT
+            )
+
+            print(
+                "최근 확인 범위:",
+                recent_limit
+            )
+
             articles = get_recent_articles(
                 blog,
-                RECENT_ARTICLE_LIMIT
+                recent_limit
             )
 
             new_articles = [
@@ -1454,7 +2084,9 @@ def main():
 
             print(
                 "새 글 수:",
-                len(new_articles)
+                len(
+                    new_articles
+                )
             )
 
             new_articles.reverse()
@@ -1467,7 +2099,9 @@ def main():
             print(
                 "[오류]",
                 blog["name"],
-                repr(error)
+                repr(
+                    error
+                )
             )
 
             failed_blogs.append(
@@ -1476,8 +2110,23 @@ def main():
 
     print()
     print(
-        "전체 새 글 후보:",
-        len(candidate_articles)
+        "중복 제거 전 새 글 후보:",
+        len(
+            candidate_articles
+        )
+    )
+
+    candidate_articles = (
+        deduplicate_candidate_articles(
+            candidate_articles
+        )
+    )
+
+    print(
+        "중복 제거 후 새 글 후보:",
+        len(
+            candidate_articles
+        )
     )
 
     if not candidate_articles:
@@ -1487,15 +2136,96 @@ def main():
 
         return
 
-    candidate_articles = (
-        candidate_articles[
-            :MAX_ARTICLES_PER_RUN
-        ]
+    print()
+    print(
+        "Gemini 1차 기사 선별 시작"
+    )
+
+    try:
+        (
+            selected_articles,
+            excluded_articles
+        ) = select_relevant_articles(
+            candidate_articles
+        )
+
+        print(
+            "1차 선별 완료"
+        )
+
+        print(
+            "상세 분석 대상:",
+            len(
+                selected_articles
+            )
+        )
+
+        print(
+            "선별 제외:",
+            len(
+                excluded_articles
+            )
+        )
+
+    except Exception as error:
+        print(
+            "1차 기사 선별 실패:",
+            repr(
+                error
+            )
+        )
+
+        print(
+            "중요한 글 누락 방지를 위해 "
+            "모든 후보를 상세 분석합니다."
+        )
+
+        selected_articles = (
+            candidate_articles
+        )
+
+        excluded_articles = []
+
+        for article in (
+            selected_articles
+        ):
+            article[
+                "selection_score"
+            ] = None
+
+            article[
+                "selection_reason"
+            ] = (
+                "1차 선별 실패로 안전하게 상세 분석 대상에 포함"
+            )
+
+    if not selected_articles:
+        print(
+            "오늘은 선별 기준을 통과한 글이 없습니다."
+        )
+
+        for article in excluded_articles:
+            if article.get(
+                "link"
+            ):
+                sent_articles.append(
+                    article["link"]
+                )
+
+        save_sent_articles(
+            sent_articles
+        )
+
+        return
+
+    print()
+    print(
+        "상세 요약 시작"
     )
 
     summarized_articles = []
 
-    for article in candidate_articles:
+    for article in selected_articles:
         print()
         print(
             "요약 처리:",
@@ -1504,6 +2234,28 @@ def main():
             article["title"]
         )
 
+        if (
+            article.get(
+                "selection_score"
+            )
+            is not None
+        ):
+            print(
+                "선별 점수:",
+                article[
+                    "selection_score"
+                ],
+                "/15"
+            )
+
+            print(
+                "선별 이유:",
+                article.get(
+                    "selection_reason",
+                    ""
+                )
+            )
+
         try:
             content = get_article_content(
                 article
@@ -1511,7 +2263,7 @@ def main():
 
             if not content:
                 print(
-                    "본문 없음 - 건너뜀"
+                    "본문 없음 - 이번 실행에서는 건너뜀"
                 )
 
                 continue
@@ -1531,12 +2283,26 @@ def main():
         except Exception as error:
             print(
                 "요약 실패:",
-                repr(error)
+                repr(
+                    error
+                )
             )
 
     if not summarized_articles:
         print(
             "Slack으로 보낼 요약이 없습니다."
+        )
+
+        for article in excluded_articles:
+            if article.get(
+                "link"
+            ):
+                sent_articles.append(
+                    article["link"]
+                )
+
+        save_sent_articles(
+            sent_articles
         )
 
         return
@@ -1554,7 +2320,9 @@ def main():
     except Exception as error:
         print(
             "편집 브리핑 생성 실패:",
-            repr(error)
+            repr(
+                error
+            )
         )
 
         editorial = (
@@ -1585,7 +2353,13 @@ def main():
         summarized_articles,
         editorial,
         top_indices,
-        failed_blogs
+        failed_blogs,
+        candidate_count=len(
+            candidate_articles
+        ),
+        excluded_count=len(
+            excluded_articles
+        )
     )
 
     messages = split_slack_messages(
@@ -1597,12 +2371,21 @@ def main():
         start=1
     ):
         print(
-            f"Slack 발송 {index}/{len(messages)}"
+            f"Slack 발송 "
+            f"{index}/{len(messages)}"
         )
 
         send_slack_text(
             message
         )
+
+    for article in excluded_articles:
+        if article.get(
+            "link"
+        ):
+            sent_articles.append(
+                article["link"]
+            )
 
     for item in summarized_articles:
         sent_articles.append(
@@ -1618,8 +2401,24 @@ def main():
     )
 
     print(
+        "전체 후보:",
+        len(
+            candidate_articles
+        )
+    )
+
+    print(
+        "선별 제외:",
+        len(
+            excluded_articles
+        )
+    )
+
+    print(
         "발송 글:",
-        len(summarized_articles)
+        len(
+            summarized_articles
+        )
     )
 
 
