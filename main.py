@@ -282,12 +282,36 @@ def normalize_article_url(url):
         url
     )
 
+    query = ""
+
+    # GeekNews 글은 ?id=숫자가 글의 고유 식별자이므로
+    # id 파라미터를 반드시 유지한다.
+    if (
+        parsed.netloc == "news.hada.io"
+        and parsed.path.rstrip("/") == "/topic"
+    ):
+        query_params = urllib.parse.parse_qs(
+            parsed.query
+        )
+
+        topic_id = query_params.get(
+            "id",
+            []
+        )
+
+        if topic_id:
+            query = urllib.parse.urlencode(
+                {
+                    "id": topic_id[0]
+                }
+            )
+
     return urllib.parse.urlunsplit(
         (
             parsed.scheme,
             parsed.netloc,
             parsed.path.rstrip("/"),
-            "",
+            query,
             ""
         )
     )
@@ -495,12 +519,6 @@ def get_rss_articles(
     articles = []
 
     for entry in feed.entries[:limit]:
-        if blog["name"] == "GeekNews":
-            print("GeekNews entry title:", entry.get("title"))
-            print("GeekNews entry link:", entry.get("link"))
-            print("GeekNews entry id:", entry.get("id"))
-            print("GeekNews entry links:", entry.get("links"))
-            print("-" * 40)
         title = unescape(
             entry.get(
                 "title",
