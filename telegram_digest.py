@@ -1,3 +1,4 @@
+import html
 import json
 import re
 
@@ -9,12 +10,30 @@ DIGEST_RECENT_LIMIT = 5
 DIGEST_SHORTLIST_LIMIT = 25
 DIGEST_RESULT_LIMIT = 3
 DIGEST_PREVIEW_LENGTH = 350
+DIGEST_TITLE_LENGTH = 90
+DIGEST_TEXT_LENGTH = 140
 
 
 def _normalize_text(text):
     text = str(text or "").casefold()
     text = re.sub(r"[^0-9a-z가-힣+#. ]", " ", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _clip_text(text, limit):
+    text = re.sub(r"\s+", " ", str(text or "")).strip()
+
+    if len(text) <= limit:
+        return text
+
+    return text[: limit - 1].rstrip() + "…"
+
+
+def _escape(text, limit=None):
+    if limit is not None:
+        text = _clip_text(text, limit)
+
+    return html.escape(str(text or ""), quote=True)
 
 
 def _query_tokens(query):
@@ -289,6 +308,7 @@ def _build_summary_prompt(query, ranked_items):
 - takeaway: 사용자가 가져갈 실무/학습 포인트 한 문장
 
 제공된 내용 밖의 사실을 만들지 않는다.
+각 문장은 모바일 메신저에서 빠르게 읽을 수 있도록 짧고 직접적으로 쓴다.
 결과는 JSON 배열만 반환한다.
 
 형식:
@@ -360,12 +380,13 @@ def build_digest_message(query, items, failed_sources=None):
 
     if not items:
         return (
-            f"'{query}' 주제로 지금 확인한 기술 소스에서는 "
+            f"'{_escape(query)}' 주제로 지금 확인한 기술 소스에서는 "
             "추천할 만한 새 글을 찾지 못했습니다."
         )
 
     lines = [
-        f"🔎 {query} — 온디맨드 Tech Digest",
+        f"🔎 <b>{_escape(query, 60)} Tech Digest</b>",
+        f"지금 볼 만한 기사 {len(items)}개를 골랐어요.",
         "",
     ]
 
@@ -375,28 +396,57 @@ def build_digest_message(query, items, failed_sources=None):
     ):
         article = item["article"]
         summary = item.get("summary", {})
+        one_line = (
+            summary.get("one_line")
+            or item.get("reason")
+            or ""
+        )
+        why_it_matters = summary.get(
+            "why_it_matters",
+            "",
+        )
+        takeaway = summary.get(
+            "takeaway",
+            "",
+        )
 
         lines.extend(
             [
-                f"{position}. {article['title']}",
-                f"출처: {article['company']} · 점수 {item['score']}/15",
-                f"핵심: {summary.get('one_line') or item['reason']}",
                 (
-                    "왜 중요?: "
-                    f"{summary.get('why_it_matters', '').strip()}"
-                ).rstrip(),
+                    f"<b>{position}. "
+                    f"{_escape(article['title'], DIGEST_TITLE_LENGTH)}</b>"
+                ),
                 (
-                    "가져갈 것: "
-                    f"{summary.get('takeaway', '').strip()}"
-                ).rstrip(),
-                f"링크: {article['link']}",
+                    f"{_escape(article['company'], 40)}"
+                    f" · {item['score']}/15"
+                ),
+                _escape(one_line, DIGEST_TEXT_LENGTH),
+            ]
+        )
+
+        if why_it_matters:
+            lines.append(
+                f"💡 {_escape(why_it_matters, DIGEST_TEXT_LENGTH)}"
+            )
+
+        if takeaway:
+            lines.append(
+                f"🛠 {_escape(takeaway, DIGEST_TEXT_LENGTH)}"
+            )
+
+        lines.extend(
+            [
+                (
+                    f"<a href=\"{_escape(article['link'])}\">"
+                    "원문 보기 ↗</a>"
+                ),
                 "",
             ]
         )
 
     if failed_sources:
         lines.append(
-            f"수집 실패 소스: {len(failed_sources)}개"
+            f"ℹ️ 일부 소스 {len(failed_sources)}곳은 수집하지 못했어요."
         )
 
     return "\n".join(lines).strip()[:3900]

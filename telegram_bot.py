@@ -283,13 +283,26 @@ def get_updates(offset=None):
     )
 
 
-def send_message(chat_id, text):
+def send_message(
+    chat_id,
+    text,
+    parse_mode=None,
+    disable_web_page_preview=False,
+):
+    payload = {
+        "chat_id": chat_id,
+        "text": text,
+    }
+
+    if parse_mode:
+        payload["parse_mode"] = parse_mode
+
+    if disable_web_page_preview:
+        payload["disable_web_page_preview"] = "true"
+
     return _telegram_request(
         "sendMessage",
-        {
-            "chat_id": chat_id,
-            "text": text,
-        },
+        payload,
     )
 
 
