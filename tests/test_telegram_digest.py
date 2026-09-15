@@ -49,7 +49,6 @@ class TelegramDigestHelperTest(unittest.TestCase):
                 "summary": {
                     "one_line": "MCP 도구 연결 사례",
                     "why_it_matters": "Agent 도구 연결에 활용 가능",
-                    "takeaway": "도구 경계를 작게 설계",
                 },
             }
         ]
@@ -60,12 +59,13 @@ class TelegramDigestHelperTest(unittest.TestCase):
         )
 
         self.assertIn("<b>MCP Tech Digest</b>", message)
-        self.assertIn("지금 볼 만한 기사 1개", message)
+        self.assertIn("오늘 볼 만한 기사 1개", message)
         self.assertIn("<b>1. MCP Example</b>", message)
+        self.assertIn("MCP 도구 연결 사례", message)
         self.assertIn("💡 Agent 도구 연결에 활용 가능", message)
-        self.assertIn("🛠 도구 경계를 작게 설계", message)
         self.assertIn("원문 보기 ↗", message)
         self.assertIn("x=1&amp;y=2", message)
+        self.assertNotIn("🛠", message)
         self.assertNotIn("링크: https://", message)
 
     def test_build_digest_message_escapes_html(self):
@@ -81,7 +81,6 @@ class TelegramDigestHelperTest(unittest.TestCase):
                 "summary": {
                     "one_line": "A < B 구조",
                     "why_it_matters": "안전한 표시",
-                    "takeaway": "HTML escape 적용",
                 },
             }
         ]
