@@ -78,6 +78,50 @@ class TelegramSyncTest(unittest.TestCase):
                 original_token
             )
 
+    @mock.patch.object(
+        telegram_sync.telegram_bot,
+        "send_message",
+    )
+    @mock.patch.object(
+        telegram_sync,
+        "create_on_demand_digest",
+        return_value="digest result",
+    )
+    def test_digest_command_is_routed(
+        self,
+        mock_digest,
+        mock_send_message,
+    ):
+        original_chat_id = (
+            telegram_sync.telegram_bot.TELEGRAM_ALLOWED_CHAT_ID
+        )
+
+        telegram_sync.telegram_bot.TELEGRAM_ALLOWED_CHAT_ID = "123"
+
+        try:
+            handled = telegram_sync._process_digest_message(
+                {
+                    "chat": {"id": 123},
+                    "text": "/digest MCP",
+                }
+            )
+
+            self.assertTrue(handled)
+            mock_digest.assert_called_once_with("MCP")
+            self.assertEqual(
+                mock_send_message.call_count,
+                2,
+            )
+            self.assertEqual(
+                mock_send_message.call_args_list[-1],
+                mock.call(123, "digest result"),
+            )
+
+        finally:
+            telegram_sync.telegram_bot.TELEGRAM_ALLOWED_CHAT_ID = (
+                original_chat_id
+            )
+
     def test_missing_token_fails_fast(self):
         original_token = (
             telegram_sync.telegram_bot.TELEGRAM_BOT_TOKEN
