@@ -1,0 +1,52 @@
+name: Telegram Preference Poll
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "*/5 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-preference-bot
+  cancel-in-progress: false
+
+jobs:
+  poll-telegram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Run Telegram polling
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_ALLOWED_CHAT_ID: ${{ secrets.TELEGRAM_ALLOWED_CHAT_ID }}
+        run: python telegram_sync.py
+
+      - name: Save Telegram state and preferences
+        run: |
+          if git diff --quiet config/user_preferences.json config/telegram_state.json; then
+            echo "No Telegram state or preference changes to save."
+            exit 0
+          fi
+
+          git config user.name "telegram-preference-bot"
+          git config user.email "telegram-preference-bot@users.noreply.github.com"
+
+          git add config/user_preferences.json config/telegram_state.json
+          git commit -m "Update Telegram preference state"
+
+          git pull --rebase origin main
+          git push origin main
