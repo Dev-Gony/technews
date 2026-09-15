@@ -14,6 +14,8 @@ from zoneinfo import ZoneInfo
 import feedparser
 from bs4 import BeautifulSoup
 
+from preferences import load_user_preferences
+
 
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -31,8 +33,9 @@ PREFILTER_TEXT_LENGTH = 800
 PREFILTER_BATCH_SIZE = 10
 DETAIL_BATCH_SIZE = 5
 
-BRIEF_SCORE_THRESHOLD = 9
-DETAILED_SCORE_THRESHOLD = 11
+USER_PREFERENCES = load_user_preferences()
+BRIEF_SCORE_THRESHOLD = USER_PREFERENCES["scoring"]["brief_threshold"]
+DETAILED_SCORE_THRESHOLD = USER_PREFERENCES["scoring"]["detailed_threshold"]
 
 INITIALIZE_ONLY = False
 
@@ -1283,6 +1286,27 @@ RSS 미리보기:
         article_inputs
     )
 
+    interest_lines = "\n".join(
+        f"{index}. {interest}"
+        for index, interest in enumerate(
+            USER_PREFERENCES["interests"],
+            start=1,
+        )
+    )
+
+    avoid_topics = USER_PREFERENCES.get(
+        "avoid_topics",
+        [],
+    )
+
+    if avoid_topics:
+        avoid_lines = "\n".join(
+            f"- {topic}"
+            for topic in avoid_topics
+        )
+    else:
+        avoid_lines = "(없음)"
+
     return f"""
 너는 개발자와 IT 실무자를 위한 기술 뉴스 편집자다.
 
@@ -1290,18 +1314,14 @@ RSS 미리보기:
 
 사용자의 우선 관심 분야:
 
-1. AI Agent / Agentic Workflow
-2. LLM / RAG / MCP
-3. Python
-4. 데이터 분석
-5. SQL
-6. 업무 자동화
-7. 서버 / 클라우드 / 인프라
-8. 백엔드 아키텍처
-9. 실제 기업의 기술 적용 사례
-10. 비용 절감 / 성능 개선 / 운영 효율화
-11. 개발 생산성 / Developer Tools
-12. GitHub 및 소프트웨어 개발 워크플로
+{interest_lines}
+
+사용자가 우선순위를 낮추고 싶은 주제:
+
+{avoid_lines}
+
+avoid_topics는 강제 제외 규칙이 아니다.
+관련성이 높거나 업계적으로 중요한 글이라면 다른 점수를 함께 고려한다.
 
 각 기사마다 다음 세 점수를 0~5점으로 평가한다.
 
@@ -1319,13 +1339,13 @@ total_score는 세 점수의 합계다.
 
 판단 기준:
 
-• 11~15점:
+• {DETAILED_SCORE_THRESHOLD}~15점:
 상세하게 읽을 가치가 높은 글
 
-• 9~10점:
+• {BRIEF_SCORE_THRESHOLD}~{DETAILED_SCORE_THRESHOLD - 1}점:
 상세 요약까지는 필요 없지만 링크와 제목은 확인할 가치가 있는 글
 
-• 0~8점:
+• 0~{BRIEF_SCORE_THRESHOLD - 1}점:
 현재 사용자에게 우선순위가 낮은 글
 
 다음과 같은 경우는 관심 분야와 조금 다르더라도
@@ -2713,6 +2733,34 @@ def main():
     print(
         "Tech News Bot 시작"
     )
+
+    print(
+        "설정 프로필:",
+        USER_PREFERENCES["profile_name"]
+    )
+
+    print(
+        "관심사 개수:",
+        len(
+            USER_PREFERENCES["interests"]
+        )
+    )
+
+    print(
+        "상세 브리핑 기준:",
+        DETAILED_SCORE_THRESHOLD
+    )
+
+    print(
+        "짧은 소개 기준:",
+        BRIEF_SCORE_THRESHOLD
+    )
+
+    if not USER_PREFERENCES["delivery"]["daily_digest"]:
+        print(
+            "daily_digest 설정이 false라 실행을 종료합니다."
+        )
+        return
 
     print(
         "활성 블로그:",
