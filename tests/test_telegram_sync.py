@@ -85,7 +85,7 @@ class TelegramSyncTest(unittest.TestCase):
     @mock.patch.object(
         telegram_sync,
         "create_on_demand_digest",
-        return_value="digest result",
+        return_value="<b>digest result</b>",
     )
     def test_digest_command_is_routed(
         self,
@@ -114,7 +114,12 @@ class TelegramSyncTest(unittest.TestCase):
             )
             self.assertEqual(
                 mock_send_message.call_args_list[-1],
-                mock.call(123, "digest result"),
+                mock.call(
+                    123,
+                    "<b>digest result</b>",
+                    parse_mode="HTML",
+                    disable_web_page_preview=True,
+                ),
             )
 
         finally:

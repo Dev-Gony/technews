@@ -70,6 +70,8 @@ def _process_digest_message(message):
     telegram_bot.send_message(
         chat_id,
         digest,
+        parse_mode="HTML",
+        disable_web_page_preview=True,
     )
 
     return True
