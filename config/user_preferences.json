@@ -1,0 +1,31 @@
+{
+  "profile_name": "default",
+  "interests": [
+    "AI Agent",
+    "Agentic Workflow",
+    "LLM",
+    "RAG",
+    "MCP",
+    "Python",
+    "데이터 분석",
+    "SQL",
+    "업무 자동화",
+    "서버",
+    "클라우드",
+    "백엔드 아키텍처",
+    "비용 절감",
+    "성능 개선",
+    "개발 생산성",
+    "Developer Tools",
+    "GitHub 및 소프트웨어 개발 워크플로"
+  ],
+  "avoid_topics": [],
+  "scoring": {
+    "detailed_threshold": 11,
+    "brief_threshold": 9
+  },
+  "delivery": {
+    "daily_digest": true,
+    "language": "ko"
+  }
+}
