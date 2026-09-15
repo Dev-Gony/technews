@@ -196,3 +196,42 @@ def load_user_preferences(path=USER_PREFERENCES_FILE):
     return validate_preferences(
         raw_preferences
     )
+
+
+def save_user_preferences(
+    preferences,
+    path=USER_PREFERENCES_FILE,
+):
+    validated = validate_preferences(
+        preferences
+    )
+
+    directory = os.path.dirname(path)
+
+    if directory:
+        os.makedirs(
+            directory,
+            exist_ok=True,
+        )
+
+    temp_path = f"{path}.tmp"
+
+    with open(
+        temp_path,
+        "w",
+        encoding="utf-8",
+    ) as file:
+        json.dump(
+            validated,
+            file,
+            ensure_ascii=False,
+            indent=2,
+        )
+        file.write("\n")
+
+    os.replace(
+        temp_path,
+        path,
+    )
+
+    return validated
