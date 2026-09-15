@@ -1,8 +1,19 @@
 import telegram_bot
-from telegram_digest import create_on_demand_digest
+from telegram_digest import (
+    create_followup_detail,
+    create_on_demand_digest,
+    parse_followup_selection,
+)
 
 
 TELEGRAM_STATE_FILE = "config/telegram_state.json"
+
+
+def _is_allowed_chat(chat_id):
+    return (
+        bool(telegram_bot.TELEGRAM_ALLOWED_CHAT_ID)
+        and str(chat_id) == telegram_bot.TELEGRAM_ALLOWED_CHAT_ID
+    )
 
 
 def _process_digest_message(message):
@@ -13,11 +24,13 @@ def _process_digest_message(message):
     if chat_id is None or not isinstance(text, str):
         return False
 
-    command, argument = telegram_bot.parse_command(
-        text
-    )
+    followup_position = parse_followup_selection(text)
+    command, argument = telegram_bot.parse_command(text)
 
-    if command != "/digest":
+    is_digest = command == "/digest"
+    is_followup = followup_position is not None
+
+    if not is_digest and not is_followup:
         return False
 
     if not telegram_bot.TELEGRAM_ALLOWED_CHAT_ID:
@@ -30,10 +43,37 @@ def _process_digest_message(message):
         )
         return True
 
-    if str(chat_id) != telegram_bot.TELEGRAM_ALLOWED_CHAT_ID:
+    if not _is_allowed_chat(chat_id):
         print(
             "허용되지 않은 Telegram digest 요청 무시:",
             chat_id,
+        )
+        return True
+
+    if is_followup:
+        telegram_bot.send_message(
+            chat_id,
+            f"{followup_position}번 기사를 더 자세히 읽고 있어요. 잠시만 기다려주세요.",
+        )
+
+        try:
+            detail = create_followup_detail(followup_position)
+        except Exception as error:
+            print(
+                "Telegram 후속 질문 생성 실패:",
+                repr(error),
+            )
+            telegram_bot.send_message(
+                chat_id,
+                "상세 분석 중 오류가 발생했습니다. 다음 실행에서 다시 시도해주세요.",
+            )
+            return True
+
+        telegram_bot.send_message(
+            chat_id,
+            detail,
+            parse_mode="HTML",
+            disable_web_page_preview=True,
         )
         return True
 
@@ -50,9 +90,7 @@ def _process_digest_message(message):
     )
 
     try:
-        digest = create_on_demand_digest(
-            argument
-        )
+        digest = create_on_demand_digest(argument)
     except Exception as error:
         print(
             "Telegram digest 생성 실패:",
@@ -83,69 +121,34 @@ def process_pending_updates():
             "TELEGRAM_BOT_TOKEN이 없습니다."
         )
 
-    telegram_bot.TELEGRAM_OFFSET_FILE = (
-        TELEGRAM_STATE_FILE
-    )
-
+    telegram_bot.TELEGRAM_OFFSET_FILE = TELEGRAM_STATE_FILE
     offset = telegram_bot.load_offset()
 
-    print(
-        "Telegram 예약 polling 시작"
-    )
+    print("Telegram 예약 polling 시작")
+    print("현재 offset:", offset)
 
-    print(
-        "현재 offset:",
-        offset,
-    )
-
-    updates = telegram_bot.get_updates(
-        offset
-    )
-
+    updates = telegram_bot.get_updates(offset)
     processed_count = 0
 
     for update in updates:
-        update_id = update.get(
-            "update_id"
-        )
+        update_id = update.get("update_id")
 
-        if isinstance(
-            update_id,
-            int,
-        ):
+        if isinstance(update_id, int):
             offset = update_id + 1
-            telegram_bot.save_offset(
-                offset
-            )
+            telegram_bot.save_offset(offset)
 
-        message = update.get(
-            "message"
-        )
+        message = update.get("message")
 
-        if isinstance(
-            message,
-            dict,
-        ):
-            handled = _process_digest_message(
-                message
-            )
+        if isinstance(message, dict):
+            handled = _process_digest_message(message)
 
             if not handled:
-                telegram_bot.process_message(
-                    message
-                )
+                telegram_bot.process_message(message)
 
             processed_count += 1
 
-    print(
-        "처리한 Telegram 메시지:",
-        processed_count,
-    )
-
-    print(
-        "최종 offset:",
-        offset,
-    )
+    print("처리한 Telegram 메시지:", processed_count)
+    print("최종 offset:", offset)
 
     return processed_count
 

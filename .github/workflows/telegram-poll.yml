@@ -43,7 +43,7 @@ jobs:
 
       - name: Save Telegram state and preferences
         run: |
-          if git diff --quiet config/user_preferences.json config/telegram_state.json; then
+          if git diff --quiet config/user_preferences.json config/telegram_state.json config/telegram_digest_state.json; then
             echo "No Telegram state or preference changes to save."
             exit 0
           fi
@@ -51,8 +51,8 @@ jobs:
           git config user.name "telegram-preference-bot"
           git config user.email "telegram-preference-bot@users.noreply.github.com"
 
-          git add config/user_preferences.json config/telegram_state.json
-          git commit -m "Update Telegram preference state"
+          git add config/user_preferences.json config/telegram_state.json config/telegram_digest_state.json
+          git commit -m "Update Telegram bot state"
 
           git pull --rebase origin main
           git push origin main
