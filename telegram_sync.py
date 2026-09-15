@@ -1,3 +1,6 @@
+import html
+import json
+
 import telegram_bot
 from telegram_digest import (
     create_followup_detail,
@@ -14,6 +17,64 @@ def _is_allowed_chat(chat_id):
         bool(telegram_bot.TELEGRAM_ALLOWED_CHAT_ID)
         and str(chat_id) == telegram_bot.TELEGRAM_ALLOWED_CHAT_ID
     )
+
+
+def _clean_followup_detail_message(detail):
+    text = str(detail or "")
+    start = text.find("{")
+    end = text.rfind("}")
+
+    if start < 0 or end <= start:
+        return text
+
+    raw_json = html.unescape(text[start : end + 1])
+
+    try:
+        parsed = json.loads(raw_json)
+    except json.JSONDecodeError:
+        return text
+
+    if not isinstance(parsed, dict) or "summary" not in parsed:
+        return text
+
+    summary = str(parsed.get("summary", "")).strip()
+    key_points = parsed.get("key_points", [])
+    takeaway = str(parsed.get("takeaway", "")).strip()
+
+    if not isinstance(key_points, list):
+        key_points = []
+
+    replacement = []
+
+    if summary:
+        replacement.append(html.escape(summary, quote=True))
+
+    if key_points:
+        replacement.extend(["", "<b>핵심 포인트</b>"])
+        for point in key_points[:3]:
+            replacement.append(
+                f"• {html.escape(str(point).strip(), quote=True)}"
+            )
+
+    if takeaway:
+        replacement.extend(
+            [
+                "",
+                "💡 <b>가져갈 것</b>",
+                html.escape(takeaway, quote=True),
+            ]
+        )
+
+    prefix = text[:start].rstrip()
+    suffix = text[end + 1 :].lstrip()
+
+    parts = [prefix]
+    if replacement:
+        parts.append("\n".join(replacement))
+    if suffix:
+        parts.append(suffix)
+
+    return "\n\n".join(part for part in parts if part)
 
 
 def _process_digest_message(message):
@@ -58,6 +119,7 @@ def _process_digest_message(message):
 
         try:
             detail = create_followup_detail(followup_position)
+            detail = _clean_followup_detail_message(detail)
         except Exception as error:
             print(
                 "Telegram 후속 질문 생성 실패:",
