@@ -36,13 +36,13 @@ class TelegramDigestHelperTest(unittest.TestCase):
             telegram_digest.create_on_demand_digest(""),
         )
 
-    def test_build_digest_message(self):
+    def test_build_digest_message_is_compact_html(self):
         items = [
             {
                 "article": {
                     "title": "MCP Example",
                     "company": "Example Tech",
-                    "link": "https://example.com/mcp",
+                    "link": "https://example.com/mcp?x=1&y=2",
                 },
                 "score": 13,
                 "reason": "MCP와 직접 관련 있음",
@@ -59,9 +59,41 @@ class TelegramDigestHelperTest(unittest.TestCase):
             items,
         )
 
-        self.assertIn("MCP — 온디맨드 Tech Digest", message)
-        self.assertIn("MCP Example", message)
-        self.assertIn("https://example.com/mcp", message)
+        self.assertIn("<b>MCP Tech Digest</b>", message)
+        self.assertIn("지금 볼 만한 기사 1개", message)
+        self.assertIn("<b>1. MCP Example</b>", message)
+        self.assertIn("💡 Agent 도구 연결에 활용 가능", message)
+        self.assertIn("🛠 도구 경계를 작게 설계", message)
+        self.assertIn("원문 보기 ↗", message)
+        self.assertIn("x=1&amp;y=2", message)
+        self.assertNotIn("링크: https://", message)
+
+    def test_build_digest_message_escapes_html(self):
+        items = [
+            {
+                "article": {
+                    "title": "RAG < MCP",
+                    "company": "A&B Tech",
+                    "link": "https://example.com/?a=1&b=2",
+                },
+                "score": 14,
+                "reason": "관련 있음",
+                "summary": {
+                    "one_line": "A < B 구조",
+                    "why_it_matters": "안전한 표시",
+                    "takeaway": "HTML escape 적용",
+                },
+            }
+        ]
+
+        message = telegram_digest.build_digest_message(
+            "MCP & RAG",
+            items,
+        )
+
+        self.assertIn("MCP &amp; RAG", message)
+        self.assertIn("RAG &lt; MCP", message)
+        self.assertIn("A&amp;B Tech", message)
 
 
 if __name__ == "__main__":
