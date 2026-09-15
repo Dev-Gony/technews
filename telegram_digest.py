@@ -10,8 +10,8 @@ DIGEST_RECENT_LIMIT = 5
 DIGEST_SHORTLIST_LIMIT = 25
 DIGEST_RESULT_LIMIT = 3
 DIGEST_PREVIEW_LENGTH = 350
-DIGEST_TITLE_LENGTH = 90
-DIGEST_TEXT_LENGTH = 140
+DIGEST_TITLE_LENGTH = 80
+DIGEST_TEXT_LENGTH = 95
 
 
 def _normalize_text(text):
@@ -300,15 +300,15 @@ def _build_summary_prompt(query, ranked_items):
 
 사용자 요청 주제: {query}
 
-아래 기사들을 각각 한국어로 아주 간결하게 요약한다.
+아래 기사들을 '목록에서 빠르게 고르는 용도'로 매우 짧게 요약한다.
 
 각 기사마다:
-- one_line: 핵심 한 문장
-- why_it_matters: 왜 지금 읽을 가치가 있는지 한 문장
-- takeaway: 사용자가 가져갈 실무/학습 포인트 한 문장
+- one_line: 기사가 무엇을 다루는지 1문장, 가능하면 45자 안팎
+- why_it_matters: 사용자가 이 글을 클릭할 이유 1문장, 가능하면 45자 안팎
 
+세부 설명, 배경 지식, 긴 조언은 넣지 않는다.
+사용자는 이후 원하는 기사만 상세 조회할 예정이다.
 제공된 내용 밖의 사실을 만들지 않는다.
-각 문장은 모바일 메신저에서 빠르게 읽을 수 있도록 짧고 직접적으로 쓴다.
 결과는 JSON 배열만 반환한다.
 
 형식:
@@ -316,8 +316,7 @@ def _build_summary_prompt(query, ranked_items):
   {{
     "index": 1,
     "one_line": "...",
-    "why_it_matters": "...",
-    "takeaway": "..."
+    "why_it_matters": "..."
   }}
 ]
 
@@ -386,7 +385,7 @@ def build_digest_message(query, items, failed_sources=None):
 
     lines = [
         f"🔎 <b>{_escape(query, 60)} Tech Digest</b>",
-        f"지금 볼 만한 기사 {len(items)}개를 골랐어요.",
+        f"오늘 볼 만한 기사 {len(items)}개",
         "",
     ]
 
@@ -405,10 +404,6 @@ def build_digest_message(query, items, failed_sources=None):
             "why_it_matters",
             "",
         )
-        takeaway = summary.get(
-            "takeaway",
-            "",
-        )
 
         lines.extend(
             [
@@ -420,6 +415,7 @@ def build_digest_message(query, items, failed_sources=None):
                     f"{_escape(article['company'], 40)}"
                     f" · {item['score']}/15"
                 ),
+                "",
                 _escape(one_line, DIGEST_TEXT_LENGTH),
             ]
         )
@@ -429,17 +425,14 @@ def build_digest_message(query, items, failed_sources=None):
                 f"💡 {_escape(why_it_matters, DIGEST_TEXT_LENGTH)}"
             )
 
-        if takeaway:
-            lines.append(
-                f"🛠 {_escape(takeaway, DIGEST_TEXT_LENGTH)}"
-            )
-
         lines.extend(
             [
+                "",
                 (
                     f"<a href=\"{_escape(article['link'])}\">"
                     "원문 보기 ↗</a>"
                 ),
+                "",
                 "",
             ]
         )
