@@ -1,5 +1,6 @@
 import html
 import json
+import os
 import re
 
 import main as technews
@@ -12,6 +13,7 @@ DIGEST_RESULT_LIMIT = 3
 DIGEST_PREVIEW_LENGTH = 350
 DIGEST_TITLE_LENGTH = 80
 DIGEST_TEXT_LENGTH = 95
+DIGEST_STATE_FILE = "config/telegram_digest_state.json"
 
 
 def _normalize_text(text):
@@ -437,12 +439,183 @@ def build_digest_message(query, items, failed_sources=None):
             ]
         )
 
+    lines.append("궁금한 글은 ‘1번 더 자세히’처럼 보내보세요.")
+
     if failed_sources:
         lines.append(
             f"ℹ️ 일부 소스 {len(failed_sources)}곳은 수집하지 못했어요."
         )
 
     return "\n".join(lines).strip()[:3900]
+
+
+def _state_item(item):
+    article = item.get("article", {})
+    return {
+        "article": {
+            "company": article.get("company", ""),
+            "title": article.get("title", ""),
+            "link": article.get("link", ""),
+            "summary": article.get("summary", ""),
+            "rss_content": article.get("rss_content", ""),
+            "source_kind": article.get("source_kind", "direct"),
+        },
+        "score": item.get("score", 0),
+        "reason": item.get("reason", ""),
+        "summary": item.get("summary", {}),
+    }
+
+
+def save_digest_state(query, items, path=DIGEST_STATE_FILE):
+    directory = os.path.dirname(path)
+    if directory:
+        os.makedirs(directory, exist_ok=True)
+
+    payload = {
+        "query": str(query or "").strip(),
+        "items": [_state_item(item) for item in items],
+    }
+
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(payload, file, ensure_ascii=False, indent=2)
+        file.write("\n")
+
+
+def load_digest_state(path=DIGEST_STATE_FILE):
+    try:
+        with open(path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+    except (OSError, json.JSONDecodeError):
+        return {"query": "", "items": []}
+
+    if not isinstance(data, dict):
+        return {"query": "", "items": []}
+
+    items = data.get("items", [])
+    if not isinstance(items, list):
+        items = []
+
+    return {
+        "query": str(data.get("query", "")),
+        "items": items,
+    }
+
+
+def parse_followup_selection(text):
+    text = str(text or "").strip()
+    match = re.fullmatch(
+        r"([1-3])\s*번(?:\s*(?:더\s*)?(?:자세히|상세히|설명해(?:줘)?))?",
+        text,
+    )
+
+    if not match:
+        return None
+
+    return int(match.group(1))
+
+
+def _build_followup_prompt(query, item, content):
+    article = item["article"]
+    return f"""
+너는 Telegram에서 답하는 기술 뉴스 에이전트다.
+사용자가 방금 받은 '{query}' Digest에서 특정 기사를 더 자세히 알고 싶어 한다.
+
+기사 제목: {article.get('title', '')}
+출처: {article.get('company', '')}
+선정 점수: {item.get('score', 0)}/15
+선정 이유: {item.get('reason', '')}
+
+본문 또는 미리보기:
+{content[:7000]}
+
+아래 JSON 객체만 반환한다.
+제공된 기사 내용 밖의 사실은 만들지 않는다.
+개발자가 실무적으로 이해하기 쉽게 설명하되 장황하지 않게 쓴다.
+
+{{
+  "summary": "기사의 핵심을 2~3문장으로 설명",
+  "key_points": ["핵심 포인트 1", "핵심 포인트 2", "핵심 포인트 3"],
+  "takeaway": "프로젝트나 학습에 적용할 수 있는 한 문장"
+}}
+"""
+
+
+def build_followup_message(position, item, detail):
+    article = item["article"]
+    key_points = detail.get("key_points", [])
+    if not isinstance(key_points, list):
+        key_points = []
+
+    lines = [
+        f"📌 <b>{position}번 상세 분석</b>",
+        f"<b>{_escape(article.get('title', ''), 100)}</b>",
+        f"{_escape(article.get('company', ''), 40)} · {item.get('score', 0)}/15",
+        "",
+        _escape(detail.get("summary", ""), 420),
+    ]
+
+    if key_points:
+        lines.extend(["", "<b>핵심 포인트</b>"])
+        for point in key_points[:3]:
+            lines.append(f"• {_escape(point, 180)}")
+
+    takeaway = str(detail.get("takeaway", "")).strip()
+    if takeaway:
+        lines.extend(["", f"💡 <b>가져갈 것</b>\n{_escape(takeaway, 220)}"])
+
+    lines.extend(
+        [
+            "",
+            f"<a href=\"{_escape(article.get('link', ''))}\">원문 보기 ↗</a>",
+        ]
+    )
+
+    return "\n".join(lines).strip()[:3900]
+
+
+def create_followup_detail(position, path=DIGEST_STATE_FILE):
+    state = load_digest_state(path)
+    items = state["items"]
+
+    if not items:
+        return "먼저 /digest 주제로 브리핑을 받아주세요."
+
+    if position < 1 or position > len(items):
+        return f"최근 Digest에는 {len(items)}개 기사만 있어요."
+
+    item = items[position - 1]
+    article = item.get("article", {})
+    content = technews.get_article_content(article)
+
+    if not content:
+        content = technews.get_prefilter_text(article)
+
+    result = technews.call_gemini(
+        _build_followup_prompt(
+            state.get("query", ""),
+            item,
+            content,
+        )
+    )
+
+    parsed_text = technews.extract_json_text(result)
+    try:
+        detail = json.loads(parsed_text)
+    except json.JSONDecodeError:
+        detail = {
+            "summary": result.strip(),
+            "key_points": [],
+            "takeaway": "",
+        }
+
+    if not isinstance(detail, dict):
+        detail = {
+            "summary": str(result).strip(),
+            "key_points": [],
+            "takeaway": "",
+        }
+
+    return build_followup_message(position, item, detail)
 
 
 def create_on_demand_digest(query):
@@ -482,6 +655,8 @@ def create_on_demand_digest(query):
         query,
         ranked,
     )
+
+    save_digest_state(query, summarized)
 
     return build_digest_message(
         query,
