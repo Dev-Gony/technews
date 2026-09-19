@@ -5,6 +5,23 @@
 
 단순 RSS 알림이 아니라 **수집 → 중복 제거 → 가치 평가 → 요약 → 전달 → 피드백 데이터 저장**까지 하나의 반복 가능한 파이프라인으로 구성했습니다.
 
+## Live Newspaper
+
+매일 선별된 기술 뉴스를 신문 형태로 발행합니다.
+
+**Live:** https://dev-gony.github.io/technews/
+
+웹에서는 다음 정보를 한 번에 확인할 수 있습니다.
+
+- Top Stories
+- News → Action
+- Trend Radar
+- Editor's Note
+- More News
+- 날짜별 Archive
+
+Slack은 발행 알림과 빠른 피드백 채널로 사용하고, 전체 읽기와 아카이브는 Newspaper Web이 담당합니다.
+
 ## Problem
 
 기술 블로그를 여러 곳 구독하면 읽을 글은 많아지지만 실제로 중요한 글을 고르는 시간이 더 많이 듭니다.
@@ -171,14 +188,19 @@ python main.py
 
 ## Current Status
 
-현재 구현된 핵심 흐름은 실제 예약 실행 가능한 상태입니다.
+현재 구현된 핵심 흐름은 실제 예약 실행 및 웹 배포 가능한 상태입니다.
 
-현재 집중하고 있는 개선 방향:
+현재 운영 중인 핵심 기능:
 
-- Slack 피드백을 다음 기사 선별 기준에 반영
-- 여러 기사에서 반복되는 기술 주제를 묶는 Trend Radar
-- 뉴스를 읽고 끝내지 않고 실제 프로젝트에 적용할 Action으로 변환
-- 관심사 설정을 코드 밖으로 분리해 개인화 강화
+- Slack Daily Tech Digest
+- News → Action
+- Slack Feedback Learning
+- Weekly Trend Radar
+- Daily Newspaper Web
+- 날짜별 Issue Archive
+- GitHub Pages 자동 배포
+
+다음 단계는 실제 운영 데이터를 바탕으로 추천 품질과 Newspaper UI를 조정하는 것입니다.
 
 ## Notes
 
