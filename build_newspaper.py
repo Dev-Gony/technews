@@ -17,6 +17,10 @@ ARCHIVE_OUTPUT_DIR = OUTPUT_DIR / "archive"
 
 SITE_NAME = "TECHNEWS DAILY"
 SITE_TAGLINE = "개발자를 위한 매일의 기술신문"
+SITE_URL = os.environ.get(
+    "SITE_URL",
+    "https://dev-gony.github.io/technews"
+).strip().rstrip("/")
 SITE_BASE_PATH = os.environ.get(
     "SITE_BASE_PATH",
     "/technews"
@@ -119,6 +123,92 @@ def _display_date(value):
         f"{parsed.day}일 "
         f"{weekdays[parsed.weekday()]}"
     )
+
+
+def _editorial_section(
+    editorial,
+    heading
+):
+    text = str(
+        editorial or ""
+    )
+
+    marker = f"[{heading}]"
+
+    if marker not in text:
+        return ""
+
+    after = text.split(
+        marker,
+        1
+    )[1]
+
+    lines = []
+
+    for raw_line in (
+        after.splitlines()
+    ):
+        line = raw_line.strip()
+
+        if (
+            line.startswith("[")
+            and line.endswith("]")
+        ):
+            break
+
+        if line:
+            lines.append(
+                line
+            )
+
+    return " ".join(
+        lines
+    ).strip()
+
+
+def _keyword_panel(issue):
+    keyword_text = (
+        _editorial_section(
+            issue.get(
+                "editorial",
+                ""
+            ),
+            "오늘의 기술 키워드"
+        )
+    )
+
+    keywords = [
+        item.strip()
+        for item in (
+            keyword_text.split(",")
+        )
+        if item.strip()
+    ][:6]
+
+    if not keywords:
+        return ""
+
+    keyword_rows = "".join(
+        (
+            '<span class="keyword-item">'
+            + _escape(keyword)
+            + "</span>"
+        )
+        for keyword in keywords
+    )
+
+    return f"""
+    <aside class="keyword-column">
+      <div class="small-label">오늘의 키워드</div>
+      <h3>오늘 기술면을 읽는 여섯 단어</h3>
+      <div class="keyword-list">
+        {keyword_rows}
+      </div>
+      <p>
+        오늘의 상세 기사와 편집 노트에서 반복된 핵심 기술어입니다.
+      </p>
+    </aside>
+    """
 
 
 def _action_type_label(action_type):
@@ -463,12 +553,19 @@ def _action_desk(issue):
                     + "</li>"
                 )
 
+        action_number = (
+            len(rows) + 1
+        )
+
         rows.append(
             f"""
             <article class="action-column">
-              <div class="small-label">
-                {_escape(_action_type_label(action.get("type")))}
-                · {_escape(action.get("effort"))}
+              <div class="action-heading">
+                <span class="action-number">{action_number:02d}</span>
+                <div class="small-label">
+                  {_escape(_action_type_label(action.get("type")))}
+                  · {_escape(action.get("effort"))}
+                </div>
               </div>
               <h3>{_escape(title)}</h3>
               <p class="action-source">
@@ -519,6 +616,40 @@ def _compute_trend_rows():
     )
 
 
+def _trend_context(
+    topic
+):
+    articles = trend_radar.load_history(
+        "config/article_history.json"
+    )
+
+    current, _ = (
+        trend_radar.split_windows(
+            articles
+        )
+    )
+
+    matched = (
+        trend_radar._articles_for_topic(
+            topic,
+            current,
+            limit=1
+        )
+    )
+
+    if not matched:
+        return ""
+
+    one_line = str(
+        matched[0].get(
+            "one_line",
+            ""
+        )
+    ).strip()
+
+    return one_line
+
+
 def _trend_section():
     rising, current_count, previous_count = (
         _compute_trend_rows()
@@ -549,6 +680,20 @@ def _trend_section():
         rising,
         start=1,
     ):
+        context = _trend_context(
+            row["topic"]
+        )
+
+        context_html = (
+            (
+                '<p class="trend-context">'
+                + _escape(context)
+                + "</p>"
+            )
+            if context
+            else ""
+        )
+
         rows.append(
             f"""
             <div class="trend-row">
@@ -559,6 +704,7 @@ def _trend_section():
                   이전 {row["previous_count"]}건
                   · 최근 {row["current_count"]}건
                 </span>
+                {context_html}
               </div>
               <span class="trend-delta">+{row["delta"]}</span>
             </div>
@@ -690,13 +836,33 @@ def _layout(
     content,
     description="",
     body_class="",
+    canonical_path="",
 ):
+    canonical_url = (
+        SITE_URL
+        + (
+            "/"
+            + canonical_path.strip("/")
+            if canonical_path
+            else "/"
+        )
+    )
+
     return f"""<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{_escape(description)}">
+  <meta name="theme-color" content="#f7f4ea">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{SITE_NAME}">
+  <meta property="og:title" content="{_escape(title)}">
+  <meta property="og:description" content="{_escape(description)}">
+  <meta property="og:url" content="{_escape(canonical_url)}">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="{_escape(canonical_url)}">
+  <link rel="icon" href="{SITE_BASE_PATH}/assets/favicon.svg" type="image/svg+xml">
   <title>{_escape(title)}</title>
   <link rel="stylesheet" href="{SITE_BASE_PATH}/assets/styles.css">
 </head>
@@ -776,6 +942,27 @@ def render_issue(issue, archive_items):
         + remaining_detailed
     )[:6]
 
+    below_fold_html = "".join(
+        _news_column(
+            story,
+            index,
+        )
+        for index, story in enumerate(
+            below_fold,
+            start=1,
+        )
+    )
+
+    if (
+        len(below_fold) % 3
+        != 0
+    ):
+        below_fold_html += (
+            _keyword_panel(
+                issue
+            )
+        )
+
     stats = issue.get(
         "stats",
         {},
@@ -826,16 +1013,7 @@ def render_issue(issue, archive_items):
           </div>
 
           <div class="below-fold">
-            {"".join(
-                _news_column(
-                    story,
-                    index,
-                )
-                for index, story in enumerate(
-                    below_fold,
-                    start=1,
-                )
-            )}
+            {below_fold_html}
           </div>
         </section>
 
@@ -937,6 +1115,10 @@ def render_issue(issue, archive_items):
             f"{issue.get('issue_date', '')}"
         ),
         "issue-page",
+        (
+            f"issues/"
+            f"{_slug_date(issue)}/"
+        ),
     )
 
 
@@ -979,6 +1161,7 @@ def render_empty_home():
         content,
         SITE_TAGLINE,
         "issue-page",
+        "",
     )
 
 
@@ -1054,6 +1237,7 @@ def render_archive(issues):
         content,
         "TechNews Daily Archive",
         "archive-body",
+        "archive/",
     )
 
 
@@ -1106,6 +1290,25 @@ def build_site():
         ASSETS_DIR / "styles.css",
     )
 
+    favicon_source = Path(
+        "web/favicon.svg"
+    )
+
+    if favicon_source.exists():
+        shutil.copyfile(
+            favicon_source,
+            ASSETS_DIR / "favicon.svg",
+        )
+
+    write_text(
+        OUTPUT_DIR / "robots.txt",
+        (
+            "User-agent: *\n"
+            "Allow: /\n"
+            f"Sitemap: {SITE_URL}/sitemap.xml\n"
+        ),
+    )
+
     write_text(
         OUTPUT_DIR / ".nojekyll",
         "",
@@ -1150,6 +1353,38 @@ def build_site():
         render_archive(
             issues
         ),
+    )
+
+    sitemap_urls = [
+        f"{SITE_URL}/",
+        f"{SITE_URL}/archive/",
+    ]
+
+    sitemap_urls.extend(
+        (
+            f"{SITE_URL}/issues/"
+            f"{_slug_date(issue)}/"
+        )
+        for issue in issues
+    )
+
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "".join(
+            (
+                "  <url><loc>"
+                + _escape(url)
+                + "</loc></url>\n"
+            )
+            for url in sitemap_urls
+        )
+        + "</urlset>\n"
+    )
+
+    write_text(
+        OUTPUT_DIR / "sitemap.xml",
+        sitemap,
     )
 
     print(

@@ -252,6 +252,96 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
 
+
+    def test_keyword_panel_uses_editorial_keywords(self):
+        issue = {
+            "editorial": (
+                "[오늘의 기술 키워드]\n\n"
+                "Agentic Workflow, MCP, Tool Calling\n\n"
+                "[오늘의 한줄 포인트]\n\n"
+                "summary"
+            )
+        }
+
+        rendered = (
+            build_newspaper._keyword_panel(
+                issue
+            )
+        )
+
+        self.assertIn(
+            "Agentic Workflow",
+            rendered,
+        )
+        self.assertIn(
+            "오늘의 키워드",
+            rendered,
+        )
+
+    @patch(
+        "build_newspaper.trend_radar.load_history"
+    )
+    @patch(
+        "build_newspaper.trend_radar.split_windows"
+    )
+    @patch(
+        "build_newspaper.trend_radar._articles_for_topic"
+    )
+    def test_trend_context_comes_from_recent_article(
+        self,
+        mock_articles_for_topic,
+        mock_split_windows,
+        mock_load_history,
+    ):
+        mock_load_history.return_value = [
+            {
+                "topics": ["MCP"],
+                "one_line": "MCP 운영 사례 증가",
+            }
+        ]
+        mock_split_windows.return_value = (
+            mock_load_history.return_value,
+            [],
+        )
+        mock_articles_for_topic.return_value = [
+            {
+                "one_line": "MCP 운영 사례 증가",
+            }
+        ]
+
+        context = (
+            build_newspaper._trend_context(
+                "MCP"
+            )
+        )
+
+        self.assertEqual(
+            context,
+            "MCP 운영 사례 증가",
+        )
+
+    def test_layout_contains_service_metadata(self):
+        rendered = build_newspaper._layout(
+            "TechNews Test",
+            "<main>body</main>",
+            "description",
+            "issue-page",
+            "issues/2026-09-19/",
+        )
+
+        self.assertIn(
+            'rel="canonical"',
+            rendered,
+        )
+        self.assertIn(
+            'property="og:title"',
+            rendered,
+        )
+        self.assertIn(
+            'favicon.svg',
+            rendered,
+        )
+
     def test_custom_domain_base_path_can_be_root(self):
         issue = {
             "issue_date": "2026-09-19",
@@ -288,7 +378,11 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
         self.assertNotIn(
-            "/technews/",
+            'href="/technews/',
+            rendered,
+        )
+        self.assertIn(
+            "https://dev-gony.github.io/technews/",
             rendered,
         )
 
