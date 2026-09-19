@@ -704,3 +704,59 @@ Slack을 별도의 완성형 콘텐츠 화면으로 계속 확장하면 메시�
 
 멀티채널 서비스에서 중요한 것은 모든 채널에 같은 기능을 넣는 것이 아니라 각 채널의 역할을 명확히 정하는 것이다.
 
+---
+
+# 16. 첫 실운영 발행 실패와 테스트 보강
+
+## 발생한 문제
+
+첫 Newspaper Web 실데이터 발행을 위해 Daily Tech News workflow를 수동 트리거했으나 상세 요약 단계에서 실행이 중단됐다.
+
+오류:
+
+    ValueError: Invalid format specifier ...
+
+원인은 `build_detail_prompt()`의 f-string 안에 포함된 Action JSON 예시의 중첩 중괄호였다.
+
+Python f-string에서는 실제 중괄호를 출력하려면 `{{`와 `}}`로 escape해야 한다.
+
+기존 outer JSON object는 escape되어 있었지만 새로 추가된 nested `action` object는 일반 `{` / `}`를 사용하고 있었다.
+
+## 왜 기존 테스트에서 발견되지 않았나
+
+News → Action 기능 개발 당시 테스트는 다음을 검증했다.
+
+- actionability가 높을 때 Slack Action 출력
+- 낮을 때 미출력
+- 잘못된 Action 데이터 fallback
+
+하지만 실제 Gemini 상세 prompt를 **끝까지 문자열로 렌더링하는 테스트**는 없었다.
+
+즉 데이터 formatting 함수는 테스트했지만 prompt construction 경로는 테스트하지 못했다.
+
+## 수정
+
+nested Action JSON 예시의 중괄호를 f-string literal 형식으로 escape했다.
+
+추가로 다음 회귀 테스트를 만들었다.
+
+    build_detail_prompt(...)
+    → 실제 prompt 생성
+    → nested action JSON 포함 확인
+
+## 배운 점
+
+LLM 기반 애플리케이션에서는 prompt도 코드다.
+
+프롬프트를 단순 문자열 리소스로 취급하면 syntax/formatting 오류가 실제 API 호출 직전까지 숨어 있을 수 있다.
+
+특히 f-string, JSON example, Markdown example이 섞이는 prompt는 다음을 테스트해야 한다.
+
+- prompt 함수가 실제 입력으로 정상 렌더링되는가
+- placeholder가 의도대로 치환되는가
+- JSON 예시가 깨지지 않는가
+
+또한 Unit Test가 모두 통과해도 운영 경로 전체가 검증된 것은 아니다.
+
+이번 사례를 통해 **unit test → production workflow smoke test**의 두 단계 검증이 필요하다는 것을 확인했다.
+

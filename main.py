@@ -2202,7 +2202,7 @@ Markdown 코드블록이나 추가 설명은 쓰지 않는다.
     ],
     "recommended_for": "추천 대상",
     "actionability": 5,
-    "action": {
+    "action": {{
       "type": "experiment",
       "title": "바로 해볼 실험",
       "steps": [
@@ -2210,7 +2210,7 @@ Markdown 코드블록이나 추가 설명은 쓰지 않는다.
         "두 번째 단계"
       ],
       "effort": "30~60분"
-    }
+    }}
   }}
 ]
 
