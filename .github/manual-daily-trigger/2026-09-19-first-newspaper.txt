@@ -1,1 +1,0 @@
-Retry the first production Newspaper Web issue after fixing detail prompt JSON escaping.
