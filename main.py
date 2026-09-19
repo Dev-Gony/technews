@@ -20,6 +20,10 @@ from preferences import load_user_preferences
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
 SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN", "").strip()
 SLACK_CHANNEL_ID = os.environ.get("SLACK_CHANNEL_ID", "").strip()
+NEWSPAPER_BASE_URL = os.environ.get(
+    "NEWSPAPER_BASE_URL",
+    "https://dev-gony.github.io/technews"
+).strip().rstrip("/")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 GEMINI_MODEL = "gemini-3.1-flash-lite"
@@ -3747,6 +3751,11 @@ def build_digest(
             f"*{len(brief_articles)}개*"
         ),
         f"우선순위 낮음: *{excluded_count}개*",
+        "",
+        (
+            "📰 오늘 신문 보기: "
+            f"{NEWSPAPER_BASE_URL}/issues/{date_text}/"
+        ),
     ]
 
     if unresolved_count:
