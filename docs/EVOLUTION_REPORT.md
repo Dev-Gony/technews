@@ -855,3 +855,82 @@ CI/CD 설계에서는 코드뿐 아니라 플랫폼의 trigger 규칙과 token �
 
 운영 자동화에서는 기능 흐름뿐 아니라 **event chain 자체를 smoke test**해야 한다.
 
+---
+
+# 18. 첫 실데이터 발행과 Pages 공개 성공
+
+## 첫 발행 결과
+
+2026-09-19 첫 실데이터 Newspaper Issue를 실제 운영 파이프라인으로 생성했다.
+
+수집/선별 결과:
+
+- 신규 후보 기사: 20개
+- 상세 기사: 9개
+- 짧은 소개: 2개
+- 제외: 9개
+- 평가 보류: 0개
+- Top Story: 3개
+
+첫 발행 파일:
+
+    config/issues/2026-09-19.json
+
+## News → Action 검증
+
+첫 호의 Top Story 중 actionability가 높은 기사에는 실제 Action이 생성됐다.
+
+예를 들어 Agent-Native 기사에는:
+
+- Actionability: 5
+- 유형: experiment
+- 예상 작업량: 30~60분
+- 프로젝트 생성 → action 정의 → UI/Agent 동작 검증
+
+순서의 실행 단계가 생성됐다.
+
+이를 통해 News → Action이 단순 문구 추가가 아니라 실제 발행 데이터 구조 안에서 정상 동작하는 것을 확인했다.
+
+## Pages 최초 공개
+
+GitHub Pages를 Repository Settings에서 최초 1회 활성화한 뒤 실패한 Pages workflow를 재실행했다.
+
+검증 결과:
+
+- static newspaper build 성공
+- Pages configuration 성공
+- artifact upload 성공
+- deploy 성공
+- GitHub Pages deployment status: success
+
+공개 URL:
+
+    https://dev-gony.github.io/technews/
+
+## 첫 운영 검증에서 얻은 결과
+
+이번 단계에서 Unit Test만으로는 발견하지 못했던 두 가지 운영 이슈를 실제 smoke test에서 발견했다.
+
+1. f-string 내부 nested JSON prompt escaping 오류
+2. GITHUB_TOKEN commit이 다음 workflow를 push event로 연쇄 실행하지 않는 GitHub Actions 제약
+
+둘 다 실제 운영 흐름을 태우지 않았다면 놓칠 수 있는 문제였다.
+
+## 배운 점
+
+"배포 가능한 코드"와 "실제로 운영되는 서비스" 사이에는 차이가 있다.
+
+실제 서비스 검증에서는 다음을 모두 확인해야 했다.
+
+- 외부 API 호출
+- Secrets 주입
+- LLM prompt runtime rendering
+- 상태 파일 생성
+- repository commit
+- workflow event chain
+- Pages 권한
+- artifact upload
+- production deployment
+
+이번 첫 발행을 통해 TechNews는 단순 개발 단계에서 실제 운영 가능한 Newspaper 서비스 단계로 넘어갔다.
+
