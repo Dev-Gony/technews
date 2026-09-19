@@ -760,3 +760,98 @@ LLM 기반 애플리케이션에서는 prompt도 코드다.
 
 이번 사례를 통해 **unit test → production workflow smoke test**의 두 단계 검증이 필요하다는 것을 확인했다.
 
+---
+
+# 17. GitHub Actions 간 자동 배포 연결 문제
+
+## 발생한 문제
+
+Daily Tech News가 성공적으로 `config/issues/YYYY-MM-DD.json`을 생성하고 main에 commit했지만 Newspaper Pages workflow가 자동으로 실행되지 않았다.
+
+## 원인
+
+Daily workflow가 사용하는 기본 `GITHUB_TOKEN`으로 push된 commit은 보안상 다른 GitHub Actions workflow의 `push` trigger를 연쇄 실행하지 않는다.
+
+즉 다음 구조는 의도대로 동작하지 않았다.
+
+    Daily Tech News
+    → GITHUB_TOKEN으로 main commit
+    → push event
+    → Pages workflow
+
+## 고려한 선택지
+
+### A. PAT를 사용해 commit
+
+장점:
+- 일반 사용자 push처럼 다른 workflow trigger 가능
+
+단점:
+- 별도 Personal Access Token 관리 필요
+- 권한 범위와 secret 관리 부담 증가
+
+### B. Daily workflow 안에서 Pages까지 직접 배포
+
+장점:
+- 단일 workflow로 확실하게 실행
+
+단점:
+- 뉴스 수집/Slack 발송과 웹 배포 책임이 한 workflow에 결합
+- 배포만 다시 실행하기 어려움
+
+### C. Pages workflow를 `workflow_run`으로 연결
+
+장점:
+- PAT 추가 필요 없음
+- Daily workflow와 Pages workflow의 책임 분리 유지
+- Daily 성공 후 독립적으로 웹 배포 가능
+
+## 최종 선택
+
+C를 선택했다.
+
+Pages workflow는 다음 이벤트에서 실행된다.
+
+- main의 웹 코드 직접 변경
+- 수동 실행
+- `Daily Tech News` workflow 성공 완료
+
+Daily workflow가 실패하면 Pages 배포는 실행하지 않는다.
+
+## 첫 Pages 배포에서 발견한 추가 문제
+
+`actions/configure-pages`에서 Pages 사이트를 자동 생성하려 했으나 GitHub App integration 권한으로 repository Pages를 최초 활성화할 수 없어 다음 오류가 발생했다.
+
+    Resource not accessible by integration
+
+사이트 build 자체는 성공했다.
+
+## 대응
+
+workflow에서는 Pages 최초 생성 책임을 제거하고, 이미 활성화된 Pages 설정을 사용하는 구조로 변경했다.
+
+저장소에서 최초 1회:
+
+    Settings
+    → Pages
+    → Build and deployment
+    → Source: GitHub Actions
+
+설정이 필요하다.
+
+이후 배포는 자동으로 수행된다.
+
+## 배운 점
+
+CI/CD 설계에서는 코드뿐 아니라 플랫폼의 trigger 규칙과 token 권한 모델을 이해해야 한다.
+
+같은 GitHub Actions 안에서도:
+
+- 어떤 token으로 commit했는지
+- 어떤 event가 새 workflow를 발생시키는지
+- repository administration 권한이 필요한 작업인지
+
+에 따라 자동화가 달라진다.
+
+운영 자동화에서는 기능 흐름뿐 아니라 **event chain 자체를 smoke test**해야 한다.
+
