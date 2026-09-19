@@ -759,9 +759,21 @@ def render_issue(issue, archive_items):
         else None
     )
 
+    side_three = (
+        more_detailed[0]
+        if more_detailed
+        else None
+    )
+
+    remaining_detailed = (
+        more_detailed[1:]
+        if side_three
+        else more_detailed
+    )
+
     below_fold = (
         top_stories[3:]
-        + more_detailed
+        + remaining_detailed
     )[:6]
 
     stats = issue.get(
@@ -809,6 +821,7 @@ def render_issue(issue, archive_items):
             <aside class="side-news">
               {_secondary_story(side_one, "주요 기사")}
               {_secondary_story(side_two, "주요 기사")}
+              {_secondary_story(side_three, "관련 기사")}
             </aside>
           </div>
 
