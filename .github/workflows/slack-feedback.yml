@@ -22,7 +22,7 @@ jobs:
       - name: Download repository
         uses: actions/checkout@v7
         with:
-          ref: develop
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -47,5 +47,5 @@ jobs:
           git add config/slack_feedback.json
           git commit -m "Update Slack feedback"
 
-          git pull --rebase origin develop
-          git push origin develop
+          git pull --rebase origin main
+          git push origin main
