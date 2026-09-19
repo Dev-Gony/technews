@@ -435,3 +435,225 @@ Slack은 전달에는 강하지만 콘텐츠가 시간순으로 흘러가고 장
 15. 이후 개선 방향
 
 최종 문서는 단순 개발일지가 아니라 "문제를 발견하고 제품/기술 의사결정을 반복한 과정"이 보이는 사례 보고서로 만든다.
+
+---
+
+# 12. Newspaper Web 1차 구현: 데이터와 표현 분리
+
+## 문제
+
+Slack Digest 문자열을 그대로 HTML로 변환하면 구현은 빠르지만 웹 UI가 Slack 메시지 포맷에 종속된다.
+
+이 경우 다음 문제가 생긴다.
+
+- Slack 문구를 바꾸면 웹 파싱도 깨질 수 있음
+- Action, topic, score를 다시 정규식으로 추출해야 함
+- Archive/Search 기능 확장 시 구조화 데이터가 부족함
+- 웹과 Slack 중 하나가 다른 표현을 원할 때 수정 범위가 커짐
+
+## 고려한 선택지
+
+### A. Slack Digest 문자열 재사용
+
+장점:
+- 구현량이 가장 작음
+
+단점:
+- presentation 문자열을 다시 parsing해야 함
+- 데이터 손실 가능성
+- 장기 운영에 취약
+
+### B. 기존 article_history.json만 사용
+
+장점:
+- 이미 구조화된 데이터 존재
+
+단점:
+- 하루 단위 편집 결과와 Top Story 순위가 없음
+- brief article과 editorial note가 보존되지 않음
+- 당시 발행 상태를 그대로 재현하기 어려움
+
+### C. Daily Issue를 별도 JSON 계약으로 저장
+
+장점:
+- 한 번 발행한 신문을 동일하게 재현 가능
+- Slack/Web UI가 같은 원천 데이터를 공유할 수 있음
+- 향후 검색, RSS, API, 모바일 UI로 확장 가능
+
+## 최종 선택
+
+C를 선택했다.
+
+매일 다음 경로에 발행 데이터를 저장한다.
+
+    config/issues/YYYY-MM-DD.json
+
+Daily Issue에는 다음 정보가 포함된다.
+
+- issue number / issue date
+- 발행 통계
+- Top Stories
+- 기타 상세 기사
+- brief 기사
+- editor's note
+- topic
+- News → Action
+- 원문 URL
+
+## 선택 이유
+
+UI는 바뀔 가능성이 높지만 발행 데이터는 장기 자산이다.
+
+따라서 데이터 모델을 Slack과 Web보다 먼저 독립시키는 것이 장기 운영에 유리하다고 판단했다.
+
+## 배운 점
+
+"화면을 만드는 것"과 "발행 데이터를 정의하는 것"은 다른 문제다.
+
+운영 서비스에서는 presentation 문자열보다 재현 가능한 structured data를 먼저 확보하는 것이 중요했다.
+
+---
+
+# 13. 프론트엔드 선택: 정적 생성 vs 서버형 웹
+
+## 문제
+
+Newspaper UI를 실제 서비스로 운영하려면 배포 구조가 필요하다.
+
+## 고려한 선택지
+
+### Next.js + Vercel
+
+장점:
+- 동적 라우팅
+- 검색/로그인/API 확장 용이
+
+단점:
+- 현재 단계에서는 런타임과 프론트엔드 의존성이 증가
+- 기존 Python/GitHub Actions 파이프라인과 별도 운영 구조가 생김
+
+### Python Static Site Generator + GitHub Pages
+
+장점:
+- 기존 Python 코드와 바로 연결
+- 서버가 필요 없음
+- 날짜별 Issue를 파일로 영구 보존 가능
+- 장애 지점과 비용이 적음
+
+단점:
+- 서버 검색, 로그인, 사용자별 페이지에는 한계
+
+## 최종 선택
+
+1차 운영 버전은 Python Static Site Generator + GitHub Pages.
+
+## 선택 이유
+
+현재 필요한 기능은:
+
+- 오늘 발행본
+- Action Desk
+- Trend Radar
+- Archive
+- 원문 이동
+
+으로 모두 정적 HTML에서 해결 가능하다.
+
+사용자 계정과 서버 검색은 아직 검증되지 않은 요구사항이므로, 미리 복잡성을 추가하지 않기로 했다.
+
+## 구현
+
+    Daily Tech News
+        ↓
+    config/issues/YYYY-MM-DD.json
+        ↓
+    Git commit to main
+        ↓
+    Pages workflow trigger
+        ↓
+    build_newspaper.py
+        ↓
+    public/
+        ├─ index.html
+        ├─ archive/index.html
+        ├─ issues/YYYY-MM-DD/index.html
+        └─ assets/styles.css
+        ↓
+    GitHub Pages
+
+## 디자인 선택
+
+사용자가 제공한 신문 레이아웃에서 다음 원칙을 참고했다.
+
+- 검정 배경 + 밝은 종이 면
+- 큰 Masthead
+- Serif 중심 기사 제목
+- 작은 section label
+- 얇은 rule line
+- 2단 Top Story
+- 명확한 Issue/Date 표기
+
+원본 디자인을 그대로 복제하지 않고 TechNews용 정보 구조와 반응형 레이아웃으로 재구성했다.
+
+## 모바일 대응
+
+신문형 2단 레이아웃은 작은 화면에서 그대로 유지하면 읽기 어렵다.
+
+따라서 모바일에서는:
+
+- Top Story 1단
+- Action 1단
+- Editorial 1단
+- Navigation horizontal scroll
+
+로 전환한다.
+
+## 첫 발행 데이터가 없을 때의 선택
+
+가짜 샘플 뉴스를 배포하지 않는다.
+
+Issue가 하나도 없으면:
+
+    첫 발행을 준비하고 있습니다.
+
+화면을 표시한다.
+
+실제 Daily 실행으로 데이터가 생성된 뒤 자동으로 첫 신문이 발행된다.
+
+## 배운 점
+
+운영 서비스의 초기 화면에서는 "보기 좋은 가짜 데이터"보다 실제 시스템 상태를 정확히 보여주는 것이 중요하다.
+
+또한 정적 사이트는 단순한 기술이지만 데이터 생성 주기가 하루 단위인 서비스에는 오히려 적절한 선택이 될 수 있다.
+
+---
+
+# 14. 현재 Newspaper Web 1차 구조
+
+현재 구현 범위:
+
+- Daily Issue JSON 저장
+- Latest Issue 홈
+- 날짜별 Issue 페이지
+- Archive
+- Top Stories
+- News → Action Desk
+- Trend Radar 데이터 표시
+- Editor's Note
+- More News
+- 원문 링크
+- 반응형 디자인
+- GitHub Pages 자동 배포
+- HTML escaping 테스트
+- 빈 데이터 fallback
+
+다음 운영 검증 항목:
+
+- 실제 기사 제목 길이에 따른 레이아웃 변화
+- Action 길이와 카드 높이
+- 모바일 가독성
+- Issue 파일 증가 시 build 시간
+- Trend Radar 정보 밀도
+- Slack에서 Web으로 이동하는 비율
+- 원문 클릭 동선
+
