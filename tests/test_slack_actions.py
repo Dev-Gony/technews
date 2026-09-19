@@ -49,6 +49,36 @@ class SlackNewsActionTest(unittest.TestCase):
         self.assertNotIn("⚡ [직접 해볼 것]", summary)
         self.assertNotIn("공부해본다.", summary)
 
+
+    def test_detail_prompt_renders_nested_action_json(self):
+        prompt = main.build_detail_prompt(
+            [
+                {
+                    "article": {
+                        "company": "Example Tech",
+                        "title": "Structured Output",
+                        "pub_date": "2026-09-19",
+                        "selection_score": 14,
+                        "selection_reason": "실무 적용 가치가 높음",
+                    },
+                    "content": "본문",
+                }
+            ]
+        )
+
+        self.assertIn(
+            '"action": {',
+            prompt,
+        )
+        self.assertIn(
+            '"type": "experiment"',
+            prompt,
+        )
+        self.assertIn(
+            '"effort": "30~60분"',
+            prompt,
+        )
+
     def test_invalid_actionability_is_safe(self):
         summary = main.format_article_summary(
             {
