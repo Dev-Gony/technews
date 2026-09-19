@@ -38,21 +38,23 @@ jobs:
       - name: Run tech news bot
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
 
-      - name: Save sent article history
+      - name: Save runtime state
         run: |
-          if git diff --quiet sent_articles.json; then
-            echo "No new article history to save."
+          if git diff --quiet sent_articles.json config/slack_feedback_state.json; then
+            echo "No runtime state changes to save."
             exit 0
           fi
 
           git config user.name "tech-news-bot"
           git config user.email "tech-news-bot@users.noreply.github.com"
 
-          git add sent_articles.json
-          git commit -m "Update sent article history"
+          git add sent_articles.json config/slack_feedback_state.json
+          git commit -m "Update tech news runtime state"
 
           git pull --rebase origin main
           git push origin main

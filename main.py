@@ -18,11 +18,14 @@ from preferences import load_user_preferences
 
 
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
+SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN", "").strip()
+SLACK_CHANNEL_ID = os.environ.get("SLACK_CHANNEL_ID", "").strip()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 GEMINI_MODEL = "gemini-3.1-flash-lite"
 
 SENT_ARTICLES_FILE = "sent_articles.json"
+SLACK_FEEDBACK_STATE_FILE = "config/slack_feedback_state.json"
 
 MAX_CONTENT_LENGTH = 12000
 
@@ -2579,7 +2582,63 @@ def split_slack_messages(
     return messages
 
 
+def _slack_api_request(method, payload):
+    if not SLACK_BOT_TOKEN:
+        raise RuntimeError(
+            "SLACK_BOT_TOKEN이 없습니다."
+        )
+
+    url = f"https://slack.com/api/{method}"
+    data = json.dumps(
+        payload
+    ).encode(
+        "utf-8"
+    )
+
+    request = urllib.request.Request(
+        url,
+        data=data,
+        headers={
+            "Authorization": f"Bearer {SLACK_BOT_TOKEN}",
+            "Content-Type": "application/json; charset=utf-8",
+        },
+        method="POST"
+    )
+
+    with urllib.request.urlopen(
+        request,
+        timeout=30
+    ) as response:
+        result = json.loads(
+            response.read().decode(
+                "utf-8"
+            )
+        )
+
+    if not result.get("ok"):
+        raise RuntimeError(
+            "Slack API 요청 실패: "
+            f"{result.get('error', 'unknown_error')}"
+        )
+
+    return result
+
+
 def send_slack_text(text):
+    if (
+        SLACK_BOT_TOKEN
+        and SLACK_CHANNEL_ID
+    ):
+        return _slack_api_request(
+            "chat.postMessage",
+            {
+                "channel": SLACK_CHANNEL_ID,
+                "text": text,
+                "unfurl_links": False,
+                "unfurl_media": False,
+            }
+        )
+
     if not SLACK_WEBHOOK_URL:
         raise RuntimeError(
             "SLACK_WEBHOOK_URL이 없습니다."
@@ -2619,6 +2678,197 @@ def send_slack_text(text):
         raise RuntimeError(
             f"Slack 전송 실패: {result}"
         )
+
+    return {
+        "ok": True,
+        "transport": "webhook",
+    }
+
+
+def _extract_one_line_summary(item):
+    summary = item.get(
+        "summary",
+        ""
+    )
+
+    match = re.search(
+        r"\[한줄 요약\]\s*(.+?)(?:\n|$)",
+        summary,
+        re.S
+    )
+
+    if match:
+        return (
+            match
+            .group(1)
+            .strip()
+        )
+
+    return (
+        str(summary)
+        .replace("\n", " ")
+        [:180]
+    )
+
+
+def _save_slack_feedback_state(items):
+    os.makedirs(
+        os.path.dirname(
+            SLACK_FEEDBACK_STATE_FILE
+        ),
+        exist_ok=True
+    )
+
+    temp_path = (
+        SLACK_FEEDBACK_STATE_FILE
+        + ".tmp"
+    )
+
+    with open(
+        temp_path,
+        "w",
+        encoding="utf-8"
+    ) as file:
+        json.dump(
+            {
+                "items": items,
+                "updated_at": datetime.now(
+                    ZoneInfo(
+                        "Asia/Seoul"
+                    )
+                ).isoformat(),
+            },
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+        file.write("\n")
+
+    os.replace(
+        temp_path,
+        SLACK_FEEDBACK_STATE_FILE
+    )
+
+
+def send_slack_feedback_cards(
+    summarized_articles,
+    top_indices
+):
+    if not (
+        SLACK_BOT_TOKEN
+        and SLACK_CHANNEL_ID
+    ):
+        print(
+            "Slack feedback card 생략: "
+            "SLACK_BOT_TOKEN/SLACK_CHANNEL_ID 미설정"
+        )
+        return []
+
+    state_items = []
+
+    for position, index in enumerate(
+        top_indices,
+        start=1
+    ):
+        if (
+            index < 1
+            or index > len(
+                summarized_articles
+            )
+        ):
+            continue
+
+        item = summarized_articles[
+            index - 1
+        ]
+        article = item[
+            "article"
+        ]
+
+        summary_data = item.get(
+            "summary_data",
+            {}
+        )
+
+        topics = summary_data.get(
+            "concepts",
+            []
+        )
+
+        if not isinstance(
+            topics,
+            list
+        ):
+            topics = []
+
+        text = "\n".join(
+            [
+                "🧭 *추천 피드백*",
+                (
+                    f"*{position}. "
+                    f"{article['title']}*"
+                ),
+                (
+                    f"{article['company']} · "
+                    f"{article.get('selection_score')}/15"
+                ),
+                "",
+                _extract_one_line_summary(
+                    item
+                ),
+                "",
+                "이 추천이 어땠는지 반응으로 알려주세요.",
+                "👍 도움됨  👎 별로  🔥 이런 거 더  🙈 이 주제 줄이기",
+                f"🔗 {article['link']}",
+            ]
+        )
+
+        response = send_slack_text(
+            text
+        )
+
+        timestamp = response.get(
+            "ts"
+        )
+
+        if not timestamp:
+            continue
+
+        state_items.append(
+            {
+                "ts": timestamp,
+                "channel": response.get(
+                    "channel",
+                    SLACK_CHANNEL_ID
+                ),
+                "article": {
+                    "title": article[
+                        "title"
+                    ],
+                    "company": article[
+                        "company"
+                    ],
+                    "link": article[
+                        "link"
+                    ],
+                    "score": article.get(
+                        "selection_score"
+                    ),
+                    "topics": [
+                        str(topic).strip()
+                        for topic in topics[:5]
+                        if str(topic).strip()
+                    ],
+                },
+            }
+        )
+
+    if state_items:
+        _save_slack_feedback_state(
+            state_items
+        )
+
+    return state_items
 
 
 def build_digest(
@@ -3183,6 +3433,27 @@ def main():
 
         send_slack_text(
             message
+        )
+
+    try:
+        feedback_items = (
+            send_slack_feedback_cards(
+                summarized_articles,
+                top_indices
+            )
+        )
+
+        if feedback_items:
+            print(
+                "Slack 피드백 카드:",
+                len(feedback_items),
+                "개"
+            )
+
+    except Exception as error:
+        print(
+            "Slack 피드백 카드 생성 실패:",
+            repr(error)
         )
 
     successfully_processed = []
