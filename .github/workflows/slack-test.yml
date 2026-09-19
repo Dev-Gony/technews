@@ -45,7 +45,7 @@ jobs:
 
       - name: Save runtime state
         run: |
-          if git diff --quiet sent_articles.json config/slack_feedback_state.json config/article_history.json; then
+          if git diff --quiet sent_articles.json config/slack_feedback_state.json config/article_history.json config/issues/; then
             echo "No runtime state changes to save."
             exit 0
           fi
@@ -53,7 +53,7 @@ jobs:
           git config user.name "tech-news-bot"
           git config user.email "tech-news-bot@users.noreply.github.com"
 
-          git add sent_articles.json config/slack_feedback_state.json config/article_history.json
+          git add sent_articles.json config/slack_feedback_state.json config/article_history.json config/issues/
           git commit -m "Update tech news runtime state"
 
           git pull --rebase origin main
