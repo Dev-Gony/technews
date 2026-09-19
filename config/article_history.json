@@ -1,6 +1,102 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-20T07:40:54.188231+09:00",
+      "company": "GeekNews",
+      "title": "유닛 테스트는 버그를 잡는다기보다 영역 표시를 하는 것",
+      "link": "https://news.hada.io/topic?id=33940",
+      "published_at": "2026-09-19T21:35:42+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "영역 표시(Territory Marking)",
+        "커밋 게이트(Commit Gate)",
+        "랜덤 테스트(Random Testing)"
+      ],
+      "one_line": "유닛 테스트는 버그 탐지보다 코드베이스의 변경을 방지하는 '영역 표시' 도구로 활용하는 것이 현실적이다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-20T07:40:54.188231+09:00",
+      "company": "GeekNews",
+      "title": "GPT-6 Astra, 제1차 세계대전 독일 무선 암호 해독",
+      "link": "https://news.hada.io/topic?id=33942",
+      "published_at": "2026-09-19T21:42:21+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "ADFGVX 암호",
+        "폴리비오스 정사각형",
+        "열 전치(Columnar Transposition)"
+      ],
+      "one_line": "GPT-6 Astra가 제1차 세계대전 당시의 미해독 암호문을 해독하며 LLM의 복잡한 추론 및 데이터 분석 능력을 입증했다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-20T07:40:54.188231+09:00",
+      "company": "GeekNews",
+      "title": "Laya - Jev의 오픈소스 버전",
+      "link": "https://news.hada.io/topic?id=33944",
+      "published_at": "2026-09-19T22:52:21+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "비자기회귀형 모델(Non-autoregressive Model)",
+        "System 1 사고",
+        "확률 보정(Probability Calibration)"
+      ],
+      "one_line": "Laya는 텍스트 생성 대신 확률과 판단을 반환하는 비자기회귀형 의사결정 모델로, LLM 대비 압도적인 속도와 효율을 제공한다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-20T07:40:54.188231+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI는 자체 LLM으로 Jalapeño 칩을 어떻게 설계했나",
+      "link": "https://news.hada.io/topic?id=33945",
+      "published_at": "2026-09-19T23:42:21+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "XLS(Accelerated Hardware Synthesis)",
+        "RTL(Register Transfer Level)",
+        "AI 가속기 설계"
+      ],
+      "one_line": "OpenAI는 자체 LLM을 활용하여 칩 설계 기간을 획기적으로 단축하고, 소프트웨어 최적화 성능을 극대화했다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-20T07:40:54.188231+09:00",
+      "company": "GeekNews",
+      "title": "가장 중요한 제품 결정은 무엇을 만들지 않을 것인가",
+      "link": "https://news.hada.io/topic?id=33950",
+      "published_at": "2026-09-20T02:52:22+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "유지보수 비용(Maintenance Cost)",
+        "기능 제거(Feature Deprecation)",
+        "기회비용"
+      ],
+      "one_line": "제품 성공의 핵심은 기능을 추가하는 것이 아니라, 유지보수 비용을 고려해 불필요한 기능을 과감히 제거하는 것이다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-20T07:40:54.188231+09:00",
+      "company": "GeekNews",
+      "title": "TIN - Postgres용 전문 검색",
+      "link": "https://news.hada.io/topic?id=33955",
+      "published_at": "2026-09-20T06:42:22+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "BM25 (Best Matching 25)",
+        "ctid (Postgres 물리적 행 식별자)",
+        "MVCC (Multi-Version Concurrency Control)"
+      ],
+      "one_line": "PlanetScale이 Postgres의 ctid를 직접 활용해 성능을 극대화한 전문 검색 확장 'TIN'을 출시함.",
+      "actionability": 2
+    },
+    {
       "recorded_at": "2026-09-19T18:39:46.392927+09:00",
       "company": "GeekNews",
       "title": "Claude Code, 이제 CLAUDE.md가 없으면 AGENTS.md를 읽음",
@@ -144,5 +240,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-19T18:39:46.392927+09:00"
+  "updated_at": "2026-09-20T07:40:54.188231+09:00"
 }

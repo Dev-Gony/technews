@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "issue_number": 2,
+  "issue_date": "2026-09-20",
+  "generated_at": "2026-09-20T07:40:53.855854+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\n비자기회귀형 모델, ctid, 하드웨어 설계 자동화, 유지보수 비용, 테스트 전략\n\n[오늘의 한줄 포인트]\n\nAI를 활용한 개발 생산성 향상과 더불어, 시스템의 효율을 극대화하는 아키텍처 최적화와 과감한 기능 제거가 필요한 시점입니다.\n\n[오늘 왜 중요한가]\n\n단순한 코드 작성을 넘어 AI가 하드웨어 설계와 고성능 검색 엔진 구현까지 돕는 시대가 되었습니다. 개발자는 AI 도구를 활용해 생산성을 높이는 동시에, 시스템의 복잡도를 낮추고 운영 비용을 최적화하는 전략적 의사결정 능력을 갖춰야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 3번: LLM의 비용과 지연 시간 문제를 해결할 수 있는 비자기회귀형 모델의 실무적 대안을 제시하기 때문입니다.\n• 6번: 별도의 검색 엔진 도입 없이 Postgres만으로 고성능 전문 검색을 구현할 수 있는 실용적인 아키텍처 개선 사례이기 때문입니다.\n• 4번: AI가 단순 코딩 보조를 넘어 하드웨어 설계와 성능 최적화라는 고난도 영역까지 확장되고 있음을 보여주기 때문입니다.\n\n[오늘 공부해볼 것]\n\n• 비자기회귀형 모델(Non-autoregressive Model)의 원리: 텍스트 생성 모델과 달리 왜 추론 속도가 압도적으로 빠른지 구조적 차이를 이해하기 위함입니다.\n• Postgres의 ctid와 MVCC 이해: 데이터베이스 내부 물리적 구조를 활용한 성능 최적화 기법을 익혀 쿼리 튜닝 역량을 높이기 위함입니다.\n• 기술 부채와 기능 제거의 경제학: 제품의 유지보수 비용을 수치화하고 불필요한 기능을 식별하는 기준을 세워 효율적인 로드맵을 관리하기 위함입니다.",
+  "stats": {
+    "candidate_count": 18,
+    "detailed_count": 6,
+    "brief_count": 2,
+    "excluded_count": 10,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Laya - Jev의 오픈소스 버전",
+      "link": "https://news.hada.io/topic?id=33944",
+      "published_at": "2026-09-19T22:52:21+09:00",
+      "selection_score": 14,
+      "selection_reason": "비자기회귀형 의사결정 모델 및 성능 최적화 기술은 AI Agent 및 백엔드 아키텍처 관점에서 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Laya는 텍스트 생성 대신 확률과 판단을 반환하는 비자기회귀형 의사결정 모델로, LLM 대비 압도적인 속도와 효율을 제공한다.",
+      "key_points": [
+        "Laya는 고객 문의 분류, 피싱 판별 등 빠른 판단이 필요한 작업에 최적화된 비자기회귀형 모델군이다.",
+        "단일 순전파로 선택지 확률, 점수, 참/거짓 여부를 반환하며, 생성형 LLM 대비 추론 속도가 약 20배 빠르다.",
+        "언어 라우팅 기능을 통해 다국어 환경에서도 효율적으로 동작하며, Apache-2.0 라이선스로 자체 호스팅이 가능하다."
+      ],
+      "topics": [
+        "비자기회귀형 모델(Non-autoregressive Model)",
+        "System 1 사고",
+        "확률 보정(Probability Calibration)"
+      ],
+      "recommended_for": "LLM 호출 비용과 지연 시간에 부담을 느끼는 백엔드 및 AI 서비스 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "기존 LLM 분류 작업을 Laya로 대체하여 성능 측정하기",
+        "steps": [
+          "현재 운영 중인 서비스의 텍스트 분류(스팸, 긴급도 등) 작업 중 하나를 선정한다.",
+          "Laya SDK를 설치하고 해당 업무 데이터로 모델을 미세조정하거나 제로샷으로 테스트한다.",
+          "기존 LLM 호출 대비 지연 시간(Latency)과 비용 절감 효과를 측정한다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "TIN - Postgres용 전문 검색",
+      "link": "https://news.hada.io/topic?id=33955",
+      "published_at": "2026-09-20T06:42:22+09:00",
+      "selection_score": 14,
+      "selection_reason": "Postgres 기반의 전문 검색 확장 기능은 백엔드 아키텍처 및 데이터베이스 성능 최적화 측면에서 매우 실용적인 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "PlanetScale이 Postgres의 ctid를 직접 활용해 성능을 극대화한 전문 검색 확장 'TIN'을 출시함.",
+      "key_points": [
+        "TIN은 Postgres의 물리적 행 위치인 ctid를 인덱스 식별자로 직접 사용하여, 별도의 문서 번호 매핑 과정을 생략함으로써 검색 및 갱신 성능을 획기적으로 높임.",
+        "BM25 기반의 관련도 순위와 불리언 검색, 퍼지/정규식 매칭을 지원하며, 벤치마크 결과 기존 솔루션 대비 처리량은 최대 25배 높고 지연 시간은 크게 단축됨.",
+        "데이터 삽입/수정/삭제 중에도 즉시 검색 반영이 가능하며, MVCC 가시성 검사와 결합하여 트랜잭션 무결성을 유지하면서도 고성능 검색을 제공함."
+      ],
+      "topics": [
+        "BM25 (Best Matching 25)",
+        "ctid (Postgres 물리적 행 식별자)",
+        "MVCC (Multi-Version Concurrency Control)"
+      ],
+      "recommended_for": "Postgres 기반의 백엔드 아키텍처를 설계하며, 별도의 검색 엔진(Elasticsearch 등) 도입 없이 데이터베이스 내에서 고성능 전문 검색을 구현하고자 하는 개발자.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI는 자체 LLM으로 Jalapeño 칩을 어떻게 설계했나",
+      "link": "https://news.hada.io/topic?id=33945",
+      "published_at": "2026-09-19T23:42:21+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM을 활용한 하드웨어 설계 가속화 사례는 AI 기술의 산업적 확장성을 보여주는 매우 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI는 자체 LLM을 활용하여 칩 설계 기간을 획기적으로 단축하고, 소프트웨어 최적화 성능을 극대화했다.",
+      "key_points": [
+        "OpenAI는 XLS(Accelerated Hardware Synthesis) 도구를 활용해 LLM이 하드웨어 설계를 가속하도록 유도했다.",
+        "첫 칩 수령 후 40시간 만에 내부 AI 모델로 어텐션 커널 성능을 0.31%에서 88.94%까지 끌어올렸다.",
+        "칩 설계의 완전 자동화보다는 엔지니어의 반복 작업을 돕는 도구로서 LLM의 가능성을 증명했다."
+      ],
+      "topics": [
+        "XLS(Accelerated Hardware Synthesis)",
+        "RTL(Register Transfer Level)",
+        "AI 가속기 설계"
+      ],
+      "recommended_for": "AI를 활용한 개발 생산성 향상과 하드웨어 설계 자동화에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "유닛 테스트는 버그를 잡는다기보다 영역 표시를 하는 것",
+      "link": "https://news.hada.io/topic?id=33940",
+      "published_at": "2026-09-19T21:35:42+09:00",
+      "selection_score": 11,
+      "selection_reason": "소프트웨어 개발 워크플로와 테스트 전략에 대한 통찰을 제공하여 개발 생산성 관점에서 읽어볼 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "유닛 테스트는 버그 탐지보다 코드베이스의 변경을 방지하는 '영역 표시' 도구로 활용하는 것이 현실적이다.",
+      "key_points": [
+        "유닛 테스트는 복잡한 상호작용 버그를 잡기보다, 공유 소유권 문화에서 남들이 코드를 함부로 수정하지 못하게 막는 사회적 가드레일 역할을 한다.",
+        "품질 개선은 프로그램의 변경 속도를 높여줄 때만 가치를 인정받으며, 테스트는 코드의 안정성을 보장하여 개발 속도를 유지하게 해준다.",
+        "랜덤 입력 생성(Randomizer)을 활용한 테스트는 개인이 도입해도 하드웨어 수준의 신뢰성을 확보할 수 있는 효과적인 대안이다."
+      ],
+      "topics": [
+        "영역 표시(Territory Marking)",
+        "커밋 게이트(Commit Gate)",
+        "랜덤 테스트(Random Testing)"
+      ],
+      "recommended_for": "테스트 코드 작성의 효용성에 의문을 느끼거나, 효율적인 테스트 전략을 고민하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "안정적인 모듈에 랜덤 입력 테스트 도입하기",
+        "steps": [
+          "현재 프로젝트에서 변경이 잦지 않고 안정적인 핵심 모듈 하나를 선정한다.",
+          "해당 모듈의 입력값 범위를 정의하고, Python의 random 라이브러리를 사용해 수천 번의 랜덤 입력을 생성하는 테스트 스크립트를 작성한다.",
+          "결정론적 시드를 사용하여 CI 환경에서도 동일한 테스트가 수행되도록 설정한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "GPT-6 Astra, 제1차 세계대전 독일 무선 암호 해독",
+      "link": "https://news.hada.io/topic?id=33942",
+      "published_at": "2026-09-19T21:42:21+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM의 복잡한 추론 및 암호 해독 능력을 보여주는 사례로, AI 모델의 발전 수준을 파악하는 데 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "GPT-6 Astra가 제1차 세계대전 당시의 미해독 암호문을 해독하며 LLM의 복잡한 추론 및 데이터 분석 능력을 입증했다.",
+      "key_points": [
+        "GPT-6 Astra는 1918년 독일군이 사용한 ADFGVX 암호문을 해독하여 영국 순양함의 이동 경로를 밝혀냈다.",
+        "암호 해독 과정에서 키 사용 시점의 불일치를 발견하고, 실제 항해일지와의 대조를 통해 결과를 검증하는 추론 능력을 보여주었다.",
+        "단순 빈도 분석을 넘어 키워드 기반의 열 재배열과 문자쌍 치환 과정을 논리적으로 수행했다."
+      ],
+      "topics": [
+        "ADFGVX 암호",
+        "폴리비오스 정사각형",
+        "열 전치(Columnar Transposition)"
+      ],
+      "recommended_for": "LLM의 추론 능력 한계와 데이터 분석 활용 사례에 관심 있는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "가장 중요한 제품 결정은 무엇을 만들지 않을 것인가",
+      "link": "https://news.hada.io/topic?id=33950",
+      "published_at": "2026-09-20T02:52:22+09:00",
+      "selection_score": 12,
+      "selection_reason": "기능 추가를 지양하고 운영 비용을 고려하는 제품 철학은 백엔드 및 서비스 아키텍처 설계 시 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "제품 성공의 핵심은 기능을 추가하는 것이 아니라, 유지보수 비용을 고려해 불필요한 기능을 과감히 제거하는 것이다.",
+      "key_points": [
+        "기능 추가 시 초기 개발비보다 수년간 지속될 운영 및 유지보수 비용을 우선적으로 고려해야 한다.",
+        "조직은 새로운 것을 만드는 데 보상을 주지만, 진정한 개선은 사용자가 원하는 핵심 기능에 집중하고 나머지를 제거할 때 일어난다.",
+        "AI 에이전트를 활용해 코드베이스를 분석하고 불필요한 기능을 식별하여 가지치기하는 데 역량을 집중해야 한다."
+      ],
+      "topics": [
+        "유지보수 비용(Maintenance Cost)",
+        "기능 제거(Feature Deprecation)",
+        "기회비용"
+      ],
+      "recommended_for": "제품 로드맵을 관리하거나 기술 부채 해결을 고민하는 PM 및 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "제품 내 사용 빈도가 낮은 기능 식별 및 제거 검토",
+        "steps": [
+          "최근 3개월간 사용 로그를 분석하여 사용률이 가장 낮은 기능 3가지를 선정한다.",
+          "해당 기능을 유지하기 위해 발생하는 운영 비용과 코드 복잡도를 정리한다.",
+          "이해관계자에게 기능 제거 시 얻을 수 있는 유지보수 비용 절감 효과를 수치화하여 제안한다."
+        ],
+        "effort": "1~2시간"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "C++26: 단순 무한 루프는 더 이상 미정의 동작이 아님",
+      "link": "https://news.hada.io/topic?id=33936",
+      "published_at": "2026-09-19T18:42:22+09:00",
+      "selection_score": 9,
+      "selection_reason": "C++ 언어 표준의 변화는 백엔드 시스템 프로그래밍과 성능 최적화 관점에서 확인해둘 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Xcode 27.1 베타 릴리스 노트",
+      "link": "https://news.hada.io/topic?id=33953",
+      "published_at": "2026-09-20T03:42:23+09:00",
+      "selection_score": 9,
+      "selection_reason": "주요 개발 도구인 Xcode의 업데이트 정보로, 모바일 및 애플 생태계 개발자에게는 확인이 필요한 내용입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
