@@ -22,7 +22,10 @@ SITE_BASE_PATH = os.environ.get(
     "/technews"
 ).strip()
 
-if SITE_BASE_PATH == "/":
+if (
+    not SITE_BASE_PATH
+    or SITE_BASE_PATH == "/"
+):
     SITE_BASE_PATH = ""
 else:
     SITE_BASE_PATH = "/" + SITE_BASE_PATH.strip("/")
