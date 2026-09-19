@@ -799,3 +799,59 @@ GeekNews만 다음 순서로 링크를 찾도록 전용 fallback을 추가했습
 
 장애 확인 시 GeekNews 항목의 `title`, `link`, `links`, `id` 순으로 확인하면 됩니다.
 
+---
+
+## 2026-09-19. Slack News → Action 1차 구현
+
+### 목표
+
+기존 Tech Digest가 기사를 선별하고 요약하는 데서 끝나지 않고, 실제로 바로 시도해볼 수 있는 실행 항목까지 제안하도록 확장했습니다.
+
+이번 단계에서는 Telegram 기능을 건드리지 않고 Slack 데일리 브리핑만 개선했습니다.
+
+### 구현
+
+Gemini 상세 요약 결과에 다음 구조를 추가했습니다.
+
+- `actionability`: 0~5점
+- `action.type`: experiment / code_improvement / study / adoption_review
+- `action.title`: 바로 해볼 행동
+- `action.steps`: 시작 단계 최대 3개
+- `action.effort`: 예상 작업량
+
+기존 상세 요약 Gemini 호출에 함께 생성하도록 구성해 Action 기능 때문에 API 호출 횟수가 추가되지 않도록 했습니다.
+
+### 노출 기준
+
+모든 기사에 억지 Action을 만들지 않도록 `actionability >= 4`인 경우에만 Slack 상세 브리핑에 다음 영역을 표시합니다.
+
+    ⚡ [직접 해볼 것]
+    구체적인 실행 항목
+    유형: 코드 개선 · 예상 작업량: 30~60분
+    • 첫 단계
+    • 두 번째 단계
+
+개념 소개나 홍보성 내용처럼 바로 적용하기 어려운 글은 Action을 숨깁니다.
+
+### 안전성
+
+- 기사 본문과 사용자 관심 분야에서 직접 도출할 수 있는 Action만 생성
+- 기사에 없는 제품 기능, 성능 수치, 구현 결과를 추측하지 않도록 프롬프트 제한
+- 잘못된 `actionability` 값이나 비정상적인 `action` 구조가 와도 기존 요약은 정상 출력
+- 향후 Feedback Learning / Trend Radar에서 재사용할 수 있도록 원본 구조화 요약 데이터도 `summary_data`로 유지
+
+### 테스트
+
+`tests/test_slack_actions.py`에서 다음을 검증합니다.
+
+- Action 점수가 높은 기사에서 Action 표시
+- Action 점수가 낮은 기사에서 Action 미표시
+- 잘못된 Action 데이터가 들어와도 안전하게 fallback
+
+### 다음 후보
+
+1. Slack 피드백 수집
+2. 기사/Action metadata 저장
+3. Feedback Learning
+4. 누적 기사 데이터를 활용한 Trend Radar
+
