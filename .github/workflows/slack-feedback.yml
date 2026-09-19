@@ -32,7 +32,12 @@ jobs:
       - name: Sync Slack reactions
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-        run: python slack_feedback.py
+        run: |
+          if [ -z "$SLACK_BOT_TOKEN" ]; then
+            echo "SLACK_BOT_TOKEN is not configured. Skip feedback sync."
+            exit 0
+          fi
+          python slack_feedback.py
 
       - name: Save Slack feedback
         run: |
