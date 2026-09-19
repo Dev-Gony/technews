@@ -3,12 +3,6 @@ name: Daily Tech News
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/manual-daily-trigger/**"
-
   schedule:
     - cron: "57 5 * * *"
       timezone: "Asia/Seoul"
