@@ -26,6 +26,7 @@ GEMINI_MODEL = "gemini-3.1-flash-lite"
 
 SENT_ARTICLES_FILE = "sent_articles.json"
 SLACK_FEEDBACK_STATE_FILE = "config/slack_feedback_state.json"
+SLACK_FEEDBACK_FILE = "config/slack_feedback.json"
 
 MAX_CONTENT_LENGTH = 12000
 
@@ -40,6 +41,145 @@ ACTIONABILITY_THRESHOLD = 4
 USER_PREFERENCES = load_user_preferences()
 BRIEF_SCORE_THRESHOLD = USER_PREFERENCES["scoring"]["brief_threshold"]
 DETAILED_SCORE_THRESHOLD = USER_PREFERENCES["scoring"]["detailed_threshold"]
+
+
+def load_feedback_topic_weights(
+    path=SLACK_FEEDBACK_FILE
+):
+    if not os.path.exists(
+        path
+    ):
+        return {}
+
+    try:
+        with open(
+            path,
+            "r",
+            encoding="utf-8"
+        ) as file:
+            data = json.load(
+                file
+            )
+    except (
+        OSError,
+        json.JSONDecodeError
+    ):
+        return {}
+
+    articles = data.get(
+        "articles",
+        {}
+    )
+
+    if not isinstance(
+        articles,
+        dict
+    ):
+        return {}
+
+    weights = {}
+
+    for record in articles.values():
+        if not isinstance(
+            record,
+            dict
+        ):
+            continue
+
+        article = record.get(
+            "article",
+            {}
+        )
+        feedback = record.get(
+            "feedback",
+            {}
+        )
+
+        topics = article.get(
+            "topics",
+            []
+        )
+
+        if not isinstance(
+            topics,
+            list
+        ):
+            continue
+
+        try:
+            helpful = int(
+                feedback.get(
+                    "helpful",
+                    0
+                )
+            )
+            not_helpful = int(
+                feedback.get(
+                    "not_helpful",
+                    0
+                )
+            )
+            more_like_this = int(
+                feedback.get(
+                    "more_like_this",
+                    0
+                )
+            )
+            less_like_this = int(
+                feedback.get(
+                    "less_like_this",
+                    0
+                )
+            )
+        except (
+            TypeError,
+            ValueError
+        ):
+            continue
+
+        signal = (
+            helpful * 0.25
+            + more_like_this * 0.75
+            - not_helpful * 0.25
+            - less_like_this * 0.75
+        )
+
+        if signal == 0:
+            continue
+
+        for topic in topics:
+            normalized_topic = str(
+                topic
+            ).strip()
+
+            if not normalized_topic:
+                continue
+
+            key = normalized_topic.casefold()
+
+            weights[
+                key
+            ] = weights.get(
+                key,
+                0.0
+            ) + signal
+
+    return {
+        topic: max(
+            -2.0,
+            min(
+                2.0,
+                weight
+            )
+        )
+        for topic, weight in weights.items()
+        if abs(weight) >= 0.25
+    }
+
+
+FEEDBACK_TOPIC_WEIGHTS = (
+    load_feedback_topic_weights()
+)
 
 INITIALIZE_ONLY = False
 
@@ -1261,6 +1401,106 @@ def call_gemini(prompt):
     )
 
 
+def get_feedback_relevance_bias(
+    article,
+    topic_weights=None
+):
+    weights = (
+        FEEDBACK_TOPIC_WEIGHTS
+        if topic_weights is None
+        else topic_weights
+    )
+
+    if not weights:
+        return 0
+
+    text = " ".join(
+        [
+            str(
+                article.get(
+                    "title",
+                    ""
+                )
+            ),
+            get_prefilter_text(
+                article
+            ),
+        ]
+    ).casefold()
+
+    matched_weight = 0.0
+
+    for topic, weight in (
+        weights.items()
+    ):
+        if topic in text:
+            matched_weight += weight
+
+    if matched_weight >= 0.5:
+        return 1
+
+    if matched_weight <= -0.5:
+        return -1
+
+    return 0
+
+
+def format_feedback_learning_context(
+    topic_weights=None
+):
+    weights = (
+        FEEDBACK_TOPIC_WEIGHTS
+        if topic_weights is None
+        else topic_weights
+    )
+
+    if not weights:
+        return "아직 충분한 피드백 데이터가 없음"
+
+    positive = sorted(
+        [
+            (topic, weight)
+            for topic, weight in weights.items()
+            if weight > 0
+        ],
+        key=lambda item: item[1],
+        reverse=True
+    )[:5]
+
+    negative = sorted(
+        [
+            (topic, weight)
+            for topic, weight in weights.items()
+            if weight < 0
+        ],
+        key=lambda item: item[1]
+    )[:5]
+
+    lines = []
+
+    if positive:
+        lines.append(
+            "더 선호하는 경향: "
+            + ", ".join(
+                topic
+                for topic, _ in positive
+            )
+        )
+
+    if negative:
+        lines.append(
+            "덜 선호하는 경향: "
+            + ", ".join(
+                topic
+                for topic, _ in negative
+            )
+        )
+
+    return "\n".join(
+        lines
+    ) or "아직 충분한 피드백 데이터가 없음"
+
+
 def build_prefilter_prompt(
     articles
 ):
@@ -1311,6 +1551,10 @@ RSS 미리보기:
     else:
         avoid_lines = "(없음)"
 
+    feedback_context = (
+        format_feedback_learning_context()
+    )
+
     return f"""
 너는 개발자와 IT 실무자를 위한 기술 뉴스 편집자다.
 
@@ -1323,6 +1567,13 @@ RSS 미리보기:
 사용자가 우선순위를 낮추고 싶은 주제:
 
 {avoid_lines}
+
+실제 Slack 피드백에서 학습한 약한 선호 신호:
+
+{feedback_context}
+
+이 피드백은 보조 신호다.
+중요한 기술 변화나 실제 활용 가치가 높은 글을 피드백만으로 강제 제외하지 않는다.
 
 avoid_topics는 강제 제외 규칙이 아니다.
 관련성이 높거나 업계적으로 중요한 글이라면 다른 점수를 함께 고려한다.
@@ -1651,6 +1902,36 @@ def select_relevant_articles(
                     significance
                 )
             )
+
+            feedback_bias = (
+                get_feedback_relevance_bias(
+                    article
+                )
+            )
+
+            if feedback_bias:
+                relevance = max(
+                    0,
+                    min(
+                        5,
+                        relevance
+                        + feedback_bias
+                    )
+                )
+
+                article[
+                    "feedback_bias"
+                ] = feedback_bias
+
+                print(
+                    "피드백 학습 보정:",
+                    feedback_bias,
+                    article["title"]
+                )
+            else:
+                article[
+                    "feedback_bias"
+                ] = 0
 
             calculated_total = (
                 relevance
