@@ -17,6 +17,15 @@ ARCHIVE_OUTPUT_DIR = OUTPUT_DIR / "archive"
 
 SITE_NAME = "TECHNEWS DAILY"
 SITE_TAGLINE = "Personal Developer Intelligence Newspaper"
+SITE_BASE_PATH = os.environ.get(
+    "SITE_BASE_PATH",
+    "/technews"
+).strip()
+
+if SITE_BASE_PATH == "/":
+    SITE_BASE_PATH = ""
+else:
+    SITE_BASE_PATH = "/" + SITE_BASE_PATH.strip("/")
 
 
 def _escape(value):
@@ -469,7 +478,7 @@ def _layout(
   <meta name="description" content="{_escape(description)}">
   <meta name="color-scheme" content="light dark">
   <title>{_escape(title)}</title>
-  <link rel="stylesheet" href="/technews/assets/styles.css">
+  <link rel="stylesheet" href="{SITE_BASE_PATH}/assets/styles.css">
 </head>
 <body class="{_escape(body_class)}">
   {content}
@@ -508,7 +517,7 @@ def render_issue(issue, archive_items):
 
     archive_links = "".join(
         (
-            f'<a href="/technews/issues/{_escape(_slug_date(item))}/">'
+            f'<a href="{SITE_BASE_PATH}/issues/{_escape(_slug_date(item))}/">'
             f'{_escape(item.get("issue_date"))}</a>'
         )
         for item in archive_items[:7]
@@ -538,7 +547,7 @@ def render_issue(issue, archive_items):
         <a href="#actions">ACTION DESK</a>
         <a href="#radar">TREND RADAR</a>
         <a href="#more">MORE NEWS</a>
-        <a href="/technews/archive/">ARCHIVE</a>
+        <a href="{SITE_BASE_PATH}/archive/">ARCHIVE</a>
       </nav>
 
       <section class="section hero-section" id="top">
@@ -694,7 +703,7 @@ def render_archive(issues):
     for issue in issues:
         rows.append(
             f"""
-            <a class="archive-row" href="/technews/issues/{_escape(_slug_date(issue))}/">
+            <a class="archive-row" href="{SITE_BASE_PATH}/issues/{_escape(_slug_date(issue))}/">
               <div>
                 <span>ISSUE {_escape(issue.get("issue_number"))}</span>
                 <strong>{_escape(issue.get("issue_date"))}</strong>
@@ -724,7 +733,7 @@ def render_archive(issues):
 
     content = f"""
     <header class="site-shell archive-header">
-      <a href="/technews/">← LATEST ISSUE</a>
+      <a href="{SITE_BASE_PATH}/">← LATEST ISSUE</a>
       <div class="eyebrow">ARCHIVE</div>
       <h1>Every issue,<br>kept intact.</h1>
       <p>
