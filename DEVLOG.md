@@ -892,3 +892,50 @@ Daily Tech News 실행 시 Slack Bot API로 피드백 카드를 전송하고 mes
 
 수집된 feedback을 topic weight로 변환해 Gemini 선별과 추천 순위에 반영하는 Feedback Learning을 구현합니다.
 
+---
+
+## 2026-09-19. Slack Feedback Learning 1차 구현
+
+### 목표
+
+Slack reaction으로 수집한 실제 사용자의 선호를 다음 기사 선별에 반영합니다.
+
+### 학습 신호
+
+다음 reaction을 topic weight로 변환합니다.
+
+- 👍 helpful: +0.25
+- 👎 not_helpful: -0.25
+- 🔥 more_like_this: +0.75
+- 🙈 less_like_this: -0.75
+
+명시적으로 "이런 거 더 / 이 주제 줄이기"를 선택한 신호를 단순 좋아요/싫어요보다 강하게 반영합니다.
+
+### 적용 방식
+
+기사 feedback record에 저장된 topic별 weight를 합산하고 -2.0~2.0 범위로 제한합니다.
+
+새 기사 제목과 RSS preview에 학습된 topic이 실제로 포함된 경우에만 relevance를 최대 +1 또는 -1 보정합니다.
+
+practical_value와 significance는 피드백으로 직접 변경하지 않습니다.
+
+따라서 사용자가 특정 topic을 덜 선호하더라도 중요한 보안 이슈나 큰 플랫폼 변화까지 자동으로 가려지는 것을 방지합니다.
+
+### Gemini Prompt
+
+Gemini 1차 평가 프롬프트에도 상위 positive / negative topic을 약한 선호 신호로 전달합니다.
+
+이 정보는 hard filter가 아니라 보조 판단 기준으로만 사용하도록 명시했습니다.
+
+### 안전장치
+
+- feedback 파일 없음 / JSON 오류 → 학습 없이 기존 동작
+- 일치 topic 없음 → 점수 변화 없음
+- relevance 보정 폭 최대 ±1
+- topic weight 최대 절대값 2.0
+- significance는 feedback 영향 없음
+
+### 다음 단계
+
+피드백 데이터가 충분히 쌓이면 topic 단위뿐 아니라 content type, source, practical/actionability 성향까지 분리해 추천 품질을 고도화할 수 있습니다.
+
