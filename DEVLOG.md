@@ -855,3 +855,40 @@ Gemini 상세 요약 결과에 다음 구조를 추가했습니다.
 3. Feedback Learning
 4. 누적 기사 데이터를 활용한 Trend Radar
 
+---
+
+## 2026-09-19. Slack 피드백 수집 MVP
+
+### 목표
+
+News → Action 다음 단계로, 사용자가 실제로 어떤 추천을 좋아하는지 수집할 수 있는 기반을 추가했습니다.
+
+Telegram은 유지하되 이번 기능은 Slack에만 구현했습니다.
+
+### 선택한 방식
+
+Slack Interactive Button 서버를 새로 운영하는 대신, 기존 GitHub Actions 인프라를 유지하기 위해 Slack reaction 기반으로 구현했습니다.
+
+상위 추천 기사를 별도 feedback card로 보내고 사용자가 다음 reaction을 남기도록 합니다.
+
+- 👍 도움됨
+- 👎 별로
+- 🔥 이런 거 더
+- 🙈 이 주제 줄이기
+
+### 구조
+
+Daily Tech News 실행 시 Slack Bot API로 피드백 카드를 전송하고 message timestamp를 `config/slack_feedback_state.json`에 저장합니다.
+
+별도 `Slack Feedback Sync` workflow가 2시간마다 `reactions.get` API를 호출해 결과를 `config/slack_feedback.json`에 저장합니다.
+
+### 호환성
+
+`SLACK_BOT_TOKEN`과 `SLACK_CHANNEL_ID`가 없으면 기존 Incoming Webhook 전송으로 fallback합니다.
+
+따라서 새 Secret을 설정하기 전에도 기존 Slack Digest는 계속 동작합니다.
+
+### 다음 단계
+
+수집된 feedback을 topic weight로 변환해 Gemini 선별과 추천 순위에 반영하는 Feedback Learning을 구현합니다.
+
