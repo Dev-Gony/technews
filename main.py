@@ -18,11 +18,16 @@ from preferences import load_user_preferences
 
 
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL")
+SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN", "").strip()
+SLACK_CHANNEL_ID = os.environ.get("SLACK_CHANNEL_ID", "").strip()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 GEMINI_MODEL = "gemini-3.1-flash-lite"
 
 SENT_ARTICLES_FILE = "sent_articles.json"
+SLACK_FEEDBACK_STATE_FILE = "config/slack_feedback_state.json"
+SLACK_FEEDBACK_FILE = "config/slack_feedback.json"
+ARTICLE_HISTORY_FILE = "config/article_history.json"
 
 MAX_CONTENT_LENGTH = 12000
 
@@ -32,10 +37,150 @@ GEEKNEWS_RECENT_ARTICLE_LIMIT = 30
 PREFILTER_TEXT_LENGTH = 800
 PREFILTER_BATCH_SIZE = 10
 DETAIL_BATCH_SIZE = 5
+ACTIONABILITY_THRESHOLD = 4
 
 USER_PREFERENCES = load_user_preferences()
 BRIEF_SCORE_THRESHOLD = USER_PREFERENCES["scoring"]["brief_threshold"]
 DETAILED_SCORE_THRESHOLD = USER_PREFERENCES["scoring"]["detailed_threshold"]
+
+
+def load_feedback_topic_weights(
+    path=SLACK_FEEDBACK_FILE
+):
+    if not os.path.exists(
+        path
+    ):
+        return {}
+
+    try:
+        with open(
+            path,
+            "r",
+            encoding="utf-8"
+        ) as file:
+            data = json.load(
+                file
+            )
+    except (
+        OSError,
+        json.JSONDecodeError
+    ):
+        return {}
+
+    articles = data.get(
+        "articles",
+        {}
+    )
+
+    if not isinstance(
+        articles,
+        dict
+    ):
+        return {}
+
+    weights = {}
+
+    for record in articles.values():
+        if not isinstance(
+            record,
+            dict
+        ):
+            continue
+
+        article = record.get(
+            "article",
+            {}
+        )
+        feedback = record.get(
+            "feedback",
+            {}
+        )
+
+        topics = article.get(
+            "topics",
+            []
+        )
+
+        if not isinstance(
+            topics,
+            list
+        ):
+            continue
+
+        try:
+            helpful = int(
+                feedback.get(
+                    "helpful",
+                    0
+                )
+            )
+            not_helpful = int(
+                feedback.get(
+                    "not_helpful",
+                    0
+                )
+            )
+            more_like_this = int(
+                feedback.get(
+                    "more_like_this",
+                    0
+                )
+            )
+            less_like_this = int(
+                feedback.get(
+                    "less_like_this",
+                    0
+                )
+            )
+        except (
+            TypeError,
+            ValueError
+        ):
+            continue
+
+        signal = (
+            helpful * 0.25
+            + more_like_this * 0.75
+            - not_helpful * 0.25
+            - less_like_this * 0.75
+        )
+
+        if signal == 0:
+            continue
+
+        for topic in topics:
+            normalized_topic = str(
+                topic
+            ).strip()
+
+            if not normalized_topic:
+                continue
+
+            key = normalized_topic.casefold()
+
+            weights[
+                key
+            ] = weights.get(
+                key,
+                0.0
+            ) + signal
+
+    return {
+        topic: max(
+            -2.0,
+            min(
+                2.0,
+                weight
+            )
+        )
+        for topic, weight in weights.items()
+        if abs(weight) >= 0.25
+    }
+
+
+FEEDBACK_TOPIC_WEIGHTS = (
+    load_feedback_topic_weights()
+)
 
 INITIALIZE_ONLY = False
 
@@ -1257,6 +1402,106 @@ def call_gemini(prompt):
     )
 
 
+def get_feedback_relevance_bias(
+    article,
+    topic_weights=None
+):
+    weights = (
+        FEEDBACK_TOPIC_WEIGHTS
+        if topic_weights is None
+        else topic_weights
+    )
+
+    if not weights:
+        return 0
+
+    text = " ".join(
+        [
+            str(
+                article.get(
+                    "title",
+                    ""
+                )
+            ),
+            get_prefilter_text(
+                article
+            ),
+        ]
+    ).casefold()
+
+    matched_weight = 0.0
+
+    for topic, weight in (
+        weights.items()
+    ):
+        if topic in text:
+            matched_weight += weight
+
+    if matched_weight >= 0.5:
+        return 1
+
+    if matched_weight <= -0.5:
+        return -1
+
+    return 0
+
+
+def format_feedback_learning_context(
+    topic_weights=None
+):
+    weights = (
+        FEEDBACK_TOPIC_WEIGHTS
+        if topic_weights is None
+        else topic_weights
+    )
+
+    if not weights:
+        return "아직 충분한 피드백 데이터가 없음"
+
+    positive = sorted(
+        [
+            (topic, weight)
+            for topic, weight in weights.items()
+            if weight > 0
+        ],
+        key=lambda item: item[1],
+        reverse=True
+    )[:5]
+
+    negative = sorted(
+        [
+            (topic, weight)
+            for topic, weight in weights.items()
+            if weight < 0
+        ],
+        key=lambda item: item[1]
+    )[:5]
+
+    lines = []
+
+    if positive:
+        lines.append(
+            "더 선호하는 경향: "
+            + ", ".join(
+                topic
+                for topic, _ in positive
+            )
+        )
+
+    if negative:
+        lines.append(
+            "덜 선호하는 경향: "
+            + ", ".join(
+                topic
+                for topic, _ in negative
+            )
+        )
+
+    return "\n".join(
+        lines
+    ) or "아직 충분한 피드백 데이터가 없음"
+
+
 def build_prefilter_prompt(
     articles
 ):
@@ -1307,6 +1552,10 @@ RSS 미리보기:
     else:
         avoid_lines = "(없음)"
 
+    feedback_context = (
+        format_feedback_learning_context()
+    )
+
     return f"""
 너는 개발자와 IT 실무자를 위한 기술 뉴스 편집자다.
 
@@ -1319,6 +1568,13 @@ RSS 미리보기:
 사용자가 우선순위를 낮추고 싶은 주제:
 
 {avoid_lines}
+
+실제 Slack 피드백에서 학습한 약한 선호 신호:
+
+{feedback_context}
+
+이 피드백은 보조 신호다.
+중요한 기술 변화나 실제 활용 가치가 높은 글을 피드백만으로 강제 제외하지 않는다.
 
 avoid_topics는 강제 제외 규칙이 아니다.
 관련성이 높거나 업계적으로 중요한 글이라면 다른 점수를 함께 고려한다.
@@ -1648,6 +1904,36 @@ def select_relevant_articles(
                 )
             )
 
+            feedback_bias = (
+                get_feedback_relevance_bias(
+                    article
+                )
+            )
+
+            if feedback_bias:
+                relevance = max(
+                    0,
+                    min(
+                        5,
+                        relevance
+                        + feedback_bias
+                    )
+                )
+
+                article[
+                    "feedback_bias"
+                ] = feedback_bias
+
+                print(
+                    "피드백 학습 보정:",
+                    feedback_bias,
+                    article["title"]
+                )
+            else:
+                article[
+                    "feedback_bias"
+                ] = 0
+
             calculated_total = (
                 relevance
                 + practical_value
@@ -1863,12 +2149,31 @@ concepts:
 recommended_for:
 누가 읽으면 좋은지 한 문장
 
+actionability:
+이 기사를 읽은 뒤 개발자가 바로 실험하거나 적용해볼 가치가 있는지 0~5점으로 평가한다.
+단순 개념 소개, 홍보성 내용, 즉시 적용하기 어려운 내용은 낮게 평가한다.
+
+action:
+actionability가 4점 이상일 때만 구체적인 실행 항목을 작성한다.
+- type: experiment, code_improvement, study, adoption_review 중 하나
+- title: 무엇을 해볼지 한 문장
+- steps: 바로 시작할 수 있는 단계 1~3개
+- effort: 15~30분, 30~60분, 1~2시간, 추가 검토 필요 중 하나
+
+actionability가 3점 이하면 type은 none, title은 빈 문자열, steps는 빈 배열, effort는 빈 문자열로 작성한다.
+
+사용자의 평소 관심 분야:
+{", ".join(USER_PREFERENCES.get("interests", []))}
+
 규칙:
 
 - 본문에 없는 사실을 만들지 않는다.
 - 숫자나 결과를 추측하지 않는다.
 - 해외 글도 한국어로 작성한다.
 - 기술명은 원래 이름을 유지한다.
+- Action은 기사 본문과 사용자의 관심 분야에서 직접 도출할 수 있는 범위로만 작성한다.
+- 기사에 없는 제품 기능, 성능 수치, 구현 결과를 추측해서 Action의 근거로 사용하지 않는다.
+- Action은 "공부해보기"처럼 추상적으로 끝내지 말고 첫 행동이 명확해야 한다.
 - 불필요하게 길게 작성하지 않는다.
 - 모든 기사 번호를 정확히 한 번씩 포함한다.
 
@@ -1890,7 +2195,17 @@ Markdown 코드블록이나 추가 설명은 쓰지 않는다.
       "핵심 개념 1",
       "핵심 개념 2"
     ],
-    "recommended_for": "추천 대상"
+    "recommended_for": "추천 대상",
+    "actionability": 5,
+    "action": {
+      "type": "experiment",
+      "title": "바로 해볼 실험",
+      "steps": [
+        "첫 단계",
+        "두 번째 단계"
+      ],
+      "effort": "30~60분"
+    }
   }}
 ]
 
@@ -1985,6 +2300,38 @@ def format_article_summary(
         )
     ).strip()
 
+    try:
+        actionability = int(
+            summary_data.get(
+                "actionability",
+                0
+            )
+        )
+    except (
+        TypeError,
+        ValueError
+    ):
+        actionability = 0
+
+    actionability = max(
+        0,
+        min(
+            5,
+            actionability
+        )
+    )
+
+    action = summary_data.get(
+        "action",
+        {}
+    )
+
+    if not isinstance(
+        action,
+        dict
+    ):
+        action = {}
+
     if not isinstance(
         key_points,
         list
@@ -2043,6 +2390,86 @@ def format_article_summary(
             ),
         ]
     )
+
+    if actionability >= ACTIONABILITY_THRESHOLD:
+        action_title = str(
+            action.get(
+                "title",
+                ""
+            )
+        ).strip()
+        action_type = str(
+            action.get(
+                "type",
+                ""
+            )
+        ).strip()
+        action_steps = action.get(
+            "steps",
+            []
+        )
+        effort = str(
+            action.get(
+                "effort",
+                ""
+            )
+        ).strip()
+
+        if not isinstance(
+            action_steps,
+            list
+        ):
+            action_steps = []
+
+        if action_title:
+            parts.extend(
+                [
+                    "",
+                    "⚡ [직접 해볼 것]",
+                    action_title,
+                ]
+            )
+
+            action_type_labels = {
+                "experiment": "실험",
+                "code_improvement": "코드 개선",
+                "study": "학습",
+                "adoption_review": "도입 검토",
+            }
+
+            label = action_type_labels.get(
+                action_type,
+                action_type
+            )
+
+            meta = []
+
+            if label:
+                meta.append(
+                    f"유형: {label}"
+                )
+
+            if effort:
+                meta.append(
+                    f"예상 작업량: {effort}"
+                )
+
+            if meta:
+                parts.append(
+                    " · ".join(
+                        meta
+                    )
+                )
+
+            for step in action_steps[:3]:
+                step = str(
+                    step
+                ).strip()
+
+                if step:
+                    parts.append(
+                        f"• {step}"
+                    )
 
     return clean_slack_text(
         "\n".join(
@@ -2204,6 +2631,7 @@ def summarize_article_batches(
             summarized_articles.append(
                 {
                     "article": article,
+                    "summary_data": summary_data,
                     "summary": (
                         format_article_summary(
                             summary_data
@@ -2436,7 +2864,63 @@ def split_slack_messages(
     return messages
 
 
+def _slack_api_request(method, payload):
+    if not SLACK_BOT_TOKEN:
+        raise RuntimeError(
+            "SLACK_BOT_TOKEN이 없습니다."
+        )
+
+    url = f"https://slack.com/api/{method}"
+    data = json.dumps(
+        payload
+    ).encode(
+        "utf-8"
+    )
+
+    request = urllib.request.Request(
+        url,
+        data=data,
+        headers={
+            "Authorization": f"Bearer {SLACK_BOT_TOKEN}",
+            "Content-Type": "application/json; charset=utf-8",
+        },
+        method="POST"
+    )
+
+    with urllib.request.urlopen(
+        request,
+        timeout=30
+    ) as response:
+        result = json.loads(
+            response.read().decode(
+                "utf-8"
+            )
+        )
+
+    if not result.get("ok"):
+        raise RuntimeError(
+            "Slack API 요청 실패: "
+            f"{result.get('error', 'unknown_error')}"
+        )
+
+    return result
+
+
 def send_slack_text(text):
+    if (
+        SLACK_BOT_TOKEN
+        and SLACK_CHANNEL_ID
+    ):
+        return _slack_api_request(
+            "chat.postMessage",
+            {
+                "channel": SLACK_CHANNEL_ID,
+                "text": text,
+                "unfurl_links": False,
+                "unfurl_media": False,
+            }
+        )
+
     if not SLACK_WEBHOOK_URL:
         raise RuntimeError(
             "SLACK_WEBHOOK_URL이 없습니다."
@@ -2476,6 +2960,396 @@ def send_slack_text(text):
         raise RuntimeError(
             f"Slack 전송 실패: {result}"
         )
+
+    return {
+        "ok": True,
+        "transport": "webhook",
+    }
+
+
+def _extract_one_line_summary(item):
+    summary = item.get(
+        "summary",
+        ""
+    )
+
+    match = re.search(
+        r"\[한줄 요약\]\s*(.+?)(?:\n|$)",
+        summary,
+        re.S
+    )
+
+    if match:
+        return (
+            match
+            .group(1)
+            .strip()
+        )
+
+    return (
+        str(summary)
+        .replace("\n", " ")
+        [:180]
+    )
+
+
+def _load_article_history():
+    if not os.path.exists(
+        ARTICLE_HISTORY_FILE
+    ):
+        return {
+            "articles": []
+        }
+
+    try:
+        with open(
+            ARTICLE_HISTORY_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+            data = json.load(
+                file
+            )
+    except (
+        OSError,
+        json.JSONDecodeError
+    ):
+        return {
+            "articles": []
+        }
+
+    articles = data.get(
+        "articles",
+        []
+    )
+
+    if not isinstance(
+        articles,
+        list
+    ):
+        articles = []
+
+    return {
+        "articles": articles
+    }
+
+
+def save_article_history(
+    summarized_articles
+):
+    history = _load_article_history()
+    records = history[
+        "articles"
+    ]
+
+    by_link = {
+        record.get(
+            "link"
+        ): record
+        for record in records
+        if isinstance(
+            record,
+            dict
+        )
+        and record.get(
+            "link"
+        )
+    }
+
+    now = datetime.now(
+        ZoneInfo(
+            "Asia/Seoul"
+        )
+    ).isoformat()
+
+    for item in summarized_articles:
+        article = item.get(
+            "article",
+            {}
+        )
+        summary_data = item.get(
+            "summary_data",
+            {}
+        )
+
+        link = article.get(
+            "link"
+        )
+
+        if not link:
+            continue
+
+        concepts = summary_data.get(
+            "concepts",
+            []
+        )
+
+        if not isinstance(
+            concepts,
+            list
+        ):
+            concepts = []
+
+        one_line = str(
+            summary_data.get(
+                "one_line",
+                ""
+            )
+        ).strip()
+
+        try:
+            actionability = int(
+                summary_data.get(
+                    "actionability",
+                    0
+                )
+            )
+        except (
+            TypeError,
+            ValueError
+        ):
+            actionability = 0
+
+        by_link[
+            link
+        ] = {
+            "recorded_at": now,
+            "company": article.get(
+                "company",
+                ""
+            ),
+            "title": article.get(
+                "title",
+                ""
+            ),
+            "link": link,
+            "published_at": article.get(
+                "pub_date",
+                ""
+            ),
+            "selection_score": article.get(
+                "selection_score"
+            ),
+            "feedback_bias": article.get(
+                "feedback_bias",
+                0
+            ),
+            "topics": [
+                str(topic).strip()
+                for topic in concepts[:5]
+                if str(topic).strip()
+            ],
+            "one_line": one_line,
+            "actionability": max(
+                0,
+                min(
+                    5,
+                    actionability
+                )
+            ),
+        }
+
+    trimmed = sorted(
+        by_link.values(),
+        key=lambda record: record.get(
+            "recorded_at",
+            ""
+        ),
+        reverse=True
+    )[:500]
+
+    os.makedirs(
+        os.path.dirname(
+            ARTICLE_HISTORY_FILE
+        ),
+        exist_ok=True
+    )
+
+    temp_path = (
+        ARTICLE_HISTORY_FILE
+        + ".tmp"
+    )
+
+    with open(
+        temp_path,
+        "w",
+        encoding="utf-8"
+    ) as file:
+        json.dump(
+            {
+                "articles": trimmed,
+                "updated_at": now,
+            },
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+        file.write("\n")
+
+    os.replace(
+        temp_path,
+        ARTICLE_HISTORY_FILE
+    )
+
+
+def _save_slack_feedback_state(items):
+    os.makedirs(
+        os.path.dirname(
+            SLACK_FEEDBACK_STATE_FILE
+        ),
+        exist_ok=True
+    )
+
+    temp_path = (
+        SLACK_FEEDBACK_STATE_FILE
+        + ".tmp"
+    )
+
+    with open(
+        temp_path,
+        "w",
+        encoding="utf-8"
+    ) as file:
+        json.dump(
+            {
+                "items": items,
+                "updated_at": datetime.now(
+                    ZoneInfo(
+                        "Asia/Seoul"
+                    )
+                ).isoformat(),
+            },
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+        file.write("\n")
+
+    os.replace(
+        temp_path,
+        SLACK_FEEDBACK_STATE_FILE
+    )
+
+
+def send_slack_feedback_cards(
+    summarized_articles,
+    top_indices
+):
+    if not (
+        SLACK_BOT_TOKEN
+        and SLACK_CHANNEL_ID
+    ):
+        print(
+            "Slack feedback card 생략: "
+            "SLACK_BOT_TOKEN/SLACK_CHANNEL_ID 미설정"
+        )
+        return []
+
+    state_items = []
+
+    for position, index in enumerate(
+        top_indices,
+        start=1
+    ):
+        if (
+            index < 1
+            or index > len(
+                summarized_articles
+            )
+        ):
+            continue
+
+        item = summarized_articles[
+            index - 1
+        ]
+        article = item[
+            "article"
+        ]
+
+        summary_data = item.get(
+            "summary_data",
+            {}
+        )
+
+        topics = summary_data.get(
+            "concepts",
+            []
+        )
+
+        if not isinstance(
+            topics,
+            list
+        ):
+            topics = []
+
+        text = "\n".join(
+            [
+                "🧭 *추천 피드백*",
+                (
+                    f"*{position}. "
+                    f"{article['title']}*"
+                ),
+                (
+                    f"{article['company']} · "
+                    f"{article.get('selection_score')}/15"
+                ),
+                "",
+                _extract_one_line_summary(
+                    item
+                ),
+                "",
+                "이 추천이 어땠는지 반응으로 알려주세요.",
+                "👍 도움됨  👎 별로  🔥 이런 거 더  🙈 이 주제 줄이기",
+                f"🔗 {article['link']}",
+            ]
+        )
+
+        response = send_slack_text(
+            text
+        )
+
+        timestamp = response.get(
+            "ts"
+        )
+
+        if not timestamp:
+            continue
+
+        state_items.append(
+            {
+                "ts": timestamp,
+                "channel": response.get(
+                    "channel",
+                    SLACK_CHANNEL_ID
+                ),
+                "article": {
+                    "title": article[
+                        "title"
+                    ],
+                    "company": article[
+                        "company"
+                    ],
+                    "link": article[
+                        "link"
+                    ],
+                    "score": article.get(
+                        "selection_score"
+                    ),
+                    "topics": [
+                        str(topic).strip()
+                        for topic in topics[:5]
+                        if str(topic).strip()
+                    ],
+                },
+            }
+        )
+
+    if state_items:
+        _save_slack_feedback_state(
+            state_items
+        )
+
+    return state_items
 
 
 def build_digest(
@@ -3040,6 +3914,44 @@ def main():
 
         send_slack_text(
             message
+        )
+
+    try:
+        save_article_history(
+            summarized_articles
+        )
+        print(
+            "Trend Radar 기사 이력 저장:",
+            len(
+                summarized_articles
+            ),
+            "개"
+        )
+    except Exception as error:
+        print(
+            "기사 이력 저장 실패:",
+            repr(error)
+        )
+
+    try:
+        feedback_items = (
+            send_slack_feedback_cards(
+                summarized_articles,
+                top_indices
+            )
+        )
+
+        if feedback_items:
+            print(
+                "Slack 피드백 카드:",
+                len(feedback_items),
+                "개"
+            )
+
+    except Exception as error:
+        print(
+            "Slack 피드백 카드 생성 실패:",
+            repr(error)
         )
 
     successfully_processed = []

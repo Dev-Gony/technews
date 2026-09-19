@@ -799,3 +799,214 @@ GeekNews만 다음 순서로 링크를 찾도록 전용 fallback을 추가했습
 
 장애 확인 시 GeekNews 항목의 `title`, `link`, `links`, `id` 순으로 확인하면 됩니다.
 
+---
+
+## 2026-09-19. Slack News → Action 1차 구현
+
+### 목표
+
+기존 Tech Digest가 기사를 선별하고 요약하는 데서 끝나지 않고, 실제로 바로 시도해볼 수 있는 실행 항목까지 제안하도록 확장했습니다.
+
+이번 단계에서는 Telegram 기능을 건드리지 않고 Slack 데일리 브리핑만 개선했습니다.
+
+### 구현
+
+Gemini 상세 요약 결과에 다음 구조를 추가했습니다.
+
+- `actionability`: 0~5점
+- `action.type`: experiment / code_improvement / study / adoption_review
+- `action.title`: 바로 해볼 행동
+- `action.steps`: 시작 단계 최대 3개
+- `action.effort`: 예상 작업량
+
+기존 상세 요약 Gemini 호출에 함께 생성하도록 구성해 Action 기능 때문에 API 호출 횟수가 추가되지 않도록 했습니다.
+
+### 노출 기준
+
+모든 기사에 억지 Action을 만들지 않도록 `actionability >= 4`인 경우에만 Slack 상세 브리핑에 다음 영역을 표시합니다.
+
+    ⚡ [직접 해볼 것]
+    구체적인 실행 항목
+    유형: 코드 개선 · 예상 작업량: 30~60분
+    • 첫 단계
+    • 두 번째 단계
+
+개념 소개나 홍보성 내용처럼 바로 적용하기 어려운 글은 Action을 숨깁니다.
+
+### 안전성
+
+- 기사 본문과 사용자 관심 분야에서 직접 도출할 수 있는 Action만 생성
+- 기사에 없는 제품 기능, 성능 수치, 구현 결과를 추측하지 않도록 프롬프트 제한
+- 잘못된 `actionability` 값이나 비정상적인 `action` 구조가 와도 기존 요약은 정상 출력
+- 향후 Feedback Learning / Trend Radar에서 재사용할 수 있도록 원본 구조화 요약 데이터도 `summary_data`로 유지
+
+### 테스트
+
+`tests/test_slack_actions.py`에서 다음을 검증합니다.
+
+- Action 점수가 높은 기사에서 Action 표시
+- Action 점수가 낮은 기사에서 Action 미표시
+- 잘못된 Action 데이터가 들어와도 안전하게 fallback
+
+### 다음 후보
+
+1. Slack 피드백 수집
+2. 기사/Action metadata 저장
+3. Feedback Learning
+4. 누적 기사 데이터를 활용한 Trend Radar
+
+---
+
+## 2026-09-19. Slack 피드백 수집 MVP
+
+### 목표
+
+News → Action 다음 단계로, 사용자가 실제로 어떤 추천을 좋아하는지 수집할 수 있는 기반을 추가했습니다.
+
+Telegram은 유지하되 이번 기능은 Slack에만 구현했습니다.
+
+### 선택한 방식
+
+Slack Interactive Button 서버를 새로 운영하는 대신, 기존 GitHub Actions 인프라를 유지하기 위해 Slack reaction 기반으로 구현했습니다.
+
+상위 추천 기사를 별도 feedback card로 보내고 사용자가 다음 reaction을 남기도록 합니다.
+
+- 👍 도움됨
+- 👎 별로
+- 🔥 이런 거 더
+- 🙈 이 주제 줄이기
+
+### 구조
+
+Daily Tech News 실행 시 Slack Bot API로 피드백 카드를 전송하고 message timestamp를 `config/slack_feedback_state.json`에 저장합니다.
+
+별도 `Slack Feedback Sync` workflow가 2시간마다 `reactions.get` API를 호출해 결과를 `config/slack_feedback.json`에 저장합니다.
+
+### 호환성
+
+`SLACK_BOT_TOKEN`과 `SLACK_CHANNEL_ID`가 없으면 기존 Incoming Webhook 전송으로 fallback합니다.
+
+따라서 새 Secret을 설정하기 전에도 기존 Slack Digest는 계속 동작합니다.
+
+### 다음 단계
+
+수집된 feedback을 topic weight로 변환해 Gemini 선별과 추천 순위에 반영하는 Feedback Learning을 구현합니다.
+
+---
+
+## 2026-09-19. Slack Feedback Learning 1차 구현
+
+### 목표
+
+Slack reaction으로 수집한 실제 사용자의 선호를 다음 기사 선별에 반영합니다.
+
+### 학습 신호
+
+다음 reaction을 topic weight로 변환합니다.
+
+- 👍 helpful: +0.25
+- 👎 not_helpful: -0.25
+- 🔥 more_like_this: +0.75
+- 🙈 less_like_this: -0.75
+
+명시적으로 "이런 거 더 / 이 주제 줄이기"를 선택한 신호를 단순 좋아요/싫어요보다 강하게 반영합니다.
+
+### 적용 방식
+
+기사 feedback record에 저장된 topic별 weight를 합산하고 -2.0~2.0 범위로 제한합니다.
+
+새 기사 제목과 RSS preview에 학습된 topic이 실제로 포함된 경우에만 relevance를 최대 +1 또는 -1 보정합니다.
+
+practical_value와 significance는 피드백으로 직접 변경하지 않습니다.
+
+따라서 사용자가 특정 topic을 덜 선호하더라도 중요한 보안 이슈나 큰 플랫폼 변화까지 자동으로 가려지는 것을 방지합니다.
+
+### Gemini Prompt
+
+Gemini 1차 평가 프롬프트에도 상위 positive / negative topic을 약한 선호 신호로 전달합니다.
+
+이 정보는 hard filter가 아니라 보조 판단 기준으로만 사용하도록 명시했습니다.
+
+### 안전장치
+
+- feedback 파일 없음 / JSON 오류 → 학습 없이 기존 동작
+- 일치 topic 없음 → 점수 변화 없음
+- relevance 보정 폭 최대 ±1
+- topic weight 최대 절대값 2.0
+- significance는 feedback 영향 없음
+
+### 다음 단계
+
+피드백 데이터가 충분히 쌓이면 topic 단위뿐 아니라 content type, source, practical/actionability 성향까지 분리해 추천 품질을 고도화할 수 있습니다.
+
+---
+
+## 2026-09-19. Weekly Trend Radar 1차 구현
+
+### 목표
+
+기사 하나씩 추천하는 수준을 넘어, 최근 기술 기사들이 어떤 주제로 모이고 있는지 주간 단위로 감지합니다.
+
+### 데이터 축적
+
+Daily Tech News가 상세 요약한 기사 metadata를 `config/article_history.json`에 누적합니다.
+
+저장 항목:
+
+- recorded_at
+- company
+- title
+- link
+- published_at
+- selection_score
+- feedback_bias
+- topics
+- one_line
+- actionability
+
+최대 500개 기사만 유지합니다.
+
+### Trend 판단
+
+최근 7일과 이전 7일을 비교합니다.
+
+topic별 기사 수를 집계하고 다음 조건을 모두 만족하는 주제만 Rising Topic으로 분류합니다.
+
+- 최근 7일 2건 이상
+- 이전 7일보다 증가
+- 증가량 기준 상위 최대 5개
+
+단순 빈도만 보여주지 않고, 해당 주제의 상위 기사 제목/한줄 요약을 Gemini에 전달해 실제 내용의 공통 흐름을 짧게 해석합니다.
+
+### Slack 출력
+
+매주 월요일 오전 8시 KST에 다음 형태로 발송합니다.
+
+    📡 Weekly Tech Radar
+
+    🔥 상승 중인 주제
+    • MCP: 1 → 4건
+    • Agent Memory: 0 → 3건
+
+    🧭 흐름 해석
+    ...
+
+데이터가 부족하거나 뚜렷한 상승 주제가 없으면 억지로 트렌드를 만들지 않고 "아직 없음"으로 표시합니다.
+
+### 운영 안정성
+
+- 기사 이력은 Daily workflow 종료 시 Git에 저장
+- Bot Token 미설정 시 Slack feedback sync workflow는 실패하지 않고 skip
+- Trend Radar는 기존 Slack webhook fallback을 그대로 사용할 수 있음
+
+### 다음 단계
+
+2~4주 데이터가 쌓인 뒤 단순 topic count뿐 아니라:
+
+- content type 변화
+- actionability 변화
+- source 다양성
+- topic co-occurrence
+
+를 추가해 Trend Radar 정확도를 높일 수 있습니다.
+
