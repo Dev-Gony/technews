@@ -1,13 +1,13 @@
-# TechNews
+# GONY DAILY
 
-여러 기술 블로그와 GeekNews를 매일 확인하고,  
-새 글을 선별·요약해 Slack으로 전달하는 개인용 기술 뉴스 자동화 프로젝트입니다.
+여러 기술 블로그와 GeekNews를 매일 확인하고,
+AI가 선별·요약한 기술 뉴스를 Slack과 웹 신문으로 발행하는 개인 개발자 미디어 서비스입니다.
 
 단순 RSS 알림이 아니라 **수집 → 중복 제거 → 가치 평가 → 요약 → 전달 → 피드백 데이터 저장**까지 하나의 반복 가능한 파이프라인으로 구성했습니다.
 
 ## Live Newspaper
 
-매일 선별된 기술 뉴스를 신문 형태로 발행합니다.
+**GONY DAILY**는 매일 선별된 기술 뉴스를 신문 형태로 발행하는 Personal Developer Intelligence Newspaper입니다.
 
 **Live:** https://dev-gony.github.io/technews/
 

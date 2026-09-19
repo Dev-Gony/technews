@@ -15,7 +15,7 @@ ASSETS_DIR = OUTPUT_DIR / "assets"
 ISSUE_OUTPUT_DIR = OUTPUT_DIR / "issues"
 ARCHIVE_OUTPUT_DIR = OUTPUT_DIR / "archive"
 
-SITE_NAME = "TECHNEWS DAILY"
+SITE_NAME = "GONY DAILY"
 SITE_TAGLINE = "개발자를 위한 매일의 기술신문"
 SITE_URL = os.environ.get(
     "SITE_URL",
@@ -425,7 +425,7 @@ def _lead_story(story):
       </p>
 
       <div class="article-byline">
-        TECHNEWS 편집부 · {_topic_line(story)}
+        GONY DAILY 편집부 · {_topic_line(story)}
       </div>
 
       <div class="lead-detail">
@@ -1235,7 +1235,7 @@ def render_archive(issues):
     return _layout(
         f"{SITE_NAME} · 지난 호",
         content,
-        "TechNews Daily Archive",
+        "GONY DAILY Archive",
         "archive-body",
         "archive/",
     )

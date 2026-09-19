@@ -342,6 +342,19 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
 
+
+    def test_gony_daily_brand_is_rendered(self):
+        rendered = build_newspaper.render_empty_home()
+
+        self.assertIn(
+            "GONY DAILY",
+            rendered,
+        )
+        self.assertNotIn(
+            "TECHNEWS DAILY",
+            rendered,
+        )
+
     def test_custom_domain_base_path_can_be_root(self):
         issue = {
             "issue_date": "2026-09-19",

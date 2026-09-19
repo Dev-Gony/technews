@@ -1203,3 +1203,67 @@ Daily Editorial의 실제 `[오늘의 기술 키워드]` 데이터를 이용해 
 
 이미 만들어진 structured data와 editorial metadata를 재사용하면 비용, 안정성, 근거성 측면에서 더 좋은 결과를 얻을 수 있다.
 
+---
+
+# 22. 브랜드 전환: TechNews에서 GONY DAILY로
+
+## 문제
+
+기존 `TECHNEWS DAILY`는 서비스의 기능은 잘 설명하지만 일반명사 조합에 가까워 고유한 브랜드 기억점이 약했다.
+
+신문 서비스가 실제 운영 단계에 들어오면서 단순 프로젝트명이 아니라 사용자에게 기억되는 이름이 필요해졌다.
+
+## 고려한 선택지
+
+- TECHNEWS DAILY 유지
+- GONY TECH
+- GONY SIGNAL
+- GONY TIMES
+- GONY DAILY
+
+## 최종 선택
+
+**GONY DAILY**
+
+## 선택 이유
+
+사용자의 닉네임인 `Gony`를 직접 사용해 개인 개발자 브랜드와 서비스를 연결했다.
+
+또한 `DAILY`는:
+
+- 매일 발행
+- 신문형 서비스
+- Archive 기반 날짜별 발행
+
+이라는 현재 서비스 구조와 자연스럽게 맞는다.
+
+기존 `TECHNEWS DAILY`는 브랜드명이 아니라 서비스 설명과 SEO 문맥으로 내려놓는다.
+
+## 적용 범위
+
+- Newspaper masthead
+- HTML title / Open Graph site name
+- favicon
+- Slack Daily Digest 제목
+- Bot runtime log
+- README
+- 프로젝트 설명
+
+## 브랜드 구조
+
+    GONY DAILY
+    개발자를 위한 매일의 기술신문
+
+장기적으로 개인 브랜드 확장이 필요하면 다음과 같이 확장할 수 있다.
+
+    GONY DAILY   — 기술신문
+    GONY LAB     — 프로젝트 / 실험
+    GONY SIGNAL  — 기술 트렌드 분석
+    GONY NOTES   — 개발 기록
+
+## 배운 점
+
+서비스가 실제 운영 단계로 넘어가면 기능명과 브랜드명은 분리될 필요가 있다.
+
+초기에는 기능을 설명하는 이름이 유리하지만, 서비스가 축적될수록 고유성과 기억 가능성이 더 중요해진다.
+

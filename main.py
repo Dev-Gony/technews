@@ -3737,9 +3737,9 @@ def build_digest(
     )
 
     parts = [
-        f"🌅 *{date_text} 오늘의 Tech Digest*",
+        f"📰 *{date_text} GONY DAILY*",
         "",
-        "AI · 데이터 · 자동화 · 백엔드 중심 아침 기술 브리핑",
+        "개발자를 위한 매일의 기술신문 · AI · 데이터 · 자동화 · 백엔드",
         "",
         f"오늘 확인한 새 글: *{candidate_count}개*",
         (
@@ -3974,7 +3974,7 @@ def main():
     )
 
     print(
-        "Tech News Bot 시작"
+        "GONY DAILY Bot 시작"
     )
 
     print(
@@ -4286,12 +4286,12 @@ def main():
             )
         )
         print(
-            "Daily Newspaper issue 저장:",
+            "GONY DAILY issue 저장:",
             issue_path
         )
     except Exception as error:
         print(
-            "Daily Newspaper issue 저장 실패:",
+            "GONY DAILY issue 저장 실패:",
             repr(error)
         )
 
