@@ -32,6 +32,7 @@ GEEKNEWS_RECENT_ARTICLE_LIMIT = 30
 PREFILTER_TEXT_LENGTH = 800
 PREFILTER_BATCH_SIZE = 10
 DETAIL_BATCH_SIZE = 5
+ACTIONABILITY_THRESHOLD = 4
 
 USER_PREFERENCES = load_user_preferences()
 BRIEF_SCORE_THRESHOLD = USER_PREFERENCES["scoring"]["brief_threshold"]
@@ -1863,12 +1864,31 @@ concepts:
 recommended_for:
 누가 읽으면 좋은지 한 문장
 
+actionability:
+이 기사를 읽은 뒤 개발자가 바로 실험하거나 적용해볼 가치가 있는지 0~5점으로 평가한다.
+단순 개념 소개, 홍보성 내용, 즉시 적용하기 어려운 내용은 낮게 평가한다.
+
+action:
+actionability가 4점 이상일 때만 구체적인 실행 항목을 작성한다.
+- type: experiment, code_improvement, study, adoption_review 중 하나
+- title: 무엇을 해볼지 한 문장
+- steps: 바로 시작할 수 있는 단계 1~3개
+- effort: 15~30분, 30~60분, 1~2시간, 추가 검토 필요 중 하나
+
+actionability가 3점 이하면 type은 none, title은 빈 문자열, steps는 빈 배열, effort는 빈 문자열로 작성한다.
+
+사용자의 평소 관심 분야:
+{", ".join(USER_PREFERENCES.get("interests", []))}
+
 규칙:
 
 - 본문에 없는 사실을 만들지 않는다.
 - 숫자나 결과를 추측하지 않는다.
 - 해외 글도 한국어로 작성한다.
 - 기술명은 원래 이름을 유지한다.
+- Action은 기사 본문과 사용자의 관심 분야에서 직접 도출할 수 있는 범위로만 작성한다.
+- 기사에 없는 제품 기능, 성능 수치, 구현 결과를 추측해서 Action의 근거로 사용하지 않는다.
+- Action은 "공부해보기"처럼 추상적으로 끝내지 말고 첫 행동이 명확해야 한다.
 - 불필요하게 길게 작성하지 않는다.
 - 모든 기사 번호를 정확히 한 번씩 포함한다.
 
@@ -1890,7 +1910,17 @@ Markdown 코드블록이나 추가 설명은 쓰지 않는다.
       "핵심 개념 1",
       "핵심 개념 2"
     ],
-    "recommended_for": "추천 대상"
+    "recommended_for": "추천 대상",
+    "actionability": 5,
+    "action": {
+      "type": "experiment",
+      "title": "바로 해볼 실험",
+      "steps": [
+        "첫 단계",
+        "두 번째 단계"
+      ],
+      "effort": "30~60분"
+    }
   }}
 ]
 
@@ -1985,6 +2015,38 @@ def format_article_summary(
         )
     ).strip()
 
+    try:
+        actionability = int(
+            summary_data.get(
+                "actionability",
+                0
+            )
+        )
+    except (
+        TypeError,
+        ValueError
+    ):
+        actionability = 0
+
+    actionability = max(
+        0,
+        min(
+            5,
+            actionability
+        )
+    )
+
+    action = summary_data.get(
+        "action",
+        {}
+    )
+
+    if not isinstance(
+        action,
+        dict
+    ):
+        action = {}
+
     if not isinstance(
         key_points,
         list
@@ -2043,6 +2105,86 @@ def format_article_summary(
             ),
         ]
     )
+
+    if actionability >= ACTIONABILITY_THRESHOLD:
+        action_title = str(
+            action.get(
+                "title",
+                ""
+            )
+        ).strip()
+        action_type = str(
+            action.get(
+                "type",
+                ""
+            )
+        ).strip()
+        action_steps = action.get(
+            "steps",
+            []
+        )
+        effort = str(
+            action.get(
+                "effort",
+                ""
+            )
+        ).strip()
+
+        if not isinstance(
+            action_steps,
+            list
+        ):
+            action_steps = []
+
+        if action_title:
+            parts.extend(
+                [
+                    "",
+                    "⚡ [직접 해볼 것]",
+                    action_title,
+                ]
+            )
+
+            action_type_labels = {
+                "experiment": "실험",
+                "code_improvement": "코드 개선",
+                "study": "학습",
+                "adoption_review": "도입 검토",
+            }
+
+            label = action_type_labels.get(
+                action_type,
+                action_type
+            )
+
+            meta = []
+
+            if label:
+                meta.append(
+                    f"유형: {label}"
+                )
+
+            if effort:
+                meta.append(
+                    f"예상 작업량: {effort}"
+                )
+
+            if meta:
+                parts.append(
+                    " · ".join(
+                        meta
+                    )
+                )
+
+            for step in action_steps[:3]:
+                step = str(
+                    step
+                ).strip()
+
+                if step:
+                    parts.append(
+                        f"• {step}"
+                    )
 
     return clean_slack_text(
         "\n".join(
@@ -2204,6 +2346,7 @@ def summarize_article_batches(
             summarized_articles.append(
                 {
                     "article": article,
+                    "summary_data": summary_data,
                     "summary": (
                         format_article_summary(
                             summary_data
