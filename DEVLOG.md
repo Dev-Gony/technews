@@ -939,3 +939,74 @@ Gemini 1차 평가 프롬프트에도 상위 positive / negative topic을 약한
 
 피드백 데이터가 충분히 쌓이면 topic 단위뿐 아니라 content type, source, practical/actionability 성향까지 분리해 추천 품질을 고도화할 수 있습니다.
 
+---
+
+## 2026-09-19. Weekly Trend Radar 1차 구현
+
+### 목표
+
+기사 하나씩 추천하는 수준을 넘어, 최근 기술 기사들이 어떤 주제로 모이고 있는지 주간 단위로 감지합니다.
+
+### 데이터 축적
+
+Daily Tech News가 상세 요약한 기사 metadata를 `config/article_history.json`에 누적합니다.
+
+저장 항목:
+
+- recorded_at
+- company
+- title
+- link
+- published_at
+- selection_score
+- feedback_bias
+- topics
+- one_line
+- actionability
+
+최대 500개 기사만 유지합니다.
+
+### Trend 판단
+
+최근 7일과 이전 7일을 비교합니다.
+
+topic별 기사 수를 집계하고 다음 조건을 모두 만족하는 주제만 Rising Topic으로 분류합니다.
+
+- 최근 7일 2건 이상
+- 이전 7일보다 증가
+- 증가량 기준 상위 최대 5개
+
+단순 빈도만 보여주지 않고, 해당 주제의 상위 기사 제목/한줄 요약을 Gemini에 전달해 실제 내용의 공통 흐름을 짧게 해석합니다.
+
+### Slack 출력
+
+매주 월요일 오전 8시 KST에 다음 형태로 발송합니다.
+
+    📡 Weekly Tech Radar
+
+    🔥 상승 중인 주제
+    • MCP: 1 → 4건
+    • Agent Memory: 0 → 3건
+
+    🧭 흐름 해석
+    ...
+
+데이터가 부족하거나 뚜렷한 상승 주제가 없으면 억지로 트렌드를 만들지 않고 "아직 없음"으로 표시합니다.
+
+### 운영 안정성
+
+- 기사 이력은 Daily workflow 종료 시 Git에 저장
+- Bot Token 미설정 시 Slack feedback sync workflow는 실패하지 않고 skip
+- Trend Radar는 기존 Slack webhook fallback을 그대로 사용할 수 있음
+
+### 다음 단계
+
+2~4주 데이터가 쌓인 뒤 단순 topic count뿐 아니라:
+
+- content type 변화
+- actionability 변화
+- source 다양성
+- topic co-occurrence
+
+를 추가해 Trend Radar 정확도를 높일 수 있습니다.
+

@@ -27,6 +27,7 @@ GEMINI_MODEL = "gemini-3.1-flash-lite"
 SENT_ARTICLES_FILE = "sent_articles.json"
 SLACK_FEEDBACK_STATE_FILE = "config/slack_feedback_state.json"
 SLACK_FEEDBACK_FILE = "config/slack_feedback.json"
+ARTICLE_HISTORY_FILE = "config/article_history.json"
 
 MAX_CONTENT_LENGTH = 12000
 
@@ -2992,6 +2993,205 @@ def _extract_one_line_summary(item):
     )
 
 
+def _load_article_history():
+    if not os.path.exists(
+        ARTICLE_HISTORY_FILE
+    ):
+        return {
+            "articles": []
+        }
+
+    try:
+        with open(
+            ARTICLE_HISTORY_FILE,
+            "r",
+            encoding="utf-8"
+        ) as file:
+            data = json.load(
+                file
+            )
+    except (
+        OSError,
+        json.JSONDecodeError
+    ):
+        return {
+            "articles": []
+        }
+
+    articles = data.get(
+        "articles",
+        []
+    )
+
+    if not isinstance(
+        articles,
+        list
+    ):
+        articles = []
+
+    return {
+        "articles": articles
+    }
+
+
+def save_article_history(
+    summarized_articles
+):
+    history = _load_article_history()
+    records = history[
+        "articles"
+    ]
+
+    by_link = {
+        record.get(
+            "link"
+        ): record
+        for record in records
+        if isinstance(
+            record,
+            dict
+        )
+        and record.get(
+            "link"
+        )
+    }
+
+    now = datetime.now(
+        ZoneInfo(
+            "Asia/Seoul"
+        )
+    ).isoformat()
+
+    for item in summarized_articles:
+        article = item.get(
+            "article",
+            {}
+        )
+        summary_data = item.get(
+            "summary_data",
+            {}
+        )
+
+        link = article.get(
+            "link"
+        )
+
+        if not link:
+            continue
+
+        concepts = summary_data.get(
+            "concepts",
+            []
+        )
+
+        if not isinstance(
+            concepts,
+            list
+        ):
+            concepts = []
+
+        one_line = str(
+            summary_data.get(
+                "one_line",
+                ""
+            )
+        ).strip()
+
+        try:
+            actionability = int(
+                summary_data.get(
+                    "actionability",
+                    0
+                )
+            )
+        except (
+            TypeError,
+            ValueError
+        ):
+            actionability = 0
+
+        by_link[
+            link
+        ] = {
+            "recorded_at": now,
+            "company": article.get(
+                "company",
+                ""
+            ),
+            "title": article.get(
+                "title",
+                ""
+            ),
+            "link": link,
+            "published_at": article.get(
+                "pub_date",
+                ""
+            ),
+            "selection_score": article.get(
+                "selection_score"
+            ),
+            "feedback_bias": article.get(
+                "feedback_bias",
+                0
+            ),
+            "topics": [
+                str(topic).strip()
+                for topic in concepts[:5]
+                if str(topic).strip()
+            ],
+            "one_line": one_line,
+            "actionability": max(
+                0,
+                min(
+                    5,
+                    actionability
+                )
+            ),
+        }
+
+    trimmed = sorted(
+        by_link.values(),
+        key=lambda record: record.get(
+            "recorded_at",
+            ""
+        ),
+        reverse=True
+    )[:500]
+
+    os.makedirs(
+        os.path.dirname(
+            ARTICLE_HISTORY_FILE
+        ),
+        exist_ok=True
+    )
+
+    temp_path = (
+        ARTICLE_HISTORY_FILE
+        + ".tmp"
+    )
+
+    with open(
+        temp_path,
+        "w",
+        encoding="utf-8"
+    ) as file:
+        json.dump(
+            {
+                "articles": trimmed,
+                "updated_at": now,
+            },
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+        file.write("\n")
+
+    os.replace(
+        temp_path,
+        ARTICLE_HISTORY_FILE
+    )
+
+
 def _save_slack_feedback_state(items):
     os.makedirs(
         os.path.dirname(
@@ -3714,6 +3914,23 @@ def main():
 
         send_slack_text(
             message
+        )
+
+    try:
+        save_article_history(
+            summarized_articles
+        )
+        print(
+            "Trend Radar 기사 이력 저장:",
+            len(
+                summarized_articles
+            ),
+            "개"
+        )
+    except Exception as error:
+        print(
+            "기사 이력 저장 실패:",
+            repr(error)
         )
 
     try:
