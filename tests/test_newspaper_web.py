@@ -165,7 +165,7 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
         self.assertIn(
-            "오늘의 1면",
+            "주요 기사",
             rendered,
         )
         self.assertNotIn(
@@ -354,6 +354,57 @@ class NewspaperBuilderTest(unittest.TestCase):
             "TECHNEWS DAILY",
             rendered,
         )
+
+
+    def test_section_labels_are_natural_and_consistent(self):
+        issue = {
+            "issue_date": "2026-09-19",
+            "issue_number": 1,
+            "stats": {
+                "candidate_count": 0,
+                "detailed_count": 0,
+            },
+            "editorial": "",
+            "top_stories": [],
+            "more_detailed": [],
+            "brief_articles": [],
+        }
+
+        with patch(
+            "build_newspaper._compute_trend_rows",
+            return_value=([], 0, 0),
+        ):
+            rendered = build_newspaper.render_issue(
+                issue,
+                [issue],
+            )
+
+        for label in [
+            "주요기사",
+            "액션",
+            "트렌드",
+            "인사이트",
+            "단신",
+            "지난호",
+            "주요 기사",
+            "직접 해보기",
+            "에디터 노트",
+        ]:
+            self.assertIn(
+                label,
+                rendered,
+            )
+
+        for old_label in [
+            ">1면<",
+            ">실행면<",
+            ">분석면<",
+            ">편집자 노트<",
+        ]:
+            self.assertNotIn(
+                old_label,
+                rendered,
+            )
 
     def test_custom_domain_base_path_can_be_root(self):
         issue = {

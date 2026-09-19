@@ -986,19 +986,19 @@ def render_issue(issue, archive_items):
         </div>
 
         <nav class="section-nav">
-          <a href="#front">1면</a>
-          <a href="#actions">실행면</a>
-          <a href="#radar">분석면</a>
-          <a href="#editorial">편집자 노트</a>
+          <a href="#front">주요기사</a>
+          <a href="#actions">액션</a>
+          <a href="#radar">트렌드</a>
+          <a href="#editorial">인사이트</a>
           <a href="#briefs">단신</a>
-          <a href="{SITE_BASE_PATH}/archive/">지난 호</a>
+          <a href="{SITE_BASE_PATH}/archive/">지난호</a>
         </nav>
       </header>
 
       <main class="page-width">
         <section class="front-page" id="front">
           <div class="section-rule">
-            <span>오늘의 1면</span>
+            <span>주요 기사</span>
             <span>TOP STORIES</span>
           </div>
 
@@ -1019,7 +1019,7 @@ def render_issue(issue, archive_items):
 
         <section class="newspaper-section" id="actions">
           <div class="section-rule">
-            <span>실행면</span>
+            <span>직접 해보기</span>
             <span>ACTION DESK</span>
           </div>
           <div class="section-intro">
@@ -1037,7 +1037,7 @@ def render_issue(issue, archive_items):
 
         <section class="newspaper-section" id="radar">
           <div class="section-rule">
-            <span>분석면</span>
+            <span>트렌드</span>
             <span>TREND RADAR</span>
           </div>
           <div class="analysis-grid">
@@ -1057,7 +1057,7 @@ def render_issue(issue, archive_items):
 
         <section class="newspaper-section" id="editorial">
           <div class="section-rule">
-            <span>편집자 노트</span>
+            <span>에디터 노트</span>
             <span>EDITOR'S NOTE</span>
           </div>
           <div class="editorial-heading">
@@ -1080,7 +1080,7 @@ def render_issue(issue, archive_items):
 
         <section class="newspaper-section archive-section">
           <div class="section-rule">
-            <span>지난 호</span>
+            <span>지난호</span>
             <span>ARCHIVE</span>
           </div>
           <div class="archive-links">
@@ -1218,13 +1218,13 @@ def render_archive(issues):
         </div>
         <div class="masthead archive-masthead">
           <h1>{SITE_NAME}</h1>
-          <p>지난 호 보관실</p>
+          <p>지난호 보관실</p>
         </div>
       </header>
 
       <main class="page-width archive-page">
         <div class="section-rule">
-          <span>지난 호</span>
+          <span>지난호</span>
           <span>ALL ISSUES</span>
         </div>
         {"".join(rows)}
