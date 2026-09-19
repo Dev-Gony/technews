@@ -89,6 +89,47 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
 
+
+    def test_custom_domain_base_path_can_be_root(self):
+        issue = {
+            "issue_date": "2026-09-19",
+            "issue_number": 1,
+            "stats": {
+                "candidate_count": 0,
+            },
+            "editorial": "",
+            "top_stories": [],
+            "brief_articles": [],
+        }
+
+        with patch.object(
+            build_newspaper,
+            "SITE_BASE_PATH",
+            "",
+        ), patch(
+            "build_newspaper._compute_trend_rows",
+            return_value=([], 0, 0),
+        ):
+            rendered = (
+                build_newspaper.render_issue(
+                    issue,
+                    [issue],
+                )
+            )
+
+        self.assertIn(
+            'href="/assets/styles.css"',
+            rendered,
+        )
+        self.assertIn(
+            'href="/archive/"',
+            rendered,
+        )
+        self.assertNotIn(
+            "/technews/",
+            rendered,
+        )
+
     def test_empty_home_is_buildable(self):
         rendered = (
             build_newspaper.render_empty_home()
