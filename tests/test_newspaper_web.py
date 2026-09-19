@@ -90,6 +90,89 @@ class NewspaperBuilderTest(unittest.TestCase):
         )
 
 
+
+    def test_print_style_front_page_structure(self):
+        issue = {
+            "issue_date": "2026-09-19",
+            "issue_number": 1,
+            "stats": {
+                "candidate_count": 20,
+                "detailed_count": 9,
+            },
+            "editorial": "",
+            "top_stories": [
+                {
+                    "company": "GeekNews",
+                    "title": "Main Story",
+                    "link": "https://example.com/main",
+                    "selection_score": 15,
+                    "one_line": "Main summary",
+                    "key_points": ["Point"],
+                    "topics": ["AI Agent"],
+                    "recommended_for": "개발자",
+                    "actionability": 5,
+                    "action": {
+                        "type": "experiment",
+                        "title": "Try it",
+                        "steps": ["Step 1"],
+                        "effort": "30~60분",
+                    },
+                },
+                {
+                    "company": "GeekNews",
+                    "title": "Side Story 1",
+                    "link": "https://example.com/side-1",
+                    "selection_score": 14,
+                    "one_line": "Side summary 1",
+                    "key_points": [],
+                    "topics": ["Rust"],
+                    "recommended_for": "",
+                    "actionability": 0,
+                    "action": {},
+                },
+                {
+                    "company": "GeekNews",
+                    "title": "Side Story 2",
+                    "link": "https://example.com/side-2",
+                    "selection_score": 14,
+                    "one_line": "Side summary 2",
+                    "key_points": [],
+                    "topics": ["On-device AI"],
+                    "recommended_for": "",
+                    "actionability": 0,
+                    "action": {},
+                },
+            ],
+            "more_detailed": [],
+            "brief_articles": [],
+        }
+
+        with patch(
+            "build_newspaper._compute_trend_rows",
+            return_value=([], 0, 0),
+        ):
+            rendered = build_newspaper.render_issue(
+                issue,
+                [issue],
+            )
+
+        self.assertIn(
+            'class="lead-story"',
+            rendered,
+        )
+        self.assertIn(
+            'class="side-news"',
+            rendered,
+        )
+        self.assertIn(
+            "오늘의 1면",
+            rendered,
+        )
+        self.assertNotIn(
+            'class="story-card"',
+            rendered,
+        )
+
     def test_custom_domain_base_path_can_be_root(self):
         issue = {
             "issue_date": "2026-09-19",
