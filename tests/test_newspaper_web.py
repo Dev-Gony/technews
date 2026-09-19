@@ -173,6 +173,85 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
 
+
+    def test_front_page_uses_detailed_story_to_balance_sidebar(self):
+        issue = {
+            "issue_date": "2026-09-19",
+            "issue_number": 1,
+            "stats": {
+                "candidate_count": 4,
+                "detailed_count": 4,
+            },
+            "editorial": "",
+            "top_stories": [
+                {
+                    "company": "A",
+                    "title": "Lead",
+                    "link": "https://example.com/lead",
+                    "selection_score": 15,
+                    "one_line": "Lead summary",
+                    "key_points": [],
+                    "topics": [],
+                    "actionability": 0,
+                    "action": {},
+                },
+                {
+                    "company": "B",
+                    "title": "Side One",
+                    "link": "https://example.com/side-1",
+                    "selection_score": 14,
+                    "one_line": "Side 1",
+                    "key_points": [],
+                    "topics": [],
+                    "actionability": 0,
+                    "action": {},
+                },
+                {
+                    "company": "C",
+                    "title": "Side Two",
+                    "link": "https://example.com/side-2",
+                    "selection_score": 14,
+                    "one_line": "Side 2",
+                    "key_points": [],
+                    "topics": [],
+                    "actionability": 0,
+                    "action": {},
+                },
+            ],
+            "more_detailed": [
+                {
+                    "company": "D",
+                    "title": "Sidebar Detailed Story",
+                    "link": "https://example.com/detail",
+                    "selection_score": 13,
+                    "one_line": "Detailed summary",
+                    "key_points": [],
+                    "topics": [],
+                    "actionability": 0,
+                    "action": {},
+                }
+            ],
+            "brief_articles": [],
+        }
+
+        with patch(
+            "build_newspaper._compute_trend_rows",
+            return_value=([], 0, 0),
+        ):
+            rendered = build_newspaper.render_issue(
+                issue,
+                [issue],
+            )
+
+        self.assertIn(
+            "Sidebar Detailed Story",
+            rendered,
+        )
+        self.assertIn(
+            "관련 기사",
+            rendered,
+        )
+
     def test_custom_domain_base_path_can_be_root(self):
         issue = {
             "issue_date": "2026-09-19",
