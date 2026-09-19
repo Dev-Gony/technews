@@ -165,7 +165,7 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
         self.assertIn(
-            "오늘의 1면",
+            "주요 기사",
             rendered,
         )
         self.assertNotIn(
