@@ -1,4 +1,148 @@
 {
-  "articles": [],
-  "updated_at": ""
+  "articles": [
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "Claude Code, 이제 CLAUDE.md가 없으면 AGENTS.md를 읽음",
+      "link": "https://news.hada.io/topic?id=33913",
+      "published_at": "2026-09-19T07:52:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Claude Code"
+      ],
+      "one_line": "Claude Code가 CLAUDE.md 부재 시 AGENTS.md를 프로젝트 지침으로 자동 인식합니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "Cloudflare, 수학과 Rust로 RAM 100TB 추가 절감",
+      "link": "https://news.hada.io/topic?id=33915",
+      "published_at": "2026-09-19T08:42:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Consistent Hashing",
+        "Memory Optimization",
+        "Rust"
+      ],
+      "one_line": "Cloudflare가 수학적 분석과 Rust 최적화를 통해 Pingora의 메모리 사용량을 100TB 절감했습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "Agent-Native - 하나의 액션을 UI/에이전트/API에서 함께 쓰는 앱 프레임워크",
+      "link": "https://news.hada.io/topic?id=33920",
+      "published_at": "2026-09-19T09:30:02+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "MCP",
+        "Developer Tools"
+      ],
+      "one_line": "UI, 에이전트, API에서 동일한 액션을 공유하는 앱 프레임워크 'Agent-Native'가 공개되었습니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "Claude, 생체분자 모델 30여 개를 평균 4배 가속",
+      "link": "https://news.hada.io/topic?id=33921",
+      "published_at": "2026-09-19T09:32:19+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "GPU Kernel",
+        "Inference Optimization",
+        "LLM"
+      ],
+      "one_line": "Claude가 맞춤형 GPU 커널과 최적화를 통해 생체분자 모델의 추론 속도를 평균 4배 가속했습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "jina-ocr-v1 - 저가형 GPU에서 더 빠르게 문서를 파싱하는 모델",
+      "link": "https://news.hada.io/topic?id=33922",
+      "published_at": "2026-09-19T09:32:20+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "OCR",
+        "RAG",
+        "Speculative Decoding"
+      ],
+      "one_line": "Jina AI가 저가형 GPU에서도 빠르게 문서를 파싱하는 고성능 OCR 모델 jina-ocr-v1을 공개했습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "Needle 3 - 작은 기기에서 자연어 명령을 처리하는 8~29MB AI 모델",
+      "link": "https://news.hada.io/topic?id=33923",
+      "published_at": "2026-09-19T09:42:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "On-device AI",
+        "Tool Calling",
+        "Simple Attention Network"
+      ],
+      "one_line": "온디바이스 환경에서 자연어 명령을 도구 호출 및 데이터 추출로 변환하는 8~29MB 초소형 AI 모델 Needle 3 공개",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "Claude Code, 이제 AGENTS.md도 지원",
+      "link": "https://news.hada.io/topic?id=33925",
+      "published_at": "2026-09-19T10:38:31+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Project Instructions",
+        "Developer Tools"
+      ],
+      "one_line": "Claude Code가 프로젝트 지침 파일로 'AGENTS.md'를 공식 지원하여 설정 공유가 간편해짐",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "SQPOLL은 불안형 여친이다",
+      "link": "https://news.hada.io/topic?id=33929",
+      "published_at": "2026-09-19T11:01:09+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "io_uring",
+        "SQPOLL",
+        "System Programming"
+      ],
+      "one_line": "io_uring의 SQPOLL 모드는 성능 향상을 제공하지만 높은 CPU 자원을 소모하는 트레이드오프가 존재함",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-19T18:39:46.392927+09:00",
+      "company": "GeekNews",
+      "title": "Jev의 아키텍처를 파헤치다",
+      "link": "https://news.hada.io/topic?id=33930",
+      "published_at": "2026-09-19T11:22:19+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Decision Model",
+        "Probabilistic Output",
+        "Inference Optimization"
+      ],
+      "one_line": "Jev는 텍스트 생성 대신 병렬 확률 분포를 출력하여 의사결정 효율과 신뢰성을 높인 AI 모델 아키텍처임",
+      "actionability": 3
+    }
+  ],
+  "updated_at": "2026-09-19T18:39:46.392927+09:00"
 }
