@@ -28,6 +28,7 @@ SENT_ARTICLES_FILE = "sent_articles.json"
 SLACK_FEEDBACK_STATE_FILE = "config/slack_feedback_state.json"
 SLACK_FEEDBACK_FILE = "config/slack_feedback.json"
 ARTICLE_HISTORY_FILE = "config/article_history.json"
+DAILY_ISSUES_DIR = "config/issues"
 
 MAX_CONTENT_LENGTH = 12000
 
@@ -3192,6 +3193,365 @@ def save_article_history(
     )
 
 
+def _safe_string_list(value, limit=5):
+    if not isinstance(
+        value,
+        list
+    ):
+        return []
+
+    return [
+        str(item).strip()
+        for item in value[:limit]
+        if str(item).strip()
+    ]
+
+
+def serialize_issue_article(item):
+    article = item.get(
+        "article",
+        {}
+    )
+    summary_data = item.get(
+        "summary_data",
+        {}
+    )
+
+    try:
+        actionability = int(
+            summary_data.get(
+                "actionability",
+                0
+            )
+        )
+    except (
+        TypeError,
+        ValueError
+    ):
+        actionability = 0
+
+    action = summary_data.get(
+        "action",
+        {}
+    )
+
+    if not isinstance(
+        action,
+        dict
+    ):
+        action = {}
+
+    action_steps = (
+        _safe_string_list(
+            action.get(
+                "steps",
+                []
+            ),
+            limit=3
+        )
+    )
+
+    return {
+        "company": article.get(
+            "company",
+            ""
+        ),
+        "title": article.get(
+            "title",
+            ""
+        ),
+        "link": article.get(
+            "link",
+            ""
+        ),
+        "published_at": article.get(
+            "pub_date",
+            ""
+        ),
+        "selection_score": article.get(
+            "selection_score"
+        ),
+        "selection_reason": article.get(
+            "selection_reason",
+            ""
+        ),
+        "feedback_bias": article.get(
+            "feedback_bias",
+            0
+        ),
+        "one_line": str(
+            summary_data.get(
+                "one_line",
+                ""
+            )
+        ).strip(),
+        "key_points": _safe_string_list(
+            summary_data.get(
+                "key_points",
+                []
+            ),
+            limit=3
+        ),
+        "topics": _safe_string_list(
+            summary_data.get(
+                "concepts",
+                []
+            ),
+            limit=5
+        ),
+        "recommended_for": str(
+            summary_data.get(
+                "recommended_for",
+                ""
+            )
+        ).strip(),
+        "actionability": max(
+            0,
+            min(
+                5,
+                actionability
+            )
+        ),
+        "action": {
+            "type": str(
+                action.get(
+                    "type",
+                    ""
+                )
+            ).strip(),
+            "title": str(
+                action.get(
+                    "title",
+                    ""
+                )
+            ).strip(),
+            "steps": action_steps,
+            "effort": str(
+                action.get(
+                    "effort",
+                    ""
+                )
+            ).strip(),
+        },
+    }
+
+
+def serialize_brief_article(article):
+    return {
+        "company": article.get(
+            "company",
+            ""
+        ),
+        "title": article.get(
+            "title",
+            ""
+        ),
+        "link": article.get(
+            "link",
+            ""
+        ),
+        "published_at": article.get(
+            "pub_date",
+            ""
+        ),
+        "selection_score": article.get(
+            "selection_score"
+        ),
+        "selection_reason": article.get(
+            "selection_reason",
+            ""
+        ),
+        "feedback_bias": article.get(
+            "feedback_bias",
+            0
+        ),
+    }
+
+
+def save_daily_issue(
+    summarized_articles,
+    brief_articles,
+    editorial,
+    top_indices,
+    failed_blogs,
+    candidate_count,
+    excluded_count,
+    unresolved_count
+):
+    now = datetime.now(
+        ZoneInfo(
+            "Asia/Seoul"
+        )
+    )
+    issue_date = now.strftime(
+        "%Y-%m-%d"
+    )
+
+    os.makedirs(
+        DAILY_ISSUES_DIR,
+        exist_ok=True
+    )
+
+    issue_path = os.path.join(
+        DAILY_ISSUES_DIR,
+        f"{issue_date}.json"
+    )
+
+    existing_issue_number = None
+
+    if os.path.exists(
+        issue_path
+    ):
+        try:
+            with open(
+                issue_path,
+                "r",
+                encoding="utf-8"
+            ) as file:
+                existing = json.load(
+                    file
+                )
+                existing_issue_number = (
+                    existing.get(
+                        "issue_number"
+                    )
+                )
+        except (
+            OSError,
+            json.JSONDecodeError
+        ):
+            existing_issue_number = None
+
+    issue_files = [
+        name
+        for name in os.listdir(
+            DAILY_ISSUES_DIR
+        )
+        if name.endswith(
+            ".json"
+        )
+    ]
+
+    issue_number = (
+        existing_issue_number
+        or len(
+            issue_files
+        ) + 1
+    )
+
+    top_set = set(
+        top_indices
+    )
+    top_stories = []
+    more_detailed = []
+
+    for index, item in enumerate(
+        summarized_articles,
+        start=1
+    ):
+        serialized = (
+            serialize_issue_article(
+                item
+            )
+        )
+
+        if index in top_set:
+            serialized[
+                "editorial_rank"
+            ] = (
+                top_indices.index(
+                    index
+                ) + 1
+            )
+            top_stories.append(
+                serialized
+            )
+        else:
+            more_detailed.append(
+                serialized
+            )
+
+    top_stories.sort(
+        key=lambda item: item.get(
+            "editorial_rank",
+            999
+        )
+    )
+
+    issue = {
+        "schema_version": 1,
+        "issue_number": issue_number,
+        "issue_date": issue_date,
+        "generated_at": now.isoformat(),
+        "profile_name": USER_PREFERENCES.get(
+            "profile_name",
+            "default"
+        ),
+        "editorial": (
+            remove_internal_editorial_sections(
+                editorial
+            )
+        ),
+        "stats": {
+            "candidate_count":
+                candidate_count,
+            "detailed_count":
+                len(
+                    summarized_articles
+                ),
+            "brief_count":
+                len(
+                    brief_articles
+                ),
+            "excluded_count":
+                excluded_count,
+            "unresolved_count":
+                unresolved_count,
+        },
+        "top_stories": top_stories,
+        "more_detailed":
+            more_detailed,
+        "brief_articles": [
+            serialize_brief_article(
+                article
+            )
+            for article in (
+                brief_articles
+            )
+        ],
+        "failed_sources": list(
+            failed_blogs
+        ),
+    }
+
+    temp_path = (
+        issue_path
+        + ".tmp"
+    )
+
+    with open(
+        temp_path,
+        "w",
+        encoding="utf-8"
+    ) as file:
+        json.dump(
+            issue,
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+        file.write(
+            "\n"
+        )
+
+    os.replace(
+        temp_path,
+        issue_path
+    )
+
+    return issue_path
+
+
 def _save_slack_feedback_state(items):
     os.makedirs(
         os.path.dirname(
@@ -3898,6 +4258,33 @@ def main():
             unresolved_articles
         )
     )
+
+    try:
+        issue_path = save_daily_issue(
+            summarized_articles,
+            brief_articles,
+            editorial,
+            top_indices,
+            failed_blogs,
+            candidate_count=len(
+                candidate_articles
+            ),
+            excluded_count=len(
+                excluded_articles
+            ),
+            unresolved_count=len(
+                unresolved_articles
+            )
+        )
+        print(
+            "Daily Newspaper issue 저장:",
+            issue_path
+        )
+    except Exception as error:
+        print(
+            "Daily Newspaper issue 저장 실패:",
+            repr(error)
+        )
 
     messages = split_slack_messages(
         digest
