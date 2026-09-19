@@ -1,0 +1,51 @@
+name: Slack Feedback Sync
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "17 */2 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: slack-feedback-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-feedback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v7
+        with:
+          ref: develop
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Sync Slack reactions
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        run: python slack_feedback.py
+
+      - name: Save Slack feedback
+        run: |
+          if git diff --quiet config/slack_feedback.json; then
+            echo "No Slack feedback changes to save."
+            exit 0
+          fi
+
+          git config user.name "slack-feedback-bot"
+          git config user.email "slack-feedback-bot@users.noreply.github.com"
+
+          git add config/slack_feedback.json
+          git commit -m "Update Slack feedback"
+
+          git pull --rebase origin develop
+          git push origin develop
