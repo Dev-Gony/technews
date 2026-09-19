@@ -378,7 +378,11 @@ class NewspaperBuilderTest(unittest.TestCase):
             rendered,
         )
         self.assertNotIn(
-            "/technews/",
+            'href="/technews/',
+            rendered,
+        )
+        self.assertIn(
+            "https://dev-gony.github.io/technews/",
             rendered,
         )
 
