@@ -1,6 +1,166 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "기존 벤치마크가 놓치는 워크로드에서의 Btrfs/ZFS/bcachefs",
+      "link": "https://news.hada.io/topic?id=33982",
+      "published_at": "2026-09-20T14:52:24+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "CoW(Copy-on-Write)",
+        "IOPS 및 p99 지연 시간",
+        "데이터 무결성(Data Integrity)"
+      ],
+      "one_line": "Btrfs, ZFS, bcachefs 등 현대적 파일시스템의 성능과 무결성을 다각도로 비교한 벤치마크",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "Cache-to-Cache: LLM 간 직접 의미 전달 (2025)",
+      "link": "https://news.hada.io/topic?id=33983",
+      "published_at": "2026-09-20T14:52:25+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "KV-Cache",
+        "LLM 협업(Multi-LLM System)",
+        "신경망 기반 캐시 융합(Cache Fusion)"
+      ],
+      "one_line": "LLM 간 텍스트 대신 KV-Cache를 직접 교환하여 통신 효율과 정확도를 높이는 C2C 기술",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: konfirm - kubectl context 지정 실수 방지를 위한 cli",
+      "link": "https://news.hada.io/topic?id=33985",
+      "published_at": "2026-09-20T15:38:45+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Kubernetes Context",
+        "CLI Wrapper",
+        "운영 자동화"
+      ],
+      "one_line": "kubectl 컨텍스트 변경 실수를 방지하기 위한 안전장치 CLI 도구, konfirm",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Motif-3 전용 코딩 하네스, \"Motif-code\"",
+      "link": "https://news.hada.io/topic?id=33994",
+      "published_at": "2026-09-20T20:39:30+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Harness Engineering",
+        "AI Agent Workflow",
+        "Developer Tools"
+      ],
+      "one_line": "Motif-3 모델의 성능을 실질적인 코딩 역량으로 끌어올리기 위한 전용 하네스, Motif-code",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "초고속 APK 역컴파일러인 ASC를 새로 개발했다.",
+      "link": "https://news.hada.io/topic?id=33995",
+      "published_at": "2026-09-20T21:05:52+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "역컴파일(Decompilation)",
+        "병렬 처리(Parallel Processing)",
+        "보안 분석(Security Analysis)"
+      ],
+      "one_line": "Jadx보다 수십 배 빠른 병렬 분석 기반의 차세대 안드로이드 역컴파일러, ASC",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "StepFun, 차세대 플래그십 AI 모델 Step 5 Preview 공개",
+      "link": "https://news.hada.io/topic?id=33999",
+      "published_at": "2026-09-20T22:30:42+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MoE (Mixture-of-Experts)",
+        "Long-context Window",
+        "Agentic Workflow"
+      ],
+      "one_line": "소프트웨어 엔지니어링과 금융 업무에 특화된 차세대 플래그십 모델 'Step 5 Preview' 공개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: AutoRAG Agent - 컴퓨터에 있는 모든 것을 검색해주는 에이전트 (파일, 메신저 대화 기록, 이메일, 노션...",
+      "link": "https://news.hada.io/topic?id=34003",
+      "published_at": "2026-09-21T00:03:37+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "RAG (Retrieval-Augmented Generation)",
+        "Distributed Indexing",
+        "Tool Calling"
+      ],
+      "one_line": "로컬 파일, 메신저, 노션 등 개인 데이터를 통합 검색하는 분산형 RAG 에이전트 'AutoRAG Agent' 공개",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "Qwen-Image-2.1, 소형 고효율 통합 이미지 생성 모델",
+      "link": "https://news.hada.io/topic?id=34004",
+      "published_at": "2026-09-21T00:52:25+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "KV Cache Reuse",
+        "Mixed-granularity Attention",
+        "Image-to-Image Editing"
+      ],
+      "one_line": "텍스트 기반 이미지 생성과 편집을 통합한 고효율 7B 소형 모델 'Qwen-Image-2.1' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "Step 5 Preview: 파레토 경계 확장",
+      "link": "https://news.hada.io/topic?id=34006",
+      "published_at": "2026-09-21T00:52:28+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Pareto Frontier",
+        "Sparse MoE",
+        "Self-Optimization"
+      ],
+      "one_line": "비용 효율성과 에이전트 성능을 강조한 Step 5 Preview의 기술적 벤치마크 및 특징 분석",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-21T07:59:49.380860+09:00",
+      "company": "GeekNews",
+      "title": "Ask GN: 3주간 코딩 에이전트에게 보낸 제 메시지를 분석해 봤습니다. 40%는 실제 작업이 아니었어요. 다른 분들...",
+      "link": "https://news.hada.io/topic?id=34012",
+      "published_at": "2026-09-21T04:11:12+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Developer Productivity",
+        "Prompt Overhead"
+      ],
+      "one_line": "코딩 에이전트 활용 패턴 분석: 메시지의 40%가 오버헤드임을 확인",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-09-20T07:40:54.188231+09:00",
       "company": "GeekNews",
       "title": "유닛 테스트는 버그를 잡는다기보다 영역 표시를 하는 것",
@@ -240,5 +400,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-20T07:40:54.188231+09:00"
+  "updated_at": "2026-09-21T07:59:49.380860+09:00"
 }
