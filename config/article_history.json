@@ -1,6 +1,215 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "Meta Engineering",
+      "title": "Open-Sourcing Rebalancer: A Generic, High-Performance Library for Solving Assignment Problems",
+      "link": "https://engineering.fb.com/2026/09/21/open-source/rebalancer-generic-high-performance-library-assignment-problems",
+      "published_at": "Mon, 21 Sep 2026 16:00:37 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Assignment Problem",
+        "Local Search Heuristic",
+        "Mixed Integer Programming (MIP)"
+      ],
+      "one_line": "메타가 9년간 내부적으로 사용해온 리소스 할당 최적화 라이브러리 'Rebalancer'를 오픈소스로 공개함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "Cloudflare",
+      "title": "Python Workers are now generally available",
+      "link": "https://blog.cloudflare.com/python-workers-ga",
+      "published_at": "Mon, 21 Sep 2026 13:00:00 GMT",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "WebAssembly (Wasm)",
+        "Pyodide",
+        "ASGI/WSGI"
+      ],
+      "one_line": "Cloudflare Workers에서 Python을 정식 지원(GA)하여 서버리스 환경에서 Python 생태계를 완벽하게 활용 가능해짐.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "MCP는 처음부터 잘못된 아이디어였다",
+      "link": "https://news.hada.io/topic?id=34059",
+      "published_at": "2026-09-21T16:36:26+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Model Context Protocol (MCP)",
+        "Agentic Workflow",
+        "Content Negotiation"
+      ],
+      "one_line": "MCP(Model Context Protocol)가 에이전트의 발전으로 인해 불필요해졌다는 비판적 시각과 그에 대한 논쟁.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "콘웨이의 법칙과 프로그래밍 언어",
+      "link": "https://news.hada.io/topic?id=34063",
+      "published_at": "2026-09-21T20:08:31+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Conway's Law",
+        "Context Pollution",
+        "Leaky Abstraction"
+      ],
+      "one_line": "AI 에이전트 시대에 콘웨이의 법칙을 재해석하며, 인간의 읽기 속도를 최적화하는 언어 설계의 중요성을 강조함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "Kev - 직접 학습하고 실행할 수 있는 Jev 방식의 의사결정 모델",
+      "link": "https://news.hada.io/topic?id=34065",
+      "published_at": "2026-09-21T20:42:00+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Decision Model",
+        "LoRA (Low-Rank Adaptation)",
+        "System 1 Thinking"
+      ],
+      "one_line": "Qwen3.5 기반의 의사결정 모델 'Kev'는 문장 생성 대신 선택지별 확률을 반환하여 빠르고 정확한 업무 자동화를 지원함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: Mini-AGI - 8GB VRAM에서 학습하는 동적 지속 학습 모델",
+      "link": "https://news.hada.io/topic?id=34067",
+      "published_at": "2026-09-21T21:38:05+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "지속 학습 (Continual Learning)",
+        "파국적 망각 (Catastrophic Forgetting)",
+        "전문가 혼합 (MoE)"
+      ],
+      "one_line": "8GB VRAM에서 작동하며 데이터 읽기와 학습을 동시에 수행하는 지속 학습 모델 'mini-AGI' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "AI 챗봇, 금융 질문에 ‘대부분’ 잘못된 답변",
+      "link": "https://news.hada.io/topic?id=34070",
+      "published_at": "2026-09-21T23:31:22+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 환각 (Hallucination)",
+        "RAG (Retrieval-Augmented Generation)",
+        "금융 규제 (Financial Regulation)"
+      ],
+      "one_line": "18개 AI 모델 대상 금융 질문 테스트 결과, 평균 57%의 높은 오류율 기록",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "Heretic, 언어 모델의 제한을 제거하는 도구",
+      "link": "https://news.hada.io/topic?id=34073",
+      "published_at": "2026-09-22T00:37:35+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "모델 검열 (Model Censorship)",
+        "KL 발산 (Kullback-Leibler Divergence)",
+        "가중치 수정 (Weight Manipulation)"
+      ],
+      "one_line": "언어 모델의 검열을 자동으로 제거하여 사용자의 통제권을 강화하는 도구 'Heretic'",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "Grok 4.7 공개, 동급 모델 대비 2배 빠르고 가격은 절반",
+      "link": "https://news.hada.io/topic?id=34077",
+      "published_at": "2026-09-22T02:49:35+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "강화학습 (Reinforcement Learning)",
+        "벤치마크 (Benchmark)",
+        "토큰 효율성 (Token Efficiency)"
+      ],
+      "one_line": "Grok 4.7 공개, 이전 모델 대비 2배 빠른 속도와 절반의 가격으로 코딩 및 지식 업무 성능 강화",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "M5 Ultra Mac Studio 리뷰: 로컬 AI 에이전트를 위한 꿈의 Mac",
+      "link": "https://news.hada.io/topic?id=34079",
+      "published_at": "2026-09-22T02:55:36+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "통합 메모리 (Unified Memory)",
+        "로컬 LLM (Local LLM)",
+        "에이전트 워크플로 (Agentic Workflow)"
+      ],
+      "one_line": "M5 Ultra Mac Studio 리뷰: 256GB 통합 메모리를 활용한 로컬 AI 에이전트 구동의 최적 환경",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "Fable 5, 높은 추론 설정에도 실제 추론량이 줄었다는 분석",
+      "link": "https://news.hada.io/topic?id=34081",
+      "published_at": "2026-09-22T03:34:05+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 추론 효율성",
+        "모델 성능 회귀(Model Regression)",
+        "추론 토큰(Inference Tokens)"
+      ],
+      "one_line": "Claude Code의 Fable 5 모델에서 높은 추론 설정에도 불구하고 실제 추론 토큰 사용량이 감소했다는 분석이 제기됨.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "샤오미, MiMo-V2.6 공개 - 강화학습 과정을 공개한 멀티모달 모델",
+      "link": "https://news.hada.io/topic?id=34085",
+      "published_at": "2026-09-22T06:35:10+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "멀티모달 모델(Omni-model)",
+        "강화학습(RL) 기반 성능 최적화",
+        "MoE(Mixture of Experts)"
+      ],
+      "one_line": "샤오미가 강화학습 과정을 실시간으로 공개한 멀티모달 모델 'MiMo-V2.6'을 출시함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
+      "company": "GeekNews",
+      "title": "Python Workers 정식 출시",
+      "link": "https://news.hada.io/topic?id=34087",
+      "published_at": "2026-09-22T07:36:54+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "서버리스(Serverless)",
+        "Pyodide",
+        "WebAssembly(Wasm)",
+        "MCP(Model Context Protocol)"
+      ],
+      "one_line": "Cloudflare Workers가 Python을 정식 지원하며, 별도의 JavaScript 변환 코드 없이 Python 라이브러리 사용이 가능해짐.",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-09-21T07:59:49.380860+09:00",
       "company": "GeekNews",
       "title": "기존 벤치마크가 놓치는 워크로드에서의 Btrfs/ZFS/bcachefs",
@@ -400,5 +609,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-21T07:59:49.380860+09:00"
+  "updated_at": "2026-09-22T08:54:51.762169+09:00"
 }
