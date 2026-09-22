@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "issue_number": 5,
+  "issue_date": "2026-09-23",
+  "generated_at": "2026-09-23T08:31:00.173786+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, LLM 추론 최적화, 비용 효율성, Prompt Caching, CI/CD 병목 해결\n\n[오늘의 한줄 포인트]\n\n최신 LLM 모델의 성능 향상과 비용 절감을 활용해 AI 에이전트의 실무 적용 효율을 극대화해야 하는 시점입니다.\n\n[오늘 왜 중요한가]\n\n최근 출시된 고성능 모델들은 추론 비용과 속도를 획기적으로 개선하여, 그동안 비용 문제로 망설였던 에이전트 기반 워크플로를 실무에 도입할 최적의 기회를 제공합니다. 개발자는 단순히 모델을 사용하는 것을 넘어, 추론 강도 조절과 프롬프트 캐싱 등 기술적 최적화를 통해 서비스의 생산성과 경제성을 동시에 확보해야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 12번: Claude Opus 5.5는 비용 절감과 성능 향상을 동시에 달성하여 에이전트 워크플로의 실무 도입 문턱을 크게 낮췄습니다.\n• 14번: GPT-6 Sol과 Luna의 프롬프트 캐싱 기능은 반복적인 API 호출이 많은 에이전트 시스템의 응답 속도와 비용을 직접적으로 개선합니다.\n• 16번: 추론 강도별 성능 분석 데이터는 LLM 기반 서비스 운영 시 비용과 품질 사이의 최적 균형점을 찾는 데 필수적인 가이드라인을 제공합니다.\n\n[오늘 공부해볼 것]\n\n• LLM 추론 강도(Inference Intensity) 최적화: 작업의 난이도에 따라 모델의 추론 강도를 동적으로 설정하여 비용을 절감하는 전략을 학습합니다.\n• 프롬프트 캐싱(Prompt Caching) 적용: 반복되는 시스템 프롬프트나 컨텍스트를 캐싱하여 API 호출 비용과 지연 시간을 줄이는 방법을 익힙니다.\n• 에이전트 메모리 관리 구조: Meta Muse 사례처럼 Markdown이나 벡터 DB를 활용해 에이전트가 사용자 취향을 학습하고 기억하는 아키텍처를 설계해 봅니다.",
+  "stats": {
+    "candidate_count": 37,
+    "detailed_count": 16,
+    "brief_count": 5,
+    "excluded_count": 16,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Claude Opus 5.5 출시",
+      "link": "https://news.hada.io/topic?id=34135",
+      "published_at": "2026-09-23T02:43:06+09:00",
+      "selection_score": 15,
+      "selection_reason": "LLM 성능 향상과 비용 절감은 현재 개발 생산성 및 AI 에이전트 워크플로 구축에 가장 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Opus 5.5 출시: 성능 향상, 비용 절감 및 에이전트 워크플로 최적화",
+      "key_points": [
+        "Claude Opus 5.5는 Opus 5 대비 비용 40% 절감, 출력 속도 30% 향상 및 코딩/지식 업무 성능 개선을 달성함.",
+        "대규모 코드베이스 마이그레이션 및 감사 작업에서 압도적인 효율을 보이며, 사용자가 지정한 글쓰기 규칙 준수 능력이 강화됨.",
+        "보안 강화를 위해 사이버 보안 관련 작업은 Opus 4.8로 자동 전환되는 등 안전성 보호 장치가 적용됨."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Token Efficiency",
+        "Frontier Model"
+      ],
+      "recommended_for": "AI 에이전트를 활용해 대규모 코드 리팩터링이나 복잡한 데이터 분석 업무를 자동화하려는 개발자.",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "Claude Opus 5.5 기반의 에이전트 비용 및 성능 벤치마크 수행",
+        "steps": [
+          "현재 사용 중인 Opus 5 기반 에이전트 워크플로의 작업당 비용과 토큰 사용량을 기록한다.",
+          "동일한 프롬프트와 작업 환경에서 Opus 5.5로 전환하여 성능과 비용 절감 폭을 측정한다.",
+          "결과를 바탕으로 에이전트의 추론 강도(low/medium/high) 설정을 최적화한다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "GPT-6 Sol과 Luna 출시",
+      "link": "https://news.hada.io/topic?id=34138",
+      "published_at": "2026-09-23T03:39:03+09:00",
+      "selection_score": 15,
+      "selection_reason": "LLM 모델의 업데이트와 비용 절감은 개발 생산성 및 아키텍처 설계에 직접적인 영향을 미치는 핵심 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "GPT-6 Sol 및 Luna 출시: 비용 효율성과 추론 성능의 대폭 개선",
+      "key_points": [
+        "GPT-6 Sol과 Luna는 Astra의 성능을 유지하면서 API 가격을 이전 대비 50% 인하하여 비용 효율성을 극대화함.",
+        "프롬프트 캐싱 기능이 강화되어 추론 강도나 도구 구성 변경 시에도 캐시를 재사용할 수 있어 응답 속도와 비용이 개선됨.",
+        "복잡한 전문 업무 및 코딩 작업에서 Claude Opus 5.5와 경쟁하며, 특히 낮은 비용으로 높은 정확도를 제공함."
+      ],
+      "topics": [
+        "Prompt Caching",
+        "Cost-Performance Optimization",
+        "Inference Intensity"
+      ],
+      "recommended_for": "LLM API 비용 절감과 에이전트 응답 속도 개선이 필요한 백엔드 개발자 및 아키텍트.",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "OpenAI 프롬프트 캐싱을 적용한 API 호출 최적화",
+        "steps": [
+          "현재 API 호출 패턴에서 반복되는 프롬프트 접두부(System Prompt 등)를 식별한다.",
+          "OpenAI의 Prompt Caching 기능을 적용하여 캐시 적중률을 대시보드에서 확인한다.",
+          "추론 강도(reasoning_effort)를 작업 난이도에 따라 동적으로 조절하도록 로직을 수정한다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude Opus 5.5, 추론 설정별 성능과 비용 비교",
+      "link": "https://news.hada.io/topic?id=34142",
+      "published_at": "2026-09-23T06:35:00+09:00",
+      "selection_score": 14,
+      "selection_reason": "성능과 비용의 상관관계를 분석한 데이터는 LLM 기반 서비스의 비용 최적화 및 아키텍처 결정에 필수적인 자료입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Opus 5.5의 추론 강도별 성능과 비용을 분석한 결과, medium 설정이 가성비 측면에서 가장 합리적인 선택지로 평가됨.",
+      "key_points": [
+        "Claude Opus 5.5는 추론 강도(low~max)에 따라 성능과 비용이 비례하며, max 설정은 high 대비 지능 지수는 4점 상승하나 비용은 약 3.3배 증가함.",
+        "벤치마크 결과 medium 설정은 이전 모델인 Opus 5의 최고 성능과 대등하며, high 설정은 Fable 5.1을 상회하는 성능을 보여줌.",
+        "실제 사용 사례에서는 max 설정이 과도한 토큰 소모와 추론 루프에 빠질 위험이 있어, 대부분의 작업에는 medium이나 high 설정이 권장됨."
+      ],
+      "topics": [
+        "추론 강도(Inference Intensity)",
+        "지능 벤치마크(Intelligence Index)",
+        "비용 최적화(Cost Optimization)"
+      ],
+      "recommended_for": "LLM 기반 에이전트 서비스를 운영하며 API 비용 절감과 성능 최적화 사이의 균형점을 찾는 백엔드 개발자 및 AI 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 서비스 중인 LLM 작업의 추론 설정별 비용-성능 최적화 테스트",
+        "steps": [
+          "현재 사용 중인 프롬프트와 작업 유형을 선정하여 Claude Opus 5.5의 medium, high, max 설정별 결과 품질을 비교함.",
+          "각 설정별 실제 소요 토큰 수와 응답 시간을 측정하여 작업당 비용을 산출함.",
+          "품질 저하가 허용 가능한 범위 내에서 가장 비용 효율적인 추론 설정을 프로덕션 환경에 적용함."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "토스",
+      "title": "쉼 없이 도는 테스트, 사람이 어디까지 돌봐야 할까요? - 토스닥터(Toss Doctor)",
+      "link": "https://toss.tech/article/toss-doctor",
+      "published_at": "Tue, 22 Sep 2026 03:42:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "테스트 자동화와 QA 효율화는 개발 생산성 향상의 핵심이며, 실무적인 자동화 아키텍처 개선 사례로 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "토스닥터 V2: LLM과 Appium MCP를 활용한 QA 자동화 및 셀프 힐링 아키텍처",
+      "key_points": [
+        "Gherkin 문법 시나리오를 LLM이 코드로 변환하고, Appium MCP를 통해 실제 디바이스에서 요소를 탐색하여 테스트를 구현함.",
+        "테스트 실패 시 스마트파인더가 화면을 분석해 팝업 등 방해 요소를 제거하거나, 에러 원인을 분석하여 복구 가능한 경우 스스로 수정함.",
+        "테스트 실행부터 실패 대응, 복구까지 서버가 실시간으로 개입하여 전체 흐름을 관리하고, 성공 사례를 학습하여 정확도를 높임."
+      ],
+      "topics": [
+        "QA 자동화",
+        "Self-healing Test",
+        "Appium MCP"
+      ],
+      "recommended_for": "QA 자동화의 유지보수 비용과 테스트 실패 대응에 지친 백엔드 및 QA 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 테스트 스위트에 LLM 기반 실패 분석 도입하기",
+        "steps": [
+          "현재 테스트 실패 시 발생하는 로그와 스크린샷을 LLM API에 전달하여 원인 분석을 자동화하는 스크립트 작성",
+          "분석 결과에 따라 '코드 수정 필요'와 '환경 이슈'를 분류하는 로직 구현"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Worker Previews: Isolated preview environments for every change your agent makes",
+      "link": "https://blog.cloudflare.com/worker-previews",
+      "published_at": "Tue, 22 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI Agent의 개발 워크플로와 격리된 환경 테스트를 지원하는 도구로, 최신 트렌드와 실무 생산성 향상에 매우 직결됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Worker Previews: Git 브랜치별 격리된 환경에서 에이전트 개발 및 테스트 지원",
+      "key_points": [
+        "Git 브랜치마다 독립적인 URL, 설정, 상태(Durable Objects)를 가진 격리된 프리뷰 환경을 자동으로 생성함.",
+        "에이전트가 프리뷰 환경에서 변경 사항을 배포, 테스트, 관찰하고 실패 시 스스로 수정하여 검증하는 ADLC(Agent Development Lifecycle)를 지원함.",
+        "기존 프로덕션 설정을 베이스로 하되, 브랜치별로 데이터베이스나 API 키 등을 유연하게 오버라이드하여 테스트 가능함."
+      ],
+      "topics": [
+        "Isolated Preview Environment",
+        "ADLC (Agent Development Lifecycle)",
+        "Durable Objects"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 개발 워크플로를 구축 중이거나 격리된 테스트 환경이 필요한 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트에 Worker Previews 도입 검토",
+        "steps": [
+          "Wrangler 설정 파일에 'previews' 블록을 추가하여 베이스 설정 정의",
+          "npx wrangler preview 명령을 통해 브랜치별 독립 환경 생성 및 테스트 워크플로 연동 확인"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "We just shipped support for the ugliest part of HTTP: Vary",
+      "link": "https://blog.cloudflare.com/vary-support",
+      "published_at": "Tue, 22 Sep 2026 14:04:31 GMT",
+      "selection_score": 11,
+      "selection_reason": "HTTP 캐싱 및 Vary 헤더 처리는 백엔드 아키텍처와 성능 최적화에 있어 매우 중요한 기술적 난제입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Cache Rules의 Vary 헤더 지원을 통한 캐시 효율 최적화",
+      "key_points": [
+        "Vary 헤더로 인한 캐시 파편화 문제를 해결하기 위해, 헤더 값을 정규화하거나 무시(bypass)하는 제어 기능을 Cache Rules에 추가함.",
+        "Accept, Accept-Language 등 요청 헤더를 정규화하여 동일한 응답을 공유함으로써 캐시 적중률을 높이고 원본 서버 부하를 줄임.",
+        "Vary: * 헤더는 캐시를 완전히 우회하게 하여, 개인화된 응답이나 예측 불가능한 변동성이 큰 콘텐츠를 안전하게 처리함."
+      ],
+      "topics": [
+        "HTTP Vary Header",
+        "Cache Key Normalization",
+        "CDN Caching Strategy"
+      ],
+      "recommended_for": "CDN 캐시 적중률 개선과 성능 최적화가 필요한 백엔드 아키텍트",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Adding custom domains to AWS Lambda MicroVMs with Application Load Balancer",
+      "link": "https://aws.amazon.com/blogs/compute/adding-custom-domains-to-aws-lambda-microvms-with-application-load-balancer",
+      "published_at": "Tue, 22 Sep 2026 16:48:32 +0000",
+      "selection_score": 11,
+      "selection_reason": "서버리스 환경에서의 커스텀 도메인 설정은 클라우드 아키텍처 설계 시 필수적인 실무 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "ALB를 활용한 AWS Lambda MicroVM 커스텀 도메인 및 CORS 설정",
+      "key_points": [
+        "Application Load Balancer(ALB)의 호스트 헤더 재작성(Rewrite) 기능을 사용하여 MicroVM의 복잡한 엔드포인트를 커스텀 도메인으로 매핑함.",
+        "CloudFront 없이 ALB 수준에서 TLS 종료와 CORS 헤더 처리를 수행하여 지연 시간을 최소화하고 아키텍처를 단순화함.",
+        "PrivateLink를 통해 ALB와 MicroVM 간의 통신을 보안성 있게 유지하며, 와일드카드 도메인을 통해 동적 환경을 지원함."
+      ],
+      "topics": [
+        "AWS Lambda MicroVM",
+        "ALB Host Header Rewrite",
+        "AWS PrivateLink"
+      ],
+      "recommended_for": "서버리스 아키텍처에서 커스텀 도메인과 보안 통신을 구현하려는 클라우드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "ALB를 이용한 호스트 헤더 재작성 패턴 적용",
+        "steps": [
+          "ALB 리스너 규칙에 정규식 기반 호스트 헤더 재작성(Host-header-rewrite) 설정 추가",
+          "CORS 처리를 위해 ALB 리스너 속성에 Access-Control 헤더 삽입 로직 구성"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 코딩으로 병목이 된 CI, Linear는 어떻게 개선했나",
+      "link": "https://news.hada.io/topic?id=34105",
+      "published_at": "2026-09-22T12:42:20+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 코딩으로 인한 CI 병목 현상 해결과 빌드 성능 개선 사례는 현재 모든 개발 팀이 직면한 핵심 생산성 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "Linear의 CI 최적화 사례: AI 코딩으로 인한 병목 해결 및 빌드 성능 개선",
+      "key_points": [
+        "네이티브 TypeScript 컴파일러(tsgo) 도입 및 린트 규칙 최적화로 타입 분석 병목을 제거하여 검사 시간을 70% 이상 단축함.",
+        "테스트 샤딩 확대, 불필요한 캐시 복원 제거, 공통 의존성 사전 설치 등을 통해 테스트 준비 시간을 44% 단축함.",
+        "테스트 파일 분할 및 모듈 공유(isolate: false)를 통해 병렬 실행 효율을 극대화하고 CI 비용을 절감함."
+      ],
+      "topics": [
+        "CI/CD 최적화",
+        "Test Sharding",
+        "Incremental Build"
+      ],
+      "recommended_for": "CI 빌드 속도 저하와 인프라 비용 증가로 고민하는 백엔드 및 데브옵스 팀",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "CI 파이프라인의 불필요한 캐시 복원 및 준비 작업 제거",
+        "steps": [
+          "현재 CI 파이프라인에서 캐시 복원 시간과 실제 설치 시간 비교 측정",
+          "캐시 복원보다 새로 설치하는 것이 빠른 의존성 패키지 식별 및 캐시 로직 제거"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: RouteMind – 인간의 개입은 RAG 성능을 얼마나 바꿀까?",
+      "link": "https://news.hada.io/topic?id=34109",
+      "published_at": "2026-09-22T15:43:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "RAG의 성능 한계를 극복하기 위한 Agentic Workflow와 구조적 접근 방식을 다루고 있어 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "인간의 지식 구조 개입이 RAG 성능에 미치는 영향을 탐구하는 Agentic RAG 프로젝트",
+      "key_points": [
+        "문서의 단순 임베딩 검색 대신, 사람이 정의한 지식 영역과 관계를 바탕으로 에이전트가 라우팅하는 구조를 실험함.",
+        "인간의 지식 구조화 비용과 그로 인해 얻는 정확도 사이의 최적의 균형점을 찾는 것을 목표로 함.",
+        "단순 검색(Retrieval)과 정보의 유효성 판단(Authority)을 분리하여 처리하는 접근 방식을 검증 중임."
+      ],
+      "topics": [
+        "Agentic RAG",
+        "Human-in-the-loop",
+        "Knowledge Routing"
+      ],
+      "recommended_for": "RAG 시스템의 정확도 한계를 고민하며 에이전트 기반의 지식 관리 워크플로를 구축하려는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 RAG 시스템에 간단한 라우팅 계층 추가해보기",
+        "steps": [
+          "현재 RAG 시스템의 문서들을 몇 가지 핵심 카테고리로 분류하는 간단한 라우팅 테이블(JSON)을 작성한다.",
+          "LLM이 질문을 분석하여 적절한 카테고리를 선택하게 하는 라우팅 프롬프트를 구현한다.",
+          "라우팅된 카테고리 내에서만 검색을 수행하도록 파이프라인을 수정하여 정확도 변화를 측정한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "CGNAT 환경에서 셀프 호스팅하기",
+      "link": "https://news.hada.io/topic?id=34114",
+      "published_at": "2026-09-22T17:02:25+09:00",
+      "selection_score": 12,
+      "selection_reason": "CGNAT 환경에서의 서버 호스팅 및 네트워크 아키텍처 구성은 실무적인 서버 운영 지식으로 가치가 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "CGNAT 환경에서 WireGuard와 VPS 브리지를 활용해 홈랩 서비스를 외부로 공개하는 방법",
+      "key_points": [
+        "가정용 인터넷의 CGNAT 제약을 우회하기 위해 공인 IP를 가진 VPS를 브리지로 활용함.",
+        "WireGuard 터널을 통해 홈랩과 VPS를 연결하고, 정책 기반 라우팅으로 외부 트래픽을 홈랩으로 전달함.",
+        "홈랩 자체 트래픽은 로컬 라우터를 사용하고, 외부 요청 응답만 터널을 거치게 하여 효율성을 확보함."
+      ],
+      "topics": [
+        "CGNAT",
+        "WireGuard",
+        "Policy-based Routing"
+      ],
+      "recommended_for": "가정용 서버를 운영하면서 네트워크 제약 없이 외부 접속 환경을 구축하고 싶은 홈랩 운영자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "WireGuard 기반의 리버스 터널링 환경 구축 검토",
+        "steps": [
+          "사용 중인 VPS의 네트워크 설정과 홈 서버의 라우팅 테이블을 확인한다.",
+          "WireGuard의 PostUp/PostDown 규칙을 사용하여 트래픽 포워딩 설정을 테스트한다.",
+          "장애 발생 시 Tailscale 등을 예비 경로로 활용할 수 있도록 이중화 구성을 설계한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Jev 사용 후기",
+      "link": "https://news.hada.io/topic?id=34115",
+      "published_at": "2026-09-22T17:17:17+09:00",
+      "selection_score": 13,
+      "selection_reason": "LLM을 단순 생성기가 아닌 의사결정 에이전트로 활용하는 관점은 최신 AI Agent 트렌드와 일치합니다.",
+      "feedback_bias": 0,
+      "one_line": "긴 답변 생성보다 의사결정 및 판단에 최적화된 AI 모델 'Jev' 사용 후기",
+      "key_points": [
+        "Jev는 텍스트 생성보다 예/아니오, 점수, 선택지 등 구조화된 판단 결과를 반환하는 데 특화됨.",
+        "판단 결과와 함께 확률 및 신뢰도(confidence)를 제공하여 시스템의 의사결정 근거로 활용 가능함.",
+        "비용 효율성이 높아 반복적인 판단 작업이 필요한 워크플로에 적합함."
+      ],
+      "topics": [
+        "Structured Output",
+        "Decision Agent",
+        "Confidence Score"
+      ],
+      "recommended_for": "LLM을 단순 챗봇이 아닌 업무 자동화의 판단 엔진으로 활용하려는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "내 하드웨어에서 실행하는 최첨단 AI",
+      "link": "https://news.hada.io/topic?id=34116",
+      "published_at": "2026-09-22T18:35:29+09:00",
+      "selection_score": 13,
+      "selection_reason": "로컬 추론 및 에이전트 하네스 구축은 고성능 AI 시스템을 효율적으로 운영하려는 실무자에게 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "로컬 하드웨어에서 최첨단 AI 연구를 수행하기 위한 추론 프레임워크 및 에이전트 하네스",
+      "key_points": [
+        "단일 GPU에서 125B 모델을 구동하고, 128GB 메모리 환경에서 550B 모델을 실행하는 로컬 추론 프레임워크를 구축함.",
+        "CliffCompaction 기법을 통해 수백만 토큰 이상의 장기 대화 문맥을 압축하여 비용을 50% 절감함.",
+        "에이전트 하네스를 통해 중간 개입 없이 자율적으로 연구 문제를 해결하고 실험을 수행하는 생태계를 지향함."
+      ],
+      "topics": [
+        "Local Inference",
+        "Agent Harness",
+        "Context Compression"
+      ],
+      "recommended_for": "고성능 로컬 모델 실행과 자율 에이전트 워크플로 구축에 관심 있는 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI에게는 지혜가 없고 당신에게도 없게 될 것이다",
+      "link": "https://news.hada.io/topic?id=34122",
+      "published_at": "2026-09-22T22:11:39+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 시대의 소프트웨어 아키텍처와 유지보수 철학을 다루고 있어 개발자로서 깊이 고민해 볼 가치가 있는 글입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 의존이 개발자의 숙련도와 코드 유지보수성에 미치는 위험성에 대한 경고",
+      "key_points": [
+        "AI는 즉각적인 보상에 최적화되어 있어, 장기적인 유지보수성과 아키텍처의 질을 학습하기 어려움.",
+        "코드를 읽고 쓰지 않는 개발자는 실수를 통해 배우는 과정을 생략하게 되어 기술적 숙련에 도달하지 못함.",
+        "미래에는 AI를 사용하지 않는 'NO-AI' 정책이 코드 품질과 유지보수성을 보장하는 경쟁 우위가 될 수 있음."
+      ],
+      "topics": [
+        "Vibe Coding",
+        "Technical Debt",
+        "Mastery"
+      ],
+      "recommended_for": "AI 도구 도입과 코드 품질 유지 사이의 균형을 고민하는 시니어 개발자 및 기술 리더",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Git 2.56과 3.0을 내다보며",
+      "link": "https://news.hada.io/topic?id=34124",
+      "published_at": "2026-09-22T22:34:07+09:00",
+      "selection_score": 11,
+      "selection_reason": "Git은 개발 생산성과 워크플로의 핵심 도구이며, 차기 버전의 주요 기능 변화는 실무자에게 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Git 2.56 출시 예정 및 Git 3.0 전환을 위한 주요 변경 사항 논의",
+      "key_points": [
+        "Git 2.56은 이력 편집 및 브랜치 관리 편의성을 높이는 기능(git history drop, git branch --delete-merged 등)을 포함하여 9월 말 출시 예정.",
+        "Git 3.0은 SHA-1에서 SHA-256으로의 해시 함수 전환, reftable 기반의 참조 저장 방식 도입, Rust 빌드 필수화를 검토 중.",
+        "SHA-256 전환은 기존 저장소와의 호환성 및 생태계 지원 문제로 인해 장기적인 과제가 될 전망."
+      ],
+      "topics": [
+        "reftable",
+        "SHA-256",
+        "git history drop"
+      ],
+      "recommended_for": "Git의 차기 버전 변화와 저장소 관리 최적화에 관심 있는 백엔드 및 DevOps 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Meta의 Muse에 파일시스템을 요청했더니 6.8GB를 보내왔다",
+      "link": "https://news.hada.io/topic?id=34136",
+      "published_at": "2026-09-23T02:49:07+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 내부 구조와 스킬셋을 직접 확인할 수 있는 매우 희귀한 사례로 실무적 학습 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta Muse 에이전트의 내부 파일시스템 구조와 에이전트 메모리 관리 방식 공개",
+      "key_points": [
+        "Muse 에이전트가 사용하는 Linux 샌드박스 환경의 파일시스템이 노출되어, 에이전트의 스킬셋과 메모리 관리 방식이 확인됨.",
+        "메모리는 Markdown 파일과 Postgres를 통해 관리되며, 매시간 대화 대조 및 야간 'dream' 작업을 통해 사용자 지침을 지속적으로 갱신함.",
+        "에이전트는 모델 가중치를 재학습하는 대신, 파일과 검색 기록을 갱신하는 방식으로 사용자 취향에 적응함."
+      ],
+      "topics": [
+        "Agent Memory Management",
+        "Sandboxed Runtime",
+        "Self-Improvement Loop"
+      ],
+      "recommended_for": "AI 에이전트의 내부 아키텍처와 장기 기억(Long-term Memory) 설계에 관심 있는 AI 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "에이전트 메모리 관리 구조 분석 및 개인 프로젝트 적용",
+        "steps": [
+          "기사에서 언급된 Markdown 기반 메모리 관리(MEMORY.md, ALIGNMENT_SYNTHESIS.md) 구조를 분석한다.",
+          "현재 개발 중인 에이전트 프로젝트에 사용자 선호도를 반영하는 '야간 리뷰' 루틴을 시뮬레이션해 본다.",
+          "에이전트의 과거 대화 기록을 벡터 DB와 Markdown 파일로 이중 관리하는 아키텍처를 설계한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI가 Jev의 밥그릇을 빼앗을까?",
+      "link": "https://news.hada.io/topic?id=34139",
+      "published_at": "2026-09-23T03:42:03+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM의 판단 로직과 도구 활용 방식에 대한 기술적 분석으로, 에이전트 워크플로 설계 시 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 내부 분류기(Jev)의 작동 원리와 OpenAI의 내장 가능성 분석",
+      "key_points": [
+        "Jev는 텍스트 생성 대신 토큰 확률을 활용해 즉각적인 판단을 내리는 방식으로, AI 게이트웨이에서 빠른 채택을 보임.",
+        "OpenAI는 이미 도구 호출 및 응답 종료 판단에 토큰 확률을 활용하고 있어, 유사한 기능을 모델 내부에 직접 통합할 가능성이 높음.",
+        "Jev와 같은 분류 기능은 에이전트의 추론 종료, 안전성 검사, 모델 라우팅 등에 활용되어 비용과 속도를 획기적으로 개선할 수 있음."
+      ],
+      "topics": [
+        "Logprobs",
+        "System 1 Thinking",
+        "Model Routing"
+      ],
+      "recommended_for": "LLM 기반 에이전트의 추론 효율을 높이고 도구 활용의 안전성을 확보하려는 아키텍트.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Google Developers",
+      "title": "Colab is now part of your Google AI plan",
+      "link": "https://developers.googleblog.com/colab-is-now-part-of-your-google-ai-plan",
+      "published_at": "",
+      "selection_score": 10,
+      "selection_reason": "LLM 개발 환경 및 리소스 활용 측면에서 유용한 정보이며, AI 개발자에게 실질적인 혜택을 제공합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: PocketPM - AI챗간 인수인계를 해주는 크롬확장",
+      "link": "https://news.hada.io/topic?id=34111",
+      "published_at": "2026-09-22T16:06:37+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 챗봇 활용 시의 불편함을 해결하는 도구로, 개발 생산성 향상 관점에서 참고할 만한 프로젝트입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "gzip도 언어 모델이 될 수 있을까?",
+      "link": "https://news.hada.io/topic?id=34120",
+      "published_at": "2026-09-22T20:33:13+09:00",
+      "selection_score": 9,
+      "selection_reason": "압축과 예측의 원리를 통해 LLM의 본질을 탐구하는 흥미로운 실험으로, 기술적 통찰력을 제공합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: NCP External Access 비공식 TS·Go 인증 라이브러리를 만들었습니다",
+      "link": "https://news.hada.io/topic?id=34125",
+      "published_at": "2026-09-22T23:08:40+09:00",
+      "selection_score": 10,
+      "selection_reason": "클라우드 인증 라이브러리 구현은 백엔드 및 보안 실무에 직접적인 도움이 되는 기술적 사례입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI GPT–6 Astra, 2005년부터 풀리지 않던 Enigma 암호문 해독",
+      "link": "https://news.hada.io/topic?id=34130",
+      "published_at": "2026-09-23T00:32:56+09:00",
+      "selection_score": 10,
+      "selection_reason": "LLM의 추론 능력과 복잡한 문제 해결 사례는 AI 산업의 중요한 이정표로 확인해둘 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

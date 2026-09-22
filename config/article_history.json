@@ -1,6 +1,262 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "토스",
+      "title": "쉼 없이 도는 테스트, 사람이 어디까지 돌봐야 할까요? - 토스닥터(Toss Doctor)",
+      "link": "https://toss.tech/article/toss-doctor",
+      "published_at": "Tue, 22 Sep 2026 03:42:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "QA 자동화",
+        "Self-healing Test",
+        "Appium MCP"
+      ],
+      "one_line": "토스닥터 V2: LLM과 Appium MCP를 활용한 QA 자동화 및 셀프 힐링 아키텍처",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Worker Previews: Isolated preview environments for every change your agent makes",
+      "link": "https://blog.cloudflare.com/worker-previews",
+      "published_at": "Tue, 22 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Isolated Preview Environment",
+        "ADLC (Agent Development Lifecycle)",
+        "Durable Objects"
+      ],
+      "one_line": "Cloudflare Worker Previews: Git 브랜치별 격리된 환경에서 에이전트 개발 및 테스트 지원",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "Cloudflare",
+      "title": "We just shipped support for the ugliest part of HTTP: Vary",
+      "link": "https://blog.cloudflare.com/vary-support",
+      "published_at": "Tue, 22 Sep 2026 14:04:31 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "HTTP Vary Header",
+        "Cache Key Normalization",
+        "CDN Caching Strategy"
+      ],
+      "one_line": "Cloudflare Cache Rules의 Vary 헤더 지원을 통한 캐시 효율 최적화",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "AWS Compute",
+      "title": "Adding custom domains to AWS Lambda MicroVMs with Application Load Balancer",
+      "link": "https://aws.amazon.com/blogs/compute/adding-custom-domains-to-aws-lambda-microvms-with-application-load-balancer",
+      "published_at": "Tue, 22 Sep 2026 16:48:32 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Lambda MicroVM",
+        "ALB Host Header Rewrite",
+        "AWS PrivateLink"
+      ],
+      "one_line": "ALB를 활용한 AWS Lambda MicroVM 커스텀 도메인 및 CORS 설정",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "AI 코딩으로 병목이 된 CI, Linear는 어떻게 개선했나",
+      "link": "https://news.hada.io/topic?id=34105",
+      "published_at": "2026-09-22T12:42:20+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "CI/CD 최적화",
+        "Test Sharding",
+        "Incremental Build"
+      ],
+      "one_line": "Linear의 CI 최적화 사례: AI 코딩으로 인한 병목 해결 및 빌드 성능 개선",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: RouteMind – 인간의 개입은 RAG 성능을 얼마나 바꿀까?",
+      "link": "https://news.hada.io/topic?id=34109",
+      "published_at": "2026-09-22T15:43:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic RAG",
+        "Human-in-the-loop",
+        "Knowledge Routing"
+      ],
+      "one_line": "인간의 지식 구조 개입이 RAG 성능에 미치는 영향을 탐구하는 Agentic RAG 프로젝트",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "CGNAT 환경에서 셀프 호스팅하기",
+      "link": "https://news.hada.io/topic?id=34114",
+      "published_at": "2026-09-22T17:02:25+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "CGNAT",
+        "WireGuard",
+        "Policy-based Routing"
+      ],
+      "one_line": "CGNAT 환경에서 WireGuard와 VPS 브리지를 활용해 홈랩 서비스를 외부로 공개하는 방법",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "Jev 사용 후기",
+      "link": "https://news.hada.io/topic?id=34115",
+      "published_at": "2026-09-22T17:17:17+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Structured Output",
+        "Decision Agent",
+        "Confidence Score"
+      ],
+      "one_line": "긴 답변 생성보다 의사결정 및 판단에 최적화된 AI 모델 'Jev' 사용 후기",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "내 하드웨어에서 실행하는 최첨단 AI",
+      "link": "https://news.hada.io/topic?id=34116",
+      "published_at": "2026-09-22T18:35:29+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Local Inference",
+        "Agent Harness",
+        "Context Compression"
+      ],
+      "one_line": "로컬 하드웨어에서 최첨단 AI 연구를 수행하기 위한 추론 프레임워크 및 에이전트 하네스",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "AI에게는 지혜가 없고 당신에게도 없게 될 것이다",
+      "link": "https://news.hada.io/topic?id=34122",
+      "published_at": "2026-09-22T22:11:39+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Vibe Coding",
+        "Technical Debt",
+        "Mastery"
+      ],
+      "one_line": "AI 의존이 개발자의 숙련도와 코드 유지보수성에 미치는 위험성에 대한 경고",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "Git 2.56과 3.0을 내다보며",
+      "link": "https://news.hada.io/topic?id=34124",
+      "published_at": "2026-09-22T22:34:07+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "reftable",
+        "SHA-256",
+        "git history drop"
+      ],
+      "one_line": "Git 2.56 출시 예정 및 Git 3.0 전환을 위한 주요 변경 사항 논의",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "Claude Opus 5.5 출시",
+      "link": "https://news.hada.io/topic?id=34135",
+      "published_at": "2026-09-23T02:43:06+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Token Efficiency",
+        "Frontier Model"
+      ],
+      "one_line": "Claude Opus 5.5 출시: 성능 향상, 비용 절감 및 에이전트 워크플로 최적화",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "Meta의 Muse에 파일시스템을 요청했더니 6.8GB를 보내왔다",
+      "link": "https://news.hada.io/topic?id=34136",
+      "published_at": "2026-09-23T02:49:07+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agent Memory Management",
+        "Sandboxed Runtime",
+        "Self-Improvement Loop"
+      ],
+      "one_line": "Meta Muse 에이전트의 내부 파일시스템 구조와 에이전트 메모리 관리 방식 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "GPT-6 Sol과 Luna 출시",
+      "link": "https://news.hada.io/topic?id=34138",
+      "published_at": "2026-09-23T03:39:03+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Prompt Caching",
+        "Cost-Performance Optimization",
+        "Inference Intensity"
+      ],
+      "one_line": "GPT-6 Sol 및 Luna 출시: 비용 효율성과 추론 성능의 대폭 개선",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI가 Jev의 밥그릇을 빼앗을까?",
+      "link": "https://news.hada.io/topic?id=34139",
+      "published_at": "2026-09-23T03:42:03+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Logprobs",
+        "System 1 Thinking",
+        "Model Routing"
+      ],
+      "one_line": "LLM 내부 분류기(Jev)의 작동 원리와 OpenAI의 내장 가능성 분석",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
+      "company": "GeekNews",
+      "title": "Claude Opus 5.5, 추론 설정별 성능과 비용 비교",
+      "link": "https://news.hada.io/topic?id=34142",
+      "published_at": "2026-09-23T06:35:00+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "추론 강도(Inference Intensity)",
+        "지능 벤치마크(Intelligence Index)",
+        "비용 최적화(Cost Optimization)"
+      ],
+      "one_line": "Claude Opus 5.5의 추론 강도별 성능과 비용을 분석한 결과, medium 설정이 가성비 측면에서 가장 합리적인 선택지로 평가됨.",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-09-22T08:54:51.762169+09:00",
       "company": "Meta Engineering",
       "title": "Open-Sourcing Rebalancer: A Generic, High-Performance Library for Solving Assignment Problems",
@@ -609,5 +865,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-22T08:54:51.762169+09:00"
+  "updated_at": "2026-09-23T08:31:00.331897+09:00"
 }
