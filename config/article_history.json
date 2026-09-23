@@ -1,6 +1,246 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "토스",
+      "title": "연 300시간을 아낀 AI 상담 서비스",
+      "link": "https://toss.tech/article/AI_chatbot",
+      "published_at": "Wed, 23 Sep 2026 06:39:00 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "대화형 인터페이스(CUI)",
+        "사용자 경험(UX) 최적화",
+        "데이터 기반 의사결정"
+      ],
+      "one_line": "사용자 문의 데이터를 분석해 AI 상담 서비스를 도입하여 연 300시간의 상담 업무를 절감한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "Google Developers",
+      "title": "Introducing Support for Local AI Models in the Antigravity SDK",
+      "link": "https://developers.googleblog.com/introducing-support-for-local-ai-models-in-the-antigravity-sdk",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "로컬 LLM",
+        "하이브리드 오케스트레이션",
+        "에이전트 워크플로우"
+      ],
+      "one_line": "Google Antigravity SDK가 로컬 AI 모델 지원을 통해 오프라인 에이전트 워크플로우를 강화함",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GitHub Blog",
+      "title": "Rendering huge pull requests in the GitHub Copilot app",
+      "link": "https://github.blog/engineering/user-experience/rendering-huge-pull-requests-in-the-github-copilot-app",
+      "published_at": "Wed, 23 Sep 2026 18:29:49 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "가상화(Virtualization)",
+        "성능 최적화",
+        "DOM 렌더링 전략"
+      ],
+      "one_line": "GitHub Copilot 앱의 대규모 PR 렌더링 성능을 위해 가상화와 이중 기하학 구조를 도입함",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "Python 25줄로 구현한 Jev",
+      "link": "https://news.hada.io/topic?id=34167",
+      "published_at": "2026-09-23T19:34:01+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "로짓(Logits)",
+        "확률 보정(Calibration)",
+        "로컬 추론"
+      ],
+      "one_line": "Python 25줄로 구현한 로컬 모델 기반의 확률적 분류기(Jev 패러디) 구현 사례",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "LLM Ass Bench",
+      "link": "https://news.hada.io/topic?id=34170",
+      "published_at": "2026-09-23T20:31:24+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 벤치마크",
+        "모델 평가",
+        "프롬프트 엔지니어링"
+      ],
+      "one_line": "다양한 LLM 모델의 성능을 동일 프롬프트로 비교하는 LLM Ass Bench 소개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: jgrep - diff 하나로 어떤 테스트를 돌릴지 Jev에게 묻는 CLI",
+      "link": "https://news.hada.io/topic?id=34173",
+      "published_at": "2026-09-23T21:45:40+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 기반 코드 검색",
+        "테스트 선별(Test Selection)",
+        "Agentic Workflow"
+      ],
+      "one_line": "diff를 분석해 필요한 테스트만 선별하는 LLM 기반 CLI 도구 jgrep",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "이딴 짓은 이제 못 해 먹겠다",
+      "link": "https://news.hada.io/topic?id=34176",
+      "published_at": "2026-09-23T22:44:02+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트 부작용",
+        "기술 부채",
+        "개발자 경험(DevEx)"
+      ],
+      "one_line": "AI 코딩 도구 도입이 개발 조직의 생산성과 성취감에 미치는 양면성",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "Claude Code, 텔레메트리를 끄면 AGENTS.md를 읽지 않는 문제 발견",
+      "link": "https://news.hada.io/topic?id=34179",
+      "published_at": "2026-09-23T23:33:28+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "기능 플래그(Feature Flag)",
+        "텔레메트리",
+        "에이전트 컨텍스트 로딩"
+      ],
+      "one_line": "Claude Code의 텔레메트리 설정이 AGENTS.md 로딩을 차단하는 버그 발생",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "Amazon, Meta의 새 Muse AI 에이전트가 아마존닷컴에서 쇼핑하지 못하도록 차단",
+      "link": "https://news.hada.io/topic?id=34181",
+      "published_at": "2026-09-24T00:38:49+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트 접근 제어",
+        "플랫폼 통제권",
+        "이용약관(ToS)"
+      ],
+      "one_line": "Amazon이 Meta의 쇼핑 에이전트 Muse의 접근을 차단하며 플랫폼 통제권 강화",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "GPT-6 Astra, 실제 자동차를 운전해 주행 코스 완주",
+      "link": "https://news.hada.io/topic?id=34187",
+      "published_at": "2026-09-24T02:38:33+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "범용 AI 모델(General Purpose AI)",
+        "물리적 환경 제어",
+        "에이전트 추론 능력"
+      ],
+      "one_line": "GPT-6 Astra가 실제 차량을 제어하여 주행 코스를 완주한 실험 결과",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "일일이 과금하기엔 너무 저렴한 토큰",
+      "link": "https://news.hada.io/topic?id=34193",
+      "published_at": "2026-09-24T04:55:51+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "제번스의 역설",
+        "파레토 경계",
+        "전문가 혼합(MoE)"
+      ],
+      "one_line": "AI 추론 비용의 급격한 하락으로 AI가 단순한 제품을 넘어 컴퓨팅의 기본 인프라로 자리 잡고 있음",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "Google, 목소리를 만들고 연기까지 지시하는 Gemini 3.8 TTS 공개",
+      "link": "https://news.hada.io/topic?id=34194",
+      "published_at": "2026-09-24T04:58:51+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "TTS(Text-to-Speech)",
+        "음성 복제(Voice Cloning)",
+        "SynthID"
+      ],
+      "one_line": "Google이 자연어 지시로 목소리 생성 및 연기 제어가 가능한 Gemini 3.8 TTS 모델을 공개함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "Claude, CRISPR 유사 반복 서열을 가진 새로운 효소 시스템 발견",
+      "link": "https://news.hada.io/topic?id=34195",
+      "published_at": "2026-09-24T05:34:35+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "유전체 탐색(Genome Mining)",
+        "역전사효소(RT)"
+      ],
+      "one_line": "Claude 에이전트들이 대규모 DNA 데이터를 분석하여 새로운 효소 시스템 'ART'를 발견함",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "Stripe의 사내 업무용 AI 플랫폼, Kai",
+      "link": "https://news.hada.io/topic?id=34198",
+      "published_at": "2026-09-24T07:37:09+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Platform",
+        "멀티테넌트 샌드박스",
+        "워크플로 오케스트레이션"
+      ],
+      "one_line": "Stripe가 사내 지식 업무 자동화를 위해 에이전트 플랫폼 'Kai'를 구축하여 생산성을 대폭 향상함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
+      "company": "GeekNews",
+      "title": "GitHub 위키는 안티패턴이다 (2022)",
+      "link": "https://news.hada.io/topic?id=34199",
+      "published_at": "2026-09-24T07:40:09+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Docs-as-Code",
+        "GitHub Pages",
+        "버전 관리"
+      ],
+      "one_line": "GitHub 위키 대신 코드 저장소 내 /docs 폴더를 활용하는 것이 문서 관리의 모범 사례임",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-09-23T08:31:00.331897+09:00",
       "company": "토스",
       "title": "쉼 없이 도는 테스트, 사람이 어디까지 돌봐야 할까요? - 토스닥터(Toss Doctor)",
@@ -865,5 +1105,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-23T08:31:00.331897+09:00"
+  "updated_at": "2026-09-24T08:27:14.517132+09:00"
 }
