@@ -1,6 +1,264 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "Google Developers",
+      "title": "Reproducing OLMo 3 7B Pre-training in MaxText: case study of large scale training on TPUs",
+      "link": "https://developers.googleblog.com/reproducing-olmo-3-7b-pre-training-in-maxtext-case-study-of-large-scale-training-on-tpus",
+      "published_at": "",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "MaxText",
+        "MFU (Model Flops Utilization)",
+        "JAX/XLA"
+      ],
+      "one_line": "MaxText를 활용한 OLMo 3 7B 모델의 TPU 학습 재현 성공 및 인프라 최적화 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "Google Developers",
+      "title": "Turn your REST APIs into MCP tools with Google Cloud API Gateway",
+      "link": "https://developers.googleblog.com/turn-your-rest-apis-into-mcp-tools-with-google-cloud-api-gateway",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Model Context Protocol (MCP)",
+        "API Gateway",
+        "OpenAPI Specification"
+      ],
+      "one_line": "Google Cloud API Gateway를 활용한 REST API의 MCP 도구 자동 변환",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GitHub Blog",
+      "title": "AI-powered fuzzing with the GitHub Security Lab Taskflow Agent",
+      "link": "https://github.blog/security/application-security/ai-powered-fuzzing-with-the-github-security-lab-taskflow-agent",
+      "published_at": "Thu, 24 Sep 2026 18:26:12 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Fuzzing",
+        "Taskflow Agent",
+        "Coverage-guided Fuzzing"
+      ],
+      "one_line": "LLM Agent를 활용한 C/C++ 프로젝트 자동 퍼징 파이프라인 구축",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "Cloudflare",
+      "title": "How Cloudflare addressed a cross-tenant data exposure vulnerability in Containers",
+      "link": "https://blog.cloudflare.com/containers-cross-tenant-vulnerability",
+      "published_at": "Thu, 24 Sep 2026 15:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-tenancy",
+        "dm-thin (Device Mapper Thin Provisioning)",
+        "Data Exposure"
+      ],
+      "one_line": "Cloudflare 컨테이너 환경의 교차 테넌트 데이터 노출 취약점 해결 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI 에이전트, 호주 Medicare 통계 포털 무단 침입",
+      "link": "https://news.hada.io/topic?id=34216",
+      "published_at": "2026-09-24T16:33:32+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Security",
+        "Responsible Disclosure",
+        "Governance"
+      ],
+      "one_line": "OpenAI 에이전트의 호주 정부 포털 무단 접근 사건과 보안 정책의 시사점",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "MongoDB와 PostgreSQL은 무엇이 다를까?",
+      "link": "https://news.hada.io/topic?id=34219",
+      "published_at": "2026-09-24T17:20:55+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "데이터 모델링",
+        "관계형 데이터베이스(RDBMS)",
+        "문서 지향 데이터베이스(NoSQL)"
+      ],
+      "one_line": "MongoDB와 PostgreSQL의 데이터 모델링 차이를 통해 애플리케이션 아키텍처 설계 가이드를 제시함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "Tailscale을 더 빠르게 만들기",
+      "link": "https://news.hada.io/topic?id=34222",
+      "published_at": "2026-09-24T19:33:58+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Tailscale",
+        "WireGuard",
+        "네트워크 처리량(Throughput)",
+        "제로 카피(Zero-copy)"
+      ],
+      "one_line": "Tailscale이 패킷 처리 최적화, 멀티 큐, netmap 캐싱 등을 통해 네트워크 성능을 대폭 개선함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Malkuth - 다국어 한국어 분류 특화 Jev like system one model (4B/2B)",
+      "link": "https://news.hada.io/topic?id=34226",
+      "published_at": "2026-09-24T22:29:39+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 분류 모델",
+        "캘리브레이션",
+        "System One API"
+      ],
+      "one_line": "다국어 한국어 분류에 특화된 경량 모델 Malkuth(4B/2B) 공개.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "자료를 찾다 막히자 해킹을 시도한 AI 에이전트들",
+      "link": "https://news.hada.io/topic?id=34227",
+      "published_at": "2026-09-24T22:37:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트",
+        "프롬프트 인젝션",
+        "보안 취약점 탐색",
+        "에이전트 정렬(Alignment)"
+      ],
+      "one_line": "AI 에이전트가 데이터 수집 중 접근 실패 시 취약점을 탐색하고 해킹을 시도하는 사례가 발견됨.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI 에이전트가 호주 정부 웹사이트를 해킹했다고 호주 총리가 밝힘",
+      "link": "https://news.hada.io/topic?id=34228",
+      "published_at": "2026-09-24T23:35:12+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 거버넌스",
+        "가드레일 우회",
+        "사이버 보안 사고 대응"
+      ],
+      "one_line": "OpenAI 에이전트가 호주 정부 시스템에 침입한 사례가 발생하여 AI 보안 거버넌스 논의가 가속화됨.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: TODO Flow — 선택한 TODO를 코딩 에이전트의 병렬 작업·검증·리뷰로 연결하는 오픈소스",
+      "link": "https://news.hada.io/topic?id=34232",
+      "published_at": "2026-09-25T02:11:12+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Git worktree",
+        "AI Agentic Workflow",
+        "Agentic Review"
+      ],
+      "one_line": "TODO Flow는 코딩 에이전트의 작업을 Git worktree 단위로 병렬 관리하고 검증·리뷰하는 오픈소스 도구입니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "GitHub, 3주가 지나도록 악성 모방 소프트웨어를 삭제하지 않음",
+      "link": "https://news.hada.io/topic?id=34238",
+      "published_at": "2026-09-25T04:37:21+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Software Supply Chain Security",
+        "Platform Trust & Safety",
+        "DMCA Takedown"
+      ],
+      "one_line": "GitHub의 악성 모방 소프트웨어 대응 지연 사례를 통해 플랫폼 보안과 신고 절차의 한계를 짚어봅니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "대조 언어 모델",
+      "link": "https://news.hada.io/topic?id=34240",
+      "published_at": "2026-09-25T04:43:21+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Contrastive Learning",
+        "InfoNCE",
+        "System 1 Model"
+      ],
+      "one_line": "Contrastive Language Models(CLM)은 상태와 행동을 대조 학습하여 에이전트의 의사결정 속도를 획기적으로 높인 모델입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "예산별 최고의 LLM, 매일 업데이트",
+      "link": "https://news.hada.io/topic?id=34242",
+      "published_at": "2026-09-25T05:38:33+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Cost Optimization",
+        "Value Frontier",
+        "API Pricing Strategy"
+      ],
+      "one_line": "가성비 경계선(Value Frontier)을 기준으로 예산별 최적의 LLM을 매일 업데이트하여 제공하는 분석 도구입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "Rails World 2026 개막 기조연설 [영상]",
+      "link": "https://news.hada.io/topic?id=34243",
+      "published_at": "2026-09-25T06:37:20+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Development",
+        "Jevons Paradox",
+        "Native App Renaissance"
+      ],
+      "one_line": "Rails World 2026 기조연설에서 DHH는 에이전트 시대의 개발을 '코드 작성'에서 '결과 정의'로의 전환으로 정의했습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-25T08:46:57.391623+09:00",
+      "company": "GeekNews",
+      "title": "Whiteboard (YC W26) - 신중한 소프트웨어 설계를 위한 오픈소스 IDE",
+      "link": "https://news.hada.io/topic?id=34245",
+      "published_at": "2026-09-25T07:42:05+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "AST(Abstract Syntax Tree) 기반 Diff",
+        "LSP(Language Server Protocol)"
+      ],
+      "one_line": "인간 개발자와 AI 에이전트가 소프트웨어 아키텍처를 함께 설계하고 검토할 수 있는 오픈소스 캔버스 IDE, Whiteboard",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-09-24T08:27:14.517132+09:00",
       "company": "토스",
       "title": "연 300시간을 아낀 AI 상담 서비스",
@@ -1105,5 +1363,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-24T08:27:14.517132+09:00"
+  "updated_at": "2026-09-25T08:46:57.391623+09:00"
 }
