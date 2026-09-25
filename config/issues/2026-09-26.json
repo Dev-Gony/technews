@@ -1,0 +1,421 @@
+{
+  "schema_version": 1,
+  "issue_number": 8,
+  "issue_date": "2026-09-26",
+  "generated_at": "2026-09-26T08:50:26.755266+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI Agentic Workflow, Supply Chain Security, HTTP Caching, Local LLM, Performance Optimization\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무 도입이 가속화되는 가운데, 성능 최적화와 보안이라는 두 가지 핵심 과제가 개발 워크플로의 중심이 되고 있습니다.\n\n[오늘 왜 중요한가]\n\n최근 기술 트렌드는 단순한 AI 모델 활용을 넘어, 로컬 환경에서의 고성능 추론과 CI/CD 파이프라인의 보안 강화로 이동하고 있습니다. 실무자들은 AI를 활용해 생산성을 높이는 동시에, 인프라와 보안 아키텍처의 견고함을 유지하는 균형 잡힌 시각이 필요합니다.\n\n[왜 이 글들을 골랐나]\n\n• 12번: 로컬 환경에서 초저지연 의사결정 모델을 구현하는 방법은 AI 서비스의 비용과 성능 문제를 동시에 해결할 수 있는 실무적 대안입니다.\n• 11번: CI/CD 파이프라인의 의존성 취약점이 계정 탈취로 이어지는 사례는 현대 개발 환경에서 공급망 보안의 중요성을 다시 한번 일깨워줍니다.\n• 10번: CDN 수준에서 Vary 헤더를 정교하게 제어하는 기술은 대규모 서비스의 캐시 효율을 극대화하고 성능을 개선하는 데 필수적인 지식입니다.\n\n[오늘 공부해볼 것]\n\n• 로컬 LLM 추론 최적화: Ollaya와 같은 도구를 통해 클라우드 API 비용 없이 로컬에서 모델을 실행할 때의 지연 시간과 정확도 트레이드오프를 이해하기 위함입니다.\n• CI/CD 파이프라인 보안 감사: 빌드 로그나 외부 라이브러리에서 발생할 수 있는 XSS 및 인젝션 공격 경로를 파악하여 파이프라인의 안전성을 점검하기 위함입니다.\n• HTTP 캐시 헤더 전략: Vary 헤더를 활용한 콘텐츠 협상과 캐시 정규화 기법을 익혀, 불필요한 서버 부하를 줄이고 사용자 응답 속도를 개선하기 위함입니다.",
+  "stats": {
+    "candidate_count": 34,
+    "detailed_count": 12,
+    "brief_count": 4,
+    "excluded_count": 18,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Ollaya - 오픈소스 Jev 스타일 의사결정 모델을 위한 Ollama",
+      "link": "https://news.hada.io/topic?id=34288",
+      "published_at": "2026-09-26T06:32:54+09:00",
+      "selection_score": 15,
+      "selection_reason": "LLM 기반의 의사결정 모델을 로컬에서 효율적으로 실행하는 도구로, AI Agent 및 성능 최적화 관심사와 매우 밀접합니다.",
+      "feedback_bias": 0,
+      "one_line": "로컬 환경에서 Jev 스타일의 의사결정 모델을 고속으로 실행할 수 있는 오픈소스 도구 'Ollaya'",
+      "key_points": [
+        "Ollaya는 텍스트 분류 및 의사결정 모델을 로컬에서 한 번의 순전파로 처리하여 10ms 내외의 초저지연 응답을 제공함.",
+        "TypeSafe API와 호환되어 기존 Python SDK를 그대로 사용할 수 있으며, 데이터 프라이버시 보호와 API 비용 절감이 가능함.",
+        "Laya, decider 등 다양한 오픈소스 모델을 지원하며, CPU 및 NVIDIA GPU 환경에서 즉시 실행 가능함."
+      ],
+      "topics": [
+        "의사결정 모델 (Decision Model)",
+        "제로샷 분류 (Zero-shot Classification)",
+        "순전파 (Forward Pass)"
+      ],
+      "recommended_for": "LLM 기반의 분류 작업을 저비용·고성능으로 로컬에서 자동화하고 싶은 AI 엔지니어 및 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 환경에서 Ollaya를 설치하여 텍스트 분류 API 테스트하기",
+        "steps": [
+          "Ollaya 공식 저장소에서 바이너리를 다운로드하거나 Docker 이미지를 실행함.",
+          "ollaya run laya 명령으로 모델을 로드하고 로컬 서버(11435 포트)를 구동함.",
+          "기존 TypeSafe Python SDK의 기본 URL을 로컬 서버로 변경하여 간단한 텍스트 분류 요청을 보내고 응답 속도와 정확도를 측정함."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "SourceHut 빌드 로그를 통한 계정 탈취 취약점, ansi2html의 XSS",
+      "link": "https://news.hada.io/topic?id=34284",
+      "published_at": "2026-09-26T04:55:00+09:00",
+      "selection_score": 14,
+      "selection_reason": "CI/CD 워크플로의 보안 취약점 사례는 개발 생산성과 보안 관점에서 매우 중요한 학습 가치를 지닙니다.",
+      "feedback_bias": 0,
+      "one_line": "SourceHut의 빌드 로그 내 ansi2html 라이브러리 취약점으로 인한 XSS 및 계정 탈취 위험 발견",
+      "key_points": [
+        "ansi2html 라이브러리의 OSC 8 하이퍼링크 처리 허점을 악용해 빌드 로그에 악성 스크립트를 삽입하는 XSS 공격이 가능했음.",
+        "공격자는 피해자의 브라우저에서 CSRF 토큰을 탈취하거나 악성 빌드를 제출하여 배포 키에 접근하는 등 계정 탈취 및 시스템 장악을 시도할 수 있음.",
+        "CI/CD 파이프라인의 의존성 관리 소홀로 인해 4년 넘게 취약점이 방치되었으며, 라이브러리 업데이트 시 보안 감사의 중요성을 시사함."
+      ],
+      "topics": [
+        "XSS (Cross-Site Scripting)",
+        "OSC 8 하이퍼링크",
+        "공급망 보안 (Supply Chain Security)"
+      ],
+      "recommended_for": "CI/CD 파이프라인을 운영하거나 오픈소스 의존성을 관리하는 백엔드 및 데브옵스 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "HTTP에서 가장 보기 흉한 부분, Vary 지원을 출시하다",
+      "link": "https://news.hada.io/topic?id=34282",
+      "published_at": "2026-09-26T04:48:59+09:00",
+      "selection_score": 14,
+      "selection_reason": "HTTP 캐싱 전략과 Vary 헤더 처리는 백엔드 아키텍처 및 성능 최적화에 필수적인 실무 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare, Cache Rules에 HTTP Vary 헤더 지원 추가로 캐싱 제어권 강화",
+      "key_points": [
+        "Cache Rules를 통해 Vary 헤더를 처리할 수 있게 되어, 동일 URL에서 요청 헤더에 따른 응답 분기가 가능해짐.",
+        "normalize, passthrough, bypass 세 가지 정책을 통해 헤더 값 정규화 및 캐시 파편화 문제를 해결함.",
+        "기존의 복잡한 워커 구현 없이도 콘텐츠 협상(Content Negotiation)을 효율적으로 관리할 수 있음."
+      ],
+      "topics": [
+        "HTTP Vary 헤더",
+        "콘텐츠 협상",
+        "캐시 정규화"
+      ],
+      "recommended_for": "CDN을 활용한 웹 성능 최적화 및 복잡한 캐싱 전략을 운영 중인 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 서비스의 Vary 헤더 캐싱 정책 검토 및 적용",
+        "steps": [
+          "현재 서비스에서 Accept, Accept-Language 등을 기준으로 응답이 달라지는지 확인하기",
+          "Cloudflare 대시보드에서 Cache Rules를 생성하여 해당 헤더에 대해 normalize 정책 적용하기",
+          "CF-Cache-Status 헤더를 확인하여 캐시 적중률 변화 모니터링하기"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GitHub Blog",
+      "title": "Improving site performance by shipping more CSS",
+      "link": "https://github.blog/engineering/architecture-optimization/improving-site-performance-by-shipping-more-css",
+      "published_at": "Fri, 25 Sep 2026 15:00:00 +0000",
+      "selection_score": 11,
+      "selection_reason": "GitHub의 대규모 서비스에서 CSS-in-JS의 성능 문제를 해결한 사례로, 백엔드 아키텍처 및 성능 개선에 실질적인 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub이 CSS-in-JS를 제거하고 CSS Modules로 전환하여 성능을 대폭 개선한 사례",
+      "key_points": [
+        "CSS-in-JS의 런타임 비용과 서버 사이드 렌더링 성능 저하 문제를 해결하기 위해 CSS Modules로 전환함.",
+        "기능 플래그(feature flags)와 점진적 마이그레이션 전략을 사용하여 서비스 중단 없이 대규모 코드베이스를 안전하게 개편함.",
+        "결과적으로 서버 사이드 렌더링 시간을 55% 단축하고 컴포넌트 초기화 시간을 25% 개선함."
+      ],
+      "topics": [
+        "CSS Modules",
+        "CSS-in-JS",
+        "Incremental Migration"
+      ],
+      "recommended_for": "대규모 프론트엔드 아키텍처 개선과 성능 최적화에 관심 있는 백엔드 및 프론트엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트의 CSS-in-JS 의존성 및 런타임 성능 분석",
+        "steps": [
+          "현재 사용 중인 CSS-in-JS 라이브러리의 런타임 오버헤드를 프로파일링 도구로 측정하기",
+          "CSS Modules나 Zero-runtime CSS 라이브러리로의 전환 가능성을 검토하기"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "GitHub Copilot app for Beginners: How to build custom workflows with canvases",
+      "link": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-how-to-build-custom-workflows-with-canvases",
+      "published_at": "Fri, 25 Sep 2026 18:00:00 +0000",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 워크플로 자동화, 개발 생산성 도구의 최신 트렌드를 직접적으로 다루고 있어 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub Copilot 앱에서 자연어로 커스텀 워크플로 UI(Canvas)를 생성하는 방법",
+      "key_points": [
+        "Canvas는 AI 에이전트와 사용자가 실시간으로 상호작용하며 공유하는 맞춤형 인터페이스임.",
+        "/create-canvas 명령어를 통해 코딩 없이 자연어 설명만으로 칸반 보드, 체크리스트 등의 UI를 생성할 수 있음.",
+        "생성된 Canvas는 에이전트와 사용자가 양방향으로 상태를 업데이트하며 협업할 수 있는 도구로 활용됨."
+      ],
+      "topics": [
+        "AI Agentic Workflow",
+        "Canvas Extension",
+        "Bidirectional UI"
+      ],
+      "recommended_for": "AI 에이전트를 활용해 개발 생산성을 높이고 업무 자동화를 구현하려는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "GitHub Copilot 앱에서 업무용 Canvas 생성해보기",
+        "steps": [
+          "GitHub Copilot 앱 세션을 열고 /create-canvas 명령어 입력하기",
+          "현재 진행 중인 프로젝트의 이슈 트래킹이나 체크리스트 워크플로를 자연어로 설명하여 UI 생성하기"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Trading a Cloud Identity for Your Own: Workload Attestation on Managed Compute",
+      "link": "https://netflixtechblog.com/trading-a-cloud-identity-for-your-own-workload-attestation-on-managed-compute-516d5a29b252",
+      "published_at": "Fri, 25 Sep 2026 16:01:03 GMT",
+      "selection_score": 13,
+      "selection_reason": "클라우드 환경에서의 워크로드 인증 및 보안 아키텍처를 다루는 수준 높은 기술 블로그 글로 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "관리형 컴퓨팅 환경에서 클라우드 ID와 내부 ID를 안전하게 매핑하는 워크로드 인증 설계",
+      "key_points": [
+        "클라우드 제공자의 ID(IAM Role)와 내부 서비스 ID를 1:1로 매핑하여 신뢰할 수 있는 인증 체계를 구축함.",
+        "제공자의 인증(STS)과 내부 제어 평면의 서명된 메타데이터를 결합하여 상호 보완적인 검증을 수행함.",
+        "분산 환경(Spark 등)에서 인증 부하를 줄이기 위해 드라이버가 인증 후 실행기에 자격 증명을 배포하는 방식을 채택함."
+      ],
+      "topics": [
+        "Workload Attestation",
+        "Mutual TLS",
+        "Identity Mapping"
+      ],
+      "recommended_for": "클라우드 보안 아키텍처 및 분산 시스템 인증 설계를 고민하는 백엔드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Agents can now set up your website’s security with Turnstile Spin",
+      "link": "https://blog.cloudflare.com/turnstile-spin",
+      "published_at": "Fri, 25 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "AI Agent가 보안 설정을 자동화하는 새로운 패턴을 제시하며, 클라우드 및 자동화 분야의 중요한 기술 변화를 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트가 Cloudflare Turnstile 보안 설정을 자동화하는 Turnstile Spin 출시",
+      "key_points": [
+        "Turnstile Spin은 AI 에이전트가 웹사이트의 보안 설정을 감지하고 필요한 코드를 자동으로 삽입해주는 도구임.",
+        "프론트엔드 위젯 삽입과 백엔드 검증 로직 구현이라는 2단계 과정을 에이전트가 가이드하여 보안 설정을 간소화함.",
+        "기존 CAPTCHA 마이그레이션이나 잘못 설치된 위젯 복구 등 다양한 보안 워크플로를 지원함."
+      ],
+      "topics": [
+        "AI Coding Agent",
+        "Security Automation",
+        "Turnstile"
+      ],
+      "recommended_for": "보안 설정 자동화와 AI 기반 개발 워크플로에 관심 있는 웹 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "운영 중인 웹사이트에 Turnstile Spin 적용 검토",
+        "steps": [
+          "Cloudflare 대시보드에서 Turnstile 위젯 상태 확인하기",
+          "보안 설정이 미흡한 경우 'Fix with Spin' 기능을 사용하여 에이전트 기반 자동화 적용해보기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Go의 플랫폼 독립적 SIMD",
+      "link": "https://news.hada.io/topic?id=34271",
+      "published_at": "2026-09-26T01:45:38+09:00",
+      "selection_score": 13,
+      "selection_reason": "Go 언어의 SIMD 지원은 성능 개선과 저수준 최적화에 관심 있는 개발자에게 매우 실용적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Go 1.27에 도입된 플랫폼 독립적 SIMD 패키지로 어셈블리 없이 성능 가속 구현",
+      "key_points": [
+        "새로운 simd 패키지는 하드웨어별 명령어 차이를 공통 API로 감싸, 한 번의 작성으로 여러 플랫폼에서 SIMD 가속을 지원함.",
+        "컴파일러가 하드웨어 지원 여부에 따라 최적화된 실행 경로를 선택하며, 미지원 환경에서는 에뮬레이션으로 동작함.",
+        "GOEXPERIMENT=simd 빌드 옵션을 통해 활성화하며, 향후 연산 범위와 하드웨어 지원을 지속적으로 확대할 예정임."
+      ],
+      "topics": [
+        "SIMD",
+        "Vectorization",
+        "Go Compiler Optimization"
+      ],
+      "recommended_for": "데이터 처리, 암호화 등 고성능 연산이 필요한 Go 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Go 1.27 simd 패키지를 활용한 간단한 벡터 연산 테스트",
+        "steps": [
+          "Go 1.27 환경에서 GOEXPERIMENT=simd 옵션을 설정하고 simd 패키지 임포트하기",
+          "내적(Dot Product) 등 간단한 수치 연산 루프를 simd API로 변환하여 성능 차이 측정하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Git-bug - Git 저장소에 이슈를 보관하는 분산형 버그 추적기",
+      "link": "https://news.hada.io/topic?id=34272",
+      "published_at": "2026-09-26T01:48:39+09:00",
+      "selection_score": 11,
+      "selection_reason": "Git 기반의 분산형 버그 추적기는 개발 워크플로 효율화와 도구 활용 측면에서 유용한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Git 저장소에 이슈를 직접 내장하여 분산 관리하는 버그 추적기 'git-bug' 소개",
+      "key_points": [
+        "Git 저장소 내부에 이슈 데이터를 저장하며, 별도의 외부 데이터베이스 없이 Git 명령어로 동기화가 가능함.",
+        "오프라인 작업 및 기존 GitHub, GitLab, Jira와의 양방향 동기화를 지원하여 로컬 우선 워크플로를 제공함.",
+        "CLI, 터미널 UI, 웹 UI를 모두 지원하며, 데이터는 정식 명세에 따라 DAG 구조로 저장되어 확장성이 높음."
+      ],
+      "topics": [
+        "분산 버그 추적기",
+        "Git 기반 데이터 모델",
+        "CRDT(충돌 없는 복제 데이터 타입)"
+      ],
+      "recommended_for": "외부 이슈 트래커 의존도를 낮추고 오프라인에서도 이슈 관리를 하고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "개인 프로젝트에 git-bug 도입하여 로컬 이슈 관리 테스트하기",
+        "steps": [
+          "GitHub에서 git-bug를 설치하고 현재 진행 중인 로컬 Git 저장소에서 초기화하기",
+          "간단한 이슈를 생성하고 CLI를 통해 조회 및 상태 변경해보기",
+          "기존 GitHub 이슈와 브리지 기능을 통해 동기화 테스트해보기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM으로 연금술 지식의 전파를 추적하고 17세기 편지를 해독하기",
+      "link": "https://news.hada.io/topic?id=34273",
+      "published_at": "2026-09-26T01:51:39+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM을 활용한 데이터 분석 및 지식 추출 사례로, AI Agent와 데이터 분석의 실무적 응용 가능성을 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM을 활용해 17세기 연금술 문헌의 암호와 지식 전파 경로를 분석하는 디지털 인문학 연구",
+      "key_points": [
+        "최신 LLM(GPT-6, Opus 5.5)을 활용해 역사적 사료의 암호 해독 및 분산된 지식 간의 연결 고리를 탐색함.",
+        "Newton과 Hartlib의 연금술 문헌에서 동일한 재료를 암호화한 평행 관계를 발견하는 등 연구 보조를 넘어선 성과를 보임.",
+        "성공적인 연구를 위해서는 사료의 디지털화, 연구자-AI 간의 협업 체계, 검증 가능한 문제 선정이 필수적임."
+      ],
+      "topics": [
+        "디지털 인문학",
+        "AI 기반 데이터 분석",
+        "지식 전파 추적"
+      ],
+      "recommended_for": "LLM의 추론 능력을 활용한 데이터 분석 및 연구 자동화에 관심 있는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Virtio-nvgpu - KVM 가상 머신에서 NVIDIA GPU를 네이티브에 가까운 성능으로 공유",
+      "link": "https://news.hada.io/topic?id=34274",
+      "published_at": "2026-09-26T01:54:39+09:00",
+      "selection_score": 12,
+      "selection_reason": "GPU 가상화 및 성능 최적화는 서버 및 클라우드 인프라 운영 측면에서 매우 실용적이고 중요한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "KVM 가상 머신에서 NVIDIA GPU를 네이티브 성능으로 공유하는 'virtio-nvgpu' 프로젝트",
+      "key_points": [
+        "호스트 GPU를 여러 VM이 공유하면서도 드라이버 수준의 요청 연결을 통해 오버헤드를 2% 이내로 최소화함.",
+        "Vulkan/OpenGL 렌더링 및 NVENC 인코딩을 지원하여 헤드리스 스트리밍 환경에 최적화됨.",
+        "IOMMU 격리가 없어 보안상 주의가 필요하며, 신뢰할 수 있는 환경에서의 다중 테넌트 운영에 적합함."
+      ],
+      "topics": [
+        "GPU 가상화",
+        "KVM/QEMU",
+        "VFIO 패스스루"
+      ],
+      "recommended_for": "가상화 환경에서 GPU 성능 최적화가 필요한 서버 및 클라우드 인프라 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Mercury 2.5 LLM, 초당 770토큰 달성",
+      "link": "https://news.hada.io/topic?id=34279",
+      "published_at": "2026-09-26T03:40:14+09:00",
+      "selection_score": 13,
+      "selection_reason": "LLM의 추론 속도 향상은 AI 서비스의 비용 절감 및 성능 개선에 직결되는 중요한 지표입니다.",
+      "feedback_bias": 0,
+      "one_line": "초당 770토큰의 압도적 속도를 자랑하는 독점 LLM 'Mercury 2.5' 출시",
+      "key_points": [
+        "Inception API 기준 초당 780.8토큰의 생성 속도를 기록하여 동급 모델 대비 압도적인 성능을 보임.",
+        "26만 토큰의 컨텍스트 창을 지원하며, 텍스트 전용 추론 모델로서 빠른 응답이 필요한 에이전트 워크플로에 적합함.",
+        "지능 평가 지표는 가격대 중앙값보다 다소 낮으나, 비용 효율성과 속도 측면에서 강점이 있음."
+      ],
+      "topics": [
+        "LLM 추론 속도(TPS)",
+        "TTFT(첫 토큰까지의 시간)",
+        "에이전트 워크플로"
+      ],
+      "recommended_for": "실시간 응답이 중요한 AI 에이전트 서비스 개발자 및 비용 최적화를 고민하는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "네덜란드 정부, NixOS 기반 Microsoft 대안 구축",
+      "link": "https://news.hada.io/topic?id=34262",
+      "published_at": "2026-09-25T19:45:51+09:00",
+      "selection_score": 10,
+      "selection_reason": "NixOS를 활용한 인프라 구성 및 디지털 주권 확보 사례로, 시스템 아키텍처 관점에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Rails는 어떻게 되는가?",
+      "link": "https://news.hada.io/topic?id=34268",
+      "published_at": "2026-09-25T23:49:14+09:00",
+      "selection_score": 10,
+      "selection_reason": "Rails 생태계의 변화와 AI 중심 개발로의 전환은 백엔드 아키텍처 관점에서 주목할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "기밀 추산으로 드러난 NSA의 수십억 달러 규모 AI 모델 테스트 지출",
+      "link": "https://news.hada.io/topic?id=34281",
+      "published_at": "2026-09-26T04:45:59+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 모델 평가 및 보안은 현재 업계의 핵심 화두이며, 국가 기관의 움직임은 기술 트렌드 파악에 중요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Oracle, 데이터센터에 전력이 공급되지 않아도 투자자에게 대금 지급 의무",
+      "link": "https://news.hada.io/topic?id=34287",
+      "published_at": "2026-09-26T05:43:27+09:00",
+      "selection_score": 9,
+      "selection_reason": "클라우드 인프라 및 데이터센터 운영과 관련된 비즈니스 리스크 이슈로, 업계 동향 파악 차원에서 확인할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

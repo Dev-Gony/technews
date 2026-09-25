@@ -1,6 +1,198 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GitHub Blog",
+      "title": "Improving site performance by shipping more CSS",
+      "link": "https://github.blog/engineering/architecture-optimization/improving-site-performance-by-shipping-more-css",
+      "published_at": "Fri, 25 Sep 2026 15:00:00 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "CSS Modules",
+        "CSS-in-JS",
+        "Incremental Migration"
+      ],
+      "one_line": "GitHub이 CSS-in-JS를 제거하고 CSS Modules로 전환하여 성능을 대폭 개선한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GitHub Blog",
+      "title": "GitHub Copilot app for Beginners: How to build custom workflows with canvases",
+      "link": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-how-to-build-custom-workflows-with-canvases",
+      "published_at": "Fri, 25 Sep 2026 18:00:00 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agentic Workflow",
+        "Canvas Extension",
+        "Bidirectional UI"
+      ],
+      "one_line": "GitHub Copilot 앱에서 자연어로 커스텀 워크플로 UI(Canvas)를 생성하는 방법",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "Netflix TechBlog",
+      "title": "Trading a Cloud Identity for Your Own: Workload Attestation on Managed Compute",
+      "link": "https://netflixtechblog.com/trading-a-cloud-identity-for-your-own-workload-attestation-on-managed-compute-516d5a29b252",
+      "published_at": "Fri, 25 Sep 2026 16:01:03 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Workload Attestation",
+        "Mutual TLS",
+        "Identity Mapping"
+      ],
+      "one_line": "관리형 컴퓨팅 환경에서 클라우드 ID와 내부 ID를 안전하게 매핑하는 워크로드 인증 설계",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "Cloudflare",
+      "title": "Agents can now set up your website’s security with Turnstile Spin",
+      "link": "https://blog.cloudflare.com/turnstile-spin",
+      "published_at": "Fri, 25 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Coding Agent",
+        "Security Automation",
+        "Turnstile"
+      ],
+      "one_line": "AI 에이전트가 Cloudflare Turnstile 보안 설정을 자동화하는 Turnstile Spin 출시",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "Go의 플랫폼 독립적 SIMD",
+      "link": "https://news.hada.io/topic?id=34271",
+      "published_at": "2026-09-26T01:45:38+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "SIMD",
+        "Vectorization",
+        "Go Compiler Optimization"
+      ],
+      "one_line": "Go 1.27에 도입된 플랫폼 독립적 SIMD 패키지로 어셈블리 없이 성능 가속 구현",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "Git-bug - Git 저장소에 이슈를 보관하는 분산형 버그 추적기",
+      "link": "https://news.hada.io/topic?id=34272",
+      "published_at": "2026-09-26T01:48:39+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "분산 버그 추적기",
+        "Git 기반 데이터 모델",
+        "CRDT(충돌 없는 복제 데이터 타입)"
+      ],
+      "one_line": "Git 저장소에 이슈를 직접 내장하여 분산 관리하는 버그 추적기 'git-bug' 소개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "LLM으로 연금술 지식의 전파를 추적하고 17세기 편지를 해독하기",
+      "link": "https://news.hada.io/topic?id=34273",
+      "published_at": "2026-09-26T01:51:39+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "디지털 인문학",
+        "AI 기반 데이터 분석",
+        "지식 전파 추적"
+      ],
+      "one_line": "LLM을 활용해 17세기 연금술 문헌의 암호와 지식 전파 경로를 분석하는 디지털 인문학 연구",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "Virtio-nvgpu - KVM 가상 머신에서 NVIDIA GPU를 네이티브에 가까운 성능으로 공유",
+      "link": "https://news.hada.io/topic?id=34274",
+      "published_at": "2026-09-26T01:54:39+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "GPU 가상화",
+        "KVM/QEMU",
+        "VFIO 패스스루"
+      ],
+      "one_line": "KVM 가상 머신에서 NVIDIA GPU를 네이티브 성능으로 공유하는 'virtio-nvgpu' 프로젝트",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "Mercury 2.5 LLM, 초당 770토큰 달성",
+      "link": "https://news.hada.io/topic?id=34279",
+      "published_at": "2026-09-26T03:40:14+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 추론 속도(TPS)",
+        "TTFT(첫 토큰까지의 시간)",
+        "에이전트 워크플로"
+      ],
+      "one_line": "초당 770토큰의 압도적 속도를 자랑하는 독점 LLM 'Mercury 2.5' 출시",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "HTTP에서 가장 보기 흉한 부분, Vary 지원을 출시하다",
+      "link": "https://news.hada.io/topic?id=34282",
+      "published_at": "2026-09-26T04:48:59+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "HTTP Vary 헤더",
+        "콘텐츠 협상",
+        "캐시 정규화"
+      ],
+      "one_line": "Cloudflare, Cache Rules에 HTTP Vary 헤더 지원 추가로 캐싱 제어권 강화",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "SourceHut 빌드 로그를 통한 계정 탈취 취약점, ansi2html의 XSS",
+      "link": "https://news.hada.io/topic?id=34284",
+      "published_at": "2026-09-26T04:55:00+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "XSS (Cross-Site Scripting)",
+        "OSC 8 하이퍼링크",
+        "공급망 보안 (Supply Chain Security)"
+      ],
+      "one_line": "SourceHut의 빌드 로그 내 ansi2html 라이브러리 취약점으로 인한 XSS 및 계정 탈취 위험 발견",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-26T08:50:26.905574+09:00",
+      "company": "GeekNews",
+      "title": "Ollaya - 오픈소스 Jev 스타일 의사결정 모델을 위한 Ollama",
+      "link": "https://news.hada.io/topic?id=34288",
+      "published_at": "2026-09-26T06:32:54+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "의사결정 모델 (Decision Model)",
+        "제로샷 분류 (Zero-shot Classification)",
+        "순전파 (Forward Pass)"
+      ],
+      "one_line": "로컬 환경에서 Jev 스타일의 의사결정 모델을 고속으로 실행할 수 있는 오픈소스 도구 'Ollaya'",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-09-25T08:46:57.391623+09:00",
       "company": "Google Developers",
       "title": "Reproducing OLMo 3 7B Pre-training in MaxText: case study of large scale training on TPUs",
@@ -1363,5 +1555,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-25T08:46:57.391623+09:00"
+  "updated_at": "2026-09-26T08:50:26.905574+09:00"
 }
