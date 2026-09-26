@@ -1,6 +1,214 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "이제 OS란 대체 무엇인가?",
+      "link": "https://news.hada.io/topic?id=34309",
+      "published_at": "2026-09-26T14:40:22+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "개인용 소프트웨어(Personal Software)",
+        "앱 격리(App Sandboxing)",
+        "구성 요소 중심 공급(Component-based Supply)"
+      ],
+      "one_line": "AI가 소프트웨어 개발의 경계를 허물며, 고정된 앱 대신 사용자가 즉석에서 만드는 개인용 소프트웨어 시대로 전환되고 있음.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "AI가 거의 모든 코드를 작성하면 소프트웨어 엔지니어링에는 무슨 일이 일어날까?",
+      "link": "https://news.hada.io/topic?id=34310",
+      "published_at": "2026-09-26T15:03:17+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 코딩 에이전트",
+        "피드백 루프(Feedback Loop)",
+        "기술 부채(Technical Debt)"
+      ],
+      "one_line": "AI가 코드 작성을 자동화함에 따라, 엔지니어의 역할은 코딩에서 문제 정의, 시스템 설계, 결과 검증 및 운영 책임으로 이동함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Lowent – 함수의 서명만 읽어도 무엇을 하는지 아는 시스템 프로그래밍 언어",
+      "link": "https://news.hada.io/topic?id=34317",
+      "published_at": "2026-09-26T20:34:35+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "시스템 프로그래밍 언어",
+        "효과 시스템(Effect System)",
+        "권한 기반 보안(Capability-based Security)"
+      ],
+      "one_line": "함수 서명만으로 동작과 부작용을 명확히 파악할 수 있도록 설계된 시스템 프로그래밍 언어 'Lowent' 공개.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "Meta의 Muse, muse-special로 표시된 OpenAI 모델을 사용하는 것으로 보임",
+      "link": "https://news.hada.io/topic?id=34318",
+      "published_at": "2026-09-26T21:34:12+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 라우팅(LLM Routing)",
+        "AI 에이전트 아키텍처",
+        "모델 증류(Model Distillation)"
+      ],
+      "one_line": "Meta의 AI 에이전트 'Muse'가 내부 모델 외에 Azure를 통한 OpenAI 모델을 선택적으로 활용하는 정황이 포착됨.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "Microsoft, Copilot 개편으로 개인용 AI 챗봇 경쟁에서 철수",
+      "link": "https://news.hada.io/topic?id=34319",
+      "published_at": "2026-09-26T21:37:12+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "업무 자동화(Workflow Automation)",
+        "생산성 도구(Productivity Tools)",
+        "엔터프라이즈 AI"
+      ],
+      "one_line": "Microsoft가 개인용 AI 챗봇 전략을 철수하고, Copilot을 기업용 업무 자동화 도구로 통합 개편함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "AI 없이 보낸 한 달",
+      "link": "https://news.hada.io/topic?id=34323",
+      "published_at": "2026-09-27T00:36:43+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "TDD(Test-Driven Development)",
+        "AI 코딩 에이전트의 생산성 역설",
+        "코드베이스 통제권"
+      ],
+      "one_line": "AI 코딩 에이전트 의존에서 벗어나 직접 코딩으로 복귀한 개발자의 경험담",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "모든 패키지가 이미 설치되어 있다",
+      "link": "https://news.hada.io/topic?id=34324",
+      "published_at": "2026-09-27T01:02:28+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "FUSE(Filesystem in Userspace)",
+        "Nixpkgs",
+        "지연 다운로드(Lazy Download)"
+      ],
+      "one_line": "Nixpkgs 기반의 모든 바이너리를 설치 없이 즉시 실행하게 해주는 FUSE 파일시스템, omnibin",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "비전 모델까지 지원하는 Jev 스타일 LLM 래퍼",
+      "link": "https://news.hada.io/topic?id=34327",
+      "published_at": "2026-09-27T01:49:52+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Logprobs(로그 확률)",
+        "멀티모달 분류기",
+        "확률 기반 의사결정"
+      ],
+      "one_line": "LLM의 토큰 확률을 활용해 분류 및 확률 점수를 계산하는 Jev 스타일의 Python 래퍼",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "Avast Antivirus 샌드박스에 진입하고 탈출하기, 2부",
+      "link": "https://news.hada.io/topic?id=34328",
+      "published_at": "2026-09-27T02:40:20+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "더블 페치(Double-fetch)",
+        "커널 풀 오버플로",
+        "I/O Ring"
+      ],
+      "one_line": "Avast 커널 드라이버의 더블 페치 취약점을 이용한 SYSTEM 권한 상승 공격 분석",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "Topcoat, Rust로 서버 애플리케이션의 경계를 넓히다",
+      "link": "https://news.hada.io/topic?id=34329",
+      "published_at": "2026-09-27T02:43:20+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "풀스택 Rust",
+        "서버 사이드 렌더링(SSR)",
+        "다형적 관계(Polymorphic Relations)"
+      ],
+      "one_line": "서버 렌더링과 클라이언트 반응성을 결합한 풀스택 Rust 프레임워크, Topcoat 0.9",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "Floci - 모든 클라우드 서비스를 로컬에서 에뮬레이션",
+      "link": "https://news.hada.io/topic?id=34330",
+      "published_at": "2026-09-27T02:46:20+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Cloud Emulation",
+        "GraalVM Mandrel",
+        "Local-first Development"
+      ],
+      "one_line": "클라우드 서비스(AWS, Azure, GCP, OCI)를 로컬에서 에뮬레이션하여 개발 생산성을 높이는 도구",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "Postgres 마이그레이션은 안전할까, 안전하지 않을까?",
+      "link": "https://news.hada.io/topic?id=34335",
+      "published_at": "2026-09-27T06:37:53+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Database Migration",
+        "Static Analysis",
+        "WASM(WebAssembly)"
+      ],
+      "one_line": "PostgreSQL 마이그레이션 SQL의 안전성을 브라우저에서 즉시 검사하는 정적 분석 도구",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-27T08:23:33.508549+09:00",
+      "company": "GeekNews",
+      "title": "LLM 시대에도 프로그래밍을 계속 즐기는 법",
+      "link": "https://news.hada.io/topic?id=34336",
+      "published_at": "2026-09-27T06:40:53+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Cognitive Load Management",
+        "Human-in-the-loop"
+      ],
+      "one_line": "LLM을 보조 도구로 활용하면서도 개발자로서의 주도권과 코딩의 즐거움을 유지하는 방법론",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-09-26T08:50:26.905574+09:00",
       "company": "GitHub Blog",
       "title": "Improving site performance by shipping more CSS",
@@ -1555,5 +1763,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-26T08:50:26.905574+09:00"
+  "updated_at": "2026-09-27T08:23:33.508549+09:00"
 }

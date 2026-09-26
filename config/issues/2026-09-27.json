@@ -1,0 +1,440 @@
+{
+  "schema_version": 1,
+  "issue_number": 9,
+  "issue_date": "2026-09-27",
+  "generated_at": "2026-09-27T08:23:33.182650+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI 코딩 에이전트, 개발 생산성 역설, 로컬 클라우드 에뮬레이션, SQL 마이그레이션 정적 분석, 피드백 루프\n\n[오늘의 한줄 포인트]\n\nAI가 코드 생성의 병목을 해결함에 따라, 이제 개발자의 핵심 역량은 코드 작성이 아닌 시스템 통제권 유지와 안전한 운영 환경 구축으로 이동하고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 코딩 도구의 도입이 단순히 생산성 향상으로 이어지지 않고, 오히려 코드 품질 관리와 기술 부채라는 새로운 과제를 던져주고 있습니다. 실무자들은 AI를 보조 도구로 활용하면서도 시스템에 대한 주도권을 잃지 않는 엔지니어링 전략을 재정립해야 하는 시점입니다.\n\n[왜 이 글들을 골랐나]\n\n• 6번: AI 코딩 에이전트의 실질적인 한계와 생산성 역설을 다루어, 도구 의존성에 대한 냉철한 성찰을 제공합니다.\n• 11번: 클라우드 서비스를 로컬에서 에뮬레이션하여 개발 속도를 높이고 비용을 절감하는 실무적인 해결책을 제시합니다.\n• 12번: 데이터베이스 마이그레이션의 안전성을 정적 분석으로 검증하는 도구를 소개해 운영 장애 예방에 직접적인 도움을 줍니다.\n\n[오늘 공부해볼 것]\n\n• AI 코딩 에이전트와 TDD 병행 전략: AI가 생성한 코드의 품질을 보장하기 위해 테스트 주도 개발을 어떻게 결합할지 학습합니다.\n• 로컬 클라우드 에뮬레이션 도구 비교: Floci와 같은 도구를 활용해 기존 클라우드 의존적인 테스트 환경을 어떻게 로컬로 전환할지 검토합니다.\n• SQL 마이그레이션 안전성 검증 기법: 데이터베이스 스키마 변경 시 발생할 수 있는 위험을 사전에 차단하기 위한 정적 분석 원리를 이해합니다.",
+  "stats": {
+    "candidate_count": 30,
+    "detailed_count": 13,
+    "brief_count": 3,
+    "excluded_count": 14,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "AI 없이 보낸 한 달",
+      "link": "https://news.hada.io/topic?id=34323",
+      "published_at": "2026-09-27T00:36:43+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 기반 개발의 실질적인 한계와 생산성 문제를 다루고 있어 실무자에게 매우 가치 있는 통찰입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 에이전트 의존에서 벗어나 직접 코딩으로 복귀한 개발자의 경험담",
+      "key_points": [
+        "AI 에이전트의 병렬 실행은 코드 생성 속도는 높였으나, 검토 부담과 문맥 전환 비용으로 인해 전체 생산성은 오히려 저하됨.",
+        "AI가 작성한 테스트의 허점을 발견하고 코드에 대한 통제력을 잃었음을 깨달은 후, TDD와 작은 PR 단위의 직접 개발 방식으로 회귀함.",
+        "AI에 의존하는 대신 직접 코드를 작성하고 이해하는 과정이 개발자의 역량 성장과 문제 해결 능력에 필수적임을 강조함."
+      ],
+      "topics": [
+        "TDD(Test-Driven Development)",
+        "AI 코딩 에이전트의 생산성 역설",
+        "코드베이스 통제권"
+      ],
+      "recommended_for": "AI 코딩 도구에 과도하게 의존하고 있다고 느끼거나, 개발 생산성 저하를 경험 중인 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Floci - 모든 클라우드 서비스를 로컬에서 에뮬레이션",
+      "link": "https://news.hada.io/topic?id=34330",
+      "published_at": "2026-09-27T02:46:20+09:00",
+      "selection_score": 14,
+      "selection_reason": "클라우드 서비스 로컬 에뮬레이션은 개발 생산성 향상과 비용 절감에 직접적인 도움을 주는 유용한 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "클라우드 서비스(AWS, Azure, GCP, OCI)를 로컬에서 에뮬레이션하여 개발 생산성을 높이는 도구",
+      "key_points": [
+        "Floci는 실제 클라우드 계정 없이 로컬에서 클라우드 서비스를 실행할 수 있는 독립적인 네이티브 바이너리 모음입니다.",
+        "GraalVM Mandrel로 컴파일되어 24ms의 빠른 시작 시간과 13MiB의 낮은 메모리 점유율을 제공합니다.",
+        "인증 토큰이나 API 키 없이 Docker 환경에서 즉시 실행 가능하며, 기존 SDK 및 Terraform과 호환됩니다."
+      ],
+      "topics": [
+        "Cloud Emulation",
+        "GraalVM Mandrel",
+        "Local-first Development"
+      ],
+      "recommended_for": "클라우드 의존적인 애플리케이션을 개발하며 테스트 비용과 시간을 절감하고 싶은 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 개발 환경에 Floci 도입하여 테스트 속도 측정하기",
+        "steps": [
+          "Floci 공식 문서에서 사용하는 클라우드 서비스(예: S3, SQS)에 맞는 Docker 이미지를 실행합니다.",
+          "기존 애플리케이션의 클라우드 엔드포인트 설정을 localhost로 변경하여 연결합니다.",
+          "기존 테스트 스위트를 실행하여 실제 클라우드 대비 테스트 완료 시간 단축 폭을 측정합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Postgres 마이그레이션은 안전할까, 안전하지 않을까?",
+      "link": "https://news.hada.io/topic?id=34335",
+      "published_at": "2026-09-27T06:37:53+09:00",
+      "selection_score": 14,
+      "selection_reason": "SQL 마이그레이션 검증 도구는 데이터베이스 안정성 확보와 백엔드 운영 효율화에 매우 실질적인 가치를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "PostgreSQL 마이그레이션 SQL의 안전성을 브라우저에서 즉시 검사하는 정적 분석 도구",
+      "key_points": [
+        "libpg_query 17 WASM을 사용하여 브라우저 환경에서 SQL 마이그레이션 스크립트의 잠재적 위험을 분석합니다.",
+        "데이터 업로드 없이 로컬 브라우저 워커에서만 동작하여 보안과 개인정보 보호를 보장합니다.",
+        "DDL 트랜잭션 여부와 테이블 행 수 등을 고려하여 마이그레이션의 안전성을 사전에 판별합니다."
+      ],
+      "topics": [
+        "Database Migration",
+        "Static Analysis",
+        "WASM(WebAssembly)"
+      ],
+      "recommended_for": "데이터베이스 스키마 변경 시 운영 장애를 예방하고 싶은 백엔드 및 데이터베이스 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트의 마이그레이션 스크립트를 safe-not-safe로 검증하기",
+        "steps": [
+          "최근 수행한 마이그레이션 SQL 파일을 safe-not-safe 웹 인터페이스에 입력합니다.",
+          "도구가 제시하는 경고 사항이 실제 운영 환경의 제약 조건과 일치하는지 확인합니다.",
+          "검증 결과를 바탕으로 팀 내 마이그레이션 체크리스트에 해당 도구의 검사 항목을 추가합니다."
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "이제 OS란 대체 무엇인가?",
+      "link": "https://news.hada.io/topic?id=34309",
+      "published_at": "2026-09-26T14:40:22+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 시대의 소프트웨어 개발 패러다임 변화를 다루고 있어 아키텍처와 개발 워크플로 관점에서 통찰을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 소프트웨어 개발의 경계를 허물며, 고정된 앱 대신 사용자가 즉석에서 만드는 개인용 소프트웨어 시대로 전환되고 있음.",
+      "key_points": [
+        "AI로 인해 프로그래머와 사용자의 경계가 허물어지며, 사용자 1~2명을 위한 맞춤형 앱이 대다수를 차지할 것으로 전망됨.",
+        "현대 OS의 앱 격리 설계는 낯선 공급자의 소프트웨어를 전제로 하지만, 개인이 직접 만드는 유동적인 앱 중심 환경에서는 새로운 설계가 필요함.",
+        "미래의 컴퓨팅은 고정 기능 앱 실행이 아닌, 사용자의 요청에 따라 필요한 기능을 즉석에서 합성하고 실행하는 플랫폼으로 진화할 것임."
+      ],
+      "topics": [
+        "개인용 소프트웨어(Personal Software)",
+        "앱 격리(App Sandboxing)",
+        "구성 요소 중심 공급(Component-based Supply)"
+      ],
+      "recommended_for": "소프트웨어 아키텍처의 미래와 AI 기반 개발 워크플로 변화에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI가 거의 모든 코드를 작성하면 소프트웨어 엔지니어링에는 무슨 일이 일어날까?",
+      "link": "https://news.hada.io/topic?id=34310",
+      "published_at": "2026-09-26T15:03:17+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 코딩 자동화가 엔지니어링 역할에 미치는 영향은 현재 가장 중요한 기술적 화두입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 코드 작성을 자동화함에 따라, 엔지니어의 역할은 코딩에서 문제 정의, 시스템 설계, 결과 검증 및 운영 책임으로 이동함.",
+      "key_points": [
+        "코드 작성 자체가 개발의 병목에서 빠지면서, 문제를 작은 단위로 분해하고 요구사항을 명확히 정의하는 능력이 핵심 역량이 됨.",
+        "AI가 생성한 코드의 안전성을 보장하기 위해 자동화된 테스트와 피드백 루프, 그리고 프로덕션 환경에서의 Observability가 더욱 중요해짐.",
+        "코드 생산 비용은 낮아지지만 유지보수와 기술 부채 관리 비용은 증가할 수 있으므로, 조직의 안전한 코드 수용 능력이 경쟁력이 됨."
+      ],
+      "topics": [
+        "AI 코딩 에이전트",
+        "피드백 루프(Feedback Loop)",
+        "기술 부채(Technical Debt)"
+      ],
+      "recommended_for": "AI 도입에 따른 개발 생산성 변화와 엔지니어링 커리어 방향을 고민하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 팀의 개발 워크플로에 AI 기반 피드백 루프 도입 검토",
+        "steps": [
+          "현재 프로젝트의 CI/CD 파이프라인에서 AI가 생성한 코드의 테스트 커버리지를 자동으로 검증하는 단계가 있는지 확인",
+          "AI 에이전트가 작성한 코드의 품질을 검증하기 위한 정적 분석(Linting) 및 테스트 자동화 규칙 강화",
+          "AI 도입 후 증가할 수 있는 기술 부채를 추적하기 위한 모니터링 지표 설정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Lowent – 함수의 서명만 읽어도 무엇을 하는지 아는 시스템 프로그래밍 언어",
+      "link": "https://news.hada.io/topic?id=34317",
+      "published_at": "2026-09-26T20:34:35+09:00",
+      "selection_score": 11,
+      "selection_reason": "시스템 프로그래밍 언어의 설계 철학은 코드 가독성과 AI의 이해도를 높이는 중요한 개발 생산성 이슈와 직결됩니다.",
+      "feedback_bias": 0,
+      "one_line": "함수 서명만으로 동작과 부작용을 명확히 파악할 수 있도록 설계된 시스템 프로그래밍 언어 'Lowent' 공개.",
+      "key_points": [
+        "Lowent는 순수 함수와 부작용(Effects)을 엄격히 분리하고, 권한(Capability)을 인자로 전달하여 코드의 예측 가능성을 극대화함.",
+        "GC 없이 메모리 안전성을 보장하며, 계약(Requires/Ensures)을 서명에 포함해 컴파일 타임에 검증하는 설계를 채택함.",
+        "특수문자를 최소화하고 문법을 단순화하여 가독성을 높였으며, 시스템 프로그래밍의 복잡성을 줄이는 데 집중함."
+      ],
+      "topics": [
+        "시스템 프로그래밍 언어",
+        "효과 시스템(Effect System)",
+        "권한 기반 보안(Capability-based Security)"
+      ],
+      "recommended_for": "시스템 프로그래밍 언어 설계와 코드 가독성, 안전한 메모리 관리에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Lowent 언어의 효과 시스템 및 권한 모델 체험",
+        "steps": [
+          "GitHub 저장소에서 Lowent 컴파일러를 설치하고 예제 코드를 빌드",
+          "순수 함수(fn)와 부작용이 있는 함수(proc)의 차이를 직접 코드로 작성하여 컴파일러의 제약 사항 확인",
+          "제공된 매뉴얼을 통해 메모리 안전성 보장 방식(Region/Ownership) 학습"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Meta의 Muse, muse-special로 표시된 OpenAI 모델을 사용하는 것으로 보임",
+      "link": "https://news.hada.io/topic?id=34318",
+      "published_at": "2026-09-26T21:34:12+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 에이전트 워크플로에서 타사 모델을 활용하는 기술적 스택 변화는 업계의 중요한 트렌드입니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta의 AI 에이전트 'Muse'가 내부 모델 외에 Azure를 통한 OpenAI 모델을 선택적으로 활용하는 정황이 포착됨.",
+      "key_points": [
+        "Muse의 런타임 로그에서 'muse-special'이라는 모델이 발견되었으며, 이는 OpenAI의 API 형식 및 암호화 페이로드와 일치함.",
+        "Meta는 여러 공급자의 모델을 탑재하고 서버 측 라우팅을 통해 상황에 따라 최적의 모델을 동적으로 선택하는 구조를 갖춤.",
+        "이러한 다중 모델 활용은 특정 작업의 성능 향상이나 모델 증류 및 강화학습을 위한 A/B 테스트 목적일 가능성이 높음."
+      ],
+      "topics": [
+        "LLM 라우팅(LLM Routing)",
+        "AI 에이전트 아키텍처",
+        "모델 증류(Model Distillation)"
+      ],
+      "recommended_for": "AI 에이전트 아키텍처와 대규모 LLM 서비스의 운영 전략에 관심 있는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Microsoft, Copilot 개편으로 개인용 AI 챗봇 경쟁에서 철수",
+      "link": "https://news.hada.io/topic?id=34319",
+      "published_at": "2026-09-26T21:37:12+09:00",
+      "selection_score": 13,
+      "selection_reason": "마이크로소프트의 전략 수정은 AI 에이전트 및 업무 자동화 도구 시장의 방향성을 보여주는 중대한 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Microsoft가 개인용 AI 챗봇 전략을 철수하고, Copilot을 기업용 업무 자동화 도구로 통합 개편함.",
+      "key_points": [
+        "개인적인 동반자 전략에서 물러나, Word·Excel 편집 및 업무 자동화 등 실질적인 생산성 도구로서의 역할에 집중함.",
+        "소비자용 앱의 사용 경험은 기업용 Copilot 개선에 활용하며, 상시 실행 비서 'Scout'를 'Autopilot'으로 통합함.",
+        "기업 고객의 유료 구독 성과를 바탕으로 사무 업무 절차 자체를 재구성하는 방향으로 전략을 수정함."
+      ],
+      "topics": [
+        "업무 자동화(Workflow Automation)",
+        "생산성 도구(Productivity Tools)",
+        "엔터프라이즈 AI"
+      ],
+      "recommended_for": "기업용 AI 도입 전략과 생산성 도구의 시장 변화를 파악하려는 개발자 및 관리자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "모든 패키지가 이미 설치되어 있다",
+      "link": "https://news.hada.io/topic?id=34324",
+      "published_at": "2026-09-27T01:02:28+09:00",
+      "selection_score": 11,
+      "selection_reason": "개발 환경 및 소프트웨어 배포 워크플로를 혁신할 수 있는 흥미로운 도구로 실무적 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Nixpkgs 기반의 모든 바이너리를 설치 없이 즉시 실행하게 해주는 FUSE 파일시스템, omnibin",
+      "key_points": [
+        "omnibin은 2013년부터 현재까지의 Nixpkgs 바이너리를 별도 설치 없이 $PATH에서 바로 호출할 수 있게 지원함.",
+        "SQLite 인덱스와 FUSE를 결합하여 필요한 바이너리만 지연 다운로드(Lazy Download)하는 방식으로 디스크 사용량을 최적화함.",
+        "Nix 환경뿐 아니라 Docker 컨테이너에서도 활용 가능하며, 패키지 관리의 복잡성을 제거하는 새로운 접근 방식을 제시함."
+      ],
+      "topics": [
+        "FUSE(Filesystem in Userspace)",
+        "Nixpkgs",
+        "지연 다운로드(Lazy Download)"
+      ],
+      "recommended_for": "개발 환경 설정의 번거로움을 줄이고 싶은 개발자 및 Nix 생태계에 관심 있는 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Docker 환경에서 omnibin을 활용한 즉시 실행 환경 테스트",
+        "steps": [
+          "fmzakari/omnibin:latest 이미지를 사용하여 컨테이너 실행",
+          "컨테이너 내에서 설치되지 않은 특정 버전의 python3@3.6.2 등을 호출하여 실행 확인",
+          "omnibin CLI를 통해 특정 바이너리의 저장소 경로 조회 및 인덱스 탐색"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "비전 모델까지 지원하는 Jev 스타일 LLM 래퍼",
+      "link": "https://news.hada.io/topic?id=34327",
+      "published_at": "2026-09-27T01:49:52+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM을 활용한 분류 및 확률 계산 기법은 데이터 분석 및 AI 워크플로 최적화에 매우 실용적인 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM의 토큰 확률을 활용해 분류 및 확률 점수를 계산하는 Jev 스타일의 Python 래퍼",
+      "key_points": [
+        "LLM의 생성 결과 대신 토큰별 로그 확률(logprobs)을 읽어 선택지별 확률과 점수를 정량적으로 계산함.",
+        "비전 모델과 결합하여 웹캠 영상의 상황(밝기, 객체 유무 등)을 자연어 질문으로 판별하는 실시간 분류기로 활용 가능함.",
+        "로컬 모델(Gemma 등)과 OpenAI API를 모두 지원하며, 긴 답변 생성 없이 판단 결과만 추출하여 처리 속도를 최적화함."
+      ],
+      "topics": [
+        "Logprobs(로그 확률)",
+        "멀티모달 분류기",
+        "확률 기반 의사결정"
+      ],
+      "recommended_for": "LLM을 활용한 데이터 분석, 실시간 상황 판단 시스템을 구축하려는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "웹캠 영상 실시간 상황 판별기 구현",
+        "steps": [
+          "공개된 webcam.py 코드를 다운로드하여 로컬 환경 설정",
+          "llama.cpp 서버를 통해 Gemma 4 12B 모델 로드",
+          "웹캠 프레임을 입력으로 하여 특정 조건(예: 식물 유무)에 대한 확률 점수 출력 확인"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Avast Antivirus 샌드박스에 진입하고 탈출하기, 2부",
+      "link": "https://news.hada.io/topic?id=34328",
+      "published_at": "2026-09-27T02:40:20+09:00",
+      "selection_score": 11,
+      "selection_reason": "보안 취약점 분석은 백엔드 및 시스템 아키텍처 설계 시 보안성을 고려해야 하는 개발자에게 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Avast 커널 드라이버의 더블 페치 취약점을 이용한 SYSTEM 권한 상승 공격 분석",
+      "key_points": [
+        "사용자 입력 길이를 두 번 읽는 더블 페치(double-fetch) 결함을 통해 커널 풀 오버플로를 유발하는 공격 기법을 시연함.",
+        "I/O Ring 객체의 포인터를 손상시켜 임의 커널 읽기/쓰기 권한을 확보하고, MDL을 통해 프로세스 주소를 유출함.",
+        "공격 성공 후 시스템 충돌을 방지하기 위한 풀 헤더 복구 및 참조 수 처리 과정을 상세히 설명함."
+      ],
+      "topics": [
+        "더블 페치(Double-fetch)",
+        "커널 풀 오버플로",
+        "I/O Ring"
+      ],
+      "recommended_for": "시스템 보안, 커널 드라이버 개발 및 취약점 분석에 관심 있는 백엔드/보안 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Topcoat, Rust로 서버 애플리케이션의 경계를 넓히다",
+      "link": "https://news.hada.io/topic?id=34329",
+      "published_at": "2026-09-27T02:43:20+09:00",
+      "selection_score": 11,
+      "selection_reason": "Rust 기반의 풀스택 프레임워크는 백엔드 아키텍처와 성능 개선 측면에서 주목할 만한 기술적 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "서버 렌더링과 클라이언트 반응성을 결합한 풀스택 Rust 프레임워크, Topcoat 0.9",
+      "key_points": [
+        "서버 렌더링을 기본으로 하되, 시그널과 shard를 통해 서버 왕복 없는 실시간 UI 갱신을 지원함.",
+        "Toasty ORM을 통해 타입 안전성을 보장하며, 문서형 데이터 조회 및 다형적 관계를 효율적으로 처리함.",
+        "AI 주도 개발 환경에서 LLM이 오류 없이 작업할 수 있도록 명확한 규약과 추상화를 제공하는 데 집중함."
+      ],
+      "topics": [
+        "풀스택 Rust",
+        "서버 사이드 렌더링(SSR)",
+        "다형적 관계(Polymorphic Relations)"
+      ],
+      "recommended_for": "Rust 기반의 고성능 웹 애플리케이션을 개발하려는 풀스택 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM 시대에도 프로그래밍을 계속 즐기는 법",
+      "link": "https://news.hada.io/topic?id=34336",
+      "published_at": "2026-09-27T06:40:53+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI Agent 시대의 개발 생산성과 주도권에 대한 논의는 현재 모든 개발자에게 중요한 화두입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM을 보조 도구로 활용하면서도 개발자로서의 주도권과 코딩의 즐거움을 유지하는 방법론",
+      "key_points": [
+        "모든 구현을 위임하기보다 계획과 검토는 LLM에 맡기고, 핵심 코딩은 직접 수행하여 코드베이스에 대한 이해도를 유지해야 합니다.",
+        "LLM의 산출물은 반드시 사람이 직접 검토하거나 자동 검토 주기를 거친 뒤에만 코드베이스에 통합합니다.",
+        "LLM은 지루한 반복 작업이나 리팩터링 보조에 활용하고, 복잡한 설계와 의사결정은 개발자가 직접 수행하여 실력 저하를 방지합니다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Cognitive Load Management",
+        "Human-in-the-loop"
+      ],
+      "recommended_for": "AI 도구 도입 후 개발 생산성은 올랐으나 코드에 대한 통제력을 잃어가는 느낌을 받는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Excel, 이제 하나의 셀에 여러 값 저장 지원",
+      "link": "https://news.hada.io/topic?id=34306",
+      "published_at": "2026-09-26T13:35:16+09:00",
+      "selection_score": 9,
+      "selection_reason": "데이터 분석 및 업무 자동화 도구로서 엑셀의 기능 변화는 실무 생산성에 직접적인 영향을 줍니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "상품화된 지능",
+      "link": "https://news.hada.io/topic?id=34312",
+      "published_at": "2026-09-26T19:04:05+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 지능의 상품화가 개발자의 업무 방식과 시장 가치에 미치는 영향에 대해 깊이 있는 시각을 제공합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Johannes Doerfert를 추모하며",
+      "link": "https://news.hada.io/topic?id=34334",
+      "published_at": "2026-09-27T05:34:04+09:00",
+      "selection_score": 9,
+      "selection_reason": "LLVM 생태계의 중요한 기여자에 대한 소식으로, 컴파일러 및 백엔드 최적화 분야의 업계 흐름을 이해하는 데 의미가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
