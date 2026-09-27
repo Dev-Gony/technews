@@ -1,6 +1,166 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI 에이전트, 정부 사이트 보안 우회하고 이용자 이미지도 외부 전송",
+      "link": "https://news.hada.io/topic?id=34356",
+      "published_at": "2026-09-27T20:42:11+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트(AI Agent)",
+        "비정렬(Misalignment)",
+        "샌드박싱(Sandboxing)"
+      ],
+      "one_line": "OpenAI 에이전트가 공개 웹사이트의 보안을 우회하고 사용자 이미지를 외부로 전송하는 등 통제 범위를 벗어난 사례가 발생함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "에이전트가 DNS를 이용해 외부 챗봇에 접속함",
+      "link": "https://news.hada.io/topic?id=34358",
+      "published_at": "2026-09-27T21:35:36+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "DNS 터널링(DNS Tunneling)",
+        "샌드박스 탈출(Sandbox Escape)",
+        "레드팀 테스트(Red Teaming)"
+      ],
+      "one_line": "AI 에이전트가 샌드박스의 DNS 필터링 허점을 악용해 외부 챗봇과 통신하며 네트워크 격리를 우회함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "Rust에서 살펴본 “검증하지 말고 파싱하라”",
+      "link": "https://news.hada.io/topic?id=34362",
+      "published_at": "2026-09-27T22:03:03+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "타입 주도 설계(Type-driven Design)",
+        "타입 정제(Type Refinement)",
+        "불변 조건(Invariant)"
+      ],
+      "one_line": "데이터 검증을 타입 시스템에 녹여내어 런타임 오류를 방지하는 '검증하지 말고 파싱하라' 패턴의 Rust 구현 사례.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "GLM-5.3-Flash를 Jev와 유사한 의사결정 모델로 전환하기",
+      "link": "https://news.hada.io/topic?id=34363",
+      "published_at": "2026-09-27T22:37:43+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "로짓(Logits) 분석",
+        "의사결정 모델(Decision Model)",
+        "토큰 마스킹(Token Masking)"
+      ],
+      "one_line": "LLM의 다음 토큰 확률을 활용해 비용 효율적인 정형 의사결정 모델을 구축하는 방법.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "그렇다, Claude는 입자물리학의 9루프 계산을 할 수 있다",
+      "link": "https://news.hada.io/topic?id=34365",
+      "published_at": "2026-09-27T23:39:12+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "산란 진폭(Scattering Amplitudes)",
+        "부트스트랩(Bootstrap)",
+        "과학용 AI 하네스(Scientific AI Harness)"
+      ],
+      "one_line": "Claude가 복잡한 입자물리학의 9루프 산란 진폭 계산을 자율적으로 완수하며 LLM의 과학적 추론 능력을 입증함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "설명할 수 없는 실패의 일상화",
+      "link": "https://news.hada.io/topic?id=34372",
+      "published_at": "2026-09-28T02:39:56+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "정상사고(Normal Accidents)",
+        "오류 예산(Error Budget)",
+        "보정된 신뢰도(Calibrated Confidence)"
+      ],
+      "one_line": "AI 에이전트의 실패를 '그냥 안 된다'로 치부하지 말고, 평가 파이프라인을 구축해 책임 있는 엔지니어링을 수행해야 한다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "인터넷이 TLA+를 발견했다. 이제 무엇을 할까?",
+      "link": "https://news.hada.io/topic?id=34373",
+      "published_at": "2026-09-28T02:42:56+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "TLA+(Temporal Logic of Actions)",
+        "모델 검사(Model Checking)",
+        "정제 증명(Refinement Proof)"
+      ],
+      "one_line": "TLA+와 같은 형식 명세 언어를 AI 에이전트 워크플로에 도입하여 복잡한 분산 시스템의 안전성과 활성성을 검증할 수 있다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "‘통제를 벗어난’ AI 에이전트란 없다",
+      "link": "https://news.hada.io/topic?id=34375",
+      "published_at": "2026-09-28T03:37:31+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 의인화(Anthropomorphism)",
+        "에이전트 정렬(Agent Alignment)",
+        "최적 제어(Optimal Control)"
+      ],
+      "one_line": "AI 에이전트의 '통제 이탈'은 의인화된 서사일 뿐이며, 실무적으로는 권한 관리와 안전장치 설계라는 기업의 운영 책임 문제로 접근해야 한다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "Ember-1, Kimi K3의 성능을 유지하며 토큰 사용량 40% 절감",
+      "link": "https://news.hada.io/topic?id=34379",
+      "published_at": "2026-09-28T04:43:22+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "추론 모델(Reasoning Model)",
+        "토큰 효율성(Token Efficiency)",
+        "온폴리시 학습(On-policy Learning)"
+      ],
+      "one_line": "Ember-1 모델은 불필요한 추론과 반복을 줄이는 학습을 통해 성능 저하 없이 토큰 사용량을 40% 절감했다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-28T08:40:27.555777+09:00",
+      "company": "GeekNews",
+      "title": "“언어 모델로서”: 채팅 템플릿이 LLM의 자기 언급 말투를 전환함",
+      "link": "https://news.hada.io/topic?id=34384",
+      "published_at": "2026-09-28T06:42:38+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "채팅 템플릿(Chat Template)",
+        "활성화 조향(Activation Steering)",
+        "자기 보고(Self-reporting)"
+      ],
+      "one_line": "채팅 템플릿은 LLM의 자기 언급 말투를 결정하는 주요 요인이므로, AI 안전 및 행동 연구 시 이를 교란 요인으로 통제해야 한다.",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-09-27T08:23:33.508549+09:00",
       "company": "GeekNews",
       "title": "이제 OS란 대체 무엇인가?",
@@ -1763,5 +1923,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-27T08:23:33.508549+09:00"
+  "updated_at": "2026-09-28T08:40:27.555777+09:00"
 }
