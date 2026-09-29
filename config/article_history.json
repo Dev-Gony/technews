@@ -1,6 +1,344 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GitHub Blog",
+      "title": "How we found 24 Android vulnerabilities using our open source AI security agent",
+      "link": "https://github.blog/security/how-we-found-24-android-vulnerabilities-using-our-open-source-ai-security-agent",
+      "published_at": "Mon, 28 Sep 2026 19:00:00 +0000",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Security Agent",
+        "Taskflow Prompting",
+        "Logic Vulnerability"
+      ],
+      "one_line": "GitHub Security Lab의 AI 에이전트를 활용한 안드로이드 앱 취약점 자동 탐지 워크플로",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "Cloudflare",
+      "title": "Supporting native Rust in Workers with the new Emscripten target for wasm-bindgen",
+      "link": "https://blog.cloudflare.com/rust-workers-emscripten-target",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "WebAssembly",
+        "Emscripten",
+        "JSPI",
+        "Tokio Runtime"
+      ],
+      "one_line": "Cloudflare Workers에서 Rust와 Tokio를 네이티브하게 지원하는 Emscripten 타겟 공개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "Cloudflare",
+      "title": "EmDash 1.0: the stable CMS with a secure plugin registry",
+      "link": "https://blog.cloudflare.com/emdash-cms-plugin-registry",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "CMS",
+        "MCP(Model Context Protocol)",
+        "Sandboxed Plugins",
+        "AT Protocol"
+      ],
+      "one_line": "MCP 서버를 내장하고 보안 플러그인 생태계를 갖춘 오픈소스 CMS 'EmDash 1.0' 출시",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "Cloudflare",
+      "title": "The road to the agentic browser: A Kitesurf update",
+      "link": "https://blog.cloudflare.com/kitesurf-update",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Browser",
+        "WebMCP",
+        "Browser Automation"
+      ],
+      "one_line": "AI 에이전트 전용 브라우저 'Kitesurf'의 WebMCP 지원 및 성능 최적화 업데이트",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Forge: the open source pipeline for generating SDKs, CLIs, docs, and more",
+      "link": "https://blog.cloudflare.com/forge-open-source-generation-pipeline",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Code Generation",
+        "API Pipeline",
+        "Developer Experience"
+      ],
+      "one_line": "API 스펙 기반의 SDK, CLI, 문서 자동 생성 파이프라인 'Forge' 오픈소스 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "Cloudflare",
+      "title": "Four months of VoidZero at Cloudflare: making the open-source JavaScript toolchain faster for all humans and agents",
+      "link": "https://blog.cloudflare.com/voidzero-update",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "VoidZero",
+        "Oxc",
+        "Bundled Dev"
+      ],
+      "one_line": "Cloudflare의 VoidZero 툴체인(Vite, Oxc 등)이 성능 개선과 에이전트 최적화를 통해 개발 생산성을 대폭 향상함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing cf: the agentic CLI for the entire Cloudflare API",
+      "link": "https://blog.cloudflare.com/cloudflare-cf-cli-launch",
+      "published_at": "Mon, 28 Sep 2026 14:50:37 GMT",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic CLI",
+        "Infrastructure as Code",
+        "LSP(Language Server Protocol)"
+      ],
+      "one_line": "AI 에이전트가 Cloudflare API를 완벽하게 제어할 수 있도록 설계된 에이전트 전용 CLI 'cf' 출시.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "Cloudflare",
+      "title": "Next.js applications, powered by Vite: introducing Vinext 1.0",
+      "link": "https://blog.cloudflare.com/vinext-nextjs-on-vite",
+      "published_at": "Mon, 28 Sep 2026 14:51:57 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Vinext",
+        "Cache Warming",
+        "Framework Portability"
+      ],
+      "one_line": "Next.js 애플리케이션을 Vite 기반으로 변환하여 어디서든 배포 가능하게 만드는 Vinext 1.0 출시.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "AWS Compute",
+      "title": "Improving Lambda function latency with scalable network bandwidth",
+      "link": "https://aws.amazon.com/blogs/compute/improving-lambda-function-latency-with-scalable-network-bandwidth",
+      "published_at": "Mon, 28 Sep 2026 21:17:09 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Lambda",
+        "Network Throughput",
+        "ETL Pipeline"
+      ],
+      "one_line": "AWS Lambda가 메모리 설정에 따라 네트워크 대역폭을 최대 3Gbps까지 확장 지원하여 데이터 처리 성능 대폭 향상.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "AWS Compute",
+      "title": "Building event-driven applications at scale with Amazon EventBridge",
+      "link": "https://aws.amazon.com/blogs/compute/building-event-driven-applications-at-scale-with-amazon-eventbridge",
+      "published_at": "Mon, 28 Sep 2026 22:38:57 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Amazon EventBridge",
+        "Event-Driven Architecture",
+        "Schema Registry"
+      ],
+      "one_line": "Amazon EventBridge의 공유 이벤트 버스 도입으로 다중 계정 이벤트 기반 아키텍처의 가시성과 관리 효율성 개선.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "Postgres의 \"AT TIME ZONE 'UTC'\"에 숨은 함정",
+      "link": "https://news.hada.io/topic?id=34434",
+      "published_at": "2026-09-28T23:32:27+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "timestamp vs timestamptz",
+        "AT TIME ZONE",
+        "INTERVAL 연산"
+      ],
+      "one_line": "Postgres에서 timestamptz를 AT TIME ZONE 'UTC'로 변환하면 timestamp 타입으로 바뀌어 시간대 정보가 소실되므로 주의가 필요함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "코딩은 해결된 문제가 아니다",
+      "link": "https://news.hada.io/topic?id=34435",
+      "published_at": "2026-09-29T00:42:55+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "이해 부채(Understanding Debt)",
+        "비기능 요구사항(NFR)",
+        "책임성(Accountability)"
+      ],
+      "one_line": "AI 코딩 도구는 생산성을 높이지만, 시스템에 대한 이해와 책임은 여전히 인간의 영역이며 과도한 의존은 품질 저하를 초래함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "Imp - DSPy를 BEAM으로 완전히 포팅한 프로젝트",
+      "link": "https://news.hada.io/topic?id=34438",
+      "published_at": "2026-09-29T01:31:47+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "DSPy",
+        "Elixir/OTP",
+        "선언형 AI 프로그래밍"
+      ],
+      "one_line": "DSPy의 선언형 AI 프로그래밍 개념을 Elixir/OTP 환경으로 이식한 Imp 프로젝트가 공개됨.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "문제는 AI 코드가 아니라, 이제 아무도 아무것도 모른다는 것이다",
+      "link": "https://news.hada.io/topic?id=34439",
+      "published_at": "2026-09-29T02:43:43+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "이해 부채",
+        "시스템 아키텍처",
+        "소프트웨어 유지보수성"
+      ],
+      "one_line": "AI가 코딩을 대신하면서 시스템의 설계 의도와 구조를 이해하는 사람이 사라지는 '이해 부채' 문제가 심화되고 있음.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "Claude Sonnet 5.5 출시",
+      "link": "https://news.hada.io/topic?id=34444",
+      "published_at": "2026-09-29T03:45:21+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM 추론 최적화",
+        "에이전트 코딩 벤치마크",
+        "비용 효율적 모델링"
+      ],
+      "one_line": "Claude Sonnet 5.5는 이전 세대 대비 출력 속도와 비용 효율을 크게 개선하며 코딩 및 에이전트 작업 성능을 강화함.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "PS5의 RTMP 스트림 가로채기",
+      "link": "https://news.hada.io/topic?id=34447",
+      "published_at": "2026-09-29T04:43:32+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "RTMP",
+        "DNS Spoofing",
+        "nginx-rtmp"
+      ],
+      "one_line": "PS5의 RTMP 스트림을 DNS 조작과 nginx-rtmp로 가로채어 캡처 카드 없이 로컬에서 수신하기",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "제대로 된 AI 제품은 어떤 모습이어야 할까?",
+      "link": "https://news.hada.io/topic?id=34452",
+      "published_at": "2026-09-29T06:37:32+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Grounding",
+        "Vigilance Decrement",
+        "Human-in-the-loop"
+      ],
+      "one_line": "AI 제품은 단순한 챗봇이 아닌, 오류 검증과 데이터 출처 확인이 내장된 문제 해결 도구여야 함",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "Diskless Kafka: 브로커가 데이터를 소유하지 않으면 무엇이 달라질까?",
+      "link": "https://news.hada.io/topic?id=34454",
+      "published_at": "2026-09-29T07:14:45+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Diskless Kafka",
+        "Tiered Storage",
+        "KIP-1150"
+      ],
+      "one_line": "브로커 로컬 디스크 대신 공유 객체 스토리지를 활용하여 Kafka의 운영 효율과 비용을 최적화하는 Diskless Kafka",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "인덱스 하나 더의 참을 수 없는 가벼움",
+      "link": "https://news.hada.io/topic?id=34455",
+      "published_at": "2026-09-29T07:20:37+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "HOT(Heap-Only Tuples)",
+        "WAL(Write-Ahead Logging)",
+        "PostgreSQL Indexing"
+      ],
+      "one_line": "코딩 에이전트가 생성한 과도한 인덱스는 쓰기 성능 저하와 WAL 비용 증가를 유발하므로 정기적인 성능 검토가 필수적임",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "DuckDB 2.0이 더 빠른 이유",
+      "link": "https://news.hada.io/topic?id=34456",
+      "published_at": "2026-09-29T07:24:06+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Asynchronous I/O",
+        "Recursive CTE",
+        "Data Shredding"
+      ],
+      "one_line": "비동기 I/O와 재귀 CTE 엔진 개선으로 성능을 대폭 높인 DuckDB 2.0 알파 버전의 주요 변경 사항",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
+      "company": "GeekNews",
+      "title": "Jeff - 집에서 학습한 Jev 호환 0.8B 의사결정 모델, 약 30ms",
+      "link": "https://news.hada.io/topic?id=34459",
+      "published_at": "2026-09-29T07:43:38+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "System 1 모델",
+        "분류 모델(Classification Model)",
+        "로컬 미세조정(Local Fine-tuning)"
+      ],
+      "one_line": "로컬 환경에서 30ms 내외로 의사결정을 수행하는 0.8B~2B 규모의 경량 분류 모델 'Jeff' 공개",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-09-28T08:40:27.555777+09:00",
       "company": "GeekNews",
       "title": "OpenAI 에이전트, 정부 사이트 보안 우회하고 이용자 이미지도 외부 전송",
@@ -1923,5 +2261,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-28T08:40:27.555777+09:00"
+  "updated_at": "2026-09-29T09:50:58.458259+09:00"
 }

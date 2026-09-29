@@ -1,0 +1,697 @@
+{
+  "schema_version": 1,
+  "issue_number": 11,
+  "issue_date": "2026-09-29",
+  "generated_at": "2026-09-29T09:50:57.971947+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, AI Security Agent, LLM Inference Optimization, Developer Experience, Infrastructure as Code\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 코드 생성을 넘어 인프라 제어와 보안 감사, 실시간 의사결정의 주체로 진화하고 있습니다.\n\n[오늘 왜 중요한가]\n\n이제 AI는 단순히 코드를 짜주는 도구를 넘어, API를 직접 호출하고 보안 취약점을 탐지하며 인프라를 관리하는 에이전트 중심의 워크플로로 빠르게 전환되고 있습니다. 개발자는 이러한 에이전트 친화적인 환경을 이해하고, 시스템의 복잡성을 통제할 수 있는 아키텍처 역량을 갖추는 것이 필수적입니다.\n\n[왜 이 글들을 골랐나]\n\n• 7번: Cloudflare API를 에이전트가 직접 제어할 수 있게 설계된 전용 CLI는 에이전트 기반 인프라 자동화의 표준을 제시합니다.\n• 1번: AI 에이전트를 활용한 보안 취약점 탐지는 실무에서 가장 즉각적으로 도입 가능한 자동화 워크플로입니다.\n• 15번: Claude Sonnet 5.5의 성능과 비용 효율 개선은 에이전트 워크플로의 경제성과 실용성을 결정짓는 핵심 요소입니다.\n\n[오늘 공부해볼 것]\n\n• Agentic CLI 활용법: 기존의 수동 CLI 작업을 에이전트가 수행할 수 있는 스크립트나 설정으로 변환하는 방법을 익혀 생산성을 높입니다.\n• AI 보안 감사 워크플로: GitHub Security Lab의 태스크플로를 활용해 로컬 프로젝트의 취약점을 점검하고, AI가 발견한 이슈를 검증하는 프로세스를 연습합니다.\n• LLM 추론 비용 최적화: 모델의 응답 속도와 토큰 효율을 개선하여 에이전트의 대기 시간을 줄이고 운영 비용을 절감하는 전략을 학습합니다.",
+  "stats": {
+    "candidate_count": 44,
+    "detailed_count": 21,
+    "brief_count": 4,
+    "excluded_count": 19,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "Cloudflare",
+      "title": "Introducing cf: the agentic CLI for the entire Cloudflare API",
+      "link": "https://blog.cloudflare.com/cloudflare-cf-cli-launch",
+      "published_at": "Mon, 28 Sep 2026 14:50:37 GMT",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 API 활용을 위한 전용 CLI 출시는 에이전트 워크플로 자동화의 핵심적인 도구 변화를 의미합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트가 Cloudflare API를 완벽하게 제어할 수 있도록 설계된 에이전트 전용 CLI 'cf' 출시.",
+      "key_points": [
+        "기존 Wrangler의 한계를 넘어 3,000개 이상의 Cloudflare API를 지원하며, JSON 기본 출력으로 에이전트의 토큰 효율성을 극대화함.",
+        "TypeScript 기반의 cloudflare.config.ts를 도입하여 에이전트가 타입 안전성을 바탕으로 설정을 프로그래밍 방식으로 수정 가능함.",
+        "cf cli search 기능을 통해 에이전트가 자연어로 필요한 명령어를 스스로 탐색하고 실행할 수 있는 에이전트 중심 워크플로를 제공함."
+      ],
+      "topics": [
+        "Agentic CLI",
+        "Infrastructure as Code",
+        "LSP(Language Server Protocol)"
+      ],
+      "recommended_for": "Cloudflare 인프라를 AI 에이전트로 자동화하거나 관리하려는 DevOps 및 백엔드 개발자.",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "기존 Wrangler 프로젝트를 cf CLI로 마이그레이션하고 에이전트 지침 업데이트하기",
+        "steps": [
+          "cf CLI를 설치하고 기존 프로젝트에서 cf migrate 실행",
+          "cloudflare.config.ts 파일 구조를 확인하고 기존 환경 변수 및 설정을 타입 안전하게 재정의",
+          "사용 중인 AI 에이전트(Claude Code 등)의 전역 지침(AGENTS.md)에 cf CLI 사용 규칙 추가"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "How we found 24 Android vulnerabilities using our open source AI security agent",
+      "link": "https://github.blog/security/how-we-found-24-android-vulnerabilities-using-our-open-source-ai-security-agent",
+      "published_at": "Mon, 28 Sep 2026 19:00:00 +0000",
+      "selection_score": 15,
+      "selection_reason": "AI Agent를 활용한 보안 취약점 탐지 워크플로는 실무적 가치가 매우 높고 최신 트렌드를 잘 반영하고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub Security Lab의 AI 에이전트를 활용한 안드로이드 앱 취약점 자동 탐지 워크플로",
+      "key_points": [
+        "GitHub Security Lab은 AI 에이전트를 통해 안드로이드 앱의 복잡한 로직 취약점을 탐지하는 오픈소스 태스크플로를 공개함.",
+        "진입점 분석과 취약점 클래스 분류를 결합한 프롬프트 엔지니어링으로 LLM의 탐지 정확도를 높임.",
+        "LLM은 취약점 발견에는 뛰어나지만 심각도 판단에는 한계가 있어 보안 전문가의 검토가 필수적임."
+      ],
+      "topics": [
+        "AI Security Agent",
+        "Taskflow Prompting",
+        "Logic Vulnerability"
+      ],
+      "recommended_for": "모바일 앱 보안을 강화하고 AI를 활용한 자동화된 코드 감사 워크플로를 구축하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "GitHub Security Lab의 태스크플로를 사용하여 로컬 프로젝트 보안 감사 수행",
+        "steps": [
+          "seclab-taskflows 저장소를 클론하고 Codespace 환경을 설정함",
+          "제공된 스크립트를 실행하여 타겟 프로젝트의 취약점 진단 수행",
+          "생성된 SQLite 결과 파일을 분석하여 발견된 이슈의 실제 위험도 검증"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude Sonnet 5.5 출시",
+      "link": "https://news.hada.io/topic?id=34444",
+      "published_at": "2026-09-29T03:45:21+09:00",
+      "selection_score": 15,
+      "selection_reason": "LLM 성능 개선 및 비용 효율화는 현재 가장 중요한 기술적 관심사이며 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Sonnet 5.5는 이전 세대 대비 출력 속도와 비용 효율을 크게 개선하며 코딩 및 에이전트 작업 성능을 강화함.",
+      "key_points": [
+        "Sonnet 5.5는 Sonnet 5 대비 출력 속도가 30% 이상 빠르며, 작업당 비용을 최대 30% 절감함.",
+        "Terminal-Bench 4.0에서 70.6%의 높은 점수를 기록하며 코딩 및 도구 호출 능력이 대폭 향상됨.",
+        "사이버 안전장치와 추론 추출 방지 분류기를 적용하여 고위험 작업에 대한 보안성을 강화함."
+      ],
+      "topics": [
+        "LLM 추론 최적화",
+        "에이전트 코딩 벤치마크",
+        "비용 효율적 모델링"
+      ],
+      "recommended_for": "LLM API 비용 절감과 에이전트 성능 개선이 필요한 백엔드 및 AI 서비스 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "기존 Claude Sonnet 5 기반 워크플로의 Sonnet 5.5 마이그레이션 검토",
+        "steps": [
+          "마이그레이션 가이드를 참조하여 between_tools 설정 등 API 변경 사항 확인",
+          "현재 운영 중인 에이전트 워크플로의 토큰 사용량과 응답 속도를 Sonnet 5.5로 테스트하여 비용 절감 효과 측정"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "Cloudflare",
+      "title": "Supporting native Rust in Workers with the new Emscripten target for wasm-bindgen",
+      "link": "https://blog.cloudflare.com/rust-workers-emscripten-target",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "Rust와 WebAssembly를 활용한 서버 사이드 성능 개선 및 백엔드 아키텍처 확장에 중요한 기술적 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Workers에서 Rust와 Tokio를 네이티브하게 지원하는 Emscripten 타겟 공개",
+      "key_points": [
+        "wasm-bindgen에 Emscripten 타겟을 추가하여 Rust 애플리케이션의 Workers 호환성을 대폭 향상함.",
+        "JSPI(JavaScript Promise Integration)와 LocalEventLoop 설계를 통해 비동기 런타임인 Tokio를 Workers 환경에 통합함.",
+        "기존의 C++ 라이브러리와 Rust 코드가 상호 운용 가능해지며, 서버 사이드 WebAssembly 성능이 최적화됨."
+      ],
+      "topics": [
+        "WebAssembly",
+        "Emscripten",
+        "JSPI",
+        "Tokio Runtime"
+      ],
+      "recommended_for": "Rust를 사용하여 고성능 서버 사이드 로직을 Cloudflare Workers에서 운영하려는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "EmDash 1.0: the stable CMS with a secure plugin registry",
+      "link": "https://blog.cloudflare.com/emdash-cms-plugin-registry",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "MCP 서버를 내장한 CMS 출시는 AI Agent와의 연동을 고려하는 개발자에게 매우 유용한 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "MCP 서버를 내장하고 보안 플러그인 생태계를 갖춘 오픈소스 CMS 'EmDash 1.0' 출시",
+      "key_points": [
+        "Astro 기반의 EmDash 1.0은 AI 에이전트가 API, CLI, MCP 서버를 통해 직접 콘텐츠를 관리할 수 있도록 설계됨.",
+        "플러그인 생태계는 AT Protocol을 활용한 탈중앙화 방식으로 운영되어 특정 플랫폼에 종속되지 않음.",
+        "샌드박스 기반의 플러그인 런타임을 도입하여 보안성을 강화하고, 관리자가 플러그인의 권한을 명확히 제어할 수 있음."
+      ],
+      "topics": [
+        "CMS",
+        "MCP(Model Context Protocol)",
+        "Sandboxed Plugins",
+        "AT Protocol"
+      ],
+      "recommended_for": "AI 에이전트와 연동 가능한 차세대 CMS를 찾거나 탈중앙화된 플러그인 아키텍처에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "The road to the agentic browser: A Kitesurf update",
+      "link": "https://blog.cloudflare.com/kitesurf-update",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "Agentic Workflow를 위한 브라우저 기술과 WebMCP 지원은 현재 가장 주목해야 할 기술 분야입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트 전용 브라우저 'Kitesurf'의 WebMCP 지원 및 성능 최적화 업데이트",
+      "key_points": [
+        "Kitesurf가 WebMCP를 지원하여 AI 에이전트가 웹사이트 기능을 도구처럼 직접 호출할 수 있게 됨.",
+        "브라우저 엔진 내부 최적화를 통해 DOM 탐색 및 자바스크립트 실행 효율을 높여 에이전트의 추론 지연 시간을 단축함.",
+        "터미널 기반 렌더링 모드를 추가하여 개발자가 터미널 환경에서 에이전트의 브라우징 과정을 실시간으로 확인 가능함."
+      ],
+      "topics": [
+        "Agentic Browser",
+        "WebMCP",
+        "Browser Automation"
+      ],
+      "recommended_for": "AI 에이전트의 웹 상호작용 성능을 개선하고 자동화된 브라우징 워크플로를 구축하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Kitesurf 터미널 모드를 설치하여 AI 에이전트의 브라우징 시각화 테스트",
+        "steps": [
+          "Kitesurf 터미널 버전을 설치하고 로컬 환경에서 실행",
+          "웹사이트를 렌더링하여 에이전트가 페이지를 인식하는 방식 확인",
+          "Browser Run API를 통해 Playwright/Puppeteer와 연동하여 자동화 스크립트 작성"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Forge: the open source pipeline for generating SDKs, CLIs, docs, and more",
+      "link": "https://blog.cloudflare.com/forge-open-source-generation-pipeline",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI Agent를 고객으로 상정하고 SDK와 CLI를 자동 생성하는 파이프라인은 개발 생산성 측면에서 매우 혁신적입니다.",
+      "feedback_bias": 0,
+      "one_line": "API 스펙 기반의 SDK, CLI, 문서 자동 생성 파이프라인 'Forge' 오픈소스 공개",
+      "key_points": [
+        "Forge는 API 변경 시 SDK와 CLI를 실시간으로 생성하고 검증하는 플러그인 방식의 자동화 파이프라인임.",
+        "OpenAPI 등 다양한 입력을 지원하며, 변환기(Transformer)를 체인으로 연결하여 복잡한 출력물 생성이 가능함.",
+        "AI 에이전트를 고객으로 상정하여 에이전트가 API를 쉽게 소비할 수 있도록 최적화된 인터페이스를 제공함."
+      ],
+      "topics": [
+        "Code Generation",
+        "API Pipeline",
+        "Developer Experience"
+      ],
+      "recommended_for": "API 관리 효율을 높이고 SDK/CLI 자동화 파이프라인을 구축하려는 백엔드 및 플랫폼 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트의 API 스펙을 Forge 파이프라인에 적용 가능성 검토",
+        "steps": [
+          "Forge 저장소의 문서를 확인하여 현재 API 스펙(OpenAPI 등)과의 호환성 확인",
+          "테스트용 API 엔드포인트를 대상으로 SDK 생성 파이프라인 구성",
+          "생성된 SDK가 실제 개발 워크플로에서 생산성을 높이는지 평가"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Four months of VoidZero at Cloudflare: making the open-source JavaScript toolchain faster for all humans and agents",
+      "link": "https://blog.cloudflare.com/voidzero-update",
+      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "JavaScript 툴체인의 대규모 성능 개선은 실무 프로젝트의 빌드 및 개발 속도에 즉각적인 이점을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare의 VoidZero 툴체인(Vite, Oxc 등)이 성능 개선과 에이전트 최적화를 통해 개발 생산성을 대폭 향상함.",
+      "key_points": [
+        "Oxc React Compiler, Vitest 5, tsgolint 등 핵심 도구들이 Rust 기반 재작성 및 최적화를 통해 기존 대비 최대 18배 빠른 속도를 달성함.",
+        "인간뿐만 아니라 AI 에이전트의 워크플로를 고려하여 빌드, 린트, 타입 체크 속도를 최적화함으로써 에이전트의 대기 시간을 최소화함.",
+        "Vite+ 1.0 출시로 통합 툴체인을 제공하여 개발자의 의사결정 피로도를 줄이고 표준화된 고성능 개발 환경을 구축함."
+      ],
+      "topics": [
+        "VoidZero",
+        "Oxc",
+        "Bundled Dev"
+      ],
+      "recommended_for": "JavaScript/TypeScript 프로젝트의 빌드 속도와 개발 생산성 향상을 고민하는 백엔드 및 프론트엔드 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 프로젝트에 Oxc React Compiler 또는 Vitest 5 도입하여 빌드/테스트 속도 측정하기",
+        "steps": [
+          "현재 프로젝트의 빌드 및 테스트 시간을 측정하여 베이스라인 확보",
+          "oxc-transform-react 패키지 설치 및 Vite 설정에 compiler 플래그 활성화",
+          "Vitest 5로 업그레이드 후 vitest doctor를 실행하여 최적화 제안 확인 및 적용"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Next.js applications, powered by Vite: introducing Vinext 1.0",
+      "link": "https://blog.cloudflare.com/vinext-nextjs-on-vite",
+      "published_at": "Mon, 28 Sep 2026 14:51:57 GMT",
+      "selection_score": 12,
+      "selection_reason": "Next.js 애플리케이션의 이식성을 높여 클라우드 배포 유연성을 확보하는 실무적인 프레임워크 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "Next.js 애플리케이션을 Vite 기반으로 변환하여 어디서든 배포 가능하게 만드는 Vinext 1.0 출시.",
+      "key_points": [
+        "Next.js 앱을 Cloudflare Workers, Netlify, AWS Lambda 등 다양한 플랫폼으로 이식할 수 있는 호환성 확보.",
+        "빌드 시점의 정적 렌더링 대신 Cloudflare 네트워크에서 수행하는 '캐시 워밍(Cache Warming)'을 통해 대규모 사이트의 배포 속도와 성능 개선.",
+        "Next.js의 App Router와 Pages Router를 모두 지원하며, 자동화된 테스트 스위트를 통해 최신 Next.js 변경 사항과의 호환성을 유지함."
+      ],
+      "topics": [
+        "Vinext",
+        "Cache Warming",
+        "Framework Portability"
+      ],
+      "recommended_for": "Next.js 앱의 특정 플랫폼 종속성을 제거하고 배포 유연성을 높이고 싶은 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Improving Lambda function latency with scalable network bandwidth",
+      "link": "https://aws.amazon.com/blogs/compute/improving-lambda-function-latency-with-scalable-network-bandwidth",
+      "published_at": "Mon, 28 Sep 2026 21:17:09 +0000",
+      "selection_score": 13,
+      "selection_reason": "Lambda의 네트워크 대역폭 확장 지원은 성능 개선과 비용 절감을 동시에 달성할 수 있는 중요한 인프라 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS Lambda가 메모리 설정에 따라 네트워크 대역폭을 최대 3Gbps까지 확장 지원하여 데이터 처리 성능 대폭 향상.",
+      "key_points": [
+        "2GB 이상의 메모리를 할당한 Lambda 함수에서 네트워크 대역폭이 메모리 비례로 확장되어 최대 4.8배(625Mbps -> 3Gbps) 성능 향상.",
+        "AWS CRT(Common Runtime) 전송 클라이언트를 사용하여 S3 등에서 데이터를 병렬로 다운로드할 때 대역폭을 온전히 활용 가능.",
+        "대규모 로그 분석, 금융 ETL, 유전체 데이터 처리 등 지연 시간에 민감한 데이터 집약적 워크로드에 최적화됨."
+      ],
+      "topics": [
+        "AWS Lambda",
+        "Network Throughput",
+        "ETL Pipeline"
+      ],
+      "recommended_for": "Lambda를 활용한 데이터 처리 파이프라인의 성능 병목을 겪고 있는 백엔드 및 데이터 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "데이터 집약적 Lambda 함수의 메모리 설정을 높이고 네트워크 처리량 벤치마크 수행",
+        "steps": [
+          "AWS Service Quotas에서 'Network bandwidth per execution environment' 할당량 증설 요청",
+          "기존 1GB 이하 메모리 설정의 Lambda 함수를 10GB로 상향 조정",
+          "Boto3의 CRT 기반 download_fileobj를 사용하여 대용량 S3 객체 다운로드 속도 비교 측정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Building event-driven applications at scale with Amazon EventBridge",
+      "link": "https://aws.amazon.com/blogs/compute/building-event-driven-applications-at-scale-with-amazon-eventbridge",
+      "published_at": "Mon, 28 Sep 2026 22:38:57 +0000",
+      "selection_score": 11,
+      "selection_reason": "이벤트 기반 아키텍처의 확장성 문제와 비용 구조를 다루고 있어 백엔드 설계 시 참고할 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon EventBridge의 공유 이벤트 버스 도입으로 다중 계정 이벤트 기반 아키텍처의 가시성과 관리 효율성 개선.",
+      "key_points": [
+        "플랫폼 팀이 관리하는 공유 버스를 통해 계정 간 복잡한 포워딩 규칙 없이 중앙 집중식 거버넌스 및 구독 관리가 가능함.",
+        "Avro, Protobuf 등 다양한 데이터 포맷을 지원하며, 이벤트 보존 및 재처리 기능을 통해 장애 대응 능력을 강화함.",
+        "이벤트 소비자가 자신의 계정에서 직접 Subscriber 리소스를 생성하여 플랫폼 팀의 개입 없이 자율적인 온보딩이 가능함."
+      ],
+      "topics": [
+        "Amazon EventBridge",
+        "Event-Driven Architecture",
+        "Schema Registry"
+      ],
+      "recommended_for": "마이크로서비스 아키텍처에서 이벤트 기반 통신을 설계하거나 관리하는 백엔드 아키텍트.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Postgres의 \"AT TIME ZONE 'UTC'\"에 숨은 함정",
+      "link": "https://news.hada.io/topic?id=34434",
+      "published_at": "2026-09-28T23:32:27+09:00",
+      "selection_score": 12,
+      "selection_reason": "Postgres 데이터 타입 변환 시 발생하는 실무적인 함정을 다루고 있어 SQL 운영 시 즉각적인 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Postgres에서 timestamptz를 AT TIME ZONE 'UTC'로 변환하면 timestamp 타입으로 바뀌어 시간대 정보가 소실되므로 주의가 필요함.",
+      "key_points": [
+        "timestamptz에 AT TIME ZONE 'UTC'를 적용하면 시간대 정보가 없는 timestamp 타입으로 변환되어 현실 시점을 나타내지 못함.",
+        "월 단위 연산(INTERVAL '1 months')은 시간대에 의존하므로, UTC 변환 후 연산하고 다시 AT TIME ZONE 'UTC'를 적용해 timestamptz로 복구해야 정확한 비교가 가능함.",
+        "Postgres 16 이상에서는 date_add 함수에 시간대를 직접 지정하여 타입 변환 문제를 회피하는 방식이 권장됨."
+      ],
+      "topics": [
+        "timestamp vs timestamptz",
+        "AT TIME ZONE",
+        "INTERVAL 연산"
+      ],
+      "recommended_for": "Postgres에서 시계열 데이터를 다루거나 시간대 관련 쿼리 최적화를 고민하는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 프로젝트의 시간대 변환 쿼리 검증 및 date_add 적용 테스트",
+        "steps": [
+          "현재 운영 중인 쿼리 중 AT TIME ZONE 'UTC'를 사용하는 부분을 찾아 타입 변환이 의도대로 동작하는지 확인",
+          "Postgres 16 환경에서 date_add 함수를 사용하여 기존 이중 변환 로직을 대체할 수 있는지 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "코딩은 해결된 문제가 아니다",
+      "link": "https://news.hada.io/topic?id=34435",
+      "published_at": "2026-09-29T00:42:55+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 코딩 도구 도입 이후의 유지보수와 신뢰성 문제를 다루어 개발 생산성 관점에서 깊이 있는 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 도구는 생산성을 높이지만, 시스템에 대한 이해와 책임은 여전히 인간의 영역이며 과도한 의존은 품질 저하를 초래함.",
+      "key_points": [
+        "AI는 코드 생성 비용을 낮췄으나, 유지보수·신뢰성·보안 등 비기능 요구사항(NFR)은 여전히 사람이 책임져야 함.",
+        "AI에 대한 과도한 의존은 시스템 아키텍처 이해도를 낮추고, 장애 발생 시 복구 능력을 상실하게 만드는 '이해 부채'를 발생시킴.",
+        "코드 줄 수나 PR 수 같은 지표보다 서비스 수준과 비즈니스 가치를 우선시하고, AI를 도구로 활용하되 주도권은 인간이 유지해야 함."
+      ],
+      "topics": [
+        "이해 부채(Understanding Debt)",
+        "비기능 요구사항(NFR)",
+        "책임성(Accountability)"
+      ],
+      "recommended_for": "AI 코딩 도구를 도입 중이거나 팀의 개발 생산성 지표를 고민하는 기술 리드 및 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Imp - DSPy를 BEAM으로 완전히 포팅한 프로젝트",
+      "link": "https://news.hada.io/topic?id=34438",
+      "published_at": "2026-09-29T01:31:47+09:00",
+      "selection_score": 14,
+      "selection_reason": "DSPy의 개념을 Elixir/OTP 환경으로 이식한 프로젝트로, AI Agent 및 워크플로 최적화에 관심 있는 사용자에게 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "DSPy의 선언형 AI 프로그래밍 개념을 Elixir/OTP 환경으로 이식한 Imp 프로젝트가 공개됨.",
+      "key_points": [
+        "Imp는 DSPy의 시그니처, 모듈, 최적화기 개념을 Elixir의 동시성과 감독 프로세스(OTP) 위에서 구현함.",
+        "프롬프트를 직접 작성하는 대신 입출력 시그니처를 정의하고, 예제와 평가 지표를 통해 프로그램을 스스로 개선함.",
+        "에이전트를 독립적인 감독 프로세스로 실행하여 도구 호출 승인, 재시도, 관찰을 안전하게 관리할 수 있음."
+      ],
+      "topics": [
+        "DSPy",
+        "Elixir/OTP",
+        "선언형 AI 프로그래밍"
+      ],
+      "recommended_for": "Elixir/OTP 환경에서 안정적인 AI 에이전트 워크플로를 구축하고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Imp를 활용한 간단한 이슈 분류 에이전트 프로토타이핑",
+        "steps": [
+          "Elixir 환경에 Imp 라이브러리를 설치하고 튜토리얼의 이슈 분류 예제를 실행",
+          "자체 데이터셋을 활용하여 LabeledFewShot 최적화기가 프롬프트 성능을 개선하는지 측정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "문제는 AI 코드가 아니라, 이제 아무도 아무것도 모른다는 것이다",
+      "link": "https://news.hada.io/topic?id=34439",
+      "published_at": "2026-09-29T02:43:43+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 도입이 가속화되는 현시점에서 개발 조직의 아키텍처 이해도 저하라는 실무적 위기를 깊이 있게 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 코딩을 대신하면서 시스템의 설계 의도와 구조를 이해하는 사람이 사라지는 '이해 부채' 문제가 심화되고 있음.",
+      "key_points": [
+        "AI가 생성한 코드를 검토 없이 배포하는 문화는 시스템의 동작 원리를 모르는 상태로 운영하게 만들어 장기적인 유지보수 위기를 초래함.",
+        "코딩은 업무의 일부일 뿐이며, 좋은 엔지니어는 문제의 본질을 파악하고 아키텍처를 설계하는 안목을 갖춰야 함.",
+        "AI를 활용하더라도 시스템의 핵심부와 업무 영역 간 연결 지점은 사람이 직접 이해하고 통제권을 유지해야 함."
+      ],
+      "topics": [
+        "이해 부채",
+        "시스템 아키텍처",
+        "소프트웨어 유지보수성"
+      ],
+      "recommended_for": "AI 도입으로 인한 팀의 기술적 역량 저하를 우려하는 CTO 및 시니어 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "PS5의 RTMP 스트림 가로채기",
+      "link": "https://news.hada.io/topic?id=34447",
+      "published_at": "2026-09-29T04:43:32+09:00",
+      "selection_score": 11,
+      "selection_reason": "네트워크 패킷 가로채기와 스트림 우회 등 시스템 아키텍처와 네트워크 이해도를 높이는 실무적 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "PS5의 RTMP 스트림을 DNS 조작과 nginx-rtmp로 가로채어 캡처 카드 없이 로컬에서 수신하기",
+      "key_points": [
+        "PS5의 방송 기능을 이용해 Twitch로 보내는 RTMP 스트림을 DNS 응답 위조로 Mac의 로컬 IP로 우회시킴",
+        "Twitch의 RTMPS 인증서 검증을 피하기 위해 인증서 검증이 없는 일반 RTMP 엔드포인트를 찾아 연결함",
+        "수신된 스트림을 mpv 저지연 프로필로 재생하여 1초 미만의 지연 시간으로 Discord 화면 공유를 구현함"
+      ],
+      "topics": [
+        "RTMP",
+        "DNS Spoofing",
+        "nginx-rtmp"
+      ],
+      "recommended_for": "네트워크 패킷 제어와 스트리밍 아키텍처에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 네트워크에서 특정 도메인의 DNS 응답을 가로채어 트래픽 리다이렉션 실험하기",
+        "steps": [
+          "dnsmasq를 설치하고 특정 도메인에 대해 로컬 IP를 반환하도록 설정하기",
+          "nginx-rtmp 모듈을 설정하여 리다이렉트된 스트림을 수신하는 서버 구축하기"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "제대로 된 AI 제품은 어떤 모습이어야 할까?",
+      "link": "https://news.hada.io/topic?id=34452",
+      "published_at": "2026-09-29T06:37:32+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 제품 설계 시 신뢰성과 데이터 출처를 다루는 핵심적인 방법론을 제시하여 실무 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 제품은 단순한 챗봇이 아닌, 오류 검증과 데이터 출처 확인이 내장된 문제 해결 도구여야 함",
+      "key_points": [
+        "AI의 오류 가능성을 인정하는 면책 문구 대신, 사용자가 결과를 직접 검증할 수 있는 구조화된 UI와 도구를 제공해야 함",
+        "AI 생성 데이터와 원본 출처를 명확히 구분하고, 수정되지 않은 원문 인용을 최우선으로 배치하여 신뢰성을 높여야 함",
+        "사용자의 주의력 저하를 방지하기 위해 AI 출력 검토를 위한 정기적인 휴식 시간과 독립적인 검증 절차를 조직 운영에 도입해야 함"
+      ],
+      "topics": [
+        "Grounding",
+        "Vigilance Decrement",
+        "Human-in-the-loop"
+      ],
+      "recommended_for": "AI 에이전트 및 LLM 기반 제품을 기획하거나 개발하는 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Diskless Kafka: 브로커가 데이터를 소유하지 않으면 무엇이 달라질까?",
+      "link": "https://news.hada.io/topic?id=34454",
+      "published_at": "2026-09-29T07:14:45+09:00",
+      "selection_score": 14,
+      "selection_reason": "백엔드 아키텍처와 데이터 처리 효율성을 개선하는 최신 기술 트렌드로 실무적 가치가 매우 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "브로커 로컬 디스크 대신 공유 객체 스토리지를 활용하여 Kafka의 운영 효율과 비용을 최적화하는 Diskless Kafka",
+      "key_points": [
+        "Diskless Kafka는 메시지 영속성을 브로커 로컬 디스크가 아닌 S3 같은 객체 스토리지에 위임하여 복제 비용과 운영 부담을 줄임",
+        "메시지 순서와 오프셋 관리는 강한 일관성을 가진 메타데이터 계층이 담당하며, 물리 로그 대신 논리 로그를 재구성함",
+        "고처리량 로그 수집이나 분석 데이터 스트림에는 적합하지만, 지연에 민감한 명령형 워크로드에는 기존 로컬 저장 방식이 여전히 유리함"
+      ],
+      "topics": [
+        "Diskless Kafka",
+        "Tiered Storage",
+        "KIP-1150"
+      ],
+      "recommended_for": "대규모 데이터 파이프라인을 운영하며 클라우드 비용 절감을 고민하는 백엔드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "인덱스 하나 더의 참을 수 없는 가벼움",
+      "link": "https://news.hada.io/topic?id=34455",
+      "published_at": "2026-09-29T07:20:37+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트가 생성한 코드의 성능 이슈와 데이터베이스 최적화 문제를 다루어 실무에 즉시 적용 가능한 통찰을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "코딩 에이전트가 생성한 과도한 인덱스는 쓰기 성능 저하와 WAL 비용 증가를 유발하므로 정기적인 성능 검토가 필수적임",
+      "key_points": [
+        "에이전트가 생성한 인덱스는 읽기 성능은 높이지만, 쓰기가 빈번한 테이블에서는 HOT 업데이트를 방해하고 WAL 기록량을 급증시킴",
+        "인덱스 개수보다 '어떤 컬럼을 인덱싱하는가'가 중요하며, 수정이 잦은 컬럼에 인덱스가 있으면 성능 손실이 큼",
+        "사용하지 않는 인덱스를 식별하기 위해 pg_stat_user_indexes를 주기적으로 확인하고, 쓰기 중심 테이블의 인덱스 밀도를 관리해야 함"
+      ],
+      "topics": [
+        "HOT(Heap-Only Tuples)",
+        "WAL(Write-Ahead Logging)",
+        "PostgreSQL Indexing"
+      ],
+      "recommended_for": "PostgreSQL 성능 최적화와 데이터베이스 스키마 설계를 담당하는 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "운영 중인 DB 테이블의 인덱스 사용 통계 분석 및 불필요한 인덱스 정리",
+        "steps": [
+          "pg_stat_user_indexes를 조회하여 idx_scan이 0이거나 매우 낮은 인덱스 목록 추출하기",
+          "해당 인덱스가 유일성 제약(Unique Constraint)을 위한 것인지 확인 후 삭제 후보 선정하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "DuckDB 2.0이 더 빠른 이유",
+      "link": "https://news.hada.io/topic?id=34456",
+      "published_at": "2026-09-29T07:24:06+09:00",
+      "selection_score": 12,
+      "selection_reason": "데이터 분석 및 성능 개선을 위한 도구 업데이트로 실무적인 성능 최적화 사례를 배울 수 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "비동기 I/O와 재귀 CTE 엔진 개선으로 성능을 대폭 높인 DuckDB 2.0 알파 버전의 주요 변경 사항",
+      "key_points": [
+        "비동기 I/O를 도입하여 S3 데이터 읽기 시 다운로드와 CPU 연산을 병렬화함으로써 대형 파일 처리 성능을 2~3배 향상함",
+        "재귀 CTE 엔진을 재작성하여 매 단계 전체 테이블을 읽지 않고 조회 구조를 재사용함으로써 깊은 계층 탐색 속도를 획기적으로 개선함",
+        "VARIANT 필드의 슈레딩(shredding) 기술로 일관된 필드를 내부 열로 분리 저장하여 JSON 파싱 대비 조회 성능을 약 6배 높임"
+      ],
+      "topics": [
+        "Asynchronous I/O",
+        "Recursive CTE",
+        "Data Shredding"
+      ],
+      "recommended_for": "데이터 분석 파이프라인을 구축하거나 대용량 로그 처리를 최적화하려는 데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "DuckDB 2.0 알파 버전을 활용한 S3 Parquet 파일 읽기 성능 벤치마크",
+        "steps": [
+          "DuckDB 2.0 알파 버전을 설치하고 기존 1.5.x 버전과 동일한 S3 데이터셋으로 쿼리 실행 시간 비교하기",
+          "VARIANT 타입을 활용하여 JSON 로그 데이터를 저장하고 필터링 성능 측정해보기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Jeff - 집에서 학습한 Jev 호환 0.8B 의사결정 모델, 약 30ms",
+      "link": "https://news.hada.io/topic?id=34459",
+      "published_at": "2026-09-29T07:43:38+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM을 활용한 의사결정 모델의 로컬 최적화 사례로, AI Agent 및 성능 개선 분야에서 실무적 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "로컬 환경에서 30ms 내외로 의사결정을 수행하는 0.8B~2B 규모의 경량 분류 모델 'Jeff' 공개",
+      "key_points": [
+        "Jeff는 텍스트 생성 없이 자연어 입력에 대해 선택지별 확률을 반환하는 분류 모델로, RTX PRO 6000 기준 22ms, M4 Max 기준 28ms의 빠른 추론 속도를 제공함.",
+        "Qwen3.5와 Gemma 4를 기반으로 미세조정되었으며, 특정 도메인 데이터로 30분 내외의 추가 학습을 통해 정확도를 95% 이상으로 높일 수 있음.",
+        "복잡한 추론보다는 실시간 게임 행동 선택, 의도 분류, 콘텐츠 검토 등 빠른 의사결정이 필요한 시스템 1(System 1) 작업에 최적화됨."
+      ],
+      "topics": [
+        "System 1 모델",
+        "분류 모델(Classification Model)",
+        "로컬 미세조정(Local Fine-tuning)"
+      ],
+      "recommended_for": "실시간 서비스에서 LLM의 추론 비용과 지연 시간을 줄이고자 하는 백엔드 및 AI 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "기존 LLM 기반 분류 작업을 Jeff 모델로 대체하여 성능 및 비용 최적화 테스트",
+        "steps": [
+          "GitHub에서 Jeff 모델(Qwen3.5-0.8B)을 다운로드하여 로컬 환경(PyTorch 또는 MLX)에 세팅한다.",
+          "현재 운영 중인 서비스의 분류 작업(예: 의도 파악, 감정 분석) 데이터를 Jeff의 입력 형식(choice, noul, score)으로 변환한다.",
+          "기존 API 호출 대비 추론 속도와 정확도를 비교 측정하고, 필요시 도메인 데이터를 활용해 추가 미세조정을 수행한다."
+        ],
+        "effort": "1~2시간"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GitHub Blog",
+      "title": "Highlights from Git 2.56",
+      "link": "https://github.blog/open-source/git/highlights-from-git-2-56",
+      "published_at": "Mon, 28 Sep 2026 17:23:33 +0000",
+      "selection_score": 10,
+      "selection_reason": "Git의 최신 기능 업데이트는 개발 워크플로 효율성에 직접적인 영향을 주므로 확인이 필요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "How fast is the web? Explore billions of real-user measurements with BEACON",
+      "link": "https://blog.cloudflare.com/how-fast-is-the-web",
+      "published_at": "Mon, 28 Sep 2026 14:43:05 GMT",
+      "selection_score": 9,
+      "selection_reason": "웹 성능 측정 데이터는 서비스 최적화와 사용자 경험 개선을 고민하는 실무자에게 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "MongoDB CEO, Meta 기업용 AI 사업 이끌기 위해 사임",
+      "link": "https://news.hada.io/topic?id=34440",
+      "published_at": "2026-09-29T02:46:43+09:00",
+      "selection_score": 9,
+      "selection_reason": "주요 기술 기업의 리더십 변화와 Meta의 기업용 AI 전략 방향을 파악하는 데 유의미합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "대부분의 기술 혁명은 직원들의 일을 더 힘들게 만들었다. AI는 예외가 될 수 있다",
+      "link": "https://news.hada.io/topic?id=34453",
+      "published_at": "2026-09-29T07:08:08+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI가 업무 자동화와 생산성에 미치는 영향에 대한 통찰을 제공하여 기술적 방향성 설정에 참고할 만합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
