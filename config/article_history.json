@@ -1,6 +1,390 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "네이버 D2",
+      "title": "Hive는 잊으려 했지만, Spark는 기억하고 있었다: 사라진 get_table RPC 복원기",
+      "link": "https://d2.naver.com/helloworld/7314597",
+      "published_at": "2026-09-29T08:39:50Z",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Thrift RPC",
+        "Hive Metastore",
+        "하위 호환성(Backward Compatibility)"
+      ],
+      "one_line": "Hive Metastore 업그레이드 시 발생한 'get_table' RPC 오류를 하위 호환성 복원으로 해결한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "Airbnb Engineering",
+      "title": "Personalization without user identity",
+      "link": "https://medium.com/airbnb-engineering/personalization-without-user-identity-8e7891a1d486",
+      "published_at": "Tue, 29 Sep 2026 17:01:01 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Cold-start Problem",
+        "Adaptive Clustering",
+        "Privacy-preserving Personalization"
+      ],
+      "one_line": "사용자 식별자 없이 지리적 근접성 기반의 'Proximity Key'를 활용한 개인화 추천 기술",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "Stripe",
+      "title": "Helping personal agents shop more intelligently and reliably with Link",
+      "link": "https://stripe.com/blog/helping-personal-agents-shop-more-intelligently-and-reliably-with-link",
+      "published_at": "Tue, 29 Sep 2026 00:00:00 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Payment Orchestration",
+        "AI Trust & Safety"
+      ],
+      "one_line": "AI 에이전트의 쇼핑 및 결제 신뢰성을 높이기 위한 Stripe Link 기능 개선",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "Cloudflare",
+      "title": "Enforce positive security with Cloudflare Application Profiles",
+      "link": "https://blog.cloudflare.com/application-profiles",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Positive Security",
+        "Schema Validation",
+        "WAF(Web Application Firewall)"
+      ],
+      "one_line": "Cloudflare Application Profiles를 통한 HTTP 요청 구조 기반의 Positive Security 정책 도입",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Threat Signals: agentic skills for open-source threat intelligence, free for every Cloudflare account",
+      "link": "https://blog.cloudflare.com/threat-signals",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Threat Intelligence",
+        "Agentic Skills",
+        "Automated Security Workflow"
+      ],
+      "one_line": "AI 에이전트 기술을 활용하여 오픈소스 위협 인텔리전스를 자동화하는 'Threat Signals'",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "Cloudflare",
+      "title": "We tested our own WAF with frontier AI models. Here’s what we found",
+      "link": "https://blog.cloudflare.com/adaptive-ai-waf-testing",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "WAF(Web Application Firewall)",
+        "Red Teaming",
+        "Payload Mutation"
+      ],
+      "one_line": "LLM 기반의 WAF 테스트 시스템을 구축하여 공격 페이로드 변이 및 우회 시나리오를 효과적으로 탐지하고 방어 규칙을 강화함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "Cloudflare",
+      "title": "Adaptive application security for the AI era: how Cloudflare connects code, traffic, and intelligence to stop attacks",
+      "link": "https://blog.cloudflare.com/ai-era-framework",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Security",
+        "Adaptive Security",
+        "Botbase"
+      ],
+      "one_line": "AI 에이전트의 위협에 대응하기 위해 발견, 거버넌스, 런타임 보호, 대응의 4단계 적응형 보안 프레임워크를 제안함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "AWS Architecture",
+      "title": "Build adaptive AI interfaces with the AG-UI protocol, agent swarms, and Nova Act on AWS",
+      "link": "https://aws.amazon.com/blogs/architecture/build-adaptive-ai-interfaces-with-the-ag-ui-protocol-agent-swarms-and-nova-act-on-aws",
+      "published_at": "Tue, 29 Sep 2026 13:44:23 +0000",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AG-UI Protocol",
+        "Agent Swarm",
+        "Event-Driven Architecture"
+      ],
+      "one_line": "AG-UI 프로토콜과 에이전트 스웜을 결합하여 AI의 가변적 출력에 실시간으로 적응하는 동적 UI 아키텍처 구축.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "AWS Compute",
+      "title": "Frozen package management for air-gapped RHEL-family AMIs",
+      "link": "https://aws.amazon.com/blogs/compute/frozen-package-management-for-air-gapped-rhel-family-amis",
+      "published_at": "Tue, 29 Sep 2026 15:55:07 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Air-gapped Network",
+        "Frozen Repository",
+        "Infrastructure Security"
+      ],
+      "one_line": "폐쇄망 환경에서 안전한 패키지 관리를 위해 S3 기반의 'Frozen Repository'와 2계정 분리 아키텍처를 구현함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "AWS Compute",
+      "title": "Simplify AMI discovery with Amazon EC2 and SSM Parameter Store",
+      "link": "https://aws.amazon.com/blogs/compute/simplify-ami-discovery-with-amazon-ec2-and-ssm-parameter-store",
+      "published_at": "Tue, 29 Sep 2026 16:14:17 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AMI Management",
+        "SSM Parameter Store",
+        "Infrastructure as Code (IaC)"
+      ],
+      "one_line": "EC2 DescribeImages API의 PublicSsmParameterName 필드를 활용해 AMI ID 관리의 휴먼 에러를 방지하고 자동화함.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "AWS Compute",
+      "title": "Implementing customer managed keys for AWS Lambda durable functions with Terraform",
+      "link": "https://aws.amazon.com/blogs/compute/implementing-customer-managed-keys-for-aws-lambda-durable-functions-with-terraform",
+      "published_at": "Tue, 29 Sep 2026 17:14:00 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Lambda Durable Functions",
+        "AWS KMS Customer Managed Keys",
+        "Infrastructure as Code (Terraform)"
+      ],
+      "one_line": "AWS Lambda Durable Functions에서 데이터 보안을 위해 Terraform으로 KMS 고객 관리형 키를 설정하는 방법",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "Nvidia, AI 에이전트의 접근과 행동을 제한하는 안전 플랫폼 공개",
+      "link": "https://news.hada.io/topic?id=34475",
+      "published_at": "2026-09-29T14:32:55+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Safety",
+        "Sandbox Isolation",
+        "Zero Trust Architecture"
+      ],
+      "one_line": "Nvidia가 AI 에이전트의 샌드박스 이탈을 방지하고 접근 권한을 제어하는 Open Agent Safety Platform을 공개함",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "서버 모니터링 분석 가이드",
+      "link": "https://news.hada.io/topic?id=34478",
+      "published_at": "2026-09-29T15:11:16+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "SRE Golden Signals",
+        "P99 Latency",
+        "Post-mortem"
+      ],
+      "one_line": "구글 SRE의 4가지 황금 신호를 활용한 서버 모니터링 지표 분석 및 장애 대응 가이드",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "LLM Wiki의 불량 페이지를 Jev로 선별하는 것이 가능할까?",
+      "link": "https://news.hada.io/topic?id=34483",
+      "published_at": "2026-09-29T18:01:08+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Linter",
+        "Base Rate Fallacy",
+        "AUC Evaluation"
+      ],
+      "one_line": "LLM 기반 위키의 불량 페이지 선별을 위해 Jev를 도입했으나 기저율 문제로 실패한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "AI 기업들이 광고업체에 데이터를 유출함 [pdf]",
+      "link": "https://news.hada.io/topic?id=34489",
+      "published_at": "2026-09-29T21:32:57+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Data Privacy",
+        "Third-party Tracking",
+        "Attack Surface"
+      ],
+      "one_line": "대화형 AI 서비스들이 사용자 데이터를 광고 및 추적 업체에 유출하고 있는 보안 실태 분석",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "미국 제재로 네덜란드, Microsoft 떠나 NixOS 기반 대안으로 전환 추진",
+      "link": "https://news.hada.io/topic?id=34492",
+      "published_at": "2026-09-29T23:32:29+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "NixOS",
+        "디지털 주권(Digital Sovereignty)",
+        "불변 인프라(Immutable Infrastructure)"
+      ],
+      "one_line": "네덜란드 정부가 미국산 소프트웨어 의존도를 낮추기 위해 NixOS 기반의 디지털 자율 업무 환경(DAWO)을 구축 중입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "Jeeves - 판단 전에 추론하는 Jev 방식의 의사결정 모델",
+      "link": "https://news.hada.io/topic?id=34496",
+      "published_at": "2026-09-30T01:40:54+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Chain-of-Thought(CoT)",
+        "의사결정 모델(Decision Model)",
+        "추측 디코딩(Speculative Decoding)"
+      ],
+      "one_line": "Jeeves는 판단 전 추론 과정을 거쳐 의사결정 정확도를 높인 Qwen3.5-9B 기반의 경량 모델입니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Blyck Video Understanding - Claude·Codex가 영상을 시각 근거와 함께 분석·검색하게 해주는 MCP",
+      "link": "https://news.hada.io/topic?id=34498",
+      "published_at": "2026-09-30T02:05:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "멀티모달 분석",
+        "AI 에이전트 도구 연동"
+      ],
+      "one_line": "Blyck은 Claude나 Codex가 영상을 시각적 근거와 함께 분석하고 검색할 수 있게 해주는 MCP 서버입니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI, GPT-6.1 Sol 공개",
+      "link": "https://news.hada.io/topic?id=34500",
+      "published_at": "2026-09-30T02:37:48+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "모델 효율성(Model Efficiency)",
+        "프롬프트 캐싱(Prompt Caching)",
+        "비용 최적화"
+      ],
+      "one_line": "OpenAI가 GPT-6 Astra에 근접한 성능을 훨씬 낮은 비용으로 제공하는 GPT-6.1 Sol을 공개했습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI Dots - 상시 작동하는 AI 에이전트 공개",
+      "link": "https://news.hada.io/topic?id=34501",
+      "published_at": "2026-09-30T03:40:37+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트(AI Agent)",
+        "에이전트 워크플로(Agentic Workflow)",
+        "상시 작동 에이전트(Always-on Agent)"
+      ],
+      "one_line": "OpenAI Dots는 사용자의 업무 맥락을 학습하여 상시 작동하며 프로젝트를 수행하는 AI 에이전트 서비스입니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI DevDay 2026 주요 발표 총정리",
+      "link": "https://news.hada.io/topic?id=34505",
+      "published_at": "2026-09-30T06:26:48+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Cloud-based Development Environment",
+        "Computer Use API"
+      ],
+      "one_line": "OpenAI DevDay 2026: 상시 작동 에이전트 'Dots'와 클라우드 개발 환경 'Codex' 공개",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "AI, 데이터센터 투자 붐 정당화하려면 연 매출 6조 달러 필요",
+      "link": "https://news.hada.io/topic?id=34509",
+      "published_at": "2026-09-30T06:49:36+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Infrastructure ROI",
+        "Absorption Speed",
+        "Capital Expenditure (CapEx)"
+      ],
+      "one_line": "AI 인프라 투자 정당화를 위해 2031년까지 연 매출 6조 달러 창출 필요",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "ChatGPT Pro 500",
+      "link": "https://news.hada.io/topic?id=34510",
+      "published_at": "2026-09-30T07:28:48+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Usage-based Pricing",
+        "Astra Ultrafast",
+        "API Credit Management"
+      ],
+      "one_line": "ChatGPT Pro 요금제 개편: 월 500달러 등급 신설 및 기존 사용량 정책 변경",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
+      "company": "GeekNews",
+      "title": "America.gov",
+      "link": "https://news.hada.io/topic?id=34511",
+      "published_at": "2026-09-30T07:32:15+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "RAG (Retrieval-Augmented Generation)",
+        "Public Sector AI",
+        "Data Privacy"
+      ],
+      "one_line": "미국 정부의 공식 AI 서비스 'America.gov' 공개",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-09-29T09:50:58.458259+09:00",
       "company": "GitHub Blog",
       "title": "How we found 24 Android vulnerabilities using our open source AI security agent",
@@ -2261,5 +2645,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-09-29T09:50:58.458259+09:00"
+  "updated_at": "2026-09-30T09:05:25.405740+09:00"
 }

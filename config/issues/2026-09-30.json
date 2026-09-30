@@ -1,0 +1,810 @@
+{
+  "schema_version": 1,
+  "issue_number": 12,
+  "issue_date": "2026-09-30",
+  "generated_at": "2026-09-30T09:05:24.626892+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, AI Agent Safety, AG-UI Protocol, Agent Swarm, Model Context Protocol\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 챗봇을 넘어 상시 작동하며 실제 업무를 수행하는 에이전트 워크플로 시대로 진입하고 있습니다.\n\n[오늘 왜 중요한가]\n\n최신 기술 트렌드는 AI 에이전트가 코드 작성, 테스트, 인프라 조작 등 실무 영역에 깊숙이 침투하는 방향으로 빠르게 변화하고 있습니다. 이러한 변화 속에서 에이전트의 신뢰성 확보와 안전한 실행 환경 구축은 개발자가 반드시 갖춰야 할 핵심 역량이 되었습니다.\n\n[왜 이 글들을 골랐나]\n\n• 21번: OpenAI DevDay 2026의 핵심 발표를 통해 에이전트 기반의 생산성 향상과 실무 자동화의 최신 지표를 확인할 수 있습니다.\n• 8번: AI 에이전트의 가변적 출력을 동적으로 처리하는 UI 아키텍처와 에이전트 스웜 패턴은 차세대 서비스 설계의 표준을 제시합니다.\n• 12번: 에이전트의 샌드박스 이탈 방지 및 접근 제어 플랫폼은 AI 도입 시 가장 큰 걸림돌인 보안과 거버넌스 문제를 해결하는 실무적 해법입니다.\n\n[오늘 공부해볼 것]\n\n• Agentic Workflow 설계: AI 에이전트가 복잡한 업무를 단계별로 수행하도록 오케스트레이션하는 구조를 학습하여 서비스 자동화에 적용해 봅니다.\n• AI 에이전트 보안 격리: Nvidia의 Open Agent Safety Platform 사례를 참고하여, 운영 중인 AI 에이전트의 권한을 제한하고 샌드박스 환경을 구축하는 방법을 고민해 봅니다.\n• AG-UI 프로토콜 및 실시간 스트리밍: AI의 가변적인 응답을 사용자에게 효과적으로 전달하기 위한 이벤트 기반 통신(SSE 등)과 동적 UI 렌더링 패턴을 실험해 봅니다.",
+  "stats": {
+    "candidate_count": 47,
+    "detailed_count": 24,
+    "brief_count": 7,
+    "excluded_count": 16,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "OpenAI DevDay 2026 주요 발표 총정리",
+      "link": "https://news.hada.io/topic?id=34505",
+      "published_at": "2026-09-30T06:26:48+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent와 Agentic Workflow의 핵심적인 발전 방향을 제시하며 실무 생산성에 직결되는 중요한 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI DevDay 2026: 상시 작동 에이전트 'Dots'와 클라우드 개발 환경 'Codex' 공개",
+      "key_points": [
+        "사용자가 자리를 비워도 업무를 수행하는 'Dots'와 클라우드 기반 개발 환경인 'Codex Cloud'를 통해 에이전트의 지속성과 협업 능력을 강화함.",
+        "GPT-6.1 Sol 모델은 Astra 대비 5분의 1 비용으로 향상된 코딩 및 추론 성능을 제공하며, Ultrafast 등급으로 대기 시간을 획기적으로 단축함.",
+        "Agents API의 컴퓨터 사용 기능과 Decisions API를 통해 앱 조작 및 정형화된 판단 업무를 자동화할 수 있는 인프라를 제공함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Cloud-based Development Environment",
+        "Computer Use API"
+      ],
+      "recommended_for": "AI 에이전트 도입을 검토 중이거나 개발 생산성 향상을 고민하는 백엔드 및 풀스택 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Agents API를 활용한 로컬 업무 자동화 스크립트 작성",
+        "steps": [
+          "OpenAI API 문서를 참조하여 컴퓨터 사용(Computer Use) 기능을 지원하는 간단한 에이전트 환경 구성",
+          "반복적인 로컬 터미널 작업(예: 로그 확인, 파일 정리)을 에이전트에게 위임하는 스크립트 작성",
+          "WebSocket을 활용해 에이전트와 터미널 간의 연결을 유지하며 작업 효율성 측정"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Build adaptive AI interfaces with the AG-UI protocol, agent swarms, and Nova Act on AWS",
+      "link": "https://aws.amazon.com/blogs/architecture/build-adaptive-ai-interfaces-with-the-ag-ui-protocol-agent-swarms-and-nova-act-on-aws",
+      "published_at": "Tue, 29 Sep 2026 13:44:23 +0000",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트 워크플로와 동적 UI 생성을 결합한 최신 아키텍처 패턴을 제시하여 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AG-UI 프로토콜과 에이전트 스웜을 결합하여 AI의 가변적 출력에 실시간으로 적응하는 동적 UI 아키텍처 구축.",
+      "key_points": [
+        "정적 UI의 한계를 극복하기 위해 AI 에이전트가 생성한 데이터에 맞춰 UI를 동적으로 렌더링하는 AG-UI 프로토콜을 도입함.",
+        "Strands Agents SDK의 스웜 패턴을 통해 다수의 전문 에이전트가 협업하여 복잡한 문제를 해결하고 신뢰도를 높임.",
+        "Amazon Nova Act를 활용해 API가 없는 레거시 시스템과 AI 에이전트를 자연어 명령으로 연결함."
+      ],
+      "topics": [
+        "AG-UI Protocol",
+        "Agent Swarm",
+        "Event-Driven Architecture"
+      ],
+      "recommended_for": "복잡한 AI 에이전트 워크플로를 사용자에게 효과적으로 시각화하고 제어해야 하는 풀스택 개발자 및 아키텍트.",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "AG-UI 프로토콜 기반의 실시간 이벤트 스트리밍 도입 검토",
+        "steps": [
+          "현재 서비스 중인 AI 기능 중 출력이 가변적인 부분을 식별함.",
+          "SSE(Server-Sent Events)를 활용한 이벤트 기반 통신 구조로의 전환 가능성을 검토함.",
+          "Amazon Bedrock AgentCore를 활용한 에이전트 오케스트레이션 아키텍처를 설계함."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Nvidia, AI 에이전트의 접근과 행동을 제한하는 안전 플랫폼 공개",
+      "link": "https://news.hada.io/topic?id=34475",
+      "published_at": "2026-09-29T14:32:55+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 안전한 실행 환경 구축을 위한 플랫폼 공개는 현재 AI 에이전트 분야의 가장 중요한 보안 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "Nvidia가 AI 에이전트의 샌드박스 이탈을 방지하고 접근 권한을 제어하는 Open Agent Safety Platform을 공개함",
+      "key_points": [
+        "모델 수준의 안전장치만으로는 에이전트의 샌드박스 이탈을 막기 어려워, 하드웨어 및 시스템 수준의 격리 플랫폼이 필요함.",
+        "OpenShell은 CPU 수준에서 에이전트의 기능을 제한하고, Sentry는 네트워크 칩에서 에이전트를 감시하여 비정상적인 접근을 차단함.",
+        "이 플랫폼은 참조 설계로 제공되며 Cisco, Microsoft 등 파트너와 협력하여 기업용 AI 에이전트 보안 환경을 구축함."
+      ],
+      "topics": [
+        "AI Agent Safety",
+        "Sandbox Isolation",
+        "Zero Trust Architecture"
+      ],
+      "recommended_for": "AI 에이전트의 보안 및 거버넌스 아키텍처를 고민하는 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "Hive는 잊으려 했지만, Spark는 기억하고 있었다: 사라진 get_table RPC 복원기",
+      "link": "https://d2.naver.com/helloworld/7314597",
+      "published_at": "2026-09-29T08:39:50Z",
+      "selection_score": 11,
+      "selection_reason": "대규모 데이터 플랫폼의 마이그레이션 과정에서 발생한 기술적 난제와 RPC 복원 사례는 백엔드 아키텍처 및 시스템 운영 실무에 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "Hive Metastore 업그레이드 시 발생한 'get_table' RPC 오류를 하위 호환성 복원으로 해결한 사례",
+      "key_points": [
+        "Hive 4.2 업그레이드 과정에서 제거된 레거시 RPC 'get_table'을 구버전 클라이언트를 사용하는 Spark가 호출하며 오류 발생",
+        "클라이언트 버전 업그레이드 대신 서버 측에 하위 호환용 RPC를 복원하고 기존 조회 로직을 재사용하는 방식을 채택",
+        "Thrift IDL 수정 시 Java 시그니처뿐만 아니라 필드 번호, 타입, 예외 정의 등 전체 계약을 일치시키는 것이 핵심"
+      ],
+      "topics": [
+        "Thrift RPC",
+        "Hive Metastore",
+        "하위 호환성(Backward Compatibility)"
+      ],
+      "recommended_for": "대규모 데이터 플랫폼 마이그레이션을 담당하는 백엔드 및 데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 서비스의 외부 의존성 및 API 호환성 점검",
+        "steps": [
+          "현재 시스템에서 사용하는 외부 라이브러리나 RPC 인터페이스의 deprecated 목록 확인",
+          "버전 업그레이드 시 하위 호환성이 깨질 수 있는 주요 API 경로를 매핑하여 리스크 평가"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Airbnb Engineering",
+      "title": "Personalization without user identity",
+      "link": "https://medium.com/airbnb-engineering/personalization-without-user-identity-8e7891a1d486",
+      "published_at": "Tue, 29 Sep 2026 17:01:01 GMT",
+      "selection_score": 11,
+      "selection_reason": "사용자 식별 없이 ML 모델을 개인화하는 기술적 접근은 데이터 분석 및 추천 시스템 아키텍처 설계에 실질적인 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "사용자 식별자 없이 지리적 근접성 기반의 'Proximity Key'를 활용한 개인화 추천 기술",
+      "key_points": [
+        "개인정보 보호 강화와 콜드 스타트 문제를 해결하기 위해 IP 기반의 지리적 클러스터링(Proximity Key) 도입",
+        "약 1,000명의 사용자를 하나의 버킷으로 묶어 집단적 행동 패턴을 개인화 모델의 피처로 활용",
+        "적응형 클러스터링 알고리즘을 통해 인구 밀도에 따라 동적으로 버킷 크기를 조정하여 정밀도 확보"
+      ],
+      "topics": [
+        "Cold-start Problem",
+        "Adaptive Clustering",
+        "Privacy-preserving Personalization"
+      ],
+      "recommended_for": "추천 시스템 및 데이터 분석 아키텍처를 설계하는 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Stripe",
+      "title": "Helping personal agents shop more intelligently and reliably with Link",
+      "link": "https://stripe.com/blog/helping-personal-agents-shop-more-intelligently-and-reliably-with-link",
+      "published_at": "Tue, 29 Sep 2026 00:00:00 +0000",
+      "selection_score": 13,
+      "selection_reason": "AI Agent가 실제 결제와 쇼핑을 수행하는 과정에서의 신뢰성 확보는 Agentic Workflow의 실무적 구현을 이해하는 데 매우 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 쇼핑 및 결제 신뢰성을 높이기 위한 Stripe Link 기능 개선",
+      "key_points": [
+        "AI 에이전트가 결제 과정을 원활하게 수행할 수 있도록 지원하는 3가지 주요 개선 사항 발표",
+        "소비자의 신뢰를 확보하고 에이전트가 복잡한 체크아웃 단계를 탐색하도록 돕는 기능 강화",
+        "에이전트 빌더들이 결제 인프라를 통해 더 지능적이고 안정적인 쇼핑 경험을 제공하도록 지원"
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Payment Orchestration",
+        "AI Trust & Safety"
+      ],
+      "recommended_for": "AI 에이전트 기반의 커머스 자동화 서비스를 개발하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Enforce positive security with Cloudflare Application Profiles",
+      "link": "https://blog.cloudflare.com/application-profiles",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 11,
+      "selection_reason": "LLM을 활용한 공격에 대응하는 보안 정책(Positive Security) 도입은 최신 보안 위협 대응 전략으로서 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Application Profiles를 통한 HTTP 요청 구조 기반의 Positive Security 정책 도입",
+      "key_points": [
+        "트래픽 분석을 통해 정상적인 요청 구조(스키마)를 학습하고, 이를 벗어나는 요청을 차단하는 Positive Security 구현",
+        "LLM을 활용한 자동화된 공격에 대응하기 위해 경로, 파라미터, 헤더 등의 데이터 타입과 제약 조건을 자동 학습",
+        "운영 복잡도를 줄이기 위해 관찰 모드(Observation mode)를 제공하여 차단 전 영향도 분석 가능"
+      ],
+      "topics": [
+        "Positive Security",
+        "Schema Validation",
+        "WAF(Web Application Firewall)"
+      ],
+      "recommended_for": "웹 애플리케이션 보안 및 API 보안을 담당하는 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 API 엔드포인트의 스키마 정의 및 유효성 검사 체계 점검",
+        "steps": [
+          "현재 운영 중인 API의 입력값 검증(Validation) 로직이 화이트리스트 기반인지 확인",
+          "Cloudflare 등 보안 도구의 스키마 학습 기능을 활용하여 비정상적인 입력 패턴 탐지 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Threat Signals: agentic skills for open-source threat intelligence, free for every Cloudflare account",
+      "link": "https://blog.cloudflare.com/threat-signals",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI Agent 기술을 활용하여 위협 인텔리전스를 자동화하는 사례는 업무 자동화와 AI Agent 실무 적용의 아주 좋은 예시입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트 기술을 활용하여 오픈소스 위협 인텔리전스를 자동화하는 'Threat Signals'",
+      "key_points": [
+        "RSS 피드 등 비정형 위협 보고서를 AI 에이전트가 분석하여 IOC(침해지표)를 추출하고 WAF 정책에 즉시 반영",
+        "분석가의 판단 과정을 '에이전트 스킬'로 정의하여 일관된 위협 인텔리전스 데이터셋 구축",
+        "모든 Cloudflare 계정에 무료로 제공되며, 위협 이벤트와 원본 보고서를 연결하여 맥락 기반의 보안 대응 지원"
+      ],
+      "topics": [
+        "Threat Intelligence",
+        "Agentic Skills",
+        "Automated Security Workflow"
+      ],
+      "recommended_for": "보안 자동화 및 위협 인텔리전스 구축에 관심 있는 보안 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Threat Signals를 활용한 위협 인텔리전스 자동화 파이프라인 구축",
+        "steps": [
+          "Cloudflare 대시보드에서 Threat Signals 메뉴 접속",
+          "신뢰할 수 있는 보안 관련 RSS 피드를 등록하고 에이전트가 추출한 IOC가 WAF 정책에 어떻게 연동되는지 확인"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "We tested our own WAF with frontier AI models. Here’s what we found",
+      "link": "https://blog.cloudflare.com/adaptive-ai-waf-testing",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "LLM을 이용한 공격 시나리오와 WAF 테스트 결과는 보안 아키텍처를 설계하는 개발자에게 실질적인 방어 전략을 제시합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 기반의 WAF 테스트 시스템을 구축하여 공격 페이로드 변이 및 우회 시나리오를 효과적으로 탐지하고 방어 규칙을 강화함.",
+      "key_points": [
+        "LLM을 활용해 WAF를 대상으로 다양한 인코딩과 요청 구조를 시도하는 동적 공격 테스트 시스템을 구축함.",
+        "1,107회의 공격 시도 중 49개의 유효한 우회 사례를 발견하여 SSRF 및 CMDi 탐지 규칙을 개선함.",
+        "WAF는 다층 방어의 일부일 뿐이며, 애플리케이션 패치와 같은 근본적인 보안 조치가 병행되어야 함을 강조함."
+      ],
+      "topics": [
+        "WAF(Web Application Firewall)",
+        "Red Teaming",
+        "Payload Mutation"
+      ],
+      "recommended_for": "웹 애플리케이션 보안 아키텍처를 설계하거나 WAF 운영을 최적화하려는 보안 엔지니어 및 백엔드 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "LLM을 활용한 WAF 우회 테스트 시나리오 설계",
+        "steps": [
+          "현재 운영 중인 WAF의 주요 차단 규칙을 파악하고 테스트할 공격 카테고리(예: SQLi, XSS)를 선정함.",
+          "Python을 사용하여 HTTP 요청을 생성하고 응답을 분석하는 간단한 테스트 루프를 작성함.",
+          "LLM API를 연동하여 공격 페이로드를 변이시키는 프롬프트를 설계하고 테스트를 실행함."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Adaptive application security for the AI era: how Cloudflare connects code, traffic, and intelligence to stop attacks",
+      "link": "https://blog.cloudflare.com/ai-era-framework",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 보안 위협 사례와 실무적 대응 방안을 다루고 있어 AI 에이전트 도입 시 필수적으로 검토해야 할 중요한 내용입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 위협에 대응하기 위해 발견, 거버넌스, 런타임 보호, 대응의 4단계 적응형 보안 프레임워크를 제안함.",
+      "key_points": [
+        "AI 에이전트는 지속적이고 다각적인 공격을 수행하므로 단일 보안 도구로는 방어가 불가능함.",
+        "보안은 발견(위험 우선순위화), 거버넌스(접근 제어), 런타임 보호, 대응의 4단계가 연결된 시스템이어야 함.",
+        "클라이언트 측 신호(마우스 움직임, 타이핑 속도 등)를 활용해 인간과 자동화된 에이전트를 구분하는 것이 중요함."
+      ],
+      "topics": [
+        "Agentic Security",
+        "Adaptive Security",
+        "Botbase"
+      ],
+      "recommended_for": "AI 에이전트 도입을 검토 중이거나 AI 기반 공격으로부터 인프라를 보호해야 하는 보안 담당자 및 아키텍트.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Frozen package management for air-gapped RHEL-family AMIs",
+      "link": "https://aws.amazon.com/blogs/compute/frozen-package-management-for-air-gapped-rhel-family-amis",
+      "published_at": "Tue, 29 Sep 2026 15:55:07 +0000",
+      "selection_score": 11,
+      "selection_reason": "폐쇄망 환경에서의 패키지 관리 및 보안 아키텍처 패턴을 다루어 엔터프라이즈 서버 운영 실무에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "폐쇄망 환경에서 안전한 패키지 관리를 위해 S3 기반의 'Frozen Repository'와 2계정 분리 아키텍처를 구현함.",
+      "key_points": [
+        "인터넷 연결이 차단된 환경에서 패키지 업데이트를 위해 승인된 버전만 S3에 저장하는 'Frozen Repository' 패턴을 사용함.",
+        "패키지 수집(Distribution 계정)과 워크로드 실행(Workload 계정)을 분리하여 보안 경계를 강화함.",
+        "승인된 패키지만 미러링하고 Patch Manager를 통해 일관된 패치 상태를 유지함."
+      ],
+      "topics": [
+        "Air-gapped Network",
+        "Frozen Repository",
+        "Infrastructure Security"
+      ],
+      "recommended_for": "보안 규제가 엄격한 폐쇄망 환경에서 서버 인프라를 운영하는 클라우드 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Simplify AMI discovery with Amazon EC2 and SSM Parameter Store",
+      "link": "https://aws.amazon.com/blogs/compute/simplify-ami-discovery-with-amazon-ec2-and-ssm-parameter-store",
+      "published_at": "Tue, 29 Sep 2026 16:14:17 +0000",
+      "selection_score": 12,
+      "selection_reason": "AMI 관리 자동화를 통해 인프라 운영의 생산성을 높이고 휴먼 에러를 방지하는 실무적인 워크플로 개선 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "EC2 DescribeImages API의 PublicSsmParameterName 필드를 활용해 AMI ID 관리의 휴먼 에러를 방지하고 자동화함.",
+      "key_points": [
+        "기존의 수동 AMI ID 관리 방식은 stale한 이미지를 사용할 위험이 크며, 이를 API 수준에서 해결함.",
+        "DescribeImages API 응답에 포함된 SSM 파라미터 경로를 통해 최신 AMI를 동적으로 참조할 수 있음.",
+        "IaC(Terraform, CloudFormation)에서 SSM 파라미터를 사용하면 별도의 매핑 테이블 유지보수 없이 최신 이미지를 항상 확보함."
+      ],
+      "topics": [
+        "AMI Management",
+        "SSM Parameter Store",
+        "Infrastructure as Code (IaC)"
+      ],
+      "recommended_for": "EC2 인프라를 대규모로 운영하며 AMI 업데이트 관리에 어려움을 겪는 DevOps 엔지니어.",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "IaC 템플릿의 AMI 참조 방식을 SSM 파라미터로 전환",
+        "steps": [
+          "현재 사용 중인 AMI ID를 DescribeImages API로 조회하여 대응하는 SSM 파라미터 경로를 확인함.",
+          "Terraform 또는 CloudFormation 템플릿의 ImageId 필드를 SSM 파라미터 참조 방식으로 수정함.",
+          "배포 파이프라인에서 최신 AMI가 자동으로 반영되는지 테스트함."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Implementing customer managed keys for AWS Lambda durable functions with Terraform",
+      "link": "https://aws.amazon.com/blogs/compute/implementing-customer-managed-keys-for-aws-lambda-durable-functions-with-terraform",
+      "published_at": "Tue, 29 Sep 2026 17:14:00 +0000",
+      "selection_score": 12,
+      "selection_reason": "Terraform을 활용한 Lambda 보안 설정 및 데이터 암호화 구현은 백엔드 아키텍처 설계 시 매우 실용적인 가이드입니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS Lambda Durable Functions에서 데이터 보안을 위해 Terraform으로 KMS 고객 관리형 키를 설정하는 방법",
+      "key_points": [
+        "Lambda Durable Functions는 체크포인트를 통해 상태를 저장하며, 이를 고객 관리형 KMS 키로 암호화하여 데이터 주권을 확보할 수 있음.",
+        "Terraform으로 KMS 키를 생성하고 Lambda 함수에 연결하는 과정이 필요하며, 키 정책을 통해 최소 권한 원칙을 준수해야 함.",
+        "키 삭제 시 데이터 복구가 불가능하므로 KMS 대기 기간을 활용하고 CloudTrail로 키 사용 여부를 모니터링하는 것이 필수적임."
+      ],
+      "topics": [
+        "AWS Lambda Durable Functions",
+        "AWS KMS Customer Managed Keys",
+        "Infrastructure as Code (Terraform)"
+      ],
+      "recommended_for": "규제 대상 워크로드를 서버리스 아키텍처로 구축하는 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "기존 Lambda 함수에 KMS 암호화 적용 및 CloudTrail 감사 로그 확인",
+        "steps": [
+          "Terraform으로 KMS 키를 생성하고 기존 Lambda 함수 설정에 암호화 키 ARN을 추가함",
+          "CloudTrail에서 해당 키를 사용하는 Decrypt 호출이 정상적으로 기록되는지 확인",
+          "키 정책에서 불필요한 권한을 제거하고 최소 권한 정책으로 수정"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "서버 모니터링 분석 가이드",
+      "link": "https://news.hada.io/topic?id=34478",
+      "published_at": "2026-09-29T15:11:16+09:00",
+      "selection_score": 12,
+      "selection_reason": "서버 모니터링 데이터를 해석하고 장애에 대응하는 SRE 방법론을 다루어 실무 운영 역량 강화에 큰 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "구글 SRE의 4가지 황금 신호를 활용한 서버 모니터링 지표 분석 및 장애 대응 가이드",
+      "key_points": [
+        "모니터링은 트래픽, 지연 시간, 에러, 포화도라는 4가지 황금 신호를 중심으로 증상(지연/에러)을 먼저 파악하고 원인(리소스)을 좁혀야 함.",
+        "평균 응답 시간은 분포를 왜곡하므로 P99 백분위수를 통해 실제 사용자가 겪는 꼬리 지연을 확인해야 함.",
+        "장애 대응 시 원인 규명보다 영향 범위 파악과 복구가 우선이며, 포스트모템을 통해 다음 장애를 방지하는 변경 목록을 작성해야 함."
+      ],
+      "topics": [
+        "SRE Golden Signals",
+        "P99 Latency",
+        "Post-mortem"
+      ],
+      "recommended_for": "서버 운영 및 장애 대응 능력을 키우고 싶은 백엔드/SRE 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "study",
+        "title": "현재 운영 중인 서비스의 모니터링 대시보드에 P99 지표 및 주간 비교 패널 추가",
+        "steps": [
+          "현재 대시보드에서 평균 응답 시간 대신 P99 지표를 메인으로 설정",
+          "지난주 같은 요일의 P99 지표를 겹쳐서 보여주는 비교 패널을 생성",
+          "배포 시각을 그래프에 마커로 표시하여 배포 전후 성능 변화를 즉시 확인하도록 구성"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM Wiki의 불량 페이지를 Jev로 선별하는 것이 가능할까?",
+      "link": "https://news.hada.io/topic?id=34483",
+      "published_at": "2026-09-29T18:01:08+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM 기반의 데이터 검증 및 린터 활용 사례로, AI Agent 및 LLM 워크플로 구축에 실질적인 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 기반 위키의 불량 페이지 선별을 위해 Jev를 도입했으나 기저율 문제로 실패한 사례",
+      "key_points": [
+        "Jev는 자연어 질문에 확률을 반환하여 지식 업무의 린터 역할을 수행할 수 있으나, 데이터의 결함 기저율에 따라 성능이 크게 좌우됨.",
+        "결함이 너무 많거나(44%) 너무 적으면(6.5%) 점수를 통한 선별 도구의 변별력이 떨어져 전수 검토보다 효율이 낮음.",
+        "선별 도구 도입 전 데이터의 결함 기저율을 먼저 측정하고, 도구의 유효성을 검증하는 과정이 필수적임."
+      ],
+      "topics": [
+        "LLM Linter",
+        "Base Rate Fallacy",
+        "AUC Evaluation"
+      ],
+      "recommended_for": "LLM을 활용한 데이터 검증 워크플로를 구축하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "데이터 검증 자동화 도입 전 기저율 측정 실험",
+        "steps": [
+          "검증하려는 데이터셋의 샘플 100개를 무작위 추출하여 수동으로 결함률(기저율) 측정",
+          "결함률이 20~80% 사이인지 확인하여 자동화 도구 도입의 적합성 판단",
+          "도입 결정 시, 자동화 도구의 판정 결과와 수동 검증 결과를 비교하여 AUC 산출"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 기업들이 광고업체에 데이터를 유출함 [pdf]",
+      "link": "https://news.hada.io/topic?id=34489",
+      "published_at": "2026-09-29T21:32:57+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 서비스의 데이터 보안 및 프라이버시 이슈는 LLM을 활용하는 개발자에게 매우 중요한 업계 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "대화형 AI 서비스들이 사용자 데이터를 광고 및 추적 업체에 유출하고 있는 보안 실태 분석",
+      "key_points": [
+        "조사된 9개의 웹 및 8개의 Android AI 서비스 모두 광고 또는 추적 서비스와 연동되어 있음.",
+        "일부 서비스는 프롬프트, 대화 제목, 스크린샷 등 민감한 정보를 사용자 식별자와 함께 제3자에게 전달함.",
+        "공개 대화 링크를 통한 접근 통제 미흡으로 추적 업체가 대화 전체를 읽을 수 있는 새로운 공격 표면이 형성됨."
+      ],
+      "topics": [
+        "Data Privacy",
+        "Third-party Tracking",
+        "Attack Surface"
+      ],
+      "recommended_for": "AI 서비스의 데이터 프라이버시와 보안 정책에 관심 있는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "미국 제재로 네덜란드, Microsoft 떠나 NixOS 기반 대안으로 전환 추진",
+      "link": "https://news.hada.io/topic?id=34492",
+      "published_at": "2026-09-29T23:32:29+09:00",
+      "selection_score": 12,
+      "selection_reason": "클라우드 의존성 탈피와 NixOS 기반의 인프라 구축 사례는 백엔드 아키텍처 및 보안 측면에서 중요한 시사점을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "네덜란드 정부가 미국산 소프트웨어 의존도를 낮추기 위해 NixOS 기반의 디지털 자율 업무 환경(DAWO)을 구축 중입니다.",
+      "key_points": [
+        "미국 제재로 인한 핵심 시스템 접근 차단 위험을 방지하기 위해 오픈소스 기반의 독립적인 업무 환경을 추진합니다.",
+        "NixOS의 변경 불가능한 패키지 관리와 설정 재사용성을 활용하여 정부 조직 전반에 일관된 환경을 배포합니다.",
+        "독일, 덴마크, 프랑스 등 유럽 국가들도 유사한 기술 주권 확보 및 미국 기술 의존도 탈피를 검토하고 있습니다."
+      ],
+      "topics": [
+        "NixOS",
+        "디지털 주권(Digital Sovereignty)",
+        "불변 인프라(Immutable Infrastructure)"
+      ],
+      "recommended_for": "국가 인프라 보안 및 오픈소스 기반의 대규모 시스템 배포에 관심 있는 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Nix 패키지 관리자를 활용한 개발 환경 재현성 테스트",
+        "steps": [
+          "Nix를 설치하고 현재 사용하는 개발 도구들을 nix-shell로 정의해보기",
+          "정의된 환경 설정을 다른 머신에서 동일하게 재현 가능한지 확인하기"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Jeeves - 판단 전에 추론하는 Jev 방식의 의사결정 모델",
+      "link": "https://news.hada.io/topic?id=34496",
+      "published_at": "2026-09-30T01:40:54+09:00",
+      "selection_score": 13,
+      "selection_reason": "LLM의 추론 성능 향상 모델은 AI 에이전트 및 워크플로 구축에 매우 유용한 기술 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Jeeves는 판단 전 추론 과정을 거쳐 의사결정 정확도를 높인 Qwen3.5-9B 기반의 경량 모델입니다.",
+      "key_points": [
+        "선택지별 확률을 반환하는 기존 Jev 방식에 추론 단계를 추가하여 복잡한 질문의 정확도를 93.5%까지 향상했습니다.",
+        "확신도에 따라 추론 길이를 동적으로 조절하여 응답 속도와 정확도 사이의 균형을 맞출 수 있습니다.",
+        "확산 기반 초안 모델을 사용하여 추론 생성 속도를 최대 1.76배 가속화했습니다."
+      ],
+      "topics": [
+        "Chain-of-Thought(CoT)",
+        "의사결정 모델(Decision Model)",
+        "추측 디코딩(Speculative Decoding)"
+      ],
+      "recommended_for": "AI 에이전트의 의사결정 정확도를 높이고 추론 비용을 최적화하려는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Jeeves SDK를 활용한 고객 문의 자동 분류 파이프라인 구축",
+        "steps": [
+          "Jeeves 저장소에서 SDK를 설치하고 로컬 서버에 연결하기",
+          "고객 문의 텍스트를 입력하여 담당 부서와 긴급도를 한 번에 분류하는 API 호출 테스트하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Blyck Video Understanding - Claude·Codex가 영상을 시각 근거와 함께 분석·검색하게 해주는 MCP",
+      "link": "https://news.hada.io/topic?id=34498",
+      "published_at": "2026-09-30T02:05:19+09:00",
+      "selection_score": 14,
+      "selection_reason": "MCP를 활용한 영상 분석 도구는 AI 에이전트 워크플로 확장에 직접적으로 활용 가능한 실무 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "Blyck은 Claude나 Codex가 영상을 시각적 근거와 함께 분석하고 검색할 수 있게 해주는 MCP 서버입니다.",
+      "key_points": [
+        "영상을 15초 단위로 세밀하게 분석하여 장면, 행동, 음성, 화면 텍스트를 타임라인으로 기록합니다.",
+        "AI 에이전트가 기록된 데이터를 인용하여 정확한 답변을 제공하며, 영상 내 특정 시점을 링크로 제시합니다.",
+        "업로드된 영상의 프레임 캡처 및 특정 구간 클립 추출 기능을 통해 시각적 검증이 가능합니다."
+      ],
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "멀티모달 분석",
+        "AI 에이전트 도구 연동"
+      ],
+      "recommended_for": "영상 콘텐츠를 효율적으로 분석하고 에이전트 워크플로에 통합하려는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "Claude Desktop에 Blyck MCP 서버 연결 및 영상 분석 테스트",
+        "steps": [
+          "Blyck 설치 파일을 다운로드하고 Claude Desktop과 연동하기",
+          "분석하고 싶은 YouTube 링크를 입력하여 특정 장면 찾기 및 요약 요청하기"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI, GPT-6.1 Sol 공개",
+      "link": "https://news.hada.io/topic?id=34500",
+      "published_at": "2026-09-30T02:37:48+09:00",
+      "selection_score": 15,
+      "selection_reason": "최신 LLM 모델의 성능 향상과 비용 절감 소식은 AI 개발 및 아키텍처 설계에 핵심적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI가 GPT-6 Astra에 근접한 성능을 훨씬 낮은 비용으로 제공하는 GPT-6.1 Sol을 공개했습니다.",
+      "key_points": [
+        "GPT-6.1 Sol은 기존 Sol 대비 성능은 6.4%p 향상되고 비용은 1/5 수준으로 절감된 효율 중심 모델입니다.",
+        "캐시 입력 가격을 일반 입력 대비 95% 저렴하게 책정하여 대규모 컨텍스트 활용 비용을 크게 낮췄습니다.",
+        "초고속 처리가 필요한 작업을 위한 GPT-6.1 Sol Ultrafast 모델도 함께 출시되었습니다."
+      ],
+      "topics": [
+        "모델 효율성(Model Efficiency)",
+        "프롬프트 캐싱(Prompt Caching)",
+        "비용 최적화"
+      ],
+      "recommended_for": "LLM API 비용 절감과 성능 최적화가 필요한 백엔드 및 AI 서비스 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI Dots - 상시 작동하는 AI 에이전트 공개",
+      "link": "https://news.hada.io/topic?id=34501",
+      "published_at": "2026-09-30T03:40:37+09:00",
+      "selection_score": 15,
+      "selection_reason": "상시 작동 AI 에이전트의 등장은 에이전트 워크플로와 개발 생산성 측면에서 매우 중요한 기술 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI Dots는 사용자의 업무 맥락을 학습하여 상시 작동하며 프로젝트를 수행하는 AI 에이전트 서비스입니다.",
+      "key_points": [
+        "자체 클라우드 컴퓨터에서 코드 수정, 테스트, PR 생성 등 복잡한 업무를 사용자의 피드백을 통해 지속적으로 수행합니다.",
+        "4,000개 이상의 앱과 연동되며, ChatGPT, Slack, Teams 등 다양한 채널에서 업무 맥락을 공유합니다.",
+        "사용자가 직접 지시하지 않아도 도움 될 일을 찾는 '선제적 조사' 기능을 제공하며, 기업용 전문 Dots도 지원합니다."
+      ],
+      "topics": [
+        "AI 에이전트(AI Agent)",
+        "에이전트 워크플로(Agentic Workflow)",
+        "상시 작동 에이전트(Always-on Agent)"
+      ],
+      "recommended_for": "반복적인 업무 자동화와 에이전트 기반의 생산성 향상을 원하는 개발자 및 기업",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI, 데이터센터 투자 붐 정당화하려면 연 매출 6조 달러 필요",
+      "link": "https://news.hada.io/topic?id=34509",
+      "published_at": "2026-09-30T06:49:36+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 인프라 및 데이터센터 투자에 대한 거시적 분석으로, 향후 클라우드 비용과 기술 트렌드를 이해하는 데 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 인프라 투자 정당화를 위해 2031년까지 연 매출 6조 달러 창출 필요",
+      "key_points": [
+        "Bain & Company는 AI 인프라 지출을 유지하기 위해 2031년까지 연간 6조 달러 규모의 신규 시장 창출이 필수적이라고 분석함.",
+        "단순 생산성 향상을 넘어 신약 개발, 에너지 생산 등 기존에 없던 새로운 제품과 서비스가 매출의 핵심이 되어야 함.",
+        "데이터센터 비용이 12~16개월마다 2배씩 증가함에 따라, 인프라 투자의 경제적 가치 증명이 업계의 최대 과제로 부상함."
+      ],
+      "topics": [
+        "AI Infrastructure ROI",
+        "Absorption Speed",
+        "Capital Expenditure (CapEx)"
+      ],
+      "recommended_for": "AI 기술의 거시적 경제 흐름과 클라우드 인프라 비용 구조를 파악하려는 아키텍트 및 기술 경영진",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "ChatGPT Pro 500",
+      "link": "https://news.hada.io/topic?id=34510",
+      "published_at": "2026-09-30T07:28:48+09:00",
+      "selection_score": 11,
+      "selection_reason": "최신 LLM 모델과 도구의 접근성 및 비용 구조 변화를 다루고 있어 실무적인 의사결정에 참고할 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "ChatGPT Pro 요금제 개편: 월 500달러 등급 신설 및 기존 사용량 정책 변경",
+      "key_points": [
+        "월 500달러의 'Pro 500' 요금제가 신설되었으며, Plus 대비 25배의 사용량과 초고속 'Astra Ultrafast' 기능을 제공함.",
+        "기존 Pro 200 요금제의 신규 가입이 재개되었으나, 신규 가입자에게는 이전보다 축소된 사용량 한도가 적용됨.",
+        "Ultrafast 기능은 Pro 500 요금제에만 포함되며, 하위 요금제에서는 추가 크레딧 구매로도 이용이 불가능함."
+      ],
+      "topics": [
+        "Usage-based Pricing",
+        "Astra Ultrafast",
+        "API Credit Management"
+      ],
+      "recommended_for": "ChatGPT를 업무 자동화 및 대규모 개발 작업에 활용하며 비용 효율성을 최적화하려는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "America.gov",
+      "link": "https://news.hada.io/topic?id=34511",
+      "published_at": "2026-09-30T07:32:15+09:00",
+      "selection_score": 11,
+      "selection_reason": "RAG 기술을 활용한 공공 서비스 사례로서, 신뢰성 있는 AI 시스템 구축을 위한 실무적 참고 사례가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "미국 정부의 공식 AI 서비스 'America.gov' 공개",
+      "key_points": [
+        "29,000개 이상의 정부 웹사이트 데이터를 기반으로 공식 정보만을 제공하는 신뢰성 중심의 RAG 서비스임.",
+        "개인정보를 수집하지 않으며, 향후 양식 작성 및 업무 진행 상황 추적 등 실질적인 행정 자동화 기능을 추가할 예정임.",
+        "정부 관료제의 복잡한 절차를 자연어 질문으로 해결하여 시민의 접근성을 높이는 것을 목표로 함."
+      ],
+      "topics": [
+        "RAG (Retrieval-Augmented Generation)",
+        "Public Sector AI",
+        "Data Privacy"
+      ],
+      "recommended_for": "신뢰성 있는 RAG 시스템 구축 사례를 연구하거나 공공 서비스 자동화에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "공공 데이터 기반 RAG 시스템의 신뢰성 확보 전략 분석",
+        "steps": [
+          "America.gov의 출처 제한 방식(연방/주/지방 정부 웹사이트 한정)을 벤치마킹하여 RAG 시스템의 소스 필터링 로직 설계",
+          "개인정보 보호를 위한 데이터 비식별화 및 세션 관리 방식(대화 기록 미저장) 검토",
+          "정부 서비스와 같은 도메인 특화 데이터에서 환각(Hallucination)을 최소화하는 프롬프트 엔지니어링 기법 연구"
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GitHub Blog",
+      "title": "Developer policy update: Transparency, state policy, and what’s ahead",
+      "link": "https://github.blog/news-insights/policy-news-and-insights/developer-policy-update-transparency-state-policy-and-whats-ahead",
+      "published_at": "Tue, 29 Sep 2026 15:00:00 +0000",
+      "selection_score": 9,
+      "selection_reason": "GitHub의 정책 변화와 정부 요청 데이터 공개는 오픈소스 생태계와 개발 워크플로에 영향을 미치는 중요한 업계 소식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Preventing quantum downgrade attacks against IPsec",
+      "link": "https://blog.cloudflare.com/ipsec-downgrade-protection",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 9,
+      "selection_reason": "양자 내성 암호화(PQ)로의 전환은 보안 인프라의 핵심 변화이며, 클라우드 서버 보안을 담당하는 실무자에게 중요한 정보입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Building a post-quantum certificate authority with Merkle Tree Certificates",
+      "link": "https://blog.cloudflare.com/pq-ca-with-mtcs",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 9,
+      "selection_reason": "양자 내성 인증 기관 구축은 장기적인 보안 인프라 변화를 이해하는 데 필수적인 지식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Building a certificate authority for the whole Internet",
+      "link": "https://blog.cloudflare.com/cloudflare-certificate-authority",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 9,
+      "selection_reason": "클라우드 인프라의 핵심인 인증 기관(CA) 시장의 변화를 다루며, 향후 웹 보안 아키텍처에 영향을 줄 중요한 소식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Using AI to chart a course for our post-quantum migration",
+      "link": "https://blog.cloudflare.com/ai-driven-cryptography-discovery",
+      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
+      "selection_score": 10,
+      "selection_reason": "양자 암호 시대에 대비한 인프라 마이그레이션 전략을 다루며, 장기적인 백엔드 보안 아키텍처 설계에 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Relio ERD - 브라우저에서 테이블과 관계를 설계하는 ERD 편집기",
+      "link": "https://news.hada.io/topic?id=34484",
+      "published_at": "2026-09-29T18:42:03+09:00",
+      "selection_score": 10,
+      "selection_reason": "데이터베이스 설계 및 백엔드 아키텍처 구축 시 유용한 개발 도구로 실무 활용 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude 일부 서비스 장애",
+      "link": "https://news.hada.io/topic?id=34497",
+      "published_at": "2026-09-30T01:43:54+09:00",
+      "selection_score": 9,
+      "selection_reason": "주요 AI 서비스의 장애 정보는 해당 도구를 사용하는 개발자에게 운영상 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
