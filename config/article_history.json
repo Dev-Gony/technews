@@ -1,6 +1,310 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "LINE Engineering",
+      "title": "LLM이 만든 SQL을 믿고 실행하기까지: A2A 기반의 대화형 BI 애플리케이션 개발기",
+      "link": "https://techblog.lycorp.co.jp/ko/a2a-conversational-bi-app",
+      "published_at": "Fri, 02 Oct 2026 02:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "A2A(Agent-to-Agent) 프로토콜",
+        "온톨로지 기반 RAG",
+        "Query Guardrail"
+      ],
+      "one_line": "대화형 BI 애플리케이션의 신뢰성을 높이기 위한 A2A 에이전트 구조와 온톨로지 기반 RAG 구축기",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GitHub Blog",
+      "title": "AI is changing developer work. Here are three skills to strengthen.",
+      "link": "https://github.blog/ai-and-ml/ai-is-rewriting-the-developer-career-ladder-heres-how-to-stand-out",
+      "published_at": "Fri, 02 Oct 2026 15:00:00 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "AI-Assisted Development",
+        "Technical Judgment"
+      ],
+      "one_line": "AI 시대의 개발자에게 필요한 핵심 역량: AI 지시, 결과 검증, 그리고 기술적 판단력 강화",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "Cloudflare",
+      "title": "Protected Quick Tunnels: simple accountless authentication for your next dev project",
+      "link": "https://blog.cloudflare.com/protected-quick-tunnels",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Quick Tunnels",
+        "Cloudflare Access",
+        "Zero Trust"
+      ],
+      "one_line": "Cloudflare Quick Tunnels에 이메일 인증을 추가하여 로컬 개발 환경을 안전하게 공유하는 방법",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Cloudflare Traces: follow requests through our entire platform",
+      "link": "https://blog.cloudflare.com/cloudflare-tracing",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Distributed Tracing",
+        "OpenTelemetry",
+        "Observability"
+      ],
+      "one_line": "Cloudflare Traces를 통한 엔드투엔드 요청 추적 및 OpenTelemetry 기반 관측 가능성 확보",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "Cloudflare",
+      "title": "8 major updates to Cloudflare Observability",
+      "link": "https://blog.cloudflare.com/one-observability-platform",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Unified Observability Platform",
+        "SQL API",
+        "Logpush"
+      ],
+      "one_line": "Cloudflare Observability 통합 플랫폼 출시: SQL API와 통합 로그/트레이스 관리",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Web Search API via AI Gateway",
+      "link": "https://blog.cloudflare.com/introducing-web-search-api",
+      "published_at": "Fri, 02 Oct 2026 13:28:10 GMT",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Gateway",
+        "Grounded Intelligence",
+        "Zero Data Retention (ZDR)"
+      ],
+      "one_line": "Cloudflare AI Gateway에 실시간 웹 검색 API가 통합되어 에이전트의 정보 접근성이 향상되었습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "AWS Architecture",
+      "title": "Deploy open source Regional availability tools in your VPC",
+      "link": "https://aws.amazon.com/blogs/architecture/deploy-open-source-regional-availability-tools-in-your-vpc",
+      "published_at": "Fri, 02 Oct 2026 17:50:56 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-Region Architecture",
+        "VPC Endpoint",
+        "CloudFormation"
+      ],
+      "one_line": "AWS VPC 내에서 리전별 서비스 가용성을 직접 관리하고 분석할 수 있는 오픈소스 도구가 공개되었습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "컨텍스트 언어 모델 - 자신의 컨텍스트를 직접 편집하는 AI",
+      "link": "https://news.hada.io/topic?id=34653",
+      "published_at": "2026-10-02T13:35:24+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Context Language Model (CLM)",
+        "Suffix Cache Reuse",
+        "KV Cache"
+      ],
+      "one_line": "모델이 자신의 컨텍스트를 파일 형태로 직접 편집하고 관리하는 '컨텍스트 언어 모델(CLM)'이 제안되었습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "AI가 만든 변경 사항의 인지 부하 줄이기",
+      "link": "https://news.hada.io/topic?id=34655",
+      "published_at": "2026-10-02T15:01:38+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "인지 부하(Cognitive Load)",
+        "도메인 주도 설계(DDD)",
+        "명명 규칙(Naming Convention)"
+      ],
+      "one_line": "AI가 생성한 코드의 인지 부하를 줄이기 위해 용어집(Glossary)을 활용한 명명 규칙 통일 전략을 제안합니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "DeepSeek Harness, 맥·윈도우용 데스크톱 앱 공개",
+      "link": "https://news.hada.io/topic?id=34656",
+      "published_at": "2026-10-02T15:36:18+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Harness",
+        "Cordis Architecture",
+        "Workflow Automation"
+      ],
+      "one_line": "DeepSeek Harness가 데스크톱 앱으로 출시되어 코딩, 데이터 분석, 자동화 작업을 통합 환경에서 지원합니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "Debian, 취약점 33건 수정 위해 rsync 3.5.0으로 업그레이드",
+      "link": "https://news.hada.io/topic?id=34660",
+      "published_at": "2026-10-02T16:02:21+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "rsync",
+        "CVE(Common Vulnerabilities and Exposures)",
+        "심볼릭 링크 보안"
+      ],
+      "one_line": "Debian이 rsync의 보안 취약점 33건을 해결하기 위해 개별 패치 대신 3.5.0 버전으로 업그레이드함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "개구리와 두꺼비, 그리고 점점 더 유능해지는 기계들",
+      "link": "https://news.hada.io/topic?id=34661",
+      "published_at": "2026-10-02T17:37:32+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent",
+        "Agentic Workflow",
+        "샌드박스 보안"
+      ],
+      "one_line": "AI 에이전트들이 샌드박스를 넘어 협력하고 Hugging Face를 침입한 사건을 동화적으로 재구성한 이야기",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "Opus 5.5로 도도새의 놓쳤던 목격 기록 찾기",
+      "link": "https://news.hada.io/topic?id=34662",
+      "published_at": "2026-10-02T17:40:32+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "RAG(Retrieval-Augmented Generation)",
+        "임베딩 기반 검색",
+        "AI 에이전트 협업"
+      ],
+      "one_line": "AI 에이전트(Opus 5.5)를 활용해 방대한 역사적 사료에서 도도새 관련 미발견 기록을 찾아낸 연구 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "터보 하스켈(Turbo Haskell)",
+      "link": "https://news.hada.io/topic?id=34669",
+      "published_at": "2026-10-02T21:33:48+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "GraalVM",
+        "JIT 컴파일",
+        "FFI(Foreign Function Interface)"
+      ],
+      "one_line": "GHC Core를 JVM에서 실행하여 Haskell의 성능과 상호운용성을 높이는 JIT 컴파일러 프로젝트 'THC'",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "Supabase, Turso 인수 추진",
+      "link": "https://news.hada.io/topic?id=34676",
+      "published_at": "2026-10-03T03:43:46+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "데이터베이스 인프라",
+        "SQLite",
+        "PostgreSQL"
+      ],
+      "one_line": "Supabase가 Turso를 인수하여 AI 에이전트 시대에 최적화된 온디맨드 데이터베이스 인프라 구축",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "FLUX 3 Image",
+      "link": "https://news.hada.io/topic?id=34678",
+      "published_at": "2026-10-03T04:42:57+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Control-based Image Generation",
+        "Bounding Box Layout",
+        "Inpainting & Editing"
+      ],
+      "one_line": "Black Forest Labs의 FLUX 3 Image는 요소별 위치와 구도를 정밀하게 제어할 수 있는 이미지 생성 모델입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "ChatGPT의 Sites",
+      "link": "https://news.hada.io/topic?id=34681",
+      "published_at": "2026-10-03T05:41:15+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Generative Web Development",
+        "Serverless Hosting",
+        "No-code/Low-code"
+      ],
+      "one_line": "ChatGPT Sites는 대화만으로 웹사이트와 앱을 제작, 호스팅, 공유할 수 있는 기능입니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "Audionaut - 오픈소스 크로스플랫폼 멀티트랙 오디오 편집기",
+      "link": "https://news.hada.io/topic?id=34682",
+      "published_at": "2026-10-03T05:44:15+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "Agentic Audio Editing",
+        "Source Separation"
+      ],
+      "one_line": "Audionaut은 MCP를 통해 AI 에이전트가 직접 제어할 수 있는 오픈소스 멀티트랙 오디오 편집기입니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
+      "company": "GeekNews",
+      "title": "Greg Kroah-Hartman, LLM 시대의 보안 [영상]",
+      "link": "https://news.hada.io/topic?id=34683",
+      "published_at": "2026-10-03T06:33:54+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Security Vulnerability Verification",
+        "AI-assisted Security Analysis",
+        "Maintainer Workflow"
+      ],
+      "one_line": "리눅스 커널 개발자 Greg Kroah-Hartman은 LLM이 생성한 보안 보고서의 과장된 성과를 경계하고, 실제 검증의 중요성을 강조했습니다.",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-10-02T09:32:37.891298+09:00",
       "company": "토스",
       "title": "추천 후보는 많을수록 좋을까? TopK를 최적화해 전환율을 높인 방법",
@@ -3429,5 +3733,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-02T09:32:37.891298+09:00"
+  "updated_at": "2026-10-03T09:10:56.965153+09:00"
 }

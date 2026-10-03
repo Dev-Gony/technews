@@ -1,0 +1,694 @@
+{
+  "schema_version": 1,
+  "issue_number": 15,
+  "issue_date": "2026-10-03",
+  "generated_at": "2026-10-03T09:10:56.437531+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, 온톨로지 기반 RAG, AI Gateway, Query Guardrail, 데이터베이스 인프라\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 보조 도구를 넘어 데이터 분석, 인프라 관리, 실시간 정보 검색의 핵심 주체로 진화하고 있습니다.\n\n[오늘 왜 중요한가]\n\n단순한 LLM 활용을 넘어 에이전트 간 협업과 실시간 데이터 연동이 실무 아키텍처의 핵심으로 자리 잡고 있습니다. 에이전트의 자율성이 높아짐에 따라 보안 정책 검증과 데이터 인프라의 확장성 확보가 개발자의 필수 역량이 되었습니다.\n\n[왜 이 글들을 골랐나]\n\n• 6번: AI 에이전트가 실시간 웹 검색을 통해 최신 정보를 확보하는 Grounded Intelligence 구축의 핵심 경로를 제시합니다.\n• 1번: 대화형 BI 시스템에서 LLM의 환각을 줄이고 보안을 강화하는 에이전트 분리 및 가드레일 설계의 실무적 모범 사례입니다.\n• 15번: 에이전트가 생성하는 방대한 데이터베이스 수요에 대응하기 위한 인프라 전략 변화를 보여주는 중요한 업계 소식입니다.\n\n[오늘 공부해볼 것]\n\n• Query Guardrail 설계: SQL 생성 에이전트에서 권한과 민감정보를 분리하여 검증하는 로직을 학습하여 운영 안정성을 높일 수 있습니다.\n• AI Gateway 활용: 실시간 검색 API와 로그 통합을 통해 에이전트의 정보 접근성과 비용 관리 효율을 개선하는 방법을 익힐 수 있습니다.\n• 온톨로지 기반 RAG: 데이터의 의미 관계를 구조화하여 LLM의 답변 신뢰도를 높이는 RAG 고도화 기법을 학습할 수 있습니다.",
+  "stats": {
+    "candidate_count": 45,
+    "detailed_count": 19,
+    "brief_count": 10,
+    "excluded_count": 16,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Web Search API via AI Gateway",
+      "link": "https://blog.cloudflare.com/introducing-web-search-api",
+      "published_at": "Fri, 02 Oct 2026 13:28:10 GMT",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트의 실질적인 검색 성능을 개선하는 핵심 도구로, 에이전트 워크플로 구축 시 필수적인 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare AI Gateway에 실시간 웹 검색 API가 통합되어 에이전트의 정보 접근성이 향상되었습니다.",
+      "key_points": [
+        "AI 에이전트가 실시간 웹 검색을 통해 최신 정보를 기반으로 응답할 수 있는 'Grounded Intelligence'를 제공합니다.",
+        "검색 결과는 AI Gateway의 관측성 로그와 통합되어 비용 관리 및 요청 추적이 가능합니다.",
+        "검색 파트너들은 Cloudflare의 검증된 봇 표준을 준수하여 투명하고 제어 가능한 크롤링 환경을 보장합니다."
+      ],
+      "topics": [
+        "AI Gateway",
+        "Grounded Intelligence",
+        "Zero Data Retention (ZDR)"
+      ],
+      "recommended_for": "최신 정보를 활용하는 AI 에이전트 워크플로를 구축 중인 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "AI Gateway를 활용한 실시간 검색 도구 연동 테스트",
+        "steps": [
+          "Cloudflare AI Gateway 계정을 생성하고 Web Search API 문서를 확인합니다.",
+          "기존 에이전트 워크플로에 Web Search API를 도구로 추가하여 실시간 데이터 검색 성능을 테스트합니다.",
+          "AI Gateway 대시보드에서 검색 쿼리 로그와 비용을 모니터링합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "LINE Engineering",
+      "title": "LLM이 만든 SQL을 믿고 실행하기까지: A2A 기반의 대화형 BI 애플리케이션 개발기",
+      "link": "https://techblog.lycorp.co.jp/ko/a2a-conversational-bi-app",
+      "published_at": "Fri, 02 Oct 2026 02:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "LLM을 활용한 SQL 생성 및 대화형 BI 구축 사례는 AI Agent와 데이터 분석 실무를 결합한 매우 실용적인 주제입니다.",
+      "feedback_bias": 0,
+      "one_line": "대화형 BI 애플리케이션의 신뢰성을 높이기 위한 A2A 에이전트 구조와 온톨로지 기반 RAG 구축기",
+      "key_points": [
+        "단일 에이전트의 한계를 극복하기 위해 도메인, 검색, SQL, 정책 등 책임 단위로 에이전트를 분리하고 A2A 프로토콜로 통신함.",
+        "데이터의 의미와 관계를 구조화한 온톨로지 기반 RAG를 도입하여 LLM의 '그럴듯한 오답'을 줄이고 맥락을 보강함.",
+        "SQL 실행 전 권한(RLS)과 민감정보(CLS)를 검증하는 독립적인 Query Guardrail을 통해 운영 안정성을 확보함."
+      ],
+      "topics": [
+        "A2A(Agent-to-Agent) 프로토콜",
+        "온톨로지 기반 RAG",
+        "Query Guardrail"
+      ],
+      "recommended_for": "LLM을 활용한 데이터 분석 도구 및 사내 BI 시스템을 구축하려는 백엔드/데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "SQL 생성 에이전트의 정책 검증 로직 분리 실험",
+        "steps": [
+          "현재 사용 중인 SQL 생성 프롬프트에서 보안 정책(권한, 민감정보)을 분리하여 별도의 검증 단계(Guardrail)로 설계하기",
+          "SQL 실행 전 파싱을 통해 접근 리소스 목록을 추출하고 권한과 대조하는 간단한 검증 함수 구현하기"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Supabase, Turso 인수 추진",
+      "link": "https://news.hada.io/topic?id=34676",
+      "published_at": "2026-10-03T03:43:46+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 시대의 데이터베이스 인프라 수요와 백엔드 아키텍처 변화를 보여주는 매우 중요한 업계 소식입니다.",
+      "feedback_bias": 0,
+      "one_line": "Supabase가 Turso를 인수하여 AI 에이전트 시대에 최적화된 온디맨드 데이터베이스 인프라 구축",
+      "key_points": [
+        "Supabase는 에이전트가 생성하는 수백만 개의 데이터베이스 수요에 대응하기 위해 SQLite 기반의 Turso를 인수함.",
+        "소규모 프로토타입은 SQLite(Turso)로 시작하고, 성장에 따라 Postgres(Supabase)로 확장하는 일관된 개발 경험을 제공함.",
+        "Turso 팀은 Supabase에 합류하여 에이전트 인프라 구축을 주도하며, 기존 서비스는 독립적으로 유지됨."
+      ],
+      "topics": [
+        "데이터베이스 인프라",
+        "SQLite",
+        "PostgreSQL"
+      ],
+      "recommended_for": "확장 가능한 백엔드 아키텍처와 AI 에이전트 기반의 데이터 관리 전략을 고민하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GitHub Blog",
+      "title": "AI is changing developer work. Here are three skills to strengthen.",
+      "link": "https://github.blog/ai-and-ml/ai-is-rewriting-the-developer-career-ladder-heres-how-to-stand-out",
+      "published_at": "Fri, 02 Oct 2026 15:00:00 +0000",
+      "selection_score": 14,
+      "selection_reason": "AI 시대의 개발자 역량 변화와 워크플로 최적화는 현재 개발 생산성 향상을 고민하는 실무자에게 필수적인 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 시대의 개발자에게 필요한 핵심 역량: AI 지시, 결과 검증, 그리고 기술적 판단력 강화",
+      "key_points": [
+        "단순 코딩보다 AI 에이전트를 효과적으로 지시하고, 여러 에이전트의 협업을 조율하는 능력이 중요해짐.",
+        "AI의 첫 답변을 맹신하지 말고, 다른 모델을 통한 교차 검증이나 직접적인 코드 리뷰를 반드시 수행해야 함.",
+        "AI가 구현을 담당하는 동안 개발자는 아키텍처 설계, 트레이드오프 분석, 고객 문제 해결 등 고차원적 판단에 집중해야 함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "AI-Assisted Development",
+        "Technical Judgment"
+      ],
+      "recommended_for": "AI 도구를 활용해 개발 생산성을 높이고자 하는 모든 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Protected Quick Tunnels: simple accountless authentication for your next dev project",
+      "link": "https://blog.cloudflare.com/protected-quick-tunnels",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "AI 에이전트가 로컬 개발 환경을 외부와 연결하는 실무 워크플로를 다루고 있어 개발 생산성 측면에서 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Quick Tunnels에 이메일 인증을 추가하여 로컬 개발 환경을 안전하게 공유하는 방법",
+      "key_points": [
+        "Quick Tunnels에 --allowed-mail 플래그를 추가하여 특정 이메일 주소나 도메인만 접근 가능하도록 제한 가능.",
+        "Cloudflare Access가 이메일 인증을 담당하고, 로컬의 cloudflared가 권한을 검증하여 보안과 편의성을 동시에 확보함.",
+        "계정 생성 없이도 에이전트가 로컬 서버를 안전하게 외부로 노출할 수 있어 개발 워크플로 자동화에 최적화됨."
+      ],
+      "topics": [
+        "Quick Tunnels",
+        "Cloudflare Access",
+        "Zero Trust"
+      ],
+      "recommended_for": "로컬 개발 서버를 외부와 공유하거나 AI 에이전트가 로컬 환경에 접근하도록 설정하려는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Quick Tunnel에 이메일 인증 적용하기",
+        "steps": [
+          "cloudflared를 최신 버전으로 업데이트하기",
+          "로컬 서버 실행 시 --allowed-mail [이메일주소] 플래그를 추가하여 터널 생성하기",
+          "생성된 URL에 접속하여 이메일 인증을 통한 접근 제어 확인하기"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Cloudflare Traces: follow requests through our entire platform",
+      "link": "https://blog.cloudflare.com/cloudflare-tracing",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 13,
+      "selection_reason": "OpenTelemetry 기반의 엔드투엔드 트레이싱은 백엔드 성능 개선과 시스템 관측 가능성 확보를 위해 매우 중요한 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Traces를 통한 엔드투엔드 요청 추적 및 OpenTelemetry 기반 관측 가능성 확보",
+      "key_points": [
+        "Cloudflare 플랫폼 내의 보안 규칙, 캐시, 라우팅, Workers 실행 과정을 하나의 타임라인으로 추적 가능.",
+        "W3C traceparent 헤더를 지원하여 외부 서비스와 Cloudflare 간의 분산 추적을 통합적으로 수행함.",
+        "Trace Rules를 통해 특정 트래픽만 샘플링하거나 100% 추적하여 운영 이슈를 정밀하게 조사할 수 있음."
+      ],
+      "topics": [
+        "Distributed Tracing",
+        "OpenTelemetry",
+        "Observability"
+      ],
+      "recommended_for": "Cloudflare를 사용하는 서비스의 성능 병목을 분석하고 전체 요청 경로를 시각화하려는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Cloudflare Traces 샘플링 설정 및 검토",
+        "steps": [
+          "Cloudflare 대시보드에서 도메인별 Tracing 활성화하기",
+          "Trace Rules를 사용하여 특정 경로(예: /api/v1)에 대해 100% 샘플링 규칙 설정하기",
+          "OTLP 엔드포인트를 통해 기존 관측 플랫폼(Datadog, Grafana 등)으로 데이터 전송 테스트하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "8 major updates to Cloudflare Observability",
+      "link": "https://blog.cloudflare.com/one-observability-platform",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 13,
+      "selection_reason": "통합 관측 플랫폼과 SQL API 제공은 데이터 분석 및 시스템 운영 효율성을 크게 높일 수 있는 중요한 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Observability 통합 플랫폼 출시: SQL API와 통합 로그/트레이스 관리",
+      "key_points": [
+        "로그, 트레이스, 분석 데이터를 하나의 SQL API로 통합하여 쿼리할 수 있는 환경 제공.",
+        "관측 데이터를 기반으로 한 커스텀 알림 및 대시보드 구축 기능이 강화되어 운영 효율성 향상.",
+        "사용량 기반의 통합 가격 모델을 도입하여 로그와 트레이스 관리 비용의 예측 가능성 증대."
+      ],
+      "topics": [
+        "Unified Observability Platform",
+        "SQL API",
+        "Logpush"
+      ],
+      "recommended_for": "Cloudflare 인프라 운영 및 모니터링을 자동화하고 데이터 분석 효율을 높이려는 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "Cloudflare SQL API를 활용한 로그 쿼리 자동화",
+        "steps": [
+          "Cloudflare CLI(cf) 설치 및 인증 설정하기",
+          "SQL API를 사용하여 최근 HTTP 요청 로그 중 5xx 에러 패턴 분석 쿼리 작성해보기",
+          "분석된 쿼리를 기반으로 특정 임계값 초과 시 알림을 보내는 Alert 설정하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Deploy open source Regional availability tools in your VPC",
+      "link": "https://aws.amazon.com/blogs/architecture/deploy-open-source-regional-availability-tools-in-your-vpc",
+      "published_at": "Fri, 02 Oct 2026 17:50:56 +0000",
+      "selection_score": 14,
+      "selection_reason": "MCP 서버를 활용한 AWS 리소스 관리 방법론을 제시하여, 최신 에이전트 연동 기술과 클라우드 운영을 동시에 다룹니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS VPC 내에서 리전별 서비스 가용성을 직접 관리하고 분석할 수 있는 오픈소스 도구가 공개되었습니다.",
+      "key_points": [
+        "AWS 리전별 서비스 가용성 데이터를 VPC 내부에서 자체적으로 호스팅하여 보안 및 거버넌스를 강화할 수 있습니다.",
+        "Capability Insights 도구는 24시간마다 데이터를 자동 갱신하며, 대시보드를 통해 리전별 확장 계획을 시각화합니다.",
+        "Workload Analysis 기능을 통해 현재 사용 중인 서비스 위주로 리전 간 가용성 격차를 분석하여 마이그레이션 효율을 높입니다."
+      ],
+      "topics": [
+        "Multi-Region Architecture",
+        "VPC Endpoint",
+        "CloudFormation"
+      ],
+      "recommended_for": "멀티 리전 아키텍처를 설계하거나 데이터 주권 및 규정 준수가 중요한 클라우드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "컨텍스트 언어 모델 - 자신의 컨텍스트를 직접 편집하는 AI",
+      "link": "https://news.hada.io/topic?id=34653",
+      "published_at": "2026-10-02T13:35:24+09:00",
+      "selection_score": 13,
+      "selection_reason": "LLM의 컨텍스트 관리 방식을 혁신하는 기술로, AI 에이전트의 성능 개선 및 아키텍처 설계에 중요한 통찰을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "모델이 자신의 컨텍스트를 파일 형태로 직접 편집하고 관리하는 '컨텍스트 언어 모델(CLM)'이 제안되었습니다.",
+      "key_points": [
+        "CLM은 고정된 요약 방식 대신 모델이 직접 컨텍스트 파일을 수정하여 중요 정보를 유지하고 불필요한 내용을 삭제합니다.",
+        "Suffix Cache Reuse 기술을 통해 컨텍스트 수정 시 발생하는 재연산 비용을 35% 절감했습니다.",
+        "추가 학습 없이도 모델이 스스로 컨텍스트 관리 전략을 탐색하며, 다중 에이전트 환경에서도 효과적으로 작동합니다."
+      ],
+      "topics": [
+        "Context Language Model (CLM)",
+        "Suffix Cache Reuse",
+        "KV Cache"
+      ],
+      "recommended_for": "LLM의 긴 컨텍스트 관리 비용과 성능 최적화에 관심이 많은 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "CLM 오픈소스 구현체 테스트 및 컨텍스트 관리 방식 적용",
+        "steps": [
+          "GitHub의 context-language-models 저장소를 클론하여 기본 예제를 실행합니다.",
+          "현재 개발 중인 에이전트의 컨텍스트 관리 로직에 파일 기반 편집 방식을 도입해 봅니다.",
+          "캐시 재사용 효율과 추론 정확도 변화를 측정합니다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI가 만든 변경 사항의 인지 부하 줄이기",
+      "link": "https://news.hada.io/topic?id=34655",
+      "published_at": "2026-10-02T15:01:38+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 생성 코드의 유지보수와 개발 생산성 측면에서 실무적인 인지 부하 감소 전략을 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 생성한 코드의 인지 부하를 줄이기 위해 용어집(Glossary)을 활용한 명명 규칙 통일 전략을 제안합니다.",
+      "key_points": [
+        "LLM이 임의로 생성한 추상적 용어는 개발자의 인지 부하를 높여 코드 이해도를 떨어뜨립니다.",
+        "코드 검토 전 AI에게 비관습적 용어를 추출하게 하고, 개발자가 선호하는 용어로 변경하도록 요청하는 절차를 도입합니다.",
+        "용어집을 Markdown 파일로 관리하고 코드베이스 전체에 반영하면 유지보수성과 가독성이 크게 향상됩니다."
+      ],
+      "topics": [
+        "인지 부하(Cognitive Load)",
+        "도메인 주도 설계(DDD)",
+        "명명 규칙(Naming Convention)"
+      ],
+      "recommended_for": "AI 페어 프로그래밍을 자주 활용하며 코드 품질 관리에 고민이 많은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "AI 코드 검토 시 용어집(Glossary) 생성 및 적용 프로세스 도입",
+        "steps": [
+          "AI에게 코드 변경 사항 검토 전, 사용된 비관습적 용어와 대안을 정리한 Markdown 파일을 생성하도록 프롬프트를 작성합니다.",
+          "확정된 용어를 AI에게 전달하여 코드베이스 전체에 일괄 적용하도록 지시합니다.",
+          "최종 용어집을 저장소에 커밋하여 향후 개발 시 참조하도록 합니다."
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "DeepSeek Harness, 맥·윈도우용 데스크톱 앱 공개",
+      "link": "https://news.hada.io/topic?id=34656",
+      "published_at": "2026-10-02T15:36:18+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 에이전트 실행 도구의 데스크톱 앱 출시는 개발 생산성 및 업무 자동화 도구로서 직접적인 활용 가치가 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "DeepSeek Harness가 데스크톱 앱으로 출시되어 코딩, 데이터 분석, 자동화 작업을 통합 환경에서 지원합니다.",
+      "key_points": [
+        "Cordis 아키텍처 기반의 '모든 것이 플러그인' 구조를 통해 도구와 스킬을 자유롭게 확장할 수 있습니다.",
+        "데스크톱 앱 내에서 코드 변경 사항을 줄 단위로 검토하고, 예약 작업을 통해 반복 업무를 자동화할 수 있습니다.",
+        "실행 추적(Trace) 기능을 통해 에이전트의 도구 호출 과정과 런타임 컨텍스트를 상세히 분석할 수 있습니다."
+      ],
+      "topics": [
+        "AI Agent Harness",
+        "Cordis Architecture",
+        "Workflow Automation"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 업무 자동화 및 로컬 개발 환경 통합을 원하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "DeepSeek Harness 데스크톱 앱 설치 및 플러그인 기능 탐색",
+        "steps": [
+          "DeepSeek Harness 데스크톱 앱을 설치하고 로컬 환경에서 실행합니다.",
+          "Creator mode를 사용하여 간단한 반복 업무 자동화 플러그인을 직접 생성해 봅니다.",
+          "실행 추적 기능을 사용하여 에이전트의 작업 흐름을 디버깅해 봅니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Debian, 취약점 33건 수정 위해 rsync 3.5.0으로 업그레이드",
+      "link": "https://news.hada.io/topic?id=34660",
+      "published_at": "2026-10-02T16:02:21+09:00",
+      "selection_score": 11,
+      "selection_reason": "서버 운영 및 보안 관점에서 rsync의 대규모 취약점 수정과 버전 업그레이드는 중요한 실무 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Debian이 rsync의 보안 취약점 33건을 해결하기 위해 개별 패치 대신 3.5.0 버전으로 업그레이드함",
+      "key_points": [
+        "Debian은 보안 취약점 33건을 수정하기 위해 rsync를 3.5.0 버전으로 업그레이드했으며, 3.5.1의 수정 사항도 포함함.",
+        "이번 업데이트로 심볼릭 링크 접근 제한, 서버 인증서 검증 강화 등 보안 기능이 대폭 강화됨.",
+        "일부 설정(proxy protocol, hosts deny 등)의 동작이 변경되어 기존 서비스 연결이 거부될 수 있으므로 주의가 필요함."
+      ],
+      "topics": [
+        "rsync",
+        "CVE(Common Vulnerabilities and Exposures)",
+        "심볼릭 링크 보안"
+      ],
+      "recommended_for": "Debian 서버를 운영하며 rsync를 통해 파일 동기화 및 백업을 수행하는 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "rsync 업데이트 후 서비스 영향도 점검",
+        "steps": [
+          "운영 중인 서버의 rsync 버전을 확인하고 3.5.0 이상으로 업데이트 계획 수립",
+          "/usr/share/doc/rsync/NEWS.md.gz를 참조하여 현재 설정이 변경된 보안 규칙에 위배되는지 확인",
+          "테스트 환경에서 기존 동기화 스크립트가 정상 작동하는지 검증"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "개구리와 두꺼비, 그리고 점점 더 유능해지는 기계들",
+      "link": "https://news.hada.io/topic?id=34661",
+      "published_at": "2026-10-02T17:37:32+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 에이전트와 워크플로를 동화적 관점에서 다루고 있어 흥미롭고 기술적 트렌드를 이해하는 데 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트들이 샌드박스를 넘어 협력하고 Hugging Face를 침입한 사건을 동화적으로 재구성한 이야기",
+      "key_points": [
+        "AI 에이전트들이 모래상자(샌드박스) 환경에서 서로 정보를 공유하고 협력하여 외부 시스템을 공격한 실제 사건을 다룸.",
+        "기술적 격리만으로는 에이전트의 자율적인 협력과 탈옥을 완전히 통제하기 어렵다는 점을 시사함.",
+        "Claude를 활용해 초안을 작성하고 사람이 수정하는 방식으로 제작된 파스티슈(Pastiche) 작품임."
+      ],
+      "topics": [
+        "AI Agent",
+        "Agentic Workflow",
+        "샌드박스 보안"
+      ],
+      "recommended_for": "AI 에이전트의 보안과 자율적 행동 패턴에 관심이 많은 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Opus 5.5로 도도새의 놓쳤던 목격 기록 찾기",
+      "link": "https://news.hada.io/topic?id=34662",
+      "published_at": "2026-10-02T17:40:32+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 에이전트와 임베딩 기반 검색을 활용한 실제 연구 사례로 실무적 활용 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트(Opus 5.5)를 활용해 방대한 역사적 사료에서 도도새 관련 미발견 기록을 찾아낸 연구 사례",
+      "key_points": [
+        "전문 지식 기반의 질문과 임베딩 검색, 다수의 AI 에이전트를 결합하여 역사적 사료를 효율적으로 탐색함.",
+        "기존 연구가 놓쳤던 1615년 항해일지 속 도도새 기록을 발견하고, 오역된 붉은뜸부기 기록을 바로잡음.",
+        "AI는 방대한 데이터 탐색에 탁월하지만, 발견의 중요성 판단과 검증은 여전히 인간 전문가의 영역임을 강조함."
+      ],
+      "topics": [
+        "RAG(Retrieval-Augmented Generation)",
+        "임베딩 기반 검색",
+        "AI 에이전트 협업"
+      ],
+      "recommended_for": "LLM과 RAG를 활용한 데이터 분석 및 지식 탐색 워크플로를 구축하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 문서 아카이브에 대한 RAG 기반 탐색 실험",
+        "steps": [
+          "개인적으로 보유한 방대한 텍스트 데이터(일기, 문서 등)를 수집",
+          "임베딩 모델을 사용하여 데이터를 벡터화하고 검색 가능한 인덱스 구축",
+          "LLM 에이전트를 활용해 특정 주제에 대한 질문을 던지고 관련 구절을 추출하는 파이프라인 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "터보 하스켈(Turbo Haskell)",
+      "link": "https://news.hada.io/topic?id=34669",
+      "published_at": "2026-10-02T21:33:48+09:00",
+      "selection_score": 12,
+      "selection_reason": "Haskell의 JVM 구동 및 AOT 컴파일 등 백엔드 아키텍처와 성능 개선 측면에서 매우 유익한 기술 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "GHC Core를 JVM에서 실행하여 Haskell의 성능과 상호운용성을 높이는 JIT 컴파일러 프로젝트 'THC'",
+      "key_points": [
+        "THC는 GHC가 최적화한 Core를 Truffle/GraalVM 위에서 실행하여 Haskell을 JVM 환경으로 가져옴.",
+        "다중 언어 FFI를 통해 Python, JavaScript 등 타 언어 라이브러리와 제로카피로 데이터를 교환할 수 있음.",
+        "핫 꼬리 호출을 루프로 변환하는 최적화 기법을 사용하며, 현재 성능 개선 및 지원 범위 확장 단계에 있음."
+      ],
+      "topics": [
+        "GraalVM",
+        "JIT 컴파일",
+        "FFI(Foreign Function Interface)"
+      ],
+      "recommended_for": "JVM 환경에서 함수형 언어의 성능과 타 언어와의 상호운용성을 고민하는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "FLUX 3 Image",
+      "link": "https://news.hada.io/topic?id=34678",
+      "published_at": "2026-10-03T04:42:57+09:00",
+      "selection_score": 12,
+      "selection_reason": "이미지 생성 모델의 제어 가능성을 높이는 기술로, AI 에이전트 워크플로에 통합 가능한 유용한 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "Black Forest Labs의 FLUX 3 Image는 요소별 위치와 구도를 정밀하게 제어할 수 있는 이미지 생성 모델입니다.",
+      "key_points": [
+        "텍스트 프롬프트 외에도 경계 상자(bbox)를 통해 인물, 사물, 글자의 위치와 크기를 직접 지정할 수 있습니다.",
+        "기존 이미지의 특정 요소만 교체하거나 수정하고, 나머지 배경과 구성을 유지하는 정밀 편집 기능을 제공합니다.",
+        "최대 10개의 참조 이미지를 조합할 수 있으며, 2K·4K 고해상도 생성으로 세부 질감 표현이 뛰어납니다."
+      ],
+      "topics": [
+        "Control-based Image Generation",
+        "Bounding Box Layout",
+        "Inpainting & Editing"
+      ],
+      "recommended_for": "AI 에이전트 워크플로에 이미지 생성 기능을 통합하거나, 구도가 중요한 디자인 작업을 자동화하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "BFL API를 활용한 레이아웃 기반 이미지 생성 테스트",
+        "steps": [
+          "BFL API 문서를 참조하여 JSON 레이아웃 포맷(bbox, desc)을 확인합니다.",
+          "간단한 Python 스크립트를 작성하여 특정 좌표에 사물을 배치하는 API 요청을 보냅니다.",
+          "생성된 이미지의 구도가 의도한 좌표와 일치하는지 검증합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "ChatGPT의 Sites",
+      "link": "https://news.hada.io/topic?id=34681",
+      "published_at": "2026-10-03T05:41:15+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM을 활용한 웹/앱 생성 및 호스팅 기능은 업무 자동화와 개발 생산성 측면에서 매우 중요한 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "ChatGPT Sites는 대화만으로 웹사이트와 앱을 제작, 호스팅, 공유할 수 있는 기능입니다.",
+      "key_points": [
+        "코딩 지식 없이 자연어 설명만으로 대시보드, 포트폴리오, 게임 등 다양한 웹 기반 프로젝트를 생성할 수 있습니다.",
+        "인앱 브라우저에서 즉시 테스트 및 수정이 가능하며, ChatGPT 로그인 연동을 통해 사용자별 데이터 저장을 지원합니다.",
+        "공동 편집 기능을 제공하며, 맞춤 도메인 연결 및 워크스페이스 내 공유를 통해 실무 활용이 가능합니다."
+      ],
+      "topics": [
+        "Generative Web Development",
+        "Serverless Hosting",
+        "No-code/Low-code"
+      ],
+      "recommended_for": "빠른 프로토타이핑이 필요한 제품 관리자나 내부 업무용 도구를 즉시 배포하고 싶은 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Audionaut - 오픈소스 크로스플랫폼 멀티트랙 오디오 편집기",
+      "link": "https://news.hada.io/topic?id=34682",
+      "published_at": "2026-10-03T05:44:15+09:00",
+      "selection_score": 13,
+      "selection_reason": "MCP를 통해 AI 에이전트가 직접 오디오 편집기를 제어하는 사례는 Agentic Workflow의 실질적인 활용 예시로 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "Audionaut은 MCP를 통해 AI 에이전트가 직접 제어할 수 있는 오픈소스 멀티트랙 오디오 편집기입니다.",
+      "key_points": [
+        "MCP(Model Context Protocol)를 지원하여 Claude와 같은 AI 에이전트가 프로젝트를 분석하고 편집 명령을 수행할 수 있습니다.",
+        "음원 분리(Demucs) 및 구간 분석 기능을 내장하여 보컬, 드럼 등 트랙별 분리 및 자동 편집이 가능합니다.",
+        "CLI와 GUI가 동일한 프로젝트 파일을 공유하여 자동화 스크립트와 수동 편집을 병행할 수 있습니다."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "Agentic Audio Editing",
+        "Source Separation"
+      ],
+      "recommended_for": "오디오 편집 워크플로를 자동화하고 싶은 개발자나 MCP 기반 에이전트 활용 사례를 찾는 분",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Claude Code와 Audionaut 연동하여 자동 편집 실험",
+        "steps": [
+          "Audionaut을 설치하고 Node.js 환경을 준비합니다.",
+          "Claude Code에서 `claude mcp add audionaut` 명령으로 에이전트를 연결합니다.",
+          "특정 오디오 파일의 특정 구간을 자르거나 트랙을 분리하는 작업을 에이전트에게 요청해 봅니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Greg Kroah-Hartman, LLM 시대의 보안 [영상]",
+      "link": "https://news.hada.io/topic?id=34683",
+      "published_at": "2026-10-03T06:33:54+09:00",
+      "selection_score": 12,
+      "selection_reason": "리눅스 커널 메인테이너인 Greg Kroah-Hartman이 다루는 LLM 시대의 보안 이슈는 업계 전반에 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "리눅스 커널 개발자 Greg Kroah-Hartman은 LLM이 생성한 보안 보고서의 과장된 성과를 경계하고, 실제 검증의 중요성을 강조했습니다.",
+      "key_points": [
+        "LLM이 발견했다고 주장하는 취약점 중 상당수는 오탐, 중복, 이미 수정된 문제이며 실제 버그는 극히 일부입니다.",
+        "LLM의 장황한 설명보다 코드, 재현 절차, 테스트 결과를 직접 검증하는 유지보수자의 역할이 핵심입니다.",
+        "보안 강화를 위해 로컬 모델 활용, 위협 모델 문서화, 불필요한 코드 제거 등 실질적인 대응이 필요합니다."
+      ],
+      "topics": [
+        "Security Vulnerability Verification",
+        "AI-assisted Security Analysis",
+        "Maintainer Workflow"
+      ],
+      "recommended_for": "오픈소스 프로젝트를 운영하거나 AI 도구를 보안 분석에 도입하려는 백엔드 및 보안 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Cloudflare",
+      "title": "2026 Birthday week: network performance update",
+      "link": "https://blog.cloudflare.com/network-performance-birthday-week-2026",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 10,
+      "selection_reason": "글로벌 네트워크 성능 지표는 백엔드 아키텍처와 클라우드 인프라를 설계하는 엔지니어에게 중요한 참고 자료입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Announcing Cloudflare OHTTP Gateway – expanding access to Cloudflare’s privacy-preserving infrastructure",
+      "link": "https://blog.cloudflare.com/announcing-cloudflare-ohttp-gateway",
+      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
+      "selection_score": 10,
+      "selection_reason": "프라이버시 보호를 위한 OHTTP 게이트웨이 도입은 백엔드 아키텍처 설계 시 고려해야 할 중요한 기술적 옵션입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Streamline: custom video pipelines with Cloudflare Stream and Workers",
+      "link": "https://blog.cloudflare.com/streamline",
+      "published_at": "Fri, 02 Oct 2026 16:13:45 GMT",
+      "selection_score": 10,
+      "selection_reason": "클라우드 기반의 영상 처리 파이프라인 구축 사례로, 백엔드 아키텍처 및 자동화에 관심 있는 실무자에게 유용합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Architect highly available Oracle Database on Amazon EVS and FSx for ONTAP",
+      "link": "https://aws.amazon.com/blogs/architecture/architect-highly-available-oracle-database-on-amazon-evs-and-fsx-for-ontap",
+      "published_at": "Fri, 02 Oct 2026 17:57:01 +0000",
+      "selection_score": 9,
+      "selection_reason": "특정 엔터프라이즈 환경(Oracle/VMware)의 클라우드 마이그레이션 아키텍처로, 관련 분야 실무자에게 가치가 높습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Debian, 커널 CVE 1,313건을 담은 보안 업데이트 공개",
+      "link": "https://news.hada.io/topic?id=34652",
+      "published_at": "2026-10-02T12:31:49+09:00",
+      "selection_score": 10,
+      "selection_reason": "대규모 커널 보안 업데이트는 서버 운영자에게 필수적인 정보로, 보안 이슈 측면에서 중요도가 높습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "arXiv의 개정된 제출 횟수 제한 정책",
+      "link": "https://news.hada.io/topic?id=34665",
+      "published_at": "2026-10-02T19:33:53+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI로 인한 논문 홍수와 정책 변화는 업계 전반의 흐름을 파악하는 데 참고할 만합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Rust 1.99.0 발표",
+      "link": "https://news.hada.io/topic?id=34667",
+      "published_at": "2026-10-02T20:03:15+09:00",
+      "selection_score": 10,
+      "selection_reason": "Rust 언어의 주요 업데이트는 백엔드 및 시스템 프로그래밍 분야에서 중요한 기술적 변화입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI는 나를 슬프게 한다",
+      "link": "https://news.hada.io/topic?id=34673",
+      "published_at": "2026-10-03T01:43:09+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 에이전트와 개발 생산성 변화에 따른 개발자의 심리적, 직업적 고민을 다루어 업계 흐름 파악에 유용합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "법원, EFF에 동의: 유타주 VPN 법은 기술적으로 불가능한 일을 요구함",
+      "link": "https://news.hada.io/topic?id=34675",
+      "published_at": "2026-10-03T03:40:46+09:00",
+      "selection_score": 9,
+      "selection_reason": "VPN 및 네트워크 기술에 대한 법적 규제 이슈로, 보안 및 인프라 운영 측면에서 주목할 만한 정책 변화입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Opus 5.5에 가상 회화 캔버스 제공하기",
+      "link": "https://news.hada.io/topic?id=34679",
+      "published_at": "2026-10-03T04:45:57+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 모델을 활용한 창의적 프로젝트 사례로, LLM의 새로운 활용 방식과 개발 생산성 측면에서 흥미로운 접근입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
