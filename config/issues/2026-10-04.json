@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "issue_number": 16,
+  "issue_date": "2026-10-04",
+  "generated_at": "2026-10-04T08:32:29.797371+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI Agent, Agentic Workflow, Git Security, SaaS Architecture, LLM Cost Optimization\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 코드 생성을 넘어 제품 설계와 운영의 핵심 하네스로 진화하고 있으며, 이에 따른 보안과 효율성 관리가 실무의 필수 과제가 되었습니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트가 개발 워크플로에 깊숙이 침투하면서 생산성 향상뿐만 아니라 코드 품질 저하, 보안 위협, 비용 관리라는 새로운 도전 과제가 발생하고 있습니다. 단순히 AI를 사용하는 단계를 넘어, 에이전트를 효과적으로 제어하고 안전하게 통합하는 아키텍처 설계 능력이 개발자의 핵심 역량이 되고 있습니다.\n\n[왜 이 글들을 골랐나]\n\n• 11번: Claude Opus 5.5를 활용한 실전 가이드는 AI 에이전트의 생산성을 극대화할 수 있는 구체적인 방법론을 제시합니다.\n• 7번: SaaS 비즈니스가 모델을 둘러싼 하네스가 되어야 한다는 통찰은 AI 시대의 제품 전략과 아키텍처 방향성을 재정립하는 데 필수적입니다.\n• 2번: Git 훅을 악용한 자격 증명 탈취 사례는 AI 도입으로 바빠진 개발 환경에서 간과하기 쉬운 보안 취약점을 경고합니다.\n\n[오늘 공부해볼 것]\n\n• CLAUDE.md 및 TASKS.md 작성법: AI 에이전트가 프로젝트의 맥락을 정확히 이해하고 작업을 체계적으로 수행하도록 돕는 표준화된 문서화 기법을 익힙니다.\n• Git Hooks 보안 설정: .git/hooks 디렉터리의 실행 권한을 점검하고, 신뢰할 수 없는 저장소로부터 시스템을 보호하는 보안 가이드라인을 수립합니다.\n• LLM 비용 모니터링 및 모델 최적화: 현재 사용 중인 API의 토큰 소비 패턴을 분석하고, 성능과 비용 효율을 고려한 모델 교체 전략을 세웁니다.",
+  "stats": {
+    "candidate_count": 30,
+    "detailed_count": 11,
+    "brief_count": 1,
+    "excluded_count": 18,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Claude와 Claude Code에서 Opus 5.5를 최대한 활용하는 방법",
+      "link": "https://news.hada.io/topic?id=34734",
+      "published_at": "2026-10-04T07:42:52+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent, LLM 활용, 개발 생산성 향상 등 사용자의 핵심 관심사를 모두 관통하는 매우 중요한 기술 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Opus 5.5를 활용해 장기 코딩 작업을 효율적으로 자동화하고 관리하는 실전 가이드",
+      "key_points": [
+        "Opus 5.5는 스스로 사고하므로 '신중하게 생각하라'는 지시를 제거하고, 작업 전체와 완료 조건을 한 번에 명확히 전달하는 것이 효과적이다.",
+        "CLAUDE.md를 통해 중단 규칙과 작업 목록(TASKS.md)을 관리하고, 서브에이전트를 활용해 대규모 코드베이스의 마이그레이션이나 감사를 병렬로 처리할 수 있다.",
+        "이미지 분석 및 문서 해석 능력이 크게 향상되어 차트, 회로도, 데이터시트 등을 직접 첨부해 오류 검사나 데이터 추출을 맡기기에 적합하다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Claude Code",
+        "Sub-agent Orchestration"
+      ],
+      "recommended_for": "Claude Code를 사용하여 복잡한 코딩 작업이나 대규모 리팩토링을 자동화하고 싶은 백엔드 및 풀스택 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "CLAUDE.md를 활용한 장기 작업 자동화 실험",
+        "steps": [
+          "프로젝트 루트에 CLAUDE.md를 생성하고, 파괴적 작업(데이터 삭제, 강제 푸시 등) 시에만 질문하도록 중단 규칙을 작성한다.",
+          "진행 중인 작업 목록을 관리할 TASKS.md 파일을 만들고, Claude Code에게 이 파일을 업데이트하며 작업을 수행하도록 지시한다.",
+          "복잡한 리팩토링이나 마이그레이션 작업을 수행하며, 서브에이전트 분업을 요청하여 결과물을 검증해본다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "모든 SaaS 비즈니스는 모델을 둘러싼 하네스가 될 것",
+      "link": "https://news.hada.io/topic?id=34718",
+      "published_at": "2026-10-04T02:07:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 Agentic Workflow가 SaaS의 미래라는 관점은 백엔드 아키텍처와 제품 전략 수립에 매우 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "SaaS 기업이 AI 에이전트를 중심으로 제품을 재편하며, 기업 자체가 모델을 조율하는 '하네스'가 되어야 한다는 전략적 통찰.",
+      "key_points": [
+        "미래의 SaaS는 에이전트가 핵심 업무를 수행하고, 기업은 맥락과 검토 체계를 제공하는 하네스 역할을 함.",
+        "완전 무인화보다는 인간의 안목이 필요한 지점에 주의를 집중시키는 하네스 설계가 핵심 경쟁력임.",
+        "외부 도구에 의존하기보다 무엇을 만들지 결정하는 최상위 하네스는 직접 소유해야 함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "하네스(Harness) 설계",
+        "헤드리스(Headless) 아키텍처"
+      ],
+      "recommended_for": "AI 에이전트 도입을 고민하는 SaaS 제품 기획자 및 백엔드 아키텍트",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "내가 표적이 됐다: git post-checkout 훅으로 자격 증명 탈취를 노린 시도",
+      "link": "https://news.hada.io/topic?id=34709",
+      "published_at": "2026-10-03T19:02:14+09:00",
+      "selection_score": 14,
+      "selection_reason": "개발자 워크플로(git)를 악용한 보안 위협 사례로 실무 보안 관점에서 매우 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "Git의 post-checkout 훅을 악용해 자격 증명을 탈취하려는 보안 위협 사례",
+      "key_points": [
+        "공격자는 프로젝트 협업을 가장해 악성 .git 폴더가 포함된 저장소를 전달하고, 특정 브랜치로 전환하도록 유도합니다.",
+        "post-checkout 훅은 브랜치 전환 시 자동으로 실행되어 악성 바이너리를 다운로드하고 실행한 뒤 스스로 삭제됩니다.",
+        "Git 저장소 복제 시 작업 트리 체크아웃 단계에서 훅이 실행될 수 있으므로, 신뢰할 수 없는 저장소의 브랜치 전환에 주의해야 합니다."
+      ],
+      "topics": [
+        "Git Hooks",
+        "Supply Chain Attack",
+        "Credential Theft"
+      ],
+      "recommended_for": "외부 프로젝트를 자주 다루거나 보안에 민감한 백엔드 및 오픈소스 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Git 보안 설정 점검 및 외부 저장소 취급 가이드 수립",
+        "steps": [
+          "현재 사용하는 개발 환경에서 .git/hooks 디렉터리의 실행 권한을 확인합니다.",
+          "신뢰하지 않는 외부 저장소는 가상 머신이나 GitHub 내장 편집기(.)를 통해 먼저 확인하는 습관을 들입니다.",
+          "팀 내 보안 가이드라인에 '외부 저장소 클론 시 훅 확인 절차'를 추가합니다."
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "Show GN: ALPS Writer·ADR Writer - Claude Code와 Codex용 제품 명세·설계 결정 관리 플러그인",
+      "link": "https://news.hada.io/topic?id=34705",
+      "published_at": "2026-10-03T16:25:22+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent 및 LLM 기반 워크플로를 실무에 적용하는 구체적인 도구로 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Code와 Codex에서 PRD와 ADR 작성을 자동화하는 오픈소스 플러그인",
+      "key_points": [
+        "ALPS Writer는 질문과 답변을 통해 제품 요구사항 문서(PRD) 초안을 작성하고 저장하는 기능을 제공합니다.",
+        "ADR Writer는 설계 결정 기록(ADR)을 관리하며, 구현과 문서 간의 차이를 확인하고 결정 이유를 코드베이스에 남길 수 있습니다.",
+        "두 플러그인 모두 MIT 라이선스로 공개되었으며, Node.js 24 이상 환경에서 마켓플레이스를 통해 설치 가능합니다."
+      ],
+      "topics": [
+        "PRD (Product Requirements Document)",
+        "ADR (Architecture Decision Records)",
+        "AI Agent Workflow"
+      ],
+      "recommended_for": "AI 에이전트를 활용해 문서화와 설계 기록을 효율적으로 관리하고 싶은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "기존 프로젝트에 ADR Writer 적용하여 설계 결정 기록 시작하기",
+        "steps": [
+          "GitHub 저장소에서 플러그인을 설치하고 프로젝트에 연동합니다.",
+          "/adr-import 명령어를 사용하여 현재 프로젝트의 주요 설계 결정 후보를 추출합니다.",
+          "생성된 ADR 문서를 검토하고 팀원들과 공유하여 문서화 워크플로를 구축합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "에이전트 코딩의 묵시록 4기사",
+      "link": "https://news.hada.io/topic?id=34713",
+      "published_at": "2026-10-03T23:03:28+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI Agent 도입에 따른 개발 생산성과 아키텍처 유지보수 문제를 심도 있게 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "에이전트 코딩 도입이 가져오는 개발 문화와 팀 협업의 부작용 분석",
+      "key_points": [
+        "에이전트 코딩은 코드베이스의 품질 저하(슬롭), 작업물과의 거리감, 숙련도 저하, 팀 내 사회적 유대 약화라는 4가지 문제를 야기합니다.",
+        "AI가 생성한 코드는 사람이 읽고 유지보수하기 어려워지며, 개발자가 직접 코드를 작성할 기회를 잃게 만듭니다.",
+        "동료와의 대화 대신 에이전트와 소통하는 시간이 늘어나면서 팀 내 전문성 공유와 관계 형성이 붕괴될 위험이 있습니다."
+      ],
+      "topics": [
+        "Agentic Coding",
+        "Slop",
+        "IKEA Effect"
+      ],
+      "recommended_for": "AI 에이전트 도입을 고민하거나 팀 내 개발 생산성 저하를 겪고 있는 기술 리더",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "GLM 5.3 Flash로 한 달간 코딩하기",
+      "link": "https://news.hada.io/topic?id=34714",
+      "published_at": "2026-10-03T23:34:43+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM 기반 개발 워크플로의 실제 비용과 성능을 검증한 사례로 실무적 참고 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "GLM 5.3 Flash 모델을 활용한 한 달간의 개발 비용 및 효율성 검증",
+      "key_points": [
+        "한 달간의 개발 실험에서 GLM 5.3 Flash 모델 사용 비용은 68달러였으며, 일상적인 코딩 작업에 충분한 성능을 보였습니다.",
+        "모델 선택 실패 시 하룻밤에 150달러가 소모될 수 있으므로, 프로토타입 단계부터 모델별 비용과 에너지 효율을 고려해야 합니다.",
+        "토큰 수보다는 비용, 에너지, 실제 성과를 기준으로 AI 사용량을 관리하는 것이 지속 가능한 개발에 중요합니다."
+      ],
+      "topics": [
+        "Tokenomics",
+        "Model Efficiency",
+        "Agentic Engineering"
+      ],
+      "recommended_for": "LLM API 비용 절감과 효율적인 에이전트 워크플로 구축에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 프로젝트의 LLM API 비용 및 토큰 사용량 모니터링",
+        "steps": [
+          "사용 중인 LLM API의 월간 비용과 토큰 사용량을 추적하는 대시보드를 구성합니다.",
+          "비용 효율적인 Flash급 모델로 교체 가능한 작업 범위를 식별합니다.",
+          "에이전트의 역할을 세분화하여 불필요한 토큰 소비를 줄이는 프롬프트 최적화를 수행합니다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: 독일의 새로운 소버린 AI 모델 Kolibri",
+      "link": "https://news.hada.io/topic?id=34715",
+      "published_at": "2026-10-04T00:37:47+09:00",
+      "selection_score": 11,
+      "selection_reason": "자체 서버 운영이 가능한 오픈 웨이트 MoE 모델로, 기업용 AI 인프라 구축 및 비용 절감 측면에서 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "독일어와 영어에 특화된 오픈 웨이트 MoE 모델 'Kolibri' 공개",
+      "key_points": [
+        "Aleph Alpha가 공개한 Kolibri는 781억 파라미터 규모의 MoE 모델로, 자체 서버 운영이 가능해 데이터 주권을 보장합니다.",
+        "독일어 복합어 처리에 최적화된 UniBPE 토크나이저를 사용하며, 긴 컨텍스트(최대 100만 토큰)와 RAG 성능에 강점이 있습니다.",
+        "근거가 부족할 경우 답변을 유보하도록 학습되었으며, 기업용 문서 기반 질의응답 및 법률/공공 분야에 적합합니다."
+      ],
+      "topics": [
+        "MoE (Mixture of Experts)",
+        "Sovereign AI",
+        "UniBPE"
+      ],
+      "recommended_for": "데이터 보안이 중요한 기업 환경에서 자체 LLM 인프라를 구축하려는 백엔드 및 인프라 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Kolibri 출시: 주권형 오픈웨이트 모델",
+      "link": "https://news.hada.io/topic?id=34716",
+      "published_at": "2026-10-04T02:01:02+09:00",
+      "selection_score": 11,
+      "selection_reason": "100만 토큰 문맥을 지원하는 고성능 모델의 등장은 LLM 활용 아키텍처 설계에 중요한 기술적 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Aleph Alpha가 100만 토큰 문맥을 지원하는 주권형 오픈웨이트 모델 'Kolibri'를 공개함.",
+      "key_points": [
+        "780억 파라미터 MoE 모델로, 규제 산업을 겨냥해 온프레미스 배포와 데이터 주권을 강조함.",
+        "Merlin-Arthur 학습을 통해 근거가 부족할 때 답변을 유보하도록 훈련하여 환각을 억제함.",
+        "Model Factory를 통해 데이터 수집부터 평가까지 전체 파이프라인을 버전 관리하여 개발 효율을 높임."
+      ],
+      "topics": [
+        "MoE(Mixture of Experts)",
+        "주권형 AI(Sovereign AI)",
+        "환각 억제(Grounding)"
+      ],
+      "recommended_for": "규제 산업에서 데이터 보안이 중요한 환경의 백엔드 아키텍트 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Kolibri 모델을 로컬 환경에서 실행하여 RAG 성능 테스트하기",
+        "steps": [
+          "Hugging Face에서 Kolibri 가중치 다운로드",
+          "aleph-alpha-inference 패키지를 사용하여 vLLM 환경에서 모델 로드",
+          "자체 RAG 데이터셋을 활용해 답변 유보 기능과 추론 품질 검증"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Cloudflare OHTTP 게이트웨이",
+      "link": "https://news.hada.io/topic?id=34719",
+      "published_at": "2026-10-04T02:10:02+09:00",
+      "selection_score": 12,
+      "selection_reason": "클라우드 보안 및 서버 아키텍처에서 중요한 프라이버시 기술인 OHTTP의 도입은 실무적으로 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare가 사용자 IP 노출을 방지하는 OHTTP 게이트웨이 관리형 서비스를 비공개 베타로 출시함.",
+      "key_points": [
+        "OHTTP는 릴레이와 게이트웨이로 역할을 분리하여 클라이언트 식별 정보와 요청 내용을 분리함.",
+        "관리형 게이트웨이는 자동 확장과 키 관리를 제공하여 개발자의 인프라 운영 부담을 줄임.",
+        "네트워크 수준의 개인정보 보호를 제공하며, 앱 서버는 일반 HTTP로 요청을 처리할 수 있음."
+      ],
+      "topics": [
+        "OHTTP(Oblivious HTTP)",
+        "HPKE(Hybrid Public Key Encryption)",
+        "신뢰 분리(Trust Separation)"
+      ],
+      "recommended_for": "개인정보 보호가 중요한 서비스를 운영하는 백엔드 및 보안 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "서비스 아키텍처에 OHTTP 도입 가능성 검토",
+        "steps": [
+          "OHTTP 표준 문서 및 Cloudflare OHTTP Gateway 문서 검토",
+          "현재 서비스의 사용자 데이터 수집 경로에서 IP 노출 최소화 지점 식별",
+          "릴레이 운영 주체 선정 및 신뢰 모델 설계"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: 오픈소스 LEGO AI 생성기를 만들었습니다",
+      "link": "https://news.hada.io/topic?id=34723",
+      "published_at": "2026-10-04T03:32:50+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI Agent가 Python 스크립트를 생성하여 물리적 설계를 수행하는 워크플로는 업무 자동화의 좋은 실무 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트가 Python 스크립트를 생성하여 물리적 LEGO 모델을 설계하는 오픈소스 프로젝트 'ldraw-nova' 공개.",
+      "key_points": [
+        "에이전트가 직접 기하 계산을 하기보다 계산을 수행하는 Python 코드를 생성하여 LDraw 소스를 만드는 방식임.",
+        "렌더링 결과를 검토하고 반복 수정하는 루프를 통해 설계 품질을 개선함.",
+        "LDraw 소스뿐만 아니라 Blender 편집용 .glb 파일 및 VR 시각화 결과물을 제공함."
+      ],
+      "topics": [
+        "LDraw",
+        "코드 생성 기반 설계",
+        "에이전트 루프(Agentic Loop)"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 업무 자동화 및 물리적 설계 자동화에 관심 있는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "ldraw-nova를 활용한 LEGO 모델 자동 생성 실험",
+        "steps": [
+          "GitHub에서 ldraw-nova-docker 저장소 클론 및 Docker 환경 구축",
+          "에이전트 지침을 참고하여 간단한 구조물 생성 프롬프트 입력",
+          "생성된 LDraw 파일과 렌더링 결과물 확인 및 수정 반복"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "FTL, 클라우드를 위한 새로운 운영체제",
+      "link": "https://news.hada.io/topic?id=34729",
+      "published_at": "2026-10-04T06:43:17+09:00",
+      "selection_score": 12,
+      "selection_reason": "클라우드 네이티브 환경과 운영체제 아키텍처의 혁신적인 변화를 다루고 있어 시스템 엔지니어링 관점에서 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "사용자 공간 라이브러리로 운영체제를 구현하여 클라우드 컨테이너의 보안과 유연성을 높이는 'FTL' OS 공개.",
+      "key_points": [
+        "운영체제 기능을 사용자 공간 라이브러리로 구현하여 커널 수정 없이 기능 추가 및 디버깅이 가능함.",
+        "Linux 바이너리와 호환되며, 하드웨어 기반 격리를 통해 컨테이너를 VM 수준으로 안전하게 격리함.",
+        "마이크로커널의 보안성과 모놀리식 커널의 성능을 결합한 클라우드 네이티브 OS를 지향함."
+      ],
+      "topics": [
+        "사용자 공간 OS(Userspace OS)",
+        "마이크로커널",
+        "컨테이너 격리"
+      ],
+      "recommended_for": "클라우드 인프라 및 시스템 프로그래밍에 관심 있는 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "잘 잊어버리는 CPU(M4에서 Linux 구동하기)",
+      "link": "https://news.hada.io/topic?id=34704",
+      "published_at": "2026-10-03T15:34:35+09:00",
+      "selection_score": 9,
+      "selection_reason": "M4 칩셋에서의 리눅스 구동은 시스템 아키텍처 및 저수준 개발 측면에서 흥미로운 기술적 성과입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

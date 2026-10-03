@@ -1,6 +1,182 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: ALPS Writer·ADR Writer - Claude Code와 Codex용 제품 명세·설계 결정 관리 플러그인",
+      "link": "https://news.hada.io/topic?id=34705",
+      "published_at": "2026-10-03T16:25:22+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "PRD (Product Requirements Document)",
+        "ADR (Architecture Decision Records)",
+        "AI Agent Workflow"
+      ],
+      "one_line": "Claude Code와 Codex에서 PRD와 ADR 작성을 자동화하는 오픈소스 플러그인",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "내가 표적이 됐다: git post-checkout 훅으로 자격 증명 탈취를 노린 시도",
+      "link": "https://news.hada.io/topic?id=34709",
+      "published_at": "2026-10-03T19:02:14+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Git Hooks",
+        "Supply Chain Attack",
+        "Credential Theft"
+      ],
+      "one_line": "Git의 post-checkout 훅을 악용해 자격 증명을 탈취하려는 보안 위협 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "에이전트 코딩의 묵시록 4기사",
+      "link": "https://news.hada.io/topic?id=34713",
+      "published_at": "2026-10-03T23:03:28+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Coding",
+        "Slop",
+        "IKEA Effect"
+      ],
+      "one_line": "에이전트 코딩 도입이 가져오는 개발 문화와 팀 협업의 부작용 분석",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "GLM 5.3 Flash로 한 달간 코딩하기",
+      "link": "https://news.hada.io/topic?id=34714",
+      "published_at": "2026-10-03T23:34:43+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Tokenomics",
+        "Model Efficiency",
+        "Agentic Engineering"
+      ],
+      "one_line": "GLM 5.3 Flash 모델을 활용한 한 달간의 개발 비용 및 효율성 검증",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: 독일의 새로운 소버린 AI 모델 Kolibri",
+      "link": "https://news.hada.io/topic?id=34715",
+      "published_at": "2026-10-04T00:37:47+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "MoE (Mixture of Experts)",
+        "Sovereign AI",
+        "UniBPE"
+      ],
+      "one_line": "독일어와 영어에 특화된 오픈 웨이트 MoE 모델 'Kolibri' 공개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "Kolibri 출시: 주권형 오픈웨이트 모델",
+      "link": "https://news.hada.io/topic?id=34716",
+      "published_at": "2026-10-04T02:01:02+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "MoE(Mixture of Experts)",
+        "주권형 AI(Sovereign AI)",
+        "환각 억제(Grounding)"
+      ],
+      "one_line": "Aleph Alpha가 100만 토큰 문맥을 지원하는 주권형 오픈웨이트 모델 'Kolibri'를 공개함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "모든 SaaS 비즈니스는 모델을 둘러싼 하네스가 될 것",
+      "link": "https://news.hada.io/topic?id=34718",
+      "published_at": "2026-10-04T02:07:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "하네스(Harness) 설계",
+        "헤드리스(Headless) 아키텍처"
+      ],
+      "one_line": "SaaS 기업이 AI 에이전트를 중심으로 제품을 재편하며, 기업 자체가 모델을 조율하는 '하네스'가 되어야 한다는 전략적 통찰.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "Cloudflare OHTTP 게이트웨이",
+      "link": "https://news.hada.io/topic?id=34719",
+      "published_at": "2026-10-04T02:10:02+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "OHTTP(Oblivious HTTP)",
+        "HPKE(Hybrid Public Key Encryption)",
+        "신뢰 분리(Trust Separation)"
+      ],
+      "one_line": "Cloudflare가 사용자 IP 노출을 방지하는 OHTTP 게이트웨이 관리형 서비스를 비공개 베타로 출시함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: 오픈소스 LEGO AI 생성기를 만들었습니다",
+      "link": "https://news.hada.io/topic?id=34723",
+      "published_at": "2026-10-04T03:32:50+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "LDraw",
+        "코드 생성 기반 설계",
+        "에이전트 루프(Agentic Loop)"
+      ],
+      "one_line": "AI 에이전트가 Python 스크립트를 생성하여 물리적 LEGO 모델을 설계하는 오픈소스 프로젝트 'ldraw-nova' 공개.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "FTL, 클라우드를 위한 새로운 운영체제",
+      "link": "https://news.hada.io/topic?id=34729",
+      "published_at": "2026-10-04T06:43:17+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "사용자 공간 OS(Userspace OS)",
+        "마이크로커널",
+        "컨테이너 격리"
+      ],
+      "one_line": "사용자 공간 라이브러리로 운영체제를 구현하여 클라우드 컨테이너의 보안과 유연성을 높이는 'FTL' OS 공개.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
+      "company": "GeekNews",
+      "title": "Claude와 Claude Code에서 Opus 5.5를 최대한 활용하는 방법",
+      "link": "https://news.hada.io/topic?id=34734",
+      "published_at": "2026-10-04T07:42:52+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Claude Code",
+        "Sub-agent Orchestration"
+      ],
+      "one_line": "Claude Opus 5.5를 활용해 장기 코딩 작업을 효율적으로 자동화하고 관리하는 실전 가이드",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-10-03T09:10:56.965153+09:00",
       "company": "LINE Engineering",
       "title": "LLM이 만든 SQL을 믿고 실행하기까지: A2A 기반의 대화형 BI 애플리케이션 개발기",
@@ -3733,5 +3909,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-03T09:10:56.965153+09:00"
+  "updated_at": "2026-10-04T08:32:30.232131+09:00"
 }
