@@ -1,6 +1,166 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "Ask GN: 코딩 에이전트 뭐 쓰고 계세요? 고른 이유가 궁금합니다",
+      "link": "https://news.hada.io/topic?id=34756",
+      "published_at": "2026-10-04T20:15:26+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Acceptance Criteria",
+        "Agentic Workflow",
+        "Test Harness"
+      ],
+      "one_line": "코딩 에이전트 활용 시, 작업 계획 단계에서 상세한 인수조건(Acceptance Criteria)을 설정하면 저사양 모델로도 효율적인 구현이 가능함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: cuesheet - 링크 하나로 MSW 응답을 바꿔, AI도 QA도 상황별 화면을 확인하는 도구",
+      "link": "https://news.hada.io/topic?id=34757",
+      "published_at": "2026-10-04T21:21:06+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "MSW (Mock Service Worker)",
+        "API Mocking",
+        "Dynamic Mock Scenarios"
+      ],
+      "one_line": "MSW 핸들러 응답을 URL 파라미터로 제어하여, AI와 QA가 상황별 화면을 즉시 확인하게 돕는 도구 'cuesheet'.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "Qwen 3.8 Flash Next(125B)를 소비자용 하드웨어(RTX 4090)에서 초당 100토큰으로 실행하기",
+      "link": "https://news.hada.io/topic?id=34761",
+      "published_at": "2026-10-04T23:44:10+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Quantization",
+        "MoE (Mixture of Experts)",
+        "Local Inference Engine"
+      ],
+      "one_line": "Strata를 활용해 소비자용 GPU(RTX 4090 등)에서 Qwen 3.8 Flash Next 모델을 초당 100토큰 이상의 속도로 로컬 실행.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "gVisor, CNCF에 기증 추진",
+      "link": "https://news.hada.io/topic?id=34764",
+      "published_at": "2026-10-05T01:02:52+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "gVisor",
+        "CNCF",
+        "Container Runtime Security"
+      ],
+      "one_line": "Google의 보안 컨테이너 런타임 gVisor가 CNCF로 기증되어, 오픈 거버넌스 체제로 전환 및 생태계 확장을 추진함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "Pi pod - 자체 서버의 샌드박스에서 pi 코딩 에이전트 실행하기",
+      "link": "https://news.hada.io/topic?id=34766",
+      "published_at": "2026-10-05T01:40:46+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Self-hosting",
+        "Agent Sandbox",
+        "RBAC (Role-Based Access Control)"
+      ],
+      "one_line": "Pi 코딩 에이전트를 자체 서버의 격리된 샌드박스 환경에서 실행하고 관리하는 오픈소스 도구 'Pi pod'.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "Meta가 Muse에서 잘한 것",
+      "link": "https://news.hada.io/topic?id=34770",
+      "published_at": "2026-10-05T02:40:24+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent UX",
+        "Jobs-To-Be-Done",
+        "Consumer AI Strategy"
+      ],
+      "one_line": "Meta의 AI 에이전트 'Muse'는 복잡한 기술을 단순한 UX와 광고 기반의 무료 정책으로 풀어내어 소비자 시장을 공략함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "메타데이터를 일찍 출력하면 Rust 빌드와 검사가 최대 두 배 빨라짐",
+      "link": "https://news.hada.io/topic?id=34773",
+      "published_at": "2026-10-05T04:34:48+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Rust Compilation Pipelining",
+        "Crate Metadata",
+        "Build Parallelization"
+      ],
+      "one_line": "Rust 컴파일 시 메타데이터를 조기에 출력하여 의존성 빌드를 병렬화함으로써 빌드 속도를 최대 2배 향상함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: macOS의 모든 사진과 동영상의 모든 프레임을 위한 AI 검색",
+      "link": "https://news.hada.io/topic?id=34774",
+      "published_at": "2026-10-05T04:37:48+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Local RAG",
+        "Visual Embedding",
+        "On-device AI"
+      ],
+      "one_line": "macOS의 모든 사진과 동영상을 로컬에서 AI로 검색하는 오픈소스 도구 SCM(Screen Memories) 출시.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "Offrun - 모든 코딩 에이전트를 하나의 작업 공간에서 관리",
+      "link": "https://news.hada.io/topic?id=34783",
+      "published_at": "2026-10-05T07:40:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Git Worktree",
+        "Developer Productivity"
+      ],
+      "one_line": "여러 코딩 에이전트(Claude Code, Codex 등)를 하나의 작업 공간에서 병렬로 관리하는 Mac용 앱 Offrun.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
+      "company": "GeekNews",
+      "title": "GitHub의 새 대시보드가 이제 기본 화면으로 적용됨",
+      "link": "https://news.hada.io/topic?id=34785",
+      "published_at": "2026-10-05T07:46:19+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Developer Workflow",
+        "GitHub Copilot Integration",
+        "Dashboard UX"
+      ],
+      "one_line": "GitHub의 새 대시보드가 기본 화면으로 적용되어 에이전트 세션과 이슈 관리를 한곳에서 통합함.",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-10-04T08:32:30.232131+09:00",
       "company": "GeekNews",
       "title": "Show GN: ALPS Writer·ADR Writer - Claude Code와 Codex용 제품 명세·설계 결정 관리 플러그인",
@@ -3909,5 +4069,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-04T08:32:30.232131+09:00"
+  "updated_at": "2026-10-05T08:50:30.287962+09:00"
 }
