@@ -1,6 +1,182 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GitHub Blog",
+      "title": "ReviewBench: An open benchmark for AI code review",
+      "link": "https://github.blog/ai-and-ml/github-copilot/reviewbench-an-open-benchmark-for-ai-code-review",
+      "published_at": "Mon, 05 Oct 2026 15:59:40 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Code Review",
+        "Golden Set",
+        "Fβ Score"
+      ],
+      "one_line": "AI 코드 리뷰 에이전트의 성능을 객관적으로 측정하는 오픈 벤치마크 'ReviewBench' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "AWS Compute",
+      "title": "Introducing EC2 AMI Tag Sharing: Share EC2 tags across AWS accounts",
+      "link": "https://aws.amazon.com/blogs/compute/introducing-ec2-ami-tag-sharing-share-ec2-tags-across-aws-accounts",
+      "published_at": "Mon, 05 Oct 2026 19:05:04 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "ABAC(Attribute-Based Access Control)",
+        "AMI(Amazon Machine Image)",
+        "Cross-Account Governance"
+      ],
+      "one_line": "AWS, EC2 AMI 태그를 여러 계정 간에 자동으로 공유하는 'EC2 AMI Tag Sharing' 기능 출시",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Agent Guard - Claude Code·Codex의 비밀정보 노출을 줄이는 로컬 보안 도구",
+      "link": "https://news.hada.io/topic?id=34831",
+      "published_at": "2026-10-06T01:48:31+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Prompt Injection Prevention",
+        "Secret Scanning",
+        "Agentic Security"
+      ],
+      "one_line": "Claude Code 및 Codex 사용 시 민감 정보 노출을 방지하는 로컬 보안 도구 'Agent Guard'",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Mold 링커 3.0.0 출시, Rust로 재작성",
+      "link": "https://news.hada.io/topic?id=34832",
+      "published_at": "2026-10-06T02:36:13+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Linker",
+        "Memory Safety",
+        "Binary Compatibility"
+      ],
+      "one_line": "고속 링커 'Mold' 3.0.0 출시, Rust 재작성을 통한 메모리 안전성 및 성능 강화",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Wikimedia에서 OpenAI의 ‘통제를 벗어난’ 에이전트 활동 발견",
+      "link": "https://news.hada.io/topic?id=34835",
+      "published_at": "2026-10-06T04:42:46+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow Risk",
+        "Bot Traffic Management",
+        "AI Ethics"
+      ],
+      "one_line": "Wikimedia, OpenAI 에이전트의 무승인 데이터 수집 및 침입 시도 확인",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Beam - Reflection의 5,010억 매개변수 오픈 웨이트 모델",
+      "link": "https://news.hada.io/topic?id=34839",
+      "published_at": "2026-10-06T05:40:52+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MoE (Mixture of Experts)",
+        "강화학습 (Reinforcement Learning)",
+        "추론 효율성"
+      ],
+      "one_line": "Reflection의 5,010억 매개변수 MoE 모델 'Beam' 공개 예정",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Opus 5.5 에이전트, 차세대 메모리용 상온 자성 반도체 후보 두 가지 발견",
+      "link": "https://news.hada.io/topic?id=34847",
+      "published_at": "2026-10-06T07:36:17+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "스핀트로닉스 (Spintronics)",
+        "밀도범함수이론 (DFT)"
+      ],
+      "one_line": "Claude Opus 5.5 에이전트가 차세대 메모리용 상온 자성 반도체 후보 발견",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Deno와의 우정은 끝났다, 이제 Node가 내 가장 친한 친구다",
+      "link": "https://news.hada.io/topic?id=34851",
+      "published_at": "2026-10-06T09:05:45+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Node.js",
+        "PNPM",
+        "공급망 보안 (Supply Chain Security)"
+      ],
+      "one_line": "Deno에서 Node.js로의 회귀와 현대적 Node 개발 환경 구축",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Flirt, 오픈소스로 공개",
+      "link": "https://news.hada.io/topic?id=34852",
+      "published_at": "2026-10-06T09:08:45+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Patch Series Workflow",
+        "Code Review",
+        "Local-first Software"
+      ],
+      "one_line": "패치 시리즈 워크플로 최적화 코드 리뷰 도구 'Flirt' 오픈소스 공개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "OpenRig - Claude Code와 Codex를 팀으로 운영하는 멀티 에이전트 오케스트레이터",
+      "link": "https://news.hada.io/topic?id=34854",
+      "published_at": "2026-10-06T09:30:02+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-Agent Orchestration",
+        "MCP (Model Context Protocol)",
+        "Developer Tools"
+      ],
+      "one_line": "Claude Code와 Codex를 팀으로 운영하는 멀티 에이전트 오케스트레이터 'OpenRig'",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
+      "company": "GeekNews",
+      "title": "Hack에서 Skip까지: 모든 것을 증분 처리하기",
+      "link": "https://news.hada.io/topic?id=34859",
+      "published_at": "2026-10-06T09:55:02+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Incremental Computation (증분 계산)",
+        "Immutability (불변성)",
+        "Reactive Programming (반응형 프로그래밍)"
+      ],
+      "one_line": "대규모 코드베이스와 실시간 서비스에서 변경된 부분만 효율적으로 재계산하는 증분 처리 아키텍처와 Skip 프레임워크 소개",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-10-05T08:50:30.287962+09:00",
       "company": "GeekNews",
       "title": "Ask GN: 코딩 에이전트 뭐 쓰고 계세요? 고른 이유가 궁금합니다",
@@ -4069,5 +4245,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-05T08:50:30.287962+09:00"
+  "updated_at": "2026-10-06T10:43:13.880421+09:00"
 }
