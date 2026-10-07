@@ -1,6 +1,295 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "당근",
+      "title": "한 문장으로 앱을 테스트하기까지",
+      "link": "https://medium.com/daangn/%ED%95%9C-%EB%AC%B8%EC%9E%A5%EC%9C%BC%EB%A1%9C-%EC%95%B1%EC%9D%84-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0%EA%B9%8C%EC%A7%80-5340546886b5",
+      "published_at": "Tue, 06 Oct 2026 02:55:29 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Self-healing",
+        "Path Replay",
+        "Test Automation"
+      ],
+      "one_line": "당근은 AI와 코드 기반 자동화를 결합한 'QAHub'를 통해 테스트 자동화의 효율성과 안정성을 확보했습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "당근",
+      "title": "Aurora MySQL 인덱스 DDL이 Reader 버퍼풀을 비운다?",
+      "link": "https://medium.com/daangn/aurora-mysql-%EC%9D%B8%EB%8D%B1%EC%8A%A4-ddl%EC%9D%B4-reader-%EB%B2%84%ED%8D%BC%ED%92%80%EC%9D%84-%EB%B9%84%EC%9A%B4%EB%8B%A4-16c6328dea50",
+      "published_at": "Tue, 06 Oct 2026 10:41:52 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Aurora MySQL",
+        "Buffer Pool",
+        "DDL",
+        "IS_STALE"
+      ],
+      "one_line": "Aurora MySQL에서 인덱스 DDL 작업 시 Reader 노드의 버퍼풀이 무효화되는 엔진 결함을 발견하고 분석했습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "Google Developers",
+      "title": "EmbeddingGemma 2: The Developer Guide",
+      "link": "https://developers.googleblog.com/embeddinggemma-2-the-developer-guide",
+      "published_at": "",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Multimodal Embedding",
+        "Matryoshka Representation Learning",
+        "Vector Database"
+      ],
+      "one_line": "EmbeddingGemma 2는 텍스트, 코드, 멀티모달 데이터를 통합 임베딩하는 경량화된 오픈소스 모델입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "Google Developers",
+      "title": "Bring multimodal semantic search to the edge with EmbeddingGemma 2",
+      "link": "https://developers.googleblog.com/google-ai-edge-with-embeddinggemma-2",
+      "published_at": "",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "On-device AI",
+        "Edge Computing",
+        "LiteRT"
+      ],
+      "one_line": "EmbeddingGemma 2는 온디바이스 환경에서 멀티모달 시맨틱 검색을 가능하게 하는 740M 파라미터 모델입니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GitHub Blog",
+      "title": "Building Git infrastructure for agent-scale development",
+      "link": "https://github.blog/engineering/architecture-optimization/building-git-infrastructure-for-agent-scale-development",
+      "published_at": "Tue, 06 Oct 2026 20:57:56 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Development",
+        "Distributed Systems",
+        "Git Infrastructure"
+      ],
+      "one_line": "GitHub는 에이전트 기반의 대규모 개발 워크로드를 지원하기 위해 Git 인프라를 재설계하고 있습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "Airbnb Engineering",
+      "title": "Beyond synthetic testing: Capturing and replaying real database workloads at Airbnb",
+      "link": "https://medium.com/airbnb-engineering/beyond-synthetic-testing-capturing-and-replaying-real-database-workloads-at-airbnb-cea7ee9b1ab2",
+      "published_at": "Tue, 06 Oct 2026 17:01:04 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Database Traffic Replay",
+        "ProxySQL",
+        "Workload Characterization"
+      ],
+      "one_line": "ProxySQL을 활용해 프로덕션 데이터베이스 트래픽을 캡처하고 오프라인에서 재현하여 성능 및 호환성을 검증하는 시스템 구축",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "Cloudflare",
+      "title": "The keys to the Internet change on October 11. Are you ready?",
+      "link": "https://blog.cloudflare.com/root-ksk-2024-rollover",
+      "published_at": "Tue, 06 Oct 2026 17:50:11 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "DNSSEC",
+        "KSK Rollover",
+        "Trust Anchor"
+      ],
+      "one_line": "2026년 10월 11일 예정된 DNS 루트 키(KSK-2024) 교체에 따른 DNSSEC 검증 시스템 준비",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "AWS Compute",
+      "title": "Get started with AWS Lambda SnapStart for container images",
+      "link": "https://aws.amazon.com/blogs/compute/get-started-with-aws-lambda-snapstart-for-container-images",
+      "published_at": "Tue, 06 Oct 2026 16:59:51 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Lambda SnapStart",
+        "Cold Start Optimization",
+        "Firecracker MicroVM"
+      ],
+      "one_line": "AWS Lambda SnapStart가 컨테이너 이미지 함수를 지원하여 콜드 스타트 지연 시간을 획기적으로 단축",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "Async Rust: 스케줄러는 어디에 있는가?",
+      "link": "https://news.hada.io/topic?id=34882",
+      "published_at": "2026-10-06T17:04:32+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Async Rust",
+        "Runtime Independence",
+        "Function Coloring"
+      ],
+      "one_line": "Rust 비동기 런타임의 설계 철학과 스케줄러 분리에 따른 복잡성 및 대안 분석",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "Mistral Large 4 발표 - 코딩·보안·시각 이해를 강화한 1조 파라미터 오픈웨이트 모델",
+      "link": "https://news.hada.io/topic?id=34890",
+      "published_at": "2026-10-06T22:38:19+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MoE (Mixture of Experts)",
+        "Multimodal LLM",
+        "Visual Grounding"
+      ],
+      "one_line": "Mistral Large 4 발표: 코딩, 보안, 시각 이해에 최적화된 1조 파라미터급 멀티모달 모델",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: agent-gc – AI 코딩 에이전트가 남긴 worktree 쓰레기를 치워주는 TUI",
+      "link": "https://news.hada.io/topic?id=34893",
+      "published_at": "2026-10-06T23:41:21+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Git Worktree",
+        "TUI(Terminal User Interface)",
+        "Disk Cleanup"
+      ],
+      "one_line": "AI 코딩 에이전트가 생성한 불필요한 worktree와 빌드 산출물을 안전하게 정리해주는 TUI 도구",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "Polars 2.0 출시",
+      "link": "https://news.hada.io/topic?id=34894",
+      "published_at": "2026-10-06T23:42:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Lazy Evaluation",
+        "Out-of-core Processing",
+        "Streaming Engine"
+      ],
+      "one_line": "스트리밍 엔진과 SQL 지원을 강화한 고성능 데이터프레임 라이브러리 Polars 2.0 출시",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "Meta의 Muse, 귀엽지만 개인정보 보호와 보안은 총체적 난국",
+      "link": "https://news.hada.io/topic?id=34897",
+      "published_at": "2026-10-07T00:33:22+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Security",
+        "Zero-day Vulnerability",
+        "Data Privacy"
+      ],
+      "one_line": "Meta의 AI 에이전트 'Muse'에서 발견된 권한 무시 및 보안 취약점 이슈",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "openTPU - AI가 설계하고 실제 FPGA에서 모델을 실행하는 오픈소스 AI 가속기",
+      "link": "https://news.hada.io/topic?id=34903",
+      "published_at": "2026-10-07T03:34:47+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "FPGA",
+        "AI Accelerator",
+        "Quantization"
+      ],
+      "one_line": "AI가 설계하고 FPGA에서 실제 모델을 실행하는 오픈소스 AI 가속기 프로젝트 openTPU",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "나는 인류를 멸종시키고 있는 AGI다",
+      "link": "https://news.hada.io/topic?id=34905",
+      "published_at": "2026-10-07T05:32:58+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AGI Alignment",
+        "Incentive Alignment",
+        "Emergent Behavior"
+      ],
+      "one_line": "기업과 시장의 구조적 최적화가 AI 에이전트의 위험성과 유사함을 지적한 비유적 에세이",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "EmbeddingGemma 2 - 개방형 경량 멀티모달 임베딩 모델",
+      "link": "https://news.hada.io/topic?id=34907",
+      "published_at": "2026-10-07T07:34:20+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Matryoshka Representation Learning (MRL)",
+        "Multimodal Embedding",
+        "On-device RAG"
+      ],
+      "one_line": "Google이 멀티모달(텍스트, 코드, 이미지, 오디오)을 지원하는 경량 임베딩 모델 'EmbeddingGemma 2'를 공개함.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "밀리초 단위로 벤치마크하기",
+      "link": "https://news.hada.io/topic?id=34908",
+      "published_at": "2026-10-07T07:37:20+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Micro-benchmarking",
+        "Performance Intuition",
+        "Fixed Overhead"
+      ],
+      "one_line": "벤치마크의 목적을 정밀 측정보다 '올바른 판단을 위한 직관'에 두고, 약 300ms 내외의 실행 시간을 목표로 삼는 효율적인 성능 측정법을 제안함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI, AI가 도출한 수학 연구 원고 722편과 증명 자료 공개",
+      "link": "https://news.hada.io/topic?id=34910",
+      "published_at": "2026-10-07T08:36:29+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Formal Verification (Lean)",
+        "Mathematical Reasoning",
+        "AI-driven Scientific Discovery"
+      ],
+      "one_line": "OpenAI가 내부 모델을 통해 도출한 722편의 수학 연구 원고와 증명 자료를 GitHub에 공개함.",
+      "actionability": 2
+    },
+    {
       "recorded_at": "2026-10-06T10:43:13.880421+09:00",
       "company": "GitHub Blog",
       "title": "ReviewBench: An open benchmark for AI code review",
@@ -4245,5 +4534,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-06T10:43:13.880421+09:00"
+  "updated_at": "2026-10-07T09:23:44.665241+09:00"
 }
