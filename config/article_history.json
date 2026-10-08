@@ -1,6 +1,213 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "네이버 D2",
+      "title": "FE News 26년 10월 소식을 전해드립니다.",
+      "link": "https://d2.naver.com/news/8711937",
+      "published_at": "2026-10-07T08:43:28Z",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "LSP (Language Server Protocol)",
+        "Spec-Driven Development",
+        "MCP (Model Context Protocol)"
+      ],
+      "one_line": "VS Code의 역사와 Shopify의 네이티브 회귀, AI 검증 도구 등 최신 FE 기술 트렌드 요약",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "Google Developers",
+      "title": "Supercharge your development with the Google Developer Knowledge API ecosystem",
+      "link": "https://developers.googleblog.com/supercharge-your-development-with-the-google-developer-knowledge-api-ecosystem",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "RAG (Retrieval-Augmented Generation)"
+      ],
+      "one_line": "Google이 개발자 문서 검색 및 활용을 위한 Developer Knowledge API와 MCP 서버를 공개함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GitHub Blog",
+      "title": "Secret protection must scale with software",
+      "link": "https://github.blog/ai-and-ml/github-copilot/secret-protection-must-scale-with-software",
+      "published_at": "Wed, 07 Oct 2026 17:45:34 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Secret Scanning",
+        "Push Protection",
+        "ModernBERT"
+      ],
+      "one_line": "AI 에이전트의 코드 생성 속도에 대응하기 위한 GitHub의 차세대 시크릿 탐지 모델 도입",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "Cloudflare",
+      "title": "Building an evidence-grounded agentic security operations harness on Cloudflare",
+      "link": "https://blog.cloudflare.com/agentic-security-operations",
+      "published_at": "Wed, 07 Oct 2026 16:30:36 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Deterministic Recon",
+        "Security Operations Harness"
+      ],
+      "one_line": "Cloudflare의 다중 AI 에이전트 기반 보안 운영 자동화 아키텍처 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "Chrome에 JPEG XL 지원 도입",
+      "link": "https://news.hada.io/topic?id=34946",
+      "published_at": "2026-10-07T22:42:53+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "JPEG XL",
+        "Memory Safety",
+        "SIMD"
+      ],
+      "one_line": "Chrome 155부터 Rust 기반의 JPEG XL 디코더 지원 시작",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "Codemode란 무엇인가 - AI의 도구 호출을 코드로 묶기",
+      "link": "https://news.hada.io/topic?id=34952",
+      "published_at": "2026-10-08T00:46:47+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Codemode",
+        "Agentic Workflow",
+        "Harness"
+      ],
+      "one_line": "AI 에이전트가 도구 호출을 코드로 묶어 실행하여 컨텍스트 효율과 작업 복잡도를 개선하는 'Codemode' 개념",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Boxdawn - 에이전트 트레이스 파일 하나 올리면 멀티에이전트가 같은 일을 두 번 한 지점을 찾습니다",
+      "link": "https://news.hada.io/topic?id=34953",
+      "published_at": "2026-10-08T00:58:10+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-Agent System",
+        "Token Optimization",
+        "Trace Analysis"
+      ],
+      "one_line": "멀티 에이전트 시스템의 중복 작업과 토큰 낭비를 찾아내는 분석 도구 'Boxdawn'",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "GitHub의 Git 작업, Pull Requests, Actions 장애",
+      "link": "https://news.hada.io/topic?id=34954",
+      "published_at": "2026-10-08T01:34:56+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Service Availability",
+        "Incident Response",
+        "CI/CD Reliability"
+      ],
+      "one_line": "GitHub의 Git 작업, PR, Actions 등 광범위한 서비스 장애 발생 및 복구 완료",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "해커들, Google과 다른 대형 서비스의 위조 TLS 인증서 확보",
+      "link": "https://news.hada.io/topic?id=34955",
+      "published_at": "2026-10-08T01:37:56+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "TLS Certificate",
+        "DNS Hijacking",
+        "CAA Record"
+      ],
+      "one_line": "국가 코드 최상위 도메인(ccTLD) DNS 탈취를 통한 위조 TLS 인증서 발급 사고",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "Claude Haiku 5.5 출시 - 평균 실행 비용 75% 절감, Max·Team에 API 크레딧 제공",
+      "link": "https://news.hada.io/topic?id=34958",
+      "published_at": "2026-10-08T03:43:26+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Cost Optimization",
+        "Inference Effort",
+        "API Credits"
+      ],
+      "one_line": "Claude Haiku 5.5 출시로 실행 비용 75% 절감 및 구독자 대상 API 크레딧 제공",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI, GPT‑6 확대 적용과 더 똑똑한 대화형 UI 도입",
+      "link": "https://news.hada.io/topic?id=34960",
+      "published_at": "2026-10-08T04:40:36+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Intelligent UI",
+        "Native Streaming Components",
+        "Agentic Interaction"
+      ],
+      "one_line": "OpenAI가 GPT-6와 함께 대화형 UI(Intelligent UI)를 도입하여 텍스트 답변을 넘어 조작 가능한 도구와 시각적 인터페이스를 즉석에서 생성합니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "Meta·Microsoft, 사내 Claude 사용 줄이고 자체 AI 도구로 전환",
+      "link": "https://news.hada.io/topic?id=34964",
+      "published_at": "2026-10-08T06:32:12+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Cost Optimization",
+        "Internal Tooling Strategy",
+        "Data Governance"
+      ],
+      "one_line": "Meta와 Microsoft가 비용 절감 및 자사 AI 생태계 강화를 위해 사내 Claude 사용을 축소하고 자체 개발한 AI 도구로 전환하고 있습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
+      "company": "GeekNews",
+      "title": "Docker Agent",
+      "link": "https://news.hada.io/topic?id=34968",
+      "published_at": "2026-10-08T07:40:12+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "MCP (Model Context Protocol)",
+        "Declarative Agent Configuration"
+      ],
+      "one_line": "Docker Agent는 YAML 설정을 통해 AI 에이전트를 정의하고, MCP 서버와 연동하여 멀티 에이전트 워크플로를 실행할 수 있는 CLI 도구입니다.",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-10-07T09:23:44.665241+09:00",
       "company": "당근",
       "title": "한 문장으로 앱을 테스트하기까지",
@@ -4534,5 +4741,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-07T09:23:44.665241+09:00"
+  "updated_at": "2026-10-08T09:44:09.217455+09:00"
 }

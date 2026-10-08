@@ -1,0 +1,465 @@
+{
+  "schema_version": 1,
+  "issue_number": 20,
+  "issue_date": "2026-10-08",
+  "generated_at": "2026-10-08T09:44:08.862522+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, MCP (Model Context Protocol), LLM Cost Optimization, Codemode, Declarative Agent\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 챗봇을 넘어, 명세와 코드를 기반으로 실무 워크플로를 자동화하고 비용 효율성을 극대화하는 단계로 진입했습니다.\n\n[오늘 왜 중요한가]\n\n최근 기술 생태계는 AI 에이전트의 도구 호출 방식을 표준화하고, 비용을 획기적으로 절감하는 방향으로 빠르게 재편되고 있습니다. 실무자들은 이제 AI를 단순히 질문하는 도구가 아니라, 명세 주도 개발과 에이전트 워크플로를 통해 실제 개발 생산성을 높이는 아키텍처 설계 역량을 갖춰야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 상세 글 13: Docker Agent를 통해 에이전트 워크플로를 선언적으로 정의하고 관리하는 실무적인 표준을 제시합니다.\n• 상세 글 10: Claude Haiku 5.5 출시로 에이전트 운영의 핵심 장벽인 비용 문제를 해결할 수 있는 구체적인 대안을 제공합니다.\n• 상세 글 1: VS Code의 진화와 Shopify의 네이티브 회귀 사례를 통해 실무 아키텍처 결정에 필요한 깊이 있는 통찰을 얻을 수 있습니다.\n\n[오늘 공부해볼 것]\n\n• MCP (Model Context Protocol) 개념 학습: AI 에이전트가 외부 데이터와 도구를 표준화된 방식으로 연결하는 핵심 프로토콜이므로, 향후 에이전트 개발의 필수 지식입니다.\n• Codemode 패턴 이해: AI가 도구를 개별 호출하는 대신 코드로 묶어 실행함으로써 토큰 비용과 컨텍스트 오버헤드를 줄이는 최신 최적화 기법입니다.\n• 명세 주도 개발(SDD) 워크플로: AI 에이전트가 정확한 코드를 생성하도록 돕는 mission.md 등 명세 작성법을 익히면 개발 생산성을 즉각적으로 개선할 수 있습니다.",
+  "stats": {
+    "candidate_count": 35,
+    "detailed_count": 13,
+    "brief_count": 5,
+    "excluded_count": 17,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Docker Agent",
+      "link": "https://news.hada.io/topic?id=34968",
+      "published_at": "2026-10-08T07:40:12+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent와 Agentic Workflow를 YAML로 정의하는 도구는 실무 생산성 향상과 에이전트 아키텍처 구현에 즉각적인 가치를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Docker Agent는 YAML 설정을 통해 AI 에이전트를 정의하고, MCP 서버와 연동하여 멀티 에이전트 워크플로를 실행할 수 있는 CLI 도구입니다.",
+      "key_points": [
+        "YAML 파일로 에이전트의 모델, 지침, 도구를 선언적으로 정의하여 버전 관리와 공유가 용이합니다.",
+        "MCP(Model Context Protocol) 서버를 연결하여 외부 도구 및 데이터 소스와의 연동을 표준화된 방식으로 지원합니다.",
+        "멀티 에이전트 아키텍처를 통해 복잡한 작업을 전문화된 에이전트 간에 자동으로 위임하고 협업하게 할 수 있습니다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "MCP (Model Context Protocol)",
+        "Declarative Agent Configuration"
+      ],
+      "recommended_for": "AI 에이전트 기반의 자동화 워크플로를 구축하고 싶은 백엔드 개발자 및 DevOps 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Docker Agent를 활용한 로컬 에이전트 워크플로 구축",
+        "steps": [
+          "Docker Desktop 4.63 이상을 설치하고 docker-agent CLI가 활성화되었는지 확인합니다.",
+          "간단한 YAML 설정을 작성하여 로컬 모델 또는 API 키를 활용한 기본 에이전트를 정의합니다.",
+          "MCP 서버를 연결하여 특정 데이터 소스(예: 로컬 파일 시스템)를 검색하는 RAG 기능을 테스트합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude Haiku 5.5 출시 - 평균 실행 비용 75% 절감, Max·Team에 API 크레딧 제공",
+      "link": "https://news.hada.io/topic?id=34958",
+      "published_at": "2026-10-08T03:43:26+09:00",
+      "selection_score": 15,
+      "selection_reason": "LLM 비용 절감과 에이전트 워크플로 최적화에 직결되는 중요한 모델 업데이트 소식입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Haiku 5.5 출시로 실행 비용 75% 절감 및 구독자 대상 API 크레딧 제공",
+      "key_points": [
+        "Claude Haiku 5.5는 이전 모델 대비 비용을 75% 절감하고 추론 노력 수준 조절 기능을 도입함.",
+        "요약, 분류, 데이터베이스 질의 등 반복적인 에이전트 작업에 최적화된 성능을 제공함.",
+        "Max 및 Team 구독자에게 매월 API 크레딧을 제공하여 개발 실험을 지원함."
+      ],
+      "topics": [
+        "LLM Cost Optimization",
+        "Inference Effort",
+        "API Credits"
+      ],
+      "recommended_for": "LLM API 비용 절감과 에이전트 성능 최적화를 고민하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Haiku 5.5로 기존 에이전트 작업 마이그레이션 및 비용 테스트",
+        "steps": [
+          "현재 사용 중인 모델(Sonnet 등)을 Haiku 5.5로 교체하여 동일 작업 수행 성능을 테스트함.",
+          "10만 토큰 이하 작업에서 비용 절감 효과를 측정하고 추론 노력 수준(thinking_effort)을 조정함.",
+          "구독 계정의 API 크레딧을 활용해 새로운 에이전트 기능을 프로토타이핑함."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "네이버 D2",
+      "title": "FE News 26년 10월 소식을 전해드립니다.",
+      "link": "https://d2.naver.com/news/8711937",
+      "published_at": "2026-10-07T08:43:28Z",
+      "selection_score": 15,
+      "selection_reason": "VS Code의 역사와 AI 에이전트 도입, Shopify의 네이티브 회귀 등 실무 아키텍처 결정에 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "VS Code의 역사와 Shopify의 네이티브 회귀, AI 검증 도구 등 최신 FE 기술 트렌드 요약",
+      "key_points": [
+        "VS Code는 확장 호스트 분리와 LSP 도입을 통해 원격 개발과 AI 에이전트 환경으로 진화했다.",
+        "Shopify는 코딩 에이전트의 효율성을 바탕으로 React Native에서 Swift/Kotlin 네이티브 개발로 회귀했다.",
+        "토스는 AI가 생성한 코드의 검증을 위해 테스트 자동화와 리플레이 도구를 결합한 에이전트 검증 체계를 구축했다."
+      ],
+      "topics": [
+        "LSP (Language Server Protocol)",
+        "Spec-Driven Development",
+        "MCP (Model Context Protocol)"
+      ],
+      "recommended_for": "프론트엔드 아키텍처 결정과 AI 에이전트 도입을 고민하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "명세 주도 개발(SDD) 워크플로 학습 및 적용",
+        "steps": [
+          "DeepLearning.AI의 Spec-Driven Development 강좌를 시청한다.",
+          "현재 진행 중인 프로젝트에 mission.md와 techstack.md를 작성해 본다.",
+          "작성된 명세를 바탕으로 Claude Code를 활용해 기능 구현을 시도한다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "Google Developers",
+      "title": "Supercharge your development with the Google Developer Knowledge API ecosystem",
+      "link": "https://developers.googleblog.com/supercharge-your-development-with-the-google-developer-knowledge-api-ecosystem",
+      "published_at": "",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트와 MCP(Model Context Protocol)를 활용한 최신 개발 도구 생태계 변화를 다루는 핵심 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Google이 개발자 문서 검색 및 활용을 위한 Developer Knowledge API와 MCP 서버를 공개함",
+      "key_points": [
+        "Google이 Firebase, Cloud, Android 등 공식 문서를 AI 에이전트가 직접 검색할 수 있는 API를 공개했다.",
+        "MCP(Model Context Protocol)를 지원하여 AI 어시스턴트가 실시간으로 정확한 기술 문서를 참조할 수 있다.",
+        "AI가 생성한 코드와 가이드라인의 신뢰성을 높이기 위해 공식 문서 기반의 컨텍스트를 제공한다."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "RAG (Retrieval-Augmented Generation)"
+      ],
+      "recommended_for": "AI 에이전트 개발 및 RAG 시스템을 구축하는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Google MCP 서버를 활용한 AI 에이전트 연동 테스트",
+        "steps": [
+          "Google Developer Knowledge API 문서를 확인하고 MCP 서버를 로컬 환경에 설정한다.",
+          "Claude Desktop 또는 Cursor와 해당 MCP 서버를 연결한다.",
+          "Google Cloud 관련 질문을 던져 AI가 공식 문서를 기반으로 답변하는지 확인한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "Secret protection must scale with software",
+      "link": "https://github.blog/ai-and-ml/github-copilot/secret-protection-must-scale-with-software",
+      "published_at": "Wed, 07 Oct 2026 17:45:34 +0000",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트가 코드 생성을 주도하는 시대의 보안 위협과 대응 전략을 다루는 매우 중요한 주제입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 코드 생성 속도에 대응하기 위한 GitHub의 차세대 시크릿 탐지 모델 도입",
+      "key_points": [
+        "AI 에이전트가 작성하는 코드 비중이 급증함에 따라 시크릿 유출 방지 체계의 자동화가 필수적이다.",
+        "ModernBERT 기반의 새로운 분류기를 도입하여 2ms 이내에 비정형 시크릿을 탐지하고 차단한다.",
+        "시크릿 탐지는 이제 푸시 단계에서 실시간으로 이루어지며, AI 크레딧을 통해 엔터프라이즈 환경까지 확장된다."
+      ],
+      "topics": [
+        "Secret Scanning",
+        "Push Protection",
+        "ModernBERT"
+      ],
+      "recommended_for": "보안 및 데브옵스 워크플로를 관리하는 백엔드/인프라 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Building an evidence-grounded agentic security operations harness on Cloudflare",
+      "link": "https://blog.cloudflare.com/agentic-security-operations",
+      "published_at": "Wed, 07 Oct 2026 16:30:36 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트를 활용한 보안 운영 자동화 사례로, 실무적인 에이전트 워크플로 구축에 큰 참고가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare의 다중 AI 에이전트 기반 보안 운영 자동화 아키텍처 사례",
+      "key_points": [
+        "단일 범용 에이전트의 환각 문제를 해결하기 위해 결정론적 코드와 전문 에이전트를 결합한 하이브리드 구조를 채택했다.",
+        "데이터 수집(Recon)을 먼저 수행하고 추론(Inference)을 나중에 실행하여 에이전트의 판단 근거를 명확히 했다.",
+        "다양한 전문 에이전트(트래픽, 고객 컨텍스트, 위협 인텔리전스 등)의 결과를 합성 에이전트가 최종 요약한다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Deterministic Recon",
+        "Security Operations Harness"
+      ],
+      "recommended_for": "복잡한 시스템의 보안 자동화와 에이전트 워크플로 설계를 고민하는 아키텍트",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "에이전트 워크플로의 'Recon First' 설계 패턴 검토",
+        "steps": [
+          "현재 구축 중인 에이전트 시스템에서 LLM이 직접 데이터를 수집하는 구간을 식별한다.",
+          "데이터 수집을 결정론적 코드(API 호출 등)로 분리하여 별도 단계로 구성하는 설계를 검토한다.",
+          "수집된 데이터를 버전화하여 에이전트의 판단 근거로 활용하는 구조를 설계한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Chrome에 JPEG XL 지원 도입",
+      "link": "https://news.hada.io/topic?id=34946",
+      "published_at": "2026-10-07T22:42:53+09:00",
+      "selection_score": 11,
+      "selection_reason": "웹 성능 개선 및 이미지 최적화는 백엔드 및 프론트엔드 개발자에게 실무적으로 매우 중요한 기술 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Chrome 155부터 Rust 기반의 JPEG XL 디코더 지원 시작",
+      "key_points": [
+        "Chrome이 메모리 안전성을 위해 Rust로 구현된 jxl-rs 디코더를 통해 JPEG XL을 공식 지원한다.",
+        "JPEG XL은 기존 JPEG 대비 30~50% 높은 압축률과 무손실 압축, HDR을 지원한다.",
+        "SIMD 최적화를 통해 성능 손실 없이 안전한 이미지 처리가 가능하며, 웹 표준으로의 정착이 기대된다."
+      ],
+      "topics": [
+        "JPEG XL",
+        "Memory Safety",
+        "SIMD"
+      ],
+      "recommended_for": "웹 성능 최적화와 이미지 리소스 관리를 담당하는 프론트엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Codemode란 무엇인가 - AI의 도구 호출을 코드로 묶기",
+      "link": "https://news.hada.io/topic?id=34952",
+      "published_at": "2026-10-08T00:46:47+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 효율적인 도구 호출 방식인 Codemode는 최신 Agentic Workflow 트렌드와 직결되는 핵심 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트가 도구 호출을 코드로 묶어 실행하여 컨텍스트 효율과 작업 복잡도를 개선하는 'Codemode' 개념",
+      "key_points": [
+        "Codemode는 AI가 도구를 개별 호출하는 대신, 반복·조건문·병렬 처리가 포함된 코드를 작성해 실행하는 방식임.",
+        "중간 데이터를 모델 컨텍스트에 모두 넣지 않고 코드 내에서 필터링·가공하여 토큰 비용과 컨텍스트 오버헤드를 줄임.",
+        "Pi 1.0 등에서 도입되었으며, 하네스(Harness) 내 샌드박스에서 실행되어 보안과 상태 관리를 지원함."
+      ],
+      "topics": [
+        "Codemode",
+        "Agentic Workflow",
+        "Harness"
+      ],
+      "recommended_for": "AI 에이전트의 도구 호출 효율을 높이고 싶은 백엔드 및 에이전트 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "에이전트 워크플로에 코드 기반 도구 호출 패턴 적용해보기",
+        "steps": [
+          "현재 에이전트가 반복적으로 호출하는 도구 패턴을 식별함.",
+          "해당 도구들을 순차 호출하는 대신, 단일 스크립트(JS/Python)로 묶어 실행하는 샌드박스 환경을 구성함.",
+          "중간 결과물을 모델에 전달하지 않고 스크립트 내에서 처리하여 토큰 절감 효과를 측정함."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Boxdawn - 에이전트 트레이스 파일 하나 올리면 멀티에이전트가 같은 일을 두 번 한 지점을 찾습니다",
+      "link": "https://news.hada.io/topic?id=34953",
+      "published_at": "2026-10-08T00:58:10+09:00",
+      "selection_score": 14,
+      "selection_reason": "멀티 에이전트 시스템의 비용 절감과 성능 최적화를 직접적으로 다루는 매우 실용적인 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "멀티 에이전트 시스템의 중복 작업과 토큰 낭비를 찾아내는 분석 도구 'Boxdawn'",
+      "key_points": [
+        "Boxdawn은 에이전트 트레이스 파일을 분석해 동일한 파일 읽기나 중복 작업을 자동으로 탐지함.",
+        "로그를 새로 계측할 필요 없이 기존 JSONL 트레이스 파일을 업로드하거나 CLI로 즉시 분석 가능함.",
+        "repeat, redundant_read 등 5가지 패턴을 통해 멀티 에이전트 환경의 비용 효율성을 진단함."
+      ],
+      "topics": [
+        "Multi-Agent System",
+        "Token Optimization",
+        "Trace Analysis"
+      ],
+      "recommended_for": "멀티 에이전트 시스템을 운영하며 토큰 비용 절감이 필요한 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 에이전트 로그 분석하여 비용 낭비 지점 찾기",
+        "steps": [
+          "GitHub에서 boxdawn을 설치하고 기존 에이전트 세션 로그(JSONL)를 준비함.",
+          "분석 도구를 실행하여 중복 읽기나 불필요한 컨텍스트 재전송 패턴이 있는지 확인함.",
+          "탐지된 낭비 지점을 바탕으로 에이전트 프롬프트나 워크플로 구조를 개선함."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "GitHub의 Git 작업, Pull Requests, Actions 장애",
+      "link": "https://news.hada.io/topic?id=34954",
+      "published_at": "2026-10-08T01:34:56+09:00",
+      "selection_score": 12,
+      "selection_reason": "개발 생산성에 직결되는 GitHub 서비스 장애는 실무자에게 반드시 알아두어야 할 중요한 운영 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub의 Git 작업, PR, Actions 등 광범위한 서비스 장애 발생 및 복구 완료",
+      "key_points": [
+        "2026년 10월 7일 UTC 기준, 약 1시간 이상 GitHub의 핵심 서비스 전반에서 장애가 발생함.",
+        "Git Operations, Pull Requests, Actions, Webhooks 등이 영향을 받았으며 단계적 복구가 진행됨.",
+        "GitHub는 근본 원인을 조사 중이며 향후 상세 분석 보고서를 공개할 예정임."
+      ],
+      "topics": [
+        "Service Availability",
+        "Incident Response",
+        "CI/CD Reliability"
+      ],
+      "recommended_for": "GitHub 의존도가 높은 개발 팀 및 DevOps 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "해커들, Google과 다른 대형 서비스의 위조 TLS 인증서 확보",
+      "link": "https://news.hada.io/topic?id=34955",
+      "published_at": "2026-10-08T01:37:56+09:00",
+      "selection_score": 11,
+      "selection_reason": "보안 인프라와 관련된 중대한 DNS 및 TLS 인증서 위조 사고로, 보안 아키텍처 관점에서 매우 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "국가 코드 최상위 도메인(ccTLD) DNS 탈취를 통한 위조 TLS 인증서 발급 사고",
+      "key_points": [
+        "공격자가 .gh, .sl, .as 도메인의 DNS 레코드를 조작해 Google 등 주요 서비스의 TLS 인증서를 무단 발급받음.",
+        "인증기관의 규정 위반은 없었으나, DNS 통제권이 탈취되어 표준 검증 절차를 우회함.",
+        "Google은 Chrome 업데이트를 통해 위조 인증서를 차단했으나, 도메인 소유자는 CAA 레코드 설정 등 추가 보안 조치가 필요함."
+      ],
+      "topics": [
+        "TLS Certificate",
+        "DNS Hijacking",
+        "CAA Record"
+      ],
+      "recommended_for": "도메인 및 보안 인프라를 관리하는 보안 담당자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "도메인 보안 강화를 위한 CAA 레코드 설정 검토",
+        "steps": [
+          "현재 관리 중인 도메인의 DNS 설정에 CAA 레코드가 존재하는지 확인함.",
+          "인증서 발급 권한을 신뢰할 수 있는 CA로만 제한하는 CAA 레코드를 게시함.",
+          "인증서 투명성(CT) 로그 모니터링 도구를 설정하여 비정상적인 인증서 발급을 실시간 감시함."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI, GPT‑6 확대 적용과 더 똑똑한 대화형 UI 도입",
+      "link": "https://news.hada.io/topic?id=34960",
+      "published_at": "2026-10-08T04:40:36+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트와 대화형 UI의 진화는 향후 서비스 아키텍처와 사용자 경험 설계에 큰 영향을 미칠 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI가 GPT-6와 함께 대화형 UI(Intelligent UI)를 도입하여 텍스트 답변을 넘어 조작 가능한 도구와 시각적 인터페이스를 즉석에서 생성합니다.",
+      "key_points": [
+        "GPT-6는 질문의 의도에 따라 버튼, 폼, 차트 등 상호작용 가능한 UI 요소를 실시간으로 구성하여 제공합니다.",
+        "네이티브 스트리밍 컴파일러를 통해 전체 응답이 완료되기 전부터 화면을 점진적으로 렌더링하여 사용자 경험을 최적화합니다.",
+        "추론과 답변을 병행하는 구조를 채택하여 검색이 필요한 질문에서 이전 모델 대비 응답 속도를 44% 개선했습니다."
+      ],
+      "topics": [
+        "Intelligent UI",
+        "Native Streaming Components",
+        "Agentic Interaction"
+      ],
+      "recommended_for": "AI 기반의 사용자 경험 설계와 차세대 대화형 인터페이스 구축에 관심 있는 프론트엔드 및 제품 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Meta·Microsoft, 사내 Claude 사용 줄이고 자체 AI 도구로 전환",
+      "link": "https://news.hada.io/topic?id=34964",
+      "published_at": "2026-10-08T06:32:12+09:00",
+      "selection_score": 12,
+      "selection_reason": "빅테크 기업들의 AI 비용 절감 및 자체 도구 전환 전략은 업계의 AI 도입 방향성을 보여주는 중요한 지표입니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta와 Microsoft가 비용 절감 및 자사 AI 생태계 강화를 위해 사내 Claude 사용을 축소하고 자체 개발한 AI 도구로 전환하고 있습니다.",
+      "key_points": [
+        "Microsoft는 사내 Anthropic 지출을 1/3 이상 줄이고, 직원들의 AI 월간 지출 한도를 대폭 하향 조정했습니다.",
+        "Meta는 Claude Code 사용자를 6만 명에서 3만 명으로 줄이고, 자체 코딩 도구인 MetaCode와 Muse Code로 전환 중입니다.",
+        "기업들은 외부 모델 의존도를 낮추는 동시에 자사 제품의 내부 활용도를 높여 비용 효율성과 데이터 거버넌스를 강화하고 있습니다."
+      ],
+      "topics": [
+        "AI Cost Optimization",
+        "Internal Tooling Strategy",
+        "Data Governance"
+      ],
+      "recommended_for": "기업 내 AI 도입 비용을 관리하고 자체 AI 인프라 구축 전략을 고민하는 백엔드 및 아키텍처 담당자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "ESP32-C3 광고 차단기",
+      "link": "https://news.hada.io/topic?id=34943",
+      "published_at": "2026-10-07T21:41:02+09:00",
+      "selection_score": 10,
+      "selection_reason": "임베디드 환경에서의 효율적인 메모리 관리와 성능 최적화 사례로 기술적 흥미와 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "개발 블로그 글쓰기의 안티패턴",
+      "link": "https://news.hada.io/topic?id=34962",
+      "published_at": "2026-10-08T04:46:37+09:00",
+      "selection_score": 10,
+      "selection_reason": "개발자로서 기술 블로그를 운영하거나 지식을 공유할 때 실질적인 도움이 되는 가이드입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Gentoo, Chromium 소스 패키지 유지보수 중단 절차 돌입",
+      "link": "https://news.hada.io/topic?id=34963",
+      "published_at": "2026-10-08T06:03:10+09:00",
+      "selection_score": 9,
+      "selection_reason": "주요 오픈소스 프로젝트의 유지보수 중단은 인프라 및 빌드 환경 관점에서 주목할 만한 이슈입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "수학의 아포칼립스",
+      "link": "https://news.hada.io/topic?id=34967",
+      "published_at": "2026-10-08T07:37:12+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI가 수학적 난제를 증명하는 시대의 도래는 LLM의 추론 능력과 형식적 검증의 미래를 보여주는 중요한 기술적 변곡점입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Gooo - 작은 모델로 코드를 조립하고 이어 만드는 언어",
+      "link": "https://news.hada.io/topic?id=34970",
+      "published_at": "2026-10-08T08:12:33+09:00",
+      "selection_score": 10,
+      "selection_reason": "LLM을 활용한 코드 생성 및 개발 워크플로 개선에 관한 실험적인 시도로, 개발 생산성 측면에서 주목할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
