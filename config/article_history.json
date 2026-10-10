@@ -1,6 +1,214 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "Cloudflare",
+      "title": "Deno is joining Cloudflare",
+      "link": "https://blog.cloudflare.com/deno-joins-cloudflare",
+      "published_at": "Fri, 09 Oct 2026 12:50:00 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Serverless",
+        "Deno",
+        "Cloudflare Workers"
+      ],
+      "one_line": "Deno 팀이 Cloudflare에 합류하여 서버리스 및 백엔드 아키텍처 생태계의 통합을 가속화합니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing on-demand CPU and memory profiling with flamegraphs for Workers and Durable Objects",
+      "link": "https://blog.cloudflare.com/workers-on-demand-profiling",
+      "published_at": "Fri, 09 Oct 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Flamegraph",
+        "Observability",
+        "Performance Profiling"
+      ],
+      "one_line": "Cloudflare Workers 및 Durable Objects에서 실시간 CPU/메모리 프로파일링과 Flamegraph를 지원합니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Clef-omni with full multimodality, plus a faster Clef and a cheaper Clef-flash",
+      "link": "https://blog.cloudflare.com/clef-faster-cheaper-multimodal",
+      "published_at": "Fri, 09 Oct 2026 18:27:34 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Multimodal AI",
+        "Decision Models",
+        "AI Gateway"
+      ],
+      "one_line": "멀티모달 입력을 지원하는 Clef-omni 모델 출시 및 기존 모델의 가격 인하와 속도 개선이 이루어졌습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "AWS Compute",
+      "title": "Scaling RL rollouts with Firecracker on Amazon EC2 metal",
+      "link": "https://aws.amazon.com/blogs/compute/scaling-rl-rollouts-with-firecracker-on-amazon-ec2-metal",
+      "published_at": "Fri, 09 Oct 2026 14:38:27 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Firecracker",
+        "Reinforcement Learning",
+        "Infrastructure Optimization"
+      ],
+      "one_line": "EC2 Metal 인스턴스에서 Firecracker를 활용해 고밀도 RL 학습 환경을 구축하고 최적화하는 가이드를 제공합니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "AWS Compute",
+      "title": "Reducing cross-AZ latency with the AWS Lambda metadata endpoint",
+      "link": "https://aws.amazon.com/blogs/compute/reducing-cross-az-latency-with-the-aws-lambda-metadata-endpoint",
+      "published_at": "Fri, 09 Oct 2026 19:41:24 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Lambda",
+        "Availability Zone",
+        "Network Latency"
+      ],
+      "one_line": "AWS Lambda 메타데이터 엔드포인트를 통해 실행 환경의 AZ 정보를 확인하고 네트워크 지연 시간과 비용을 최적화합니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "시스템으로 사고하고, 반복 루프로 출시하기",
+      "link": "https://news.hada.io/topic?id=35043",
+      "published_at": "2026-10-09T10:25:02+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Loop Engineering",
+        "System Thinking"
+      ],
+      "one_line": "AI 에이전트가 코드를 작성하고, 개발자는 시스템 설계와 검증 루프를 구축하는 역할로 전환됨",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "DuckLake - SQL과 Parquet 기반의 데이터 레이크하우스 형식",
+      "link": "https://news.hada.io/topic?id=35046",
+      "published_at": "2026-10-09T12:35:15+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Data Lakehouse",
+        "Parquet",
+        "ACID Transaction"
+      ],
+      "one_line": "SQL과 Parquet를 결합하여 트랜잭션과 과거 시점 조회를 지원하는 개방형 데이터 레이크하우스 형식",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "Claude Code로 찾아낸, 아무도 존재를 몰랐던 새로운 행성 후보",
+      "link": "https://news.hada.io/topic?id=35053",
+      "published_at": "2026-10-09T16:40:49+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agentic Research",
+        "Data Analysis Automation",
+        "Hypothesis Testing"
+      ],
+      "one_line": "Claude Code를 활용해 NASA TESS 데이터를 분석하고 새로운 외계행성 후보를 발견한 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "AI 시대 주니어 개발자의 역할은 무엇이 돼야 할까요?",
+      "link": "https://news.hada.io/topic?id=35056",
+      "published_at": "2026-10-09T17:34:06+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AI-Augmented Development",
+        "Developer Productivity",
+        "Ownership"
+      ],
+      "one_line": "주니어 개발자는 AI를 팀원으로 활용하여 기획부터 검수까지 책임지는 'AI 팀장'으로 성장해야 함",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "Jev를 GTM에 활용하기 - 고객 분류부터 워크플로 자동화까지",
+      "link": "https://news.hada.io/topic?id=35063",
+      "published_at": "2026-10-09T21:23:31+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Decision Model",
+        "Workflow Automation",
+        "Probabilistic Classification"
+      ],
+      "one_line": "문장 생성 대신 정해진 형식의 판단과 확률을 반환하여 업무 자동화 효율을 높이는 AI 모델 Jev",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "AI 에이전트가 화면에 큰 화살표, 상자, 텍스트를 그리게 하세요",
+      "link": "https://news.hada.io/topic?id=35071",
+      "published_at": "2026-10-09T22:41:39+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agentic Workflow",
+        "UI Automation",
+        "macOS Accessibility API"
+      ],
+      "one_line": "AI 에이전트가 화면의 특정 UI 요소를 화살표나 상자로 가리켜 사람의 개입을 유도하는 CLI 도구",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "Deno 팀, Cloudflare 합류 - 런타임 개발은 1년 뒤 종료",
+      "link": "https://news.hada.io/topic?id=35073",
+      "published_at": "2026-10-09T23:33:42+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Serverless Architecture",
+        "Durable Objects",
+        "Self-hosting"
+      ],
+      "one_line": "Deno 팀이 Cloudflare에 합류하며 Deno 런타임 개발을 1년 뒤 종료하고 분산 애플리케이션 모델에 집중",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
+      "company": "GeekNews",
+      "title": "Let’s Encrypt, 2027년 2월부터 기본 인증서 유효기간을 64일로 단축",
+      "link": "https://news.hada.io/topic?id=35079",
+      "published_at": "2026-10-10T01:01:13+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "TLS/SSL",
+        "ACME Protocol",
+        "Certificate Automation"
+      ],
+      "one_line": "Let's Encrypt가 2027년 2월부터 인증서 유효기간을 90일에서 64일로 단축",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-10-09T09:59:48.897706+09:00",
       "company": "네이버 D2",
       "title": "Python의 GC가 멀티프로세싱과 만나면 생기는 일 - Python과 Airflow, 그리고 관련된 문제 해결기 2편",
@@ -4933,5 +5141,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-09T09:59:48.897706+09:00"
+  "updated_at": "2026-10-10T09:30:40.268211+09:00"
 }
