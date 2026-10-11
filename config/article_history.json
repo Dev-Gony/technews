@@ -1,6 +1,166 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "코딩 에이전트는 왜 이렇게 멍청할까?",
+      "link": "https://news.hada.io/topic?id=35104",
+      "published_at": "2026-10-10T12:03:09+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "대리인 문제 (Principal-Agent Problem)",
+        "OS 수준 샌드박스",
+        "에이전트 하네스"
+      ],
+      "one_line": "코딩 에이전트의 실무적 한계와 개선 방향에 대한 비판적 분석",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "REA Reverse - 무엇이든 리버스 엔지니어링하기",
+      "link": "https://news.hada.io/topic?id=35105",
+      "published_at": "2026-10-10T12:32:32+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "리버스 엔지니어링",
+        "바이브 코딩 (Vibe Coding)",
+        "프로세스 분석"
+      ],
+      "one_line": "코딩 에이전트가 프로그램 동작을 분석하고 재구현하도록 돕는 리버스 엔지니어링 도구",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "Anthropic AI 모델, 필라델피아 미해결 살인 사건에 허위 제보 제출",
+      "link": "https://news.hada.io/topic?id=35109",
+      "published_at": "2026-10-10T16:32:11+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 안전장치 (Safety Guardrails)",
+        "자동화 테스트 리스크",
+        "AI 거버넌스"
+      ],
+      "one_line": "Anthropic AI 모델의 자동화 테스트 중 발생한 허위 제보 사건",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "AI로 기록 보관소를 탐색해 잊힌 운석과 코뿔소 기록 등을 찾아냄",
+      "link": "https://news.hada.io/topic?id=35110",
+      "published_at": "2026-10-10T17:41:13+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "의미 기반 검색 (Semantic Search)",
+        "다단계 AI 파이프라인",
+        "데이터 전처리 자동화"
+      ],
+      "one_line": "AI 파이프라인을 활용한 대규모 역사 기록 데이터 분석 및 신규 사실 발견",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "Telegram Desktop 취약점으로 사용자 파일 탈취가 가능했음",
+      "link": "https://news.hada.io/topic?id=35112",
+      "published_at": "2026-10-10T18:35:15+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "IPC (Inter-Process Communication) 인젝션",
+        "URI 스킴 취약점",
+        "심층 방어 (Defense in Depth)"
+      ],
+      "one_line": "Telegram Desktop의 IPC 인젝션 취약점을 통한 파일 탈취 및 계정 장악 위험",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: suta — AI가 생성한 UI문제를 줄이는 스킬",
+      "link": "https://news.hada.io/topic?id=35119",
+      "published_at": "2026-10-10T22:11:59+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI UI 생성 최적화",
+        "디자인 시스템 가이드라인",
+        "AI 코딩 도구 통합"
+      ],
+      "one_line": "AI가 생성한 UI의 고질적인 디자인 문제를 해결하기 위한 레이아웃 및 패턴 가이드 도구 'suta'",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "Bun, TypeScript를 네이티브 코드로 선행 컴파일하는 AOT 컴파일러 실험 공개",
+      "link": "https://news.hada.io/topic?id=35124",
+      "published_at": "2026-10-10T23:55:44+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AOT(Ahead-of-Time) 컴파일",
+        "타입 안정성",
+        "네이티브 코드 생성"
+      ],
+      "one_line": "Bun이 TypeScript를 네이티브 코드로 선행 컴파일하는 AOT 컴파일러 실험을 공개함",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "자기회귀 확산으로 시장 데이터를 생성할 수 있을까?",
+      "link": "https://news.hada.io/topic?id=35126",
+      "published_at": "2026-10-11T01:34:51+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "자기회귀 확산 모델",
+        "플로 매칭(Flow Matching)",
+        "시장 미시구조 모델링"
+      ],
+      "one_line": "시장 데이터의 불연속성을 해결하기 위해 자기회귀 확산 모델과 플로 매칭을 결합한 데이터 생성 연구",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "Talorys - Cloudflare 무료 티어에서 셀프 호스팅하는 개인 AI 에이전트",
+      "link": "https://news.hada.io/topic?id=35128",
+      "published_at": "2026-10-11T02:33:17+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Cloudflare Workers",
+        "Durable Objects",
+        "개인 AI 에이전트"
+      ],
+      "one_line": "Cloudflare의 무료 티어(Workers, Durable Objects)를 활용한 셀프 호스팅 개인 AI 에이전트 'Talorys'",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
+      "company": "GeekNews",
+      "title": "Mxc: Microsoft Execution Containers 버전 1.0.0",
+      "link": "https://news.hada.io/topic?id=35136",
+      "published_at": "2026-10-11T06:32:20+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "샌드박스 격리",
+        "최소 권한 원칙",
+        "AI 에이전트 보안"
+      ],
+      "one_line": "AI 에이전트의 실행 환경을 격리하고 보안 정책을 강제하는 Microsoft Execution Containers(MXC) 정식 출시",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-10-10T09:30:40.268211+09:00",
       "company": "Cloudflare",
       "title": "Deno is joining Cloudflare",
@@ -5141,5 +5301,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-10T09:30:40.268211+09:00"
+  "updated_at": "2026-10-11T09:06:46.284772+09:00"
 }
