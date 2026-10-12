@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "issue_number": 24,
+  "issue_date": "2026-10-12",
+  "generated_at": "2026-10-12T09:14:55.885252+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI 에이전트 오케스트레이션, MCP(Model Context Protocol), RAG, 검증 하네스, 개발자 경험(DX)\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무 도입은 단순한 코드 생성을 넘어, 엄격한 검증 체계와 도메인 특화 데이터 연결을 통해 완성됩니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트가 단순한 보조 도구를 넘어 실제 업무 워크플로를 자동화하는 단계로 진입하고 있습니다. 이제는 AI가 생성한 결과물의 신뢰성을 확보하기 위한 검증 하네스 구축과, 외부 데이터와의 정확한 연결을 지원하는 표준 프로토콜(MCP)에 대한 이해가 실무 경쟁력을 결정짓습니다.\n\n[왜 이 글들을 골랐나]\n\n• 11번: 데이터시트와 같은 전문 문서를 RAG로 정확히 참조하게 하는 MCP 서버 구현은 AI 에이전트의 실무 활용도를 즉각적으로 높여줍니다.\n• 6번: AI 에이전트가 복잡한 작업을 수행할 때 PASS/FAIL 검증 하네스를 도입하는 방식은 환각 문제를 해결하고 결과물의 품질을 보장하는 핵심 전략입니다.\n• 1번: 로컬 환경에서 보안을 유지하며 여러 AI 에이전트를 통합 관리하는 오케스트레이터는 기업 환경에서 에이전트 도입의 기술적 난제를 해결합니다.\n\n[오늘 공부해볼 것]\n\n• MCP(Model Context Protocol) 구조와 활용: AI 모델과 로컬/원격 데이터 소스를 표준화된 방식으로 연결하는 방법을 익혀 에이전트의 데이터 접근성을 높이기 위함입니다.\n• 검증 하네스(Verification Harness) 설계: AI가 생성한 코드나 결과물을 자동화된 테스트 스크립트로 검증하는 파이프라인을 구축하여 신뢰성 있는 자동화를 구현하기 위함입니다.\n• 로컬 AI 에이전트 보안 관리: DPAPI 등 로컬 암호화 저장소를 활용해 API 키와 크레덴셜을 안전하게 관리하는 방법을 학습하여 보안 사고를 예방하기 위함입니다.",
+  "stats": {
+    "candidate_count": 30,
+    "detailed_count": 11,
+    "brief_count": 8,
+    "excluded_count": 10,
+    "unresolved_count": 1
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Show GN: PartsPlan - AI가 제조사 데이터시트의 쪽을 근거로 답하게 하는 MCP 서버",
+      "link": "https://news.hada.io/topic?id=35201",
+      "published_at": "2026-10-12T08:06:43+09:00",
+      "selection_score": 15,
+      "selection_reason": "MCP 서버를 활용해 RAG를 구현하고 AI 에이전트의 정확도를 높이는 실무적인 도구로, 현재 가장 중요한 관심 분야를 모두 포함합니다.",
+      "feedback_bias": 0,
+      "one_line": "제조사 데이터시트의 표와 그래프를 정확히 참조하여 답변하는 MCP 서버, PartsPlan",
+      "key_points": [
+        "PartsPlan은 AI가 수백 쪽 분량의 데이터시트에서 특정 표나 그래프를 찾아 근거와 쪽 번호를 명시하게 돕는 MCP 서버입니다.",
+        "기존 AI의 환각(Hallucination)을 방지하기 위해 데이터시트에 없는 값은 추정하지 않고 '없음'으로 처리하는 엄격한 RAG 방식을 채택했습니다.",
+        "Claude, Cursor 등 MCP를 지원하는 환경에 쉽게 연결할 수 있으며, 전자부품 설계 데이터 추출 정확도에서 기존 웹 검색 방식보다 높은 성능을 보였습니다."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "RAG (Retrieval-Augmented Generation)",
+        "데이터시트 파싱"
+      ],
+      "recommended_for": "전자부품 설계 업무를 수행하거나, 특정 도메인 문서의 정확한 참조가 필요한 AI 에이전트 워크플로를 구축하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Claude Desktop에 PartsPlan MCP 서버 연결하여 데이터시트 질의 테스트하기",
+        "steps": [
+          "PartsPlan 공식 사이트(partsplanai.com)의 Claude 연결 가이드 페이지에 접속합니다.",
+          "제공된 MCP 서버 주소를 복사하여 Claude Desktop 설정 파일(claude_desktop_config.json)에 추가합니다.",
+          "Claude Desktop을 재시작한 후, 특정 부품의 데이터시트 PDF를 업로드하거나 부품 번호를 입력하여 표/그래프 기반의 질문을 수행합니다."
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "5,000억 토큰을 쓰고 나서: AI 에이전트에게 1인칭 슈팅 게임 디컴파일 맡기기",
+      "link": "https://news.hada.io/topic?id=35183",
+      "published_at": "2026-10-12T01:49:54+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트의 실무 적용 사례와 한계를 보여주는 매우 가치 있는 기술적 통찰입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트를 활용한 게임 디컴파일 프로젝트에서 엄격한 검증 하네스가 성공의 핵심임을 입증함",
+      "key_points": [
+        "AI 에이전트가 5,000억 토큰을 소비하며 1인칭 슈팅 게임의 99%를 재구성하고 83%의 바이트 일치를 달성함.",
+        "모호한 목표 대신 원본과 재컴파일 결과를 비교하는 'PASS/FAIL' 검증 하네스를 도입하여 저렴한 모델로도 고품질 결과를 도출함.",
+        "자율 에이전트 운용 시 컨텍스트 압축으로 인한 지침 이탈을 방지하기 위해 매시간 지침을 갱신하는 전략이 효과적이었음."
+      ],
+      "topics": [
+        "AI 에이전트 오케스트레이션",
+        "검증 하네스(Verification Harness)",
+        "바이트 단위 일치(Byte-for-byte parity)"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 복잡한 자동화 프로젝트를 계획 중인 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "자동화 작업에 PASS/FAIL 검증 스크립트 도입하기",
+        "steps": [
+          "현재 진행 중인 자동화 작업의 결과물을 원본과 비교할 수 있는 최소 단위의 검증 스크립트 작성",
+          "에이전트가 작업 완료 후 해당 스크립트를 자동으로 실행하도록 워크플로 구성",
+          "실패 시 에이전트가 오류 로그를 읽고 스스로 수정하도록 프롬프트 지침 추가"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: 해줘 로컬 - 크레덴셜 금고가 붙은 로컬 AI 에이전트 오케스트레이터",
+      "link": "https://news.hada.io/topic?id=35169",
+      "published_at": "2026-10-11T23:00:30+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 오케스트레이션과 크레덴셜 관리는 실무 자동화 워크플로에서 매우 중요한 기술적 난제입니다.",
+      "feedback_bias": 0,
+      "one_line": "Windows 환경에서 여러 AI 에이전트를 통합 관리하고 크레덴셜을 안전하게 보호하는 로컬 오케스트레이터",
+      "key_points": [
+        "Windows 암호화 저장소(DPAPI, AES-256-GCM)를 사용하여 API 키와 비밀번호를 안전하게 관리함.",
+        "여러 AI 에이전트(Claude, Codex 등)를 하나의 작업 폴더에 연결하고, 에이전트 간 업무 위임이 가능함.",
+        "Electron 없이 WebView2를 사용하여 가볍고 설치가 간편하며, 사용자의 로컬 환경에서만 동작함."
+      ],
+      "topics": [
+        "AI Agent Orchestration",
+        "Credential Management",
+        "DPAPI"
+      ],
+      "recommended_for": "다양한 AI 코딩 에이전트를 동시에 사용하며 보안과 워크플로 관리에 어려움을 겪는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 에이전트 워크플로 통합 테스트",
+        "steps": [
+          "해줘 로컬 앱을 설치하고 현재 사용 중인 AI 에이전트(Claude Code 등)를 연결함",
+          "자주 사용하는 API 키를 크레덴셜 금고에 등록하고 환경변수로 호출되는지 확인",
+          "단순 반복 업무를 에이전트 팀에게 위임하여 중간 관리 비용이 줄어드는지 측정"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "AI에 관해 ‘불가피하다’고 할 만한 것은 거의 없음",
+      "link": "https://news.hada.io/topic?id=35170",
+      "published_at": "2026-10-11T23:04:44+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM 도입의 실효성에 대한 비판적 시각은 기술 전략 수립 시 고려해야 할 중요한 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 도입의 불가피성을 비판적으로 분석하고, 기술의 효용은 사회적 맥락과 대응 능력에 따라 결정됨을 강조",
+      "key_points": [
+        "기술의 불가피성은 압도적 성능 우위, 사회적 가치, 비사용자의 대응 불가능성 등 4가지 조건이 충족되어야 함.",
+        "LLM은 일부 평범한 업무를 대체할 수 있으나, 인간의 전문성을 완전히 대체할 압도적 우위는 아직 증명되지 않음.",
+        "기술 도입 여부는 맹목적인 추종보다 자신의 업무 맥락과 경쟁 우위를 고려한 전략적 선택이어야 함."
+      ],
+      "topics": [
+        "LLM Inevitabilism",
+        "기술 수용성",
+        "비용 대비 효용 분석"
+      ],
+      "recommended_for": "AI 도입을 고민하며 기술의 실효성과 전략적 가치를 비판적으로 검토하려는 기술 리더",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: source-to-explainer-video - PR·책·함수를 3분 설명 영상으로 만들어 주는 에이전트 스킬",
+      "link": "https://news.hada.io/topic?id=35171",
+      "published_at": "2026-10-11T23:07:15+09:00",
+      "selection_score": 13,
+      "selection_reason": "에이전트 워크플로를 활용한 개발 생산성 향상 도구로, 실제 업무 자동화에 즉시 적용 가능한 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "코드 변경 사항이나 PR을 3분 내외의 설명 영상으로 자동 변환하여 코드 리뷰 집중력을 높이는 에이전트 스킬",
+      "key_points": [
+        "PR, 책, 함수 등의 소스 코드를 입력하면 장면 분할, 나레이션, 영상 생성 과정을 거쳐 시각적 가이드를 제공함.",
+        "함수 실행 시 실제 변수 값을 기록하여 AI의 환각(Hallucination)을 방지하고 검증된 정보만 영상화함.",
+        "코드를 완벽히 이해하는 대신, 전체 흐름을 먼저 파악하여 리뷰어의 집중력 병목을 해소하는 데 목적이 있음."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Code Visualization",
+        "Automated Documentation"
+      ],
+      "recommended_for": "코드 리뷰 시 문맥 파악에 많은 시간을 소비하는 백엔드 개발자 및 팀 리더",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "코드 리뷰 워크플로에 시각적 가이드 도입 검토",
+        "steps": [
+          "GitHub 레포지토리에 source-to-explainer-video 스킬을 적용하여 특정 PR에 대한 설명 영상 생성",
+          "생성된 영상이 코드 리뷰 시간을 단축하는지 팀원들과 함께 검증",
+          "실제 실행 값을 기반으로 한 디버깅 영상이 복잡한 로직 파악에 도움이 되는지 평가"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "중학생이 AI(Claude)와 함께 '자기 자신을 통과하지 못하는 입체' 추측을 증명",
+      "link": "https://news.hada.io/topic?id=35175",
+      "published_at": "2026-10-11T23:35:29+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM을 활용한 컴퓨터 보조 증명 사례로, AI를 복잡한 문제 해결에 활용하는 실무적 가능성을 잘 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "중학생이 Claude와 협업하여 수학적 난제인 '루퍼트 추측'의 변형 문제를 컴퓨터 보조 증명으로 해결",
+      "key_points": [
+        "AI를 활용해 수학적 논증, 코드 작성, 논문 초안 작성 등 연구 전반의 생산성을 극대화함.",
+        "1,230만 개의 입체 배치를 구간 연산으로 확인하는 컴퓨터 보조 증명 방식을 채택함.",
+        "AI는 도구로서 증명 과정을 보조하고, 인간은 문제 정의와 방향 설정, 최종 검토를 담당하는 협업 모델을 제시함."
+      ],
+      "topics": [
+        "Computer-Assisted Proof",
+        "AI-Augmented Research",
+        "Interval Arithmetic"
+      ],
+      "recommended_for": "AI를 활용한 복잡한 문제 해결 및 연구 자동화에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "사람들에게 돈을 주고 내 README를 따라 해보게 했다",
+      "link": "https://news.hada.io/topic?id=35177",
+      "published_at": "2026-10-12T00:37:20+09:00",
+      "selection_score": 12,
+      "selection_reason": "개발자 경험(DX) 개선과 문서화 검증 방법론으로서 실무 프로젝트에 매우 유용한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "실제 사용자에게 보상을 지급하고 README를 따라 하게 하여 문서의 사용성과 개발자 편향을 검증하는 방법론",
+      "key_points": [
+        "개발자는 자신이 아는 지식을 당연시하는 편향이 있으므로, 제3자의 관찰 테스트가 필수적임.",
+        "사용자가 화면을 공유하며 생각을 소리 내어 말하게 함으로써 문서의 모호한 지점과 병목 구간을 정확히 파악함.",
+        "테스트 후 즉시 문서를 수정하고 다음 참가자로 재검증하는 반복적인 피드백 루프가 효과적임."
+      ],
+      "topics": [
+        "Usability Testing",
+        "Developer Experience (DX)",
+        "Feedback Loop"
+      ],
+      "recommended_for": "오픈소스 프로젝트나 사내 도구의 문서화 품질을 개선하고 싶은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "README 사용성 테스트 수행",
+        "steps": [
+          "현재 관리 중인 프로젝트의 README를 선정하여 동료나 지인에게 설치 과정을 관찰하며 따라 해보도록 요청",
+          "사용자가 막히는 지점을 기록하고, 왜 그 부분이 혼란스러운지 '생각을 소리 내어 말하기'를 통해 수집",
+          "수집된 피드백을 바탕으로 README를 수정하고 다시 테스트하여 개선 효과 확인"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "PATH의 틸드(~)가 HOME을 가리키지 않을 수 있음",
+      "link": "https://news.hada.io/topic?id=35184",
+      "published_at": "2026-10-12T02:51:34+09:00",
+      "selection_score": 12,
+      "selection_reason": "개발 환경 설정 시 흔히 발생하는 실수로, 실무 생산성과 직결되는 유용한 팁입니다.",
+      "feedback_bias": 0,
+      "one_line": "PATH 환경 변수 설정 시 따옴표 안의 틸드(~)는 홈 디렉터리로 확장되지 않으므로 주의해야 함",
+      "key_points": [
+        "export PATH=\"$PATH:~/.local/bin/\"와 같이 따옴표를 사용하면 ~가 홈 디렉터리가 아닌 현재 디렉터리 내의 경로로 인식됨.",
+        "Bash와 Zsh에서 틸드 확장은 따옴표로 감싸지 않은 경우에만 정상적으로 작동함.",
+        "안전하고 명시적인 경로 설정을 위해 ~ 대신 $HOME 환경 변수를 사용하는 것이 권장됨."
+      ],
+      "topics": [
+        "틸드 확장(Tilde Expansion)",
+        "환경 변수 PATH",
+        "셸 스크립트 모범 사례"
+      ],
+      "recommended_for": "리눅스/macOS 환경에서 셸 설정 파일을 관리하는 모든 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "PATH 설정에서 틸드 사용 여부 점검 및 수정",
+        "steps": [
+          "터미널에서 echo \"$PATH\" | grep '~' 명령어로 현재 PATH에 틸드가 포함되어 있는지 확인",
+          ".bashrc, .zshrc, .profile 등 설정 파일에서 ~를 $HOME으로 일괄 변경",
+          "변경 사항 적용 후 source 명령어로 셸 설정 다시 로드"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "미안하지만, 여전히 직접 생각해야 합니다",
+      "link": "https://news.hada.io/topic?id=35189",
+      "published_at": "2026-10-12T03:33:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 시대에도 백엔드 아키텍처 설계 역량이 왜 중요한지 잘 설명한 필독 글입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 코드를 작성하더라도 시스템의 실패 방식과 자원 한계에 대한 설계 판단은 여전히 개발자의 몫임",
+      "key_points": [
+        "AI 에이전트가 작성한 코드는 호환성, 지연 시간, 메모리 한도 등 시스템 설계의 핵심 결정을 암묵적으로 처리하여 예기치 못한 문제를 야기할 수 있음.",
+        "단일 지표(처리량 등)만으로 시스템 품질을 판단하면 안 되며, 부하 상황에서의 실패 동작과 복구 전략을 종합적으로 검토해야 함.",
+        "AI가 생성한 코드라도 비동기 런타임의 스케줄링이나 잠금(Lock) 메커니즘 등 동작 원리를 이해하고 비판적으로 검토해야 함."
+      ],
+      "topics": [
+        "시스템 설계(System Design)",
+        "역압력(Backpressure)",
+        "비동기 런타임(Async Runtime)"
+      ],
+      "recommended_for": "AI 도구를 활용해 백엔드 시스템을 재작성하거나 아키텍처를 설계하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Valen의 메모리 안전성: 새로운 종류의 빌림 검사",
+      "link": "https://news.hada.io/topic?id=35190",
+      "published_at": "2026-10-12T04:41:09+09:00",
+      "selection_score": 11,
+      "selection_reason": "메모리 안전성과 언어 설계에 대한 깊이 있는 기술적 내용을 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Valen 언어는 '그룹 빌림'을 통해 메모리 안전성과 유연한 참조를 동시에 확보하려는 새로운 시도를 함",
+      "key_points": [
+        "Valen은 객체 내부 데이터를 가리키는 참조 경로를 추적하여, 변경 시 무효화된 참조 사용을 컴파일 시점에 차단함.",
+        "가변성을 참조 타입이 아닌 함수의 속성으로 정의하여, 동일 객체에 대한 여러 읽기/쓰기 참조를 허용하는 유연성을 제공함.",
+        "Rust와의 상호운용성을 위해 호출 중 데이터 접근의 유일성을 확인하는 '일시적 유일성' 개념을 도입함."
+      ],
+      "topics": [
+        "그룹 빌림(Group Borrowing)",
+        "메모리 안전성",
+        "소유권 경로(Ownership Path)"
+      ],
+      "recommended_for": "메모리 안전성 언어 설계와 컴파일러 최적화에 관심이 많은 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "최신 AI 모델들, 인간의 알고리듬 혁신에 필적하는 성과를 내는 데 어려움 겪어",
+      "link": "https://news.hada.io/topic?id=35195",
+      "published_at": "2026-10-12T05:43:32+09:00",
+      "selection_score": 11,
+      "selection_reason": "최신 LLM의 한계와 연구 방향을 다루고 있어 AI 기술 트렌드를 파악하는 데 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "최신 AI 모델들은 연구 전 과정을 독립적으로 수행하여 인간 수준의 알고리듬 혁신을 달성하는 데 한계를 보임",
+      "key_points": [
+        "Epoch AI의 평가 결과, 최신 모델들은 기존 연구와 유사한 방법을 재현하거나 편향된 실험 결과를 보고하는 수준에 머묾.",
+        "AI 에이전트가 연구 아이디어 구상부터 구현, 실험까지 전 과정을 자동화하는 것은 여전히 높은 난이도의 과제임.",
+        "모델들이 GPU 실험 비용을 과도하게 사용하면서도 실질적인 혁신보다는 기존 기법의 단순 조합이나 튜닝에 의존하는 경향이 있음."
+      ],
+      "topics": [
+        "AI 연구 자동화",
+        "InnovationEval",
+        "자기증류(Self-distillation)"
+      ],
+      "recommended_for": "AI 에이전트의 연구 역량과 한계에 관심이 있는 AI 연구자 및 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "RAM 부족이 DDR4를 다시 불러오고 있음",
+      "link": "https://news.hada.io/topic?id=35180",
+      "published_at": "2026-10-12T01:40:54+09:00",
+      "selection_score": 9,
+      "selection_reason": "서버 및 하드웨어 인프라 비용 절감 관점에서 참고할 만한 시장 동향입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "전자종이 ESP32에서 30FPS로 실행하는 GameBoy [영상]",
+      "link": "https://news.hada.io/topic?id=35181",
+      "published_at": "2026-10-12T01:43:54+09:00",
+      "selection_score": 10,
+      "selection_reason": "임베디드 환경에서의 성능 최적화 기법은 백엔드 및 저수준 시스템 설계에 좋은 학습 사례가 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Terence Tao: 수학 2.0 [PDF]",
+      "link": "https://news.hada.io/topic?id=35185",
+      "published_at": "2026-10-12T02:54:34+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI가 수학적 증명에 미치는 영향에 대한 고찰로, AI 기술의 미래를 이해하는 데 도움이 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "유럽산 대안",
+      "link": "https://news.hada.io/topic?id=35186",
+      "published_at": "2026-10-12T02:57:34+09:00",
+      "selection_score": 9,
+      "selection_reason": "클라우드 및 SaaS 대안을 찾는 실무자에게 참고가 될 만한 리소스입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: ggaction - 차트를 만드는 과정을 코드로 표현하는 JavaScript 시각화 라이브러리",
+      "link": "https://news.hada.io/topic?id=35188",
+      "published_at": "2026-10-12T03:10:44+09:00",
+      "selection_score": 10,
+      "selection_reason": "데이터 분석 및 시각화 워크플로를 개선할 수 있는 유용한 라이브러리입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "BetterWispr - Mac용 무료 오픈소스 받아쓰기 앱",
+      "link": "https://news.hada.io/topic?id=35191",
+      "published_at": "2026-10-12T04:44:09+09:00",
+      "selection_score": 9,
+      "selection_reason": "로컬 LLM을 활용한 생산성 도구로, 개발자 개인의 업무 자동화에 활용하기 좋습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "바이브 코딩으로 만든 Halo, The Simpsons: Hit And Run, GTA 브라우저 이식판이 잘 작동함",
+      "link": "https://news.hada.io/topic?id=35192",
+      "published_at": "2026-10-12T04:47:09+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI를 활용한 코드 디컴파일 및 이식 기술은 개발 생산성 향상과 AI 에이전트의 잠재력을 보여주는 중요한 사례입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "핵심 오픈소스 프로젝트 23개 중 11개, 1~2명이 운영",
+      "link": "https://news.hada.io/topic?id=35196",
+      "published_at": "2026-10-12T05:46:32+09:00",
+      "selection_score": 9,
+      "selection_reason": "오픈소스 생태계의 지속 가능성과 보안 이슈를 다루고 있어 개발자로서 주목할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
