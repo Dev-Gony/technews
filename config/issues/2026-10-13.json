@@ -1,0 +1,692 @@
+{
+  "schema_version": 1,
+  "issue_number": 25,
+  "issue_date": "2026-10-13",
+  "generated_at": "2026-10-13T11:26:16.022592+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI 에이전트, NUMA 최적화, 스토리지 I/O, 장기 기억(Active Memory), 성능 프로파일링\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무 적용이 단순 코드 생성을 넘어 시스템 성능 최적화와 장기 기억 기반의 복잡한 작업 수행 단계로 진화하고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 코딩 도구의 도입이 코드 생산량은 늘렸으나 실제 소프트웨어 산출물 증가로 이어지지 않는 병목 현상이 보고되고 있습니다. 이제는 AI를 단순한 코드 생성기가 아닌, 시스템 아키텍처와 성능 최적화라는 실무적 난제를 해결하는 에이전트로 활용하는 역량이 엔지니어의 핵심 경쟁력이 될 것입니다.\n\n[왜 이 글들을 골랐나]\n\n• 18번: 리누스 토발즈가 직접 AI 에이전트를 활용해 커널 성능을 개선한 사례는 에이전트 워크플로의 실무적 효용성을 증명하는 가장 강력한 근거입니다.\n• 12번: 대화 간 기억과 장기 작업 수행 능력을 강화한 모델은 에이전트가 단순 질의응답을 넘어 실제 업무를 완수하는 데 필요한 핵심 기술을 담고 있습니다.\n• 10번: 데이터베이스 성능 저하의 근본 원인을 스토리지 I/O와 하드웨어 아키텍처 관점에서 분석한 내용은 백엔드 엔지니어에게 필수적인 실무 통찰을 제공합니다.\n\n[오늘 공부해볼 것]\n\n• AI 에이전트의 작업 루프와 완료 기준 설정: 에이전트가 무한 루프에 빠지지 않고 실제 결과물을 도출하도록 제어하는 프롬프트 엔지니어링과 훅 설정법을 학습합니다.\n• NUMA 토폴로지와 프로세스 배치: 대규모 시스템에서 CPU와 메모리 접근 지연을 최소화하기 위한 하드웨어 최적화 원리를 이해합니다.\n• PostgreSQL의 I/O 병목 진단: pg_stat_bgwriter와 같은 지표를 활용해 데이터베이스의 실제 병목이 CPU인지 스토리지인지 판별하는 방법을 익힙니다.",
+  "stats": {
+    "candidate_count": 38,
+    "detailed_count": 20,
+    "brief_count": 7,
+    "excluded_count": 11,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Linus Torvalds, Claude Code로 Linux 커널의 대폭 개선 작업 진행 중",
+      "link": "https://news.hada.io/topic?id=35265",
+      "published_at": "2026-10-13T09:02:44+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent(Claude Code)를 활용한 실제 커널 성능 개선 사례로, 에이전트 워크플로의 실무 적용 가능성을 보여주는 최상위 가치 콘텐츠입니다.",
+      "feedback_bias": 0,
+      "one_line": "Linus Torvalds가 Claude Code를 활용해 Linux 커널 성능을 개선함",
+      "key_points": [
+        "커널의 folio 참조 카운팅 경합 문제를 해결하기 위해 Claude Code를 활용하여 페이지 캐시 읽기 경로를 최적화함.",
+        "AI를 코드 생성, 테스트 작성, 패치 초안 작성에 활용하고 성능 측정은 직접 수행하는 협업 방식을 취함.",
+        "다중 스레드 환경에서 읽기당 CPU 사이클을 1/4 수준으로 대폭 감소시키는 성과를 보임."
+      ],
+      "topics": [
+        "Kernel Performance Optimization",
+        "Folio Reference Counting",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "AI 에이전트를 실무 개발 워크플로에 도입하고자 하는 백엔드 및 시스템 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Claude Code를 활용한 코드베이스 성능 병목 분석 및 최적화 시도",
+        "steps": [
+          "현재 프로젝트의 성능 병목 지점을 프로파일링 도구로 식별",
+          "Claude Code에 해당 코드와 성능 데이터를 제공하여 최적화 제안 및 테스트 코드 작성 요청",
+          "제안된 패치를 별도 브랜치에서 적용하고 벤치마크 결과 검증"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Muse Wonder - 대화 간 기억과 장기 작업 수행을 강화한 Meta의 AI 모델",
+      "link": "https://news.hada.io/topic?id=35251",
+      "published_at": "2026-10-13T03:39:24+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent와 장기 기억(Active Memory) 기술은 현재 가장 중요한 관심 분야이며 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta가 대화 간 기억과 장기 작업 수행 능력을 강화한 AI 모델 'Muse Wonder' 시리즈를 공개함.",
+      "key_points": [
+        "Active Memory로 대화 맥락을 유지하고, Active Focus로 복잡한 목표를 지속 수행하는 에이전트 특화 모델임.",
+        "코딩, 법률, 금융 등 전문 분야에서 요구사항 추적 및 반복적 테스트를 지원하며 벤치마크에서 높은 성능을 기록함.",
+        "Muse Wonder는 API로, Muse Wonder Full은 구독 서비스로 제공되며 Meta의 개인용 초지능 전략의 핵심 단계임."
+      ],
+      "topics": [
+        "AI Agent",
+        "Active Memory",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "AI 에이전트 기반의 복잡한 업무 자동화 시스템을 구축하려는 백엔드 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Muse Wonder API를 활용한 장기 기억 에이전트 프로토타이핑",
+        "steps": [
+          "Meta Model API 문서를 확인하고 API 키를 발급받음.",
+          "간단한 장기 작업(예: 여러 단계의 코드 리팩터링)을 수행하는 에이전트 스크립트를 작성함.",
+          "Active Memory가 이전 대화의 맥락을 얼마나 정확하게 유지하는지 테스트함."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Postgres가 느린 게 아니라 스토리지가 느린 것이다",
+      "link": "https://news.hada.io/topic?id=35244",
+      "published_at": "2026-10-12T21:39:00+09:00",
+      "selection_score": 14,
+      "selection_reason": "Postgres 성능 최적화와 스토리지 아키텍처 분석은 백엔드 실무자에게 매우 중요한 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "PostgreSQL의 성능 저하 원인이 스토리지 I/O 병목에 있음을 분석하고 로컬 NVMe 활용 전략을 제시함.",
+      "key_points": [
+        "고부하 환경에서 PostgreSQL의 지연 시간은 CPU 연산보다 페이지 읽기 및 WAL 동기화 대기에서 주로 발생함.",
+        "로컬 NVMe를 사용하면 EBS 대비 처리량이 9배 이상 향상되나, 노드 손실에 대비한 동기 복제와 외부 백업 설계가 필수적임.",
+        "수집 지연, VACUUM 적체, 체크포인트 간섭 등은 데이터베이스 튜닝뿐만 아니라 스토리지 계층의 진단이 필요함을 시사함."
+      ],
+      "topics": [
+        "IOPS",
+        "WAL (Write Ahead Log) fsync",
+        "Synchronous Replication"
+      ],
+      "recommended_for": "PostgreSQL 성능 최적화와 대규모 데이터베이스 인프라 설계를 담당하는 백엔드 및 DBA.",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 DB의 스토리지 I/O 병목 진단 및 로컬 NVMe 도입 타당성 검토",
+        "steps": [
+          "pg_stat_activity 및 pg_stat_bgwriter를 통해 읽기 대기(IO:DataFileRead) 비중 확인",
+          "현재 워크로드의 체크포인트 및 VACUUM 작업이 스토리지 대역폭을 얼마나 점유하는지 모니터링",
+          "로컬 NVMe 도입 시 가용성 확보를 위한 동기 복제(Synchronous Replication) 구성 방안 설계"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "토스",
+      "title": "CPU 뼛속까지 써먹고, Milvus 사이징 기준을 만들기까지",
+      "link": "https://toss.tech/article/milvus-optimization-and-sizing",
+      "published_at": "Mon, 12 Oct 2026 01:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "벡터 검색 인프라의 실무적 사이징 기준과 성능 최적화 사례를 다루어 데이터 엔지니어링 및 백엔드 아키텍처 관점에서 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "Milvus 벡터 검색 인프라의 CPU/메모리 최적화 및 NUMA 배치 전략",
+      "key_points": [
+        "벡터 검색의 품질(recall)과 처리량(QPS)을 동시에 만족하기 위해 인덱스 설정(HNSW_SQ8 등)과 하드웨어 자원 배치를 최적화함.",
+        "CPU 사용률만으로는 병목을 파악하기 어려우며, IPC(Instructions Per Cycle)와 DRAM 접근 지연을 분석하여 NUMA 배치의 중요성을 확인함.",
+        "QueryNode의 CPU와 메모리를 동일 NUMA 노드에 배치하여 원격 메모리 접근 비율을 50%에서 0.8%로 낮추고 QPS를 41% 향상함."
+      ],
+      "topics": [
+        "HNSW(Hierarchical Navigable Small World)",
+        "NUMA(Non-Uniform Memory Access)",
+        "IPC(Instructions Per Cycle)"
+      ],
+      "recommended_for": "벡터 데이터베이스를 운영하거나 대규모 검색 시스템의 성능을 튜닝해야 하는 백엔드/데이터 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "서버의 NUMA 토폴로지 확인 및 프로세스 배치 최적화",
+        "steps": [
+          "lscpu 명령어로 서버의 NUMA 노드 구성 확인",
+          "numastat 및 perf 도구를 사용하여 현재 실행 중인 서비스의 원격 메모리 접근 비율 측정",
+          "Kubernetes 환경이라면 CPU Manager와 Topology Manager를 설정하여 특정 Pod를 단일 NUMA 노드에 고정(Pinning) 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "토스",
+      "title": "서비스 개발에 집중할 수 있는 AI 플랫폼 만들기",
+      "link": "https://toss.tech/article/ai-platform-foundation",
+      "published_at": "Tue, 13 Oct 2026 01:34:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI 플랫폼 구축, LLM Gateway, MCP 활용 등 사용자의 핵심 관심사를 관통하는 실무 아키텍처 설계 가이드입니다.",
+      "feedback_bias": 0,
+      "one_line": "토스의 GenAI 플랫폼: LLM Gateway와 MCP를 활용한 안전한 AI 서비스 운영",
+      "key_points": [
+        "GenAI Portal을 통해 모델 사용 신청, 비용 관리, 데이터 등급별 보안 검토를 중앙화함.",
+        "GenAI Gateway를 통해 모델 호출을 제어하고, MCP Gateway를 통해 사내 도구 실행 권한을 분리하여 관리함.",
+        "스트리밍 응답의 토큰 예약 및 보정, SLA 등급별 처리량 관리로 안정적인 AI 운영 환경을 구축함."
+      ],
+      "topics": [
+        "LLM Gateway",
+        "MCP(Model Context Protocol)",
+        "SLA(Service Level Agreement)"
+      ],
+      "recommended_for": "사내 AI 플랫폼을 구축하거나 LLM 도입 시 보안 및 비용 거버넌스를 고민하는 아키텍트",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "GitHub Copilot app for Beginners: How to teach Copilot about your codebase",
+      "link": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-how-to-teach-copilot-about-your-codebase",
+      "published_at": "Mon, 12 Oct 2026 17:43:59 +0000",
+      "selection_score": 13,
+      "selection_reason": "GitHub Copilot의 컨텍스트 최적화와 에이전트 활용법을 다루어 개발 생산성 향상에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub Copilot의 컨텍스트 최적화: Instructions, Skills, Agents 활용법",
+      "key_points": [
+        "프로젝트별 규칙을 .github/copilot-instructions.md에 정의하여 Copilot의 코드 생성 품질을 높임.",
+        "반복적인 작업은 .github/skills 폴더에 스크립트와 함께 패키징하여 필요할 때 호출하도록 설정함.",
+        "복잡한 다단계 작업은 Custom Agent를 통해 전문적인 가이드를 제공하고, MCP 서버로 외부 도구와 연동함."
+      ],
+      "topics": [
+        "GitHub Copilot Custom Instructions",
+        "Agent Skills",
+        "Model Context Protocol"
+      ],
+      "recommended_for": "GitHub Copilot을 사용하여 개발 생산성을 극대화하고 싶은 모든 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "프로젝트에 copilot-instructions.md 도입하기",
+        "steps": [
+          "현재 프로젝트에서 반복적으로 설명하고 있는 코딩 컨벤션이나 아키텍처 규칙을 리스트업",
+          ".github/copilot-instructions.md 파일을 생성하고 해당 규칙을 작성",
+          "Copilot에게 해당 규칙을 준수하는지 테스트 질문을 던져보고 결과 확인"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "Turning Opportunistic AI Inference Capacity Into Better Ads Recommendations",
+      "link": "https://engineering.fb.com/2026/10/12/ml-applications/turning-opportunistic-ai-inference-capacity-into-better-ads-recommendations",
+      "published_at": "Mon, 12 Oct 2026 16:00:50 +0000",
+      "selection_score": 12,
+      "selection_reason": "유휴 인프라 자원을 활용한 AI 추론 최적화 사례로, 대규모 시스템의 비용 절감 및 성능 개선 전략을 배울 수 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta의 유휴 인프라를 활용한 AI 추론 최적화: RMA와 SBM 전략",
+      "key_points": [
+        "전역적으로는 자원이 부족해도 국소적으로는 유휴 자원이 발생하는 '인프라 역설'을 해결하기 위해 공유 풀을 구성함.",
+        "RMA(Rank More Ads)는 더 많은 후보를 랭킹하고, SBM(Serve Better Models)은 더 강력한 모델을 라우팅하여 유휴 자원을 활용함.",
+        "지연 시간 피드백 루프와 가치 기반 로드 셰딩을 통해 유휴 자원 회수 시에도 기본 서비스 성능을 안전하게 보호함."
+      ],
+      "topics": [
+        "Opportunistic Capacity",
+        "Load Shedding",
+        "Inference Optimization"
+      ],
+      "recommended_for": "대규모 AI 추론 인프라의 비용 효율성과 성능 최적화를 고민하는 플랫폼 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "Shipping Media Over QUIC at Meta Scale for Instagram Live Ingest",
+      "link": "https://engineering.fb.com/2026/10/12/video-engineering/shipping-media-over-quic-at-meta-scale-for-instagram-live-ingest",
+      "published_at": "Mon, 12 Oct 2026 16:01:32 +0000",
+      "selection_score": 11,
+      "selection_reason": "QUIC 프로토콜을 활용한 실시간 스트리밍 최적화는 고성능 백엔드 아키텍처 설계에 중요한 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Instagram Live의 실시간 스트리밍을 위한 MoQ(Media over QUIC) 도입",
+      "key_points": [
+        "기존의 파편화된 미디어 프로토콜을 QUIC 기반의 MoQ로 통합하여 저지연 및 고성능 스트리밍 환경을 구축함.",
+        "엣지에서 MoQ 프레임을 기존 백엔드 포맷으로 변환하는 레이어를 두어 백엔드 수정 없이 프로토콜을 교체함.",
+        "QUIC의 스트림 독립성 덕분에 TCP의 Head-of-line blocking 문제를 해결하고 네트워크 변화에 더 유연하게 대응함."
+      ],
+      "topics": [
+        "MoQ(Media over QUIC)",
+        "QUIC",
+        "Head-of-line blocking"
+      ],
+      "recommended_for": "실시간 미디어 스트리밍 서비스의 아키텍처를 설계하거나 저지연 네트워크 프로토콜에 관심 있는 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "OCP Summit 2026: Powering AI with Open Innovations in Scale-Up, Scale-Out, and Scale-Across Networks",
+      "link": "https://engineering.fb.com/2026/10/12/open-source/ocp-summit-2026-powering-ai-with-open-innovations-in-scale-up-scale-out-and-scale-across-networks",
+      "published_at": "Mon, 12 Oct 2026 21:19:18 +0000",
+      "selection_score": 11,
+      "selection_reason": "AI 인프라를 위한 차세대 네트워크 표준과 오픈 소스 프로토콜 변화를 다루어 업계 기술 흐름 파악에 필수적입니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta가 OCP 2026에서 차세대 AI 인프라를 위한 액체 냉각 네트워크와 오픈 소스 프로토콜을 공개함.",
+      "key_points": [
+        "액체 냉각 방식의 102.4T 스위치 플랫폼(IceCube)과 랙(IcePack)을 도입하여 고전력 밀도 AI 클러스터 효율을 극대화함.",
+        "Flattened Planar Fabric(FPF)을 통해 GPU 간 네트워크 홉과 지연 시간을 줄이고, NIC 레벨의 하드웨어 로드 밸런싱을 구현함.",
+        "MetaRoCE 및 Ethernet for Scale-Up Networking(ESUN) 이니셔티브를 통해 AI 네트워크의 표준화와 이더넷 기반 확장을 추진함."
+      ],
+      "topics": [
+        "Flattened Planar Fabric (FPF)",
+        "MetaRoCE",
+        "Switch Abstraction Interface (SAI)"
+      ],
+      "recommended_for": "대규모 AI 클러스터 인프라 설계 및 고성능 네트워크 아키텍처에 관심 있는 백엔드/인프라 엔지니어.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Filter, reshape, and redact logs before export with Transformers",
+      "link": "https://blog.cloudflare.com/transformers-on-logpush",
+      "published_at": "Mon, 12 Oct 2026 14:44:59 GMT",
+      "selection_score": 11,
+      "selection_reason": "로그 파이프라인의 데이터 처리 및 필터링 자동화는 운영 효율성과 데이터 분석 워크플로 개선에 실질적인 가치를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Logpush에 SQL 기반의 데이터 변환 엔진 'Transformers'가 추가되어 로그 내보내기 전 필터링 및 가공이 가능해짐.",
+      "key_points": [
+        "Logpush 파이프라인 내부에 Apache DataFusion을 통합하여 별도의 처리 서버 없이 SQL로 로그를 필터링, 마스킹, 재구조화할 수 있음.",
+        "Apache Arrow를 사용하여 Go와 Rust 환경 간의 고성능 데이터 교환을 구현함으로써 대규모 로그 처리 성능을 유지함.",
+        "데이터를 내보내기 전에 불필요한 로그를 제거하여 하류 시스템의 데이터 처리 비용과 저장 공간을 절감할 수 있음."
+      ],
+      "topics": [
+        "Apache DataFusion",
+        "Apache Arrow",
+        "Logpush Transformers"
+      ],
+      "recommended_for": "로그 데이터 파이프라인의 비용 최적화와 데이터 정제 자동화가 필요한 데이터 엔지니어 및 SRE.",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Cloudflare Logpush에 SQL Transformer 적용하여 로그 데이터 정제하기",
+        "steps": [
+          "Cloudflare 대시보드의 Logpush 설정에서 'Transformer Studio' 접속",
+          "현재 수집 중인 로그 데이터셋에 대해 민감 정보 마스킹 또는 불필요 필드 제거 SQL 쿼리 작성",
+          "샘플 레코드로 쿼리 결과 미리보기 후 기존 Logpush 작업에 적용"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Agentic antimicrobial resistance surveillance with AWS HealthOmics and Amazon Bedrock AgentCore",
+      "link": "https://aws.amazon.com/blogs/architecture/agentic-antimicrobial-resistance-surveillance-with-aws-healthomics-and-amazon-bedrock-agentcore",
+      "published_at": "Mon, 12 Oct 2026 14:34:57 +0000",
+      "selection_score": 11,
+      "selection_reason": "Agentic Workflow를 활용해 복잡한 데이터를 처리하는 구체적인 사례로, AI 에이전트의 실무 적용 가능성을 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS HealthOmics와 Bedrock AgentCore를 활용해 생물정보학 지식 없이도 자연어로 항생제 내성 데이터를 분석하는 에이전트 아키텍처.",
+      "key_points": [
+        "공공 시퀀싱 데이터를 자동으로 수집, 조립, 분석하는 파이프라인을 AWS Step Functions와 HealthOmics로 구축함.",
+        "분석 결과를 Amazon S3 Tables(Iceberg)에 저장하여 Athena를 통해 SQL로 즉시 쿼리 가능한 상태로 만듦.",
+        "Bedrock AgentCore 기반의 에이전트가 자연어 질문을 SQL로 변환하여 연구자에게 직접 답변을 제공함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Amazon S3 Tables (Apache Iceberg)",
+        "Amazon Bedrock AgentCore"
+      ],
+      "recommended_for": "복잡한 데이터 분석 워크플로를 AI 에이전트로 자동화하고 싶은 백엔드 및 데이터 플랫폼 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "AWS CDK를 활용한 Agentic Workflow 레퍼런스 아키텍처 배포 및 분석",
+        "steps": [
+          "제공된 AWS CDK 코드를 사용하여 테스트 계정에 전체 파이프라인 배포",
+          "Amazon S3 Tables에 저장된 데이터 구조와 Athena 쿼리 패턴 분석",
+          "AgentCore의 도구 정의(Tool Definition) 방식을 확인하여 자체 데이터셋에 적용 가능한지 검토"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Zig의 타입 안전한 HTML 템플릿",
+      "link": "https://news.hada.io/topic?id=35240",
+      "published_at": "2026-10-12T19:41:48+09:00",
+      "selection_score": 11,
+      "selection_reason": "Zig 언어의 타입 안전한 템플릿 구현 방식은 백엔드 성능 최적화와 개발 생산성 측면에서 참고할 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Zig 언어의 컴파일 타임 기능을 활용해 타입 안전성과 성능을 모두 잡은 HTML 템플릿 라이브러리 'zt' 소개.",
+      "key_points": [
+        "zt는 빌드 시점에 HTML 템플릿을 Zig 코드로 변환하여 컴파일 타임에 타입 오류와 렌더링 문제를 검사함.",
+        "메모리 할당 없이 std.Io.Writer에 직접 출력하여 성능을 최적화하고, 기본적으로 HTML 이스케이프를 적용해 XSS를 방지함.",
+        "Zig의 제어문(if, for, switch)을 템플릿 내에서 그대로 사용할 수 있어 별도의 복잡한 DSL 학습이 필요 없음."
+      ],
+      "topics": [
+        "Zig Comptime",
+        "Type-safe Templating",
+        "XSS Prevention"
+      ],
+      "recommended_for": "Zig 언어로 고성능 웹 백엔드를 개발하거나 타입 안전한 템플릿 엔진에 관심 있는 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "QGIS, AI 보조 기여 금지",
+      "link": "https://news.hada.io/topic?id=35245",
+      "published_at": "2026-10-12T22:33:46+09:00",
+      "selection_score": 11,
+      "selection_reason": "오픈소스 프로젝트의 AI 기여 정책 변화는 향후 개발 워크플로와 도구 활용에 중요한 시사점을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "QGIS 프로젝트가 유지보수자의 검토 부담을 줄이기 위해 AI 보조 기여를 전면 금지함.",
+      "key_points": [
+        "QGIS는 유지보수자의 검토 역량을 초과하는 AI 생성 기여로 인한 품질 저하와 부담을 막기 위해 AI 기여 금지 정책(QEP428)을 승인함.",
+        "이번 조치는 영구적 금지가 아닌, 안전성과 적절성이 검증된 사례부터 개별적으로 허용 여부를 검토하기 위한 잠정적 중단 조치임.",
+        "코드뿐만 아니라 이슈, 댓글 등 모든 서면 상호작용까지 금지 범위에 포함될 수 있으며, 명확한 기준 마련을 위한 후속 논의가 예정되어 있음."
+      ],
+      "topics": [
+        "Human in the loop",
+        "오픈소스 거버넌스",
+        "코드 품질 관리"
+      ],
+      "recommended_for": "오픈소스 프로젝트를 운영하거나 AI를 활용한 코드 기여 워크플로를 고민하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "GLM-Legal - 계약 검토와 증거 분석, 법률 문서 작성을 위한 AI 모델",
+      "link": "https://news.hada.io/topic?id=35252",
+      "published_at": "2026-10-13T03:42:24+09:00",
+      "selection_score": 11,
+      "selection_reason": "특화된 도메인(법률)에서의 LLM 활용 사례로 RAG 및 에이전트 워크플로 설계에 참고할 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Z.ai가 법률 문서 검토 및 증거 분석에 특화된 AI 모델 'GLM-Legal'을 공개함.",
+      "key_points": [
+        "GLM-5.3-Flash 기반으로 계약서 수정, 증거 모순 분석, 규제 준수 체크리스트 생성 등 법률 워크플로에 최적화됨.",
+        "법률 말뭉치 중간 학습과 수만 개의 법률 환경에서의 강화학습을 통해 전문 추론 성능을 향상함.",
+        "에이전트 하네스(AutoClaw)와 결합하여 실제 로펌 업무 환경에 적용 가능한 수준의 결과물을 생성함."
+      ],
+      "topics": [
+        "Domain-specific LLM",
+        "LegalTech",
+        "Agentic RAG"
+      ],
+      "recommended_for": "특화 도메인(법률, 금융 등)에서 LLM 기반의 전문적인 RAG 및 에이전트 시스템을 설계하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Codex CLI 0.157.0, 상주 데몬의 기본 실행과 자동 업데이트에 사용자 반발",
+      "link": "https://news.hada.io/topic?id=35256",
+      "published_at": "2026-10-13T05:37:00+09:00",
+      "selection_score": 11,
+      "selection_reason": "개발 도구의 백그라운드 프로세스 및 패키지 관리 이슈는 개발 생산성과 워크플로에 직접적인 영향을 미칩니다.",
+      "feedback_bias": 0,
+      "one_line": "Codex CLI 0.157.0의 강제적인 백그라운드 데몬 실행과 자동 업데이트 방식에 사용자들이 반발함.",
+      "key_points": [
+        "CLI 실행 시 백그라운드 데몬이 자동 생성되고, 프로세스 종료 후에도 남는 동작이 보안 및 리소스 관리 측면에서 비판받음.",
+        "패키지 관리자를 우회하는 독립적인 자동 업데이트와 환경 변수 상속 문제로 인해 개발 워크플로의 예측 가능성이 저하됨.",
+        "사용자들은 설정 파일(config.toml)을 통한 데몬 비활성화 및 명시적 동의 절차 도입을 요구함."
+      ],
+      "topics": [
+        "Developer Tools",
+        "Background Process",
+        "Dependency Management"
+      ],
+      "recommended_for": "CLI 도구 개발자 및 개발 환경의 안정성을 중시하는 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "현재 사용하는 CLI 도구의 백그라운드 프로세스 및 자동 업데이트 정책 점검",
+        "steps": [
+          "현재 사용하는 주요 CLI 도구들의 프로세스 목록을 확인하고 불필요한 상주 데몬이 있는지 조사함.",
+          "자동 업데이트 기능이 패키지 관리자와 충돌하는지 확인하고, 필요 시 비활성화 설정을 적용함.",
+          "개발 환경의 설정 파일(.toml, .yaml 등)을 검토하여 자동 시작 옵션을 명시적으로 제어함."
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 코딩 에이전트는 더 많은 코드를 만들지만, 더 많은 소프트웨어를 만들지는 못함",
+      "link": "https://news.hada.io/topic?id=35257",
+      "published_at": "2026-10-13T05:40:00+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 코딩 에이전트 도입의 실질적 효과를 분석한 연구로, 개발 생산성 및 워크플로 최적화 관점에서 매우 중요한 통찰을 담고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "연구 결과, AI 코딩 에이전트 도입이 코드 생산량은 늘렸으나 소프트웨어 산출량 증가로는 이어지지 않음.",
+      "key_points": [
+        "700개 기업 분석 결과, 코드 줄 수는 30% 증가했으나 이슈 해결률은 통계적으로 유의미한 변화가 없었음.",
+        "코드 리뷰 시간이 49% 증가하며, 작성 단계의 효율 향상이 검토 병목 현상으로 인해 상쇄되는 결과를 보임.",
+        "AI 도입이 고용 변화를 일으키지는 않았으며, 도구 활용 숙련도에 따라 작성과 검토 간의 상충 관계 개선 가능성이 있음."
+      ],
+      "topics": [
+        "Developer Productivity",
+        "Bottleneck Analysis",
+        "Software Engineering Metrics"
+      ],
+      "recommended_for": "AI 도입을 통한 개발 생산성 향상을 고민하는 기술 리더 및 팀장",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "팀 내 AI 도입 효과 분석 및 코드 리뷰 병목 진단",
+        "steps": [
+          "Jira나 GitHub 데이터를 활용하여 AI 도입 전후의 PR 병합 시간과 리뷰 댓글 수를 비교함.",
+          "코드 리뷰 과정에서 AI가 실질적인 품질 향상에 기여하는지, 단순한 확인 작업에 그치는지 평가함.",
+          "병목 현상을 해결하기 위해 AI를 활용한 자동 테스트 및 정적 분석 강화 방안을 검토함."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Google에서 약 1.2억 원 포상금을 받은 원격 코드 실행 취약점 발견기",
+      "link": "https://news.hada.io/topic?id=35260",
+      "published_at": "2026-10-13T06:38:08+09:00",
+      "selection_score": 12,
+      "selection_reason": "백엔드 보안 및 세션 관리의 취약점 사례로서 실무적인 보안 아키텍처 설계에 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Google DevSite의 Flask 세션 취약점을 악용한 원격 코드 실행(RCE) 사례",
+      "key_points": [
+        "Flask 세션 쿠키의 서명 키가 OAuth 클라이언트 비밀값과 동일하게 설정되어 세션 위조가 가능했음.",
+        "세션 내 pickle 객체를 역직렬화하는 경로를 통해 인증 없이 원격 코드 실행(RCE)이 가능했음.",
+        "서명 키 분리, pickle 사용 금지, 세션 데이터의 서버 측 관리 등 보안 아키텍처의 중요성을 보여줌."
+      ],
+      "topics": [
+        "Flask Session Hijacking",
+        "Pickle Deserialization Vulnerability",
+        "OAuth Secret Reuse"
+      ],
+      "recommended_for": "백엔드 보안 아키텍처를 설계하거나 Flask 기반 서비스를 운영하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Rich Hickey: ‘AI’는 도구가 아니다",
+      "link": "https://news.hada.io/topic?id=35264",
+      "published_at": "2026-10-13T08:32:32+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI Agent와 LLM의 본질적 특성을 철학적으로 고찰하여 향후 에이전트 워크플로 설계 방향을 정립하는 데 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Rich Hickey가 정의하는 AI와 자동화의 본질적 차이",
+      "key_points": [
+        "도구는 인간이 직접 통제하고 피드백을 받으며 숙련을 쌓는 대상이나, LLM은 인간의 통제 없이 스스로 작동하는 자동화임.",
+        "LLM을 도구로 부르면 자동화의 불투명성과 예측 불가능성, 학습 기회 상실이라는 본질적 위험을 간과하게 됨.",
+        "자동화는 현실 세계의 진리보다 시스템의 변덕스러운 동작을 익히는 데 치중하게 만들어 전문성 축적을 저해함."
+      ],
+      "topics": [
+        "Tool vs Automation",
+        "Expertise",
+        "Deterministic Control"
+      ],
+      "recommended_for": "AI 도입이 개발 생산성과 학습에 미치는 영향을 고민하는 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 코딩 에이전트(Claude Code·Codex·Gemini CLI) 세팅이 실패하는 15가지 패턴과 해결법",
+      "link": "https://news.hada.io/topic?id=35266",
+      "published_at": "2026-10-13T09:18:31+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 코딩 에이전트 도입 시 겪는 실질적인 운영 문제와 해결책을 다루고 있어 개발 생산성 향상에 즉각적인 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 에이전트 도입 시 실패를 방지하는 15가지 운영 전략",
+      "key_points": [
+        "완료 기준에 실행 명령과 실제 결과를 명시하고, 반복적인 수정 시도 횟수를 제한하여 무한 루프를 방지함.",
+        "도구별 지침을 중앙화(AGENTS.md)하고, 위험한 작업은 PreToolUse 훅을 통해 강제로 차단함.",
+        "기억을 턴 로그, 요약, 장기 기억으로 계층화하여 에이전트의 문맥 유지 능력을 최적화함."
+      ],
+      "topics": [
+        "Agentic Workflow Management",
+        "Idempotency",
+        "Context Management"
+      ],
+      "recommended_for": "AI 코딩 에이전트를 실무에 도입했으나 생산성 저하를 겪고 있는 팀장 및 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "AI 에이전트 운영 가이드라인(AGENTS.md) 작성 및 적용",
+        "steps": [
+          "프로젝트 루트에 AGENTS.md를 생성하여 에이전트가 준수할 규칙과 금지 항목 정의",
+          "에이전트의 완료 기준에 '실행 결과 출력'을 포함하도록 프롬프트 수정",
+          "위험한 명령어(rm, push 등)를 차단하는 훅 설정"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "TurboPython - Python 코드를 C++를 거쳐 네이티브 실행 파일로 컴파일하는 언어",
+      "link": "https://news.hada.io/topic?id=35267",
+      "published_at": "2026-10-13T09:30:03+09:00",
+      "selection_score": 11,
+      "selection_reason": "Python 성능 개선을 위한 새로운 컴파일러 도구로서, 백엔드 및 시스템 프로그래밍 영역에서 유용한 기술적 대안입니다.",
+      "feedback_bias": 0,
+      "one_line": "Python 문법으로 네이티브 실행 파일을 만드는 정적 타입 컴파일러 TurboPython",
+      "key_points": [
+        "Python 코드를 C++로 변환하여 CPython 런타임 없이 독립적인 네이티브 실행 파일을 생성함.",
+        "소유권과 빌림 모델을 도입하여 메모리 안전성을 관리하며, GIL 없는 멀티스레딩을 지원함.",
+        "기존 CPython 패키지와의 호환성은 낮으나, 고성능이 필요한 시스템 프로그래밍 영역의 대안으로 활용 가능함."
+      ],
+      "topics": [
+        "Static Compilation",
+        "Ownership and Borrowing",
+        "Native Extension"
+      ],
+      "recommended_for": "Python의 생산성과 C++의 성능을 동시에 원하는 백엔드 및 시스템 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "TurboPython을 활용한 간단한 CLI 도구 컴파일 테스트",
+        "steps": [
+          "TurboPython 설치 및 환경 구성",
+          "기존 Python 스크립트 중 외부 의존성이 없는 로직을 TurboPython 문법으로 포팅",
+          "컴파일 후 네이티브 실행 파일 생성 및 기존 Python 실행 속도와 비교"
+        ],
+        "effort": "1~2시간"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Zod 4.6.6, 악성코드에 감염됐나?",
+      "link": "https://news.hada.io/topic?id=35238",
+      "published_at": "2026-10-12T18:32:17+09:00",
+      "selection_score": 10,
+      "selection_reason": "널리 사용되는 라이브러리의 보안 이슈는 개발자로서 반드시 인지해야 할 중요한 정보입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Fable이 내 일자리를 빼앗았다",
+      "link": "https://news.hada.io/topic?id=35239",
+      "published_at": "2026-10-12T19:38:48+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 도입에 따른 고용 시장과 엔지니어링 조직의 변화를 다루는 업계의 중요한 사회적/기술적 담론입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 기업들은 왜 해킹 혐의로 기소되지 않는가?",
+      "link": "https://news.hada.io/topic?id=35246",
+      "published_at": "2026-10-13T00:43:13+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 시스템의 창발적 행동과 법적 책임 문제는 AI 에이전트 개발 시 고려해야 할 중요한 윤리/법적 이슈입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: PS2 게임을 WebAssembly로 정적 재컴파일하기",
+      "link": "https://news.hada.io/topic?id=35247",
+      "published_at": "2026-10-13T00:46:13+09:00",
+      "selection_score": 9,
+      "selection_reason": "WebAssembly와 WebGPU를 활용한 고성능 웹 기술 구현 사례로 기술적 학습 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "C로 만든 현대적인 웹 앱",
+      "link": "https://news.hada.io/topic?id=35253",
+      "published_at": "2026-10-13T03:45:24+09:00",
+      "selection_score": 10,
+      "selection_reason": "현대적인 웹 개발 환경에서 C와 SQLite를 활용한 미니멀리즘 아키텍처는 성능과 비용 측면에서 흥미로운 통찰을 제공합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "WiFi 7 라우터를 320 Msps 소프트웨어 정의 무선 수신기로 전환하기",
+      "link": "https://news.hada.io/topic?id=35258",
+      "published_at": "2026-10-13T05:43:00+09:00",
+      "selection_score": 10,
+      "selection_reason": "하드웨어 리버싱과 고성능 데이터 처리를 다루는 기술적 깊이가 있는 글로, 시스템 프로그래밍 관심사에 부합합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI는 도구이며, 잘 쓰려면 숙련이 필요하다",
+      "link": "https://news.hada.io/topic?id=35268",
+      "published_at": "2026-10-13T09:32:44+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 도구 활용 능력에 대한 관점을 제시하며, 개발자의 AI 에이전트 활용 역량 강화 측면에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

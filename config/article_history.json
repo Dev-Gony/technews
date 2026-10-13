@@ -1,6 +1,326 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "토스",
+      "title": "CPU 뼛속까지 써먹고, Milvus 사이징 기준을 만들기까지",
+      "link": "https://toss.tech/article/milvus-optimization-and-sizing",
+      "published_at": "Mon, 12 Oct 2026 01:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "HNSW(Hierarchical Navigable Small World)",
+        "NUMA(Non-Uniform Memory Access)",
+        "IPC(Instructions Per Cycle)"
+      ],
+      "one_line": "Milvus 벡터 검색 인프라의 CPU/메모리 최적화 및 NUMA 배치 전략",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "토스",
+      "title": "서비스 개발에 집중할 수 있는 AI 플랫폼 만들기",
+      "link": "https://toss.tech/article/ai-platform-foundation",
+      "published_at": "Tue, 13 Oct 2026 01:34:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Gateway",
+        "MCP(Model Context Protocol)",
+        "SLA(Service Level Agreement)"
+      ],
+      "one_line": "토스의 GenAI 플랫폼: LLM Gateway와 MCP를 활용한 안전한 AI 서비스 운영",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GitHub Blog",
+      "title": "GitHub Copilot app for Beginners: How to teach Copilot about your codebase",
+      "link": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-how-to-teach-copilot-about-your-codebase",
+      "published_at": "Mon, 12 Oct 2026 17:43:59 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "GitHub Copilot Custom Instructions",
+        "Agent Skills",
+        "Model Context Protocol"
+      ],
+      "one_line": "GitHub Copilot의 컨텍스트 최적화: Instructions, Skills, Agents 활용법",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "Meta Engineering",
+      "title": "Turning Opportunistic AI Inference Capacity Into Better Ads Recommendations",
+      "link": "https://engineering.fb.com/2026/10/12/ml-applications/turning-opportunistic-ai-inference-capacity-into-better-ads-recommendations",
+      "published_at": "Mon, 12 Oct 2026 16:00:50 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Opportunistic Capacity",
+        "Load Shedding",
+        "Inference Optimization"
+      ],
+      "one_line": "Meta의 유휴 인프라를 활용한 AI 추론 최적화: RMA와 SBM 전략",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "Meta Engineering",
+      "title": "Shipping Media Over QUIC at Meta Scale for Instagram Live Ingest",
+      "link": "https://engineering.fb.com/2026/10/12/video-engineering/shipping-media-over-quic-at-meta-scale-for-instagram-live-ingest",
+      "published_at": "Mon, 12 Oct 2026 16:01:32 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "MoQ(Media over QUIC)",
+        "QUIC",
+        "Head-of-line blocking"
+      ],
+      "one_line": "Instagram Live의 실시간 스트리밍을 위한 MoQ(Media over QUIC) 도입",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "Meta Engineering",
+      "title": "OCP Summit 2026: Powering AI with Open Innovations in Scale-Up, Scale-Out, and Scale-Across Networks",
+      "link": "https://engineering.fb.com/2026/10/12/open-source/ocp-summit-2026-powering-ai-with-open-innovations-in-scale-up-scale-out-and-scale-across-networks",
+      "published_at": "Mon, 12 Oct 2026 21:19:18 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Flattened Planar Fabric (FPF)",
+        "MetaRoCE",
+        "Switch Abstraction Interface (SAI)"
+      ],
+      "one_line": "Meta가 OCP 2026에서 차세대 AI 인프라를 위한 액체 냉각 네트워크와 오픈 소스 프로토콜을 공개함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "Cloudflare",
+      "title": "Filter, reshape, and redact logs before export with Transformers",
+      "link": "https://blog.cloudflare.com/transformers-on-logpush",
+      "published_at": "Mon, 12 Oct 2026 14:44:59 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Apache DataFusion",
+        "Apache Arrow",
+        "Logpush Transformers"
+      ],
+      "one_line": "Cloudflare Logpush에 SQL 기반의 데이터 변환 엔진 'Transformers'가 추가되어 로그 내보내기 전 필터링 및 가공이 가능해짐.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "AWS Architecture",
+      "title": "Agentic antimicrobial resistance surveillance with AWS HealthOmics and Amazon Bedrock AgentCore",
+      "link": "https://aws.amazon.com/blogs/architecture/agentic-antimicrobial-resistance-surveillance-with-aws-healthomics-and-amazon-bedrock-agentcore",
+      "published_at": "Mon, 12 Oct 2026 14:34:57 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Amazon S3 Tables (Apache Iceberg)",
+        "Amazon Bedrock AgentCore"
+      ],
+      "one_line": "AWS HealthOmics와 Bedrock AgentCore를 활용해 생물정보학 지식 없이도 자연어로 항생제 내성 데이터를 분석하는 에이전트 아키텍처.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "Zig의 타입 안전한 HTML 템플릿",
+      "link": "https://news.hada.io/topic?id=35240",
+      "published_at": "2026-10-12T19:41:48+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Zig Comptime",
+        "Type-safe Templating",
+        "XSS Prevention"
+      ],
+      "one_line": "Zig 언어의 컴파일 타임 기능을 활용해 타입 안전성과 성능을 모두 잡은 HTML 템플릿 라이브러리 'zt' 소개.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "Postgres가 느린 게 아니라 스토리지가 느린 것이다",
+      "link": "https://news.hada.io/topic?id=35244",
+      "published_at": "2026-10-12T21:39:00+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "IOPS",
+        "WAL (Write Ahead Log) fsync",
+        "Synchronous Replication"
+      ],
+      "one_line": "PostgreSQL의 성능 저하 원인이 스토리지 I/O 병목에 있음을 분석하고 로컬 NVMe 활용 전략을 제시함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "QGIS, AI 보조 기여 금지",
+      "link": "https://news.hada.io/topic?id=35245",
+      "published_at": "2026-10-12T22:33:46+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Human in the loop",
+        "오픈소스 거버넌스",
+        "코드 품질 관리"
+      ],
+      "one_line": "QGIS 프로젝트가 유지보수자의 검토 부담을 줄이기 위해 AI 보조 기여를 전면 금지함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "Muse Wonder - 대화 간 기억과 장기 작업 수행을 강화한 Meta의 AI 모델",
+      "link": "https://news.hada.io/topic?id=35251",
+      "published_at": "2026-10-13T03:39:24+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent",
+        "Active Memory",
+        "Agentic Workflow"
+      ],
+      "one_line": "Meta가 대화 간 기억과 장기 작업 수행 능력을 강화한 AI 모델 'Muse Wonder' 시리즈를 공개함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "GLM-Legal - 계약 검토와 증거 분석, 법률 문서 작성을 위한 AI 모델",
+      "link": "https://news.hada.io/topic?id=35252",
+      "published_at": "2026-10-13T03:42:24+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Domain-specific LLM",
+        "LegalTech",
+        "Agentic RAG"
+      ],
+      "one_line": "Z.ai가 법률 문서 검토 및 증거 분석에 특화된 AI 모델 'GLM-Legal'을 공개함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "Codex CLI 0.157.0, 상주 데몬의 기본 실행과 자동 업데이트에 사용자 반발",
+      "link": "https://news.hada.io/topic?id=35256",
+      "published_at": "2026-10-13T05:37:00+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Developer Tools",
+        "Background Process",
+        "Dependency Management"
+      ],
+      "one_line": "Codex CLI 0.157.0의 강제적인 백그라운드 데몬 실행과 자동 업데이트 방식에 사용자들이 반발함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "AI 코딩 에이전트는 더 많은 코드를 만들지만, 더 많은 소프트웨어를 만들지는 못함",
+      "link": "https://news.hada.io/topic?id=35257",
+      "published_at": "2026-10-13T05:40:00+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Developer Productivity",
+        "Bottleneck Analysis",
+        "Software Engineering Metrics"
+      ],
+      "one_line": "연구 결과, AI 코딩 에이전트 도입이 코드 생산량은 늘렸으나 소프트웨어 산출량 증가로는 이어지지 않음.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "Google에서 약 1.2억 원 포상금을 받은 원격 코드 실행 취약점 발견기",
+      "link": "https://news.hada.io/topic?id=35260",
+      "published_at": "2026-10-13T06:38:08+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Flask Session Hijacking",
+        "Pickle Deserialization Vulnerability",
+        "OAuth Secret Reuse"
+      ],
+      "one_line": "Google DevSite의 Flask 세션 취약점을 악용한 원격 코드 실행(RCE) 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "Rich Hickey: ‘AI’는 도구가 아니다",
+      "link": "https://news.hada.io/topic?id=35264",
+      "published_at": "2026-10-13T08:32:32+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Tool vs Automation",
+        "Expertise",
+        "Deterministic Control"
+      ],
+      "one_line": "Rich Hickey가 정의하는 AI와 자동화의 본질적 차이",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "Linus Torvalds, Claude Code로 Linux 커널의 대폭 개선 작업 진행 중",
+      "link": "https://news.hada.io/topic?id=35265",
+      "published_at": "2026-10-13T09:02:44+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Kernel Performance Optimization",
+        "Folio Reference Counting",
+        "Agentic Workflow"
+      ],
+      "one_line": "Linus Torvalds가 Claude Code를 활용해 Linux 커널 성능을 개선함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "AI 코딩 에이전트(Claude Code·Codex·Gemini CLI) 세팅이 실패하는 15가지 패턴과 해결법",
+      "link": "https://news.hada.io/topic?id=35266",
+      "published_at": "2026-10-13T09:18:31+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow Management",
+        "Idempotency",
+        "Context Management"
+      ],
+      "one_line": "AI 코딩 에이전트 도입 시 실패를 방지하는 15가지 운영 전략",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-13T11:26:16.508385+09:00",
+      "company": "GeekNews",
+      "title": "TurboPython - Python 코드를 C++를 거쳐 네이티브 실행 파일로 컴파일하는 언어",
+      "link": "https://news.hada.io/topic?id=35267",
+      "published_at": "2026-10-13T09:30:03+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Static Compilation",
+        "Ownership and Borrowing",
+        "Native Extension"
+      ],
+      "one_line": "Python 문법으로 네이티브 실행 파일을 만드는 정적 타입 컴파일러 TurboPython",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-10-12T09:14:56.570399+09:00",
       "company": "GeekNews",
       "title": "Show GN: 해줘 로컬 - 크레덴셜 금고가 붙은 로컬 AI 에이전트 오케스트레이터",
@@ -5477,5 +5797,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-12T09:14:56.570399+09:00"
+  "updated_at": "2026-10-13T11:26:16.508385+09:00"
 }
