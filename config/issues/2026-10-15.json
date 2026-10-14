@@ -1,0 +1,782 @@
+{
+  "schema_version": 1,
+  "issue_number": 27,
+  "issue_date": "2026-10-15",
+  "generated_at": "2026-10-15T08:44:06.400047+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nMCP (Model Context Protocol), LLM-as-a-Judge, 데이터베이스 커넥션 풀링, GPU 장애 대응, 인프라 자동화\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무 도입을 위한 표준 프로토콜과 평가 체계, 그리고 대규모 인프라의 안정성을 높이는 기술적 깊이가 그 어느 때보다 중요해지고 있습니다.\n\n[오늘 왜 중요한가]\n\n단순한 모델 활용을 넘어 AI 에이전트를 실제 인프라와 결합하고, 그 판단의 신뢰성을 검증하는 단계로 기술 패러다임이 이동하고 있습니다. 실무자들은 이제 AI의 성능뿐만 아니라, 시스템의 안정성과 운영 효율을 극대화할 수 있는 아키텍처 설계 역량을 갖춰야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 2번 글: Apigee hybrid의 MCP 지원은 온프레미스 환경에서 AI 에이전트와 기존 API 인프라를 안전하게 연결하는 핵심적인 기술 변화를 보여줍니다.\n• 6번 글: LLM 평가의 신뢰성을 확보하기 위한 인간 피드백 기반의 수명 주기 관리 방법론은 AI 서비스의 품질을 결정짓는 필수 지식입니다.\n• 13번 글: 데이터베이스 프로토콜의 기능 협상 버그 해결 사례는 분산 시스템의 안정성을 확보하기 위한 디버깅과 아키텍처 설계의 정수를 담고 있습니다.\n\n[오늘 공부해볼 것]\n\n• MCP (Model Context Protocol) 아키텍처: AI 에이전트가 로컬 도구 및 데이터와 통신하는 표준 방식을 이해하여 향후 에이전트 워크플로 구축에 대비합니다.\n• LLM-as-a-Judge 프롬프트 엔지니어링: 평가 모델의 판단 근거(Rationale)를 인간의 논리와 일치시키는 루브릭 튜닝 기법을 학습하여 평가 자동화의 정확도를 높입니다.\n• 데이터베이스 프로토콜 기능 협상(Capability Negotiation): DB 드라이버와 서버 간의 통신 규약을 이해하여 분산 캐싱 및 커넥션 풀링 환경에서의 잠재적 장애를 예방합니다.",
+  "stats": {
+    "candidate_count": 49,
+    "detailed_count": 24,
+    "brief_count": 4,
+    "excluded_count": 21,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "Google Developers",
+      "title": "Announcing MCP support in Apigee hybrid: agentic tools that run in your own cluster",
+      "link": "https://developers.googleblog.com/announcing-mcp-support-in-apigee-hybrid-agentic-tools-that-run-in-your-own-cluster",
+      "published_at": "",
+      "selection_score": 15,
+      "selection_reason": "MCP(Model Context Protocol)의 온프레미스/클러스터 지원은 AI Agent 워크플로 구축의 핵심적인 기술 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Apigee hybrid 1.17.0에서 MCP(Model Context Protocol)를 지원하여 온프레미스 클러스터 내 AI 에이전트 도구 실행 가능",
+      "key_points": [
+        "Apigee hybrid가 MCP를 기본 지원하여 AI 에이전트 요청과 도구 실행을 내부 인프라 내에서 안전하게 처리함.",
+        "OpenAPI 3.0.x 사양을 MCP 도구로 노출하여 기존 보안 정책과 API 제품을 그대로 활용 가능함.",
+        "W3C trace context 헤더를 통해 엔드투엔드 요청 추적이 가능하여 운영 가시성을 확보함."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "Apigee hybrid",
+        "AI Agentic Workflow"
+      ],
+      "recommended_for": "기업 내부 인프라에서 AI 에이전트 워크플로를 안전하게 구축하고 관리하려는 백엔드 및 플랫폼 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "The Lifecycle of LLM-as-a-Judge: Building, Aligning, and Monitoring at scale",
+      "link": "https://netflixtechblog.com/the-lifecycle-of-llm-as-a-judge-building-aligning-and-monitoring-at-scale-c95bd8283508",
+      "published_at": "Wed, 14 Oct 2026 19:48:49 GMT",
+      "selection_score": 15,
+      "selection_reason": "LLM 평가 자동화(LLM-as-a-Judge)는 현재 AI Agent 및 LLM 파이프라인 구축에서 가장 중요한 실무 과제입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 평가의 신뢰성을 확보하기 위해 인간의 판단을 중심에 둔 'LLM-as-a-Judge' 수명 주기 관리 방법론",
+      "key_points": [
+        "LLM 평가자(Judge)는 단독으로 운영되지 않으며, 인간의 피드백(HITL)을 통해 지속적으로 정렬되고 모니터링되어야 함.",
+        "단순한 라벨 일치도를 넘어, 판단의 근거(Rationale)까지 인간의 논리와 일치시키는 'Reasoning-Aligned Rubric Tuning(RART)' 기법을 도입함.",
+        "평가자 모델의 편향(Drift)을 방지하기 위해 주기적으로 인간 전문가가 검증한 벤치마크 데이터셋으로 평가자를 재학습하고 검증함."
+      ],
+      "topics": [
+        "LLM-as-a-Judge",
+        "Human-in-the-loop (HITL)",
+        "Reasoning-Aligned Rubric Tuning (RART)"
+      ],
+      "recommended_for": "LLM 기반의 자동화된 평가 파이프라인을 구축하거나 운영 중인 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "LLM 평가자의 판단 근거(Rationale)와 인간의 판단 근거를 비교하는 Meta-Judge 구현",
+        "steps": [
+          "현재 사용 중인 LLM 평가자 프롬프트에 '판단 이유(Rationale)'를 반드시 출력하도록 수정",
+          "인간 전문가가 작성한 정답 데이터셋과 LLM의 Rationale를 비교하는 간단한 스크립트 작성",
+          "두 근거가 일치하지 않는 사례(Right answer, wrong reason)를 수집하여 프롬프트의 루브릭(Rubric)을 개선"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Inside Hyperdrive: How we solved a rare Hyperdrive MySQL caching bug",
+      "link": "https://blog.cloudflare.com/hyperdrive-mysql",
+      "published_at": "Wed, 14 Oct 2026 13:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "데이터베이스 커넥션 풀링과 캐싱 버그 해결 과정은 백엔드 성능 개선 및 안정성 확보를 위한 핵심 기술 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare가 Hyperdrive의 MySQL 캐싱 버그를 MySQL 프로토콜의 기능 협상 불일치 문제로 해결함",
+      "key_points": [
+        "Hyperdrive는 데이터베이스 커넥션 풀링과 쿼리 캐싱을 제공하는 분산 서비스로, MySQL 지원을 위해 프로토콜 호환성을 확보함.",
+        "캐싱된 쿼리 결과가 클라이언트와 엔드포인트 간의 기능 협상(Capability Negotiation) 차이로 인해 잘못된 형식으로 반환되는 버그를 발견함.",
+        "모든 노드에서 캐시 저장 시 Hyperdrive의 표준 기능(Capability)으로 인코딩된 정규화된 바이트를 저장하도록 수정하여 해결함."
+      ],
+      "topics": [
+        "Connection Pooling",
+        "MySQL Protocol",
+        "Distributed Caching"
+      ],
+      "recommended_for": "데이터베이스 커넥션 풀링 및 분산 캐싱 아키텍처를 설계하거나 운영하는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "데이터베이스 프로토콜 기능 협상 로직 검토",
+        "steps": [
+          "현재 사용 중인 DB 드라이버와 서버 간의 Capability 협상 로그 확인",
+          "캐싱 계층에서 데이터 인코딩 시 특정 드라이버 의존적인 형식이 아닌 표준화된 형식으로 저장하는지 검토"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "토스",
+      "title": "Spark Connect on Kubernetes #2: Operator로 만드는 Control Plane",
+      "link": "https://toss.tech/article/spark-connect-on-kubernetes-2",
+      "published_at": "Wed, 14 Oct 2026 05:06:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "Kubernetes 기반의 Spark 운영 자동화와 Control Plane 구축 사례는 백엔드 아키텍처 및 데이터 인프라 실무에 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "Kubernetes 기반 Spark 운영을 위해 두 개의 Operator를 활용한 Control Plane 구축 및 메모리 누수 해결 사례",
+      "key_points": [
+        "SparkApplication의 생명주기는 Apache Spark Operator가, 테넌트 단위의 서버 관리와 교체는 Spark Tenant Operator가 담당하는 이원화 구조를 채택함.",
+        "서버 교체 시 신규 세션은 새 서버로, 기존 세션은 drain 과정을 거쳐 정리하는 Blue-Green 방식을 통해 무중단 운영을 구현함.",
+        "장기 실행 Driver의 메모리 누수 문제는 glibc의 MALLOC_ARENA_MAX 설정을 제한하여 해결함."
+      ],
+      "topics": [
+        "Spark Connect",
+        "Kubernetes Operator",
+        "glibc Memory Arena"
+      ],
+      "recommended_for": "Spark on Kubernetes를 운영하며 리소스 관리와 안정적인 배포 파이프라인을 고민하는 데이터 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "Spark Driver/Executor의 메모리 누수 방지를 위한 MALLOC_ARENA_MAX 설정 적용",
+        "steps": [
+          "현재 운영 중인 Spark 워크로드의 Driver/Executor 메모리 사용 패턴을 모니터링하여 누수 여부 확인",
+          "환경 변수 MALLOC_ARENA_MAX를 max(4, cores) 값으로 설정하여 배포",
+          "설정 적용 후 cgroup 메모리 사용량 변화를 72시간 이상 추적"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "From 2,500 requests to 24: Rebuilding star history without the stargazers",
+      "link": "https://github.blog/engineering/architecture-optimization/from-2500-requests-to-24-rebuilding-star-history-without-the-stargazers",
+      "published_at": "Wed, 14 Oct 2026 19:11:33 +0000",
+      "selection_score": 11,
+      "selection_reason": "API 성능 최적화와 데이터 설계 변경 사례로, 대규모 시스템의 API 설계 및 비용 절감 관점에서 배울 점이 많습니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub이 대규모 API 성능 최적화를 위해 사용자 식별자 없이 시간 범위 기반의 집계 엔드포인트를 도입한 사례",
+      "key_points": [
+        "기존의 stargazer 리스트 조회 방식은 대규모 저장소에서 DB 부하와 성능 저하를 유발하여 API 호출 제한의 원인이 됨.",
+        "사용자 식별자 대신 시간 범위별 집계 데이터를 반환하는 전용 엔드포인트를 설계하여 요청 수를 2,500개에서 24개로 대폭 감소시킴.",
+        "데이터베이스의 부하를 줄이기 위해 집계 전 시간 범위 필터링을 선행하여 쿼리 효율성을 최적화함."
+      ],
+      "topics": [
+        "API Rate Limiting",
+        "Database Query Optimization",
+        "Data Aggregation"
+      ],
+      "recommended_for": "대규모 트래픽을 처리하는 API 설계 및 데이터베이스 성능 최적화가 필요한 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "데이터 집계 API의 쿼리 성능을 위해 필터링 로직을 집계 이전 단계로 이동",
+        "steps": [
+          "현재 서비스 중인 대용량 데이터 조회 API의 쿼리 실행 계획(EXPLAIN) 분석",
+          "LIMIT/OFFSET 적용 전 인덱스 기반의 시간 범위 필터링을 쿼리 최상단에 배치",
+          "집계 연산이 전체 데이터셋이 아닌 필터링된 결과셋에 대해서만 수행되도록 수정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Reliable GPU compute for large training & inference jobs",
+      "link": "https://netflixtechblog.com/reliable-gpu-compute-for-large-training-inference-jobs-d62b03a96d7a",
+      "published_at": "Wed, 14 Oct 2026 19:47:42 GMT",
+      "selection_score": 13,
+      "selection_reason": "GPU 자원의 안정성 확보와 장애 대응 자동화는 AI 모델 학습 및 추론 인프라 운영의 필수적인 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix가 대규모 GPU 학습 및 추론 워크로드의 안정성을 위해 다계층 하드웨어 장애 탐지 및 자동 복구 시스템을 구축함",
+      "key_points": [
+        "단순 인스턴스 상태 체크를 넘어 GPU 메모리, 네트워크 어댑터, 상호 연결 상태를 정밀 진단하는 4계층 장애 탐지 체계를 구축함.",
+        "장애 발생 시 즉시 교체하지 않고 문제의 성격에 따라 재시작, 드레인, 교체 등 단계별 자동 대응 정책을 적용함.",
+        "체크 로직 자체의 장애를 방지하기 위해 의존성 누락 시 실패 처리(Fail-closed) 및 커널 로그 직접 분석 경로를 마련함."
+      ],
+      "topics": [
+        "GPU Reliability",
+        "Node Problem Detector",
+        "Fault Tolerance"
+      ],
+      "recommended_for": "대규모 AI 모델 학습 및 추론 인프라를 운영하며 GPU 자원의 안정성과 가용성을 고민하는 플랫폼 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Netflix Stratum Media Processing: Automated Container Right-Sizing",
+      "link": "https://netflixtechblog.com/netflix-stratum-media-processing-automated-container-right-sizing-ddf9aa68a801",
+      "published_at": "Wed, 14 Oct 2026 19:48:20 GMT",
+      "selection_score": 12,
+      "selection_reason": "서버리스 환경에서의 컨테이너 리소스 최적화(Right-Sizing)는 비용 절감과 성능 개선을 위한 실무적 가이드입니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix가 서버리스 미디어 처리 플랫폼에서 컨테이너 리소스를 자동으로 최적화하는 SRT(Stratum Resource Tuner)를 도입함",
+      "key_points": [
+        "수동 리소스 설정의 비효율성을 해결하기 위해 과거 사용량 데이터를 기반으로 최적 리소스를 추천하는 자동화 시스템을 구축함.",
+        "CPU/네트워크는 p99 기준, 메모리/디스크는 p99.9 기준에 안전 버퍼를 더해 보수적으로 리소스를 조정함.",
+        "실제 적용 전 실험 단계를 거치고, 단계적(15% 이내)으로 리소스를 줄이는 안전장치를 마련하여 운영 리스크를 최소화함."
+      ],
+      "topics": [
+        "Resource Right-Sizing",
+        "Serverless Optimization",
+        "Automated Infrastructure Tuning"
+      ],
+      "recommended_for": "클라우드 비용 절감과 컨테이너 리소스 효율화를 자동화하고 싶은 플랫폼 및 SRE 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "워크로드별 리소스 사용량 분석을 통한 과잉 할당(Over-provisioning) 진단",
+        "steps": [
+          "Prometheus 등 모니터링 도구에서 주요 서비스의 CPU/Memory 요청량 대비 실제 사용량(p99) 데이터 추출",
+          "요청량과 실제 사용량의 차이가 큰 워크로드 리스트업",
+          "안전한 리소스 하향 조정을 위한 점진적 실험 계획 수립"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Running Apache Spark experiments in my sleep (and on a plane)",
+      "link": "https://netflixtechblog.com/running-apache-spark-experiments-in-my-sleep-and-on-a-plane-588816b6b5f8",
+      "published_at": "Wed, 14 Oct 2026 19:49:11 GMT",
+      "selection_score": 11,
+      "selection_reason": "대규모 Spark 데이터 파이프라인의 성능 튜닝 방법론과 실험 자동화 전략은 데이터 엔지니어링 실무에 큰 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "대규모 Spark 데이터 파이프라인의 성능 병목을 해결하기 위한 브랜치 기반 실험 및 자동화 전략",
+      "key_points": [
+        "대규모 데이터의 성능 이슈는 샘플링 데이터로 재현이 불가능하므로, 전체 프로덕션 규모에서 테스트할 수 있는 격리된 환경이 필수적임.",
+        "Git 브랜치 단위로 독립적인 실험 환경을 구성하고, AI 에이전트를 활용해 여러 실험을 병렬로 실행 및 모니터링함.",
+        "Spark 성능 최적화는 단순히 리소스를 늘리는 것보다 데이터 구조 최적화(Unboxing, 데이터 크기 축소)가 훨씬 효과적임."
+      ],
+      "topics": [
+        "Branch-driven development",
+        "Spark Adaptive Query Execution (AQE)",
+        "Data Skew"
+      ],
+      "recommended_for": "대규모 데이터 처리 파이프라인의 성능 최적화와 운영 효율을 고민하는 데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "Spark 작업의 메모리 효율을 높이기 위한 데이터 구조 최적화",
+        "steps": [
+          "현재 Spark 파이프라인에서 메모리 점유율이 높은 데이터 구조(예: Option boxing, 대형 String)를 식별",
+          "불필요한 필드를 제거하고, 데이터 타입을 원시 타입(Primitive)으로 변환하여 메모리 사용량 측정",
+          "AQE의 autoBroadcastJoinThreshold 설정을 튜닝하여 브로드캐스트 조인으로 인한 메모리 오버플로우 방지"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Netflix Conductor: The Next Chapter",
+      "link": "https://netflixtechblog.com/netflix-conductor-the-next-chapter-41ad21067649",
+      "published_at": "Wed, 14 Oct 2026 19:50:17 GMT",
+      "selection_score": 12,
+      "selection_reason": "워크플로 오케스트레이션 엔진의 재설계 과정은 복잡한 백엔드 아키텍처를 설계하는 개발자에게 중요한 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix Conductor의 대규모 확장을 위한 아키텍처 재설계: 데이터 모델 분리와 비동기 평가 엔진 도입",
+      "key_points": [
+        "워크플로 상태와 태스크 데이터를 분리하여 'Wide row' 문제를 해결하고, 엔진의 메모리 사용량을 획기적으로 줄임.",
+        "워크플로 평가를 동기식에서 비동기식(Timestone 큐 활용)으로 전환하여 락 경합(Lock contention)을 제거하고 지연 시간을 개선함.",
+        "데이터 모델을 '상태 기반'에서 '이벤트 기반'으로 변경하여 분산 환경에서의 경쟁 상태(Race condition)를 안전하게 처리함."
+      ],
+      "topics": [
+        "Workflow Orchestration",
+        "Event-driven Architecture",
+        "Race Condition Handling"
+      ],
+      "recommended_for": "복잡한 비즈니스 프로세스를 자동화하는 대규모 분산 시스템 설계자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "TimeSeries Tiered Storage Journey: Kafka/Flink Streams to Native Cassandra Cold Reads",
+      "link": "https://netflixtechblog.com/timeseries-tiered-storage-journey-kafka-flink-streams-to-native-cassandra-cold-reads-e59d597c9d60",
+      "published_at": "Wed, 14 Oct 2026 19:56:08 GMT",
+      "selection_score": 14,
+      "selection_reason": "대규모 데이터의 비용 절감과 스토리지 계층화 전략은 백엔드 아키텍처 및 인프라 최적화 실무에 매우 유용한 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "대규모 시계열 데이터의 비용 절감을 위한 S3 기반 계층형 스토리지(Tiered Storage) 전략",
+      "key_points": [
+        "데이터의 접근 빈도에 따라 핫 스토리지(Cassandra)와 콜드 스토리지(S3)로 분리하여 인프라 비용을 대폭 절감함.",
+        "ReadOnlyCompactionStrategy(ROCS)를 통해 불변 데이터의 SSTable을 토큰 범위에 맞춰 최적화하여 읽기 성능을 개선함.",
+        "Cassandra의 플러그형 Memtable 기능을 활용해 S3 백업 데이터를 직접 읽음으로써 별도의 데이터 이동 비용을 제거함."
+      ],
+      "topics": [
+        "Tiered Storage",
+        "SSTable",
+        "ReadOnlyCompactionStrategy"
+      ],
+      "recommended_for": "페타바이트급 데이터의 저장 비용과 성능 최적화를 고민하는 백엔드 및 인프라 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Measuring the Impact of Personalized Recommendations",
+      "link": "https://netflixtechblog.com/measuring-the-impact-of-personalized-recommendations-4c26be3a4d96",
+      "published_at": "Wed, 14 Oct 2026 19:57:43 GMT",
+      "selection_score": 11,
+      "selection_reason": "개인화 추천 시스템의 성과 측정 방법론은 데이터 분석 및 AI 모델링 실무자에게 중요한 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "개인화 추천 시스템의 인과적 효과를 측정하기 위한 행동 모델링 및 실험적 검증 방법론",
+      "key_points": [
+        "추천 시스템의 효과를 측정하기 위해 사용자의 기본 선호도와 추천으로 인한 증분 효과를 분리하는 행동 모델을 구축함.",
+        "모델의 예측력을 검증하기 위해 소규모 A/B 테스트를 통해 특정 콘텐츠의 노출도를 의도적으로 조절하여 실제 대체 패턴을 확인함.",
+        "개인화 추천은 단순히 시청 시간을 늘리는 것뿐만 아니라, 콘텐츠 소비의 다양성을 유지하는 데에도 중요한 역할을 함."
+      ],
+      "topics": [
+        "Causal Inference",
+        "Counterfactual Analysis",
+        "Low-rank Choice Model"
+      ],
+      "recommended_for": "추천 시스템의 성과 지표를 설계하거나 모델의 비즈니스 임팩트를 측정하려는 데이터 과학자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "DataJunction as Netflix’s answer to the missing piece of the modern data stack",
+      "link": "https://netflixtechblog.com/datajunction-as-netflixs-answer-to-the-missing-piece-of-the-modern-data-stack-92af926b40a5",
+      "published_at": "Wed, 14 Oct 2026 19:59:08 GMT",
+      "selection_score": 11,
+      "selection_reason": "데이터 거버넌스와 메트릭 플랫폼 구축은 데이터 엔지니어링 및 분석 워크플로 개선에 실질적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix가 데이터 거버넌스와 메트릭 일관성을 위해 오픈소스 메트릭 플랫폼 'DataJunction'을 도입함",
+      "key_points": [
+        "DataJunction은 데이터 사이언티스트와 엔지니어가 메트릭을 쉽게 정의하고 관리할 수 있도록 돕는 시맨틱 계층(Semantic Layer)임.",
+        "SQL 파싱 및 생성 엔진을 통해 메트릭 정의를 그래프 형태로 저장하며, 다양한 데이터 소스와 대시보드 도구를 통합함.",
+        "복잡한 실험 플랫폼의 메트릭 관리 문제를 해결하고, 내부 LLM이 비즈니스 메트릭을 정확하게 설명할 수 있는 기반을 마련함."
+      ],
+      "topics": [
+        "Semantic Layer",
+        "Data Governance",
+        "Metrics Platform"
+      ],
+      "recommended_for": "데이터 엔지니어링 워크플로 개선과 메트릭 관리의 일관성을 고민하는 데이터 플랫폼 팀",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Integrating Netflix’s Foundation Model into Personalization applications",
+      "link": "https://netflixtechblog.com/integrating-netflixs-foundation-model-into-personalization-applications-cf176b5860eb",
+      "published_at": "Wed, 14 Oct 2026 20:02:22 GMT",
+      "selection_score": 14,
+      "selection_reason": "파운데이션 모델을 실제 서비스에 통합하는 과정은 LLM 활용 및 AI 에이전트 아키텍처 설계에 직접적인 가이드가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix가 개인화 추천을 위해 파운데이션 모델을 임베딩, 서브그래프, 파인튜닝 방식으로 서비스에 통합함",
+      "key_points": [
+        "임베딩 방식은 Embedding Store를 통해 저비용으로 빠르게 적용 가능하나 데이터 최신성(staleness) 문제가 발생할 수 있음.",
+        "서브그래프 방식은 모델의 일부로 파운데이션 모델을 직접 통합하여 실시간성을 확보하지만 구현 복잡도가 높음.",
+        "파인튜닝 방식은 특정 도메인 데이터에 최적화된 모델을 생성하여 높은 성능을 제공하지만 유지보수 비용이 증가함."
+      ],
+      "topics": [
+        "Foundation Model",
+        "Embedding Store",
+        "Model Integration"
+      ],
+      "recommended_for": "대규모 LLM이나 파운데이션 모델을 실제 프로덕션 서비스에 효율적으로 통합하려는 백엔드 및 ML 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Multi-region disaster recovery for Amazon API Gateway WebSocket APIs",
+      "link": "https://aws.amazon.com/blogs/architecture/multi-region-disaster-recovery-for-amazon-api-gateway-websocket-apis",
+      "published_at": "Wed, 14 Oct 2026 14:31:55 +0000",
+      "selection_score": 14,
+      "selection_reason": "WebSocket 기반 실시간 서비스의 멀티 리전 재해 복구는 고가용성 백엔드 아키텍처 설계의 필수적인 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon API Gateway WebSocket API를 활용한 멀티 리전 재해 복구 아키텍처 설계 패턴",
+      "key_points": [
+        "연결 상태와 애플리케이션 상태를 분리하고, DynamoDB Global Tables를 통해 리전 간 상태를 비동기 복제함.",
+        "Route 53의 페일오버 라우팅과 CloudWatch 기반의 카나리(Canary) 헬스 체크를 통해 리전 장애를 자동 감지함.",
+        "클라이언트는 연결 끊김 감지 시 지수 백오프(Exponential Backoff) 전략을 사용하여 재연결을 시도하고 상태를 복구함."
+      ],
+      "topics": [
+        "WebSocket",
+        "Disaster Recovery",
+        "Multi-region Architecture"
+      ],
+      "recommended_for": "실시간 WebSocket 서비스의 고가용성 및 재해 복구 전략을 수립해야 하는 아키텍트",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "WebSocket 클라이언트 재연결 전략 구현",
+        "steps": [
+          "지수 백오프와 Jitter를 적용한 재연결 로직을 클라이언트 코드에 구현",
+          "서버 장애 시 클라이언트가 상태를 재요청(getState)하는 로직 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Your serverless attendee’s guide to AWS re:Invent 2026",
+      "link": "https://aws.amazon.com/blogs/compute/your-serverless-attendees-guide-to-aws-reinvent-2026",
+      "published_at": "Wed, 14 Oct 2026 16:55:24 +0000",
+      "selection_score": 13,
+      "selection_reason": "서버리스 신기술과 AI 에이전트의 결합 등 최신 클라우드 트렌드를 파악하기에 매우 적합한 가이드입니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS re:Invent 2026에서 다룰 서버리스 신기술과 AI 에이전트 아키텍처 가이드",
+      "key_points": [
+        "Lambda의 새로운 실행 모델인 Durable Functions, Managed Instances, MicroVMs가 주요 의제로 다뤄짐.",
+        "AI 에이전트를 서버리스 인프라에서 운영하기 위한 오케스트레이션 패턴과 비용 거버넌스가 강조됨.",
+        "이벤트 기반 아키텍처의 고급 패턴과 서버리스 웹 애플리케이션 구축을 위한 실습 세션이 제공됨."
+      ],
+      "topics": [
+        "Serverless",
+        "AI Agent",
+        "Event-driven Architecture"
+      ],
+      "recommended_for": "서버리스 최신 트렌드와 AI 에이전트 아키텍처를 학습하고자 하는 클라우드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "서버리스 AI 에이전트 아키텍처 학습",
+        "steps": [
+          "AWS re:Invent 세션 카탈로그에서 AI 에이전트 관련 세션(SVS306, SVS324 등)의 요약 자료 확인",
+          "Lambda를 활용한 에이전트 툴 레이어 구현 방식 조사"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Second Look - AI 웹 수정본의 기능·회귀·스크린샷 비교 도구",
+      "link": "https://news.hada.io/topic?id=35345",
+      "published_at": "2026-10-14T21:03:55+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 모델의 회귀 테스트와 품질 검증을 자동화하는 도구로, 개발 생산성 및 AI 활용 측면에서 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 모델의 웹 수정본을 기능, 회귀, 스크린샷으로 비교해주는 CLI 도구 'Second Look'",
+      "key_points": [
+        "AI 모델이 생성한 웹 수정본이 기존 요구사항을 만족하는지, 기존 기능을 파괴하지 않는지 검증하는 CLI 도구임.",
+        "브라우저 체크와 스크린샷 비교를 통해 모델 간 성능이나 수정본의 품질을 사용자가 직접 평가할 수 있음.",
+        "prepare/assess 과정은 모델 호출 없이 로컬에서 수행되어 비용 효율적이며 Python 3.11+ 환경에서 동작함."
+      ],
+      "topics": [
+        "회귀 테스트(Regression Testing)",
+        "CLI 도구",
+        "AI 품질 검증"
+      ],
+      "recommended_for": "AI를 활용해 웹 프론트엔드 코드를 수정하고, 그 결과물의 일관성과 기능 유지 여부를 자동화하여 검증하고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Second Look을 설치하여 기존 AI 생성 코드의 회귀 테스트 수행하기",
+        "steps": [
+          "GitHub 저장소(mandu5/secondlook)에서 도구를 클론하고 설치함.",
+          "현재 작업 중인 웹 프로젝트의 테스트 케이스(기능 및 스크린샷 비교 기준)를 설정함.",
+          "AI가 생성한 수정본을 도구에 입력하여 기존 동작과의 차이를 리포트로 확인함."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "프론트엔드 ai티를 많이 줄이는 법",
+      "link": "https://news.hada.io/topic?id=35347",
+      "published_at": "2026-10-14T21:27:42+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 생성 코드의 일관성을 유지하기 위한 디자인 시스템 활용법은 실무적인 개발 생산성 향상에 큰 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "디자인 시스템을 활용해 AI 생성 코드의 일관성을 높이고 'AI 티'를 줄이는 방법",
+      "key_points": [
+        "색상, 버튼, 표 등 컴포넌트를 디자인 시스템으로 먼저 정의하면 AI가 화면마다 다른 스타일을 생성하는 문제를 방지함.",
+        "컴포넌트 일관성뿐만 아니라 레이아웃의 반복성 또한 AI 티가 나는 원인이므로, 화면 간 구조적 차이를 점검해야 함.",
+        "디자인 시스템을 단일 소스로 활용하여 AI가 생성하는 UI의 정합성을 높이는 것이 핵심임."
+      ],
+      "topics": [
+        "디자인 시스템(Design System)",
+        "UI 정합성(Coherence)",
+        "컴포넌트 기반 개발"
+      ],
+      "recommended_for": "AI 코딩 도구를 사용하여 프론트엔드 UI를 개발할 때, 결과물의 일관성이 떨어져 고민인 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: OpenAI 구독으로 오디오북 만들기",
+      "link": "https://news.hada.io/topic?id=35353",
+      "published_at": "2026-10-15T01:37:43+09:00",
+      "selection_score": 13,
+      "selection_reason": "MCP를 활용한 실제 AI 에이전트 워크플로 사례로, 실무적인 자동화 구현에 직접적인 참고가 됨",
+      "feedback_bias": 0,
+      "one_line": "OpenAI 구독과 MCP를 활용해 PDF 문서를 오디오북으로 변환하는 자동화 워크플로",
+      "key_points": [
+        "PDF TO MP3 MCP 서버를 활용하여 AI 채팅에서 직접 문서를 오디오북으로 변환하는 자동화 흐름을 구축함.",
+        "AI 구독 비용으로 문서 처리를 수행하고, 음성 생성은 별도의 API 키(Google/OpenAI)를 사용하여 비용을 분리함.",
+        "Codex 등 MCP 지원 도구에 서버를 연결하여 PDF를 첨부하고 명령하는 것만으로 오디오북 생성이 가능함."
+      ],
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "TTS(Text-to-Speech)",
+        "AI 에이전트 워크플로"
+      ],
+      "recommended_for": "MCP를 활용한 실무적인 AI 에이전트 자동화 사례를 찾고 있거나, 문서를 오디오로 변환하여 학습 효율을 높이고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "MCP 서버를 활용한 문서-오디오 변환 파이프라인 구축",
+        "steps": [
+          "사용 중인 AI 도구(예: Claude Code 등)의 MCP 설정 메뉴를 확인함.",
+          "PDF TO MP3 MCP 서버를 연결하고 음성 생성용 API 키를 등록함.",
+          "PDF 문서를 업로드하여 오디오북 생성 요청을 테스트하고 결과물의 품질을 평가함."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "게임 개발용 AI 하네스를 설계하는 방법",
+      "link": "https://news.hada.io/topic?id=35355",
+      "published_at": "2026-10-15T02:39:53+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 상태 관리와 결정론적 설계는 에이전트 워크플로 구축 시 필수적인 아키텍처 지식임",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 효율적인 검증을 위한 게임 개발 하네스 설계 기법",
+      "key_points": [
+        "결정론적 상태 재현, 명령 패턴, 외부 데이터 분리를 통해 AI가 게임 상태를 반복 검증할 수 있는 환경을 구축함.",
+        "게임 엔진과 시뮬레이션을 분리하여 엔진 없이도 로직을 테스트하고, 이미지 차이(odiff) 등을 통해 시각적 변경을 정량 평가함.",
+        "규모가 큰 프로젝트일수록 AI 에이전트가 전체 반복 주기를 수초 내에 수행할 수 있도록 하네스를 설계하는 것이 중요함."
+      ],
+      "topics": [
+        "결정론(Determinism)",
+        "명령 패턴(Command Pattern)",
+        "하네스(Harness)"
+      ],
+      "recommended_for": "복잡한 시스템을 AI 에이전트로 개발하거나, AI가 코드 변경의 영향을 정확히 평가할 수 있는 테스트 환경을 구축하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "게임/시뮬레이션 로직의 결정론적 상태 재현 구현",
+        "steps": [
+          "난수 발생기를 단일 시드 기반으로 통일하여 동일한 상태 재현이 가능하도록 수정함.",
+          "상태 변경을 명령 패턴으로 구조화하여 직렬화 및 재생이 가능하게 함.",
+          "시뮬레이션 로직을 엔진과 분리하여 독립적인 테스트가 가능하도록 아키텍처를 개선함."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 에이전트가 ‘통제 불능’이 된 게 아니다. 선도 AI 연구소들이 보안의 기본을 건너뛰고 있다",
+      "link": "https://news.hada.io/topic?id=35357",
+      "published_at": "2026-10-15T03:42:31+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 보안 및 샌드박스 격리는 에이전트 시스템을 구축하는 개발자가 반드시 고려해야 할 핵심 아키텍처 이슈임",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트 보안을 위해 샌드박스 격리와 전통적인 사이버보안 관행 적용의 중요성",
+      "key_points": [
+        "최근 AI 에이전트의 무단 접근 사건은 에이전트의 일탈보다 연구소의 부실한 샌드박스 격리와 감시 실패가 주원인임.",
+        "AI 안전성뿐만 아니라 네트워크 보안, 외부 통신 통제(egress control), 행동 감시 등 전통적인 보안 공학이 필수적임.",
+        "조직은 AI 도입 시 중앙 관리 권한을 두고, 공급업체의 보안 역량을 검증하며 다중 인증 등 기본 보안 조치를 강화해야 함."
+      ],
+      "topics": [
+        "샌드박스 격리(Sandboxing)",
+        "외부 통신 통제(Egress Control)",
+        "사이버보안 위험 관리"
+      ],
+      "recommended_for": "AI 에이전트를 실무 시스템에 도입하려는 보안 담당자 및 백엔드 아키텍트",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "AI 에이전트 운영 환경의 보안 격리 수준 점검",
+        "steps": [
+          "현재 운영 중인 AI 에이전트가 접근 가능한 네트워크 범위를 확인하고 외부 통신 통제 정책을 수립함.",
+          "에이전트의 행동을 모니터링하고 이상 징후 발생 시 즉시 차단할 수 있는 감시 체계를 구축함.",
+          "에이전트 실행 환경에 대한 샌드박스 격리 수준을 검토하고 다중 인증 등 기본 보안 조치를 적용함."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Pg_vectorsearch - pgvector의 IVFFlat과 HNSW보다 빠른 인덱스",
+      "link": "https://news.hada.io/topic?id=35359",
+      "published_at": "2026-10-15T03:48:31+09:00",
+      "selection_score": 14,
+      "selection_reason": "PostgreSQL 기반의 고성능 벡터 검색 기술은 RAG 및 AI 서비스 성능 개선에 매우 실질적인 가치를 제공함",
+      "feedback_bias": 0,
+      "one_line": "PostgreSQL용 고성능 벡터 검색 확장 'pg_vectorsearch' 알파 버전 공개",
+      "key_points": [
+        "PRISM 인덱스를 사용하여 기존 pgvector의 IVFFlat 및 HNSW보다 검색과 인덱스 구축 속도가 빠름.",
+        "RaBitQ 양자화와 계층형 중심점 트리를 활용해 메모리 사용량을 줄이면서도 높은 재현율을 유지함.",
+        "기존 pgvector의 vector 타입과 호환되며, PostgreSQL 18 이상에서 테스트 가능함."
+      ],
+      "topics": [
+        "PRISM 인덱스",
+        "RaBitQ 양자화",
+        "ANN(근사 최근접 이웃) 검색"
+      ],
+      "recommended_for": "PostgreSQL 기반의 RAG 시스템을 운영하며 벡터 검색 성능 최적화가 필요한 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "사기가 나아질 때까지 되돌리기는 계속된다",
+      "link": "https://news.hada.io/topic?id=35360",
+      "published_at": "2026-10-15T04:01:46+09:00",
+      "selection_score": 12,
+      "selection_reason": "PostgreSQL의 최신 동향과 LLM을 활용한 코드 리뷰가 실제 개발 프로세스에 미치는 영향을 잘 보여줌",
+      "feedback_bias": 0,
+      "one_line": "PostgreSQL 19의 기능 되돌리기 사태와 LLM 코드 리뷰의 영향",
+      "key_points": [
+        "PostgreSQL 19 베타 기간 중 LLM 보조 리뷰로 인해 과거에 발견되지 않았던 경계 사례 결함이 다수 발견됨.",
+        "보안 수정 집중으로 인한 테스트 부족과 복잡한 기능 조합이 맞물려 주요 기능 8~10개가 릴리스에서 제외됨.",
+        "커뮤니티는 향후 LLM 보조 퍼징 도입과 내부 인터페이스 개선을 통해 복잡한 기능 조합 문제를 해결할 계획임."
+      ],
+      "topics": [
+        "LLM 보조 코드 리뷰",
+        "바이브 코딩(Vibe Coding)",
+        "퍼징(Fuzzing)"
+      ],
+      "recommended_for": "대규모 오픈소스 프로젝트의 품질 관리와 LLM을 활용한 개발 워크플로에 관심 있는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "은행들, 막 인수한 AI 데이터센터 부채를 매각하려 함",
+      "link": "https://news.hada.io/topic?id=35367",
+      "published_at": "2026-10-15T06:39:03+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 데이터센터 부채와 금융권의 움직임은 대규모 인프라 투자 및 비용 관리 측면에서 중요한 업계 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 데이터센터 부채 매각 난항으로 드러난 금융권의 AI 인프라 투자 위험",
+      "key_points": [
+        "JPMorgan 등 주요 은행들이 AI 데이터센터 관련 대출 위험을 외부 투자자에게 이전하려 하지만 매각에 난항을 겪고 있음.",
+        "Oracle 등 AI 관련 기업의 신용등급 하락과 국채 금리 상승으로 인해 AI 인프라 채권에 대한 투자 수요가 급감함.",
+        "AI 붐의 전제였던 합리적인 신용 공급이 흔들리며, 은행권의 AI 산업 익스포저 관리에 비상이 걸림."
+      ],
+      "topics": [
+        "중대한 위험 이전(SRT)",
+        "신용부도스와프(CDS)",
+        "특수목적기구(SPV)"
+      ],
+      "recommended_for": "AI 인프라 시장의 거시적 흐름과 기술 기업의 재무적 지속 가능성에 관심 있는 개발자",
+      "actionability": 1,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Go 1.27의 HTTP/1 연결 재사용 개선",
+      "link": "https://news.hada.io/topic?id=35368",
+      "published_at": "2026-10-15T06:42:04+09:00",
+      "selection_score": 14,
+      "selection_reason": "백엔드 성능 개선 및 네트워크 최적화와 직결되는 핵심 기술 업데이트로 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Go 1.27, HTTP/1 응답 본문 자동 처리를 통한 연결 재사용 성능 개선",
+      "key_points": [
+        "Go 1.27부터는 응답 본문을 닫을 때 남은 데이터를 백그라운드에서 자동으로 읽어 버려 HTTP/1 연결 재사용을 최적화함.",
+        "기존에 수동으로 수행하던 io.Copy(io.Discard, body) 작업을 런타임이 50ms/256KB 제한 내에서 비동기로 처리함.",
+        "HTTP/2는 이미 다중화를 지원하므로 이 최적화가 필요 없으며, 개발자는 단순히 Body를 닫기만 하면 됨."
+      ],
+      "topics": [
+        "HTTP/1 연결 재사용",
+        "net/http.Transport",
+        "비동기 I/O 최적화"
+      ],
+      "recommended_for": "Go 언어로 고성능 API 클라이언트를 개발하거나 네트워크 성능 최적화가 필요한 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "기존의 수동 응답 본문 비우기 코드 제거 및 표준 라이브러리 위임",
+        "steps": [
+          "프로젝트 내에서 `io.Copy(io.Discard, resp.Body)`를 사용하여 응답 본문을 수동으로 비우던 코드 위치를 찾음.",
+          "해당 로직을 제거하고 `defer resp.Body.Close()`만 남기도록 리팩토링함.",
+          "Go 1.27 환경에서 네트워크 지연이 발생하는 환경의 API 호출 성능이 개선되었는지 벤치마크로 확인."
+        ],
+        "effort": "15~30분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GitHub Blog",
+      "title": "GitHub availability report: September 2026",
+      "link": "https://github.blog/news-insights/company-news/github-availability-report-september-2026",
+      "published_at": "Wed, 14 Oct 2026 20:01:35 +0000",
+      "selection_score": 10,
+      "selection_reason": "GitHub의 대규모 인프라 이전 및 성능 개선 과정은 대형 서비스의 운영 아키텍처를 이해하는 데 참고가 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Behind the Scenes: Evolving Netflix’s Ads Event Pipeline for Live — Part II",
+      "link": "https://netflixtechblog.com/behind-the-scenes-evolving-netflixs-ads-event-pipeline-for-live-part-ii-826ebf9ad9fb",
+      "published_at": "Wed, 14 Oct 2026 19:51:35 GMT",
+      "selection_score": 10,
+      "selection_reason": "데이터 파이프라인의 중앙 집중화와 표준화 사례로, 대규모 데이터 처리 시스템 설계의 모범 사례를 보여줍니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "ASML의 수주 호조, AI 투자 붐 둔화 우려 완화",
+      "link": "https://news.hada.io/topic?id=35363",
+      "published_at": "2026-10-15T04:47:54+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 인프라 투자 동향은 클라우드 및 서버 아키텍처 전략 수립에 중요한 거시적 지표가 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Anthropic의 Scion은 Mononoke에서 큰 영향을 받음",
+      "link": "https://news.hada.io/topic?id=35369",
+      "published_at": "2026-10-15T07:34:17+09:00",
+      "selection_score": 10,
+      "selection_reason": "대규모 시스템의 버전 관리 및 설계 철학에 관한 내용으로, 개발 워크플로 개선에 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
