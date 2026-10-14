@@ -1,6 +1,374 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "Google Developers",
+      "title": "Optimizing a 200,000-line Python codebase overnight with Gemini 4 Argon",
+      "link": "https://developers.googleblog.com/optimizing-a-200000-line-python-codebase-overnight-with-gemini-4-argon",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent",
+        "Codebase Optimization",
+        "Performance Engineering"
+      ],
+      "one_line": "Gemini 4 Argon을 활용해 20만 라인 규모의 Python 코드베이스를 최적화하여 성능을 개선함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "Google Developers",
+      "title": "Gemini 4 Argon for Robotics",
+      "link": "https://developers.googleblog.com/gemini-4-argon-for-robotics",
+      "published_at": "",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Physical Reasoning",
+        "Robotics Stack",
+        "Code-as-Policies"
+      ],
+      "one_line": "물리적 추론 모델 Gemini 4 Argon을 활용한 로보틱스 워크플로 및 제어 시스템 구축.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GitHub Blog",
+      "title": "GitHub’s model for secret detection: Finding more secrets with less noise",
+      "link": "https://github.blog/ai-and-ml/githubs-model-for-secret-detection-finding-more-secrets-with-less-noise",
+      "published_at": "Tue, 13 Oct 2026 17:56:33 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Secret Scanning",
+        "ModernBERT",
+        "Context-aware Classification"
+      ],
+      "one_line": "ModernBERT 기반의 문맥 인식 분류기를 도입하여 시크릿 탐지 효율을 높이고 비용을 98% 절감함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "Airbnb Engineering",
+      "title": "CASTLE: training natural language search before the first real query",
+      "link": "https://medium.com/airbnb-engineering/castle-training-natural-language-search-before-the-first-real-query-3818ef8b4828",
+      "published_at": "Tue, 13 Oct 2026 17:01:02 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Cold-start Problem",
+        "Synthetic Data",
+        "Contrastive Learning"
+      ],
+      "one_line": "Airbnb가 합성 데이터를 활용해 실제 사용자 쿼리 없이 자연어 검색 모델을 학습시킨 CASTLE 프레임워크.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "Cloudflare",
+      "title": "Rewinding the exponential: How we keep hardware usage down",
+      "link": "https://blog.cloudflare.com/rewinding-the-exponential",
+      "published_at": "Tue, 13 Oct 2026 15:51:41 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Data Pipeline Architecture",
+        "Distributed Sampling",
+        "Cost Optimization"
+      ],
+      "one_line": "Cloudflare가 데이터 파이프라인 아키텍처 개선과 샘플링 전략으로 하드웨어 비용을 절감한 사례.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "Cloudflare",
+      "title": "Under the hood, off the hot path: How D1 scales to millions of databases",
+      "link": "https://blog.cloudflare.com/d1-control-plane",
+      "published_at": "Tue, 13 Oct 2026 16:20:18 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Durable Objects",
+        "Serverless Database",
+        "Control Plane vs Data Plane"
+      ],
+      "one_line": "Cloudflare D1이 수백만 개의 데이터베이스를 효율적으로 관리하기 위해 제어 평면(Control Plane) 아키텍처를 개선함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "AWS Architecture",
+      "title": "Bulk Executor for Amazon DynamoDB, Part 2: Lessons we learned the hard way",
+      "link": "https://aws.amazon.com/blogs/architecture/bulk-executor-for-amazon-dynamodb-part-2-lessons-we-learned-the-hard-way",
+      "published_at": "Tue, 13 Oct 2026 14:23:33 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Glue",
+        "DynamoDB Batch Operations",
+        "Distributed Systems Error Handling"
+      ],
+      "one_line": "AWS DynamoDB 대량 작업을 위한 Bulk Executor 개발 과정에서 얻은 서버리스 확장성 및 에러 처리 교훈.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "AWS Architecture",
+      "title": "Scope workloads and share resilience policies with AWS Resilience Hub",
+      "link": "https://aws.amazon.com/blogs/architecture/scope-workloads-and-share-resilience-policies-with-aws-resilience-hub",
+      "published_at": "Tue, 13 Oct 2026 21:30:10 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Resilience Hub",
+        "Kubernetes Label Selector",
+        "Resilience Policy"
+      ],
+      "one_line": "AWS Resilience Hub가 EKS 워크로드의 회복탄력성 평가를 위해 레이블 기반 리소스 식별과 AI 의존성 분석 기능을 도입함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "AWS Compute",
+      "title": "Exploring AWS Lambda Web Functions for building web applications",
+      "link": "https://aws.amazon.com/blogs/compute/exploring-aws-lambda-web-functions-for-building-web-applications",
+      "published_at": "Tue, 13 Oct 2026 17:59:52 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Lambda Web Functions",
+        "Serverless Web Application",
+        "Active-CPU Billing"
+      ],
+      "one_line": "AWS Lambda Web Functions를 통해 어댑터 없이 표준 Node.js 웹 서버를 서버리스 환경에서 직접 실행 가능.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: false-green-detector: 무의미한 테스트를 잡아내는 에이전트 스킬",
+      "link": "https://news.hada.io/topic?id=35278",
+      "published_at": "2026-10-13T14:19:58+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agentic Workflow",
+        "Test Quality Assurance",
+        "Automated Testing"
+      ],
+      "one_line": "AI 코딩 에이전트가 생성한 부실한 테스트 코드를 탐지하는 'false-green-detector' 스킬 소개.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Bohm - AI로 만든 웹앱을 데이터와 함께 내 PC에서 계속 쓰게 해주는 AI 브라우저",
+      "link": "https://news.hada.io/topic?id=35284",
+      "published_at": "2026-10-13T15:30:18+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Tauri",
+        "로컬 데이터 영속성",
+        "샌드박스 보안"
+      ],
+      "one_line": "AI 생성 웹앱의 데이터와 설정을 로컬에서 안전하게 관리하는 Tauri 기반 브라우저",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "AI 모델은 임의의 능력을 숨길 수 있으며, 이를 이론적으로 증명할 수 있음",
+      "link": "https://news.hada.io/topic?id=35287",
+      "published_at": "2026-10-13T17:41:39+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "신경망 백도어",
+        "디지털 로커(Digital Locker)",
+        "능력 유도(Elicitation)"
+      ],
+      "one_line": "신경망 가중치 내부에 암호화된 백도어를 숨길 수 있다는 이론적 연구",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Intel D270 - 최대 480GB LPDDR5X를 탑재한 AI 추론용 GPU",
+      "link": "https://news.hada.io/topic?id=35288",
+      "published_at": "2026-10-13T17:44:40+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 추론 가속기",
+        "KV 캐시 최적화",
+        "프리필(Prefill) 가속"
+      ],
+      "one_line": "최대 480GB LPDDR5X를 탑재하여 AI 에이전트 추론에 최적화된 Intel D270 GPU",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: claude-bulkhead: PC에서 병렬로 돌리는 Claude Code 세션들의 프로세스, 포트, 메모리 충돌을 막는 플...",
+      "link": "https://news.hada.io/topic?id=35290",
+      "published_at": "2026-10-13T17:53:00+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트 워크플로",
+        "리소스 격리",
+        "개발 생산성 도구"
+      ],
+      "one_line": "Claude Code 세션 간 리소스 충돌을 방지하는 로컬 개발 플러그인",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Rust 빌림 검사기에서 11년 된 건전성 버그들 발견",
+      "link": "https://news.hada.io/topic?id=35294",
+      "published_at": "2026-10-13T21:37:08+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "빌림 검사기(Borrow Checker)",
+        "건전성(Soundness)",
+        "공변성(Variance)"
+      ],
+      "one_line": "Rust 빌림 검사기에서 11년 만에 발견된 건전성 버그",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: 나래 한글(나래팩) – AI 에이전트용 HWP/HWPX 편집·생성 CLI/스킬/템플릿 패키지",
+      "link": "https://news.hada.io/topic?id=35296",
+      "published_at": "2026-10-13T22:03:01+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "문서 자동화",
+        "CLI 기반 에이전트",
+        "JSON 작업 명세"
+      ],
+      "one_line": "AI 에이전트가 HWP/HWPX 문서를 JSON 명세 기반으로 안전하게 편집·생성할 수 있는 CLI 도구",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Janas - SSD를 활용해 RAM보다 큰 MoE 언어 모델을 실행하는 추론 엔진",
+      "link": "https://news.hada.io/topic?id=35298",
+      "published_at": "2026-10-13T22:41:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "MoE(전문가 혼합)",
+        "로컬 추론 엔진",
+        "SSD 캐싱"
+      ],
+      "one_line": "SSD를 메모리 캐시처럼 활용하여 RAM 용량을 초과하는 대규모 MoE 모델을 로컬에서 실행하는 추론 엔진",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "MacBook Air에서 1시간 분량 오디오를 약 13초 만에 전사",
+      "link": "https://news.hada.io/topic?id=35302",
+      "published_at": "2026-10-13T23:37:50+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "온디바이스 AI",
+        "멀티모달 임베딩",
+        "음성 전사(Transcription)"
+      ],
+      "one_line": "EmbeddingGemma 2를 활용해 1시간 분량 오디오를 13초 만에 전사하는 고속 온디바이스 음성 인식 기술",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Flats – AI 에이전트가 만든 웹사이트를 내 컴퓨터에서 호스팅",
+      "link": "https://news.hada.io/topic?id=35303",
+      "published_at": "2026-10-13T23:59:52+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "셀프 호스팅",
+        "AI 에이전트 워크플로",
+        "MCP(Model Context Protocol)"
+      ],
+      "one_line": "AI 에이전트가 생성한 웹사이트와 앱을 로컬에서 안전하게 호스팅하고 관리하는 도구",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Google, Gemini 4 Argon 정식 출시 - 긴 추론과 대규모 코드 작업 지원",
+      "link": "https://news.hada.io/topic?id=35306",
+      "published_at": "2026-10-14T02:35:14+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "긴 컨텍스트 추론",
+        "코드 리팩터링 자동화",
+        "LLM 벤치마크"
+      ],
+      "one_line": "긴 추론과 대규모 코드 리팩터링에 최적화된 Google의 차세대 모델 Gemini 4 Argon 정식 출시",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Anthropic, AI 코딩으로 늘어난 변경량에 대응해 Git을 자체 버전 관리 시스템 Scion으로 교체",
+      "link": "https://news.hada.io/topic?id=35309",
+      "published_at": "2026-10-14T04:43:48+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "모노레포(Monorepo)",
+        "서버 중심 버전 관리(Server-side VCS)",
+        "희소 체크아웃(Sparse Checkout)"
+      ],
+      "one_line": "Anthropic이 AI 코딩으로 인한 병목을 해결하기 위해 Git 대신 자체 버전 관리 시스템 'Scion'을 도입함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Minions - 유휴 Mac의 GPU를 모아 머신러닝 추론 작업을 분산하는 Apple의 시스템",
+      "link": "https://news.hada.io/topic?id=35312",
+      "published_at": "2026-10-14T06:38:29+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "분산 추론(Distributed Inference)",
+        "작업 수준 병렬화(Task-level Parallelism)",
+        "유휴 자원 활용(Idle Resource Utilization)"
+      ],
+      "one_line": "Apple이 유휴 Mac의 GPU 자원을 활용해 머신러닝 추론 작업을 분산 처리하는 내부 시스템 'Minions'를 공개함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-14T09:09:37.332176+09:00",
+      "company": "GeekNews",
+      "title": "Hacker News에 서비스를 소개했더니 AI 봇 트래픽이 밀려들었다",
+      "link": "https://news.hada.io/topic?id=35313",
+      "published_at": "2026-10-14T06:41:29+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "봇 트래픽 대응(Bot Traffic Mitigation)",
+        "요청 빈도 제한(Rate Limiting)",
+        "로그 기반 트래픽 분석"
+      ],
+      "one_line": "서비스 공개 후 급증한 AI 봇 트래픽으로 인한 서버 부하 문제를 로깅과 차단 정책으로 해결한 사례.",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-10-13T11:26:16.508385+09:00",
       "company": "토스",
       "title": "CPU 뼛속까지 써먹고, Milvus 사이징 기준을 만들기까지",
@@ -5797,5 +6165,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-13T11:26:16.508385+09:00"
+  "updated_at": "2026-10-14T09:09:37.332176+09:00"
 }
