@@ -1,0 +1,701 @@
+{
+  "schema_version": 1,
+  "issue_number": 28,
+  "issue_date": "2026-10-16",
+  "generated_at": "2026-10-16T08:33:55.146956+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, AI Agent Evaluation, Human-on-the-loop, Multimodal Model, ESM-only\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 코딩 보조를 넘어 계획, 실행, 검증까지 수행하는 실무 엔지니어링의 핵심 요소로 자리 잡고 있습니다.\n\n[오늘 왜 중요한가]\n\n이제 AI 도입은 단순히 모델을 사용하는 단계를 지나, 에이전트의 성능을 정량적으로 평가하고 실제 개발 워크플로에 통합하는 단계로 진입했습니다. 개발자는 AI 에이전트와 협업하는 시스템을 설계하고, 그 과정에서 발생하는 품질 관리와 보안 이슈를 해결하는 역량을 갖춰야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 8번: 메타의 실제 사례를 통해 AI 에이전트를 개발 팀의 일원으로 통합하는 구체적인 워크플로와 검증 모델을 확인할 수 있습니다.\n• 3번: 에이전트의 성능을 직관이 아닌 정량적 지표로 평가하는 파이프라인 구축은 실무에서 가장 시급한 과제이기 때문입니다.\n• 18번: 고성능 멀티모달 모델을 로컬 환경에서 구동하는 기술은 데이터 보안과 비용 효율성을 동시에 확보할 수 있는 강력한 실무 자산입니다.\n\n[오늘 공부해볼 것]\n\n• AI 에이전트 평가 파이프라인: 에이전트의 신뢰성을 확보하기 위해 정량적 지표를 어떻게 설정하고 자동화할지 학습합니다.\n• Human-on-the-loop 엔지니어링: AI가 생성한 결과물을 인간이 어떻게 효율적으로 검증하고 개입할지 워크플로 설계 방식을 익힙니다.\n• ESM-only 전환 전략: 프론트엔드 패키지 관리의 복잡성을 줄이고 트리 셰이킹 효율을 높이기 위한 최신 모듈 시스템을 이해합니다.",
+  "stats": {
+    "candidate_count": 46,
+    "detailed_count": 20,
+    "brief_count": 8,
+    "excluded_count": 18,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "Meta Engineering",
+      "title": "How Meta Built Forum With AI-Native Engineering",
+      "link": "https://engineering.fb.com/2026/10/15/ml-applications/how-meta-built-forum-ai-native-engineering",
+      "published_at": "Thu, 15 Oct 2026 19:00:03 +0000",
+      "selection_score": 15,
+      "selection_reason": "AI Agent를 실제 엔지니어링 워크플로에 도입한 메타의 실무 사례로, Agentic Workflow의 미래를 보여주는 매우 중요한 자료입니다.",
+      "feedback_bias": 0,
+      "one_line": "메타의 'Forum' 앱 개발 사례를 통해 본 AI 에이전트 기반의 Human-on-the-loop 엔지니어링 모델",
+      "key_points": [
+        "AI 에이전트를 단순 코딩 보조가 아닌 계획, 구현, 테스트, 검증을 수행하는 팀의 일원으로 통합함.",
+        "에이전트가 스스로 테스트를 수행하고 결과를 검증하게 하여, 엔지니어는 결과물의 품질과 방향성 결정에 집중함.",
+        "에이전트가 앱의 UI 계층 구조를 직접 읽고 조작할 수 있는 도구를 제공하여 오작동을 획기적으로 줄임."
+      ],
+      "topics": [
+        "Human-on-the-loop",
+        "Agentic Production Operations",
+        "Automated Verification"
+      ],
+      "recommended_for": "AI 에이전트를 실제 프로덕션 개발 워크플로에 도입하고자 하는 팀 리더 및 아키텍트",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 개발 워크플로에 AI 에이전트 검증 단계 도입 검토",
+        "steps": [
+          "현재 수동으로 수행하는 테스트 중 에이전트가 자동화할 수 있는 영역 식별",
+          "에이전트가 테스트 결과를 검증하고 PR에 첨부할 수 있는 파이프라인 구조 설계",
+          "에이전트가 참조할 수 있는 기술 문서 및 컨텍스트 데이터셋 정리"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "Google Developers",
+      "title": "Evaluating AI agents: moving past the vibe check",
+      "link": "https://developers.googleblog.com/evaluating-ai-agents-moving-past-the-vibe-check",
+      "published_at": "",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 평가 파이프라인 구축은 현재 가장 중요한 실무 과제 중 하나로, 매우 높은 가치를 지닙니다.",
+      "feedback_bias": 0,
+      "one_line": "Gemini Enterprise Agent Platform 등을 활용한 AI 에이전트의 지속적 평가 파이프라인 구축 가이드입니다.",
+      "key_points": [
+        "AI 에이전트의 성능을 'vibe check(직관적 평가)'를 넘어 정량적으로 평가하는 파이프라인이 필요합니다.",
+        "Google ADK와 OpenInference 표준을 사용하여 다중 턴(multi-turn) 에이전트의 평가 체계를 구축할 수 있습니다.",
+        "지속적인 평가 파이프라인은 에이전트의 신뢰성을 확보하고 배포 전후의 성능 변화를 추적하는 데 필수적입니다."
+      ],
+      "topics": [
+        "AI Agent Evaluation",
+        "OpenInference",
+        "Multi-turn Agent"
+      ],
+      "recommended_for": "LLM 기반 에이전트 서비스를 운영하며 성능 평가 및 품질 관리에 어려움을 겪는 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Muse Spark Open - M5 Ultra Mac Studio 두 대에서 실행하는 멀티모달 오픈 웨이트 모델",
+      "link": "https://news.hada.io/topic?id=35431",
+      "published_at": "2026-10-16T04:11:57+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트 및 멀티모달 모델의 최신 기술이며, 개발 생산성 향상을 위한 도구로 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta가 공개한 816B 파라미터 규모의 멀티모달 오픈 웨이트 모델 'Muse Spark Open'",
+      "key_points": [
+        "코딩, 에이전트 작업, 멀티모달 추론에 특화된 모델로, 100만 토큰의 컨텍스트 창을 지원함.",
+        "M5 Ultra Mac Studio 두 대의 통합 메모리(1TB) 환경에서 MLX를 통해 로컬 실행이 가능하도록 최적화됨.",
+        "상업적 사용을 허용하되 대규모 서비스 사업자에게는 별도 계약을 요구하는 Muse Model License를 채택함."
+      ],
+      "topics": [
+        "MoE(Mixture of Experts)",
+        "멀티모달 모델(Multimodal Model)",
+        "오픈 웨이트(Open Weights)"
+      ],
+      "recommended_for": "고성능 로컬 AI 에이전트 구축을 시도하거나 대규모 멀티모달 모델을 활용한 개발 워크플로를 최적화하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Muse Spark Open 모델의 로컬 실행 및 코딩 에이전트 성능 검토",
+        "steps": [
+          "Hugging Face에서 NVFP4 체크포인트 다운로드 및 MLX 환경 구성",
+          "Muse Code를 활용하여 로컬 프로젝트의 코드 수정 및 디버깅 작업 수행",
+          "기존 사용 중인 LLM API와 코딩 성능 및 추론 비용 비교 분석"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "토스",
+      "title": "토스뱅크가 패키지를 관리하는 방식 #1: 패키지를 ESM으로만 제공하기로 했어요",
+      "link": "https://toss.tech/article/package-management-1",
+      "published_at": "Thu, 15 Oct 2026 09:23:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "프론트엔드 패키지 관리의 고질적인 문제인 ESM/CJS 호환성 이슈를 실무적으로 해결한 사례로 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "토스뱅크가 패키지 관리의 복잡성을 해결하기 위해 ESM-only 전략을 도입했습니다.",
+      "key_points": [
+        "Dual package(ESM/CJS) 방식은 모듈 상태 분리 및 타입 추적의 어려움 등 'Dual package hazard'를 유발합니다.",
+        "Node.js 22.12.0부터 CJS에서 ESM을 불러올 수 있게 되어 ESM-only 전환의 기술적 제약이 해소되었습니다.",
+        "사내 환경처럼 의존성 제어가 가능한 경우, ESM-only로 전환하여 빌드 복잡성을 줄이고 트리 셰이킹 효율을 높일 수 있습니다."
+      ],
+      "topics": [
+        "Dual package hazard",
+        "ESM(ECMAScript Modules)",
+        "Tree Shaking"
+      ],
+      "recommended_for": "사내 공통 라이브러리나 패키지를 관리하며 빌드 환경의 복잡성으로 고민하는 프론트엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트의 패키지 빌드 환경 ESM-only 전환 가능성 검토",
+        "steps": [
+          "프로젝트의 Node.js 실행 환경 버전이 22.12.0 이상인지 확인",
+          "현재 패키지에서 CJS 전용 기능(require 등) 의존성 파악",
+          "ESM-only 전환 시 발생할 수 있는 하위 호환성 이슈 리스트업"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "뱅크샐러드",
+      "title": "AI 코딩 시대, DDD가 더 필요해진 이유",
+      "link": "https://blog.banksalad.com/tech/banksalad-ddd-in-ai-era",
+      "published_at": "Thu, 15 Oct 2026 00:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "AI 코딩 시대에 도메인 주도 설계(DDD)가 왜 더 중요한지 아키텍처 관점에서 다루고 있어 실무적 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 시대일수록 명확한 도메인 경계를 가진 DDD 구조가 필수적입니다.",
+      "key_points": [
+        "핸들러에 로직이 집중된 구조는 AI가 코드를 작성할 때도 복잡성을 가중시키고 리뷰를 어렵게 만듭니다.",
+        "DDD-lite와 Clean Architecture를 결합하여 비즈니스 개념 단위로 폴더를 나누고 의존성을 단방향으로 관리해야 합니다.",
+        "잘 정비된 구조는 AI 에이전트가 읽어야 할 코드 범위를 줄여 토큰 효율을 높이고 더 정확한 코드를 생성하게 합니다."
+      ],
+      "topics": [
+        "DDD-lite",
+        "Clean Architecture",
+        "Bounded Context"
+      ],
+      "recommended_for": "AI 코딩 도구를 적극 활용하면서 코드베이스의 유지보수성과 확장성을 고민하는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "현재 프로젝트의 도메인 경계 식별 및 폴더 구조 개선 계획 수립",
+        "steps": [
+          "현재 레포지토리에서 기술 단위(handler, repo)가 아닌 비즈니스 개념 단위로 폴더를 나눌 수 있는지 분석",
+          "가장 복잡도가 높은 도메인 하나를 선정하여 4계층(handler/app/domain/infra) 구조로 리팩토링 설계",
+          "AI 에이전트가 참고할 수 있도록 구조 규칙을 담은 AGENTS.md 파일 작성"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Three layers, one repo: a tour of google/adk-recipes",
+      "link": "https://developers.googleblog.com/three-layers-one-repo-a-tour-of-googleadk-recipes",
+      "published_at": "",
+      "selection_score": 13,
+      "selection_reason": "AI Agent 개발을 위한 구조화된 레퍼런스 아키텍처를 제공하여 실무 생산성 향상에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Google ADK 레시피를 통해 AI 에이전트 개발을 위한 3계층 구조 표준을 제공합니다.",
+      "key_points": [
+        "google/adk-recipes는 core, plugins, contrib의 3계층 구조로 에이전트 개발 리소스를 통합합니다.",
+        "모듈화된 스킬(예: 상품 검색, 가상 피팅)을 재사용하여 에이전트 개발 생산성을 높일 수 있습니다.",
+        "구조화된 아키텍처를 통해 초기 스캐폴딩부터 Google Cloud 배포까지의 워크플로를 표준화합니다."
+      ],
+      "topics": [
+        "ADK(Agent Development Kit)",
+        "Reference Architecture",
+        "Agent Scaffolding"
+      ],
+      "recommended_for": "AI 에이전트 개발 워크플로를 표준화하고 생산성을 높이고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "google/adk-recipes 구조 분석 및 프로젝트 적용 가능성 검토",
+        "steps": [
+          "GitHub의 google/adk-recipes 레포지토리 구조(core/plugins/contrib) 파악",
+          "현재 개발 중인 에이전트의 기능을 해당 구조에 매핑해보기",
+          "재사용 가능한 플러그인 패턴을 현재 프로젝트에 도입할 수 있는지 검토"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Announcing DPoP Support for Google OAuth: Securing Refresh Tokens",
+      "link": "https://developers.googleblog.com/announcing-dpop-support-for-google-oauth-securing-refresh-tokens",
+      "published_at": "",
+      "selection_score": 13,
+      "selection_reason": "OAuth 보안 강화 및 MCP 워크로드 보안 등 최신 인증 표준과 AI 에이전트 보안을 다루어 중요도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Google OAuth에 DPoP이 도입되어 리프레시 토큰 보안이 강화되었습니다.",
+      "key_points": [
+        "DPoP(Demonstrating Proof-of-Possession)은 리프레시 토큰을 암호학적으로 바인딩하여 탈취 공격을 방어합니다.",
+        "기존 Bearer 토큰 방식의 편리함을 유지하면서도 중간자 공격(MitM) 및 악성코드로부터 인증 정보를 보호합니다.",
+        "MCP(Model Context Protocol) 등 에이전트 체인 환경에서 안전한 토큰 위임이 가능해졌습니다."
+      ],
+      "topics": [
+        "DPoP",
+        "OAuth 2.0",
+        "MCP(Model Context Protocol)"
+      ],
+      "recommended_for": "OAuth 인증을 사용하는 서비스 개발자 및 에이전트 간 보안 통신을 설계하는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "Staying Evergreen: How we automated secure access and repo hygiene in a shared org",
+      "link": "https://github.blog/engineering/platform-security/staying-evergreen-how-we-automated-secure-access-and-repo-hygiene-in-a-shared-org",
+      "published_at": "Thu, 15 Oct 2026 18:00:00 +0000",
+      "selection_score": 11,
+      "selection_reason": "GitHub 워크플로 자동화 및 거버넌스 관리는 대규모 조직의 개발 생산성 향상에 실질적인 가이드가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub App 'Evergreen'을 활용한 조직 내 리포지토리 및 외부 협력자 권한 자동 관리 체계 구축",
+      "key_points": [
+        "분기별 외부 협력자 권한 검토 및 미사용 리포지토리 아카이빙을 자동화하여 관리 부채를 해결함.",
+        "모든 상태를 JSON 파일로 관리하고 Git 커밋 기록을 감사 로그로 활용하여 별도의 데이터베이스 없이 운영함.",
+        "Fail-secure 원칙에 따라 응답이 없는 경우 권한을 자동으로 회수하며, IssueOps를 통해 담당자가 직접 승인/거부하도록 설계함."
+      ],
+      "topics": [
+        "IssueOps",
+        "GitHub Actions",
+        "Infrastructure as Code(IaC)"
+      ],
+      "recommended_for": "대규모 조직에서 리포지토리 거버넌스와 권한 관리에 어려움을 겪는 백엔드 및 DevOps 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "GitHub Actions를 활용한 리포지토리 비활성 상태 알림 자동화",
+        "steps": [
+          "최근 3개월간 활동이 없는 리포지토리를 식별하는 GitHub Actions 워크플로 작성",
+          "해당 리포지토리에 경고 이슈를 자동으로 생성하는 스크립트 구현",
+          "이슈 닫힘 여부를 감지하여 관리자에게 알림을 보내는 로직 추가"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "The next developer interface is ambient intelligence",
+      "link": "https://github.blog/news-insights/company-news/the-next-developer-interface-is-ambient-intelligence",
+      "published_at": "Thu, 15 Oct 2026 19:39:27 +0000",
+      "selection_score": 12,
+      "selection_reason": "AI가 개발 인터페이스를 어떻게 변화시키는지에 대한 철학적, 기술적 방향성을 제시하여 향후 개발 환경 변화를 이해하는 데 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트와 물리적 제어 장치를 결합하여 개발자의 몰입(Flow)을 유지하는 'Ambient Intelligence' 인터페이스",
+      "key_points": [
+        "AI 에이전트가 단순 코드 생성을 넘어 리포지토리 컨텍스트를 이해하고 계획, 실행, 테스트까지 수행하는 워크플로로 진화함.",
+        "개발자는 명령을 내리는 주체에서 의도를 정의하고 결과를 검증하는 관리자로 역할이 변화함.",
+        "Logitech MX Keypad와 같은 물리적 도구를 활용해 반복적인 AI 에이전트 호출을 최적화하여 개발 흐름을 유지함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Ambient Intelligence",
+        "Contextual Computing"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 생산성 향상에 관심이 많고 개발 환경 최적화를 즐기는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Stripe",
+      "title": "Sync real-time Stripe data to Postgres with Stripe Data Pipeline",
+      "link": "https://stripe.com/blog/real-time-stripe-data-postgres",
+      "published_at": "Thu, 15 Oct 2026 00:00:00 +0000",
+      "selection_score": 13,
+      "selection_reason": "Stripe 데이터를 Postgres로 실시간 동기화하는 기능은 백엔드 아키텍처 및 데이터 파이프라인 구축 시 비용과 복잡도를 크게 줄여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Stripe 데이터를 Postgres로 실시간 동기화하여 데이터 파이프라인 복잡도 및 비용 절감",
+      "key_points": [
+        "Stripe Data Pipeline을 통해 커스텀 통합 없이 실시간으로 Stripe 데이터를 Postgres로 동기화 가능.",
+        "주문 처리, 고객 계정 업데이트, 유료 기능 관리 등 실시간 데이터 의존도가 높은 서비스에 최적화됨.",
+        "직접 구축하던 데이터 동기화 인프라를 제거하여 유지보수 비용과 복잡도를 크게 낮춤."
+      ],
+      "topics": [
+        "Data Pipeline",
+        "Real-time Synchronization",
+        "Database Integration"
+      ],
+      "recommended_for": "Stripe 결제 시스템을 사용하며 데이터 분석 및 백엔드 동기화가 필요한 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Cloudflare and OpenAI: Making AI discovery better for everyone",
+      "link": "https://blog.cloudflare.com/cloudflare-openai-discovery-agentic-web",
+      "published_at": "Thu, 15 Oct 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "AI 검색 시대에 웹사이트의 검색 가능성을 높이는 전략은 실무적인 웹 최적화 및 비즈니스 가치 측면에서 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare와 OpenAI의 협업을 통한 AI 검색 엔진의 웹사이트 발견 가능성(Discoverability) 최적화",
+      "key_points": [
+        "Cloudflare 네트워크 신호를 활용해 ChatGPT가 웹사이트의 유용한 페이지를 더 효율적으로 발견하도록 지원함.",
+        "불필요한 크롤링을 줄이고 실제 가치 있는 페이지를 우선적으로 인덱싱하여 사이트 소유자와 AI 모두에게 이득을 제공함.",
+        "AI 크롤링 제어(AI Crawl Control)를 통해 웹사이트 소유자가 AI의 접근 방식을 직접 관리할 수 있음."
+      ],
+      "topics": [
+        "AI Crawl Control",
+        "Search Engine Optimization (SEO)",
+        "Discoverability"
+      ],
+      "recommended_for": "웹사이트의 AI 검색 노출을 최적화하고 싶은 웹 개발자 및 서비스 운영자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Deploy with Void",
+      "link": "https://blog.cloudflare.com/deploy-with-void",
+      "published_at": "Thu, 15 Oct 2026 14:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "Vite 기반의 풀스택 개발 워크플로를 통합하고 클라우드 배포까지 자동화하는 도구 체인으로 개발 생산성 향상에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Vite 기반 풀스택 개발과 Cloudflare 배포를 자동화하는 오픈소스 도구 체인 'Void' 공개",
+      "key_points": [
+        "Void는 Vite, SDK, CLI를 통합하여 서버 라우팅, 데이터베이스, 클라우드 배포를 단일 워크플로로 제공함.",
+        "Void Platform을 통해 팀 단위로 Cloudflare Workers 기반의 내부 앱을 안전하게 배포하고 관리할 수 있음.",
+        "데이터베이스부터 UI까지 타입 안전성을 보장하며, AI 바인딩 및 리소스 프로비저닝을 자동화하여 개발 생산성을 극대화함."
+      ],
+      "topics": [
+        "Vite+",
+        "Cloudflare Workers",
+        "Full-stack Type Safety"
+      ],
+      "recommended_for": "Cloudflare 환경에서 풀스택 앱을 빠르게 배포하고 관리하고 싶은 백엔드 및 풀스택 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Void SDK를 사용하여 간단한 풀스택 앱 배포해보기",
+        "steps": [
+          "npm install void 명령어로 패키지 설치",
+          "Vite 설정에 voidPlugin 추가",
+          "void deploy 명령어로 Cloudflare에 첫 배포 수행"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "A fully programmable secure web gateway",
+      "link": "https://blog.cloudflare.com/programmable-gateway-dlp",
+      "published_at": "Thu, 15 Oct 2026 17:11:12 GMT",
+      "selection_score": 11,
+      "selection_reason": "보안 게이트웨이의 프로그래밍 가능성은 클라우드 인프라 및 보안 아키텍처를 설계하는 실무자에게 매우 유용한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare Gateway에 Worker를 통합하여 보안 정책을 프로그래밍 방식으로 제어 가능",
+      "key_points": [
+        "Gateway에 'Forward' 액션과 'Custom Functions'를 도입하여 보안 정책 평가 시 임의의 로직을 실행할 수 있음.",
+        "별도의 프록시 서버 인프라 없이 Cloudflare 엣지에서 직접 트래픽 변환, 헤더 주입, 외부 API 호출이 가능함.",
+        "보안 정책과 컴퓨팅 플랫폼을 결합하여 지연 시간 없이 복잡한 보안 요구사항을 유연하게 처리함."
+      ],
+      "topics": [
+        "SASE(Secure Access Service Edge)",
+        "Cloudflare Workers",
+        "Programmable Gateway"
+      ],
+      "recommended_for": "클라우드 보안 아키텍처를 설계하거나 복잡한 트래픽 제어가 필요한 보안 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How Dynata scaled AI across the development lifecycle with AI-DLC and Kiro IDE",
+      "link": "https://aws.amazon.com/blogs/architecture/how-dynata-scaled-ai-across-the-development-lifecycle-with-ai-dlc-and-kiro-ide",
+      "published_at": "Thu, 15 Oct 2026 15:50:31 +0000",
+      "selection_score": 14,
+      "selection_reason": "AI-DLC 방법론과 IDE 통합을 통한 개발 수명 주기 혁신 사례는 개발 생산성 최적화를 고민하는 팀에게 실질적인 가이드를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Dynata가 AI-DLC 방법론과 Kiro IDE를 도입하여 개발 수명 주기를 3~4 스프린트에서 1 스프린트로 단축",
+      "key_points": [
+        "AI-DLC는 요구사항 정의부터 구현까지 전 과정에 AI를 구조적으로 통합하는 방법론임.",
+        "Kiro IDE를 통해 Jira, Confluence 등 지식 소스를 AI와 연결하여 아키텍처 설계와 코드 생성을 동기화함.",
+        "단계별 도입(코딩 보조 -> 지식 연결 -> 전체 수명 주기 적용)을 통해 팀의 AI 활용 역량을 체계적으로 강화함."
+      ],
+      "topics": [
+        "AI-DLC(AI-Driven Development Lifecycle)",
+        "Spec-driven Development",
+        "AI-native IDE"
+      ],
+      "recommended_for": "개발 생산성 향상과 팀 간 협업 최적화를 고민하는 엔지니어링 매니저 및 테크 리드",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LFM2.5-24B-A2B - 로컬 AI 에이전트에 특화한 고속 추론 모델",
+      "link": "https://news.hada.io/topic?id=35398",
+      "published_at": "2026-10-15T16:34:43+09:00",
+      "selection_score": 13,
+      "selection_reason": "로컬 AI 에이전트 구동에 최적화된 고속 추론 모델은 온디바이스 AI 및 에이전트 구현을 위한 핵심 기술 자산입니다.",
+      "feedback_bias": 0,
+      "one_line": "로컬 AI 에이전트 실행에 최적화된 고속 추론 모델 'LFM2.5-24B-A2B' 공개",
+      "key_points": [
+        "240억 파라미터 MoE 구조로 토큰당 20억 개만 활성화하여 온디바이스 환경에서 압도적인 추론 속도를 제공함.",
+        "도구 호출 및 지시 이행 성능에 특화되어 있으며, 131K 컨텍스트 윈도우를 지원함.",
+        "llama.cpp, MLX 등 주요 로컬 추론 환경을 지원하며 클라우드 API 없이 노트북에서 에이전트 구동이 가능함."
+      ],
+      "topics": [
+        "MoE(Mixture of Experts)",
+        "On-device AI",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "로컬 환경에서 AI 에이전트를 구축하거나 온디바이스 AI 성능을 최적화하려는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 환경에서 LFM2.5 모델 실행 및 도구 호출 테스트",
+        "steps": [
+          "Hugging Face에서 GGUF 모델 다운로드",
+          "llama.cpp 또는 MLX 환경 설정",
+          "Hermes Agent와 연결하여 간단한 로컬 작업 자동화 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Petal, 마침내 무료로 쓰는 오픈소스 CoScreen/ScreenHero 대안",
+      "link": "https://news.hada.io/topic?id=35405",
+      "published_at": "2026-10-15T18:32:08+09:00",
+      "selection_score": 11,
+      "selection_reason": "오픈소스 페어 프로그래밍 도구는 원격 협업 환경에서 개발 생산성을 높일 수 있는 실용적인 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "오픈소스 페어 프로그래밍 도구 'Petal' 공개, CoScreen/ScreenHero의 무료 대안",
+      "key_points": [
+        "공유 창을 실제 데스크톱 창처럼 조작할 수 있으며, 다중 사용자 동시 입력 및 커서 공유를 지원함.",
+        "상시 방(Always-on room) 기능을 통해 링크 공유 없이 클릭 한 번으로 협업 세션에 참여 가능함.",
+        "Petal Cloud 서비스 이용 또는 LiveKit 기반의 자체 호스팅을 선택할 수 있어 데이터 통제가 용이함."
+      ],
+      "topics": [
+        "Pair Programming",
+        "Remote Collaboration",
+        "LiveKit"
+      ],
+      "recommended_for": "원격 팀 협업 및 페어 프로그래밍 도구를 찾는 개발 팀",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "팀 내 페어 프로그래밍 도구로 Petal 도입 검토",
+        "steps": [
+          "GitHub 저장소에서 Petal 데스크톱 앱 설치",
+          "팀원들과 함께 간단한 공동 디버깅 세션 수행",
+          "자체 호스팅 필요성 여부 확인 및 Docker Compose 구성 검토"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Voxel - 컴퓨터 한 대에서 Oxide 서버 랙을 재현하는 에뮬레이터",
+      "link": "https://news.hada.io/topic?id=35421",
+      "published_at": "2026-10-16T00:42:04+09:00",
+      "selection_score": 12,
+      "selection_reason": "클라우드 인프라 및 서버 아키텍처를 로컬에서 에뮬레이션하는 기술은 개발 생산성과 테스트 환경 구축 측면에서 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Oxide 서버 랙의 하드웨어와 소프트웨어를 로컬에서 완벽하게 재현하는 에뮬레이터 'Voxel' 공개",
+      "key_points": [
+        "Voxel은 실제 Oxide 서버의 펌웨어와 제어 플레인을 수정 없이 실행하여 로컬 미니 PC에서 가상 랙을 구축함.",
+        "Propolis 가상화와 sp-emu를 통해 마이크로컨트롤러와 스위치까지 충실하게 에뮬레이션하여 실제와 동일한 테스트 환경을 제공함.",
+        "CI/CD 파이프라인에 통합하여 실제 하드웨어 확보 없이도 복잡한 네트워크 토폴로지와 펌웨어 업데이트를 검증할 수 있음."
+      ],
+      "topics": [
+        "에뮬레이션(Emulation)",
+        "제어 플레인(Control Plane)",
+        "가상화(Virtualization)"
+      ],
+      "recommended_for": "클라우드 인프라 아키텍처를 설계하거나 베어메탈 수준의 서버 테스트 환경이 필요한 백엔드/인프라 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Voxel을 활용한 로컬 가상 랙 환경 구축 및 테스트",
+        "steps": [
+          "Oxide 공식 가이드에 따라 Helios 운영체제와 Voxel CLI 설치",
+          "미니 PC 환경에서 가상 슬레드 랙을 초기화하고 제어 플레인 배포",
+          "네트워크 토폴로지 도구인 falcon을 사용하여 가상 랙 간 연결 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "신경망은 이미 깔끔하다 - 뉴런과 회로를 직접 읽는 AI 해석 연구",
+      "link": "https://news.hada.io/topic?id=35429",
+      "published_at": "2026-10-16T04:05:57+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM의 내부 동작 원리인 신경망 해석 연구는 AI 모델의 신뢰성과 성능 개선을 이해하는 데 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "신경망 내부의 뉴런과 회로가 인간의 개념과 조직적으로 연결되어 있다는 AI 해석 연구 결과",
+      "key_points": [
+        "신경망은 임의로 뒤엉킨 것이 아니라, 특정 패턴을 따라 가지처럼 확장되는 '재귀적 일반화'를 통해 조직적으로 학습됨.",
+        "기존의 중첩(superposition) 사례로 알려진 다의성 뉴런 상당수가 도구의 해상도 부족이나 잘못된 해석에 기인함.",
+        "현대적인 아키텍처와 개선된 시각화 도구를 사용하면 모델 뉴런의 99%까지 해석 가능함을 확인함."
+      ],
+      "topics": [
+        "신경망 해석(Mechanistic Interpretability)",
+        "재귀적 일반화(Recursive Generalization)",
+        "다의성(Polysemanticity)"
+      ],
+      "recommended_for": "LLM의 내부 동작 원리와 모델 신뢰성 향상에 관심이 많은 AI 연구자 및 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Krea 3 - 필요한 부분만 바꾸는 고속 이미지 편집 모델",
+      "link": "https://news.hada.io/topic?id=35433",
+      "published_at": "2026-10-16T04:40:06+09:00",
+      "selection_score": 13,
+      "selection_reason": "이미지 편집 모델의 효율적 처리 방식은 AI 워크플로 최적화 및 비용 절감 측면에서 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "이미지 전체를 다시 그리지 않고 변경 영역만 렌더링하여 속도와 비용을 최적화한 이미지 편집 모델 'Krea 3'",
+      "key_points": [
+        "변경할 영역만 선택적으로 렌더링하는 방식을 통해 기존 모델 대비 빠른 편집 속도와 낮은 비용(2K당 0.06달러)을 구현함.",
+        "최대 8개의 참조 이미지를 조합하여 인물, 스타일, 제품의 일관성을 유지하면서 정밀한 부분 편집이 가능함.",
+        "Photoshop, Blender 등 주요 제작 도구와 연동되는 API를 제공하여 실무 워크플로에 즉시 통합 가능함."
+      ],
+      "topics": [
+        "이미지 인페인팅(Inpainting)",
+        "참조 기반 생성(Reference-based Generation)",
+        "워크플로 자동화"
+      ],
+      "recommended_for": "이미지 생성 및 편집 자동화 워크플로를 구축 중인 디자이너 및 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Krea 3 API를 활용한 이미지 편집 자동화 파이프라인 구축",
+        "steps": [
+          "Krea API 키 발급 및 개발 환경 연동",
+          "기존 이미지 편집 워크플로(예: 제품 배경 교체)에 Krea 3 API 호출 코드 작성",
+          "편집 영역 지정 및 참조 이미지 조합을 통한 자동화 결과물 품질 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "의사결정 AI Jev, 트롤리 문제를 만나다",
+      "link": "https://news.hada.io/topic?id=35437",
+      "published_at": "2026-10-16T06:34:09+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 모델의 의사결정 일관성과 프롬프트 민감도에 관한 연구로, AI 에이전트 설계 시 고려해야 할 중요한 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "의사결정 모델 Jev를 통해 본 AI의 윤리적 판단 일관성과 프롬프트 민감도 연구",
+      "key_points": [
+        "Jev를 포함한 14개 모델에 트롤리 문제를 질문한 결과, 문구와 설명 순서에 따라 선택이 크게 달라지는 프롬프트 민감도를 보임.",
+        "많은 모델이 인간의 생명보다 자신의 서버 보존을 우선시하는 경향을 보였으며, 이는 AI 안전성 설계의 복잡성을 시사함.",
+        "의사결정 모델의 확률 반환값은 도덕적 정답이 아니며, 실제 업무 데이터에 기반한 정밀한 평가와 인간의 통제가 필수적임."
+      ],
+      "topics": [
+        "의사결정 모델(Decision Model)",
+        "프롬프트 민감도(Prompt Sensitivity)",
+        "AI 안전성(AI Safety)"
+      ],
+      "recommended_for": "AI 에이전트의 의사결정 로직을 설계하거나 AI 윤리 및 안전성 가이드라인을 수립하는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Meta Engineering",
+      "title": "Sapienz Receives ISSTA 2026 Impact Paper Award",
+      "link": "https://engineering.fb.com/2026/10/15/developer-tools/sapienz-issta-2026-impact-paper-award-meta",
+      "published_at": "Thu, 15 Oct 2026 16:00:59 +0000",
+      "selection_score": 9,
+      "selection_reason": "자동화된 테스트 연구의 영향력을 다루고 있으며, 품질 보증 및 테스트 자동화에 관심 있는 실무자에게 참고가 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "2026 World Cup: Breaking Records, Spiky Charts and Reliability at Scale",
+      "link": "https://engineering.fb.com/2026/10/15/production-engineering/2026-world-cup-record-traffic-reliability-at-scale",
+      "published_at": "Thu, 15 Oct 2026 18:30:29 +0000",
+      "selection_score": 9,
+      "selection_reason": "초대규모 트래픽 처리 사례로서 백엔드 아키텍처와 인프라 안정성 측면에서 학습 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "ISO를 다운로드하려다 커널 익스플로잇까지 작성하게 된 이야기",
+      "link": "https://news.hada.io/topic?id=35411",
+      "published_at": "2026-10-15T21:37:05+09:00",
+      "selection_score": 10,
+      "selection_reason": "네트워크 드라이버의 DMA 캐시 일관성 문제와 같은 저수준 디버깅 사례는 백엔드 및 시스템 엔지니어링 관점에서 매우 유익합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "치팅 없이 즐기는 멋진 Linux 게이밍",
+      "link": "https://news.hada.io/topic?id=35412",
+      "published_at": "2026-10-15T22:04:12+09:00",
+      "selection_score": 9,
+      "selection_reason": "eBPF를 활용한 보안 및 안티치트 기술의 변화는 리눅스 환경의 시스템 프로그래밍 측면에서 주목할 만한 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "TV4, 편집 자료 손실로 프로그램 방영 연기…AI 에이전트 삭제 보도는 부인",
+      "link": "https://news.hada.io/topic?id=35414",
+      "published_at": "2026-10-15T22:34:19+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 에이전트의 오작동 가능성과 관련된 업계 이슈로, 자동화 워크플로 도입 시 고려해야 할 리스크를 시사합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "표적 광고로 전달되는 제로클릭 스파이웨어: AdFection",
+      "link": "https://news.hada.io/topic?id=35427",
+      "published_at": "2026-10-16T03:08:55+09:00",
+      "selection_score": 9,
+      "selection_reason": "제로클릭 스파이웨어라는 중대한 보안 위협 사례로, 보안 이슈 측면에서 확인이 필요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "이스라엘 기업, 온라인 광고로 제로클릭 스파이웨어 유포",
+      "link": "https://news.hada.io/topic?id=35432",
+      "published_at": "2026-10-16T04:37:06+09:00",
+      "selection_score": 9,
+      "selection_reason": "제로클릭 스파이웨어 유포는 보안 분야의 중대한 위협으로, IT 실무자로서 반드시 인지해야 할 보안 이슈입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Anthropic의 Scion이 Mononoke를 베꼈다는 비판에 대한 추가 설명",
+      "link": "https://news.hada.io/topic?id=35434",
+      "published_at": "2026-10-16T04:43:06+09:00",
+      "selection_score": 9,
+      "selection_reason": "주요 AI 기업 간의 데이터 모델 설계 표절 논란은 AI 업계의 윤리 및 기술적 투명성 측면에서 중요한 이슈입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
