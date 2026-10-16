@@ -1,6 +1,278 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "토스",
+      "title": "토스뱅크가 패키지를 관리하는 방식 #2: 토스뱅크 패키지의 세 가지 기준",
+      "link": "https://toss.tech/article/package-management-2",
+      "published_at": "Fri, 16 Oct 2026 01:00:00 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Transpilation",
+        "Declaration Sourcemap",
+        "Module Boundary"
+      ],
+      "one_line": "토스뱅크의 프론트엔드 패키지 관리 기준: 안정성, 예측 가능성, 디버깅 편의성",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "토스",
+      "title": "실행은 도메인별로, 문맥은 한 레포에",
+      "link": "https://toss.tech/article/dw-airflow-migration",
+      "published_at": "Fri, 16 Oct 2026 06:15:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "dbt",
+        "Strangler Fig Pattern",
+        "Semantic Layer"
+      ],
+      "one_line": "토스 DW팀의 데이터 파이프라인 현대화: 도메인별 클러스터 분리와 dbt 기반의 선언적 워크플로",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "LINE Engineering",
+      "title": "AI로 E2E 회귀 테스트 자동화하기: ‘딸깍’을 파이프라인으로 바꾸기까지",
+      "link": "https://techblog.lycorp.co.jp/ko/ai-e2e-test-automation",
+      "published_at": "Fri, 16 Oct 2026 02:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "E2E Testing",
+        "Mutation Testing",
+        "Agentic QA"
+      ],
+      "one_line": "AI 기반 E2E 테스트 자동화: 코드 생성보다 중요한 '검증 파이프라인' 구축",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "Netflix TechBlog",
+      "title": "Ontology-Driven Observability: Building an End-to-End Knowledge Graph at Netflix Scale",
+      "link": "https://netflixtechblog.com/ontology-driven-observability-building-an-end-to-end-knowledge-graph-at-netflix-scale-421392cf5adf",
+      "published_at": "Fri, 16 Oct 2026 16:01:02 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Ontology",
+        "Knowledge Graph",
+        "Observability"
+      ],
+      "one_line": "넷플릭스의 온톨로지 기반 관측 가능성: 지식 그래프를 통한 시스템 엔티티의 결정론적 관리",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "Spotify Engineering",
+      "title": "Advancing Generative Recommendation Inference: our collaboration with NVIDIA on TensorRT LLM",
+      "link": "https://engineering.atspotify.com/2026/10/advancing-generative-recommendation-inference-our-collaboration-with-nvidia-on-tensorrt-llm",
+      "published_at": "Fri, 16 Oct 2026 14:29:18 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "TensorRT LLM",
+        "Inference Optimization",
+        "Generative Recommendation"
+      ],
+      "one_line": "스포티파이와 NVIDIA의 협업: TensorRT LLM을 활용한 생성형 추천 추론 최적화",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Self-Evolving Agent Harness - 모델은 그대로, 하네스(프롬프트·기억·도구)를 스스로 고치는 에이전트",
+      "link": "https://news.hada.io/topic?id=35463",
+      "published_at": "2026-10-16T14:04:10+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Self-Evolving Agent",
+        "Harness Engineering"
+      ],
+      "one_line": "모델 가중치 수정 없이 프롬프트, 기억, 도구 등 하네스(Harness)를 실행 피드백으로 자동 개선하는 에이전트 설계 연구",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: livero: 48KiB RAM에서 도는 인덱스 없는 온디바이스 벡터 DB",
+      "link": "https://news.hada.io/topic?id=35465",
+      "published_at": "2026-10-16T14:47:53+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "On-device AI",
+        "Vector Database",
+        "Quantization"
+      ],
+      "one_line": "48KiB RAM에서 동작하며 인덱스 없이 전수조사로 벡터 검색을 수행하는 온디바이스용 경량 벡터 DB",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Meta의 새 상업용 약관, 뉴스 사이트 스크래핑 허용할 수 있다는 전문가 분석",
+      "link": "https://news.hada.io/topic?id=35467",
+      "published_at": "2026-10-16T16:37:19+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Training Data",
+        "Web Scraping Policy",
+        "Terms of Service"
+      ],
+      "one_line": "Meta의 새 상업용 약관이 뉴스 사이트의 AI 학습용 스크래핑을 허용할 수 있다는 법률 전문가들의 분석",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "AI로 하드웨어 역공학하기",
+      "link": "https://news.hada.io/topic?id=35468",
+      "published_at": "2026-10-16T16:40:19+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Reverse Engineering",
+        "Driver Development",
+        "AI-Assisted Debugging"
+      ],
+      "one_line": "Claude Code와 가상 머신을 활용해 문서화되지 않은 하드웨어의 Linux 드라이버를 개발하고 성능을 개선한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Ask GN: Ai 브라우저의 필수적인 기능",
+      "link": "https://news.hada.io/topic?id=35477",
+      "published_at": "2026-10-16T22:46:27+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Browser",
+        "Browser Automation",
+        "Agentic UI"
+      ],
+      "one_line": "AI 브라우저 개발을 위한 필수 기능에 대한 커뮤니티 의견 수렴 및 프로젝트 공유",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Apple ML Research: Mac Studio에서 MLX로 Muse Spark Open 실행하기",
+      "link": "https://news.hada.io/topic?id=35483",
+      "published_at": "2026-10-17T02:39:30+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "MLX",
+        "Thunderbolt RDMA",
+        "파이프라인/텐서 병렬화"
+      ],
+      "one_line": "Apple Silicon Mac Studio 클러스터와 MLX를 활용한 800B 파라미터 모델의 로컬 분산 추론 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "미국 근로시간의 90%는 AI 벤치마크가 충분히 다루지 못하는 업무에 쓰임",
+      "link": "https://news.hada.io/topic?id=35485",
+      "published_at": "2026-10-17T03:38:52+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 벤치마크 편향",
+        "O*NET 직무 분류",
+        "AI 자동화 노출도"
+      ],
+      "one_line": "AI 벤치마크가 실제 경제 활동의 90%를 다루지 못한다는 분석 결과",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: Gemini 4 Argon이 StarCraft를 플레이하다",
+      "link": "https://news.hada.io/topic?id=35487",
+      "published_at": "2026-10-17T04:40:19+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "에이전트 코딩",
+        "장기 추론"
+      ],
+      "one_line": "LLM의 에이전트 코딩 및 장기 추론 능력을 평가하는 StarSkirmish 벤치마크 결과",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Postgres 19 출시 지연, AI 리뷰가 사람이 고칠 수 있는 양보다 많은 버그를 발견",
+      "link": "https://news.hada.io/topic?id=35488",
+      "published_at": "2026-10-17T04:43:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 코드 리뷰",
+        "소프트웨어 품질 관리",
+        "오픈소스 유지보수"
+      ],
+      "one_line": "AI 코드 리뷰로 인한 PostgreSQL 19 출시 연기 및 품질 기준 변화",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Claude, ECDSA 곡선의 기원을 밝혀내다",
+      "link": "https://news.hada.io/topic?id=35489",
+      "published_at": "2026-10-17T05:39:12+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "ECDSA",
+        "lrand48",
+        "LLL 알고리듬"
+      ],
+      "one_line": "Claude가 25년간 미해결 상태였던 NIST ECDSA 곡선 시드 생성 방식을 규명",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Big Fish: OpenBSD의 37년 된 커널 버그 악용하기",
+      "link": "https://news.hada.io/topic?id=35491",
+      "published_at": "2026-10-17T05:45:12+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Use-After-Free (UAF)",
+        "KARL (Kernel Address Randomized Link)",
+        "Integer Overflow"
+      ],
+      "one_line": "OpenBSD의 37년 된 커널 버그를 악용해 로컬 root 권한을 획득한 사례와 그에 따른 보안 강화 방안",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-17T08:15:41.902670+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: Flipflop - Iroh 기반 파일 공유용 지속형 터널",
+      "link": "https://news.hada.io/topic?id=35493",
+      "published_at": "2026-10-17T06:37:14+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "P2P (Peer-to-Peer)",
+        "NAT Traversal",
+        "Iroh"
+      ],
+      "one_line": "Iroh 기반의 P2P 기술을 활용해 기기 간 지속적인 파일 및 텍스트 공유를 지원하는 도구, Flipflop",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-10-16T08:33:55.623719+09:00",
       "company": "토스",
       "title": "토스뱅크가 패키지를 관리하는 방식 #1: 패키지를 ESM으로만 제공하기로 했어요",
@@ -6869,5 +7141,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-16T08:33:55.623719+09:00"
+  "updated_at": "2026-10-17T08:15:41.902670+09:00"
 }

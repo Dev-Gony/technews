@@ -1,0 +1,590 @@
+{
+  "schema_version": 1,
+  "issue_number": 29,
+  "issue_date": "2026-10-17",
+  "generated_at": "2026-10-17T08:15:41.536900+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, AI 코드 리뷰, Mutation Testing, 데이터 파이프라인, 온톨로지\n\n[오늘의 한줄 포인트]\n\nAI는 이제 단순한 코드 생성을 넘어, 시스템의 품질을 검증하고 워크플로를 스스로 진화시키는 핵심 엔진으로 자리 잡고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI가 소프트웨어 개발의 전 과정에 깊숙이 침투하면서, 단순히 코드를 짜는 단계를 지나 시스템의 안정성을 검증하고 아키텍처를 최적화하는 단계로 진입했습니다. 실무자는 AI를 활용한 자동화 도구의 도입뿐만 아니라, AI가 생성한 결과물을 검증하고 관리하는 새로운 개발 워크플로를 익혀야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 6번: 모델의 가중치 수정 없이 프롬프트와 도구 체인을 스스로 개선하는 에이전트 설계는 향후 자동화 시스템 구축의 표준이 될 중요한 연구입니다.\n• 14번: AI 코드 리뷰가 실제 메이저 릴리스 일정에 영향을 줄 만큼 강력해진 상황에서, AI가 발견한 버그를 사람이 어떻게 관리하고 대응할지에 대한 실무적 통찰을 제공합니다.\n• 3번: AI가 생성한 테스트 코드의 신뢰성을 확보하기 위해 명세 기반 검증과 Mutation Testing을 도입한 사례는 AI 자동화의 가장 큰 걸림돌인 신뢰성 문제를 해결하는 핵심 열쇠입니다.\n\n[오늘 공부해볼 것]\n\n• Mutation Testing 개념과 적용: AI가 작성한 테스트 코드의 실제 검증력을 확인하기 위해 기존 테스트의 기댓값을 의도적으로 틀리게 수정해보는 실험을 추천합니다.\n• AI 코드 리뷰 프로세스 정립: 팀 내 AI 리뷰 도구 도입 시, AI가 제안한 수많은 버그 중 실제 수정이 필요한 우선순위를 분류하는 기준을 세워보는 것을 추천합니다.\n• 에이전트 실행 피드백 루프: 현재 개발 중인 에이전트의 실패 로그를 수집하여, 프롬프트나 도구 호출 방식을 스스로 수정하도록 유도하는 자동화 스크립트 작성을 추천합니다.",
+  "stats": {
+    "candidate_count": 37,
+    "detailed_count": 17,
+    "brief_count": 7,
+    "excluded_count": 13,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Self-Evolving Agent Harness - 모델은 그대로, 하네스(프롬프트·기억·도구)를 스스로 고치는 에이전트",
+      "link": "https://news.hada.io/topic?id=35463",
+      "published_at": "2026-10-16T14:04:10+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 자기 진화 워크플로를 다룬 최신 연구로, Agentic Workflow 분야의 매우 중요한 기술적 변화를 담고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "모델 가중치 수정 없이 프롬프트, 기억, 도구 등 하네스(Harness)를 실행 피드백으로 자동 개선하는 에이전트 설계 연구",
+      "key_points": [
+        "모델 가중치를 고정하고 에이전트의 프롬프트, 기억, 도구 코드를 실행 결과에 따라 스스로 수정하는 '하네스 자기 진화' 프레임워크를 제안함.",
+        "수정 제안, 적용 기준, 독립 검증 데이터 활용 등 에이전트의 지속적인 성능 향상을 위한 체계적인 워크플로를 정의함.",
+        "실제 배포 시에는 작업 환경 변화에 따른 지속적인 검증과 권한 및 행동에 대한 안전장치가 필수적임을 강조함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Self-Evolving Agent",
+        "Harness Engineering"
+      ],
+      "recommended_for": "AI 에이전트의 성능을 지속적으로 개선하고 자동화된 워크플로를 구축하려는 백엔드 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "에이전트 실행 피드백 루프 구축",
+        "steps": [
+          "현재 개발 중인 에이전트의 실행 로그를 수집하여 실패 케이스를 분류하는 데이터셋을 생성한다.",
+          "실패 원인을 분석하여 프롬프트나 도구 호출 방식을 수정하는 '수정 제안' 프롬프트를 작성한다.",
+          "수정된 하네스를 별도의 테스트 환경에서 검증하는 자동화 스크립트를 작성한다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Postgres 19 출시 지연, AI 리뷰가 사람이 고칠 수 있는 양보다 많은 버그를 발견",
+      "link": "https://news.hada.io/topic?id=35488",
+      "published_at": "2026-10-17T04:43:19+09:00",
+      "selection_score": 14,
+      "selection_reason": "PostgreSQL은 백엔드 아키텍처의 핵심이며, LLM을 활용한 코드 리뷰가 실제 메이저 릴리스 일정과 기능에 영향을 미친 사례는 개발 워크플로의 변화를 시사합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코드 리뷰로 인한 PostgreSQL 19 출시 연기 및 품질 기준 변화",
+      "key_points": [
+        "AI 보조 코드 리뷰를 통해 과거에는 출시 후 발견되었을 경계 사례 버그들이 대거 발견되어 PostgreSQL 19 출시가 11월로 연기됨.",
+        "AI가 찾아낸 결함 보고가 급증하면서 이를 처리하는 고정적인 리뷰 부담이 커져, 일부 신규 기능(SQL/PGQ 등)이 다음 버전으로 보류됨.",
+        "AI 리뷰가 소프트웨어 품질 기준을 높였으나, 사람이 감당할 수 있는 수정 범위를 초과하는 경우에 대한 관리 전략이 중요해짐."
+      ],
+      "topics": [
+        "AI 코드 리뷰",
+        "소프트웨어 품질 관리",
+        "오픈소스 유지보수"
+      ],
+      "recommended_for": "대규모 코드베이스를 관리하거나 AI 기반 코드 리뷰 워크플로를 도입하려는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "팀 내 AI 코드 리뷰 도입 시 버그 처리 프로세스 재정립",
+        "steps": [
+          "AI가 제안한 코드 리뷰 결과 중 실제 수정이 필요한 우선순위 분류 기준(Impact/Risk) 수립",
+          "AI 리뷰 도구 도입 시 발생할 수 있는 '수정 악순환' 방지를 위한 인간 검토 단계 강화"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "LINE Engineering",
+      "title": "AI로 E2E 회귀 테스트 자동화하기: ‘딸깍’을 파이프라인으로 바꾸기까지",
+      "link": "https://techblog.lycorp.co.jp/ko/ai-e2e-test-automation",
+      "published_at": "Fri, 16 Oct 2026 02:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI를 활용한 E2E 테스트 자동화는 업무 자동화와 개발 생산성 향상을 위한 핵심적인 실무 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 기반 E2E 테스트 자동화: 코드 생성보다 중요한 '검증 파이프라인' 구축",
+      "key_points": [
+        "AI가 생성한 테스트 코드가 의도대로 동작하는지 확인하기 위해 명세 기반의 검증 파이프라인(v2.0)을 구축했다.",
+        "합격 기준은 사람이 고정하고, 모호한 부분은 AI가 추측하지 않고 멈추게 하여 신뢰성을 확보했다.",
+        "Mutation testing 개념을 도입해 기댓값을 일부러 틀리게 하여 테스트의 실제 검증력을 확인했다."
+      ],
+      "topics": [
+        "E2E Testing",
+        "Mutation Testing",
+        "Agentic QA"
+      ],
+      "recommended_for": "AI를 활용한 테스트 자동화를 도입하려 하지만 신뢰성 문제로 고민 중인 QA 및 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "테스트 코드에 Mutation Testing 개념 적용해보기",
+        "steps": [
+          "기존 테스트 코드의 검증 로직(Assertion)을 의도적으로 실패하게 수정한다.",
+          "테스트가 실제로 실패하는지 확인하여 해당 검증이 유효한지 검증한다.",
+          "검증력이 낮은 테스트 케이스를 식별하고 보완한다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "토스",
+      "title": "토스뱅크가 패키지를 관리하는 방식 #2: 토스뱅크 패키지의 세 가지 기준",
+      "link": "https://toss.tech/article/package-management-2",
+      "published_at": "Fri, 16 Oct 2026 01:00:00 GMT",
+      "selection_score": 11,
+      "selection_reason": "프론트엔드 패키지 관리의 안정성과 디버깅 편의성을 위한 기술적 기준을 제시하여 실무적인 개발 생산성 향상에 큰 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "토스뱅크의 프론트엔드 패키지 관리 기준: 안정성, 예측 가능성, 디버깅 편의성",
+      "key_points": [
+        "패키지 개발 시 문법 변환과 번들링은 호스트 환경에 맡겨 호환성 문제를 방지하고 불필요한 코드를 제거한다.",
+        "원본 모듈 구조를 유지하여 프레임워크의 파일 단위 지시문(예: 'use client')이 정상 동작하도록 보장한다.",
+        "declaration sourcemap을 도입하여 IDE에서 패키지의 원본 코드를 즉시 확인하고 디버깅할 수 있게 했다."
+      ],
+      "topics": [
+        "Transpilation",
+        "Declaration Sourcemap",
+        "Module Boundary"
+      ],
+      "recommended_for": "프론트엔드 라이브러리나 공통 패키지를 개발하고 관리하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "현재 관리 중인 패키지에 declaration sourcemap 설정 추가하기",
+        "steps": [
+          "tsconfig.json에서 declarationMap 옵션을 true로 설정한다.",
+          "빌드 결과물에 .d.ts.map 파일이 포함되는지 확인한다.",
+          "IDE에서 타입 정의를 클릭했을 때 원본 소스 코드로 이동하는지 테스트한다."
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "토스",
+      "title": "실행은 도메인별로, 문맥은 한 레포에",
+      "link": "https://toss.tech/article/dw-airflow-migration",
+      "published_at": "Fri, 16 Oct 2026 06:15:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "데이터 파이프라인의 복잡도를 획기적으로 낮춘 실무 사례로, 데이터 분석 및 워크플로 최적화 측면에서 매우 높은 가치를 가집니다.",
+      "feedback_bias": 0,
+      "one_line": "토스 DW팀의 데이터 파이프라인 현대화: 도메인별 클러스터 분리와 dbt 기반의 선언적 워크플로",
+      "key_points": [
+        "중앙 집중식 Airflow의 병목을 해결하기 위해 도메인별 클러스터로 분리하고 dbt를 도입하여 파이프라인 복잡도를 낮췄다.",
+        "SQL과 yml 파일에 비즈니스 로직과 메타데이터를 통합하여 코딩 에이전트가 문맥을 정확히 이해할 수 있는 구조를 만들었다.",
+        "Strangler Fig 방식을 통해 기존 파이프라인을 멈추지 않고 점진적으로 새 플랫폼으로 마이그레이션했다."
+      ],
+      "topics": [
+        "dbt",
+        "Strangler Fig Pattern",
+        "Semantic Layer"
+      ],
+      "recommended_for": "데이터 엔지니어링 파이프라인의 복잡도와 유지보수에 고민이 많은 데이터 플랫폼 팀",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Ontology-Driven Observability: Building an End-to-End Knowledge Graph at Netflix Scale",
+      "link": "https://netflixtechblog.com/ontology-driven-observability-building-an-end-to-end-knowledge-graph-at-netflix-scale-421392cf5adf",
+      "published_at": "Fri, 16 Oct 2026 16:01:02 GMT",
+      "selection_score": 13,
+      "selection_reason": "넷플릭스 규모의 시스템에서 지식 그래프를 활용한 관측 가능성(Observability) 확보는 백엔드 아키텍처 설계에 중요한 통찰을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "넷플릭스의 온톨로지 기반 관측 가능성: 지식 그래프를 통한 시스템 엔티티의 결정론적 관리",
+      "key_points": [
+        "시스템 내 파편화된 엔티티(서비스, 앱 등)를 온톨로지로 표준화하여 도구 간 데이터 불일치를 해결했다.",
+        "LLM 등 확률적 도구의 출력을 온톨로지 제약 조건으로 강제하여 결정론적인 지식 그래프를 생성한다.",
+        "다양한 신호(로그, 메타데이터 등)를 트리플(Subject-Predicate-Object) 형태로 변환하여 복잡한 인과 관계를 쿼리한다."
+      ],
+      "topics": [
+        "Ontology",
+        "Knowledge Graph",
+        "Observability"
+      ],
+      "recommended_for": "대규모 분산 시스템의 복잡한 인과 관계 분석과 관측 가능성 확보가 필요한 백엔드 아키텍트",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Spotify Engineering",
+      "title": "Advancing Generative Recommendation Inference: our collaboration with NVIDIA on TensorRT LLM",
+      "link": "https://engineering.atspotify.com/2026/10/advancing-generative-recommendation-inference-our-collaboration-with-nvidia-on-tensorrt-llm",
+      "published_at": "Fri, 16 Oct 2026 14:29:18 +0000",
+      "selection_score": 13,
+      "selection_reason": "LLM 추론 성능 개선을 위한 TensorRT 활용 사례로, 비용 절감과 성능 최적화에 관심 있는 실무자에게 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "스포티파이와 NVIDIA의 협업: TensorRT LLM을 활용한 생성형 추천 추론 최적화",
+      "key_points": [
+        "스포티파이는 개인화 추천 시스템의 생성형 AI 추론 성능을 높이기 위해 NVIDIA TensorRT LLM을 도입했다.",
+        "TensorRT LLM은 LLM 추론 속도를 최적화하여 사용자 경험을 개선하고 인프라 비용을 절감하는 데 기여한다.",
+        "추천 시스템의 실시간성을 확보하기 위해 모델 추론 단계의 지연 시간을 최소화하는 것이 핵심이다."
+      ],
+      "topics": [
+        "TensorRT LLM",
+        "Inference Optimization",
+        "Generative Recommendation"
+      ],
+      "recommended_for": "LLM 기반 추천 시스템의 추론 성능 개선과 비용 최적화가 필요한 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: livero: 48KiB RAM에서 도는 인덱스 없는 온디바이스 벡터 DB",
+      "link": "https://news.hada.io/topic?id=35465",
+      "published_at": "2026-10-16T14:47:53+09:00",
+      "selection_score": 13,
+      "selection_reason": "온디바이스 AI 및 벡터 DB 최적화 기술은 LLM과 에이전트의 효율적 배포를 위한 핵심적인 실무 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "48KiB RAM에서 동작하며 인덱스 없이 전수조사로 벡터 검색을 수행하는 온디바이스용 경량 벡터 DB",
+      "key_points": [
+        "메모리 제약이 큰 모바일 및 MCU 환경을 타깃으로 하며, 추가 메모리 할당 없이 고정된 48KiB RAM만 사용함.",
+        "별도의 ANN 인덱스 없이 삼진 양자화 벡터를 활용한 전수조사 방식으로 78~79%의 리콜 성능을 확보함.",
+        "SIMD 커널 최적화와 내구성(durability) 옵션 추가를 통해 성능과 안정성을 개선할 계획임."
+      ],
+      "topics": [
+        "On-device AI",
+        "Vector Database",
+        "Quantization"
+      ],
+      "recommended_for": "임베디드 환경이나 리소스가 제한된 기기에서 벡터 검색 기능을 구현하려는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Meta의 새 상업용 약관, 뉴스 사이트 스크래핑 허용할 수 있다는 전문가 분석",
+      "link": "https://news.hada.io/topic?id=35467",
+      "published_at": "2026-10-16T16:37:19+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 학습을 위한 데이터 수집 정책 변화는 LLM 및 데이터 관련 실무자에게 매우 중요한 업계 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta의 새 상업용 약관이 뉴스 사이트의 AI 학습용 스크래핑을 허용할 수 있다는 법률 전문가들의 분석",
+      "key_points": [
+        "2026년 10월 30일부터 시행되는 Meta의 새 상업용 약관은 비즈니스 계정 연동 웹사이트 콘텐츠의 AI 학습 이용 권한을 포함할 가능성이 있음.",
+        "법률 전문가들은 이 약관이 뉴스 콘텐츠의 무단 학습을 정당화하는 근거가 될 수 있으며, robots.txt보다 우선할 위험이 있다고 경고함.",
+        "비즈니스 계정 사용자는 약관 거부 시 Meta의 모든 상업적 서비스를 중단해야 하므로, 일부 매체는 계정 폐쇄까지 검토 중임."
+      ],
+      "topics": [
+        "AI Training Data",
+        "Web Scraping Policy",
+        "Terms of Service"
+      ],
+      "recommended_for": "웹 서비스 운영자, 데이터 수집 정책을 관리하는 백엔드 개발자 및 법무 담당자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI로 하드웨어 역공학하기",
+      "link": "https://news.hada.io/topic?id=35468",
+      "published_at": "2026-10-16T16:40:19+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI를 활용한 역공학 및 자동화 사례는 복잡한 시스템 분석과 문제 해결을 위한 실무적 영감을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Code와 가상 머신을 활용해 문서화되지 않은 하드웨어의 Linux 드라이버를 개발하고 성능을 개선한 사례",
+      "key_points": [
+        "Windows 가상 머신에서 USB 통신을 캡처하고, AI를 활용해 Linux 드라이버를 개발하여 미지원 하드웨어를 활성화함.",
+        "정상 동작하는 참조 데이터와 실제 하드웨어 검증을 결합하여 드라이버 결함을 수정하고 카메라 화질을 3배 가까이 개선함.",
+        "반복적인 16진수 덤프 분석과 가설 검증에 AI를 활용함으로써 전문 지식이 부족한 분야에서도 실질적인 성과를 낼 수 있음을 증명함."
+      ],
+      "topics": [
+        "Reverse Engineering",
+        "Driver Development",
+        "AI-Assisted Debugging"
+      ],
+      "recommended_for": "AI를 활용한 자동화 워크플로에 관심이 많고 하드웨어 제어 및 시스템 최적화에 도전하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "AI 기반 시스템 트래픽 분석 및 최적화",
+        "steps": [
+          "분석이 필요한 하드웨어나 소프트웨어의 정상 동작 시 트래픽(USB, 네트워크 등)을 캡처한다.",
+          "캡처된 로그를 LLM에 입력하여 반복적인 패턴이나 비정상적인 시퀀스를 식별하도록 요청한다.",
+          "식별된 차이점을 바탕으로 수정 코드를 작성하고 실제 환경에서 검증한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ask GN: Ai 브라우저의 필수적인 기능",
+      "link": "https://news.hada.io/topic?id=35477",
+      "published_at": "2026-10-16T22:46:27+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI Agent 및 브라우저 자동화 도구 개발 관점에서 실무적인 기능 요구사항을 파악하기에 적합합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 브라우저 개발을 위한 필수 기능에 대한 커뮤니티 의견 수렴 및 프로젝트 공유",
+      "key_points": [
+        "AI 브라우저 개발자가 필수 기능을 보완하기 위해 커뮤니티에 조언을 구함.",
+        "현재 구현된 기능은 구독제 유지, 에이전트별 탭 분리, 작업 완료 후 자동 탭 종료 등임.",
+        "Halo 프로젝트(GitHub)를 통해 현재 개발 중인 브라우저의 기능을 공개하고 피드백을 받는 중임."
+      ],
+      "topics": [
+        "AI Browser",
+        "Browser Automation",
+        "Agentic UI"
+      ],
+      "recommended_for": "AI 에이전트 기반의 브라우저 자동화 도구를 개발 중이거나 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Apple ML Research: Mac Studio에서 MLX로 Muse Spark Open 실행하기",
+      "link": "https://news.hada.io/topic?id=35483",
+      "published_at": "2026-10-17T02:39:30+09:00",
+      "selection_score": 12,
+      "selection_reason": "대규모 모델의 분산 처리와 하드웨어 최적화 사례는 고성능 AI 인프라 구축에 실질적인 가이드가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Apple Silicon Mac Studio 클러스터와 MLX를 활용한 800B 파라미터 모델의 로컬 분산 추론 사례",
+      "key_points": [
+        "M5 Ultra Mac Studio 4대와 Thunderbolt RDMA를 결합하여 816B 파라미터의 Muse Spark Open 모델을 로컬에서 실행함.",
+        "파이프라인 병렬화와 텐서 병렬화를 통해 긴 문맥 처리 시 단일 장비 대비 성능 향상을 확인했으며, 초당 36.73토큰의 생성 속도를 달성함.",
+        "MLX v0.30.1의 jaccl 백엔드를 활용해 저지연 통신을 구현했으며, 개인 환경에서 대규모 AI 에이전트 작업을 수행할 수 있는 가능성을 제시함."
+      ],
+      "topics": [
+        "MLX",
+        "Thunderbolt RDMA",
+        "파이프라인/텐서 병렬화"
+      ],
+      "recommended_for": "고성능 로컬 AI 인프라 구축에 관심이 많은 백엔드 및 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "MLX를 활용한 로컬 LLM 분산 추론 환경 구성",
+        "steps": [
+          "MLX LM GitHub 저장소를 확인하여 현재 보유한 Apple Silicon 장비에서 단일 노드 추론 테스트 수행",
+          "MLX 분산 실행 문서에 따라 Thunderbolt 케이블로 두 대의 Mac을 연결하고 jaccl 백엔드 설정 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "미국 근로시간의 90%는 AI 벤치마크가 충분히 다루지 못하는 업무에 쓰임",
+      "link": "https://news.hada.io/topic?id=35485",
+      "published_at": "2026-10-17T03:38:52+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 에이전트와 자동화의 실제 업무 적용 한계를 분석한 글로, 향후 기술 도입 전략 수립에 중요한 시사점을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 벤치마크가 실제 경제 활동의 90%를 다루지 못한다는 분석 결과",
+      "key_points": [
+        "Mercor의 분석 결과, 미국 근로시간의 90%가 기존 AI 벤치마크에서 거의 다뤄지지 않는 업무에 집중되어 있음.",
+        "벤치마크는 주로 AI 노출도가 높고 임금 총액이 큰 직업에 편중되어 있어, 실제 직무 역량을 평가하는 데 사각지대가 존재함.",
+        "AI가 직무 전체를 자동화하기보다 인간의 생산성을 보조하는 역할을 수행하므로, 이를 측정할 새로운 평가 방법론이 필요함."
+      ],
+      "topics": [
+        "AI 벤치마크 편향",
+        "O*NET 직무 분류",
+        "AI 자동화 노출도"
+      ],
+      "recommended_for": "AI 도입 전략을 수립하거나 AI 에이전트의 업무 적용 범위를 고민하는 기술 리더",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Gemini 4 Argon이 StarCraft를 플레이하다",
+      "link": "https://news.hada.io/topic?id=35487",
+      "published_at": "2026-10-17T04:40:19+09:00",
+      "selection_score": 13,
+      "selection_reason": "LLM 기반의 에이전트가 복잡한 환경에서 코딩하고 추론하는 능력을 보여주는 사례로, Agentic Workflow 연구에 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM의 에이전트 코딩 및 장기 추론 능력을 평가하는 StarSkirmish 벤치마크 결과",
+      "key_points": [
+        "StarSkirmish Bench v0.2는 1시간 내에 C++로 StarCraft 봇을 작성하게 하여 LLM의 에이전트 코딩과 전략적 추론을 평가함.",
+        "GPT-6 Astra가 57% 승률로 1위를 차지했으며, 모델의 성능은 강한 상대와의 연습 경기 데이터 반영 능력과 높은 상관관계를 보임.",
+        "단순 승률 외에도 Vals IOI 등 어려운 코딩 벤치마크와 높은 상관관계를 보여, LLM의 복잡한 문제 해결 능력을 측정하는 지표로 활용 가능함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "에이전트 코딩",
+        "장기 추론"
+      ],
+      "recommended_for": "LLM 기반 에이전트의 실질적인 코딩 및 문제 해결 능력을 연구하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude, ECDSA 곡선의 기원을 밝혀내다",
+      "link": "https://news.hada.io/topic?id=35489",
+      "published_at": "2026-10-17T05:39:12+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM이 암호학적 난수 생성기의 취약점을 분석해낸 사례로, AI의 데이터 분석 및 보안 취약점 탐지 역량을 보여주는 중요한 기술적 사건입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude가 25년간 미해결 상태였던 NIST ECDSA 곡선 시드 생성 방식을 규명",
+      "key_points": [
+        "Claude가 NIST 표준 곡선 5개의 시드가 Unix 타임스탬프로 초기화된 lrand48의 출력임을 30분 만에 밝혀냄.",
+        "LLL 알고리듬을 활용해 난수 생성기의 내부 상태를 복원함으로써, 의도적인 백도어 의혹을 해소하고 생성 과정을 재현함.",
+        "이번 발견은 암호학적 취약점이 아닌 단순 생성 방식의 규명이며, AI가 복잡한 데이터 분석 및 보안 연구에 기여할 수 있음을 입증함."
+      ],
+      "topics": [
+        "ECDSA",
+        "lrand48",
+        "LLL 알고리듬"
+      ],
+      "recommended_for": "AI의 데이터 분석 역량과 암호학적 보안 연구에 관심이 많은 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Big Fish: OpenBSD의 37년 된 커널 버그 악용하기",
+      "link": "https://news.hada.io/topic?id=35491",
+      "published_at": "2026-10-17T05:45:12+09:00",
+      "selection_score": 12,
+      "selection_reason": "커널 레벨의 보안 취약점 분석은 서버 및 시스템 아키텍처를 다루는 실무자에게 보안 인사이트를 제공하는 가치 있는 기술적 내용입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenBSD의 37년 된 커널 버그를 악용해 로컬 root 권한을 획득한 사례와 그에 따른 보안 강화 방안",
+      "key_points": [
+        "공유 메모리 연결 카운터의 정수 오버플로와 경쟁 상태를 이용해 해제 후 사용(UAF) 취약점을 유발하고, 이를 커널 범위 밖 쓰기와 결합해 root 권한을 획득함.",
+        "KARL, SMAP, SMEP 등 현대적인 커널 보호 기능이 활성화된 상태에서도 결정론적인 커널 메모리 할당 방식을 공략해 성공함.",
+        "안전한 연결 해제(safe-unlinking), PTE 주소 무작위화, 컴파일러 기반의 배열 경계 검사 등을 통해 공격 경로를 차단하고 공격 복잡도를 높일 수 있음."
+      ],
+      "topics": [
+        "Use-After-Free (UAF)",
+        "KARL (Kernel Address Randomized Link)",
+        "Integer Overflow"
+      ],
+      "recommended_for": "커널 보안, 시스템 아키텍처, 취약점 분석에 관심이 있는 백엔드 및 시스템 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Flipflop - Iroh 기반 파일 공유용 지속형 터널",
+      "link": "https://news.hada.io/topic?id=35493",
+      "published_at": "2026-10-17T06:37:14+09:00",
+      "selection_score": 11,
+      "selection_reason": "Iroh 기반의 파일 공유 도구는 네트워크 및 서버 연결성 측면에서 유용한 개발 도구이며, 개인 프로젝트나 업무 자동화에 활용 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Iroh 기반의 P2P 기술을 활용해 기기 간 지속적인 파일 및 텍스트 공유를 지원하는 도구, Flipflop",
+      "key_points": [
+        "Flipflop은 Iroh 라이브러리를 사용하여 LAN, Bluetooth, 인터넷 환경에서 기기 간 신뢰할 수 있는 지속형 터널을 구축함.",
+        "중앙 서버 의존도를 낮추고 피어 간 직접 연결을 지향하며, 파일뿐만 아니라 링크와 텍스트 공유도 지원함.",
+        "Tailscale의 Taildrop과 유사하지만, 특정 네트워크 관리 주체에 의존하지 않고 독립적인 피어 간 네트워크 형성이 가능하다는 차별점이 있음."
+      ],
+      "topics": [
+        "P2P (Peer-to-Peer)",
+        "NAT Traversal",
+        "Iroh"
+      ],
+      "recommended_for": "개인 기기 간 파일 공유 자동화나 탈중앙화 네트워크 도구에 관심이 많은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Iroh 기반의 P2P 파일 공유 환경 구성 및 테스트",
+        "steps": [
+          "Flipflop GitHub 저장소에서 OS별 바이너리를 다운로드하여 두 대의 기기에 설치",
+          "두 기기를 페어링하여 파일 전송 및 텍스트 공유가 정상적으로 작동하는지 확인",
+          "Iroh 라이브러리 문서를 참조하여 직접 간단한 P2P 데이터 전송 프로토타입을 Rust로 작성해보기"
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Stripe",
+      "title": "New ways for fintechs to move money and expand globally",
+      "link": "https://stripe.com/blog/new-ways-for-fintechs-to-move-money-and-expand-globally",
+      "published_at": "Fri, 16 Oct 2026 00:00:00 +0000",
+      "selection_score": 9,
+      "selection_reason": "핀테크 도메인의 글로벌 확장 및 API 통합 관련 소식으로, 관련 분야 종사자에게는 유용한 업계 동향입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Continuous accountability for Verified bots",
+      "link": "https://blog.cloudflare.com/verified-bots-accountability",
+      "published_at": "Fri, 16 Oct 2026 13:00:00 GMT",
+      "selection_score": 10,
+      "selection_reason": "봇의 신뢰성과 책임성을 관리하는 클라우드 플랫폼의 정책 변화는 서버 및 보안 운영 측면에서 중요한 참고 자료입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "나의 C23 코딩 관례",
+      "link": "https://news.hada.io/topic?id=35466",
+      "published_at": "2026-10-16T16:02:10+09:00",
+      "selection_score": 10,
+      "selection_reason": "C23 표준을 활용한 안정적인 백엔드 및 시스템 프로그래밍 관례는 개발 생산성 향상에 도움이 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "BIPM, UTC에 윤초 추가 중단 결정",
+      "link": "https://news.hada.io/topic?id=35472",
+      "published_at": "2026-10-16T18:34:48+09:00",
+      "selection_score": 10,
+      "selection_reason": "윤초 중단은 분산 시스템 및 서버 시간 동기화 아키텍처에 영향을 줄 수 있는 중요한 인프라 변화입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "RPKI, 이제 인터넷 경로의 70%를 보호",
+      "link": "https://news.hada.io/topic?id=35474",
+      "published_at": "2026-10-16T20:34:37+09:00",
+      "selection_score": 10,
+      "selection_reason": "인터넷 라우팅 보안(RPKI)의 확산은 네트워크 및 인프라 아키텍처를 다루는 실무자에게 중요한 정보입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Mac의 모든 창을 iPhone과 iPad에서 사용하기",
+      "link": "https://news.hada.io/topic?id=35476",
+      "published_at": "2026-10-16T21:32:13+09:00",
+      "selection_score": 9,
+      "selection_reason": "ScreenCaptureKit 등 Apple의 시스템 프레임워크를 활용한 고성능 화면 전송 기술은 개발 도구 관점에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "C++26 Contracts: 사전조건과 사후조건 입문",
+      "link": "https://news.hada.io/topic?id=35482",
+      "published_at": "2026-10-17T02:36:30+09:00",
+      "selection_score": 10,
+      "selection_reason": "C++26의 새로운 계약 기반 프로그래밍은 백엔드 시스템의 안정성과 코드 품질 향상에 중요한 참고 자료입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
