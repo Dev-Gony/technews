@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "issue_number": 30,
+  "issue_date": "2026-10-19",
+  "generated_at": "2026-10-19T07:47:17.674502+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI 에이전트, VM 탈출 취약점, Git 훅, 코드 품질 관리, 컨텍스트 관리\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무 도입이 가속화됨에 따라, 에이전트의 메모리 구현과 코드 품질 검증, 그리고 외부 환경의 보안 대응이 핵심 과제로 떠오르고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트가 단순한 챗봇을 넘어 실제 개발 및 운영 환경에 깊숙이 관여하면서, 에이전트의 결과물을 검증하고 안전하게 운영하는 기술적 역량이 필수적이 되었습니다. 또한, 클라우드 인프라의 보안 취약점과 웹 서비스의 에이전트 차단 움직임은 실무자가 반드시 고려해야 할 운영 제약 사항입니다.\n\n[왜 이 글들을 골랐나]\n\n• 4번 글: AI가 작성한 코드의 무분별한 배포를 방지하는 실용적인 코드 품질 게이트를 제시하여 즉각적인 생산성 향상이 가능합니다.\n• 2번 글: AI 에이전트의 성능을 결정짓는 핵심 요소인 메모리 구현 방식에 대한 실무적 논의를 담고 있어 아키텍처 설계에 큰 도움이 됩니다.\n• 1번 글: 클라우드 및 서버 운영자에게 치명적인 VM 탈출 취약점을 다루고 있어, 인프라 보안 점검을 위한 시급한 대응이 필요합니다.\n\n[오늘 공부해볼 것]\n\n• AI 에이전트의 메모리 아키텍처: Mem0나 Zep과 같은 전용 메모리 서비스의 동작 원리를 이해하고, 벡터 DB를 활용한 컨텍스트 관리 방식을 학습합니다.\n• Git 훅을 활용한 자동화된 코드 품질 게이트: Sphinx와 같은 도구를 통해 AI 생성 코드의 이해도를 검증하는 워크플로를 구축해 봅니다.\n• Linux 커널 보안 패치 프로세스: CVE-2026-99999와 같은 커널 취약점 발생 시, 가상화 환경에서 호스트 커널을 안전하게 업데이트하는 절차를 숙지합니다.",
+  "stats": {
+    "candidate_count": 30,
+    "detailed_count": 11,
+    "brief_count": 5,
+    "excluded_count": 14,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Sphinx - AI가 작성한 코드를 배포하기 전에 이해도를 묻는 훅",
+      "link": "https://news.hada.io/topic?id=35573",
+      "published_at": "2026-10-18T19:31:25+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 기반 개발 워크플로와 Git 훅을 결합한 실용적인 도구로 개발 생산성 향상에 직접적인 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 작성한 코드의 이해도를 검증하여 배포 전 실수를 방지하는 Git 훅 도구 'Sphinx'",
+      "key_points": [
+        "Sphinx는 보호 브랜치 푸시 시 개발자에게 코드 동작에 관한 퀴즈를 제시하여 이해도를 확인함.",
+        "AI 에이전트가 작성한 코드의 무분별한 배포를 막고, 개발자의 코드 리뷰 역량을 강화하는 것을 목표로 함.",
+        "Node.js 환경에서 동작하며, 다양한 코딩 에이전트 및 LLM 엔드포인트와 연동 가능함."
+      ],
+      "topics": [
+        "Git Hook",
+        "AI-Assisted Development",
+        "Code Quality Gate"
+      ],
+      "recommended_for": "AI 코딩 도구를 활발히 사용하며 코드 품질과 이해도를 중시하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 개발 환경에 Sphinx Git 훅 도입 및 테스트",
+        "steps": [
+          "npm을 통해 sphinx-understand 패키지 설치",
+          "테스트용 로컬 저장소에서 sphinx install 실행 및 모델 설정",
+          "AI가 작성한 코드를 커밋하고 푸시 시 발생하는 퀴즈 인터페이스 확인"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ask GN: AI 에이전트의 메모리는 어떻게 구현하고 있나요?",
+      "link": "https://news.hada.io/topic?id=35569",
+      "published_at": "2026-10-18T18:27:54+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 핵심인 메모리 구현 방식에 대한 실무적인 논의로, 현재 관심 분야와 매우 밀접합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 장기 기억 및 문맥 유지를 위한 메모리 구현 방식에 대한 실무적 논의",
+      "key_points": [
+        "Mem0, Zep 같은 전용 메모리 서비스 활용과 벡터 DB/로컬 파일을 이용한 직접 구현 방식이 논의됨.",
+        "단순 컨텍스트 주입은 비용과 성능 측면에서 한계가 있어, 스킬 기반의 지속적인 메모리 수정 방식이 대안으로 제시됨.",
+        "에이전트의 메모리 구현은 단순히 대화 기록을 저장하는 것을 넘어, 작업 수행 능력을 강화하는 방향으로 진화 중임."
+      ],
+      "topics": [
+        "AI Agent Memory",
+        "Vector Database",
+        "Context Management"
+      ],
+      "recommended_for": "AI 에이전트 및 LLM 기반 애플리케이션을 개발하는 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "CVE-2026-99999(PwnEscape) — Linux 커널 취약점으로 VM 탈출 가능, VPS 사업자 긴급 대응",
+      "link": "https://news.hada.io/topic?id=35568",
+      "published_at": "2026-10-18T17:34:56+09:00",
+      "selection_score": 12,
+      "selection_reason": "Linux 커널의 치명적인 VM 탈출 취약점은 클라우드 및 서버 운영자에게 매우 중요한 보안 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "Linux 커널의 네트워크 스택 취약점(CVE-2026-99999)으로 인한 VM 탈출 위험 및 보안 패치 필요",
+      "key_points": [
+        "IPv4 네트워크 처리 과정의 체크섬 검증 오류로 인해 VM에서 호스트 메모리 손상 및 권한 탈취가 가능함.",
+        "KVM 기반 VPS, Firecracker 서버리스 등 네트워크 경로를 공유하는 가상화 환경이 주요 공격 대상임.",
+        "게스트 OS 업데이트로는 해결되지 않으며, 호스트 커널 보안 패치와 필요 시 재부팅이 필수적임."
+      ],
+      "topics": [
+        "VM Escape",
+        "Linux Kernel Vulnerability",
+        "KVM/Firecracker"
+      ],
+      "recommended_for": "클라우드 인프라 운영자 및 자체 KVM 서버를 운영하는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "운영 중인 가상화 서버의 커널 보안 패치 상태 점검",
+        "steps": [
+          "현재 운영 중인 호스트 커널 버전이 최신 보안 패치를 포함하는지 확인",
+          "CVE-2026-99999 관련 배포판 보안 권고 사항 확인",
+          "필요 시 유지보수 시간을 확보하여 호스트 커널 업데이트 및 재부팅 계획 수립"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "DeepSeek 검색 및 페이지 가져오기 API, 성공 요청 1,000건당 0.75달러",
+      "link": "https://news.hada.io/topic?id=35571",
+      "published_at": "2026-10-18T18:34:27+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 에이전트와 RAG 구현 시 필수적인 웹 검색 API의 비용과 활용 정보를 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "DeepSeek의 Search 및 Fetch API 출시, 1,000건당 0.75달러의 경쟁력 있는 가격 책정",
+      "key_points": [
+        "Search API는 구조화된 검색 결과를, Fetch API는 Markdown 본문을 제공하여 RAG 및 에이전트 개발에 최적화됨.",
+        "성공한 요청에 대해서만 과금하며, 계정당 각각 초당 5건의 호출 한도를 가짐.",
+        "기존 DeepSeek API와 동일한 인증 방식을 사용하며, 2026년 11월 1일부터 도구 호출에 대한 과금이 시작됨."
+      ],
+      "topics": [
+        "RAG",
+        "Web Scraping API",
+        "Agentic Tools"
+      ],
+      "recommended_for": "RAG 시스템을 구축하거나 AI 에이전트의 웹 검색 기능을 구현하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "DeepSeek API를 활용한 RAG 검색 도구 프로토타입 테스트",
+        "steps": [
+          "DeepSeek API 키를 발급받고 Search/Fetch 엔드포인트 호출 테스트",
+          "기존 검색 도구와 결과 품질 및 응답 속도 비교",
+          "비용 효율성 분석을 위해 1,000건 호출 시나리오 시뮬레이션"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "회의론자의 Kubernetes 첫 탐색 (2024)",
+      "link": "https://news.hada.io/topic?id=35576",
+      "published_at": "2026-10-18T23:33:28+09:00",
+      "selection_score": 11,
+      "selection_reason": "Kubernetes의 핵심 설계 철학인 제어 루프를 다루고 있어 백엔드 아키텍처 이해에 큰 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Kubernetes의 제어 루프와 Service 설계 철학에 대한 심층 분석 및 운영상 절충점",
+      "key_points": [
+        "Kubernetes의 핵심은 관측과 조정을 반복하는 제어 루프(Controller) 패턴에 있음.",
+        "Service는 모든 노드가 부하 분산에 참여하는 구조로 가용성을 높이지만, 규칙 관리 비용이 발생함.",
+        "YAML 템플릿 기반의 문자열 보간 방식은 생태계의 복잡성을 높이는 주요 원인으로 지적됨."
+      ],
+      "topics": [
+        "Control Loop",
+        "Kubernetes Service",
+        "Infrastructure as Code"
+      ],
+      "recommended_for": "Kubernetes 아키텍처를 깊이 이해하고 싶은 백엔드 및 인프라 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "gopls의 대화형 리팩터링",
+      "link": "https://news.hada.io/topic?id=35577",
+      "published_at": "2026-10-19T00:02:15+09:00",
+      "selection_score": 11,
+      "selection_reason": "개발 생산성 향상을 위한 도구 업데이트이며, LSP 확장 제안 등 아키텍처적 관점에서도 참고할 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "gopls v0.24.0에 사용자 입력을 받는 대화형 리팩터링 기능이 도입되어 LSP의 한계를 극복함.",
+      "key_points": [
+        "gopls v0.24.0과 VS Code Go 확장 v0.56.0에서 구조체 태그 편집, 인터페이스 구현 등 대화형 리팩터링을 지원함.",
+        "기존 LSP는 서버가 문맥만으로 의도를 추론해야 했으나, 이번 확장으로 사용자 입력을 표준화하여 더 정교한 코드 변환이 가능해짐.",
+        "향후 함수 시그니처 변경, 이름 충돌 해결, 테스트/벤치마크 프로파일링 옵션 설정 등으로 기능을 확장할 계획임."
+      ],
+      "topics": [
+        "LSP(Language Server Protocol)",
+        "대화형 리팩터링(Interactive Refactoring)",
+        "JSON-RPC"
+      ],
+      "recommended_for": "Go 언어를 사용하며 개발 생산성 도구와 LSP 아키텍처에 관심이 많은 백엔드 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "gopls의 대화형 리팩터링 기능 직접 사용해보기",
+        "steps": [
+          "gopls v0.24.0 이상과 VS Code Go 확장 v0.56.0 이상으로 업데이트한다.",
+          "구조체에서 'Add struct tags'를 실행하여 태그와 명명 규칙을 대화창으로 선택해본다.",
+          "인터페이스 구현 기능을 사용하여 동적 심벌 검색으로 메서드 스텁을 생성해본다."
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "파서 조합기 - 작은 파서를 조합해 구조화된 데이터를 만드는 방법",
+      "link": "https://news.hada.io/topic?id=35581",
+      "published_at": "2026-10-19T01:39:54+09:00",
+      "selection_score": 12,
+      "selection_reason": "데이터 파싱 및 구조화는 백엔드 개발과 데이터 처리의 핵심 기술로, 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "작은 파싱 함수를 조합하여 복잡한 텍스트를 구조화된 데이터로 변환하는 파서 조합기 기법.",
+      "key_points": [
+        "파서 조합기는 작은 부분 파서를 순차적으로 연결하거나 반복하여 복잡한 텍스트를 객체로 변환하는 함수형 프로그래밍 기법임.",
+        "정규식보다 유지보수가 쉽고, tree-sitter보다 가벼운 데이터 파싱 작업에 적합함.",
+        "TypeScript의 튜플 타입과 함수 조합을 활용해 ping 명령 출력 같은 비정형 데이터를 구조화된 객체로 변환할 수 있음."
+      ],
+      "topics": [
+        "파서 조합기(Parser Combinator)",
+        "함수형 프로그래밍(Functional Programming)",
+        "구문 분석(Parsing)"
+      ],
+      "recommended_for": "로그 분석, CLI 도구 개발, 데이터 파싱 자동화를 자주 수행하는 백엔드 개발자.",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "정규식 대신 파서 조합기로 로그 파서 구현하기",
+        "steps": [
+          "파싱할 텍스트의 구조를 분석하여 최소 단위(정수, 문자열, 공백 등) 파서를 정의한다.",
+          "pSeq, pMap, pRepeat 등의 조합기를 사용하여 작은 파서들을 연결한다.",
+          "기존 정규식 기반 파싱 로직을 파서 조합기 코드로 교체하여 가독성과 유지보수성을 비교한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "웹사이트들이 AI 에이전트에 문을 닫고 있음",
+      "link": "https://news.hada.io/topic?id=35590",
+      "published_at": "2026-10-19T03:44:55+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 확산과 웹사이트 차단 정책은 에이전트 워크플로 설계 시 반드시 고려해야 할 중요한 업계 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "주요 웹사이트들이 보안 및 사업적 이유로 AI 에이전트의 접근을 차단하고 있음.",
+      "key_points": [
+        "Amazon, Yelp, 금융사 등 주요 서비스들이 AI 에이전트의 데이터 수집 및 자동화 작업을 차단하고 있음.",
+        "기업들은 광고 수익 감소 방지, 보안, 데이터 라이선스 보호를 위해 에이전트 접근을 제한함.",
+        "에이전트 차단은 일반 사용자의 웹 이용 경험을 저해하고, 봇 방지 시스템과의 충돌로 인해 서비스 이용을 어렵게 만들 수 있음."
+      ],
+      "topics": [
+        "AI 에이전트(AI Agent)",
+        "봇 방지 시스템(Bot Mitigation)",
+        "웹 스크래핑(Web Scraping)"
+      ],
+      "recommended_for": "AI 에이전트 워크플로를 설계하거나 웹 자동화 서비스를 개발하는 개발자.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "JDK 28 - 값 객체 프리뷰와 AOT 코드 컴파일을 포함할 Java SE 28 참조 구현",
+      "link": "https://news.hada.io/topic?id=35595",
+      "published_at": "2026-10-19T05:44:50+09:00",
+      "selection_score": 12,
+      "selection_reason": "Java 생태계의 주요 업데이트와 성능 개선 관련 기능은 백엔드 개발자에게 매우 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "JDK 28 참조 구현에 값 객체 프리뷰, AOT 컴파일 등 성능 및 생산성 향상 기능이 포함됨.",
+      "key_points": [
+        "JDK 28은 값 객체(JEP 401)와 JVM 필드 초기화(JEP 539)를 프리뷰로 도입함.",
+        "AOT(Ahead-of-Time) 코드 컴파일(JEP 544)과 ZGC 개선을 통해 실행 속도와 시작 시간을 최적화함.",
+        "구조화된 동시성(JEP 543)과 JSON API(JEP 540) 등 개발 생산성을 높이는 기능들이 포함됨."
+      ],
+      "topics": [
+        "값 객체(Value Objects)",
+        "AOT 컴파일(Ahead-of-Time Compilation)",
+        "구조화된 동시성(Structured Concurrency)"
+      ],
+      "recommended_for": "Java 기반 백엔드 시스템의 성능 최적화와 최신 언어 기능 도입을 검토하는 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "수학과 과학은 황금기를 맞을까, 암흑기를 맞을까?",
+      "link": "https://news.hada.io/topic?id=35596",
+      "published_at": "2026-10-19T05:47:50+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM의 연구 및 증명 능력 발전은 AI 기술의 미래와 개발 생산성 도구의 방향성을 이해하는 데 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI의 수학적 증명 능력 발전이 과학 연구의 황금기가 될지 암흑기가 될지는 제도적 선택에 달려 있음.",
+      "key_points": [
+        "LLM은 증명 생성에 탁월하지만, 기계가 생성한 증명과 인간의 이해 사이에는 간극이 존재함.",
+        "연구 공동체는 LLM을 활용하되, 독립적인 연구 역량과 기밀 보호, 재현성을 보존할 공적 인프라를 구축해야 함.",
+        "수학적 진보는 난제 해결뿐 아니라 새로운 개념 체계(수학화)를 만드는 데 있으며, 이를 위해 인간 연구자의 육성이 필수적임."
+      ],
+      "topics": [
+        "수학화(Mathematization)",
+        "증명 보조 도구(Lean)",
+        "AI 연구 윤리"
+      ],
+      "recommended_for": "AI 기술의 사회적 영향과 연구 워크플로의 미래에 관심이 많은 개발자 및 연구자.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Java의 sealed 클래스와 완전한 패턴 매칭",
+      "link": "https://news.hada.io/topic?id=35598",
+      "published_at": "2026-10-19T06:31:31+09:00",
+      "selection_score": 14,
+      "selection_reason": "Java의 최신 언어 기능을 활용한 코드 안정성 및 생산성 향상 기법으로 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Java의 sealed 클래스는 컴파일 시점의 안전성을 제공하지만, 공개 API로 사용 시 하위 타입 추가가 런타임 MatchException을 유발할 수 있어 주의가 필요합니다.",
+      "key_points": [
+        "sealed 클래스는 허용된 하위 타입만 가질 수 있어 switch 문에서 모든 경우를 처리했는지 컴파일러가 검사하는 '완전성 검사'를 지원합니다.",
+        "공개 API에 sealed 타입을 노출할 경우, 라이브러리 업데이트로 새 하위 타입이 추가되면 이를 재컴파일하지 않은 기존 사용 코드에서 런타임 오류가 발생할 수 있습니다.",
+        "sealed 타입은 컴포넌트 내부 구현처럼 전체를 함께 재컴파일하는 환경에 최적화되어 있으며, 외부 노출 시에는 하위 타입 변경이 가져올 호환성 파괴를 고려해야 합니다."
+      ],
+      "topics": [
+        "sealed 클래스",
+        "완전성 검사 (Exhaustiveness Checking)",
+        "분리 컴파일 (Separate Compilation)"
+      ],
+      "recommended_for": "Java로 라이브러리를 설계하거나 대규모 백엔드 시스템의 도메인 모델을 구축하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트 내 sealed 클래스 사용 범위 검토 및 API 노출 정책 수립",
+        "steps": [
+          "프로젝트 내 sealed 클래스가 사용된 모든 위치를 파악하고, 해당 클래스가 내부 모듈용인지 외부 API 노출용인지 분류합니다.",
+          "외부 API로 노출된 sealed 클래스가 있다면, 향후 하위 타입 추가 시 발생할 수 있는 MatchException 가능성을 문서화하고 대응 가이드를 작성합니다.",
+          "내부 모듈 간 통신에 사용되는 sealed 클래스에 대해 switch 표현식의 default 분기를 제거하여 컴파일러의 완전성 검사를 적극 활용하도록 코드를 리팩토링합니다."
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Show GN: 시그렌즈(SIGLENS): 코드로 계산한 시장 데이터를 근거로 LLM이 해석하는 분석 서비스",
+      "link": "https://news.hada.io/topic?id=35574",
+      "published_at": "2026-10-18T21:17:15+09:00",
+      "selection_score": 10,
+      "selection_reason": "데이터 분석과 LLM을 결합한 에이전트 서비스 사례로, 실무적인 구현 아이디어를 얻기에 좋습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "법률 전문가들, Meta의 새 약관이 여전히 광범위한 스크래핑을 허용한다고 경고",
+      "link": "https://news.hada.io/topic?id=35578",
+      "published_at": "2026-10-19T00:31:59+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 모델 학습 데이터와 관련된 법적 이슈는 AI Agent 및 데이터 활용 전략을 세우는 실무자에게 중요한 배경 지식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Matthew Prince가 밝힌 Cloudflare의 무료 버전 제공 이유와 유지 방침 (2016)",
+      "link": "https://news.hada.io/topic?id=35582",
+      "published_at": "2026-10-19T01:42:54+09:00",
+      "selection_score": 9,
+      "selection_reason": "클라우드 서비스의 비즈니스 모델과 보안 데이터 활용 전략을 이해하는 것은 아키텍처 설계에 유익합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Anthropic이 제안한 AI 안전 법안, 50명 사망이나 10억 달러 피해 위험이 있어야 작동",
+      "link": "https://news.hada.io/topic?id=35588",
+      "published_at": "2026-10-19T03:38:54+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 산업의 규제 방향성은 향후 AI Agent 및 LLM 기반 서비스 개발의 제약 조건이 될 수 있어 확인이 필요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Chrome과 Edge의 XSLT 제거: 무엇이 깨지고 무엇은 그대로인가",
+      "link": "https://news.hada.io/topic?id=35594",
+      "published_at": "2026-10-19T05:41:50+09:00",
+      "selection_score": 9,
+      "selection_reason": "브라우저의 기술 스택 변경은 웹 서비스 운영 및 백엔드 아키텍처 관점에서 확인이 필요한 정보입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

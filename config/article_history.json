@@ -1,6 +1,182 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "CVE-2026-99999(PwnEscape) — Linux 커널 취약점으로 VM 탈출 가능, VPS 사업자 긴급 대응",
+      "link": "https://news.hada.io/topic?id=35568",
+      "published_at": "2026-10-18T17:34:56+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "VM Escape",
+        "Linux Kernel Vulnerability",
+        "KVM/Firecracker"
+      ],
+      "one_line": "Linux 커널의 네트워크 스택 취약점(CVE-2026-99999)으로 인한 VM 탈출 위험 및 보안 패치 필요",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "Ask GN: AI 에이전트의 메모리는 어떻게 구현하고 있나요?",
+      "link": "https://news.hada.io/topic?id=35569",
+      "published_at": "2026-10-18T18:27:54+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Memory",
+        "Vector Database",
+        "Context Management"
+      ],
+      "one_line": "AI 에이전트의 장기 기억 및 문맥 유지를 위한 메모리 구현 방식에 대한 실무적 논의",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "DeepSeek 검색 및 페이지 가져오기 API, 성공 요청 1,000건당 0.75달러",
+      "link": "https://news.hada.io/topic?id=35571",
+      "published_at": "2026-10-18T18:34:27+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "RAG",
+        "Web Scraping API",
+        "Agentic Tools"
+      ],
+      "one_line": "DeepSeek의 Search 및 Fetch API 출시, 1,000건당 0.75달러의 경쟁력 있는 가격 책정",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: Sphinx - AI가 작성한 코드를 배포하기 전에 이해도를 묻는 훅",
+      "link": "https://news.hada.io/topic?id=35573",
+      "published_at": "2026-10-18T19:31:25+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Git Hook",
+        "AI-Assisted Development",
+        "Code Quality Gate"
+      ],
+      "one_line": "AI가 작성한 코드의 이해도를 검증하여 배포 전 실수를 방지하는 Git 훅 도구 'Sphinx'",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "회의론자의 Kubernetes 첫 탐색 (2024)",
+      "link": "https://news.hada.io/topic?id=35576",
+      "published_at": "2026-10-18T23:33:28+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Control Loop",
+        "Kubernetes Service",
+        "Infrastructure as Code"
+      ],
+      "one_line": "Kubernetes의 제어 루프와 Service 설계 철학에 대한 심층 분석 및 운영상 절충점",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "gopls의 대화형 리팩터링",
+      "link": "https://news.hada.io/topic?id=35577",
+      "published_at": "2026-10-19T00:02:15+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "LSP(Language Server Protocol)",
+        "대화형 리팩터링(Interactive Refactoring)",
+        "JSON-RPC"
+      ],
+      "one_line": "gopls v0.24.0에 사용자 입력을 받는 대화형 리팩터링 기능이 도입되어 LSP의 한계를 극복함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "파서 조합기 - 작은 파서를 조합해 구조화된 데이터를 만드는 방법",
+      "link": "https://news.hada.io/topic?id=35581",
+      "published_at": "2026-10-19T01:39:54+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "파서 조합기(Parser Combinator)",
+        "함수형 프로그래밍(Functional Programming)",
+        "구문 분석(Parsing)"
+      ],
+      "one_line": "작은 파싱 함수를 조합하여 복잡한 텍스트를 구조화된 데이터로 변환하는 파서 조합기 기법.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "웹사이트들이 AI 에이전트에 문을 닫고 있음",
+      "link": "https://news.hada.io/topic?id=35590",
+      "published_at": "2026-10-19T03:44:55+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트(AI Agent)",
+        "봇 방지 시스템(Bot Mitigation)",
+        "웹 스크래핑(Web Scraping)"
+      ],
+      "one_line": "주요 웹사이트들이 보안 및 사업적 이유로 AI 에이전트의 접근을 차단하고 있음.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "JDK 28 - 값 객체 프리뷰와 AOT 코드 컴파일을 포함할 Java SE 28 참조 구현",
+      "link": "https://news.hada.io/topic?id=35595",
+      "published_at": "2026-10-19T05:44:50+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "값 객체(Value Objects)",
+        "AOT 컴파일(Ahead-of-Time Compilation)",
+        "구조화된 동시성(Structured Concurrency)"
+      ],
+      "one_line": "JDK 28 참조 구현에 값 객체 프리뷰, AOT 컴파일 등 성능 및 생산성 향상 기능이 포함됨.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "수학과 과학은 황금기를 맞을까, 암흑기를 맞을까?",
+      "link": "https://news.hada.io/topic?id=35596",
+      "published_at": "2026-10-19T05:47:50+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "수학화(Mathematization)",
+        "증명 보조 도구(Lean)",
+        "AI 연구 윤리"
+      ],
+      "one_line": "AI의 수학적 증명 능력 발전이 과학 연구의 황금기가 될지 암흑기가 될지는 제도적 선택에 달려 있음.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-19T07:47:17.973279+09:00",
+      "company": "GeekNews",
+      "title": "Java의 sealed 클래스와 완전한 패턴 매칭",
+      "link": "https://news.hada.io/topic?id=35598",
+      "published_at": "2026-10-19T06:31:31+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "sealed 클래스",
+        "완전성 검사 (Exhaustiveness Checking)",
+        "분리 컴파일 (Separate Compilation)"
+      ],
+      "one_line": "Java의 sealed 클래스는 컴파일 시점의 안전성을 제공하지만, 공개 API로 사용 시 하위 타입 추가가 런타임 MatchException을 유발할 수 있어 주의가 필요합니다.",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-10-17T08:15:41.902670+09:00",
       "company": "토스",
       "title": "토스뱅크가 패키지를 관리하는 방식 #2: 토스뱅크 패키지의 세 가지 기준",
@@ -7141,5 +7317,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-17T08:15:41.902670+09:00"
+  "updated_at": "2026-10-19T07:47:17.973279+09:00"
 }
