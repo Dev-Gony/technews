@@ -1,0 +1,771 @@
+{
+  "schema_version": 1,
+  "issue_number": 31,
+  "issue_date": "2026-10-20",
+  "generated_at": "2026-10-20T09:12:43.846338+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nSystem One 모델, Thin Orchestrator, 인터럽트 최적화, AI 에이전트 신뢰성, 프롬프트 캐싱\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 복잡성을 제어하고 추론 비용과 성능을 최적화하는 실무적 아키텍처 패턴이 정착되고 있습니다.\n\n[오늘 왜 중요한가]\n\n단순한 LLM 호출을 넘어, 에이전트 시스템의 신뢰성을 높이고 비용을 절감하는 최적화 기법이 실무의 핵심으로 떠오르고 있습니다. 인프라 수준의 성능 개선부터 에이전트 워크플로 설계까지, 생산성을 극대화하기 위한 기술적 전환점을 확인해야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 8번: LLM의 추론 없이도 정형 데이터를 정확하고 저렴하게 추출하는 System One 모델은 AI 파이프라인의 비용 구조를 근본적으로 바꿀 수 있습니다.\n• 6번: 복잡한 에이전트 시스템에서 라우터와 추론 로직을 분리하는 Thin Orchestrator 패턴은 환각을 줄이고 시스템 신뢰성을 높이는 필수적인 설계 전략입니다.\n• 1번: 평균 지표에 가려진 CPU 병목을 인터럽트 분산으로 해결한 사례는 고성능 백엔드 인프라 운영의 정석을 보여줍니다.\n\n[오늘 공부해볼 것]\n\n• System One 모델의 개념과 활용: LLM의 토큰 생성 없이 데이터 추출과 계산을 수행하는 방식이 기존 파이프라인에 미칠 영향을 파악합니다.\n• Thin Orchestrator 패턴 설계: 에이전트 시스템에서 결정론적 라우팅과 도메인 추론을 분리하여 관리하는 아키텍처를 학습합니다.\n• NIC 인터럽트 분산 진단: 서버의 CPU 인터럽트 분포를 확인하고 NUMA 노드 최적화를 통해 성능 병목을 해결하는 실무 지식을 익힙니다.",
+  "stats": {
+    "candidate_count": 42,
+    "detailed_count": 23,
+    "brief_count": 6,
+    "excluded_count": 13,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Clairic, a new System One class of extraction models",
+      "link": "https://blog.cloudflare.com/clairic-extraction-model",
+      "published_at": "Mon, 19 Oct 2026 17:48:26 GMT",
+      "selection_score": 15,
+      "selection_reason": "LLM의 한계를 보완하는 새로운 클래스의 추출 모델 도입은 AI 아키텍처와 비용 효율성 측면에서 매우 중요한 기술 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM의 추론 없이 구조화된 데이터를 추출, 계산, 예측하는 'System One' 클래스의 새로운 추출 모델 'Clairic' 공개.",
+      "key_points": [
+        "Clairic은 토큰 생성 없이 단일 패스로 값을 추출하므로 기존 LLM 대비 훨씬 빠르고 저렴하며 정확함.",
+        "텍스트 추출뿐만 아니라 수치 계산, 날짜 파싱, 미래 예측 등 타입이 지정된 구조화된 출력을 보장함.",
+        "신뢰도 점수(Confidence score)와 null 확률을 제공하여 모델의 답변을 신뢰할지 여부를 판단할 수 있음."
+      ],
+      "topics": [
+        "System One Model",
+        "Structured Data Extraction",
+        "Inference Optimization"
+      ],
+      "recommended_for": "비정형 데이터에서 정형 데이터를 추출하는 파이프라인의 비용과 성능을 개선하고자 하는 데이터 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 LLM 기반 추출 로직을 Clairic 모델로 대체 테스트",
+        "steps": [
+          "현재 LLM으로 수행 중인 데이터 추출 작업 중 정형화 가능한 필드 식별하기",
+          "Cloudflare Workers AI 환경에서 Clairic 모델을 호출하여 추출 정확도와 응답 속도 비교하기"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
+      "link": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture",
+      "published_at": "Mon, 19 Oct 2026 15:30:37 +0000",
+      "selection_score": 14,
+      "selection_reason": "AI Agent의 신뢰성을 높이는 'Thin Orchestrator' 패턴은 복잡한 에이전트 시스템 설계에 매우 유익한 아키텍처 인사이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "복잡한 AI 에이전트 시스템의 신뢰성을 높이기 위해, 도메인 추론을 분리하고 라우팅만 담당하는 'Thin Orchestrator' 패턴을 도입함.",
+      "key_points": [
+        "단일 에이전트에게 모든 지식을 주입하면 컨텍스트 오염과 환각이 발생하므로, 라우터와 전문 에이전트로 역할을 분리해야 함.",
+        "오케스트레이터는 결정론적(Deterministic)인 라우팅과 신뢰성 검사만 수행하고, 도메인 추론은 격리된 전문 에이전트가 담당함.",
+        "워크플로 템플릿을 사용하여 에이전트 코드를 수정하지 않고도 새로운 비즈니스 로직을 시퀀싱할 수 있는 확장성을 확보함."
+      ],
+      "topics": [
+        "Thin Orchestrator",
+        "Multi-agent System",
+        "Deterministic Routing"
+      ],
+      "recommended_for": "복잡한 워크플로를 자동화하는 AI 에이전트 시스템을 설계하거나 운영하는 백엔드 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 에이전트 워크플로의 라우팅과 추론 로직 분리하기",
+        "steps": [
+          "현재 에이전트가 수행하는 작업 중 '결정론적 라우팅'과 '도메인 추론'을 구분하여 리스트업하기",
+          "라우팅 로직을 별도의 함수나 클래스로 분리하여 LLM 호출 없이 처리 가능한지 테스트하기"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "토스",
+      "title": "평균 CPU는 여유로운데, 커밋은 왜 느릴까?",
+      "link": "https://toss.tech/article/nic-interrupt-bottleneck",
+      "published_at": "Mon, 19 Oct 2026 03:07:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "백엔드 아키텍처와 성능 개선의 핵심인 인터럽트 최적화 사례로, 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "평균 지표에 가려진 CPU 병목, NIC 인터럽트 분산으로 해결하기",
+      "key_points": [
+        "평균 CPU 사용률이 낮아도 특정 코어에 인터럽트가 몰리면 병목이 발생해 커밋 지연이 생길 수 있음.",
+        "/proc/interrupts를 통해 NIC 인터럽트가 특정 NUMA 노드(소켓)에 집중된 것을 확인하고, 이를 분산 배치함.",
+        "인터럽트 분산 후 CPU 사용률이 절반으로 줄고, Oracle DB의 log file sync 대기 시간이 개선됨."
+      ],
+      "topics": [
+        "NUMA(Non-Uniform Memory Access)",
+        "NIC 인터럽트(IRQ) 분산",
+        "log file sync 대기 이벤트"
+      ],
+      "recommended_for": "DB 성능 최적화나 고성능 백엔드 인프라를 운영하는 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "서버의 인터럽트 분포 확인 및 병목 진단",
+        "steps": [
+          "30초 간격으로 cat /proc/interrupts를 두 번 실행하여 차분값을 계산한다.",
+          "특정 코어에 인터럽트가 집중되는지 확인하고, pidstat -t -p <pid> 1 명령으로 지연이 발생하는 프로세스의 CPU 점유를 추적한다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "무신사",
+      "title": "빠른 기기가 왜 기다려야 하지?",
+      "link": "https://techblog.musinsa.com/%EB%B9%A0%EB%A5%B8-%EA%B8%B0%EA%B8%B0%EA%B0%80-%EC%99%9C-%EA%B8%B0%EB%8B%A4%EB%A0%A4%EC%95%BC-%ED%95%98%EC%A7%80-a0533ee53dd2",
+      "published_at": "Mon, 19 Oct 2026 22:01:02 GMT",
+      "selection_score": 12,
+      "selection_reason": "테스트 자동화 워크플로 개선과 병목 해결 과정은 개발 생산성 향상에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "테스트 자동화 프레임워크 3.0: 공유 Queue와 중앙 설정으로 병목 제거",
+      "key_points": [
+        "고정된 기기별 시나리오 배분 방식은 가장 느린 기기가 전체 시간을 결정하는 병목을 유발함.",
+        "공유 Queue를 도입해 작업이 끝난 기기가 즉시 다음 시나리오를 가져가게 하여 유휴 시간을 최소화함.",
+        "기기별 스크립트를 중앙 설정으로 통합하여 관리 효율성을 높이고 기기 확장성을 확보함."
+      ],
+      "topics": [
+        "공유 Queue(Shared Queue)",
+        "테스트 자동화 병렬 처리",
+        "병목 제거(Bottleneck Removal)"
+      ],
+      "recommended_for": "QA 자동화 환경을 구축하거나 테스트 파이프라인의 속도를 개선하고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "테스트 자동화 파이프라인의 작업 분배 방식 개선",
+        "steps": [
+          "현재 테스트 실행 구조에서 기기별 고정 배분 방식을 공유 Queue 기반의 동적 할당 방식으로 변경할 수 있는지 검토한다.",
+          "기기별 설정 파일을 중앙 집중형 설정(DB 또는 중앙 서버)으로 이전하여 관리 포인트를 단일화한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Native Model Authoring for Edge with LiteRT Tensor API",
+      "link": "https://developers.googleblog.com/native-model-authoring-for-edge-with-litert-tensor-api",
+      "published_at": "",
+      "selection_score": 11,
+      "selection_reason": "엣지 디바이스에서의 ML 성능 개선을 위한 C++ 제어 기술로, 하드웨어 최적화에 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "LiteRT Tensor API를 활용한 엣지 디바이스용 네이티브 모델 저작",
+      "key_points": [
+        "LiteRT Tensor API는 C++로 직접 연산 그래프를 작성하여 엣지 디바이스에서 모델을 최적화할 수 있게 함.",
+        "CPU, GPU, NPU 간 제로 카피(Zero-copy) 버퍼 공유를 통해 추론 전후 처리 파이프라인의 성능을 극대화함.",
+        "코딩 에이전트가 모델 그래프를 생성, 재구성, 튜닝하기에 적합한 구조적 프리미티브를 제공함."
+      ],
+      "topics": [
+        "LiteRT Tensor API",
+        "제로 카피(Zero-copy) 버퍼",
+        "엣지 AI 최적화"
+      ],
+      "recommended_for": "온디바이스 AI 모델의 성능을 극한으로 끌어올리고 싶은 모바일/웹 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Step by Step guide: Build a Voice Agent That Never Goes Silent using ADK",
+      "link": "https://developers.googleblog.com/step-by-step-guide-build-a-voice-agent-that-never-goes-silent-using-adk",
+      "published_at": "",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 Python을 활용한 실시간 음성 에이전트 구축 가이드로, 최신 Agentic Workflow 트렌드와 일치합니다.",
+      "feedback_bias": 0,
+      "one_line": "ADK를 활용한 실시간 음성 AI 에이전트 구축 가이드",
+      "key_points": [
+        "오픈소스 ADK와 gemini-3.8-live를 사용하여 응답성이 뛰어난 음성 에이전트를 구축할 수 있음.",
+        "Python의 비차단(non-blocking) 도구와 스트리밍 기능을 활용해 긴 백엔드 작업 중에도 대화 흐름을 유지함.",
+        "WHEN_IDLE, INTERRUPT 등 응답 스케줄링 설정을 통해 도구 결과 전달 시점을 정밀하게 제어함."
+      ],
+      "topics": [
+        "ADK(Agent Development Kit)",
+        "Agentic Workflow",
+        "실시간 음성 인터페이스"
+      ],
+      "recommended_for": "음성 기반 AI 에이전트 서비스를 개발 중인 백엔드 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "ADK를 활용한 음성 에이전트 프로토타입 구현",
+        "steps": [
+          "GitHub에서 ADK 저장소를 클론하여 기본 예제 코드를 실행해본다.",
+          "비차단 도구(non-blocking tools)를 사용하여 간단한 백엔드 API 호출과 음성 응답 스트리밍을 연동해본다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "How to continue a GitHub Copilot app session in VS Code",
+      "link": "https://github.blog/ai-and-ml/github-copilot/how-to-continue-a-github-copilot-app-session-in-vs-code",
+      "published_at": "Mon, 19 Oct 2026 18:47:22 +0000",
+      "selection_score": 12,
+      "selection_reason": "GitHub Copilot 세션 연동은 개발 생산성을 높이는 실질적인 워크플로 개선 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub Copilot 세션을 VS Code로 이어가며 개발 생산성 극대화",
+      "key_points": [
+        "Copilot 앱에서 시작한 세션을 VS Code로 직접 열어 컨텍스트 유지 상태에서 개발을 이어갈 수 있음.",
+        "에이전트가 생성한 코드 변경 사항을 VS Code의 소스 제어 뷰에서 검토하고 로컬 테스트를 즉시 수행 가능.",
+        "에이전트의 자동화 작업과 개발자의 수동 편집/테스트를 유연하게 결합하여 워크플로 효율을 높임."
+      ],
+      "topics": [
+        "GitHub Copilot 세션",
+        "워크트리(Worktree)",
+        "AI 기반 개발 워크플로"
+      ],
+      "recommended_for": "GitHub Copilot을 활용해 생산성을 높이고 싶은 모든 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Copilot 세션 연동 워크플로 도입",
+        "steps": [
+          "진행 중인 작업 중 Copilot 앱에서 시작한 세션을 'Open in VS Code' 기능을 통해 편집기로 불러온다.",
+          "에이전트가 작성한 코드의 diff를 검토하고, 로컬 터미널에서 테스트를 실행하여 에이전트의 결과물을 검증한다."
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Beyond the patch: Protecting your NetScaler gateway against future vulnerabilities",
+      "link": "https://blog.cloudflare.com/protect-your-netscaler-gateway",
+      "published_at": "Mon, 19 Oct 2026 13:00:00 GMT",
+      "selection_score": 11,
+      "selection_reason": "보안 취약점 대응 및 방어 전략은 서버 운영자에게 필수적인 실무 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "Citrix NetScaler 취약점 사례를 통해, 공개된 인증 페이지를 제로 트러스트 정책으로 보호하는 심층 방어 전략을 제시함.",
+      "key_points": [
+        "공개된 인증 페이지는 공격 표면이 되므로, 인증 서버 앞단에 별도의 접근 제어(Access Policy)를 배치해야 함.",
+        "Cloudflare Tunnel 등을 활용해 원본 서버의 공인 IP를 노출하지 않고 인바운드 트래픽을 차단하는 것이 중요함.",
+        "WAF와 제로 트러스트 정책을 결합하여 알려진 취약점뿐만 아니라 머신러닝 기반의 이상 탐지까지 수행해야 함."
+      ],
+      "topics": [
+        "Zero Trust",
+        "Defense in Depth",
+        "Attack Surface Reduction"
+      ],
+      "recommended_for": "기업 내부망 및 외부 노출 서비스의 보안 아키텍처를 담당하는 서버 운영자 및 보안 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Cutting our inference bill by 68% by being obsessive about optimization",
+      "link": "https://blog.cloudflare.com/obsessive-inference-optimization",
+      "published_at": "Mon, 19 Oct 2026 19:12:53 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 워크플로의 비용 최적화 사례는 실무자에게 즉각적인 인사이트와 방법론을 제공하는 매우 가치 있는 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "프롬프트 캐싱 최적화와 모델 호출 효율화를 통해 AI 코드 리뷰어의 추론 비용을 68% 절감한 사례.",
+      "key_points": [
+        "프롬프트 캐싱을 위해 공유되는 시스템 프롬프트와 도구 정의를 별도의 캐시 브레이크포인트로 분리하여 재사용성을 극대화함.",
+        "불필요한 LLM 호출을 줄이고, 병렬 파일 읽기 및 리뷰어 스킵 로직을 도입하여 토큰 사용량을 획기적으로 감소시킴.",
+        "모델의 성능과 비용을 지속적으로 평가하여 최적의 모델(Sonnet 5.5 등)과 노력 수준(Medium/High)을 동적으로 조정함."
+      ],
+      "topics": [
+        "Prompt Caching",
+        "Cost Optimization",
+        "Inference Efficiency"
+      ],
+      "recommended_for": "LLM 기반 서비스의 API 비용 절감과 성능 최적화가 필요한 백엔드 및 AI 엔지니어.",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "LLM 호출 시 프롬프트 캐싱 적용 및 호출 횟수 최적화",
+        "steps": [
+          "현재 LLM 호출 시 반복되는 시스템 프롬프트와 도구 정의를 식별하여 캐시 가능한 접두사로 분리하기",
+          "불필요한 중간 단계의 LLM 호출(예: 요약 생성 등)을 제거하거나 병렬 처리로 변경하기"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM 프록시를 직접 운영하지 않으면, 모델 호출에서 무슨 일이 벌어지는지 어떻게 알 수 있을까?",
+      "link": "https://news.hada.io/topic?id=35631",
+      "published_at": "2026-10-19T16:32:09+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM 프록시 운영은 AI 서비스의 모니터링, 비용 관리, 아키텍처 설계 측면에서 실무적으로 매우 중요한 주제입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 프록시를 직접 운영하여 모델 호출의 가시성을 확보하고 비용과 보안을 통제하는 운영 전략.",
+      "key_points": [
+        "자체 프록시를 운영하면 제공업체의 대시보드에서 확인하기 어려운 상세한 호출 로그와 시계열 토큰 통계를 직접 확보할 수 있음.",
+        "가상 API 키를 사용하여 실제 키 노출을 방지하고, 여러 모델과 제공업체를 단일 엔드포인트로 관리하여 유연성을 높임.",
+        "구독제 모델의 한계와 비용 구조를 파악하고, 필요에 따라 API 종량제와 적절히 혼합하여 운영 효율을 최적화해야 함."
+      ],
+      "topics": [
+        "LLM Proxy",
+        "Observability",
+        "API Gateway"
+      ],
+      "recommended_for": "LLM 서비스의 비용 관리와 운영 가시성 확보가 필요한 AI 서비스 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "LLM 프록시 도입을 위한 기술 스택 검토",
+        "steps": [
+          "LiteLLM 또는 자체 구축 프록시(Nenya 등)의 기능과 보안 요구사항 비교하기",
+          "현재 사용 중인 LLM 호출 로그를 수집하여 비용 분석 및 이상 탐지 시나리오 설계하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "DeepSeek V4.1 Flash 1017 - AAII 45점, 초당 약 225토큰 출력",
+      "link": "https://news.hada.io/topic?id=35633",
+      "published_at": "2026-10-19T17:33:27+09:00",
+      "selection_score": 13,
+      "selection_reason": "고성능 오픈 가중치 모델의 등장은 LLM 활용 및 시스템 설계 시 모델 선택의 폭을 넓혀주는 중요한 업계 소식입니다.",
+      "feedback_bias": 0,
+      "one_line": "DeepSeek V4.1 Flash 1017 모델 공개, 고성능·저비용으로 오픈 가중치 모델 경쟁력 강화",
+      "key_points": [
+        "DeepSeek V4.1 Flash 1017은 5,520억 매개변수 MoE 모델로, 텍스트·이미지 입력과 100만 토큰 컨텍스트를 지원함.",
+        "API 출력 속도는 초당 약 225토큰으로 매우 빠르며, MIT 라이선스로 공개되어 자체 호스팅 및 상업적 활용이 가능함.",
+        "최대 추론 설정(Max)은 성능이 높지만 토큰 소모가 크므로, 실제 작업 시에는 낮은 추론 강도 설정이 비용 효율적일 수 있음."
+      ],
+      "topics": [
+        "MoE (Mixture of Experts)",
+        "Chain of Thought (CoT)",
+        "오픈 가중치 모델"
+      ],
+      "recommended_for": "고성능 LLM을 자체 호스팅하거나 저렴한 API로 대규모 추론 작업을 수행하려는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "DeepSeek V4.1 Flash 1017의 추론 강도별 비용 및 성능 비교",
+        "steps": [
+          "현재 사용 중인 작업 중 하나를 선정하여 DeepSeek API의 Low, High, Max 추론 강도로 각각 실행",
+          "각 설정별 토큰 소모량과 응답 품질, 소요 시간을 기록하여 최적의 가성비 설정 확인"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Linux 7.3 출시 - 스케줄링 개선과 새로운 파일 접근 격리 기능",
+      "link": "https://news.hada.io/topic?id=35635",
+      "published_at": "2026-10-19T18:31:52+09:00",
+      "selection_score": 11,
+      "selection_reason": "Linux 커널의 스케줄링 개선은 서버 성능 최적화와 백엔드 인프라 운영에 직접적인 영향을 주는 중요한 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "Linux 7.3 커널 출시, BPF 기반 스케줄링과 파일 접근 격리 기능 강화",
+      "key_points": [
+        "sched_ext를 통해 BPF 프로그램으로 프로세스 그룹별 맞춤형 CPU 스케줄링 정책을 적용할 수 있음.",
+        "fchroot()와 failfs를 도입하여 프로세스의 파일 시스템 접근 경로를 엄격하게 제한하는 샌드박싱 환경 구축이 가능함.",
+        "가상 머신의 메모리 사용량 추적 기능과 SMB 서버 개선 등 대규모 인프라 운영을 위한 기능이 대거 추가됨."
+      ],
+      "topics": [
+        "sched_ext",
+        "BPF (Berkeley Packet Filter)",
+        "샌드박싱"
+      ],
+      "recommended_for": "대규모 서버 인프라를 관리하거나 커널 수준의 보안 및 성능 최적화에 관심 있는 시스템 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Timestral - Mistral이 공개한 시계열 파운데이션 모델",
+      "link": "https://news.hada.io/topic?id=35642",
+      "published_at": "2026-10-19T22:35:17+09:00",
+      "selection_score": 12,
+      "selection_reason": "시계열 데이터 분석을 위한 파운데이션 모델의 등장은 데이터 분석 및 AI 활용 영역을 확장하는 중요한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Mistral, 시계열 데이터 예측을 위한 파운데이션 모델 'Timestral' 공개",
+      "key_points": [
+        "Timestral은 센서 데이터, 수요 예측 등 시계열 데이터를 별도 학습 없이 제로샷으로 예측하는 파운데이션 모델임.",
+        "21개 분위수 출력을 통해 예측값뿐만 아니라 불확실성 범위까지 제공하여 유지보수 및 리스크 관리에 활용 가능함.",
+        "5M부터 209M까지 4가지 크기로 제공되며, GPU 없이 CPU 환경에서도 빠른 추론이 가능함."
+      ],
+      "topics": [
+        "시계열 파운데이션 모델",
+        "제로샷 예측",
+        "분위수 회귀"
+      ],
+      "recommended_for": "데이터 분석가 및 시계열 예측 모델을 도입하려는 백엔드/데이터 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Cloudflare에서 무료로 실행하는 WhatsApp MCP",
+      "link": "https://news.hada.io/topic?id=35643",
+      "published_at": "2026-10-19T22:38:17+09:00",
+      "selection_score": 14,
+      "selection_reason": "사용자의 핵심 관심사인 AI Agent, MCP, 클라우드 활용을 직접적으로 다루는 실무적인 프로젝트 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare에서 실행하는 WhatsApp MCP 서버로 AI 에이전트의 대화 검색 구현",
+      "key_points": [
+        "WhatsApp Web 프로토콜을 활용해 개인 WhatsApp 메시지를 읽고 검색할 수 있는 MCP 서버를 Cloudflare에 배포함.",
+        "메시지 전송은 지원하지 않으며, 읽기 전용으로 에이전트가 대화 내용을 요약하거나 특정 정보를 검색하는 데 활용함.",
+        "WhatsApp 약관 위반 및 계정 차단 위험이 있으므로 개인적인 용도로만 주의해서 사용해야 함."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "Cloudflare Workers",
+        "Durable Objects"
+      ],
+      "recommended_for": "AI 에이전트에게 개인 메신저 맥락을 제공하여 생산성을 높이고 싶은 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Superlite - Superpowers보다 빠른 Claude Code 플러그인",
+      "link": "https://news.hada.io/topic?id=35647",
+      "published_at": "2026-10-20T00:46:43+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agentic Workflow와 개발 생산성을 극대화하는 최신 도구로 실무 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Code 플러그인 'Superlite' 출시, 병렬 실행으로 개발 속도 50% 향상",
+      "key_points": [
+        "Superlite는 반복적인 사람의 승인을 줄이고 작업을 병렬로 처리하여 Claude Code의 개발 속도를 획기적으로 개선함.",
+        "작업 그래프를 통해 독립적인 태스크를 병렬 실행하고, 에이전트별 역할을 분리하여 최적의 모델을 배정함.",
+        "코드 수정 금지 훅과 백그라운드 테스트 실행을 통해 조율자의 개입 없이도 안정적인 자율 개발을 지원함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Claude Code",
+        "병렬 에이전트 조율"
+      ],
+      "recommended_for": "Claude Code를 사용하여 AI 기반 개발 생산성을 극대화하고 싶은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Superlite 플러그인 설치 및 간단한 기능 구현 테스트",
+        "steps": [
+          "Claude Code 환경에서 `/plugin marketplace add iha2/superlite` 명령으로 플러그인 설치",
+          "간단한 기능 명세(예: React Todo 리스트)를 작성하여 Superlite의 자율 실행 및 병렬 작업 처리 과정 관찰"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Let's Encrypt, 도메인 검증용 원격 관측 지점 2곳 추가",
+      "link": "https://news.hada.io/topic?id=35648",
+      "published_at": "2026-10-20T00:49:43+09:00",
+      "selection_score": 11,
+      "selection_reason": "보안 및 서버 인프라 운영의 핵심인 Let's Encrypt의 정책 변화는 실무자에게 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Let's Encrypt가 도메인 검증용 원격 관측 지점을 6곳으로 확대하여 BGP 공격 방어력을 강화합니다.",
+      "key_points": [
+        "Let's Encrypt는 기존 4곳이었던 원격 관측 지점을 6곳으로 늘려, 주 데이터센터와 함께 총 7회 검증을 수행합니다.",
+        "2026년 12월 15일부터 시행되는 CA/B Forum의 다중 관점 검증 요건을 충족하기 위한 조치입니다.",
+        "여러 네트워크 경로에서 검증을 수행함으로써 공격자가 BGP 하이재킹 등을 통해 인증서를 부정 발급받는 위험을 줄입니다."
+      ],
+      "topics": [
+        "Multi-Perspective Issuance Corroboration",
+        "BGP Hijacking",
+        "ACME Protocol"
+      ],
+      "recommended_for": "웹 서버 보안 및 인증서 관리 자동화를 담당하는 백엔드 및 인프라 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "tmux와 Claude Code: 세션, send-keys, 그리고 한계",
+      "link": "https://news.hada.io/topic?id=35650",
+      "published_at": "2026-10-20T02:41:11+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트 워크플로를 터미널 환경에서 효율적으로 관리하는 실무적인 팁을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "tmux를 활용해 AI 코딩 에이전트의 세션을 관리하고 자동화하는 실무 가이드입니다.",
+      "key_points": [
+        "tmux는 장기 실행되는 AI 에이전트 프로세스를 터미널 연결 해제와 무관하게 유지하고 관리하는 데 최적입니다.",
+        "send-keys와 capture-pane을 조합하면 외부 스크립트로 에이전트에게 입력을 보내거나 상태를 파악할 수 있습니다.",
+        "에이전트의 상태(승인 대기 등)를 텍스트 출력 기반으로 추정하는 것은 한계가 있으므로, 복잡한 워크플로에는 전용 도구 고려가 필요합니다."
+      ],
+      "topics": [
+        "tmux session management",
+        "Terminal Multiplexing",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "Claude Code 등 터미널 기반 AI 에이전트를 자주 사용하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "tmux와 Claude Code를 연동하여 세션 자동화 구성하기",
+        "steps": [
+          "tmux 설정 파일에 history-limit과 마우스 지원 옵션을 추가하여 에이전트 출력 가독성 확보",
+          "send-keys를 활용해 특정 에이전트 세션에 프롬프트를 자동으로 전송하는 셸 스크립트 작성",
+          "monitor-silence를 사용하여 에이전트 작업 완료 여부를 알림으로 받는 워크플로 구축"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Harness Engineering 101 - Python 약 300줄로 배우는 AI 에이전트 구현",
+      "link": "https://news.hada.io/topic?id=35651",
+      "published_at": "2026-10-20T02:44:11+09:00",
+      "selection_score": 14,
+      "selection_reason": "Python을 활용한 AI 에이전트의 핵심 원리를 직접 구현해보는 튜토리얼로 학습 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "순수 Python으로 AI 에이전트의 핵심 루프와 하네스를 직접 구현하며 원리를 학습하는 튜토리얼입니다.",
+      "key_points": [
+        "LLM API의 무상태성을 보완하는 '하네스(Harness)'의 개념과 에이전트 루프의 기본 구조를 다룹니다.",
+        "도구 호출, 컨텍스트 관리, 백그라운드 작업 등 에이전트의 핵심 기능을 16단계로 나누어 구현합니다.",
+        "프레임워크 없이 직접 구현함으로써 에이전트의 동작 원리와 한계를 깊이 있게 이해할 수 있습니다."
+      ],
+      "topics": [
+        "Agentic Loop",
+        "LLM Context Management",
+        "Tool Calling"
+      ],
+      "recommended_for": "AI 에이전트의 내부 동작 원리를 깊이 이해하고 싶은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "study",
+        "title": "Python으로 나만의 최소 기능 에이전트(Harness) 구현하기",
+        "steps": [
+          "GitHub 저장소에서 1장(JSON 배열 통신) 예제 코드를 실행하여 LLM API 호출 루프 이해",
+          "3장(도구 호출)을 참고하여 로컬 함수를 LLM이 호출할 수 있도록 연결",
+          "6장(컨텍스트 관리)을 적용하여 대화 기록이 길어질 때 토큰 예산을 관리하는 로직 구현"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Qwen3-4B의 AI 특유 글쓰기 습관을 학습으로 제거한 모델",
+      "link": "https://news.hada.io/topic?id=35655",
+      "published_at": "2026-10-20T03:52:06+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM의 문체 제어 및 로컬 실행 최적화는 개발 생산성 및 AI 활용 측면에서 실무적 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Qwen3-4B 모델을 미세 조정하여 AI 특유의 상투적인 문체를 제거한 'qwen3-4b-deslop' 모델입니다.",
+      "key_points": [
+        "AI 모델이 자주 사용하는 엠 대시, 상투적 전환 표현 등을 학습을 통해 제거하여 인간적인 문체를 구현했습니다.",
+        "뉴런 편집과 LoRA 어댑터를 결합하여 모델의 지능 손상 없이 문체만 최적화했습니다.",
+        "Ollama를 통해 로컬에서 즉시 실행 가능하며, 특정 문체 습관을 제거하는 파이프라인을 제시합니다."
+      ],
+      "topics": [
+        "Fine-tuning",
+        "LoRA",
+        "Model Steering"
+      ],
+      "recommended_for": "LLM의 문체 제어에 관심이 있거나 로컬 LLM을 활용하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "qwen3-4b-deslop 모델을 로컬 환경에서 테스트하기",
+        "steps": [
+          "Ollama를 설치하고 해당 모델을 다운로드하여 실행",
+          "기존 Qwen3-4B 모델과 동일한 프롬프트를 입력하여 문체 차이 비교",
+          "자주 사용하는 글쓰기 작업(블로그, 이메일 등)에 적용하여 실무 활용 가능성 검토"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "GitHub Actions, GitHub Pages, Webhooks 가용성 저하",
+      "link": "https://news.hada.io/topic?id=35656",
+      "published_at": "2026-10-20T03:55:06+09:00",
+      "selection_score": 12,
+      "selection_reason": "GitHub Actions 및 워크플로 관련 장애는 개발 생산성에 직접적인 영향을 미치므로 중요도가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub Actions, Pages, Webhooks 서비스에서 발생한 가용성 저하 장애가 해결되었습니다.",
+      "key_points": [
+        "2026년 10월 19일, GitHub의 주요 자동화 서비스에서 지연 및 가용성 저하 장애가 발생했습니다.",
+        "약 1시간 이상의 조사와 완화 조치 끝에 서비스가 정상화되었습니다.",
+        "근본 원인 분석(RCA)은 추후 공개될 예정이며, 현재는 모니터링이 진행 중입니다."
+      ],
+      "topics": [
+        "Service Availability",
+        "CI/CD Pipeline",
+        "Incident Response"
+      ],
+      "recommended_for": "GitHub Actions 기반의 CI/CD 파이프라인을 운영하는 모든 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "MiniMax M3.1 Flash - 에이전트 성능을 높이고 사용 비용을 70% 낮춘 모델",
+      "link": "https://news.hada.io/topic?id=35657",
+      "published_at": "2026-10-20T04:33:43+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 성능 향상과 비용 절감은 현재 가장 중요한 기술적 관심사이며 실무 적용 가치가 매우 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "MiniMax M3.1 Flash 출시, 에이전트 성능 강화 및 비용 70% 절감",
+      "key_points": [
+        "M3.1 Flash는 에이전트 작업, 코딩, 사이버보안 등 복잡한 업무에서 최상위 모델 수준의 성능을 기록함.",
+        "이전 모델 대비 추론 속도는 3배 빨라졌으며, 에이전트 작업의 전체 사용 비용은 70% 낮아짐.",
+        "100만 토큰당 입력 0.15달러, 출력 0.60달러의 저렴한 가격으로 제공되며 모델 가중치는 추후 공개 예정임."
+      ],
+      "topics": [
+        "AI Agent",
+        "Sparsity(희소성)",
+        "Inference Efficiency"
+      ],
+      "recommended_for": "AI 에이전트 도입을 고려하며 추론 비용 절감과 성능 최적화가 필요한 백엔드 개발자 및 아키텍트",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 에이전트 워크플로의 비용 및 성능 벤치마크 테스트",
+        "steps": [
+          "현재 사용 중인 모델과 M3.1 Flash의 API 호출 비용 및 응답 속도를 동일한 프롬프트로 비교 테스트",
+          "에이전트의 도구 호출 정확도와 복잡한 작업 수행 능력을 기존 모델과 대조하여 평가"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Mercury 3 - 대규모로 확장한 확산 기반 LLM",
+      "link": "https://news.hada.io/topic?id=35658",
+      "published_at": "2026-10-20T04:36:43+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM 모델의 성능 및 효율성 개선은 백엔드 아키텍처 및 AI 도입 전략에 중요한 참고 자료가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "확산 기반 LLM 'Mercury 3' 공개, 초당 1,000토큰 이상의 고속 추론 지원",
+      "key_points": [
+        "Mercury 3는 확산(Diffusion) 모델 기반으로, 기존 자기회귀 모델 대비 4~8배 빠른 초당 1,000토큰 이상의 생성 속도를 제공함.",
+        "컨텍스트 윈도우를 100만 토큰으로 확장했으며, OpenAI API와 호환되어 기존 스택에 즉시 통합 가능함.",
+        "브라우저 에이전트, 실시간 교육, 검색 등 지연시간에 민감한 실시간 AI 서비스에 최적화됨."
+      ],
+      "topics": [
+        "Diffusion Model",
+        "Low Latency Inference",
+        "Context Window"
+      ],
+      "recommended_for": "실시간 응답이 필수적인 AI 서비스나 대규모 데이터 처리가 필요한 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "실시간 서비스의 지연시간 개선을 위한 모델 교체 검토",
+        "steps": [
+          "현재 서비스 중인 실시간 응답 모듈의 TTFT(첫 토큰까지의 시간)와 전체 응답 시간을 측정",
+          "OpenAI 호환 API를 활용해 Mercury 3로 교체 후 지연시간 개선 폭과 응답 품질을 검증"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ask HN: 이해하지 못하는 AI 작성 코드를 배포하는 상황에 어떻게 대처하시나요?",
+      "link": "https://news.hada.io/topic?id=35662",
+      "published_at": "2026-10-20T06:33:18+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 코드 생성 시대에 엔지니어가 직면한 실무적 고민과 대응 전략을 다루어 매우 높은 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 작성한 코드를 이해하지 못한 채 배포하는 상황에 대한 엔지니어들의 고민과 대응 전략",
+      "key_points": [
+        "AI의 빠른 코드 생성 속도로 인해 세부 구현을 모두 검토하기 어려운 상황에서 엔지니어의 역할과 책임에 대한 논란이 커짐.",
+        "많은 개발자가 직접 구현하기보다 '설계 및 추상화'를 정의하고 AI에게 구현을 맡긴 뒤, 테스트 자동화와 검증에 집중하는 방식으로 대응함.",
+        "결국 코드를 한 줄씩 읽는 것보다 시스템의 안전장치, 테스트 커버리지, 명확한 인수 기준을 세우는 것이 중요하다는 의견이 지배적임."
+      ],
+      "topics": [
+        "Test-Driven Development (TDD)",
+        "Abstraction",
+        "Automated Testing"
+      ],
+      "recommended_for": "AI 코딩 도구를 적극적으로 사용하며 코드 품질과 유지보수성에 고민이 많은 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Meta Engineering",
+      "title": "Inside Prometheus: Meta’s Journey to a Gigawatt-Scale Supercluster",
+      "link": "https://engineering.fb.com/2026/10/19/data-center-engineering/inside-prometheus-meta-gigawatt-scale-supercluster",
+      "published_at": "Mon, 19 Oct 2026 13:00:10 +0000",
+      "selection_score": 10,
+      "selection_reason": "기가와트급 AI 인프라 구축은 업계의 거대한 기술 변화를 보여주며, 인프라 아키텍처 관점에서 중요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "GenRecs Tokenization: Transforming Ads Recommendation at Meta with Stable Model Vocabulary",
+      "link": "https://engineering.fb.com/2026/10/19/ml-applications/genrecs-tokenization-transforming-ads-recommendation-at-meta-with-stable-model-vocabulary",
+      "published_at": "Mon, 19 Oct 2026 16:00:47 +0000",
+      "selection_score": 9,
+      "selection_reason": "LLM을 활용한 추천 시스템의 토큰화 방식 개선 사례로, 데이터 분석 및 모델링 실무자에게 참고가 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: mermaid-editor-sdk: 코드뿐만 아니라 UI로도 mermaid 다이어그램을 편집 가능한 무료 에디터 SDK",
+      "link": "https://news.hada.io/topic?id=35634",
+      "published_at": "2026-10-19T18:12:07+09:00",
+      "selection_score": 10,
+      "selection_reason": "개발 생산성 도구로서 Mermaid 다이어그램의 UI 편집 SDK는 기술 문서화 및 설계 워크플로 개선에 유용합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "CERN과 Mistral, 전략적 파트너십 구축을 위한 의향서 서명",
+      "link": "https://news.hada.io/topic?id=35652",
+      "published_at": "2026-10-20T03:43:06+09:00",
+      "selection_score": 9,
+      "selection_reason": "LLM의 과학적 활용이라는 업계의 중요한 흐름을 보여주며, 기술적 호기심을 자극하는 소식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "macOS에서 네이티브로 실행되는 Android 앱",
+      "link": "https://news.hada.io/topic?id=35659",
+      "published_at": "2026-10-20T05:33:07+09:00",
+      "selection_score": 9,
+      "selection_reason": "macOS에서 Android 앱을 네이티브로 실행하는 기술은 개발 환경 구축 및 도구 활용 측면에서 흥미로운 사례입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: VEXPLOR AAS Studio – AAS 작성·검사·설비 값 수집을 한 화면에서 하는 오픈소스",
+      "link": "https://news.hada.io/topic?id=35663",
+      "published_at": "2026-10-20T07:24:12+09:00",
+      "selection_score": 9,
+      "selection_reason": "산업 표준인 AAS를 다루는 오픈소스 도구로, 제조 데이터 연동 및 자동화 아키텍처에 관심 있는 개발자에게 유용한 기술적 정보를 제공합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

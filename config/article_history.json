@@ -1,6 +1,374 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "토스",
+      "title": "평균 CPU는 여유로운데, 커밋은 왜 느릴까?",
+      "link": "https://toss.tech/article/nic-interrupt-bottleneck",
+      "published_at": "Mon, 19 Oct 2026 03:07:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "NUMA(Non-Uniform Memory Access)",
+        "NIC 인터럽트(IRQ) 분산",
+        "log file sync 대기 이벤트"
+      ],
+      "one_line": "평균 지표에 가려진 CPU 병목, NIC 인터럽트 분산으로 해결하기",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "무신사",
+      "title": "빠른 기기가 왜 기다려야 하지?",
+      "link": "https://techblog.musinsa.com/%EB%B9%A0%EB%A5%B8-%EA%B8%B0%EA%B8%B0%EA%B0%80-%EC%99%9C-%EA%B8%B0%EB%8B%A4%EB%A0%A4%EC%95%BC-%ED%95%98%EC%A7%80-a0533ee53dd2",
+      "published_at": "Mon, 19 Oct 2026 22:01:02 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "공유 Queue(Shared Queue)",
+        "테스트 자동화 병렬 처리",
+        "병목 제거(Bottleneck Removal)"
+      ],
+      "one_line": "테스트 자동화 프레임워크 3.0: 공유 Queue와 중앙 설정으로 병목 제거",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "Google Developers",
+      "title": "Native Model Authoring for Edge with LiteRT Tensor API",
+      "link": "https://developers.googleblog.com/native-model-authoring-for-edge-with-litert-tensor-api",
+      "published_at": "",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "LiteRT Tensor API",
+        "제로 카피(Zero-copy) 버퍼",
+        "엣지 AI 최적화"
+      ],
+      "one_line": "LiteRT Tensor API를 활용한 엣지 디바이스용 네이티브 모델 저작",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "Google Developers",
+      "title": "Step by Step guide: Build a Voice Agent That Never Goes Silent using ADK",
+      "link": "https://developers.googleblog.com/step-by-step-guide-build-a-voice-agent-that-never-goes-silent-using-adk",
+      "published_at": "",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "ADK(Agent Development Kit)",
+        "Agentic Workflow",
+        "실시간 음성 인터페이스"
+      ],
+      "one_line": "ADK를 활용한 실시간 음성 AI 에이전트 구축 가이드",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GitHub Blog",
+      "title": "How to continue a GitHub Copilot app session in VS Code",
+      "link": "https://github.blog/ai-and-ml/github-copilot/how-to-continue-a-github-copilot-app-session-in-vs-code",
+      "published_at": "Mon, 19 Oct 2026 18:47:22 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "GitHub Copilot 세션",
+        "워크트리(Worktree)",
+        "AI 기반 개발 워크플로"
+      ],
+      "one_line": "GitHub Copilot 세션을 VS Code로 이어가며 개발 생산성 극대화",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "Meta Engineering",
+      "title": "The Thin Orchestrator: How We Made Our AI Agents More Reliable by Giving the Router Less to Do",
+      "link": "https://engineering.fb.com/2026/10/19/ml-applications/thin-orchestrator-ai-agent-architecture",
+      "published_at": "Mon, 19 Oct 2026 15:30:37 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Thin Orchestrator",
+        "Multi-agent System",
+        "Deterministic Routing"
+      ],
+      "one_line": "복잡한 AI 에이전트 시스템의 신뢰성을 높이기 위해, 도메인 추론을 분리하고 라우팅만 담당하는 'Thin Orchestrator' 패턴을 도입함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "Cloudflare",
+      "title": "Beyond the patch: Protecting your NetScaler gateway against future vulnerabilities",
+      "link": "https://blog.cloudflare.com/protect-your-netscaler-gateway",
+      "published_at": "Mon, 19 Oct 2026 13:00:00 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Zero Trust",
+        "Defense in Depth",
+        "Attack Surface Reduction"
+      ],
+      "one_line": "Citrix NetScaler 취약점 사례를 통해, 공개된 인증 페이지를 제로 트러스트 정책으로 보호하는 심층 방어 전략을 제시함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Clairic, a new System One class of extraction models",
+      "link": "https://blog.cloudflare.com/clairic-extraction-model",
+      "published_at": "Mon, 19 Oct 2026 17:48:26 GMT",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "System One Model",
+        "Structured Data Extraction",
+        "Inference Optimization"
+      ],
+      "one_line": "LLM의 추론 없이 구조화된 데이터를 추출, 계산, 예측하는 'System One' 클래스의 새로운 추출 모델 'Clairic' 공개.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "Cloudflare",
+      "title": "Cutting our inference bill by 68% by being obsessive about optimization",
+      "link": "https://blog.cloudflare.com/obsessive-inference-optimization",
+      "published_at": "Mon, 19 Oct 2026 19:12:53 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Prompt Caching",
+        "Cost Optimization",
+        "Inference Efficiency"
+      ],
+      "one_line": "프롬프트 캐싱 최적화와 모델 호출 효율화를 통해 AI 코드 리뷰어의 추론 비용을 68% 절감한 사례.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "LLM 프록시를 직접 운영하지 않으면, 모델 호출에서 무슨 일이 벌어지는지 어떻게 알 수 있을까?",
+      "link": "https://news.hada.io/topic?id=35631",
+      "published_at": "2026-10-19T16:32:09+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Proxy",
+        "Observability",
+        "API Gateway"
+      ],
+      "one_line": "LLM 프록시를 직접 운영하여 모델 호출의 가시성을 확보하고 비용과 보안을 통제하는 운영 전략.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "DeepSeek V4.1 Flash 1017 - AAII 45점, 초당 약 225토큰 출력",
+      "link": "https://news.hada.io/topic?id=35633",
+      "published_at": "2026-10-19T17:33:27+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "MoE (Mixture of Experts)",
+        "Chain of Thought (CoT)",
+        "오픈 가중치 모델"
+      ],
+      "one_line": "DeepSeek V4.1 Flash 1017 모델 공개, 고성능·저비용으로 오픈 가중치 모델 경쟁력 강화",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Linux 7.3 출시 - 스케줄링 개선과 새로운 파일 접근 격리 기능",
+      "link": "https://news.hada.io/topic?id=35635",
+      "published_at": "2026-10-19T18:31:52+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "sched_ext",
+        "BPF (Berkeley Packet Filter)",
+        "샌드박싱"
+      ],
+      "one_line": "Linux 7.3 커널 출시, BPF 기반 스케줄링과 파일 접근 격리 기능 강화",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Timestral - Mistral이 공개한 시계열 파운데이션 모델",
+      "link": "https://news.hada.io/topic?id=35642",
+      "published_at": "2026-10-19T22:35:17+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "시계열 파운데이션 모델",
+        "제로샷 예측",
+        "분위수 회귀"
+      ],
+      "one_line": "Mistral, 시계열 데이터 예측을 위한 파운데이션 모델 'Timestral' 공개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: Cloudflare에서 무료로 실행하는 WhatsApp MCP",
+      "link": "https://news.hada.io/topic?id=35643",
+      "published_at": "2026-10-19T22:38:17+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "Cloudflare Workers",
+        "Durable Objects"
+      ],
+      "one_line": "Cloudflare에서 실행하는 WhatsApp MCP 서버로 AI 에이전트의 대화 검색 구현",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Superlite - Superpowers보다 빠른 Claude Code 플러그인",
+      "link": "https://news.hada.io/topic?id=35647",
+      "published_at": "2026-10-20T00:46:43+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Claude Code",
+        "병렬 에이전트 조율"
+      ],
+      "one_line": "Claude Code 플러그인 'Superlite' 출시, 병렬 실행으로 개발 속도 50% 향상",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Let's Encrypt, 도메인 검증용 원격 관측 지점 2곳 추가",
+      "link": "https://news.hada.io/topic?id=35648",
+      "published_at": "2026-10-20T00:49:43+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-Perspective Issuance Corroboration",
+        "BGP Hijacking",
+        "ACME Protocol"
+      ],
+      "one_line": "Let's Encrypt가 도메인 검증용 원격 관측 지점을 6곳으로 확대하여 BGP 공격 방어력을 강화합니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "tmux와 Claude Code: 세션, send-keys, 그리고 한계",
+      "link": "https://news.hada.io/topic?id=35650",
+      "published_at": "2026-10-20T02:41:11+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "tmux session management",
+        "Terminal Multiplexing",
+        "Agentic Workflow"
+      ],
+      "one_line": "tmux를 활용해 AI 코딩 에이전트의 세션을 관리하고 자동화하는 실무 가이드입니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Harness Engineering 101 - Python 약 300줄로 배우는 AI 에이전트 구현",
+      "link": "https://news.hada.io/topic?id=35651",
+      "published_at": "2026-10-20T02:44:11+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Loop",
+        "LLM Context Management",
+        "Tool Calling"
+      ],
+      "one_line": "순수 Python으로 AI 에이전트의 핵심 루프와 하네스를 직접 구현하며 원리를 학습하는 튜토리얼입니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: Qwen3-4B의 AI 특유 글쓰기 습관을 학습으로 제거한 모델",
+      "link": "https://news.hada.io/topic?id=35655",
+      "published_at": "2026-10-20T03:52:06+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Fine-tuning",
+        "LoRA",
+        "Model Steering"
+      ],
+      "one_line": "Qwen3-4B 모델을 미세 조정하여 AI 특유의 상투적인 문체를 제거한 'qwen3-4b-deslop' 모델입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "GitHub Actions, GitHub Pages, Webhooks 가용성 저하",
+      "link": "https://news.hada.io/topic?id=35656",
+      "published_at": "2026-10-20T03:55:06+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Service Availability",
+        "CI/CD Pipeline",
+        "Incident Response"
+      ],
+      "one_line": "GitHub Actions, Pages, Webhooks 서비스에서 발생한 가용성 저하 장애가 해결되었습니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "MiniMax M3.1 Flash - 에이전트 성능을 높이고 사용 비용을 70% 낮춘 모델",
+      "link": "https://news.hada.io/topic?id=35657",
+      "published_at": "2026-10-20T04:33:43+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent",
+        "Sparsity(희소성)",
+        "Inference Efficiency"
+      ],
+      "one_line": "MiniMax M3.1 Flash 출시, 에이전트 성능 강화 및 비용 70% 절감",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Mercury 3 - 대규모로 확장한 확산 기반 LLM",
+      "link": "https://news.hada.io/topic?id=35658",
+      "published_at": "2026-10-20T04:36:43+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Diffusion Model",
+        "Low Latency Inference",
+        "Context Window"
+      ],
+      "one_line": "확산 기반 LLM 'Mercury 3' 공개, 초당 1,000토큰 이상의 고속 추론 지원",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-20T09:12:44.227143+09:00",
+      "company": "GeekNews",
+      "title": "Ask HN: 이해하지 못하는 AI 작성 코드를 배포하는 상황에 어떻게 대처하시나요?",
+      "link": "https://news.hada.io/topic?id=35662",
+      "published_at": "2026-10-20T06:33:18+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Test-Driven Development (TDD)",
+        "Abstraction",
+        "Automated Testing"
+      ],
+      "one_line": "AI가 작성한 코드를 이해하지 못한 채 배포하는 상황에 대한 엔지니어들의 고민과 대응 전략",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-10-19T07:47:17.973279+09:00",
       "company": "GeekNews",
       "title": "CVE-2026-99999(PwnEscape) — Linux 커널 취약점으로 VM 탈출 가능, VPS 사업자 긴급 대응",
@@ -7317,5 +7685,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-19T07:47:17.973279+09:00"
+  "updated_at": "2026-10-20T09:12:44.227143+09:00"
 }
