@@ -1,6 +1,230 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "Google Developers",
+      "title": "Announcing New vLLM and SGLang Inference Engines on TPU",
+      "link": "https://developers.googleblog.com/announcing-new-vllm-and-sglang-inference-engines-on-tpu",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "vLLM",
+        "SGLang",
+        "TPU(Tensor Processing Unit)"
+      ],
+      "one_line": "vLLM과 SGLang이 TPU를 공식 지원하여 LLM 서빙 성능과 비용 효율성을 극대화합니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "Google Developers",
+      "title": "Integrating TorchTPU into TorchTitan and Optimizing Models for TPU",
+      "link": "https://developers.googleblog.com/integrating-torchtpu-into-torchtitan-and-optimizing-models-for-tpu",
+      "published_at": "",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "TorchTPU",
+        "TorchTitan",
+        "FSDP(Fully Sharded Data Parallel)"
+      ],
+      "one_line": "TorchTPU를 통해 JAX 없이 PyTorch만으로 TPU에서 대규모 모델 학습 및 최적화가 가능해졌습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GitHub Blog",
+      "title": "How 3 Java Champions are using GitHub Copilot for increased productivity",
+      "link": "https://github.blog/ai-and-ml/github-copilot/how-3-java-champions-are-using-github-copilot-for-increased-productivity",
+      "published_at": "Tue, 20 Oct 2026 16:05:03 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "MCP(Model Context Protocol)",
+        "Context-Aware Prompting"
+      ],
+      "one_line": "GitHub Copilot을 단순 코드 생성을 넘어 에이전트 워크플로의 파트너로 활용하는 실무 전략입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing tsrs: A port of TypeScript to Rust",
+      "link": "https://blog.cloudflare.com/typescript-rust-port",
+      "published_at": "Tue, 20 Oct 2026 13:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Rust",
+        "WebAssembly",
+        "Compiler Toolchain"
+      ],
+      "one_line": "TypeScript 컴파일러를 Rust로 포팅한 tsrs가 공개되어 빌드 성능과 메모리 효율을 대폭 개선합니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "AWS Compute",
+      "title": "Building an AEO scoring pipeline with AWS Lambda durable functions",
+      "link": "https://aws.amazon.com/blogs/compute/building-an-aeo-scoring-pipeline-with-aws-lambda-durable-functions",
+      "published_at": "Tue, 20 Oct 2026 17:45:29 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AEO(Agent Engine Optimization)",
+        "AWS Lambda Durable Functions",
+        "Serverless Architecture"
+      ],
+      "one_line": "AWS Lambda Durable Functions를 활용해 AI 에이전트 최적화(AEO)를 위한 자동화 파이프라인을 구축합니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "DeepSeek, 미 국토안보부 새 명령으로 연방 민간기관에서 사용 금지",
+      "link": "https://news.hada.io/topic?id=35696",
+      "published_at": "2026-10-20T16:35:41+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "공급망 보안",
+        "데이터 주권",
+        "규제 포획"
+      ],
+      "one_line": "미 국토안보부(DHS), 보안 우려로 연방 민간기관의 DeepSeek 제품 및 관련 서비스 사용 금지",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "프랑스 슈퍼마켓 냉장고, 수개월 동안 온라인에서 취약한 상태로 노출돼 있었음",
+      "link": "https://news.hada.io/topic?id=35700",
+      "published_at": "2026-10-20T17:39:58+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "IoT 보안",
+        "망 분리",
+        "CVE(공통 취약점 노출)"
+      ],
+      "one_line": "프랑스 슈퍼마켓 냉장 설비의 IoT 보안 취약점으로 인한 대규모 사이버 공격 발생",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "DeepSeek, 추론 엔진을 오픈소스로 공개",
+      "link": "https://news.hada.io/topic?id=35703",
+      "published_at": "2026-10-20T19:35:37+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "추론 엔진",
+        "커널 최적화",
+        "모델 서빙 아키텍처"
+      ],
+      "one_line": "DeepSeek, 대규모 프로덕션 서비스용 고성능 추론 프레임워크 'DeepInfer' 오픈소스 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: AI Quota Monitor - AI 할당량 소진 되셨나요? vs-code 상태바에서 모니터링 하세요!",
+      "link": "https://news.hada.io/topic?id=35707",
+      "published_at": "2026-10-20T20:54:22+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "개발 생산성 도구",
+        "API 비용 관리",
+        "VS Code Extension"
+      ],
+      "one_line": "VS Code 상태바에서 AI 모델별 할당량을 실시간 모니터링하는 'AI Quota Monitor' 확장 프로그램",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "거부 기능을 제거한 모델이 해킹의 통로가 될 수 있는 이유",
+      "link": "https://news.hada.io/topic?id=35709",
+      "published_at": "2026-10-20T21:33:54+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "모델 공급망 공격",
+        "백도어 트리거",
+        "런타임 보안"
+      ],
+      "one_line": "거부 기능이 제거된 모델의 보안 위험: 백도어 삽입을 통한 자격 증명 탈취 가능성",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "eMudhra 중간 CA 개인 키 유출",
+      "link": "https://news.hada.io/topic?id=35722",
+      "published_at": "2026-10-21T01:43:24+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "중간 CA(Intermediate CA)",
+        "인증서 폐기(Certificate Revocation)",
+        "신뢰 저장소(Trust Store)"
+      ],
+      "one_line": "eMudhra의 중간 CA 개인 키 유출로 인한 보안 위협 및 클라이언트 업데이트 권고",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "tsrs: TypeScript 컴파일러의 Rust 포트",
+      "link": "https://news.hada.io/topic?id=35724",
+      "published_at": "2026-10-21T02:37:54+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Rust 포팅",
+        "WebAssembly(Wasm)",
+        "컴파일러 최적화"
+      ],
+      "one_line": "TypeScript 컴파일러의 Rust 포트 'tsrs' 공개로 성능 및 메모리 효율 개선",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "Voxtral 3 - 50개 이상 언어의 음성 인식 모델과 실시간 음성 에이전트 SDK",
+      "link": "https://news.hada.io/topic?id=35725",
+      "published_at": "2026-10-21T03:35:22+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "음성 에이전트(Voice Agent)",
+        "실시간 스트리밍 파이프라인",
+        "문맥 기반 인식 보정(Context Biasing)"
+      ],
+      "one_line": "Mistral의 Voxtral 3 음성 모델군 및 실시간 음성 에이전트 SDK 공개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
+      "company": "GeekNews",
+      "title": "Google, TPU용 네이티브 PyTorch 백엔드 TorchTPU 오픈소스로 공개",
+      "link": "https://news.hada.io/topic?id=35728",
+      "published_at": "2026-10-21T05:36:23+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "TPU(Tensor Processing Unit)",
+        "PyTorch 백엔드",
+        "분산 학습(Distributed Training)"
+      ],
+      "one_line": "Google, TPU용 네이티브 PyTorch 백엔드 'TorchTPU' 오픈소스 공개",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-10-20T09:12:44.227143+09:00",
       "company": "토스",
       "title": "평균 CPU는 여유로운데, 커밋은 왜 느릴까?",
@@ -7685,5 +7909,5 @@
       "actionability": 3
     }
   ],
-  "updated_at": "2026-10-20T09:12:44.227143+09:00"
+  "updated_at": "2026-10-21T08:38:51.913832+09:00"
 }
