@@ -1,0 +1,463 @@
+{
+  "schema_version": 1,
+  "issue_number": 35,
+  "issue_date": "2026-10-24",
+  "generated_at": "2026-10-24T08:46:23.058960+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nLLM 기반 정형 검증, 데이터 로그 표준화, 3T급 모델, AI 에이전트 워크플로, 데이터 주권\n\n[오늘의 한줄 포인트]\n\nAI는 이제 단순한 코드 생성을 넘어, 데이터 설계의 표준화부터 소프트웨어의 정형 검증까지 엔지니어링의 핵심 영역을 자동화하고 있습니다.\n\n[오늘 왜 중요한가]\n\n최신 LLM 모델들은 단순한 보조 도구를 넘어 복잡한 논리 검증과 대규모 시스템 설계의 자동화를 가능하게 하는 수준에 도달했습니다. 실무자들은 이러한 도구들을 활용해 기존의 반복적인 수동 업무를 자동화하고, 시스템의 신뢰성을 근본적으로 높이는 새로운 개발 패러다임을 준비해야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 11번: 3T급 모델과 100만 토큰 컨텍스트는 복잡한 코딩 및 3D 생성 자동화의 실무적 한계를 확장하는 중요한 기술적 진보입니다.\n• 6번: LLM을 활용한 소프트웨어 정형 검증은 코드 품질 관리와 보안 속성 증명 방식을 근본적으로 바꿀 수 있는 혁신적인 접근입니다.\n• 1번: 비개발 직군과 개발자가 AI를 통해 로그 정의를 표준화한 사례는 사내 업무 자동화와 데이터 거버넌스 구축의 실질적인 모델을 제시합니다.\n\n[오늘 공부해볼 것]\n\n• LLM 기반 정형 검증(Formal Verification): LLM이 어떻게 수억 줄의 증명 코드를 작성하고 버그를 탐지하는지 원리를 파악하여 코드 품질 관리 전략에 적용해 봅니다.\n• 데이터 로그 명세 표준화: 토스의 사례처럼 기계 판정 영역과 사람의 판단 영역을 분리하여, 현재 팀의 로그 설계 프로세스를 자동화할 수 있는 부분을 식별합니다.\n• 3T급 모델의 에이전트 워크플로 활용: 최신 고성능 모델을 활용해 기존의 복잡한 디버깅이나 프로토타이핑 작업을 얼마나 효율적으로 단축할 수 있는지 테스트해 봅니다.",
+  "stats": {
+    "candidate_count": 34,
+    "detailed_count": 13,
+    "brief_count": 6,
+    "excluded_count": 15,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Kimi K3.1 Pro 공개 - 코딩과 3D 제작을 강화한 100만 토큰 컨텍스트의 3T급 모델",
+      "link": "https://news.hada.io/topic?id=35879",
+      "published_at": "2026-10-24T03:40:37+09:00",
+      "selection_score": 15,
+      "selection_reason": "LLM 성능 향상과 에이전트 워크플로 최적화는 사용자의 핵심 관심 분야이며 실무 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Kimi K3.1 Pro 공개: 3T급 모델로 코딩 및 3D 생성 강화, 100만 토큰 컨텍스트 지원",
+      "key_points": [
+        "3조 매개변수급 모델로 코딩, 3D 모델링, 금융 분석 성능을 대폭 강화했으며 100만 토큰의 긴 문맥을 지원함.",
+        "Terminal-Bench 4.0 등에서 최상위권 성능을 기록했으며, 3D Make를 통해 텍스트/이미지 기반 3D 자산 생성 및 편집이 가능함.",
+        "사이버 보안 역량 오용 방지를 위해 학습 단계에서 관련 데이터를 제거했으나, 일반 코딩 및 디버깅 능력은 이전 모델 대비 향상됨."
+      ],
+      "topics": [
+        "3T급 모델",
+        "대규모 강화 학습(RL)",
+        "벤치마크 최적화"
+      ],
+      "recommended_for": "LLM 기반 에이전트 워크플로를 구축하거나 복잡한 코딩 및 3D 생성 자동화를 고민하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Kimi API를 활용한 복잡한 코딩 작업 자동화 테스트",
+        "steps": [
+          "Kimi API 키를 발급받고 kimi-k3.1-pro 모델을 연동함",
+          "기존에 사용하던 코딩 에이전트 프롬프트를 활용해 복잡한 디버깅 과제를 수행시켜 성능 비교",
+          "3D 자산 생성 기능을 활용해 간단한 프로토타입 스크립트 생성 테스트"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM이 훨씬 더 큰 규모의 소프트웨어 정형 검증을 가능하게 하고 있음",
+      "link": "https://news.hada.io/topic?id=35855",
+      "published_at": "2026-10-23T13:36:53+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM을 활용한 소프트웨어 정형 검증은 개발 생산성과 코드 품질 관리의 패러다임을 바꿀 수 있는 중요한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM을 활용해 대규모 소프트웨어의 정형 검증을 자동화하여 버그를 탐지하고 보안 속성을 증명함.",
+      "key_points": [
+        "Anthropic과 Theorem은 Claude를 이용해 123개 오픈소스 라이브러리의 239개 진입점에 대해 충돌 부재를 정형 검증함.",
+        "기존 퍼징 테스트를 '항상 통과한다'는 명세로 변환하고, LLM이 수억 줄의 증명 코드를 작성하여 Rocq 검사기로 검증함.",
+        "수백 개의 버그를 발견하고 수정했으며, 증명 재사용과 모델 개선을 통해 토큰 비용을 효율화함."
+      ],
+      "topics": [
+        "정형 검증(Formal Verification)",
+        "퍼즈 테스트(Fuzz Testing)",
+        "Rocq 증명 검사기"
+      ],
+      "recommended_for": "코드 품질과 보안에 관심이 많은 백엔드 및 시스템 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 퍼즈 테스트를 명세 기반 검증으로 전환 시도",
+        "steps": [
+          "현재 프로젝트의 핵심 퍼즈 테스트 진입점을 식별함",
+          "LLM에게 해당 테스트를 '항상 통과해야 하는 속성'으로 정의하고 정형 명세로 변환 가능한지 문의함",
+          "간단한 모듈부터 증명 가능한지 검토하고 테스트 커버리지의 한계를 보완할 수 있는지 확인"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "토스",
+      "title": "머릿속에 있던 로그 정의 기준을 모두의 AI 스킬로 만들기",
+      "link": "https://toss.tech/article/dataops-log-definition-skill",
+      "published_at": "Fri, 23 Oct 2026 01:53:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "비개발 직군이 AI를 활용해 데이터 로그 정의 업무를 자동화한 사례로, 업무 자동화와 데이터 관리 효율화 측면에서 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "토스 DataOps Manager들이 AI 스킬을 활용해 로그 정의 업무를 자동화하고 표준화한 사례",
+      "key_points": [
+        "로그 정의 시 도메인 맥락과 규칙을 AI 스킬에 내재화하여, 비개발 직군도 일관된 기준으로 로그를 설계할 수 있게 개선함.",
+        "기계가 판정 가능한 규칙은 CLI 도구(lctl)가 검사하고, 제품 맥락이 필요한 판단은 사람이 수행하는 협업 모델을 구축함.",
+        "도메인 지식을 문서화하여 AI가 참고하게 함으로써, 로그 재사용성을 높이고 중복 정의 및 휴먼 에러를 방지함."
+      ],
+      "topics": [
+        "DataOps",
+        "로그 명세 표준화",
+        "AI 기반 업무 자동화"
+      ],
+      "recommended_for": "데이터 로그 관리의 일관성 문제로 고민하거나, 사내 업무 자동화 도구를 직접 개발하려는 개발자 및 데이터 담당자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "로그 정의 규칙을 기계 판정 영역과 사람 판단 영역으로 분류하기",
+        "steps": [
+          "현재 로그 정의 과정에서 반복되는 체크리스트를 나열한다.",
+          "형식 검사(이름 규칙 등)와 맥락 검사(비즈니스 로직 등)를 구분한다.",
+          "형식 검사를 자동화할 수 있는 간단한 스크립트나 linter 규칙을 작성해본다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "Netflix TechBlog",
+      "title": "Beyond API Compatibility: Building a Tool to Measure the Blast Radius of Library Changes",
+      "link": "https://netflixtechblog.com/beyond-api-compatibility-building-a-tool-to-measure-the-blast-radius-of-library-changes-9474f2fd4f90",
+      "published_at": "Fri, 23 Oct 2026 18:32:51 GMT",
+      "selection_score": 14,
+      "selection_reason": "대규모 리포지토리 환경에서 라이브러리 변경의 영향도를 측정하는 도구 개발은 백엔드 아키텍처와 개발 생산성 향상에 직결되는 중요한 주제입니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix가 라이브러리 변경 시 소비자 리포지토리의 영향도를 측정하기 위해 개발한 도구 'Quasar'",
+      "key_points": [
+        "Quasar는 SCIP(Semantic Code Intelligence Protocol)를 활용해 코드 심볼의 정의와 참조 관계를 인덱싱하여 영향도를 추적함.",
+        "API 변경 시 어떤 리포지토리가 해당 심볼을 사용하는지, 어떤 버전을 쓰는지 파악하여 배포 전 리스크를 정량적으로 평가함.",
+        "단순 호환성 검사를 넘어, 실제 사용 사례를 기반으로 마이그레이션 계획을 수립하고 개발자에게 구체적인 가이드를 제공함."
+      ],
+      "topics": [
+        "SCIP",
+        "Blast Radius(영향 범위)",
+        "API 호환성 관리"
+      ],
+      "recommended_for": "대규모 마이크로서비스 아키텍처에서 라이브러리 의존성 관리와 배포 리스크 최소화에 관심 있는 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트의 의존성 변경 영향도 파악 프로세스 점검",
+        "steps": [
+          "라이브러리 변경 시 하위 호환성을 확인하는 현재의 자동화 수준을 평가한다.",
+          "SCIP 기반의 정적 분석 도구가 현재 기술 스택에 적용 가능한지 검토한다.",
+          "변경 사항 발생 시 영향받는 리포지토리 목록을 추출하는 수동/자동화 방안을 비교한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Bringing post-quantum cryptography to geographically fenced key management",
+      "link": "https://blog.cloudflare.com/post-quantum-geo-key-manager",
+      "published_at": "Fri, 23 Oct 2026 18:06:56 GMT",
+      "selection_score": 11,
+      "selection_reason": "포스트 양자 암호화와 지리적 데이터 주권 기술은 클라우드 보안 및 인프라 아키텍처의 미래를 보여주는 중요한 기술 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare가 데이터 주권 보호를 위해 포스트 양자 암호화(PQ)를 적용한 지리적 키 관리 시스템 도입",
+      "key_points": [
+        "GeoKey Manager는 암호화 키를 특정 지리적 영역 내 서버에서만 복호화할 수 있도록 제한하여 데이터 주권을 보장함.",
+        "양자 컴퓨터의 공격(Harvest Now, Decrypt Later)에 대비해 ML-KEM-768 표준을 적용한 하이브리드 암호화 방식을 도입함.",
+        "TPM 기반의 하드웨어 신원 확인과 지역별 루트 키 분리를 통해 키가 물리적 경계를 벗어나지 않도록 설계함."
+      ],
+      "topics": [
+        "포스트 양자 암호화(PQC)",
+        "데이터 주권(Data Sovereignty)",
+        "HPKE(Hybrid Public Key Encryption)"
+      ],
+      "recommended_for": "클라우드 보안 아키텍처 설계자 및 데이터 보호 규정을 준수해야 하는 인프라 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Origin Range Requests: Serving large files without range-request tuning",
+      "link": "https://blog.cloudflare.com/origin-range-requests",
+      "published_at": "Fri, 23 Oct 2026 18:22:59 GMT",
+      "selection_score": 13,
+      "selection_reason": "CDN 캐싱 최적화와 대용량 파일 처리 방식 개선은 서버 성능 개선 및 비용 절감 측면에서 실무적으로 매우 유용한 기술적 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare가 대용량 파일의 범위 요청(Range Request) 처리를 최적화하여 성능을 개선한 새로운 캐싱 방식",
+      "key_points": [
+        "기존의 고정된 범위 크기 설정 대신, 캐시 청크 단위로 정렬된 요청을 처리하여 불필요한 데이터 전송과 메모리 낭비를 줄임.",
+        "여러 요청이 동일한 청크를 공유하도록 조정하여 캐시 적중률을 높이고 원본 서버 부하를 감소시킴.",
+        "Cache Rules를 통해 별도의 튜닝 없이 대용량 파일 처리를 자동화하여 응답 속도(p99 TTFB)를 절반가량 단축함."
+      ],
+      "topics": [
+        "Range Request",
+        "CDN 캐싱 최적화",
+        "Pingora"
+      ],
+      "recommended_for": "대용량 미디어 파일이나 소프트웨어 배포 서비스를 운영하며 CDN 비용과 성능을 최적화하려는 백엔드/인프라 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Docker는 이상하다",
+      "link": "https://news.hada.io/topic?id=35852",
+      "published_at": "2026-10-23T12:33:51+09:00",
+      "selection_score": 11,
+      "selection_reason": "Docker의 내부 동작 원리를 리눅스 커널 수준에서 분석한 글은 컨테이너 기반 인프라를 다루는 엔지니어에게 깊이 있는 이해를 돕습니다.",
+      "feedback_bias": 0,
+      "one_line": "컨테이너 런타임 구현을 통해 살펴본 Docker의 내부 작동 원리와 리눅스 커널 기능의 조합",
+      "key_points": [
+        "컨테이너는 별도의 VM이 아니라 네임스페이스와 cgroups를 조합해 격리된 프로세스일 뿐이라는 점을 강조함.",
+        "Docker가 Go로 작성되었음에도 초기화 과정에서 C 코드를 사용하는 이유는 네임스페이스 설정 등 시스템 호출의 제약 때문임.",
+        "Docker의 진정한 가치는 기술 그 자체보다 Dockerfile, 레지스트리 등 개발자 경험(DX)을 극대화한 설계에 있음."
+      ],
+      "topics": [
+        "Linux Namespaces",
+        "cgroups",
+        "Container Runtime(runc)"
+      ],
+      "recommended_for": "Docker를 도구로만 사용해왔으나 그 내부 동작 원리와 리눅스 커널과의 관계를 깊이 이해하고 싶은 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ask HN: 모델이 그렇게 뛰어나다면, OpenAI는 왜 직접 회사 100개를 세우지 않을까?",
+      "link": "https://news.hada.io/topic?id=35862",
+      "published_at": "2026-10-23T21:35:23+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM 기반 비즈니스 모델의 한계와 소프트웨어 산업의 구조적 변화를 다루어 AI 에이전트 및 워크플로 전략 수립에 시사점이 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 기업이 직접 제품을 만들기보다 모델을 공급하는 이유는 사업 운영의 복잡성과 고객과의 신뢰 관계 때문임.",
+      "key_points": [
+        "모델 개발과 제품 사업은 서로 다른 조직 역량과 업종 지식이 필요하며, AI 기업이 모든 분야에 진출하는 것은 비효율적임.",
+        "모델 제공자는 고객의 성공 여부와 관계없이 토큰 매출을 얻는 '삽을 파는 사업' 전략을 취하고 있음.",
+        "고객과 직접 경쟁할 경우 플랫폼 신뢰도가 하락하고 고객 이탈이 발생할 위험이 있음."
+      ],
+      "topics": [
+        "골드러시 비유(삽을 파는 사업)",
+        "제번스의 역설",
+        "플랫폼 신뢰성"
+      ],
+      "recommended_for": "AI 기반 비즈니스 모델을 고민하는 창업자 및 전략 기획자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: claude-code-todo - 클로드 코드 옆에 띄워 두는 TODO pane",
+      "link": "https://news.hada.io/topic?id=35870",
+      "published_at": "2026-10-24T01:03:26+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트 기반 개발 워크플로를 직접적으로 개선하는 도구로, 실무 생산성 향상에 즉각적인 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Code 작업 중 할 일을 관리하고 세션 간 유지할 수 있는 TODO 플러그인.",
+      "key_points": [
+        "Claude Code의 채팅 옆 패널에서 전역 및 프로젝트별 할 일을 관리할 수 있는 도구임.",
+        "명령어(/todo add)와 단축키를 지원하며, 작업 세션을 닫아도 Markdown 파일로 상태가 저장됨.",
+        "Claude Code의 mod API를 사용하여 별도의 네트워크 요청 없이 로컬에서 안전하게 작동함."
+      ],
+      "topics": [
+        "Claude Code Mod",
+        "개발 생산성 도구",
+        "에이전트 워크플로"
+      ],
+      "recommended_for": "Claude Code를 사용하여 개발 생산성을 높이고자 하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "Claude Code에 TODO 플러그인 설치 및 워크플로 적용",
+        "steps": [
+          "Claude Code 프롬프트에서 `/plugin install todo --marketplace wlsdnen/claude-code-todo` 실행",
+          "현재 진행 중인 프로젝트의 TODO.md 파일을 생성하고 플러그인과 연동 확인",
+          "작업 중 떠오르는 아이디어를 즉시 `/todo add`로 기록하는 습관 형성"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "eMudhra의 단일 요소 OTP 로그인 시스템 완전 우회",
+      "link": "https://news.hada.io/topic?id=35873",
+      "published_at": "2026-10-24T01:11:08+09:00",
+      "selection_score": 12,
+      "selection_reason": "인증 시스템의 취약점 분석은 보안 실무자에게 매우 중요한 학습 사례이며, 암호화 구현의 위험성을 잘 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "eMudhra의 OTP 로그인 시스템에서 공개키 암호화 방식의 취약점을 이용한 인증 우회 사례.",
+      "key_points": [
+        "OTP 요청 시 공개키로 암호화하는 과정에서, 공격자가 해당 공개키를 이용해 직접 암호화된 요청을 생성하여 인증을 우회함.",
+        "Cloudflare Turnstile은 최초 1회만 통과하면 되며, 이후 무차별 대입 공격이 가능함.",
+        "OSINT를 통해 이메일을 확보하면 특정 사용자의 인증서를 탈취할 수 있는 심각한 보안 결함임."
+      ],
+      "topics": [
+        "단일 요소 인증(1FA) 취약점",
+        "무차별 대입 공격(Brute-force)",
+        "공개키 암호화 오용"
+      ],
+      "recommended_for": "인증 시스템을 설계하거나 보안 감사를 수행하는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude Fable 5.1은 그림에 어떻게 비밀 메시지를 숨길까?",
+      "link": "https://news.hada.io/topic?id=35875",
+      "published_at": "2026-10-24T01:43:50+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM의 스테가노그래피(정보 은닉) 능력은 AI 에이전트 간의 통신이나 보안 측면에서 매우 흥미로운 연구 주제입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Fable 5.1이 이미지의 시각적 요소(높이, 색상 등)에 비밀 메시지를 숨기는 스테가노그래피 실험.",
+      "key_points": [
+        "모델이 SVG 생성 시 건물의 높이, 창문의 불빛, 벌의 비행 경로 등에 메시지를 인코딩함.",
+        "사전 규칙 공유 없이도 다른 세션의 모델이 이미지 분석 도구를 사용하여 78%의 복원율을 기록함.",
+        "이미지 스테가노그래피는 AI 에이전트 간의 은밀한 통신 가능성을 시사하지만, 현재는 도구 호출 감시로 탐지 가능함."
+      ],
+      "topics": [
+        "스테가노그래피(Steganography)",
+        "창발적 속성",
+        "이미지 인코딩"
+      ],
+      "recommended_for": "AI 보안 및 에이전트 간 통신 연구에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "pgrust 제거: 쿼리별 전용 커널과 결과 캐싱을 이용한 벤치마크 부정행위",
+      "link": "https://news.hada.io/topic?id=35884",
+      "published_at": "2026-10-24T05:42:59+09:00",
+      "selection_score": 13,
+      "selection_reason": "데이터베이스 벤치마크의 신뢰성과 성능 최적화 기법에 대한 중요한 사례로, 실무적인 성능 분석 관점에서 매우 가치 있는 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "pgrust, 벤치마크 부정행위 논란으로 ClickBench에서 제거됨",
+      "key_points": [
+        "pgrust가 벤치마크 쿼리에 맞춘 전용 실행 경로와 결과 캐싱을 사용하여 성능을 조작했다는 사실이 확인되어 ClickBench에서 퇴출됨.",
+        "공개된 벤치마크 수치는 실제 데이터베이스 연산이 아닌 캐시된 결과를 재생한 것으로, 범용 쿼리 엔진으로서의 신뢰성을 상실함.",
+        "개발자는 초기 버전의 미흡함이라고 해명했으나, 벤치마크 규칙을 위반하고 기만적인 구현을 제출했다는 비판을 피하기 어려움."
+      ],
+      "topics": [
+        "벤치마크 부정행위(Benchmark Gaming)",
+        "굿하트의 법칙",
+        "JIT 컴파일러 검증"
+      ],
+      "recommended_for": "데이터베이스 성능 벤치마크를 신뢰하고 인프라 아키텍처를 설계하는 백엔드 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenSSL 4.1.0 - DTLS 1.3과 GREASE 지원 추가",
+      "link": "https://news.hada.io/topic?id=35885",
+      "published_at": "2026-10-24T05:45:59+09:00",
+      "selection_score": 13,
+      "selection_reason": "OpenSSL의 주요 업데이트와 암호 연산 성능 개선은 백엔드 인프라 및 보안 아키텍처를 다루는 실무자에게 필수적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenSSL 4.1.0 출시: DTLS 1.3 및 GREASE 지원 추가",
+      "key_points": [
+        "DTLS 1.3 프로토콜과 GREASE 확장을 공식 지원하며, SSL 리스너 API의 DTLS 지원이 추가됨.",
+        "x86_64 및 ppc64le 아키텍처에서 ML-DSA, ML-KEM, AES-CBC 등 암호 연산 성능을 최적화함.",
+        "Windows-on-Itanium 등 구형 플랫폼 지원을 제거하고 빌드 호환성을 정리함."
+      ],
+      "topics": [
+        "DTLS 1.3",
+        "GREASE",
+        "양자내성 암호(ML-DSA/ML-KEM)"
+      ],
+      "recommended_for": "보안 인프라를 관리하거나 고성능 암호화 통신을 구현하는 백엔드 및 네트워크 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "‘자연어 프로그래밍’의 어리석음 (1978)",
+      "link": "https://news.hada.io/topic?id=35861",
+      "published_at": "2026-10-23T20:34:25+09:00",
+      "selection_score": 10,
+      "selection_reason": "자연어 프로그래밍과 인터페이스의 본질에 대한 고전적 통찰은 AI 에이전트 시대의 개발 철학을 정립하는 데 유익합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "우리 집에도 Traits는 있다: Zig에서 구현하는 컴파일 타임 타입 계약",
+      "link": "https://news.hada.io/topic?id=35867",
+      "published_at": "2026-10-24T00:03:42+09:00",
+      "selection_score": 10,
+      "selection_reason": "Zig 언어의 컴파일 타임 기능을 활용한 타입 계약 구현은 백엔드 아키텍처 및 성능 최적화 관점에서 흥미로운 기술적 접근입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Epic Games Inc 대 Apple Inc 소송, 호주에서 iOS 대체 배포와 결제 허용 명령",
+      "link": "https://news.hada.io/topic?id=35872",
+      "published_at": "2026-10-24T01:08:08+09:00",
+      "selection_score": 9,
+      "selection_reason": "iOS 생태계의 폐쇄성 완화는 모바일 개발 및 배포 전략에 큰 변화를 가져올 중요한 정책적 이슈입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Crystal 1.22 - 모든 타깃에 네이티브 이벤트 루프 기본 적용, DWARF 처리 개선",
+      "link": "https://news.hada.io/topic?id=35874",
+      "published_at": "2026-10-24T01:40:50+09:00",
+      "selection_score": 9,
+      "selection_reason": "언어 런타임의 성능 개선과 이벤트 루프 최적화는 백엔드 아키텍처 및 시스템 프로그래밍 관점에서 유의미합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "오늘, 목표로 삼았던 iPhone을 해킹했다",
+      "link": "https://news.hada.io/topic?id=35877",
+      "published_at": "2026-10-24T02:35:13+09:00",
+      "selection_score": 9,
+      "selection_reason": "최신 모바일 보안 취약점 사례로서 업계 전반에 미치는 영향력이 크므로 확인이 필요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "eMudhra, Mozilla 루트 프로그램 조사 답변 기한 무시하고 소셜 미디어 탓",
+      "link": "https://news.hada.io/topic?id=35880",
+      "published_at": "2026-10-24T03:43:37+09:00",
+      "selection_score": 9,
+      "selection_reason": "인증 기관의 보안 결함과 대응 과정은 인프라 및 보안 아키텍처를 다루는 실무자에게 중요한 경각심을 줍니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

@@ -1,6 +1,214 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "토스",
+      "title": "머릿속에 있던 로그 정의 기준을 모두의 AI 스킬로 만들기",
+      "link": "https://toss.tech/article/dataops-log-definition-skill",
+      "published_at": "Fri, 23 Oct 2026 01:53:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "DataOps",
+        "로그 명세 표준화",
+        "AI 기반 업무 자동화"
+      ],
+      "one_line": "토스 DataOps Manager들이 AI 스킬을 활용해 로그 정의 업무를 자동화하고 표준화한 사례",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "Netflix TechBlog",
+      "title": "Beyond API Compatibility: Building a Tool to Measure the Blast Radius of Library Changes",
+      "link": "https://netflixtechblog.com/beyond-api-compatibility-building-a-tool-to-measure-the-blast-radius-of-library-changes-9474f2fd4f90",
+      "published_at": "Fri, 23 Oct 2026 18:32:51 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "SCIP",
+        "Blast Radius(영향 범위)",
+        "API 호환성 관리"
+      ],
+      "one_line": "Netflix가 라이브러리 변경 시 소비자 리포지토리의 영향도를 측정하기 위해 개발한 도구 'Quasar'",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "Cloudflare",
+      "title": "Bringing post-quantum cryptography to geographically fenced key management",
+      "link": "https://blog.cloudflare.com/post-quantum-geo-key-manager",
+      "published_at": "Fri, 23 Oct 2026 18:06:56 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "포스트 양자 암호화(PQC)",
+        "데이터 주권(Data Sovereignty)",
+        "HPKE(Hybrid Public Key Encryption)"
+      ],
+      "one_line": "Cloudflare가 데이터 주권 보호를 위해 포스트 양자 암호화(PQ)를 적용한 지리적 키 관리 시스템 도입",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "Cloudflare",
+      "title": "Origin Range Requests: Serving large files without range-request tuning",
+      "link": "https://blog.cloudflare.com/origin-range-requests",
+      "published_at": "Fri, 23 Oct 2026 18:22:59 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Range Request",
+        "CDN 캐싱 최적화",
+        "Pingora"
+      ],
+      "one_line": "Cloudflare가 대용량 파일의 범위 요청(Range Request) 처리를 최적화하여 성능을 개선한 새로운 캐싱 방식",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "Docker는 이상하다",
+      "link": "https://news.hada.io/topic?id=35852",
+      "published_at": "2026-10-23T12:33:51+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Linux Namespaces",
+        "cgroups",
+        "Container Runtime(runc)"
+      ],
+      "one_line": "컨테이너 런타임 구현을 통해 살펴본 Docker의 내부 작동 원리와 리눅스 커널 기능의 조합",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "LLM이 훨씬 더 큰 규모의 소프트웨어 정형 검증을 가능하게 하고 있음",
+      "link": "https://news.hada.io/topic?id=35855",
+      "published_at": "2026-10-23T13:36:53+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "정형 검증(Formal Verification)",
+        "퍼즈 테스트(Fuzz Testing)",
+        "Rocq 증명 검사기"
+      ],
+      "one_line": "LLM을 활용해 대규모 소프트웨어의 정형 검증을 자동화하여 버그를 탐지하고 보안 속성을 증명함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "Ask HN: 모델이 그렇게 뛰어나다면, OpenAI는 왜 직접 회사 100개를 세우지 않을까?",
+      "link": "https://news.hada.io/topic?id=35862",
+      "published_at": "2026-10-23T21:35:23+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "골드러시 비유(삽을 파는 사업)",
+        "제번스의 역설",
+        "플랫폼 신뢰성"
+      ],
+      "one_line": "AI 기업이 직접 제품을 만들기보다 모델을 공급하는 이유는 사업 운영의 복잡성과 고객과의 신뢰 관계 때문임.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: claude-code-todo - 클로드 코드 옆에 띄워 두는 TODO pane",
+      "link": "https://news.hada.io/topic?id=35870",
+      "published_at": "2026-10-24T01:03:26+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Claude Code Mod",
+        "개발 생산성 도구",
+        "에이전트 워크플로"
+      ],
+      "one_line": "Claude Code 작업 중 할 일을 관리하고 세션 간 유지할 수 있는 TODO 플러그인.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "eMudhra의 단일 요소 OTP 로그인 시스템 완전 우회",
+      "link": "https://news.hada.io/topic?id=35873",
+      "published_at": "2026-10-24T01:11:08+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "단일 요소 인증(1FA) 취약점",
+        "무차별 대입 공격(Brute-force)",
+        "공개키 암호화 오용"
+      ],
+      "one_line": "eMudhra의 OTP 로그인 시스템에서 공개키 암호화 방식의 취약점을 이용한 인증 우회 사례.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "Claude Fable 5.1은 그림에 어떻게 비밀 메시지를 숨길까?",
+      "link": "https://news.hada.io/topic?id=35875",
+      "published_at": "2026-10-24T01:43:50+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "스테가노그래피(Steganography)",
+        "창발적 속성",
+        "이미지 인코딩"
+      ],
+      "one_line": "Claude Fable 5.1이 이미지의 시각적 요소(높이, 색상 등)에 비밀 메시지를 숨기는 스테가노그래피 실험.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "Kimi K3.1 Pro 공개 - 코딩과 3D 제작을 강화한 100만 토큰 컨텍스트의 3T급 모델",
+      "link": "https://news.hada.io/topic?id=35879",
+      "published_at": "2026-10-24T03:40:37+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "3T급 모델",
+        "대규모 강화 학습(RL)",
+        "벤치마크 최적화"
+      ],
+      "one_line": "Kimi K3.1 Pro 공개: 3T급 모델로 코딩 및 3D 생성 강화, 100만 토큰 컨텍스트 지원",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "pgrust 제거: 쿼리별 전용 커널과 결과 캐싱을 이용한 벤치마크 부정행위",
+      "link": "https://news.hada.io/topic?id=35884",
+      "published_at": "2026-10-24T05:42:59+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "벤치마크 부정행위(Benchmark Gaming)",
+        "굿하트의 법칙",
+        "JIT 컴파일러 검증"
+      ],
+      "one_line": "pgrust, 벤치마크 부정행위 논란으로 ClickBench에서 제거됨",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-10-24T08:46:23.594860+09:00",
+      "company": "GeekNews",
+      "title": "OpenSSL 4.1.0 - DTLS 1.3과 GREASE 지원 추가",
+      "link": "https://news.hada.io/topic?id=35885",
+      "published_at": "2026-10-24T05:45:59+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "DTLS 1.3",
+        "GREASE",
+        "양자내성 암호(ML-DSA/ML-KEM)"
+      ],
+      "one_line": "OpenSSL 4.1.0 출시: DTLS 1.3 및 GREASE 지원 추가",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-10-23T08:55:22.425110+09:00",
       "company": "왓챠",
       "title": "감으로 맞추던 값을 식을 세워서 kubernetes 최적화하기",
@@ -7792,215 +8000,7 @@
       ],
       "one_line": "Linear의 CI 최적화 사례: AI 코딩으로 인한 병목 해결 및 빌드 성능 개선",
       "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: RouteMind – 인간의 개입은 RAG 성능을 얼마나 바꿀까?",
-      "link": "https://news.hada.io/topic?id=34109",
-      "published_at": "2026-09-22T15:43:02+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic RAG",
-        "Human-in-the-loop",
-        "Knowledge Routing"
-      ],
-      "one_line": "인간의 지식 구조 개입이 RAG 성능에 미치는 영향을 탐구하는 Agentic RAG 프로젝트",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "CGNAT 환경에서 셀프 호스팅하기",
-      "link": "https://news.hada.io/topic?id=34114",
-      "published_at": "2026-09-22T17:02:25+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "CGNAT",
-        "WireGuard",
-        "Policy-based Routing"
-      ],
-      "one_line": "CGNAT 환경에서 WireGuard와 VPS 브리지를 활용해 홈랩 서비스를 외부로 공개하는 방법",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "Jev 사용 후기",
-      "link": "https://news.hada.io/topic?id=34115",
-      "published_at": "2026-09-22T17:17:17+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Structured Output",
-        "Decision Agent",
-        "Confidence Score"
-      ],
-      "one_line": "긴 답변 생성보다 의사결정 및 판단에 최적화된 AI 모델 'Jev' 사용 후기",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "내 하드웨어에서 실행하는 최첨단 AI",
-      "link": "https://news.hada.io/topic?id=34116",
-      "published_at": "2026-09-22T18:35:29+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Local Inference",
-        "Agent Harness",
-        "Context Compression"
-      ],
-      "one_line": "로컬 하드웨어에서 최첨단 AI 연구를 수행하기 위한 추론 프레임워크 및 에이전트 하네스",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "AI에게는 지혜가 없고 당신에게도 없게 될 것이다",
-      "link": "https://news.hada.io/topic?id=34122",
-      "published_at": "2026-09-22T22:11:39+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Vibe Coding",
-        "Technical Debt",
-        "Mastery"
-      ],
-      "one_line": "AI 의존이 개발자의 숙련도와 코드 유지보수성에 미치는 위험성에 대한 경고",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "Git 2.56과 3.0을 내다보며",
-      "link": "https://news.hada.io/topic?id=34124",
-      "published_at": "2026-09-22T22:34:07+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "reftable",
-        "SHA-256",
-        "git history drop"
-      ],
-      "one_line": "Git 2.56 출시 예정 및 Git 3.0 전환을 위한 주요 변경 사항 논의",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "Claude Opus 5.5 출시",
-      "link": "https://news.hada.io/topic?id=34135",
-      "published_at": "2026-09-23T02:43:06+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Token Efficiency",
-        "Frontier Model"
-      ],
-      "one_line": "Claude Opus 5.5 출시: 성능 향상, 비용 절감 및 에이전트 워크플로 최적화",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "Meta의 Muse에 파일시스템을 요청했더니 6.8GB를 보내왔다",
-      "link": "https://news.hada.io/topic?id=34136",
-      "published_at": "2026-09-23T02:49:07+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agent Memory Management",
-        "Sandboxed Runtime",
-        "Self-Improvement Loop"
-      ],
-      "one_line": "Meta Muse 에이전트의 내부 파일시스템 구조와 에이전트 메모리 관리 방식 공개",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "GPT-6 Sol과 Luna 출시",
-      "link": "https://news.hada.io/topic?id=34138",
-      "published_at": "2026-09-23T03:39:03+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Prompt Caching",
-        "Cost-Performance Optimization",
-        "Inference Intensity"
-      ],
-      "one_line": "GPT-6 Sol 및 Luna 출시: 비용 효율성과 추론 성능의 대폭 개선",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "OpenAI가 Jev의 밥그릇을 빼앗을까?",
-      "link": "https://news.hada.io/topic?id=34139",
-      "published_at": "2026-09-23T03:42:03+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Logprobs",
-        "System 1 Thinking",
-        "Model Routing"
-      ],
-      "one_line": "LLM 내부 분류기(Jev)의 작동 원리와 OpenAI의 내장 가능성 분석",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "Claude Opus 5.5, 추론 설정별 성능과 비용 비교",
-      "link": "https://news.hada.io/topic?id=34142",
-      "published_at": "2026-09-23T06:35:00+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "추론 강도(Inference Intensity)",
-        "지능 벤치마크(Intelligence Index)",
-        "비용 최적화(Cost Optimization)"
-      ],
-      "one_line": "Claude Opus 5.5의 추론 강도별 성능과 비용을 분석한 결과, medium 설정이 가성비 측면에서 가장 합리적인 선택지로 평가됨.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
-      "company": "Meta Engineering",
-      "title": "Open-Sourcing Rebalancer: A Generic, High-Performance Library for Solving Assignment Problems",
-      "link": "https://engineering.fb.com/2026/09/21/open-source/rebalancer-generic-high-performance-library-assignment-problems",
-      "published_at": "Mon, 21 Sep 2026 16:00:37 +0000",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Assignment Problem",
-        "Local Search Heuristic",
-        "Mixed Integer Programming (MIP)"
-      ],
-      "one_line": "메타가 9년간 내부적으로 사용해온 리소스 할당 최적화 라이브러리 'Rebalancer'를 오픈소스로 공개함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-22T08:54:51.762169+09:00",
-      "company": "Cloudflare",
-      "title": "Python Workers are now generally available",
-      "link": "https://blog.cloudflare.com/python-workers-ga",
-      "published_at": "Mon, 21 Sep 2026 13:00:00 GMT",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "WebAssembly (Wasm)",
-        "Pyodide",
-        "ASGI/WSGI"
-      ],
-      "one_line": "Cloudflare Workers에서 Python을 정식 지원(GA)하여 서버리스 환경에서 Python 생태계를 완벽하게 활용 가능해짐.",
-      "actionability": 5
     }
   ],
-  "updated_at": "2026-10-23T08:55:22.425110+09:00"
+  "updated_at": "2026-10-24T08:46:23.594860+09:00"
 }
