@@ -1,6 +1,118 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-25T07:54:50.127151+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: AIDAN - 가입 없이 10문항 무료 연습과 4개 언어 교재",
+      "link": "https://news.hada.io/topic?id=35903",
+      "published_at": "2026-10-24T13:27:21+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트",
+        "업무 자동화",
+        "프롬프트 엔지니어링"
+      ],
+      "one_line": "가입 없이 AI 기본기부터 에이전트 개발까지 실습할 수 있는 학습 플랫폼 'AIDAN' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-25T07:54:50.127151+09:00",
+      "company": "GeekNews",
+      "title": "이것이 사이버 보안의 새로운 일상인가?",
+      "link": "https://news.hada.io/topic?id=35907",
+      "published_at": "2026-10-24T15:35:43+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "RCE(원격 코드 실행)",
+        "CVE",
+        "공급망 공격"
+      ],
+      "one_line": "LLM이 취약점 분석 및 공격 코드 생성 속도를 가속화하며 보안 패치 대응의 중요성이 커짐",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-25T07:54:50.127151+09:00",
+      "company": "GeekNews",
+      "title": "CVE Tracker - 1999년부터의 CVE 공개 건수를 시각화하는 대시보드",
+      "link": "https://news.hada.io/topic?id=35908",
+      "published_at": "2026-10-24T16:33:11+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "CVE",
+        "CVSS",
+        "데이터 시각화"
+      ],
+      "one_line": "1999년부터의 CVE 공개 건수를 시각화하여 보안 트렌드를 파악할 수 있는 대시보드",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-25T07:54:50.127151+09:00",
+      "company": "GeekNews",
+      "title": "진화하는 위협: Node, Python 등에서 원격 코드 실행을 일으키는 http2shell",
+      "link": "https://news.hada.io/topic?id=35909",
+      "published_at": "2026-10-24T16:36:11+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "RCE",
+        "Brotli",
+        "메모리 안전성"
+      ],
+      "one_line": "Brotli 압축 라이브러리의 메모리 안전성 결함으로 인한 HTTP2Shell(RCE) 취약점 주의",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-25T07:54:50.127151+09:00",
+      "company": "GeekNews",
+      "title": "분산 SQLite의 12년",
+      "link": "https://news.hada.io/topic?id=35911",
+      "published_at": "2026-10-24T17:32:35+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "분산 데이터베이스",
+        "Raft",
+        "CRDT"
+      ],
+      "one_line": "rqlite부터 클라우드 서비스까지, 분산 SQLite 아키텍처의 12년 발전 과정 요약",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-25T07:54:50.127151+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: ETF 실부담비용 & 4대 계좌 세법 정산기 (Client-Side 100%, 서버비 $0)",
+      "link": "https://news.hada.io/topic?id=35925",
+      "published_at": "2026-10-25T00:59:44+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Client-Side Rendering",
+        "Zero-Server-Cost Architecture",
+        "ETF 실부담비용(TER)"
+      ],
+      "one_line": "서버 비용 $0, 100% 클라이언트 사이드 기술로 구현한 ETF 및 세금 정산 시뮬레이터",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-25T07:54:50.127151+09:00",
+      "company": "GeekNews",
+      "title": "Node2Shell에서 HTTP2Shell로 확대, 다수 HTTP 라이브러리와 앱에 영향",
+      "link": "https://news.hada.io/topic?id=35927",
+      "published_at": "2026-10-25T01:42:03+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "CVE-2026-111497",
+        "Memory Safety Vulnerability",
+        "Transitive Dependency"
+      ],
+      "one_line": "Google Brotli 디코더의 메모리 안전성 취약점(CVE-2026-111497)으로 인한 전방위적 보안 업데이트 필요",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-10-24T08:46:23.594860+09:00",
       "company": "토스",
       "title": "머릿속에 있던 로그 정의 기준을 모두의 AI 스킬로 만들기",
@@ -7888,119 +8000,7 @@
       ],
       "one_line": "Claude 에이전트들이 대규모 DNA 데이터를 분석하여 새로운 효소 시스템 'ART'를 발견함",
       "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
-      "company": "GeekNews",
-      "title": "Stripe의 사내 업무용 AI 플랫폼, Kai",
-      "link": "https://news.hada.io/topic?id=34198",
-      "published_at": "2026-09-24T07:37:09+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Platform",
-        "멀티테넌트 샌드박스",
-        "워크플로 오케스트레이션"
-      ],
-      "one_line": "Stripe가 사내 지식 업무 자동화를 위해 에이전트 플랫폼 'Kai'를 구축하여 생산성을 대폭 향상함",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-24T08:27:14.517132+09:00",
-      "company": "GeekNews",
-      "title": "GitHub 위키는 안티패턴이다 (2022)",
-      "link": "https://news.hada.io/topic?id=34199",
-      "published_at": "2026-09-24T07:40:09+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Docs-as-Code",
-        "GitHub Pages",
-        "버전 관리"
-      ],
-      "one_line": "GitHub 위키 대신 코드 저장소 내 /docs 폴더를 활용하는 것이 문서 관리의 모범 사례임",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "토스",
-      "title": "쉼 없이 도는 테스트, 사람이 어디까지 돌봐야 할까요? - 토스닥터(Toss Doctor)",
-      "link": "https://toss.tech/article/toss-doctor",
-      "published_at": "Tue, 22 Sep 2026 03:42:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "QA 자동화",
-        "Self-healing Test",
-        "Appium MCP"
-      ],
-      "one_line": "토스닥터 V2: LLM과 Appium MCP를 활용한 QA 자동화 및 셀프 힐링 아키텍처",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Worker Previews: Isolated preview environments for every change your agent makes",
-      "link": "https://blog.cloudflare.com/worker-previews",
-      "published_at": "Tue, 22 Sep 2026 13:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Isolated Preview Environment",
-        "ADLC (Agent Development Lifecycle)",
-        "Durable Objects"
-      ],
-      "one_line": "Cloudflare Worker Previews: Git 브랜치별 격리된 환경에서 에이전트 개발 및 테스트 지원",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "Cloudflare",
-      "title": "We just shipped support for the ugliest part of HTTP: Vary",
-      "link": "https://blog.cloudflare.com/vary-support",
-      "published_at": "Tue, 22 Sep 2026 14:04:31 GMT",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "HTTP Vary Header",
-        "Cache Key Normalization",
-        "CDN Caching Strategy"
-      ],
-      "one_line": "Cloudflare Cache Rules의 Vary 헤더 지원을 통한 캐시 효율 최적화",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "AWS Compute",
-      "title": "Adding custom domains to AWS Lambda MicroVMs with Application Load Balancer",
-      "link": "https://aws.amazon.com/blogs/compute/adding-custom-domains-to-aws-lambda-microvms-with-application-load-balancer",
-      "published_at": "Tue, 22 Sep 2026 16:48:32 +0000",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "AWS Lambda MicroVM",
-        "ALB Host Header Rewrite",
-        "AWS PrivateLink"
-      ],
-      "one_line": "ALB를 활용한 AWS Lambda MicroVM 커스텀 도메인 및 CORS 설정",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-23T08:31:00.331897+09:00",
-      "company": "GeekNews",
-      "title": "AI 코딩으로 병목이 된 CI, Linear는 어떻게 개선했나",
-      "link": "https://news.hada.io/topic?id=34105",
-      "published_at": "2026-09-22T12:42:20+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "CI/CD 최적화",
-        "Test Sharding",
-        "Incremental Build"
-      ],
-      "one_line": "Linear의 CI 최적화 사례: AI 코딩으로 인한 병목 해결 및 빌드 성능 개선",
-      "actionability": 4
     }
   ],
-  "updated_at": "2026-10-24T08:46:23.594860+09:00"
+  "updated_at": "2026-10-25T07:54:50.127151+09:00"
 }

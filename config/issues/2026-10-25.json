@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "issue_number": 36,
+  "issue_date": "2026-10-25",
+  "generated_at": "2026-10-25T07:54:49.886045+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nBrotli, RCE, 분산 데이터베이스, 메모리 안전성, 서버리스 아키텍처\n\n[오늘의 한줄 포인트]\n\n치명적인 보안 취약점 대응과 함께, 효율적인 시스템 설계를 위한 분산 아키텍처 및 서버리스 전략을 점검해야 합니다.\n\n[오늘 왜 중요한가]\n\n최근 Brotli 라이브러리의 메모리 안전성 결함으로 인해 광범위한 원격 코드 실행(RCE) 위험이 보고되었습니다. 실무 서버의 즉각적인 의존성 점검과 패치가 시급하며, 동시에 분산 시스템과 비용 효율적인 아키텍처 설계 역량을 강화해야 할 시점입니다.\n\n[왜 이 글들을 골랐나]\n\n• 7번: Python과 Node.js 등 주요 환경의 전이 의존성까지 영향을 미치는 치명적 보안 취약점이므로 가장 우선적인 대응이 필요합니다.\n• 4번: Brotli 압축 라이브러리의 메모리 결함으로 인한 RCE 위험을 구체적으로 다루고 있어 서버 운영자에게 필수적인 정보입니다.\n• 5번: 분산 SQLite의 발전 과정을 통해 데이터베이스 아키텍처 설계와 일관성 관리 전략에 대한 깊이 있는 통찰을 얻을 수 있습니다.\n\n[오늘 공부해볼 것]\n\n• Brotli 의존성 트리 분석: 프로젝트 내 전이 의존성으로 포함된 라이브러리 버전을 확인하고 취약점 대응 절차를 익히기 위함입니다.\n• 분산 시스템의 합의 알고리즘(Raft): 분산 데이터베이스에서 데이터 일관성을 유지하는 핵심 원리를 이해하여 시스템 설계 능력을 높이기 위함입니다.\n• 클라이언트 사이드 렌더링 최적화: 서버 비용을 절감하면서도 사용자 경험을 유지하는 정적 호스팅 및 브라우저 연산 기법을 학습하기 위함입니다.",
+  "stats": {
+    "candidate_count": 30,
+    "detailed_count": 7,
+    "brief_count": 8,
+    "excluded_count": 15,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Node2Shell에서 HTTP2Shell로 확대, 다수 HTTP 라이브러리와 앱에 영향",
+      "link": "https://news.hada.io/topic?id=35927",
+      "published_at": "2026-10-25T01:42:03+09:00",
+      "selection_score": 15,
+      "selection_reason": "Python 및 다양한 HTTP 라이브러리에 영향을 주는 치명적인 보안 취약점으로, 실무 환경의 즉각적인 점검과 대응이 필요합니다.",
+      "feedback_bias": 0,
+      "one_line": "Google Brotli 디코더의 메모리 안전성 취약점(CVE-2026-111497)으로 인한 전방위적 보안 업데이트 필요",
+      "key_points": [
+        "Brotli 1.2.0 이하 버전의 메모리 손상 취약점으로, Node.js, Python 등 Brotli를 사용하는 모든 환경에서 원격 코드 실행이 가능합니다.",
+        "Python의 경우 requests, httpx 등 주요 라이브러리가 전이 의존성으로 Brotli를 자동 설치하므로 직접 사용하지 않아도 취약할 수 있습니다.",
+        "Brotli 1.2.1 이상으로 업데이트하고, 즉시 대응이 어렵다면 리버스 프록시 단에서 Brotli 인코딩 요청을 차단해야 합니다."
+      ],
+      "topics": [
+        "CVE-2026-111497",
+        "Memory Safety Vulnerability",
+        "Transitive Dependency"
+      ],
+      "recommended_for": "Python 및 Node.js 기반의 백엔드 시스템을 운영하며 HTTP 통신을 처리하는 모든 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "프로젝트 내 Brotli 의존성 버전 점검 및 패치",
+        "steps": [
+          "pipdeptree -r -p Brotli 또는 npm list brotli 명령어로 프로젝트 내 취약 버전 포함 여부를 확인합니다.",
+          "의존성 잠금 파일(requirements.txt, package-lock.json 등)을 갱신하여 Brotli 1.2.1 이상으로 업데이트합니다.",
+          "컨테이너 이미지를 재빌드하고 배포하여 취약점이 제거되었는지 검증합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "진화하는 위협: Node, Python 등에서 원격 코드 실행을 일으키는 http2shell",
+      "link": "https://news.hada.io/topic?id=35909",
+      "published_at": "2026-10-24T16:36:11+09:00",
+      "selection_score": 15,
+      "selection_reason": "Python 및 Node 환경의 RCE 취약점은 실무 서버 운영 및 보안 관점에서 즉각적인 대응이 필요한 핵심 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Brotli 압축 라이브러리의 메모리 안전성 결함으로 인한 HTTP2Shell(RCE) 취약점 주의",
+      "key_points": [
+        "Brotli 디코더의 메모리 처리 오류로 인해 Node.js, Python 등에서 원격 코드 실행(RCE)이 가능함.",
+        "공격자가 보낸 Brotli 압축 데이터를 처리하는 모든 애플리케이션이 영향권에 있음.",
+        "최신 버전(Node.js 22.23.4 등)으로 업데이트하고, 패치 전까지 신뢰할 수 없는 Brotli 압축 해제를 차단해야 함."
+      ],
+      "topics": [
+        "RCE",
+        "Brotli",
+        "메모리 안전성"
+      ],
+      "recommended_for": "Node.js 및 Python 기반의 백엔드 서버를 운영하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "운영 중인 서비스의 Brotli 의존성 패치 및 업데이트",
+        "steps": [
+          "현재 사용 중인 Node.js, Python, Bun 등의 버전이 취약점 수정 버전인지 확인",
+          "취약한 라이브러리(brotli 등)를 최신 버전으로 즉시 업데이트",
+          "패치 적용 후 서비스 컨테이너 재빌드 및 재배포 수행"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "분산 SQLite의 12년",
+      "link": "https://news.hada.io/topic?id=35911",
+      "published_at": "2026-10-24T17:32:35+09:00",
+      "selection_score": 14,
+      "selection_reason": "분산 데이터베이스 아키텍처와 SQLite의 확장 사례는 백엔드 설계 및 데이터 관리 실무에 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "rqlite부터 클라우드 서비스까지, 분산 SQLite 아키텍처의 12년 발전 과정 요약",
+      "key_points": [
+        "분산 SQLite는 합의(Raft), 스트리밍(WAL), 병합(CRDT)이라는 세 가지 설계 축으로 발전함.",
+        "rqlite, dqlite, Litestream 등은 오픈소스로, Turso나 Cloudflare D1은 관리형 서비스로 생태계가 확장됨.",
+        "강한 일관성이 필요한지, 저비용 복구가 필요한지에 따라 적합한 아키텍처 선택이 달라짐."
+      ],
+      "topics": [
+        "분산 데이터베이스",
+        "Raft",
+        "CRDT"
+      ],
+      "recommended_for": "분산 시스템 아키텍처 설계 및 데이터베이스 최적화에 관심 있는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "Show GN: AIDAN - 가입 없이 10문항 무료 연습과 4개 언어 교재",
+      "link": "https://news.hada.io/topic?id=35903",
+      "published_at": "2026-10-24T13:27:21+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 에이전트 및 업무 자동화 학습을 위한 실습 도구로 활용 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "가입 없이 AI 기본기부터 에이전트 개발까지 실습할 수 있는 학습 플랫폼 'AIDAN' 공개",
+      "key_points": [
+        "브라우저에서 즉시 시작 가능한 10문항 무료 연습과 4개 언어 교재를 제공함.",
+        "AI 기본기, 질문법, 업무 자동화, 에이전트 개발 등 14개 학습 트랙으로 구성됨.",
+        "웹 리더 및 PDF 형식으로 학습 자료를 제공하여 직무별 AI 활용 능력을 점검할 수 있음."
+      ],
+      "topics": [
+        "AI 에이전트",
+        "업무 자동화",
+        "프롬프트 엔지니어링"
+      ],
+      "recommended_for": "AI 에이전트 개발 및 업무 자동화 실무를 체계적으로 연습하고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "AIDAN 플랫폼에서 업무 자동화 트랙 실습하기",
+        "steps": [
+          "AIDAN 웹사이트에 접속하여 업무 자동화 관련 학습 트랙 선택",
+          "10문항 무료 연습을 통해 현재 AI 활용 수준 점검",
+          "제공된 PDF 교재를 활용해 실무에 적용할 자동화 워크플로 설계"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "이것이 사이버 보안의 새로운 일상인가?",
+      "link": "https://news.hada.io/topic?id=35907",
+      "published_at": "2026-10-24T15:35:43+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM이 보안 위협을 가속화하는 최신 업계 트렌드를 다루고 있어 실무자에게 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM이 취약점 분석 및 공격 코드 생성 속도를 가속화하며 보안 패치 대응의 중요성이 커짐",
+      "key_points": [
+        "LLM이 알려진 취약점을 실제 공격 코드로 구체화하는 속도가 비약적으로 빨라짐.",
+        "PHP2Shell 등 AI를 활용한 공격 사례가 보고되며, 보안 패치 발표 후 즉각적인 대응이 필수적인 시대가 됨.",
+        "소스 비공개나 보안 패치 지연보다는 표준화된 대응 절차와 상시 보안 감시 에이전트 도입이 권장됨."
+      ],
+      "topics": [
+        "RCE(원격 코드 실행)",
+        "CVE",
+        "공급망 공격"
+      ],
+      "recommended_for": "보안 사고 대응 및 백엔드 인프라 운영을 담당하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "CVE Tracker - 1999년부터의 CVE 공개 건수를 시각화하는 대시보드",
+      "link": "https://news.hada.io/topic?id=35908",
+      "published_at": "2026-10-24T16:33:11+09:00",
+      "selection_score": 11,
+      "selection_reason": "데이터 분석 및 보안 취약점 트렌드를 파악하기 위한 유용한 도구로 활용 가능합니다.",
+      "feedback_bias": 0,
+      "one_line": "1999년부터의 CVE 공개 건수를 시각화하여 보안 트렌드를 파악할 수 있는 대시보드",
+      "key_points": [
+        "공식 CVE 목록을 기반으로 매일 데이터를 갱신하며 일/주/월/년 단위 집계를 제공함.",
+        "로그 스케일 표시, CSV 다운로드, PNG 복사 등 데이터 분석을 위한 기능을 지원함.",
+        "최근 CVE 발급 문턱이 낮아지고 자동화가 늘어남에 따라 데이터 해석 시 주의가 필요함."
+      ],
+      "topics": [
+        "CVE",
+        "CVSS",
+        "데이터 시각화"
+      ],
+      "recommended_for": "보안 취약점 트렌드를 분석하고 인프라 보안 전략을 수립하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: ETF 실부담비용 & 4대 계좌 세법 정산기 (Client-Side 100%, 서버비 $0)",
+      "link": "https://news.hada.io/topic?id=35925",
+      "published_at": "2026-10-25T00:59:44+09:00",
+      "selection_score": 13,
+      "selection_reason": "비용 절감(서버비 $0)과 클라이언트 사이드 아키텍처를 활용한 실무 프로젝트 사례로 학습 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "서버 비용 $0, 100% 클라이언트 사이드 기술로 구현한 ETF 및 세금 정산 시뮬레이터",
+      "key_points": [
+        "증권사 마케팅용 표면 보수 뒤에 숨겨진 실부담비용(TER)과 4대 계좌별 세후 수익을 정밀하게 계산해주는 웹 툴킷입니다.",
+        "서버 연산 없이 React, Vite, TypeScript를 활용해 브라우저에서 100% 자바스크립트로 동작하여 서버 운영 비용이 발생하지 않습니다.",
+        "장기 투자 시 세금과 비용의 차이를 직관적으로 비교할 수 있도록 A4 인쇄 최적화 및 모바일 반응형 기능을 제공합니다."
+      ],
+      "topics": [
+        "Client-Side Rendering",
+        "Zero-Server-Cost Architecture",
+        "ETF 실부담비용(TER)"
+      ],
+      "recommended_for": "서버 비용 없이 고성능 웹 애플리케이션을 배포하고 싶은 프론트엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 서버 의존형 계산 로직을 클라이언트 사이드로 이전하기",
+        "steps": [
+          "현재 운영 중인 서비스에서 서버 연산이 필요한 로직을 식별합니다.",
+          "해당 로직을 TypeScript로 변환하여 브라우저 환경에서 실행 가능하도록 모듈화합니다.",
+          "Vercel이나 GitHub Pages를 통해 정적 호스팅으로 배포하여 서버 비용을 제거합니다."
+        ],
+        "effort": "1~2시간"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "해커, 독일 극우 정당 AfD의 데이터 281GB 유출",
+      "link": "https://news.hada.io/topic?id=35904",
+      "published_at": "2026-10-24T13:32:33+09:00",
+      "selection_score": 9,
+      "selection_reason": "대규모 데이터 유출 사고와 AI를 활용한 분석 사례로서 보안 측면에서 주목할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "순수 함수형 프로그래밍은 C 성능에 얼마나 근접할 수 있을까?",
+      "link": "https://news.hada.io/topic?id=35905",
+      "published_at": "2026-10-24T15:04:27+09:00",
+      "selection_score": 10,
+      "selection_reason": "성능 개선과 언어별 아키텍처 비교 관점에서 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "정의되지 않은 동작(UB)이 괜찮다고 생각하는 사람들에게",
+      "link": "https://news.hada.io/topic?id=35906",
+      "published_at": "2026-10-24T15:07:27+09:00",
+      "selection_score": 10,
+      "selection_reason": "백엔드 및 시스템 프로그래밍에서 정의되지 않은 동작(UB)의 위험성을 다루는 중요한 기술적 경고입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "삼성 TV를 역공학 분석해서 공유하던 해커, OpenAI 계정 정지 경험 공개",
+      "link": "https://news.hada.io/topic?id=35918",
+      "published_at": "2026-10-24T20:31:42+09:00",
+      "selection_score": 10,
+      "selection_reason": "역공학 분석 사례와 AI 서비스의 정책적 이슈를 다루고 있어 보안 및 플랫폼 정책 측면에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Shitter - 프라이버시와 성능에 초점을 맞춘 Twitter 프런트엔드, Nitter 포크",
+      "link": "https://news.hada.io/topic?id=35923",
+      "published_at": "2026-10-25T00:40:29+09:00",
+      "selection_score": 9,
+      "selection_reason": "프라이버시와 성능을 고려한 백엔드 프록시 아키텍처 사례로, 시스템 설계 관점에서 참고할 만합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "동일한 AI 요청, 텍사스에서는 스웨덴보다 CO₂를 8.5배 더 배출함",
+      "link": "https://news.hada.io/topic?id=35930",
+      "published_at": "2026-10-25T02:42:21+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 인프라 운영 시 탄소 배출량 측정이라는 최신 트렌드를 다루며, 관련 오픈소스 도구는 향후 클라우드 비용 및 효율성 관리 관점에서 참고할 만합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "FreeDNS - 무료 동적/정적 DNS와 도메인/서브도메인 호스팅",
+      "link": "https://news.hada.io/topic?id=35932",
+      "published_at": "2026-10-25T03:32:42+09:00",
+      "selection_score": 10,
+      "selection_reason": "서버 및 네트워크 인프라 구축 시 유용한 무료 DNS 도구로, 개인 프로젝트나 소규모 환경에서 활용 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Apple Security Research Device - 보안 기능 우회 없이 iOS를 연구하는 전용 iPhone",
+      "link": "https://news.hada.io/topic?id=35933",
+      "published_at": "2026-10-25T03:35:42+09:00",
+      "selection_score": 10,
+      "selection_reason": "iOS 보안 연구를 위한 전용 하드웨어 제공은 모바일 보안 및 시스템 아키텍처 연구자에게 중요한 정보입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
