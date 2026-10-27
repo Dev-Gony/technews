@@ -1,0 +1,374 @@
+{
+  "schema_version": 1,
+  "issue_number": 38,
+  "issue_date": "2026-10-27",
+  "generated_at": "2026-10-27T09:15:37.198153+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nMCP (Model Context Protocol), AI 에이전트 워크플로, 장애 진단 자동화, 로컬 문서 처리, 인지 부하 관리\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 실무의 핵심 도구로 자리 잡으면서, 이를 안정적으로 운영하기 위한 표준화된 배관 공사와 워크플로 최적화가 필수적인 시점이 되었습니다.\n\n[오늘 왜 중요한가]\n\n단순히 AI를 사용하는 단계를 넘어, 사내 인프라와 AI 에이전트를 어떻게 유기적으로 연결하고 장애를 관리할 것인지에 대한 실무적 고민이 필요한 시기입니다. 오늘 소개된 글들은 AI 도입 과정에서 겪는 인증, 모니터링, 생산성 저하 문제를 해결할 구체적인 방법론을 제시합니다.\n\n[왜 이 글들을 골랐나]\n\n• 상세 글 7: MCP를 활용해 로컬 환경에서 보안을 유지하며 AI 에이전트의 업무 범위를 확장하는 실질적인 방법을 제시합니다.\n• 상세 글 1: 사내 AI 에이전트 도입 시 가장 큰 걸림돌인 인증과 배포 문제를 플랫폼화하여 해결한 구체적인 아키텍처 사례입니다.\n• 상세 글 4: 대규모 데이터 환경에서 LLM을 활용해 장애 진단을 자동화하고 운영 효율을 극대화한 실무 사례입니다.\n\n[오늘 공부해볼 것]\n\n• MCP(Model Context Protocol) 기본 개념과 아키텍처: AI 에이전트와 로컬/원격 도구를 연결하는 표준 프로토콜을 이해하면 사내 도구 연동 방식을 표준화할 수 있습니다.\n• AI 에이전트의 컨텍스트 관리 전략: 에이전트가 작업을 수행할 때 인지 부하를 줄이고 정확도를 높이기 위한 지침 문서(System Prompt) 작성법을 익힐 수 있습니다.\n• LLM 기반 장애 진단 파이프라인 설계: 로그 분석과 LLM을 결합하여 운영 장애 대응을 자동화하는 아키텍처를 학습하여 운영 효율을 높일 수 있습니다.",
+  "stats": {
+    "candidate_count": 39,
+    "detailed_count": 10,
+    "brief_count": 5,
+    "excluded_count": 19,
+    "unresolved_count": 5
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "PaperPilot - AI 에이전트와 브라우저에서 쓰는 로컬 PDF 도구",
+      "link": "https://news.hada.io/topic?id=36034",
+      "published_at": "2026-10-26T19:34:13+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트, MCP, 로컬 LLM 활용 등 사용자의 핵심 관심사를 모두 관통하는 매우 유용한 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "Rust 기반의 로컬 PDF 처리 도구 'PaperPilot', AI 에이전트와 연동하여 문서 자동화 지원",
+      "key_points": [
+        "PDF 병합, 분할, OCR 등 다양한 문서 작업을 로컬에서 처리하며, 브라우저와 CLI, 데스크톱 앱을 모두 지원합니다.",
+        "MCP(Model Context Protocol) 서버를 제공하여 Claude Code, Cursor 등 AI 에이전트가 로컬 PDF를 직접 제어할 수 있게 합니다.",
+        "WebAssembly를 통해 서버 업로드 없이 브라우저 내에서 안전하게 파일을 처리하며, REST API를 통해 자동화 스크립트와 연동 가능합니다."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "로컬 AI 에이전트",
+        "WebAssembly"
+      ],
+      "recommended_for": "로컬 환경에서 보안을 유지하며 AI 에이전트를 통해 PDF 문서 작업을 자동화하고 싶은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "Claude Code 또는 Cursor에 PaperPilot MCP 서버 연결하기",
+        "steps": [
+          "PaperPilot GitHub 저장소에서 MCP 서버 설정 가이드를 확인합니다.",
+          "사용 중인 AI 에이전트(Claude Desktop 등)의 설정 파일에 PaperPilot MCP 서버를 등록합니다.",
+          "에이전트에게 '이 PDF 파일들을 합쳐줘'와 같은 자연어 명령을 내려 로컬 문서 처리 기능을 테스트합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "LINE Engineering",
+      "title": "Flava MCP Hub가 걸어온 길: AI 시대를 위한 배관 공사",
+      "link": "https://techblog.lycorp.co.jp/ko/flava-mcp-hub-ai-infrastructure",
+      "published_at": "Mon, 26 Oct 2026 02:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트와 MCP를 실무에 통합하는 구체적인 배관 공사 사례를 다루고 있어 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "LINE의 Flava MCP Hub는 사내 인증과 MCP 표준 간의 간극을 해결하여 AI 에이전트 개발 생산성을 높인 플랫폼입니다.",
+      "key_points": [
+        "MCP 서버의 인증, 배포, 운영을 플랫폼화하여 팀별 중복 구현을 제거하고 5분 내 배포가 가능해졌습니다.",
+        "Connector를 통해 사내 OIDC 인증과 MCP 표준 간의 Protocol Gap을 해소하여 클라이언트가 인증 과정을 몰라도 되게 설계했습니다.",
+        "자체 Gateway를 구축하여 사내 요구사항에 맞는 유연한 제어와 모니터링을 통해 전사 AI 도구 사용 현황을 가시화했습니다."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "OIDC (OpenID Connect)",
+        "Protocol Gap"
+      ],
+      "recommended_for": "사내 AI 에이전트 도입 및 인프라 표준화를 고민하는 백엔드 및 플랫폼 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 사내 AI 도구 연동 시 반복되는 인증 로직을 식별하고 공통 컴포넌트화 검토하기",
+        "steps": [
+          "팀 내에서 AI 에이전트 연동 시 매번 구현하는 인증 로직(토큰 갱신, 헤더 주입 등) 목록화",
+          "해당 로직을 별도 미들웨어나 프록시 계층으로 분리할 수 있는지 아키텍처 검토",
+          "MCP 표준을 활용한 사내 도구 카탈로그 구축 가능성 타진"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Making Failure Diagnosis Reliable with Pensive AI",
+      "link": "https://netflixtechblog.com/making-failure-diagnosis-reliable-with-pensive-ai-6b0811a1c015",
+      "published_at": "Mon, 26 Oct 2026 17:04:57 GMT",
+      "selection_score": 13,
+      "selection_reason": "대규모 데이터 워크로드의 장애 진단을 자동화하는 AI 시스템 구축 사례로 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix는 Pensive AI를 통해 대규모 데이터 워크로드의 장애 진단을 자동화하고 엔지니어링 효율을 높였습니다.",
+      "key_points": [
+        "기존 정규식 기반의 결정론적 진단과 LLM 기반의 AI 진단을 결합하여 장애 진단 커버리지를 100%로 확대했습니다.",
+        "로그 라인 번호를 활용한 토큰 최적화로 비용을 절감하고, 캐싱 전략을 통해 동일 장애에 대한 중복 추론을 방지했습니다.",
+        "실패한 작업 단위로 진단 결과를 캐싱하여 팀 전체가 일관된 분석 결과를 공유할 수 있는 환경을 구축했습니다."
+      ],
+      "topics": [
+        "AI-assisted Debugging",
+        "Data Pipeline Monitoring",
+        "LLM Gateway"
+      ],
+      "recommended_for": "대규모 데이터 플랫폼 운영 및 장애 대응 자동화를 고민하는 백엔드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "무신사",
+      "title": "대AI시대에 일하는 방식의 변화에 대한 고찰",
+      "link": "https://techblog.musinsa.com/%EB%8C%80ai%EC%8B%9C%EB%8C%80%EC%97%90-%EC%9D%BC%ED%95%98%EB%8A%94-%EB%B0%A9%EC%8B%9D%EC%9D%98-%EB%B3%80%ED%99%94%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EC%B0%B0-6d11e0b1fead",
+      "published_at": "Mon, 26 Oct 2026 22:01:01 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 도입에 따른 개발 워크플로의 변화와 실무적 고찰을 담고 있어 개발 생산성 측면에서 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 에이전트 시대에는 개발자의 역할이 생산자에서 여러 작업을 조율하는 관제사로 변화해야 합니다.",
+      "key_points": [
+        "코딩 속도가 병목이 아닌 시대에는 판단력이 새로운 병목이 되며, 동시에 관리할 수 있는 작업 수에 한계가 존재합니다.",
+        "기억력에 의존하기보다 지침 문서와 메모리 파일을 활용해 컨텍스트를 외부화하고, 작업 종류를 분산하여 인지 부하를 줄여야 합니다.",
+        "판단이 필요한 작업은 3개 이하로 제한하고, 1차 검증을 자동화하여 책임 있는 승인 프로세스를 유지해야 합니다."
+      ],
+      "topics": [
+        "AI Agentic Workflow",
+        "Context Switching",
+        "Developer Productivity"
+      ],
+      "recommended_for": "AI 코딩 도구를 실무에 적극적으로 도입하고 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "AI 에이전트 작업 시 '판단 대기 작업' 3개 제한 및 컨텍스트 외부화 실험",
+        "steps": [
+          "현재 진행 중인 AI 에이전트 세션 중 '판단 대기' 상태인 작업만 3개 이하로 유지하기",
+          "에이전트 세션 시작 시 참조할 '지침 문서(System Prompt/Memory)'를 별도 파일로 관리하기",
+          "작업 종료 후 스스로에게 '이 변경을 동료에게 설명할 수 있는가?'를 질문하여 책임 범위 확인하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Preview, edit, and collaborate on markdown (.md) files natively in Google Docs and Drive",
+      "link": "https://developers.googleblog.com/preview-edit-and-collaborate-on-markdown-md-files-natively-in-google-docs-and-drive",
+      "published_at": "",
+      "selection_score": 11,
+      "selection_reason": "Markdown 네이티브 지원은 개발자 문서화 및 AI 에이전트와의 협업 워크플로를 개선하는 실용적인 도구 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "Google Docs가 Markdown(.md) 파일을 네이티브로 지원하여 개발자 문서 협업이 더욱 편리해졌습니다.",
+      "key_points": [
+        "별도의 변환 과정 없이 Google Docs에서 직접 Markdown 파일을 편집하고 협업할 수 있습니다.",
+        "Git 저장소와의 호환성을 유지하면서도 Docs의 댓글, 버전 기록 등 강력한 협업 기능을 활용할 수 있습니다.",
+        "개발자와 AI 에이전트가 동일한 문서 포맷으로 원활하게 상호작용할 수 있는 환경이 조성되었습니다."
+      ],
+      "topics": [
+        "Markdown",
+        "Developer Documentation",
+        "Collaboration Tools"
+      ],
+      "recommended_for": "기술 문서 작성 및 팀 내 협업이 잦은 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang",
+      "link": "https://blog.cloudflare.com/kv-cache-exposure-remediation",
+      "published_at": "Mon, 26 Oct 2026 22:01:23 GMT",
+      "selection_score": 11,
+      "selection_reason": "LLM 서비스의 보안 취약점 사례와 대응 방식은 AI 모델을 운영하는 실무자에게 필수적인 보안 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare는 SGLang 엔진의 설정 미스와 버그로 인한 KV 캐시 노출 사고를 해결하고 보안을 강화했습니다.",
+      "key_points": [
+        "모델의 컨텍스트 윈도우와 KV 캐시 풀 크기 불일치로 인해 이전 사용자의 데이터가 노출되는 보안 취약점이 발생했습니다.",
+        "SGLang 엔진의 요청 거절 로직 버그로 인해 실패해야 할 요청이 이전 세션의 캐시를 참조하며 응답이 생성되었습니다.",
+        "설정 검증 강화 및 엔진 패치를 통해 재발을 방지하고, 모든 SGLang 배포 환경에 대한 보안 하드닝을 완료했습니다."
+      ],
+      "topics": [
+        "KV Cache",
+        "LLM Security",
+        "Tenant Isolation"
+      ],
+      "recommended_for": "LLM 추론 엔진을 직접 운영하거나 AI 모델을 서비스하는 인프라 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Visualization Autocomplete - 다음 단계를 추천받으며 차트를 만드는 웹 도구",
+      "link": "https://news.hada.io/topic?id=36032",
+      "published_at": "2026-10-26T18:16:45+09:00",
+      "selection_score": 11,
+      "selection_reason": "데이터 분석 및 시각화 자동화 도구로서 실무적인 활용 가치가 높고 관심 분야인 AI 도구와 연관성이 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "데이터 시각화 과정을 단계별로 추천받으며 차트를 생성하는 웹 도구 'Visualization Autocomplete' 공개",
+      "key_points": [
+        "사용자가 차트를 생성할 때 다음 작업을 추천받아 한 단계씩 수정하며 완성해 나가는 인터랙티브 도구입니다.",
+        "ggaction 라이브러리를 기반으로 하며, 작업 과정을 코드로 확인하고 내보낼 수 있어 논문이나 보고서 초안 작성에 유용합니다.",
+        "사용자가 추천을 살펴보고 직접 선택하는 방식으로, 처음부터 완벽한 차트를 정의하기 어려운 상황에서 시각화를 구체화하는 데 도움을 줍니다."
+      ],
+      "topics": [
+        "데이터 시각화 자동화",
+        "인터랙티브 차트 생성",
+        "ggaction"
+      ],
+      "recommended_for": "데이터 분석 결과를 보고서나 논문에 자주 활용하며 시각화 작업 시간을 단축하고 싶은 개발자 및 연구원",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Visualization Autocomplete를 활용해 데이터 시각화 초안 빠르게 만들기",
+        "steps": [
+          "웹사이트(vis.autocomplete.studio)에 접속하여 예제 데이터를 로드합니다.",
+          "추천 기능을 활용해 차트 스타일을 변경하며 시각화 초안을 생성합니다.",
+          "생성된 차트의 ggaction 코드를 확인하고 실제 분석 워크플로에 적용 가능한지 검토합니다."
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Next.js를 제거하자 내 블로그의 모든 Lighthouse 항목이 100점을 기록함",
+      "link": "https://news.hada.io/topic?id=36035",
+      "published_at": "2026-10-26T19:37:13+09:00",
+      "selection_score": 13,
+      "selection_reason": "백엔드 아키텍처 및 성능 개선 관점에서 프레임워크 전환 사례는 실무적으로 매우 가치 있는 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "정적 블로그에서 Next.js를 제거하고 Hono로 전환하여 Lighthouse 100점 달성",
+      "key_points": [
+        "정적 페이지임에도 Next.js의 클라이언트 런타임과 하이드레이션이 성능에 영향을 준다는 점을 확인했습니다.",
+        "Hono로 전환한 결과, 미사용 JavaScript가 230KB에서 407바이트로 줄고 렌더링 전 작업 시간이 78% 개선되었습니다.",
+        "상호작용이 없는 정적 사이트에는 무거운 프레임워크 대신 가벼운 도구를 선택하는 것이 성능 최적화에 유리합니다."
+      ],
+      "topics": [
+        "Lighthouse 성능 최적화",
+        "하이드레이션(Hydration)",
+        "Hono"
+      ],
+      "recommended_for": "정적 웹사이트의 성능을 극대화하고 싶거나 불필요한 프레임워크 의존성을 줄이고 싶은 백엔드/프론트엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "현재 운영 중인 정적 사이트의 불필요한 JS 런타임 분석 및 경량화 검토",
+        "steps": [
+          "Chrome DevTools의 Coverage 탭을 통해 현재 사이트의 미사용 JavaScript 비중을 측정합니다.",
+          "Next.js의 정적 내보내기(Static Export)를 사용 중인지 확인하고, 여전히 불필요한 런타임이 포함되는지 분석합니다.",
+          "정적 페이지 위주의 서비스라면 Hono나 Astro와 같은 경량 프레임워크로의 전환 가능성을 검토합니다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ask GN: 비개발자인데, AI에게 맡긴 반복 작업이 밤새 멈춘 걸 아침에야 압니다. 어떻게 감시하세요?",
+      "link": "https://news.hada.io/topic?id=36044",
+      "published_at": "2026-10-26T22:03:48+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트 워크플로의 모니터링 및 안정성 확보는 실무에서 매우 중요한 문제로 깊이 있는 논의가 필요합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 반복 작업 중단 문제를 해결하기 위한 모니터링 및 자동화 전략",
+      "key_points": [
+        "AI 작업이 멈추는 원인(로그인 만료 등)을 사전에 감지하고, 작업 시작 전 상태를 체크하는 로직이 필수적입니다.",
+        "작업 내부의 자체 감시보다는 외부 스케줄러(cron 등)를 통해 주기적으로 상태를 확인하는 것이 더 안정적입니다.",
+        "사람의 개입이 필요한 경우 메신저 알림을 통해 즉시 대응할 수 있는 'AFK 모드' 도입이 권장됩니다."
+      ],
+      "topics": [
+        "AI 에이전트 워크플로",
+        "작업 자동화 모니터링",
+        "AFK(Away From Keyboard) 모드"
+      ],
+      "recommended_for": "AI 에이전트를 활용해 업무 자동화를 구축했으나, 작업 중단 문제로 운영에 어려움을 겪는 사용자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "AI 에이전트 작업에 사전 로그인 체크 및 외부 모니터링 도입",
+        "steps": [
+          "AI 에이전트의 작업 프롬프트 맨 앞에 '로그인 상태 확인' 단계를 추가합니다.",
+          "로그인 실패 시 사용자에게 메신저로 알림을 보내는 로직을 구성합니다.",
+          "OS 작업 스케줄러를 사용하여 작업 프로세스가 살아있는지 주기적으로 확인하는 외부 감시 스크립트를 작성합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "어텐션이 필요한 것은 아니다 (2025)",
+      "link": "https://news.hada.io/topic?id=36046",
+      "published_at": "2026-10-26T23:03:15+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM 아키텍처의 최신 연구 동향을 다루고 있어 AI 기술의 흐름을 파악하는 데 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "어텐션 메커니즘을 대체하기 위한 Grassmann 다양체 기반의 새로운 시퀀스 모델 연구",
+      "key_points": [
+        "어텐션 가중치 대신 국소 토큰 쌍의 기하학적 특징(Grassmann 다양체)을 활용하여 정보를 섞는 새로운 모델 구조를 제안합니다.",
+        "기존 Transformer의 고차원 텐서 리프팅 문제를 지적하며, 선형적인 계산 복잡도를 통해 효율적인 시퀀스 처리를 목표로 합니다.",
+        "소규모 실험에서 기존 Transformer와 유사한 성능을 보였으나, 대규모 확장성과 실제 GPU 최적화 측면에서는 추가 연구가 필요합니다."
+      ],
+      "topics": [
+        "Grassmann 다양체",
+        "시퀀스 모델링",
+        "어텐션 메커니즘"
+      ],
+      "recommended_for": "LLM 아키텍처의 근본적인 한계를 이해하고 차세대 모델링 기법에 관심이 많은 AI 연구자 및 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Meta Engineering",
+      "title": "Meta Networking at the 2026 OCP Global Summit: Open Innovation for Scale-Up, Scale-Out, and Scale-Across AI Networks",
+      "link": "https://engineering.fb.com/2026/10/26/open-source/ocp-summit-2026-meta-networking-talks",
+      "published_at": "Mon, 26 Oct 2026 16:00:07 +0000",
+      "selection_score": 10,
+      "selection_reason": "초거대 AI 인프라를 위한 최신 네트워크 아키텍처 변화를 다루고 있어 업계 기술 트렌드 파악에 중요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Multi‑Ratio Video Resizing for Mobile Feed and Marketing",
+      "link": "https://netflixtechblog.com/multi-ratio-video-resizing-for-mobile-feed-and-marketing-2e6b42810f49",
+      "published_at": "Mon, 26 Oct 2026 16:01:02 GMT",
+      "selection_score": 9,
+      "selection_reason": "대규모 미디어 서비스의 자동화된 영상 처리 및 성능 최적화 사례로 백엔드 엔지니어링 관점에서 참고할 만합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Recommended resilience testing in the next generation of AWS Resilience Hub",
+      "link": "https://aws.amazon.com/blogs/architecture/recommended-resilience-testing-in-the-next-generation-of-aws-resilience-hub",
+      "published_at": "Mon, 26 Oct 2026 17:35:01 +0000",
+      "selection_score": 10,
+      "selection_reason": "클라우드 환경에서의 회복탄력성 테스트 자동화는 안정적인 백엔드 운영을 위해 중요한 실무 지식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Data governance with annotations in Amazon S3",
+      "link": "https://aws.amazon.com/blogs/architecture/data-governance-with-annotations-in-amazon-s3",
+      "published_at": "Mon, 26 Oct 2026 18:00:26 +0000",
+      "selection_score": 9,
+      "selection_reason": "S3 데이터 거버넌스 관리의 효율성을 높이는 새로운 기능으로, 데이터 아키텍처 설계 시 유용합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Anthropic, 나스닥에 ‘ANT’로 상장 신청하고 S-1 증권신고서 공개",
+      "link": "https://news.hada.io/topic?id=36045",
+      "published_at": "2026-10-26T23:00:14+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 업계의 중대한 변화인 Anthropic의 상장 소식은 기술 생태계 전반에 큰 영향을 미치므로 확인할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
