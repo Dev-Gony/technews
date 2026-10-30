@@ -1,0 +1,577 @@
+{
+  "schema_version": 1,
+  "issue_number": 41,
+  "issue_date": "2026-10-30",
+  "generated_at": "2026-10-30T09:38:19.331038+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nLLM 벤치마크, 오픈웨이트 모델, AI 에이전트 워크플로, Generative UI, 보안 아키텍처\n\n[오늘의 한줄 포인트]\n\nAI 모델의 성능 경쟁이 가속화되는 가운데, 이제는 모델 자체의 지능을 넘어 이를 실무 워크플로에 어떻게 안정적으로 통합하고 검증할 것인가가 핵심 과제로 떠오르고 있습니다.\n\n[오늘 왜 중요한가]\n\n최신 LLM들이 코딩과 추론 영역에서 비약적인 성능 향상을 보이며 실무 도입의 문턱이 낮아지고 있습니다. 단순히 모델을 선택하는 것을 넘어, 에이전트의 행동을 제어하고 보안 취약점을 방지하며 실질적인 생산성을 끌어내는 엔지니어링 역량이 그 어느 때보다 중요해졌습니다.\n\n[왜 이 글들을 골랐나]\n\n• 9번: 최신 LLM의 성능과 비용 효율성을 객관적인 지표로 확인하여 프로젝트에 적합한 모델을 선택하는 기준을 제시합니다.\n• 11번: 고성능 오픈웨이트 모델의 공개는 자체 인프라에서 AI를 맞춤화하려는 엔지니어들에게 강력한 실무적 대안이 됩니다.\n• 7번: AI 에이전트의 복잡한 규칙을 피드백 루프로 자동 최적화하는 방법론은 AI 기반 개발 생산성을 극대화하는 실질적인 해법을 제공합니다.\n\n[오늘 공부해볼 것]\n\n• LLM 벤치마크 지표 해석: Intelligence Index 등 최신 지표가 코딩 및 추론 능력을 어떻게 평가하는지 이해하여 모델 선정의 근거를 마련합니다.\n• AI 에이전트 하네스(Harness) 개념: 에이전트의 동작을 일관되게 유지하고 피드백을 통해 스스로 개선하게 만드는 구조적 설계를 학습합니다.\n• 보안 취약점 사례 연구: 논리 버그나 난수 생성기 취약점 사례를 통해, 코드 작성 시 보안 아키텍처를 어떻게 고려해야 할지 점검합니다.",
+  "stats": {
+    "candidate_count": 38,
+    "detailed_count": 18,
+    "brief_count": 2,
+    "excluded_count": 18,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Gemini 4 Carbon, Artificial Analysis Intelligence Index v5에서 새로운 1위 기록",
+      "link": "https://news.hada.io/topic?id=36229",
+      "published_at": "2026-10-29T23:40:01+09:00",
+      "selection_score": 15,
+      "selection_reason": "최신 LLM 성능 지표와 코딩 에이전트 활용 능력은 AI 개발 및 워크플로 최적화에 직접적인 참고가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Google의 Gemini 4 Carbon이 최신 AI 벤치마크에서 1위를 기록하며 성능과 비용 효율성을 입증",
+      "key_points": [
+        "Gemini 4 Carbon은 추론, 지식, 과학 과제에서 우수한 성적을 거두며 Intelligence Index v5 1위를 차지함.",
+        "코딩 에이전트 평가에서는 Claude Opus 5.5 기반의 Claude Code에 이어 2위를 기록함.",
+        "기존 모델 대비 과제당 비용을 23% 낮추면서도 지능 수준은 높여 비용 효율적인 대안으로 주목받음."
+      ],
+      "topics": [
+        "LLM",
+        "AI Benchmarking",
+        "Cost-Performance Optimization"
+      ],
+      "recommended_for": "최신 LLM 성능을 추적하고 비용 효율적인 AI 모델을 도입하려는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Mistral Large 4(Le Chonk), 가중치 공개",
+      "link": "https://news.hada.io/topic?id=36233",
+      "published_at": "2026-10-30T00:41:45+09:00",
+      "selection_score": 15,
+      "selection_reason": "최신 오픈웨이트 모델의 가중치 공개와 코딩 에이전트 성능 향상은 AI 개발 및 실무 적용에 핵심적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Mistral Large 4(Le Chonk) 가중치 공개 및 코딩·보안 성능 강화",
+      "key_points": [
+        "1조 파라미터 모델 Mistral Large 4의 가중치가 공개되었으며, 강화학습을 통해 코딩, 사이버보안, 추론 효율이 개선됨.",
+        "Terminal-Bench 4.0 등에서 오픈웨이트 모델 중 선두를 기록했으며, 작업당 토큰 사용량을 30~47% 절감함.",
+        "수정 MIT 라이선스로 상업적 활용이 가능하나, 서비스 제공 사업자는 별도 라이선스 계약이 필요함."
+      ],
+      "topics": [
+        "Open-Weight Model",
+        "Reinforcement Learning",
+        "Sovereign AI"
+      ],
+      "recommended_for": "자체 인프라에 고성능 LLM을 배포하고 맞춤화하려는 백엔드 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Mistral Large 4 모델 로컬 배포 및 추론 성능 테스트",
+        "steps": [
+          "Hugging Face에서 Mistral Large 4 가중치 다운로드",
+          "vLLM 또는 SGLang을 사용하여 로컬 환경에 서빙 환경 구축",
+          "기존 프로젝트의 코드 리뷰 및 취약점 탐지 작업에 적용하여 성능 비교"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: oh-my-ouroboros - 피드백과 점검으로 스스로 다듬어지는 Claude Code 하네스",
+      "link": "https://news.hada.io/topic?id=36227",
+      "published_at": "2026-10-29T22:29:10+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent(Claude Code)의 워크플로를 개선하는 도구로, 개발 생산성 향상과 에이전트 활용 측면에서 매우 실용적입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Code의 규칙과 스킬을 피드백 루프를 통해 스스로 개선하는 하네스 도구 공개",
+      "key_points": [
+        "Claude Code 사용 시 누적되는 규칙과 스킬의 관리 복잡성을 해결하기 위한 자동화 도구임.",
+        "피드백과 점검 과정을 통해 에이전트의 행동을 지속적으로 다듬고 최적화함.",
+        "ML 연구 및 엔지니어링 워크플로에서 에이전트의 일관성을 유지하는 데 도움을 줌."
+      ],
+      "topics": [
+        "AI Agent",
+        "Claude Code",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "Claude Code를 활용해 개발 생산성을 높이고자 하는 AI 에이전트 사용자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "사이드카의 선언적 관리: OpenKruise SidecarSet 도입과 운영",
+      "link": "https://d2.naver.com/helloworld/2983631",
+      "published_at": "2026-10-29T08:22:22Z",
+      "selection_score": 11,
+      "selection_reason": "쿠버네티스 환경에서 사이드카 운영의 복잡성을 해결하는 실무적인 패턴을 다루고 있어 백엔드 아키텍처 및 운영 효율화에 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenKruise SidecarSet을 활용한 쿠버네티스 사이드카 컨테이너의 선언적 관리 및 무중단 업데이트",
+      "key_points": [
+        "사이드카 컨테이너의 라이프사이클을 메인 컨테이너와 분리하여, 메인 컨테이너 재시작 없이 사이드카만 개별적으로 업데이트할 수 있습니다.",
+        "SidecarSet CR을 통해 사이드카 정의를 중앙에서 관리하고, 컨트롤러가 실행 중인 Pod를 감시하여 선언된 상태로 자동 동기화합니다.",
+        "partition과 maxUnavailable 설정을 통해 롤아웃 범위를 제어하고, 완료 판정 로직을 통해 안정적인 배포를 보장합니다."
+      ],
+      "topics": [
+        "OpenKruise",
+        "SidecarSet",
+        "In-place Update"
+      ],
+      "recommended_for": "쿠버네티스 환경에서 다수의 사이드카 컨테이너 운영 및 배포 효율화에 고민이 많은 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 사이드카 배포 프로세스에 SidecarSet 도입 타당성 검토",
+        "steps": [
+          "현재 운영 중인 Pod의 사이드카 업데이트 방식과 문제점(재시작 빈도, 배포 시간 등)을 리스트업합니다.",
+          "OpenKruise SidecarSet의 기능이 현재의 운영 병목을 해결할 수 있는지 기술 문서를 통해 검증합니다.",
+          "테스트 클러스터에 SidecarSet을 설치하여 기존 워크로드와 충돌이 없는지 PoC를 진행합니다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "요기요",
+      "title": "Product Engineer 도전: 업무 영역의 확장",
+      "link": "https://techblog.yogiyo.co.kr/product-engineer-%EB%8F%84%EC%A0%84-%EC%97%85%EB%AC%B4-%EC%98%81%EC%97%AD%EC%9D%98-%ED%99%95%EC%9E%A5-0f3185b021b6",
+      "published_at": "Thu, 29 Oct 2026 07:50:41 GMT",
+      "selection_score": 11,
+      "selection_reason": "엔지니어의 역할 확장과 AI 시대의 개발 생산성 및 워크플로 변화를 다룬 실무적 회고로, 팀 운영과 개인 성장에 시사점이 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 시대, 엔지니어의 역할은 코드 작성을 넘어 맥락 정의와 프로세스 병목 해결로 확장되어야 합니다.",
+      "key_points": [
+        "Product Engineer는 단순 구현자가 아닌, 비즈니스 문제 정의부터 검증까지 제품 전체를 책임지는 해결사여야 합니다.",
+        "AI가 코드 생성을 담당하게 되면서, 실제 병목은 코드 작성이 아닌 조직 내 암묵지, 검증 프로세스, 부서 간 맥락 전달에 있습니다.",
+        "조직 차원에서 지식을 문서화(SSOT)하고, 테스트 및 로거 검증을 자동화하여 누구나 동일한 출발선에서 일할 수 있는 환경을 구축해야 합니다."
+      ],
+      "topics": [
+        "Product Engineer",
+        "SSOT(Single Source of Truth)",
+        "Developer Productivity"
+      ],
+      "recommended_for": "AI 도입을 통해 개발 생산성을 높이고 조직의 일하는 방식을 개선하고자 하는 팀 리더 및 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Build Generative UI Apps with A2UI & CopilotKit Agents",
+      "link": "https://developers.googleblog.com/build-generative-ui-apps-with-a2ui-copilotkit-agents",
+      "published_at": "",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 Generative UI를 결합하는 최신 기술 트렌드를 다루고 있어 사용자의 핵심 관심사와 매우 밀접합니다.",
+      "feedback_bias": 0,
+      "one_line": "A2UI와 CopilotKit을 활용하여 LLM이 런타임에 동적으로 UI를 생성하는 Generative UI 구현",
+      "key_points": [
+        "A2UI는 에이전트가 UI를 데이터 형태로 정의하고 애플리케이션이 이를 렌더링하게 하는 프레임워크 독립적 표준입니다.",
+        "CopilotKit은 에이전트와 애플리케이션을 연결하고 A2UI 페이로드를 처리하여 채팅 인터페이스 내에서 대화형 UI를 구현합니다.",
+        "선언적 데이터 포맷을 사용하여 보안을 유지하면서도, 사용자의 의도에 따라 실시간으로 반응형 UI를 구성할 수 있습니다."
+      ],
+      "topics": [
+        "Generative UI",
+        "A2UI",
+        "CopilotKit"
+      ],
+      "recommended_for": "LLM 기반 에이전트 서비스에 사용자 친화적인 대화형 UI를 도입하려는 프론트엔드 및 AI 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "CopilotKit을 활용한 간단한 Generative UI 프로토타입 구현",
+        "steps": [
+          "CopilotKit CLI를 사용하여 기본 A2UI 프로젝트를 생성합니다.",
+          "제공된 예제 카탈로그를 참고하여 간단한 커스텀 컴포넌트를 정의하고 에이전트가 이를 호출하도록 설정합니다.",
+          "로컬 환경에서 에이전트와 대화하며 동적으로 UI가 생성되는지 확인합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "Catching Bugs Before They Land: JiTTesting’s Human-on-the-Loop Approach at Full Scale",
+      "link": "https://engineering.fb.com/2026/10/29/security/catching-bugs-before-they-land-jittestings-human-on-the-loop-approach-at-full-scale",
+      "published_at": "Thu, 29 Oct 2026 16:00:12 +0000",
+      "selection_score": 13,
+      "selection_reason": "LLM을 활용한 자동화 테스트(JiTTesting)는 개발 생산성 향상과 AI 워크플로의 실질적인 적용 사례로서 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta의 LLM 기반 자동 테스트(JiTTesting)를 통한 배포 전 버그 탐지 및 엔지니어링 효율화",
+      "key_points": [
+        "JiTTests는 LLM을 활용해 코드 변경 사항에 대한 실행 가능한 테스트를 생성하여 전통적인 테스트가 놓치는 버그를 탐지합니다.",
+        "의도 인식(Intent-aware) 워크플로와 'Dodgy Diff' 워크플로를 병행하여 테스트 생성의 정확도를 높입니다.",
+        "LLM-as-Judge와 Rule-based Assessor를 결합하여 오탐(False Positive)을 필터링하고, 엔지니어의 개입을 최소화하는 'Human-on-the-loop' 방식을 채택합니다."
+      ],
+      "topics": [
+        "JiTTesting",
+        "LLM-as-Judge",
+        "Human-on-the-loop"
+      ],
+      "recommended_for": "대규모 코드베이스의 테스트 자동화와 AI를 활용한 품질 보증 프로세스에 관심 있는 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How boAt delivers personalized fitness coaching with Amazon Bedrock",
+      "link": "https://aws.amazon.com/blogs/architecture/how-boat-delivers-personalized-fitness-coaching-with-amazon-bedrock",
+      "published_at": "Thu, 29 Oct 2026 18:16:38 +0000",
+      "selection_score": 13,
+      "selection_reason": "LLM(Amazon Bedrock)을 활용한 실제 서비스 구현 사례와 비용 효율적인 아키텍처 설계 방식을 상세히 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon Bedrock과 Lambda를 활용한 비용 효율적이고 확장 가능한 AI 피트니스 코칭 서비스 아키텍처",
+      "key_points": [
+        "사용자의 이력 데이터와 선호도를 LLM에 컨텍스트로 제공하여 개인화된 피트니스 코칭 계획을 실시간으로 생성합니다.",
+        "Amazon Bedrock의 통합 API를 통해 여러 모델을 쉽게 평가하고, 서버리스 아키텍처로 인프라 관리 부담 없이 확장성을 확보했습니다.",
+        "데이터의 가독성을 높이기 위한 프롬프트 엔지니어링과 파싱 레이어를 통해 LLM의 비결정적 출력을 제어하고 서비스 안정성을 높였습니다."
+      ],
+      "topics": [
+        "Amazon Bedrock",
+        "Serverless Architecture",
+        "Prompt Engineering"
+      ],
+      "recommended_for": "LLM을 활용한 개인화 서비스 구현 및 비용 효율적인 클라우드 아키텍처 설계에 관심 있는 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "LLM 서비스의 데이터 가독성 향상을 위한 프롬프트 엔지니어링 기법 학습",
+        "steps": [
+          "기사에서 언급된 '레거시 키의 서술적 확장(예: weight -> weight_in_kg)' 기법을 현재 프로젝트의 데이터 구조에 적용해 봅니다.",
+          "LLM 응답의 일관성을 보장하기 위한 파싱 레이어(JSON 스키마 검증 등) 구현 방식을 조사합니다.",
+          "Amazon Bedrock의 CloudWatch 메트릭을 활용한 비용 및 성능 모니터링 설정 방법을 학습합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How BMW Group accelerated connected vehicle workloads on AWS Graviton",
+      "link": "https://aws.amazon.com/blogs/architecture/how-bmw-group-accelerated-connected-vehicle-workloads-on-aws-graviton",
+      "published_at": "Thu, 29 Oct 2026 20:11:14 +0000",
+      "selection_score": 11,
+      "selection_reason": "클라우드 비용 절감과 성능 개선을 위한 Graviton 마이그레이션 사례로, 대규모 시스템 운영자에게 실질적인 가이드가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "BMW 그룹이 커넥티드 차량 플랫폼을 AWS Graviton으로 전환하여 비용 절감과 성능 향상을 달성한 사례",
+      "key_points": [
+        "Karpenter를 도입해 동적 노드 풀을 구성하고, Graviton과 x86 아키텍처를 혼합 운영하는 유연한 인프라를 구축함.",
+        "GitHub Actions와 Docker Buildx를 활용해 멀티 아키텍처 컨테이너 이미지를 생성하고, taint와 node selector로 점진적 마이그레이션을 수행함.",
+        "연간 약 60만 달러의 비용 절감과 40%의 가격 대비 성능 향상을 기록하며, 플랫폼의 65% 이상을 Graviton으로 전환함."
+      ],
+      "topics": [
+        "AWS Graviton",
+        "Karpenter",
+        "Multi-architecture Container Build"
+      ],
+      "recommended_for": "클라우드 비용 절감과 인프라 현대화를 고민하는 백엔드 및 플랫폼 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 컨테이너 워크로드의 Graviton 전환 가능성 검토",
+        "steps": [
+          "현재 서비스의 베이스 이미지와 의존성이 arm64를 지원하는지 확인",
+          "Docker Buildx를 사용하여 기존 CI 파이프라인에 멀티 아키텍처 빌드 단계 추가",
+          "EKS 클러스터에 Graviton 노드 풀을 추가하고 테스트 환경에서 배포 검증"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "스파이 활동 의혹을 받는 이스라엘 기업, Starlink 사용자를 표적으로 삼아",
+      "link": "https://news.hada.io/topic?id=36228",
+      "published_at": "2026-10-29T22:33:20+09:00",
+      "selection_score": 11,
+      "selection_reason": "Starlink 트래픽을 이용한 대규모 감시 및 광고 타겟팅 이슈는 네트워크 보안과 프라이버시 측면에서 중요한 기술적 경고를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "이스라엘 광고 기술 기업이 Starlink 트래픽을 악용하여 사용자 위치 추적 및 감시를 시도한 정황 포착",
+      "key_points": [
+        "Discover-Tech라는 기업이 100개국 이상의 Starlink 사용자 대상 광고 입찰에서 1위를 차지하며 사용자 데이터를 수집함.",
+        "광고 입찰 과정에서 유출되는 데이터를 결합해 사용자의 신원을 식별하고 감시 소프트웨어의 표적으로 삼을 위험이 있음.",
+        "분쟁 지역이나 제재 대상국에서의 비정상적인 광고 입찰 패턴이 감시 인프라 운영의 증거로 지목됨."
+      ],
+      "topics": [
+        "AdTech",
+        "Network Surveillance",
+        "Starlink"
+      ],
+      "recommended_for": "네트워크 보안 및 프라이버시 보호에 관심이 많은 개발자 및 보안 담당자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "논리 버그만으로 Microsoft Edge 전체 익스플로잇 체인 구축하기",
+      "link": "https://news.hada.io/topic?id=36230",
+      "published_at": "2026-10-29T23:43:01+09:00",
+      "selection_score": 14,
+      "selection_reason": "메모리 손상 없이 논리 버그만으로 브라우저 익스플로잇 체인을 구축한 사례는 보안 아키텍처 설계 시 매우 중요한 학습 자료입니다.",
+      "feedback_bias": 0,
+      "one_line": "메모리 손상 없이 논리 버그 5개만을 조합하여 Microsoft Edge에서 임의 코드 실행(RCE)을 성공시킨 사례",
+      "key_points": [
+        "브라우저 탐색 API의 결함과 CORS 설정 오류 등을 연결해 클릭 없이 UXSS를 실행하는 체인을 구축함.",
+        "특권 WebUI의 read:// 스킴과 진단 로그 API를 악용하여 임의 파일 쓰기 및 프로토콜 정책 파일 변조를 수행함.",
+        "메모리 손상 취약점 없이 논리적 흐름만으로 브라우저 샌드박스를 탈출한 고난도 보안 연구 사례임."
+      ],
+      "topics": [
+        "UXSS",
+        "Exploit Chain",
+        "Browser Security"
+      ],
+      "recommended_for": "웹 브라우저 보안 아키텍처와 취약점 분석에 관심이 많은 보안 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "해커들, 미국 국토안보부 직원 4만 명 이상의 신원 공개",
+      "link": "https://news.hada.io/topic?id=36237",
+      "published_at": "2026-10-30T01:36:47+09:00",
+      "selection_score": 12,
+      "selection_reason": "SSO 시스템 취약점을 통한 대규모 데이터 유출 사고는 백엔드 보안 및 인증 아키텍처 관점에서 매우 중요한 시사점을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "미국 국토안보부(DHS) 직원 4만 명 정보 유출 사고 발생",
+      "key_points": [
+        "해킹 단체 Department of Peace가 DHS의 SSO 시스템 취약점을 악용해 직원 4만 명 이상의 개인정보를 탈취함.",
+        "유출된 데이터에는 잠복 작전 인력 정보가 포함되어 있으며, DDoSecrets를 통해 데이터베이스 형태로 공개됨.",
+        "정부 기관의 인증 시스템 보안 취약점이 대규모 정보 유출로 이어진 사례로, 보안 아키텍처 점검의 중요성을 시사함."
+      ],
+      "topics": [
+        "SSO(Single Sign-On)",
+        "Data Breach",
+        "Identity Security"
+      ],
+      "recommended_for": "인증 시스템 및 보안 아키텍처를 담당하는 백엔드 개발자 및 보안 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "PHP2Shell 연쇄 공격으로 미국 정부 관련 서버 포함 25대의 루트 권한 탈취",
+      "link": "https://news.hada.io/topic?id=36240",
+      "published_at": "2026-10-30T02:40:37+09:00",
+      "selection_score": 12,
+      "selection_reason": "서버 보안 및 취약점 대응은 백엔드 및 인프라 운영자에게 매우 중요한 실무 보안 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "PHP2Shell 취약점 연쇄 공격으로 미국 정부 서버 등 25대 루트 권한 탈취",
+      "key_points": [
+        "PHP의 메모리 관리 취약점과 커널 권한 상승 취약점을 결합해 방화벽 장비의 루트 권한을 탈취함.",
+        "공격자는 자동화된 스크립트를 통해 1만 9,000대 중 240대를 선별 공격했으며, 내부망 침투 및 자격 증명 탈취를 시도함.",
+        "AI 보조 개발 정황이 발견되었으나 특정 위협 행위자로 귀속되지는 않았으며, 현재도 지속적인 접근 경로가 남아있을 가능성이 있음."
+      ],
+      "topics": [
+        "Remote Code Execution(RCE)",
+        "Privilege Escalation",
+        "Threat Hunting"
+      ],
+      "recommended_for": "서버 인프라 운영자 및 보안 취약점 대응 담당자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM 문체가 만드는 글의 불쾌한 골짜기",
+      "link": "https://news.hada.io/topic?id=36244",
+      "published_at": "2026-10-30T04:36:51+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM 활용이 늘어나는 상황에서 생산성 도구로서의 AI 문체와 품질 관리에 대한 실질적인 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 특유의 문체가 만드는 글쓰기의 불쾌한 골짜기와 직접 쓰기의 가치",
+      "key_points": [
+        "LLM이 생성한 글은 특유의 장황함과 예측 가능성으로 인해 독자에게 거부감을 주는 '불쾌한 골짜기'를 형성함.",
+        "글쓰기는 사고를 정리하는 도구이므로, AI에 전적으로 위임할 경우 사고력과 이해력의 저하를 초래할 수 있음.",
+        "투명한 AI 활용 공개와 함께, 본문은 직접 작성하고 AI는 개요나 검색 보조 도구로만 활용하는 것을 권장함."
+      ],
+      "topics": [
+        "Uncanny Valley",
+        "AI-Generated Content",
+        "Critical Thinking"
+      ],
+      "recommended_for": "기술 블로그나 문서를 자주 작성하는 개발자 및 테크 라이터",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: DevFit - 채용공고와 내 GitHub 커밋으로 기술면접 예상 질문을 만들어 주는 서비스",
+      "link": "https://news.hada.io/topic?id=36252",
+      "published_at": "2026-10-30T07:39:43+09:00",
+      "selection_score": 13,
+      "selection_reason": "GitHub 커밋 데이터를 활용해 면접을 준비하는 도구로, 개발 생산성 및 커리어 관리에 매우 실용적입니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub 커밋 기반 기술면접 예상 질문 생성 서비스 'DevFit'",
+      "key_points": [
+        "DevFit은 채용공고와 사용자의 GitHub 커밋/diff를 분석하여 맞춤형 기술면접 예상 질문을 생성함.",
+        "테스트 코드 부재 등 로직 밀도가 높은 지점을 규칙 기반으로 식별하며, 모의면접 및 피드백 기능을 제공함.",
+        "개인 프로젝트의 기술적 깊이를 면접관 관점에서 점검하고 답변을 준비하는 데 최적화된 도구임."
+      ],
+      "topics": [
+        "Technical Interview",
+        "GitHub Workflow",
+        "AI-Assisted Career Development"
+      ],
+      "recommended_for": "이직을 준비 중이거나 자신의 프로젝트를 면접에서 효과적으로 설명하고 싶은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "DevFit을 활용한 기술면접 대비 및 프로젝트 점검",
+        "steps": [
+          "DevFit 서비스에 접속하여 GitHub 계정 연동",
+          "지원하고자 하는 기업의 채용공고 URL 입력",
+          "생성된 예상 질문을 바탕으로 자신의 커밋 히스토리를 복기하고 답변 스크립트 작성"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "9비트 AES 키 사건",
+      "link": "https://news.hada.io/topic?id=36253",
+      "published_at": "2026-10-30T07:41:46+09:00",
+      "selection_score": 14,
+      "selection_reason": "암호화 구현의 치명적인 취약점 사례로, 보안 및 백엔드 개발자에게 실무적으로 매우 중요한 학습 가치를 지닙니다.",
+      "feedback_bias": 0,
+      "one_line": "PDF 구현체의 취약한 난수 생성기로 인해 AES-256 암호화 문서가 비밀번호 없이 복호화되는 보안 사고 발생",
+      "key_points": [
+        "MuPDF, Foxit 등 주요 PDF 라이브러리가 암호학적으로 안전하지 않은 난수 생성기(LCG 등)를 사용하여 파일 키를 생성함.",
+        "생성된 키의 엔트로피가 극히 낮아 전수 탐색(Brute-force)으로 수 초 내에 비밀번호 없이 복호화가 가능함.",
+        "이미 배포된 PDF 문서는 소급하여 보호할 수 없으며, 암호화 구현 시 직접적인 난수 생성기 구현을 피해야 함."
+      ],
+      "topics": [
+        "선형 합동 생성기(LCG)",
+        "엔트로피 부족",
+        "암호학적 난수 생성기(CSPRNG)"
+      ],
+      "recommended_for": "보안 및 백엔드 시스템을 설계하거나 암호화 라이브러리를 다루는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트의 난수 생성 방식 및 암호화 라이브러리 의존성 점검",
+        "steps": [
+          "프로젝트 내에서 보안 관련 난수 생성(키 생성, 토큰 발급 등)에 사용되는 함수가 CSPRNG를 보장하는지 확인",
+          "사용 중인 암호화 라이브러리가 최신 보안 표준을 따르는지, 알려진 취약점이 있는지 의존성 도구로 스캔"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "좀비 통계: AI가 인용하는 숫자는 어디에서 오는가",
+      "link": "https://news.hada.io/topic?id=36254",
+      "published_at": "2026-10-30T07:44:46+09:00",
+      "selection_score": 13,
+      "selection_reason": "LLM의 환각 현상과 데이터 신뢰성 문제를 다루고 있어, RAG 시스템을 구축하거나 AI를 활용하는 실무자에게 필수적인 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 인용하는 통계의 60%가 원연구와 불일치하며, AI 답변을 검증 없이 신뢰하는 것은 위험함",
+      "key_points": [
+        "5개 AI 서비스의 통계 인용을 추적한 결과, 원연구와 일치하는 비율은 40%에 불과함.",
+        "AI는 숫자를 직접 생성하기보다 재전달하는 블로그나 통계 모음 페이지를 인용하며, 이 과정에서 맥락이 변형됨.",
+        "AI의 답변은 사실 확인을 위한 '조사 단서'로만 활용하고, 반드시 원출처의 표본과 조사 시점을 직접 확인해야 함."
+      ],
+      "topics": [
+        "좀비 통계(Zombie Statistics)",
+        "환각(Hallucination)",
+        "순환 인용"
+      ],
+      "recommended_for": "데이터 분석가, AI 에이전트 개발자 및 AI를 업무에 활용하는 모든 실무자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: 데드라인 렌즈 - 고지서 사진에서 납부기한을 찾아 알림을 거는 온디바이스 Android 앱",
+      "link": "https://news.hada.io/topic?id=36256",
+      "published_at": "2026-10-30T08:26:41+09:00",
+      "selection_score": 13,
+      "selection_reason": "온디바이스 AI를 활용한 업무 자동화 사례로, 실무적인 앱 개발 및 자동화 워크플로 구현에 좋은 참고가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "온디바이스 AI(ML Kit)를 활용해 종이 고지서에서 납부기한을 추출하고 관리하는 Android 앱 사례",
+      "key_points": [
+        "Google ML Kit의 한국어 OCR 모델을 사용하여 기기 내부에서 텍스트를 추출하고 규칙 기반으로 날짜를 파싱함.",
+        "네트워크 통신 없이 온디바이스 처리를 수행하여 개인정보 보호와 보안성을 강화함.",
+        "WorkManager를 활용한 알림 시스템과 D-day 위젯 등 실용적인 자동화 기능을 제공함."
+      ],
+      "topics": [
+        "온디바이스 AI",
+        "OCR(광학 문자 인식)",
+        "에지 컴퓨팅"
+      ],
+      "recommended_for": "온디바이스 AI를 활용한 업무 자동화 앱 개발에 관심 있는 Android 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "ML Kit를 활용한 간단한 텍스트 추출 프로토타입 구현",
+        "steps": [
+          "Android 프로젝트에 Google ML Kit 의존성 추가",
+          "이미지에서 텍스트를 추출하는 기본 로직 구현 및 특정 패턴(날짜 형식) 추출 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "AWS Compute",
+      "title": "Unlocking full-stack observability for AWS Outposts",
+      "link": "https://aws.amazon.com/blogs/compute/unlocking-full-stack-observability-for-aws-outposts",
+      "published_at": "Thu, 29 Oct 2026 18:23:18 +0000",
+      "selection_score": 9,
+      "selection_reason": "하이브리드 클라우드 환경에서의 관측 가능성(Observability) 확보는 복잡한 시스템 운영에 중요한 기술적 주제입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: 만든 사람도 결과를 미리 모르는 사다리타기 (drand 예약 추첨)",
+      "link": "https://news.hada.io/topic?id=36232",
+      "published_at": "2026-10-29T23:49:24+09:00",
+      "selection_score": 10,
+      "selection_reason": "drand를 활용한 검증 가능한 난수 생성 방식은 신뢰할 수 있는 시스템 설계 및 자동화 도구 구현에 유용한 기술적 아이디어입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
