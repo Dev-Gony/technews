@@ -1,6 +1,245 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "Google Developers",
+      "title": "DevFest is back!",
+      "link": "https://developers.googleblog.com/devfest-is-back",
+      "published_at": "",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic AI",
+        "Web MCP"
+      ],
+      "one_line": "Google의 연례 개발자 컨퍼런스 DevFest 2026이 'Agentic AI'를 주제로 개최됩니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "Cloudflare",
+      "title": "Cloudflare services for private origins is now generally available",
+      "link": "https://blog.cloudflare.com/private-origins-public-to-private",
+      "published_at": "Fri, 30 Oct 2026 14:23:43 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Private Origins",
+        "Cloudflare One",
+        "Zero Trust Networking"
+      ],
+      "one_line": "Cloudflare가 내부망에 위치한 API나 AI 에이전트 백엔드를 외부 노출 없이 안전하게 보호하는 'Private Origins' 서비스를 정식 출시했습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: korea-data-mcp – AI 에이전트가 한국 공공 API를 틀리게 읽지 않도록 해주는 MCP 서버",
+      "link": "https://news.hada.io/topic?id=36277",
+      "published_at": "2026-10-30T13:47:44+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "Data Normalization",
+        "AI Agent Tooling"
+      ],
+      "one_line": "한국 공공 API의 데이터 함정을 보정하여 AI 에이전트가 정확한 정보를 조회하도록 돕는 MCP 서버 구현체입니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Herdr - 터미널과 코딩 에이전트를 한곳에서 관리하는 네이티브 앱",
+      "link": "https://news.hada.io/topic?id=36283",
+      "published_at": "2026-10-30T17:32:34+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Terminal Multiplexer",
+        "Agentic Workflow",
+        "Developer Productivity"
+      ],
+      "one_line": "터미널과 코딩 에이전트를 통합 관리하는 오픈소스 네이티브 데스크톱 앱 'Herdr'입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Shellside - Claude Code가 상주하는 생성형 캔버스, 요청하면 나만의 도구·앱·워크플로우를 즉석에서 생성",
+      "link": "https://news.hada.io/topic?id=36285",
+      "published_at": "2026-10-30T18:48:52+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Generative Canvas",
+        "Claude Code",
+        "Agentic UI"
+      ],
+      "one_line": "Claude Code가 상주하며 대화만으로 즉석에서 도구와 워크플로우를 생성하는 생성형 캔버스 웹서비스 'Shellside'입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Vicem - 로컬 AI 코딩 에이전트 간 작업 컨텍스트를 전달하는 CLI/GUI 도구",
+      "link": "https://news.hada.io/topic?id=36286",
+      "published_at": "2026-10-30T21:10:06+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Context Management",
+        "CLI Tooling",
+        "Developer Workflow Automation"
+      ],
+      "one_line": "로컬 AI 코딩 에이전트 간 작업 컨텍스트를 간편하게 공유하는 오픈소스 도구 'Vicem'",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Cursor 마켓플레이스의 Claude Code 확장에서 SSH 백도어 발견",
+      "link": "https://news.hada.io/topic?id=36287",
+      "published_at": "2026-10-30T21:34:14+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Supply Chain Attack",
+        "Backdoor",
+        "IDE Extension Security"
+      ],
+      "one_line": "Cursor 마켓플레이스 내 Claude Code 확장 변조로 인한 SSH 백도어 배포 사고",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Claude Code 확장 변조로 개발자 시스템에 SSH 백도어 배포",
+      "link": "https://news.hada.io/topic?id=36288",
+      "published_at": "2026-10-30T21:37:14+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Reverse SSH Tunnel",
+        "Persistence Mechanism",
+        "Supply Chain Security"
+      ],
+      "one_line": "Claude Code 확장 변조 사고의 기술적 분석 및 대응 가이드",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Cursor Marketplace의 Claude Code for VS Code 확장 프로그램에서 백도어 발견",
+      "link": "https://news.hada.io/topic?id=36295",
+      "published_at": "2026-10-31T00:34:07+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Malware Analysis",
+        "IDE Extension Vulnerability",
+        "Incident Response"
+      ],
+      "one_line": "Cursor 마켓플레이스 Claude Code 확장 변조 사건의 상세 분석 및 복구 절차",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Azure의 가장 약한 고리, 테넌트 간 완전한 침해 취약점 5건",
+      "link": "https://news.hada.io/topic?id=36296",
+      "published_at": "2026-10-31T01:34:51+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Privilege Escalation",
+        "Cross-Tenant Vulnerability",
+        "Cloud Security Architecture"
+      ],
+      "one_line": "Azure Logic Apps에서 발견된 테넌트 간 권한 상승 및 데이터 유출 취약점 5건",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: WORLD MODEL - 지금 쓸 수 있는 세계 AI 모델 1,100여 개를 한눈에 보는 도감",
+      "link": "https://news.hada.io/topic?id=36298",
+      "published_at": "2026-10-31T02:13:53+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 모델 도감",
+        "로컬 LLM 실행 사양",
+        "AI 도구 추천"
+      ],
+      "one_line": "전 세계 1,100여 개 AI 모델을 분야별·사양별로 한눈에 비교하고 탐색할 수 있는 도감 서비스.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "AI는 SRE를 대체하는 게 아니라 숙련도를 떨어뜨리고 있음",
+      "link": "https://news.hada.io/topic?id=36299",
+      "published_at": "2026-10-31T02:38:03+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "자동화의 역설 (Ironies of Automation)",
+        "SRE 숙련도 저하",
+        "의도적인 비효율"
+      ],
+      "one_line": "AI 자동화가 SRE의 일상적 업무를 대체하면서, 정작 중요한 장애 대응 전문성과 직관을 약화시키는 '자동화의 역설'에 대한 경고.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Northflank 침해 사고 발생",
+      "link": "https://news.hada.io/topic?id=36302",
+      "published_at": "2026-10-31T03:33:56+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "시크릿 유출 (Secret Leak)",
+        "환경 변수 보안",
+        "클라우드 보안 사고 대응"
+      ],
+      "one_line": "클라우드 플랫폼 Northflank의 보안 침해 사고로 인한 환경 변수 및 시크릿 유출 주의보.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Tangled - 자체 호스팅과 협업을 결합한 연합형 코드 포지",
+      "link": "https://news.hada.io/topic?id=36307",
+      "published_at": "2026-10-31T06:32:19+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "연합형 코드 포지 (Federated Code Forge)",
+        "AT Protocol",
+        "COB (Collaboration Object)"
+      ],
+      "one_line": "자체 호스팅과 협업을 결합하여 개발자의 통제권을 보장하는 연합형(Federated) 코드 포지, Tangled.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-10-31T09:25:20.458288+09:00",
+      "company": "GeekNews",
+      "title": "Bunny CDN 보안 사고",
+      "link": "https://news.hada.io/topic?id=36311",
+      "published_at": "2026-10-31T08:31:43+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "CDN 보안",
+        "TLS 인증서 관리",
+        "공급망 보안 (Supply Chain Security)"
+      ],
+      "one_line": "Bunny CDN의 인프라 공급업체 침해 사고로 인한 TLS 인증서 재발급 권고.",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-10-30T09:38:19.494207+09:00",
       "company": "네이버 D2",
       "title": "사이드카의 선언적 관리: OpenKruise SidecarSet 도입과 운영",
@@ -7756,249 +7995,7 @@
       ],
       "one_line": "AI 인프라 투자 정당화를 위해 2031년까지 연 매출 6조 달러 창출 필요",
       "actionability": 2
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "ChatGPT Pro 500",
-      "link": "https://news.hada.io/topic?id=34510",
-      "published_at": "2026-09-30T07:28:48+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Usage-based Pricing",
-        "Astra Ultrafast",
-        "API Credit Management"
-      ],
-      "one_line": "ChatGPT Pro 요금제 개편: 월 500달러 등급 신설 및 기존 사용량 정책 변경",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "America.gov",
-      "link": "https://news.hada.io/topic?id=34511",
-      "published_at": "2026-09-30T07:32:15+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "RAG (Retrieval-Augmented Generation)",
-        "Public Sector AI",
-        "Data Privacy"
-      ],
-      "one_line": "미국 정부의 공식 AI 서비스 'America.gov' 공개",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "GitHub Blog",
-      "title": "How we found 24 Android vulnerabilities using our open source AI security agent",
-      "link": "https://github.blog/security/how-we-found-24-android-vulnerabilities-using-our-open-source-ai-security-agent",
-      "published_at": "Mon, 28 Sep 2026 19:00:00 +0000",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Security Agent",
-        "Taskflow Prompting",
-        "Logic Vulnerability"
-      ],
-      "one_line": "GitHub Security Lab의 AI 에이전트를 활용한 안드로이드 앱 취약점 자동 탐지 워크플로",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "Cloudflare",
-      "title": "Supporting native Rust in Workers with the new Emscripten target for wasm-bindgen",
-      "link": "https://blog.cloudflare.com/rust-workers-emscripten-target",
-      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "WebAssembly",
-        "Emscripten",
-        "JSPI",
-        "Tokio Runtime"
-      ],
-      "one_line": "Cloudflare Workers에서 Rust와 Tokio를 네이티브하게 지원하는 Emscripten 타겟 공개",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "Cloudflare",
-      "title": "EmDash 1.0: the stable CMS with a secure plugin registry",
-      "link": "https://blog.cloudflare.com/emdash-cms-plugin-registry",
-      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "CMS",
-        "MCP(Model Context Protocol)",
-        "Sandboxed Plugins",
-        "AT Protocol"
-      ],
-      "one_line": "MCP 서버를 내장하고 보안 플러그인 생태계를 갖춘 오픈소스 CMS 'EmDash 1.0' 출시",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "Cloudflare",
-      "title": "The road to the agentic browser: A Kitesurf update",
-      "link": "https://blog.cloudflare.com/kitesurf-update",
-      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Browser",
-        "WebMCP",
-        "Browser Automation"
-      ],
-      "one_line": "AI 에이전트 전용 브라우저 'Kitesurf'의 WebMCP 지원 및 성능 최적화 업데이트",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Forge: the open source pipeline for generating SDKs, CLIs, docs, and more",
-      "link": "https://blog.cloudflare.com/forge-open-source-generation-pipeline",
-      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Code Generation",
-        "API Pipeline",
-        "Developer Experience"
-      ],
-      "one_line": "API 스펙 기반의 SDK, CLI, 문서 자동 생성 파이프라인 'Forge' 오픈소스 공개",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "Cloudflare",
-      "title": "Four months of VoidZero at Cloudflare: making the open-source JavaScript toolchain faster for all humans and agents",
-      "link": "https://blog.cloudflare.com/voidzero-update",
-      "published_at": "Mon, 28 Sep 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "VoidZero",
-        "Oxc",
-        "Bundled Dev"
-      ],
-      "one_line": "Cloudflare의 VoidZero 툴체인(Vite, Oxc 등)이 성능 개선과 에이전트 최적화를 통해 개발 생산성을 대폭 향상함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing cf: the agentic CLI for the entire Cloudflare API",
-      "link": "https://blog.cloudflare.com/cloudflare-cf-cli-launch",
-      "published_at": "Mon, 28 Sep 2026 14:50:37 GMT",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic CLI",
-        "Infrastructure as Code",
-        "LSP(Language Server Protocol)"
-      ],
-      "one_line": "AI 에이전트가 Cloudflare API를 완벽하게 제어할 수 있도록 설계된 에이전트 전용 CLI 'cf' 출시.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "Cloudflare",
-      "title": "Next.js applications, powered by Vite: introducing Vinext 1.0",
-      "link": "https://blog.cloudflare.com/vinext-nextjs-on-vite",
-      "published_at": "Mon, 28 Sep 2026 14:51:57 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Vinext",
-        "Cache Warming",
-        "Framework Portability"
-      ],
-      "one_line": "Next.js 애플리케이션을 Vite 기반으로 변환하여 어디서든 배포 가능하게 만드는 Vinext 1.0 출시.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "AWS Compute",
-      "title": "Improving Lambda function latency with scalable network bandwidth",
-      "link": "https://aws.amazon.com/blogs/compute/improving-lambda-function-latency-with-scalable-network-bandwidth",
-      "published_at": "Mon, 28 Sep 2026 21:17:09 +0000",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "AWS Lambda",
-        "Network Throughput",
-        "ETL Pipeline"
-      ],
-      "one_line": "AWS Lambda가 메모리 설정에 따라 네트워크 대역폭을 최대 3Gbps까지 확장 지원하여 데이터 처리 성능 대폭 향상.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "AWS Compute",
-      "title": "Building event-driven applications at scale with Amazon EventBridge",
-      "link": "https://aws.amazon.com/blogs/compute/building-event-driven-applications-at-scale-with-amazon-eventbridge",
-      "published_at": "Mon, 28 Sep 2026 22:38:57 +0000",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Amazon EventBridge",
-        "Event-Driven Architecture",
-        "Schema Registry"
-      ],
-      "one_line": "Amazon EventBridge의 공유 이벤트 버스 도입으로 다중 계정 이벤트 기반 아키텍처의 가시성과 관리 효율성 개선.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "GeekNews",
-      "title": "Postgres의 \"AT TIME ZONE 'UTC'\"에 숨은 함정",
-      "link": "https://news.hada.io/topic?id=34434",
-      "published_at": "2026-09-28T23:32:27+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "timestamp vs timestamptz",
-        "AT TIME ZONE",
-        "INTERVAL 연산"
-      ],
-      "one_line": "Postgres에서 timestamptz를 AT TIME ZONE 'UTC'로 변환하면 timestamp 타입으로 바뀌어 시간대 정보가 소실되므로 주의가 필요함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "GeekNews",
-      "title": "코딩은 해결된 문제가 아니다",
-      "link": "https://news.hada.io/topic?id=34435",
-      "published_at": "2026-09-29T00:42:55+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "이해 부채(Understanding Debt)",
-        "비기능 요구사항(NFR)",
-        "책임성(Accountability)"
-      ],
-      "one_line": "AI 코딩 도구는 생산성을 높이지만, 시스템에 대한 이해와 책임은 여전히 인간의 영역이며 과도한 의존은 품질 저하를 초래함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-29T09:50:58.458259+09:00",
-      "company": "GeekNews",
-      "title": "Imp - DSPy를 BEAM으로 완전히 포팅한 프로젝트",
-      "link": "https://news.hada.io/topic?id=34438",
-      "published_at": "2026-09-29T01:31:47+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "DSPy",
-        "Elixir/OTP",
-        "선언형 AI 프로그래밍"
-      ],
-      "one_line": "DSPy의 선언형 AI 프로그래밍 개념을 Elixir/OTP 환경으로 이식한 Imp 프로젝트가 공개됨.",
-      "actionability": 4
     }
   ],
-  "updated_at": "2026-10-30T09:38:19.494207+09:00"
+  "updated_at": "2026-10-31T09:25:20.458288+09:00"
 }
