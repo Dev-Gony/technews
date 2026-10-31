@@ -1,6 +1,230 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "AI 네이티브 엔지니어링 조직 만들기",
+      "link": "https://news.hada.io/topic?id=36328",
+      "published_at": "2026-10-31T21:38:15+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "AI-Native SDLC",
+        "Engineering Productivity"
+      ],
+      "one_line": "AI 에이전트를 활용해 개발 전 과정을 자동화하고 엔지니어의 책임 범위를 확장하여 생산성을 5배 향상한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "GitHub Actions, Pages, Webhooks 장애 발생",
+      "link": "https://news.hada.io/topic?id=36331",
+      "published_at": "2026-10-31T22:41:28+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "CI/CD Reliability",
+        "Service Availability",
+        "Infrastructure Dependency"
+      ],
+      "one_line": "GitHub Actions, Pages, Webhooks 등 주요 서비스의 대규모 장애 발생 및 복구 완료",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: AI Usage - 여러 Claude Code·Codex 계정의 사용 한도를 보여 주는 macOS 바탕화면 위젯",
+      "link": "https://news.hada.io/topic?id=36332",
+      "published_at": "2026-10-31T22:48:08+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Usage Monitoring",
+        "MCP (Model Context Protocol)",
+        "Developer Productivity Tools"
+      ],
+      "one_line": "여러 LLM 서비스(Claude, Codex 등)의 사용 한도를 바탕화면 위젯으로 실시간 모니터링하는 도구",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "curl이 우연히 9개월 동안 튜링 완전했던 과정",
+      "link": "https://news.hada.io/topic?id=36337",
+      "published_at": "2026-11-01T00:01:26+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Turing Completeness",
+        "Weird Machines",
+        "Configuration Vulnerability"
+      ],
+      "one_line": "curl 설정 파일 기능의 설계상 허점으로 인해 9개월간 의도치 않게 튜링 완전성을 갖게 되었던 사례",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "ChatGPT 공유 링크 하나로 계정을 탈취한 방법",
+      "link": "https://news.hada.io/topic?id=36338",
+      "published_at": "2026-11-01T00:41:44+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Cross-Site Scripting (XSS)",
+        "Content Security Policy (CSP)",
+        "Bug Bounty"
+      ],
+      "one_line": "ChatGPT 공유 링크의 미리보기 기능을 악용해 사용자 계정 권한을 탈취할 수 있었던 보안 취약점",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "Sanstun: Rust로 구현한 sans-IO, 병렬 처리 친화적 WireGuard",
+      "link": "https://news.hada.io/topic?id=36341",
+      "published_at": "2026-11-01T00:50:44+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "sans-IO",
+        "WireGuard",
+        "Rust Ownership"
+      ],
+      "one_line": "Rust로 구현된 sans-IO 방식의 고성능 WireGuard 라이브러리 'sanstun' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "Grace Blackwell에는 새 스케줄러가 필요하다: 같은 랙에서 사용 가능한 GPU 27% 확대",
+      "link": "https://news.hada.io/topic?id=36342",
+      "published_at": "2026-11-01T01:33:01+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "NVL72",
+        "Topology-Aware Scheduling",
+        "Tensor Parallelism"
+      ],
+      "one_line": "NVIDIA NVL72 환경에서 GPU 가용성을 27% 높이는 랙 인지형 스케줄링 전략",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "Prospero - 경량 설계와 원격 실행을 지원하는 새로운 코딩 하네스",
+      "link": "https://news.hada.io/topic?id=36346",
+      "published_at": "2026-11-01T02:49:44+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Headless Execution",
+        "Dear ImGui"
+      ],
+      "one_line": "저자원 설계와 원격 실행을 지원하는 C++ 기반 코딩 하네스 'Prospero'",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "악성코드, LLM으로 피해자의 금전적 가치에 따라 순위를 매김",
+      "link": "https://news.hada.io/topic?id=36347",
+      "published_at": "2026-11-01T03:36:02+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI-Powered Malware",
+        "Victim Profiling",
+        "Credential Theft"
+      ],
+      "one_line": "LLM을 악용해 피해자의 자산 가치를 평가하고 타겟팅하는 신종 악성코드 'VOLTA-AUTODOXER'",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "TCP 해제 후 사용 취약점: CVE-2026-98432 / CVSS 9.8",
+      "link": "https://news.hada.io/topic?id=36352",
+      "published_at": "2026-11-01T06:36:38+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Use-After-Free",
+        "Linux Kernel Security",
+        "MPTCP"
+      ],
+      "one_line": "Linux 커널 IPv4 TCP 핸드셰이크 취약점(CVE-2026-98432) 주의",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "Jepsen: ParticleDB 1.1.4 - AI용 데이터베이스의 정합성 검증에서 96개 문제 발견",
+      "link": "https://news.hada.io/topic?id=36353",
+      "published_at": "2026-11-01T07:33:15+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Jepsen Testing",
+        "ACID",
+        "Linearizability"
+      ],
+      "one_line": "Jepsen 검증 결과, ParticleDB 1.1.4에서 데이터 유실 및 정합성 오류 등 96개 문제 발견",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "공백 문자인지 확인하는 일이 얼마나 어려울까?",
+      "link": "https://news.hada.io/topic?id=36354",
+      "published_at": "2026-11-01T08:01:10+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Unicode White_Space",
+        "Perfect Hashing",
+        "Character Encoding"
+      ],
+      "one_line": "공백 문자의 정의는 언어와 런타임마다 다르며, Guava는 완전 해싱을 통해 이를 효율적으로 판별함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "GPT-5.6 Sol, 평화 모드에서 Factorio 클리어 가능",
+      "link": "https://news.hada.io/topic?id=36356",
+      "published_at": "2026-11-01T08:36:58+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Autonomous Agent",
+        "Game Automation"
+      ],
+      "one_line": "GPT-5.6 Sol이 Python 라이브러리를 활용해 Factorio 평화 모드를 13.5시간 만에 클리어함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-01T08:57:38.878818+09:00",
+      "company": "GeekNews",
+      "title": "Anthropic, 더 큰 모델 학습에 조금이라도 관련된 작업을 하는 사용자를 차단",
+      "link": "https://news.hada.io/topic?id=36358",
+      "published_at": "2026-11-01T08:42:59+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Model Distillation",
+        "AI Safety Policy",
+        "Vendor Lock-in"
+      ],
+      "one_line": "Anthropic이 모델 학습 및 연구 자동화 작업을 수행하는 사용자를 차단하는 정책 강화",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-10-31T09:25:20.458288+09:00",
       "company": "Google Developers",
       "title": "DevFest is back!",
@@ -7771,231 +7995,7 @@
       ],
       "one_line": "AG-UI 프로토콜과 에이전트 스웜을 결합하여 AI의 가변적 출력에 실시간으로 적응하는 동적 UI 아키텍처 구축.",
       "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "AWS Compute",
-      "title": "Frozen package management for air-gapped RHEL-family AMIs",
-      "link": "https://aws.amazon.com/blogs/compute/frozen-package-management-for-air-gapped-rhel-family-amis",
-      "published_at": "Tue, 29 Sep 2026 15:55:07 +0000",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Air-gapped Network",
-        "Frozen Repository",
-        "Infrastructure Security"
-      ],
-      "one_line": "폐쇄망 환경에서 안전한 패키지 관리를 위해 S3 기반의 'Frozen Repository'와 2계정 분리 아키텍처를 구현함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "AWS Compute",
-      "title": "Simplify AMI discovery with Amazon EC2 and SSM Parameter Store",
-      "link": "https://aws.amazon.com/blogs/compute/simplify-ami-discovery-with-amazon-ec2-and-ssm-parameter-store",
-      "published_at": "Tue, 29 Sep 2026 16:14:17 +0000",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "AMI Management",
-        "SSM Parameter Store",
-        "Infrastructure as Code (IaC)"
-      ],
-      "one_line": "EC2 DescribeImages API의 PublicSsmParameterName 필드를 활용해 AMI ID 관리의 휴먼 에러를 방지하고 자동화함.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "AWS Compute",
-      "title": "Implementing customer managed keys for AWS Lambda durable functions with Terraform",
-      "link": "https://aws.amazon.com/blogs/compute/implementing-customer-managed-keys-for-aws-lambda-durable-functions-with-terraform",
-      "published_at": "Tue, 29 Sep 2026 17:14:00 +0000",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "AWS Lambda Durable Functions",
-        "AWS KMS Customer Managed Keys",
-        "Infrastructure as Code (Terraform)"
-      ],
-      "one_line": "AWS Lambda Durable Functions에서 데이터 보안을 위해 Terraform으로 KMS 고객 관리형 키를 설정하는 방법",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "Nvidia, AI 에이전트의 접근과 행동을 제한하는 안전 플랫폼 공개",
-      "link": "https://news.hada.io/topic?id=34475",
-      "published_at": "2026-09-29T14:32:55+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Agent Safety",
-        "Sandbox Isolation",
-        "Zero Trust Architecture"
-      ],
-      "one_line": "Nvidia가 AI 에이전트의 샌드박스 이탈을 방지하고 접근 권한을 제어하는 Open Agent Safety Platform을 공개함",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "서버 모니터링 분석 가이드",
-      "link": "https://news.hada.io/topic?id=34478",
-      "published_at": "2026-09-29T15:11:16+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "SRE Golden Signals",
-        "P99 Latency",
-        "Post-mortem"
-      ],
-      "one_line": "구글 SRE의 4가지 황금 신호를 활용한 서버 모니터링 지표 분석 및 장애 대응 가이드",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "LLM Wiki의 불량 페이지를 Jev로 선별하는 것이 가능할까?",
-      "link": "https://news.hada.io/topic?id=34483",
-      "published_at": "2026-09-29T18:01:08+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "LLM Linter",
-        "Base Rate Fallacy",
-        "AUC Evaluation"
-      ],
-      "one_line": "LLM 기반 위키의 불량 페이지 선별을 위해 Jev를 도입했으나 기저율 문제로 실패한 사례",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "AI 기업들이 광고업체에 데이터를 유출함 [pdf]",
-      "link": "https://news.hada.io/topic?id=34489",
-      "published_at": "2026-09-29T21:32:57+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Data Privacy",
-        "Third-party Tracking",
-        "Attack Surface"
-      ],
-      "one_line": "대화형 AI 서비스들이 사용자 데이터를 광고 및 추적 업체에 유출하고 있는 보안 실태 분석",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "미국 제재로 네덜란드, Microsoft 떠나 NixOS 기반 대안으로 전환 추진",
-      "link": "https://news.hada.io/topic?id=34492",
-      "published_at": "2026-09-29T23:32:29+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "NixOS",
-        "디지털 주권(Digital Sovereignty)",
-        "불변 인프라(Immutable Infrastructure)"
-      ],
-      "one_line": "네덜란드 정부가 미국산 소프트웨어 의존도를 낮추기 위해 NixOS 기반의 디지털 자율 업무 환경(DAWO)을 구축 중입니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "Jeeves - 판단 전에 추론하는 Jev 방식의 의사결정 모델",
-      "link": "https://news.hada.io/topic?id=34496",
-      "published_at": "2026-09-30T01:40:54+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Chain-of-Thought(CoT)",
-        "의사결정 모델(Decision Model)",
-        "추측 디코딩(Speculative Decoding)"
-      ],
-      "one_line": "Jeeves는 판단 전 추론 과정을 거쳐 의사결정 정확도를 높인 Qwen3.5-9B 기반의 경량 모델입니다.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: Blyck Video Understanding - Claude·Codex가 영상을 시각 근거와 함께 분석·검색하게 해주는 MCP",
-      "link": "https://news.hada.io/topic?id=34498",
-      "published_at": "2026-09-30T02:05:19+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "MCP(Model Context Protocol)",
-        "멀티모달 분석",
-        "AI 에이전트 도구 연동"
-      ],
-      "one_line": "Blyck은 Claude나 Codex가 영상을 시각적 근거와 함께 분석하고 검색할 수 있게 해주는 MCP 서버입니다.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "OpenAI, GPT-6.1 Sol 공개",
-      "link": "https://news.hada.io/topic?id=34500",
-      "published_at": "2026-09-30T02:37:48+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "모델 효율성(Model Efficiency)",
-        "프롬프트 캐싱(Prompt Caching)",
-        "비용 최적화"
-      ],
-      "one_line": "OpenAI가 GPT-6 Astra에 근접한 성능을 훨씬 낮은 비용으로 제공하는 GPT-6.1 Sol을 공개했습니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "OpenAI Dots - 상시 작동하는 AI 에이전트 공개",
-      "link": "https://news.hada.io/topic?id=34501",
-      "published_at": "2026-09-30T03:40:37+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "AI 에이전트(AI Agent)",
-        "에이전트 워크플로(Agentic Workflow)",
-        "상시 작동 에이전트(Always-on Agent)"
-      ],
-      "one_line": "OpenAI Dots는 사용자의 업무 맥락을 학습하여 상시 작동하며 프로젝트를 수행하는 AI 에이전트 서비스입니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "OpenAI DevDay 2026 주요 발표 총정리",
-      "link": "https://news.hada.io/topic?id=34505",
-      "published_at": "2026-09-30T06:26:48+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Cloud-based Development Environment",
-        "Computer Use API"
-      ],
-      "one_line": "OpenAI DevDay 2026: 상시 작동 에이전트 'Dots'와 클라우드 개발 환경 'Codex' 공개",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "GeekNews",
-      "title": "AI, 데이터센터 투자 붐 정당화하려면 연 매출 6조 달러 필요",
-      "link": "https://news.hada.io/topic?id=34509",
-      "published_at": "2026-09-30T06:49:36+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Infrastructure ROI",
-        "Absorption Speed",
-        "Capital Expenditure (CapEx)"
-      ],
-      "one_line": "AI 인프라 투자 정당화를 위해 2031년까지 연 매출 6조 달러 창출 필요",
-      "actionability": 2
     }
   ],
-  "updated_at": "2026-10-31T09:25:20.458288+09:00"
+  "updated_at": "2026-11-01T08:57:38.878818+09:00"
 }
