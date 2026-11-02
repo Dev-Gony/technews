@@ -1,6 +1,134 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "JavaScript 프레임워크별 AI 개발 비용 비교",
+      "link": "https://news.hada.io/topic?id=36393",
+      "published_at": "2026-11-01T22:39:18+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Vibe Coding",
+        "MPA(Multi-Page Application)",
+        "Lighthouse 지표"
+      ],
+      "one_line": "AI 에이전트를 활용한 12개 웹 프레임워크의 개발 비용 및 성능 비교 실험",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: EBS Gurapinggala Teacher - 거짓말 에이전트",
+      "link": "https://news.hada.io/topic?id=36405",
+      "published_at": "2026-11-02T03:41:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트",
+        "교육용 AI",
+        "대화형 인터페이스"
+      ],
+      "one_line": "AI 거짓말 에이전트와 교사용 모니터링 대시보드 오픈소스 공개",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "Minecraft 속 AI 에이전트 군집, 문명 건설에 실패하고 관료주의에 빠지다",
+      "link": "https://news.hada.io/topic?id=36406",
+      "published_at": "2026-11-02T03:48:17+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "다중 에이전트 시스템(MAS)",
+        "군집 행동",
+        "동기화 오버헤드"
+      ],
+      "one_line": "Minecraft 내 AI 에이전트 군집 실험: 문명 건설 대신 관료주의에 빠진 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "이메일 암호화 이해하기",
+      "link": "https://news.hada.io/topic?id=36411",
+      "published_at": "2026-11-02T04:39:55+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "MTA-STS",
+        "제로 액세스 암호화",
+        "위협 모델링"
+      ],
+      "one_line": "이메일 보안을 위한 암호화 기술의 범위와 위협 모델별 선택 가이드",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "Proton의 방향을 바꾼 것은 AI가 아니었다",
+      "link": "https://news.hada.io/topic?id=36415",
+      "published_at": "2026-11-02T06:43:13+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "보안 문화",
+        "엔지니어링 책임",
+        "신뢰 기반 개발"
+      ],
+      "one_line": "Proton의 AI 도입 과정에서 드러난 보안 리더십과 엔지니어링 문화의 충돌",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: 커뮤니티가 직접 빌드하고 배포하는 리눅스용 .NET SDK (Core 3.0부터 .NET 10까지)",
+      "link": "https://news.hada.io/topic?id=36419",
+      "published_at": "2026-11-02T07:14:00+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        ".NET SDK",
+        "Linux 빌드 환경",
+        "오픈소스 커뮤니티 배포"
+      ],
+      "one_line": "리눅스 환경에서 커뮤니티가 직접 빌드하고 배포하는 .NET SDK 프로젝트",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "Show HN: OmniDiff - Rust로 만든 매우 빠른 콘텐츠 인식 오픈소스 Git diff 도구",
+      "link": "https://news.hada.io/topic?id=36420",
+      "published_at": "2026-11-02T07:36:59+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Git diff",
+        "tree-sitter",
+        "TUI(Terminal User Interface)"
+      ],
+      "one_line": "Rust로 구현된 고성능 콘텐츠 인식 오픈소스 Git diff 도구, OmniDiff",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-02T09:15:41.367424+09:00",
+      "company": "GeekNews",
+      "title": "JEPA로 플라톤적 표현 가설을 증명하고 개선하기",
+      "link": "https://news.hada.io/topic?id=36423",
+      "published_at": "2026-11-02T08:35:15+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "JEPA(Joint-Embedding Predictive Architecture)",
+        "플라톤적 표현 가설(PRH)",
+        "표현 학습(Representation Learning)"
+      ],
+      "one_line": "JEPA 아키텍처를 활용한 플라톤적 표현 가설(PRH) 증명 및 모델 정렬 효율성 연구",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-11-01T08:57:38.878818+09:00",
       "company": "GeekNews",
       "title": "AI 네이티브 엔지니어링 조직 만들기",
@@ -7867,135 +7995,7 @@
       ],
       "one_line": "Firebase SDK의 치명적인 결함으로 인해 이를 사용하는 모든 iOS 앱이 강제 종료되는 장애 발생",
       "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "네이버 D2",
-      "title": "Hive는 잊으려 했지만, Spark는 기억하고 있었다: 사라진 get_table RPC 복원기",
-      "link": "https://d2.naver.com/helloworld/7314597",
-      "published_at": "2026-09-29T08:39:50Z",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Thrift RPC",
-        "Hive Metastore",
-        "하위 호환성(Backward Compatibility)"
-      ],
-      "one_line": "Hive Metastore 업그레이드 시 발생한 'get_table' RPC 오류를 하위 호환성 복원으로 해결한 사례",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "Airbnb Engineering",
-      "title": "Personalization without user identity",
-      "link": "https://medium.com/airbnb-engineering/personalization-without-user-identity-8e7891a1d486",
-      "published_at": "Tue, 29 Sep 2026 17:01:01 GMT",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Cold-start Problem",
-        "Adaptive Clustering",
-        "Privacy-preserving Personalization"
-      ],
-      "one_line": "사용자 식별자 없이 지리적 근접성 기반의 'Proximity Key'를 활용한 개인화 추천 기술",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "Stripe",
-      "title": "Helping personal agents shop more intelligently and reliably with Link",
-      "link": "https://stripe.com/blog/helping-personal-agents-shop-more-intelligently-and-reliably-with-link",
-      "published_at": "Tue, 29 Sep 2026 00:00:00 +0000",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Payment Orchestration",
-        "AI Trust & Safety"
-      ],
-      "one_line": "AI 에이전트의 쇼핑 및 결제 신뢰성을 높이기 위한 Stripe Link 기능 개선",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "Cloudflare",
-      "title": "Enforce positive security with Cloudflare Application Profiles",
-      "link": "https://blog.cloudflare.com/application-profiles",
-      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Positive Security",
-        "Schema Validation",
-        "WAF(Web Application Firewall)"
-      ],
-      "one_line": "Cloudflare Application Profiles를 통한 HTTP 요청 구조 기반의 Positive Security 정책 도입",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Threat Signals: agentic skills for open-source threat intelligence, free for every Cloudflare account",
-      "link": "https://blog.cloudflare.com/threat-signals",
-      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Threat Intelligence",
-        "Agentic Skills",
-        "Automated Security Workflow"
-      ],
-      "one_line": "AI 에이전트 기술을 활용하여 오픈소스 위협 인텔리전스를 자동화하는 'Threat Signals'",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "Cloudflare",
-      "title": "We tested our own WAF with frontier AI models. Here’s what we found",
-      "link": "https://blog.cloudflare.com/adaptive-ai-waf-testing",
-      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "WAF(Web Application Firewall)",
-        "Red Teaming",
-        "Payload Mutation"
-      ],
-      "one_line": "LLM 기반의 WAF 테스트 시스템을 구축하여 공격 페이로드 변이 및 우회 시나리오를 효과적으로 탐지하고 방어 규칙을 강화함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "Cloudflare",
-      "title": "Adaptive application security for the AI era: how Cloudflare connects code, traffic, and intelligence to stop attacks",
-      "link": "https://blog.cloudflare.com/ai-era-framework",
-      "published_at": "Tue, 29 Sep 2026 13:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Security",
-        "Adaptive Security",
-        "Botbase"
-      ],
-      "one_line": "AI 에이전트의 위협에 대응하기 위해 발견, 거버넌스, 런타임 보호, 대응의 4단계 적응형 보안 프레임워크를 제안함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-09-30T09:05:25.405740+09:00",
-      "company": "AWS Architecture",
-      "title": "Build adaptive AI interfaces with the AG-UI protocol, agent swarms, and Nova Act on AWS",
-      "link": "https://aws.amazon.com/blogs/architecture/build-adaptive-ai-interfaces-with-the-ag-ui-protocol-agent-swarms-and-nova-act-on-aws",
-      "published_at": "Tue, 29 Sep 2026 13:44:23 +0000",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "AG-UI Protocol",
-        "Agent Swarm",
-        "Event-Driven Architecture"
-      ],
-      "one_line": "AG-UI 프로토콜과 에이전트 스웜을 결합하여 AI의 가변적 출력에 실시간으로 적응하는 동적 UI 아키텍처 구축.",
-      "actionability": 4
     }
   ],
-  "updated_at": "2026-11-01T08:57:38.878818+09:00"
+  "updated_at": "2026-11-02T09:15:41.367424+09:00"
 }
