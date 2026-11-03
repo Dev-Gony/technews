@@ -1,0 +1,101 @@
+import unittest
+
+import shorts
+
+
+def make_article(title, score, link, topics=None, rank=1):
+    return {
+        "title": title,
+        "one_line": "",
+        "topics": topics or [],
+        "key_points": ["포인트"],
+        "link": link,
+        "selection_score": score,
+        "editorial_rank": rank,
+    }
+
+
+class ShortsTest(unittest.TestCase):
+    def test_is_ai_article_matches_keywords(self):
+        self.assertTrue(
+            shorts.is_ai_article(
+                make_article("GPT-6 Astra, 가중치 수정", 10, "a")
+            )
+        )
+        self.assertTrue(
+            shorts.is_ai_article(
+                make_article("무언가", 10, "a", topics=["AI Agentic Workflow"])
+            )
+        )
+        self.assertTrue(
+            shorts.is_ai_article(
+                make_article("사내 에이전트 도입기", 10, "a")
+            )
+        )
+
+    def test_is_ai_article_ignores_partial_words(self):
+        # "ai"가 다른 영단어 안에 들어 있는 경우는 AI 기사가 아니다.
+        self.assertFalse(
+            shorts.is_ai_article(
+                make_article("Kafka email retries in Lambda", 10, "a", topics=["Event Source Mapping"])
+            )
+        )
+
+    def test_pick_article_prefers_score_and_skips_used(self):
+        issue = {
+            "top_stories": [
+                make_article("AWS DR 가이드", 15, "dr"),
+                make_article("LLM 가중치 수정", 14, "llm"),
+            ],
+            "more_detailed": [
+                make_article("Claude 사용량 급증", 14, "claude", rank=2),
+            ],
+            "brief_articles": [
+                {"title": "AI 단신", "link": "brief", "key_points": None},
+            ],
+        }
+
+        picked = shorts.pick_article(issue, used_links=set())
+        self.assertEqual(picked["link"], "llm")
+
+        picked = shorts.pick_article(issue, used_links={"llm"})
+        self.assertEqual(picked["link"], "claude")
+
+        self.assertIsNone(
+            shorts.pick_article(issue, used_links={"llm", "claude"})
+        )
+
+    def test_validate_script_cleans_hashtags(self):
+        script = shorts.validate_script(
+            {
+                "title": "t",
+                "description": "d",
+                "hashtags": ["#AI 뉴스", "LLM", " "],
+                "scenes": [{"headline": "h", "narration": "n"}] * 4,
+            }
+        )
+        self.assertEqual(script["hashtags"], ["AI뉴스", "LLM"])
+
+    def test_validate_script_rejects_too_few_scenes(self):
+        with self.assertRaises(ValueError):
+            shorts.validate_script(
+                {
+                    "title": "t",
+                    "description": "d",
+                    "hashtags": [],
+                    "scenes": [{"headline": "h", "narration": "n"}],
+                }
+            )
+
+    def test_wrap_text_respects_width(self):
+        def measure(text, font):
+            return len(text) * 10
+
+        lines = shorts.wrap_text("가나다 라마바사 아자차카타파하하하", None, 50, measure)
+
+        self.assertTrue(all(measure(line, None) <= 50 for line in lines))
+        self.assertEqual("".join(lines).replace(" ", ""), "가나다라마바사아자차카타파하하하")
+
+
+if __name__ == "__main__":
+    unittest.main()
