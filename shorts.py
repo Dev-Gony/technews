@@ -450,7 +450,7 @@ def render_scene(scene, index, total, source_label, path):
         y += line_height
 
     draw.rounded_rectangle(
-        (VIDEO_WIDTH / 2 - 60, y + 20, VIDEO_WIDTH / 2 + 60, y + 32),
+        (VIDEO_WIDTH / 2 - 60, y + 45, VIDEO_WIDTH / 2 + 60, y + 57),
         radius=6,
         fill=COLORS["accent"],
     )
