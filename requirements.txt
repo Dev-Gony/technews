@@ -3,3 +3,4 @@ beautifulsoup4
 edge-tts
 Pillow
 imageio-ffmpeg
+numpy
