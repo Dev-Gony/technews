@@ -21,6 +21,9 @@ edge-tts 음성 (장면별 mp3)
 Pillow 장면 이미지 (1080x1920) + ffmpeg 합성
       |
       v
+배경음 (bgm.py가 날짜별로 직접 만든 로파이 곡, 말할 때 자동으로 작아짐, -14 LUFS)
+      |
+      v
 YouTube 업로드 (비공개) → Slack 알림 → Studio에서 확인 후 공개
 ```
 
@@ -29,7 +32,8 @@ YouTube 업로드 (비공개) → Slack 알림 → Studio에서 확인 후 공�
 | 파일 | 역할 |
 |---|---|
 | `shorts.py` | 파이프라인 전체 |
-| `youtube_auth.py` | YouTube refresh token 1회 발급 (로컬) |
+| `youtube_auth.py` | YouTube 로그인 후 Secrets 3개 자동 등록 (로컬, 1회) |
+| `bgm.py` | 배경음 생성 |
 | `.github/workflows/shorts.yml` | Daily Tech News 성공 후 자동 실행, 수동 실행 가능 |
 | `config/shorts_history.json` | 업로드한 기사 기록 (같은 기사 중복 방지) |
 | `runtime/shorts/<날짜>/` | 대본, 음성, 장면 이미지, 최종 `short.mp4` (git 제외) |
@@ -78,14 +82,12 @@ claude setup-token
 
 1. [Google Cloud Console](https://console.cloud.google.com/)에서 프로젝트를 만들고 **YouTube Data API v3**를 사용 설정한다.
 2. OAuth 동의 화면을 만들고, 테스트 사용자에 itgony 채널 Google 계정을 추가한다.
-3. 사용자 인증 정보 → OAuth 클라이언트 ID → 유형 **데스크톱 앱**으로 만든다.
-4. 로컬에서 refresh token을 발급한다.
+3. 사용자 인증 정보 → OAuth 클라이언트 ID → 유형 **데스크톱 앱**으로 만들고 **JSON 다운로드**를 누른다.
+4. 로컬에서 실행한다. 다운로드 폴더의 `client_secret*.json`을 찾아 로그인한 뒤, Secrets 3개를 GitHub에 바로 등록한다.
 
    ```bash
-   YOUTUBE_CLIENT_ID=... YOUTUBE_CLIENT_SECRET=... python youtube_auth.py
+   python youtube_auth.py
    ```
-
-5. 세 값을 GitHub Secrets에 넣는다.
 
 참고:
 - OAuth 앱이 "테스트" 상태면 refresh token이 7일 뒤 만료된다. 계속 쓰려면 동의 화면을 "프로덕션"으로 게시한다.
@@ -100,5 +102,6 @@ claude setup-token
 | `SHORTS_VOICE` | `ko-KR-InJoonNeural` (여성: `ko-KR-SunHiNeural`) |
 | `SHORTS_TTS_RATE` | `+8%` |
 | `SHORTS_PRIVACY` | `private` |
+| `SHORTS_BGM_VOLUME` | `0.15` (0이면 배경음 없음) |
 | `SHORTS_CHANNEL_NAME` | `itgony` |
 | `SHORTS_FONT` | Noto Sans CJK Bold / 맑은 고딕 Bold 자동 탐색 |

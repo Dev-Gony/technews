@@ -43,6 +43,9 @@ AI_KEYWORDS = [
     "프롬프트", "추론 모델", "파인튜닝", "rag",
 ]
 
+# 배경음 크기 (0이면 배경음 없음)
+BGM_VOLUME = float(os.environ.get("SHORTS_BGM_VOLUME", "0.15"))
+
 VIDEO_WIDTH = 1080
 VIDEO_HEIGHT = 1920
 SCENE_TAIL_SECONDS = 0.3
@@ -550,7 +553,45 @@ def build_video(image_paths, audio_paths, work_dir, output_path):
         for segment in segments:
             file.write(f"file '{os.path.abspath(segment)}'\n")
 
-    run_ffmpeg(["-f", "concat", "-safe", "0", "-i", list_path, "-c", "copy", output_path])
+    if BGM_VOLUME <= 0:
+        run_ffmpeg(["-f", "concat", "-safe", "0", "-i", list_path, "-c", "copy", output_path])
+        return output_path
+
+    narration_path = os.path.join(work_dir, "narration.mp4")
+    run_ffmpeg(["-f", "concat", "-safe", "0", "-i", list_path, "-c", "copy", narration_path])
+
+    return add_bgm(narration_path, work_dir, output_path)
+
+
+def add_bgm(video_path, work_dir, output_path):
+    """코드로 만든 배경음을 내레이션 아래에 깐다. 말할 때는 음악이 자동으로 작아진다."""
+    import bgm
+
+    duration = audio_duration(video_path)
+    bgm_path = bgm.write_wav(
+        bgm.generate_bgm(duration, seed=os.path.basename(work_dir)),
+        os.path.join(work_dir, "bgm.wav"),
+    )
+
+    run_ffmpeg(
+        [
+            "-i", video_path,
+            "-i", bgm_path,
+            "-filter_complex",
+            f"[1:a]volume={BGM_VOLUME}[music];"
+            "[0:a]asplit=2[voice][key];"
+            # 내레이션이 나올 때 배경음을 눌러준다(사이드체인 덕킹).
+            "[music][key]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=400[ducked];"
+            "[voice][ducked]amix=inputs=2:duration=first:normalize=0,"
+            # 휴대폰 스피커에서도 잘 들리게 Shorts 평균 음량(-14 LUFS)으로 맞춘다.
+            "loudnorm=I=-14:TP=-1.5:LRA=11[out]",
+            "-map", "0:v",
+            "-map", "[out]",
+            "-c:v", "copy",
+            "-c:a", "aac", "-b:a", "160k",
+            output_path,
+        ]
+    )
 
     return output_path
 
