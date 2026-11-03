@@ -96,6 +96,19 @@ class ShortsTest(unittest.TestCase):
         number = {"type": "number", "value": "0.016%", "label": "수정 비율"}
         self.assertEqual(shorts.validate_visual(number), number)
 
+    def test_drop_duplicate_label_removes_repeated_caption(self):
+        narration = "여러분 팀의 AI 사용량은 어떤가요?"
+
+        same = shorts.drop_duplicate_label({"type": "question", "label": "여러분 팀의 AI 사용량은 어떤가요?"}, narration)
+        self.assertEqual(same, {"type": "question"})
+
+        short = {"type": "question", "label": "우리 팀은 몇 배?"}
+        self.assertEqual(shorts.drop_duplicate_label(short, narration), short)
+
+        # 긴 문장 속 일부 단어만 겹치는 건 중복이 아니다.
+        partial = {"type": "number", "value": "250배", "label": "AI 사용량"}
+        self.assertEqual(shorts.drop_duplicate_label(partial, narration), partial)
+
     def test_align_words_keeps_punctuation_from_script(self):
         boundaries = [
             {"text": "성능이", "startMs": 0, "endMs": 400},

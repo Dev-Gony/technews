@@ -163,7 +163,7 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 YouTube Shorts 채널 "{channel}"의 
 - flow: 과정이나 원리를 2~4단계로. items에 단계별 12자 이내 문구.
 - keywords: 핵심 단어 2~4개 카드. items에 단어별 8자 이내.
 - code: 개발자용 코드·명령어 예시 7줄 이내. code에 넣는다. 기사 내용과 직접 관련 있을 때만.
-- question: 마지막 장면용 질문 카드. label에 질문 한 줄.
+- question: 마지막 장면용 질문 카드. label은 내레이션 문장을 그대로 옮기지 말고, 같은 질문을 16자 이내로 더 짧고 강하게 줄인다. (예: 내레이션 "여러분 팀의 AI 사용량은 어떤가요?" → label "우리 팀은 몇 배?")
 - none: 헤드라인만 크게. 다른 type이 어울리지 않을 때만.
 visual에 들어가는 숫자와 사실도 기사에 있는 것만 쓴다."""
 
@@ -360,7 +360,7 @@ def validate_script(script):
         if not scene.get("narration", "").strip():
             raise ValueError("내레이션이 비어 있는 장면이 있습니다.")
 
-        scene["visual"] = validate_visual(scene.get("visual"))
+        scene["visual"] = drop_duplicate_label(validate_visual(scene.get("visual")), scene["narration"])
 
     script["hashtags"] = [
         tag.strip().lstrip("#").replace(" ", "")
@@ -382,12 +382,31 @@ def validate_visual(visual):
         "flow": len(visual.get("items") or []) >= 2,
         "keywords": len(visual.get("items") or []) >= 1,
         "code": bool((visual.get("code") or "").strip()),
-        "question": bool((visual.get("label") or "").strip()),
+        # 질문 문구가 없어도 물음표 애니메이션만으로 장면이 성립한다.
+        "question": True,
         "none": True,
     }
 
     if not has_content.get(kind):
         return {"type": "none"}
+
+    return visual
+
+
+def drop_duplicate_label(visual, narration):
+    """화면 문구가 자막(내레이션)과 사실상 같은 문장이면 지운다. 같은 말이 두 번 보이지 않게."""
+    label = visual.get("label")
+
+    if not label:
+        return visual
+
+    def compact(text):
+        return re.sub(r"[\s\W_]+", "", text)
+
+    short, long = sorted([compact(label), compact(narration)], key=len)
+
+    if short and short in long and len(short) >= len(long) * 0.6:
+        visual = {key: value for key, value in visual.items() if key != "label"}
 
     return visual
 
