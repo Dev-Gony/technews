@@ -216,24 +216,36 @@ def build_script_prompt(article):
 def normalize_oauth_token(value):
     """복사 과정에서 섞인 공백, 줄바꿈, 안내 문구를 걷어내고 토큰만 남긴다.
 
-    터미널 폭이 좁으면 토큰이 여러 줄로 잘려 복사되므로, 토큰이 시작된 줄 다음에
-    오는 "토큰 글자로만 된 줄"을 이어 붙인다. 공백이 섞인 안내 문장에서 멈춘다.
+    터미널 폭이 좁으면 토큰이 줄바꿈된 자리가 복사할 때 줄바꿈이나 공백으로 바뀐다.
+    토큰이 시작된 곳부터 "토큰 글자로만 된 조각"을 이어 붙이고,
+    안내 문장(마침표, 콜론 등이 섞인 조각)이나 빈 줄에서 멈춘다.
     """
     lines = [line.strip() for line in (value or "").splitlines()]
 
-    for index, line in enumerate(lines):
-        match = re.search(r"sk-ant-oat[A-Za-z0-9_\-]*", line)
+    def is_token_piece(piece):
+        return re.fullmatch(r"[A-Za-z0-9_\-]+", piece) is not None
 
-        if not match:
+    for index, line in enumerate(lines):
+        start = line.find("sk-ant-oat")
+
+        if start < 0:
             continue
 
-        token = match.group(0)
+        token = ""
 
-        for next_line in lines[index + 1:]:
-            if not re.fullmatch(r"[A-Za-z0-9_\-]+", next_line):
+        for piece in line[start:].split():
+            if not is_token_piece(piece):
                 break
 
-            token += next_line
+            token += piece
+
+        for next_line in lines[index + 1:]:
+            pieces = next_line.split()
+
+            if not pieces or not all(is_token_piece(piece) for piece in pieces):
+                break
+
+            token += "".join(pieces)
 
         return token
 
@@ -438,7 +450,7 @@ def render_scene(scene, index, total, source_label, path):
         y += line_height
 
     draw.rounded_rectangle(
-        (VIDEO_WIDTH / 2 - 60, y + 20, VIDEO_WIDTH / 2 + 60, y + 32),
+        (VIDEO_WIDTH / 2 - 60, y + 45, VIDEO_WIDTH / 2 + 60, y + 57),
         radius=6,
         fill=COLORS["accent"],
     )
