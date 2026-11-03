@@ -6,6 +6,7 @@
 import os
 import re
 import json
+import math
 import shutil
 import asyncio
 import argparse
@@ -46,25 +47,11 @@ AI_KEYWORDS = [
 # 배경음 크기 (0이면 배경음 없음)
 BGM_VOLUME = float(os.environ.get("SHORTS_BGM_VOLUME", "0.15"))
 
-VIDEO_WIDTH = 1080
-VIDEO_HEIGHT = 1920
-SCENE_TAIL_SECONDS = 0.3
-
-COLORS = {
-    "background": (14, 17, 22),
-    "text": (245, 246, 248),
-    "muted": (140, 148, 160),
-    "accent": (255, 92, 77),
-    "subtitle_box": (0, 0, 0, 170),
-}
-
-FONT_CANDIDATES = [
-    os.environ.get("SHORTS_FONT", ""),
-    "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
-    "/usr/share/fonts/noto-cjk/NotoSansCJK-Bold.ttc",
-    "C:/Windows/Fonts/malgunbd.ttf",
-    "/System/Library/Fonts/AppleSDGothicNeo.ttc",
-]
+VIDEO_PROJECT_DIR = "video"
+VIDEO_FPS = 30
+# 장면 끝 여유. 장면 전환(video/src/schema.ts의 TRANSITION_FRAMES = 10프레임)이
+# 이 여유 구간에서 겹치므로 말이 잘리지 않는다.
+SCENE_TAIL_SECONDS = 0.5
 
 
 # ---------------------------------------------------------------------------
@@ -168,7 +155,47 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 YouTube Shorts 채널 "{channel}"의 
 - 숫자, 회사명, 결과는 반드시 주어진 기사 정보에 있는 것만 쓴다. 없는 사실을 지어내지 않는다.
 - headline은 화면 중앙에 크게 들어갈 핵심 문구로 14자 이내. 숫자가 있으면 숫자를 쓴다.
 - title은 40자 이내, 해시태그 없이. 클릭하고 싶은 질문형이나 단정형.
-- hashtags는 # 없이 3~5개."""
+- hashtags는 # 없이 3~5개.
+
+장면마다 visual(화면 중앙 인포그래픽)을 하나 고른다. 같은 type을 연달아 쓰지 않는다.
+- number: 숫자 하나를 크게 카운트업. value에 "0.016%", "250배"처럼 숫자+단위, label에 무엇의 숫자인지 짧게.
+- compare: 2~4개 값을 막대로 비교. bars에 label, value(숫자), display(화면 표기). 기사에 실제 수치가 2개 이상 있을 때만.
+- flow: 과정이나 원리를 2~4단계로. items에 단계별 12자 이내 문구.
+- keywords: 핵심 단어 2~4개 카드. items에 단어별 8자 이내.
+- code: 개발자용 코드·명령어 예시 7줄 이내. code에 넣는다. 기사 내용과 직접 관련 있을 때만.
+- question: 마지막 장면용 질문 카드. label에 질문 한 줄.
+- none: 헤드라인만 크게. 다른 type이 어울리지 않을 때만.
+visual에 들어가는 숫자와 사실도 기사에 있는 것만 쓴다."""
+
+
+VISUAL_TYPES = ["number", "compare", "flow", "keywords", "code", "question", "none"]
+
+# video/src/schema.ts의 visualSchema와 같은 구조
+VISUAL_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "type": {"type": "string", "enum": VISUAL_TYPES},
+        "value": {"type": "string"},
+        "label": {"type": "string"},
+        "items": {"type": "array", "items": {"type": "string"}},
+        "bars": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {"type": "string"},
+                    "value": {"type": "number"},
+                    "display": {"type": "string"},
+                },
+                "required": ["label", "value", "display"],
+                "additionalProperties": False,
+            },
+        },
+        "code": {"type": "string"},
+    },
+    "required": ["type"],
+    "additionalProperties": False,
+}
 
 
 SCRIPT_SCHEMA = {
@@ -184,8 +211,9 @@ SCRIPT_SCHEMA = {
                 "properties": {
                     "headline": {"type": "string"},
                     "narration": {"type": "string"},
+                    "visual": VISUAL_SCHEMA,
                 },
-                "required": ["headline", "narration"],
+                "required": ["headline", "narration", "visual"],
                 "additionalProperties": False,
             },
         },
@@ -332,6 +360,8 @@ def validate_script(script):
         if not scene.get("narration", "").strip():
             raise ValueError("내레이션이 비어 있는 장면이 있습니다.")
 
+        scene["visual"] = validate_visual(scene.get("visual"))
+
     script["hashtags"] = [
         tag.strip().lstrip("#").replace(" ", "")
         for tag in script.get("hashtags") or []
@@ -341,148 +371,147 @@ def validate_script(script):
     return script
 
 
+def validate_visual(visual):
+    """그릴 재료가 없는 인포그래픽은 헤드라인만 보이는 none으로 바꿔서 빈 화면을 막는다."""
+    visual = dict(visual or {})
+    kind = visual.get("type")
+
+    has_content = {
+        "number": bool(re.search(r"\d", visual.get("value") or "")),
+        "compare": len(visual.get("bars") or []) >= 2,
+        "flow": len(visual.get("items") or []) >= 2,
+        "keywords": len(visual.get("items") or []) >= 1,
+        "code": bool((visual.get("code") or "").strip()),
+        "question": bool((visual.get("label") or "").strip()),
+        "none": True,
+    }
+
+    if not has_content.get(kind):
+        return {"type": "none"}
+
+    return visual
+
+
 # ---------------------------------------------------------------------------
 # 음성 (TTS)
 # ---------------------------------------------------------------------------
 
 async def _synthesize(text, path):
+    """mp3를 저장하고, 단어별로 말하는 시점(ms)을 돌려준다. 자막 강조에 쓴다."""
     import edge_tts
 
-    communicate = edge_tts.Communicate(text, TTS_VOICE, rate=TTS_RATE)
-    await communicate.save(path)
+    communicate = edge_tts.Communicate(text, TTS_VOICE, rate=TTS_RATE, boundary="WordBoundary")
+    boundaries = []
+
+    with open(path, "wb") as file:
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                file.write(chunk["data"])
+            elif chunk["type"] == "WordBoundary":
+                # offset, duration 단위는 100ns
+                start = chunk["offset"] / 10_000
+                boundaries.append(
+                    {"text": chunk["text"], "startMs": start, "endMs": start + chunk["duration"] / 10_000}
+                )
+
+    return boundaries
+
+
+def align_words(narration, boundaries, duration_ms):
+    """TTS 단어 시점에 대본의 원래 단어(문장부호 포함)를 붙인다.
+
+    단어 수가 다르면 TTS가 준 단어를 그대로 쓰고, 시점 정보가 아예 없으면
+    글자 수 비율로 나눠서 대략 맞춘다.
+    """
+    tokens = narration.split()
+
+    if boundaries and len(boundaries) == len(tokens):
+        return [{**b, "text": token} for b, token in zip(boundaries, tokens)]
+
+    if boundaries:
+        return boundaries
+
+    total = sum(len(token) for token in tokens) or 1
+    words, cursor = [], 0.0
+
+    for token in tokens:
+        length = duration_ms * len(token) / total
+        words.append({"text": token, "startMs": cursor, "endMs": cursor + length})
+        cursor += length
+
+    return words
 
 
 def synthesize_scenes(scenes, work_dir):
-    paths = []
+    """장면마다 mp3 경로와 단어 시점 목록을 돌려준다."""
+    results = []
 
     for index, scene in enumerate(scenes):
         path = os.path.join(work_dir, f"scene_{index:02d}.mp3")
-        asyncio.run(_synthesize(scene["narration"], path))
-        paths.append(path)
+        boundaries = asyncio.run(_synthesize(scene["narration"], path))
+        words = align_words(scene["narration"], boundaries, audio_duration(path) * 1000)
+        results.append((path, words))
 
-    return paths
+    return results
 
 
 # ---------------------------------------------------------------------------
-# 장면 이미지
+# 영상 렌더링 (Remotion, video/ 폴더의 React 프로젝트)
 # ---------------------------------------------------------------------------
 
-def load_font(size):
-    from PIL import ImageFont
+def build_props(script, scene_audio, source_label, run_name):
+    """Remotion에 넘길 props를 만든다. 음성 파일은 video/public/<run_name>/ 으로 복사한다."""
+    public_dir = os.path.join(VIDEO_PROJECT_DIR, "public", run_name)
+    os.makedirs(public_dir, exist_ok=True)
 
-    for path in FONT_CANDIDATES:
-        if path and os.path.exists(path):
-            return ImageFont.truetype(path, size)
+    scenes = []
 
-    raise RuntimeError("한글 폰트를 찾지 못했습니다. SHORTS_FONT 환경변수로 지정하세요.")
+    for index, (scene, (audio_path, words)) in enumerate(zip(script["scenes"], scene_audio)):
+        name = f"scene_{index:02d}.mp3"
+        shutil.copyfile(audio_path, os.path.join(public_dir, name))
 
+        scenes.append(
+            {
+                "headline": scene["headline"],
+                "narration": scene["narration"],
+                "audio": f"{run_name}/{name}",
+                "durationInFrames": math.ceil((audio_duration(audio_path) + SCENE_TAIL_SECONDS) * VIDEO_FPS),
+                "words": words,
+                "visual": scene["visual"],
+            }
+        )
 
-def wrap_text(text, font, max_width, measure):
-    """단어 단위로 줄바꿈하고, 한 단어가 너무 길면 글자 단위로 자른다."""
-    lines = []
-    current = ""
-
-    for word in text.split():
-        candidate = f"{current} {word}".strip()
-
-        if measure(candidate, font) <= max_width:
-            current = candidate
-            continue
-
-        if current:
-            lines.append(current)
-            current = ""
-
-        while measure(word, font) > max_width:
-            cut = len(word)
-
-            while cut > 1 and measure(word[:cut], font) > max_width:
-                cut -= 1
-
-            lines.append(word[:cut])
-            word = word[cut:]
-
-        current = word
-
-    if current:
-        lines.append(current)
-
-    return lines
+    return {"channel": CHANNEL_NAME, "source": source_label, "scenes": scenes}
 
 
-def render_scene(scene, index, total, source_label, path):
-    from PIL import Image, ImageDraw
+def render_with_remotion(props, work_dir, output_path):
+    npx = shutil.which("npx")
 
-    image = Image.new("RGB", (VIDEO_WIDTH, VIDEO_HEIGHT), COLORS["background"])
-    overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
-    draw = ImageDraw.Draw(image)
-    overlay_draw = ImageDraw.Draw(overlay)
+    if not npx:
+        raise RuntimeError("Node.js(npx)가 없습니다. video/ 폴더에서 npm ci를 먼저 실행하세요.")
 
-    def measure(text, font):
-        return draw.textlength(text, font=font)
+    props_path = os.path.abspath(os.path.join(work_dir, "props.json"))
+    save_json(props_path, props)
 
-    margin = 80
-    content_width = VIDEO_WIDTH - margin * 2
-
-    brand_font = load_font(44)
-    headline_font = load_font(112)
-    subtitle_font = load_font(54)
-    source_font = load_font(34)
-
-    # 상단: 채널명 + 진행 표시
-    draw.text((margin, 150), CHANNEL_NAME, font=brand_font, fill=COLORS["accent"])
-
-    bar_y = 230
-    bar_gap = 12
-    bar_width = (content_width - bar_gap * (total - 1)) / total
-
-    for bar in range(total):
-        x0 = margin + bar * (bar_width + bar_gap)
-        color = COLORS["accent"] if bar <= index else (48, 54, 64)
-        draw.rounded_rectangle((x0, bar_y, x0 + bar_width, bar_y + 10), radius=5, fill=color)
-
-    # 중앙: 헤드라인
-    headline_lines = wrap_text(scene["headline"], headline_font, content_width, measure)
-    line_height = 140
-    block_height = line_height * len(headline_lines)
-    y = 720 - block_height // 2
-
-    for line in headline_lines:
-        width = measure(line, headline_font)
-        draw.text(((VIDEO_WIDTH - width) / 2, y), line, font=headline_font, fill=COLORS["text"])
-        y += line_height
-
-    draw.rounded_rectangle(
-        (VIDEO_WIDTH / 2 - 60, y + 45, VIDEO_WIDTH / 2 + 60, y + 57),
-        radius=6,
-        fill=COLORS["accent"],
+    result = subprocess.run(
+        [
+            npx, "remotion", "render", "src/index.ts", "Short",
+            os.path.abspath(output_path),
+            f"--props={props_path}",
+            "--log=error",
+        ],
+        cwd=VIDEO_PROJECT_DIR,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="ignore",
+        timeout=1800,
     )
 
-    # 하단: 자막. Shorts UI(제목, 버튼)에 가리지 않도록 1200~1550 구간에 둔다.
-    subtitle_lines = wrap_text(scene["narration"], subtitle_font, content_width - 60, measure)[:5]
-    subtitle_line_height = 76
-    box_top = 1200
-    box_bottom = box_top + subtitle_line_height * len(subtitle_lines) + 60
+    if result.returncode != 0:
+        raise RuntimeError(f"Remotion 렌더링 실패: {(result.stderr or result.stdout).strip()[-2000:]}")
 
-    overlay_draw.rounded_rectangle(
-        (margin - 10, box_top, VIDEO_WIDTH - margin + 10, box_bottom),
-        radius=28,
-        fill=COLORS["subtitle_box"],
-    )
-    image.paste(overlay, (0, 0), overlay)
-
-    y = box_top + 30
-
-    for line in subtitle_lines:
-        width = measure(line, subtitle_font)
-        draw.text(((VIDEO_WIDTH - width) / 2, y), line, font=subtitle_font, fill=COLORS["text"])
-        y += subtitle_line_height
-
-    draw.text((margin, box_bottom + 30), source_label, font=source_font, fill=COLORS["muted"])
-
-    image.save(path)
-
-    return path
+    return output_path
 
 
 # ---------------------------------------------------------------------------
@@ -526,39 +555,19 @@ def run_ffmpeg(args):
         raise RuntimeError(f"ffmpeg 실패: {result.stderr.strip()}")
 
 
-def build_video(image_paths, audio_paths, work_dir, output_path):
-    segments = []
+def build_video(script, scene_audio, source_label, work_dir, output_path):
+    """Remotion으로 장면 영상(내레이션 포함)을 렌더링하고 배경음을 깐다."""
+    run_name = f"run-{os.path.basename(work_dir)}"
+    props = build_props(script, scene_audio, source_label, run_name)
 
-    for index, (image_path, audio_path) in enumerate(zip(image_paths, audio_paths)):
-        segment = os.path.join(work_dir, f"segment_{index:02d}.mp4")
-        duration = audio_duration(audio_path) + SCENE_TAIL_SECONDS
+    try:
+        if BGM_VOLUME <= 0:
+            return render_with_remotion(props, work_dir, output_path)
 
-        run_ffmpeg(
-            [
-                "-loop", "1", "-i", image_path,
-                "-i", audio_path,
-                "-af", "apad",
-                "-t", f"{duration:.2f}",
-                "-c:v", "libx264", "-preset", "veryfast", "-tune", "stillimage",
-                "-r", "30", "-pix_fmt", "yuv420p",
-                "-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2",
-                segment,
-            ]
-        )
-        segments.append(segment)
-
-    list_path = os.path.join(work_dir, "segments.txt")
-
-    with open(list_path, "w", encoding="utf-8") as file:
-        for segment in segments:
-            file.write(f"file '{os.path.abspath(segment)}'\n")
-
-    if BGM_VOLUME <= 0:
-        run_ffmpeg(["-f", "concat", "-safe", "0", "-i", list_path, "-c", "copy", output_path])
-        return output_path
-
-    narration_path = os.path.join(work_dir, "narration.mp4")
-    run_ffmpeg(["-f", "concat", "-safe", "0", "-i", list_path, "-c", "copy", narration_path])
+        narration_path = os.path.join(work_dir, "narration.mp4")
+        render_with_remotion(props, work_dir, narration_path)
+    finally:
+        shutil.rmtree(os.path.join(VIDEO_PROJECT_DIR, "public", run_name), ignore_errors=True)
 
     return add_bgm(narration_path, work_dir, output_path)
 
@@ -759,22 +768,11 @@ def main():
     save_json(os.path.join(work_dir, "script.json"), script)
     print(f"대본 생성 완료: {script['title']} (장면 {len(script['scenes'])}개)")
 
-    audio_paths = synthesize_scenes(script["scenes"], work_dir)
+    scene_audio = synthesize_scenes(script["scenes"], work_dir)
     print("음성 생성 완료")
 
     source_label = f"출처: {article.get('company')} · {urllib.parse.urlsplit(article['link']).netloc}"
-    image_paths = [
-        render_scene(
-            scene,
-            index,
-            len(script["scenes"]),
-            source_label,
-            os.path.join(work_dir, f"scene_{index:02d}.png"),
-        )
-        for index, scene in enumerate(script["scenes"])
-    ]
-
-    video_path = build_video(image_paths, audio_paths, work_dir, os.path.join(work_dir, "short.mp4"))
+    video_path = build_video(script, scene_audio, source_label, work_dir, os.path.join(work_dir, "short.mp4"))
     print(f"영상 생성 완료: {video_path}")
 
     video_id = None

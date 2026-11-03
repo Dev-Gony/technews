@@ -18,7 +18,7 @@ Claude 대본 (claude -p, 구독 계정 사용 / 훅 → 본문 → 질문, 장�
 edge-tts 음성 (장면별 mp3)
       |
       v
-Pillow 장면 이미지 (1080x1920) + ffmpeg 합성
+Remotion 인포그래픽 영상 (video/, 장면별 그래픽 + 단어 단위 자막 + 장면 전환)
       |
       v
 배경음 (bgm.py가 날짜별로 직접 만든 로파이 곡, 말할 때 자동으로 작아짐, -14 LUFS)
@@ -34,6 +34,7 @@ YouTube 업로드 (비공개) → Slack 알림 → Studio에서 확인 후 공�
 | `shorts.py` | 파이프라인 전체 |
 | `youtube_auth.py` | YouTube 로그인 후 Secrets 3개 자동 등록 (로컬, 1회) |
 | `bgm.py` | 배경음 생성 |
+| `video/` | Remotion 프로젝트. `npm run dev`로 Studio 미리보기 |
 | `.github/workflows/shorts.yml` | Daily Tech News 성공 후 자동 실행, 수동 실행 가능 |
 | `config/shorts_history.json` | 업로드한 기사 기록 (같은 기사 중복 방지) |
 | `runtime/shorts/<날짜>/` | 대본, 음성, 장면 이미지, 최종 `short.mp4` (git 제외) |
@@ -104,4 +105,22 @@ claude setup-token
 | `SHORTS_PRIVACY` | `private` |
 | `SHORTS_BGM_VOLUME` | `0.15` (0이면 배경음 없음) |
 | `SHORTS_CHANNEL_NAME` | `itgony` |
-| `SHORTS_FONT` | Noto Sans CJK Bold / 맑은 고딕 Bold 자동 탐색 |
+
+## 영상 그래픽 (Remotion)
+
+대본을 쓸 때 Claude가 장면마다 `visual`을 하나 고르고, `video/src/Visuals.tsx`가 그린다.
+
+| type | 화면 |
+|---|---|
+| `number` | 숫자 카운트업 (`value`, `label`) |
+| `compare` | 막대 비교 차트 (`bars`) |
+| `flow` | 단계 흐름도 (`items`) |
+| `keywords` | 핵심 단어 카드 (`items`) |
+| `code` | 터미널 코드 타이핑 (`code`) |
+| `question` | 엔딩 질문 카드 (`label`) |
+| `none` | 헤드라인만 크게 |
+
+- 자막은 edge-tts의 단어별 시점(WordBoundary)으로 말하는 단어를 강조한다.
+- 디자인 수정: `cd video && npm install && npm run dev`로 Remotion Studio를 열고 `src/` 파일을 고친다.
+- Remotion은 개인·3인 이하 팀은 무료다.
+- Claude Code용 Remotion 공식 스킬이 `.claude/skills/`에 들어 있다.

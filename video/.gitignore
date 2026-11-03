@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Ignore the output video from Git but not videos you import into src/.
+out
+
+# shorts.py가 렌더링 중에만 쓰는 임시 음성 파일
+public/run-*
