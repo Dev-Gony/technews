@@ -648,7 +648,7 @@ def youtube_error_reason(error):
 
     for reason in reasons:
         if reason in YOUTUBE_ERROR_HINTS:
-            return f"{reason} — {YOUTUBE_ERROR_HINTS[reason]}"
+            return f"{reason}: {YOUTUBE_ERROR_HINTS[reason]}"
 
     return f"{', '.join(filter(None, reasons))} {detail.get('message', '')}".strip()
 
