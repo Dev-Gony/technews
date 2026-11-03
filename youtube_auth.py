@@ -89,7 +89,7 @@ def authorize(client_id, client_secret):
             "response_type": "code",
             "scope": SCOPE,
             "access_type": "offline",
-            "prompt": "consent",
+            "prompt": "select_account consent",
             "state": state,
         }
     )
