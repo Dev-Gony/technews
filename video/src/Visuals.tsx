@@ -30,6 +30,7 @@ const Panel: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         alignItems: "center",
         fontFamily,
         color: colors.text,
+        wordBreak: "keep-all",
       }}
     >
       {children}

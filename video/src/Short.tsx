@@ -42,11 +42,13 @@ const Headline: React.FC<{ text: string; big: boolean }> = ({ text, big }) => {
         width: width - layout.side * 2,
         textAlign: "center",
         fontFamily,
+        // 한글이 단어 중간에서 줄바꿈되지 않게
+        wordBreak: "keep-all",
       }}
     >
       <div
         style={{
-          fontSize: big ? 130 : 96,
+          fontSize: big ? (text.length > 8 ? 112 : 130) : text.length > 12 ? 84 : 96,
           fontWeight: 900,
           lineHeight: 1.15,
           letterSpacing: -2,

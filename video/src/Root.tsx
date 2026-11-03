@@ -52,7 +52,7 @@ export const RemotionRoot: React.FC = () => {
             visual: { type: "flow", items: ["가중치 읽기", "기능 위치 찾기", "0.016% 수정", "점수 상승"] },
           },
           {
-            headline: "어떻게 해야 할까?",
+            headline: "AI값 > 직원 보수?",
             narration: "여러분 생각은 어떠세요?",
             audio: "sample/silence.mp3",
             durationInFrames: 90,
@@ -61,7 +61,7 @@ export const RemotionRoot: React.FC = () => {
               { text: "생각은", startMs: 500, endMs: 1000 },
               { text: "어떠세요?", startMs: 1000, endMs: 1700 },
             ],
-            visual: { type: "question", label: "AI 튜닝, 학습일까 수술일까?" },
+            visual: { type: "none" },
           },
         ],
       }}
