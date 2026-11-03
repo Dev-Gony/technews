@@ -628,6 +628,31 @@ def build_description(script, article):
     )
 
 
+YOUTUBE_ERROR_HINTS = {
+    "youtubeSignupRequired": "허용한 Google 계정에 YouTube 채널이 없습니다. youtube_auth.py를 다시 실행해 itgony 채널 계정(브랜드 채널이면 채널 선택)으로 허용하세요.",
+    "accessNotConfigured": "Google Cloud 프로젝트에서 YouTube Data API v3가 꺼져 있습니다.",
+    "quotaExceeded": "오늘 YouTube API 사용량을 다 썼습니다. 내일 다시 시도됩니다.",
+    "uploadLimitExceeded": "채널의 하루 업로드 한도를 넘었습니다.",
+}
+
+
+def youtube_error_reason(error):
+    """YouTube API 오류 응답에서 reason을 꺼내 사람이 읽을 수 있게 바꾼다."""
+    try:
+        body = json.loads(error.read().decode("utf-8"))
+    except Exception:
+        return error.reason
+
+    detail = body.get("error", {})
+    reasons = [item.get("reason", "") for item in detail.get("errors", [])]
+
+    for reason in reasons:
+        if reason in YOUTUBE_ERROR_HINTS:
+            return f"{reason}: {YOUTUBE_ERROR_HINTS[reason]}"
+
+    return f"{', '.join(filter(None, reasons))} {detail.get('message', '')}".strip()
+
+
 def upload_youtube(video_path, script, article):
     token = youtube_access_token()
     metadata = {
@@ -660,8 +685,11 @@ def upload_youtube(video_path, script, article):
         method="POST",
     )
 
-    with urllib.request.urlopen(start, timeout=60) as response:
-        upload_url = response.headers["Location"]
+    try:
+        with urllib.request.urlopen(start, timeout=60) as response:
+            upload_url = response.headers["Location"]
+    except urllib.error.HTTPError as error:
+        raise RuntimeError(f"YouTube 업로드 시작 실패 ({error.code}): {youtube_error_reason(error)}")
 
     with open(video_path, "rb") as file:
         upload = urllib.request.Request(
