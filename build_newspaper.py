@@ -1300,6 +1300,16 @@ def build_site():
             ASSETS_DIR / "favicon.svg",
         )
 
+    privacy_source = Path(
+        "web/privacy.html"
+    )
+
+    if privacy_source.exists():
+        shutil.copyfile(
+            privacy_source,
+            OUTPUT_DIR / "privacy.html",
+        )
+
     write_text(
         OUTPUT_DIR / "robots.txt",
         (
