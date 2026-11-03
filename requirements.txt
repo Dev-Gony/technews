@@ -1,2 +1,6 @@
 feedparser
 beautifulsoup4
+anthropic
+edge-tts
+Pillow
+imageio-ffmpeg
