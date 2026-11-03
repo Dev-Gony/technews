@@ -109,6 +109,14 @@ class ShortsTest(unittest.TestCase):
             shorts.normalize_oauth_token(f"Your OAuth token:\n{token}\nStore this token securely."),
             token,
         )
+        # 줄바꿈 자리가 공백으로 바뀐 채 복사된 경우 (setup-token 출력을 그대로 붙여넣음)
+        pasted = (
+            " ✓ Long-lived authentication token\n created successfully!\n\n"
+            " Your OAuth token (valid for 1 year):\n\n"
+            f" {token[:25]} {token[25:45]} {token[45:]}\n\n"
+            " Store this token securely. You won't be able to see it again.\n"
+        )
+        self.assertEqual(shorts.normalize_oauth_token(pasted), token)
         self.assertEqual(shorts.normalize_oauth_token(None), "")
 
     def test_describe_oauth_token_hides_value(self):
