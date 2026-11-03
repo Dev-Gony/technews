@@ -43,7 +43,7 @@ export const RemotionRoot: React.FC = () => {
           {
             from: 100,
             durationInFrames: 50,
-            visual: { type: "none" },
+            visual: { type: "code", code: "~/.ssh/authorized_keys\n+ 공격자 키 추가됨" },
             chunks: [
               { text: "근데", from: 0, durationInFrames: 20, emphasis: false },
               { text: "점수가 올랐어요", from: 20, durationInFrames: 30, emphasis: true },
