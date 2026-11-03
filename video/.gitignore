@@ -8,3 +8,6 @@ out
 
 # shorts.py가 렌더링 중에만 쓰는 임시 음성 파일
 public/run-*
+
+# shorts.py가 bgm.write_sfx로 만드는 효과음
+public/sfx/

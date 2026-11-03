@@ -1,87 +1,58 @@
-import { useCurrentFrame, useVideoConfig } from "remotion";
-import type { Word } from "./schema";
+import { Easing, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
+import type { Chunk } from "./schema";
 import { colors, fontFamily, layout } from "./theme";
 
-// 한 화면(두 줄)에 들어가는 만큼씩 끊어서 보여준다.
-const PAGE_CHARS = 26;
-
-const toPages = (words: Word[]) => {
-  const pages: Word[][] = [];
-  let current: Word[] = [];
-  let chars = 0;
-
-  for (const word of words) {
-    if (current.length && chars + word.text.length > PAGE_CHARS) {
-      pages.push(current);
-      current = [];
-      chars = 0;
-    }
-
-    current.push(word);
-    chars += word.text.length + 1;
-
-    // 문장이 끝나면 다음 페이지로 넘긴다.
-    if (/[.?!]$/.test(word.text)) {
-      pages.push(current);
-      current = [];
-      chars = 0;
-    }
-  }
-
-  if (current.length) {
-    pages.push(current);
-  }
-
-  return pages;
-};
-
-// 말하는 단어를 노래방 자막처럼 강조한다.
-export const Captions: React.FC<{ words: Word[] }> = ({ words }) => {
+// 1~2어절씩 툭 튀어나오는 자막. 강조 단어는 노란색.
+const PopWord: React.FC<{ chunk: Chunk; center: boolean }> = ({ chunk, center }) => {
   const frame = useCurrentFrame();
-  const { fps, width } = useVideoConfig();
-  const ms = (frame / fps) * 1000;
-
-  const pages = toPages(words);
-  const page =
-    pages.find((p) => ms < p[p.length - 1].endMs + 150) ?? pages[pages.length - 1] ?? [];
+  const { width } = useVideoConfig();
+  const size = center ? 132 : 104;
 
   return (
     <div
       style={{
         position: "absolute",
-        top: layout.captionTop,
-        left: layout.side,
-        width: width - layout.side * 2,
-        minHeight: 200,
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        alignContent: "flex-start",
-        gap: "8px 18px",
-        fontFamily,
-        fontWeight: 700,
-        fontSize: 60,
-        lineHeight: 1.3,
+        top: center ? 760 : layout.captionTop,
+        left: layout.side / 2,
+        width: width - layout.side,
         textAlign: "center",
+        fontFamily,
+        fontWeight: 900,
+        fontSize: chunk.text.length > 7 ? size * 0.82 : size,
+        lineHeight: 1.15,
+        letterSpacing: -2,
+        wordBreak: "keep-all",
+        color: chunk.emphasis ? colors.highlight : colors.text,
+        WebkitTextStroke: "14px #000",
+        paintOrder: "stroke fill",
+        textShadow: "0 10px 30px rgba(0,0,0,0.55)",
+        opacity: interpolate(frame, [0, 2], [0, 1], { extrapolateRight: "clamp" }),
+        scale: String(
+          interpolate(frame, [0, 4, 7], [0.55, 1.1, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.bezier(0.2, 0.9, 0.3, 1),
+          }),
+        ),
+        rotate: `${interpolate(frame, [0, 6], [chunk.emphasis ? -5 : -2, 0], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        })}deg`,
       }}
     >
-      {page.map((word, index) => {
-        const active = ms >= word.startMs && ms < word.endMs;
-        const spoken = ms >= word.endMs;
-
-        return (
-          <span
-            key={`${word.startMs}-${index}`}
-            style={{
-              color: active ? colors.accent : spoken ? colors.text : colors.dim,
-              scale: active ? "1.08" : "1",
-              textShadow: "0 4px 18px rgba(0,0,0,0.6)",
-            }}
-          >
-            {word.text}
-          </span>
-        );
-      })}
+      {chunk.text}
     </div>
+  );
+};
+
+export const Captions: React.FC<{ chunks: Chunk[]; center: boolean }> = ({ chunks, center }) => {
+  return (
+    <>
+      {chunks.map((chunk, index) => (
+        <Sequence key={`${chunk.from}-${index}`} name={chunk.text} from={chunk.from} durationInFrames={chunk.durationInFrames}>
+          <PopWord chunk={chunk} center={center} />
+        </Sequence>
+      ))}
+    </>
   );
 };

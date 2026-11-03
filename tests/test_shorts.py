@@ -71,19 +71,22 @@ class ShortsTest(unittest.TestCase):
                 "title": "t",
                 "description": "d",
                 "hashtags": ["#AI 뉴스", "LLM", " "],
-                "scenes": [{"headline": "h", "narration": "n"}] * 4,
+                "cuts": [{"line": "근데 진짜예요.", "emphasis": ["진짜예요.", "없는말"]} for _ in range(8)],
             }
         )
         self.assertEqual(script["hashtags"], ["AI뉴스", "LLM"])
+        # 대사에 없는 강조 단어는 버리고, 그래픽이 없으면 none으로 채운다.
+        self.assertEqual(script["cuts"][0]["emphasis"], ["진짜예요."])
+        self.assertEqual(script["cuts"][0]["visual"], {"type": "none"})
 
-    def test_validate_script_rejects_too_few_scenes(self):
+    def test_validate_script_rejects_too_few_cuts(self):
         with self.assertRaises(ValueError):
             shorts.validate_script(
                 {
                     "title": "t",
                     "description": "d",
                     "hashtags": [],
-                    "scenes": [{"headline": "h", "narration": "n"}],
+                    "cuts": [{"line": "하나", "emphasis": []}] * 3,
                 }
             )
 
@@ -125,6 +128,42 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual([w["text"] for w in words], ["가나", "다라마바"])
         self.assertAlmostEqual(words[0]["endMs"], 200)
         self.assertAlmostEqual(words[1]["endMs"], 600)
+
+    def test_align_to_script_matches_heard_words(self):
+        text = "Claude Code 확장이요. 근데 악성코드가 있었어요."
+        heard = [
+            {"text": "클로드", "startMs": 0, "endMs": 400},
+            {"text": "코드", "startMs": 400, "endMs": 600},
+            {"text": "확장이요.", "startMs": 600, "endMs": 1200},
+            {"text": "근데", "startMs": 1500, "endMs": 1700},
+            {"text": "악성", "startMs": 1700, "endMs": 2000},
+            {"text": "코드가", "startMs": 2000, "endMs": 2400},
+            {"text": "있었어요.", "startMs": 2400, "endMs": 3000},
+        ]
+        words = shorts.align_to_script(text, heard, 3200)
+
+        self.assertEqual([w["text"] for w in words], text.split())
+        # 표기가 다른 영어 어절은 다음 어절 시작 전까지로 채운다.
+        self.assertEqual(words[0]["startMs"], 0)
+        self.assertLessEqual(words[1]["endMs"], words[2]["startMs"])
+        self.assertEqual(words[3]["startMs"], 1500)
+        self.assertEqual((words[4]["startMs"], words[4]["endMs"]), (1700, 2400))
+        starts = [w["startMs"] for w in words]
+        self.assertEqual(starts, sorted(starts))
+
+    def test_caption_chunks_groups_short_pieces(self):
+        words = [
+            {"text": "심지어", "startMs": 0, "endMs": 300},
+            {"text": "확장", "startMs": 300, "endMs": 500},
+            {"text": "지워도", "startMs": 500, "endMs": 800},
+            {"text": "안", "startMs": 800, "endMs": 900},
+            {"text": "끝나요.", "startMs": 900, "endMs": 1300},
+        ]
+        chunks = shorts.caption_chunks(words, ["끝나요."])
+
+        self.assertEqual([c["text"] for c in chunks], ["심지어 확장", "지워도 안", "끝나요"])
+        self.assertEqual([c["emphasis"] for c in chunks], [False, False, True])
+        self.assertEqual(chunks[1]["startMs"], 500)
 
     def test_normalize_oauth_token_removes_wrapping_and_noise(self):
         token = "sk-ant-oat01-" + "Ab_9-" * 10

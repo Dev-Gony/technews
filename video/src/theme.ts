@@ -7,13 +7,13 @@ export const { fontFamily } = loadFont("normal", {
 
 export const colors = {
   background: "#0B0E14",
-  surface: "rgba(255, 255, 255, 0.06)",
-  border: "rgba(255, 255, 255, 0.12)",
+  surface: "rgba(255, 255, 255, 0.07)",
+  border: "rgba(255, 255, 255, 0.14)",
   text: "#F5F6F8",
-  muted: "#8C94A0",
-  dim: "rgba(245, 246, 248, 0.38)",
+  muted: "#9AA2AE",
   accent: "#FF5C4D",
-  accentSoft: "rgba(255, 92, 77, 0.18)",
+  accentSoft: "rgba(255, 92, 77, 0.2)",
+  highlight: "#FFD84D",
   blue: "#4D8DFF",
   green: "#3DDC97",
 };
@@ -21,8 +21,7 @@ export const colors = {
 // Shorts 화면에서 제목, 버튼에 가리지 않는 영역 (1080x1920 기준)
 export const layout = {
   side: 80,
-  headlineTop: 250,
-  visualTop: 620,
-  visualHeight: 600,
-  captionTop: 1260,
+  visualTop: 330,
+  visualHeight: 680,
+  captionTop: 1110,
 };

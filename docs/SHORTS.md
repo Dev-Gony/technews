@@ -15,10 +15,10 @@ AI 기사 선택 (selection_score 순, 이미 만든 기사 제외)
 Claude 대본 (claude -p, 구독 계정 사용 / 훅 → 본문 → 질문, 장면 4~6개)
       |
       v
-edge-tts 음성 (장면별 mp3)
+Gemini TTS 음성 (Leda, 대본 전체를 한 번에, 실패하면 edge-tts) + Whisper로 단어 시점 맞추기
       |
       v
-Remotion 인포그래픽 영상 (video/, 장면별 그래픽 + 단어 단위 자막 + 장면 전환)
+Remotion 컷 편집 영상 (video/, 1.5~3초마다 컷, 1~2어절 팝업 자막, 컷별 그래픽, 효과음)
       |
       v
 배경음 (bgm.py가 날짜별로 직접 만든 로파이 곡, 말할 때 자동으로 작아짐, -14 LUFS)
@@ -64,6 +64,7 @@ Windows에서 `ZoneInfoNotFoundError`가 나면 `pip install tzdata`.
 | 이름 | 용도 |
 |---|---|
 | `CLAUDE_CODE_OAUTH_TOKEN` | 대본 생성 (Claude 구독, API 과금 없음) |
+| `GEMINI_API_KEY` | 음성 (Gemini TTS 무료 등급, 기존 값 재사용) |
 | `YOUTUBE_CLIENT_ID` | YouTube 업로드 |
 | `YOUTUBE_CLIENT_SECRET` | YouTube 업로드 |
 | `YOUTUBE_REFRESH_TOKEN` | YouTube 업로드 |
@@ -100,27 +101,32 @@ claude setup-token
 | 이름 | 기본값 |
 |---|---|
 | `SHORTS_CLAUDE_MODEL` | 비우면 구독 플랜 기본 모델 (`opus`, `sonnet` 등) |
-| `SHORTS_VOICE` | `ko-KR-InJoonNeural` (여성: `ko-KR-SunHiNeural`) |
-| `SHORTS_TTS_RATE` | `+8%` |
+| `SHORTS_GEMINI_VOICE` | `Leda` (Puck, Fenrir, Charon, Kore, Zephyr 등) |
+| `SHORTS_GEMINI_TTS_MODEL` | `gemini-3.1-flash-tts-preview` |
+| `SHORTS_WHISPER_MODEL` | `small` |
+| `SHORTS_VOICE` | 대체 음성 `ko-KR-HyunsuMultilingualNeural` |
+| `SHORTS_TTS_RATE` | 대체 음성 속도 `+22%` |
 | `SHORTS_PRIVACY` | `private` |
 | `SHORTS_BGM_VOLUME` | `0.15` (0이면 배경음 없음) |
 | `SHORTS_CHANNEL_NAME` | `itgony` |
 
 ## 영상 그래픽 (Remotion)
 
-대본을 쓸 때 Claude가 장면마다 `visual`을 하나 고르고, `video/src/Visuals.tsx`가 그린다.
+대본은 12~16컷의 짧은 구어체 대사로 쓴다. 컷마다 Claude가 `visual`을 하나 고르고, `video/src/Visuals.tsx`가 그린다.
 
 | type | 화면 |
 |---|---|
+| `hook` | 첫 컷. 대형 문구가 쾅 내려찍힘 (`value`) |
 | `number` | 숫자 카운트업 (`value`, `label`) |
 | `compare` | 막대 비교 차트 (`bars`) |
 | `flow` | 단계 흐름도 (`items`) |
 | `keywords` | 핵심 단어 카드 (`items`) |
 | `code` | 터미널 코드 타이핑 (`code`) |
 | `question` | 엔딩 질문 카드 (`label`) |
-| `none` | 헤드라인만 크게 |
+| `none` | 그래픽 없이 자막만 크게 |
 
-- 자막은 edge-tts의 단어별 시점(WordBoundary)으로 말하는 단어를 강조한다.
+- 자막은 1~2어절씩 화면에 튀어나오고, 대본의 `emphasis` 단어는 노란색이다.
+- 효과음(컷 전환 슉, 숫자 쿵, 카드 뽁)은 `bgm.py`가 코드로 만든다.
 - 디자인 수정: `cd video && npm install && npm run dev`로 Remotion Studio를 열고 `src/` 파일을 고친다.
 - Remotion은 개인·3인 이하 팀은 무료다.
 - Claude Code용 Remotion 공식 스킬이 `.claude/skills/`에 들어 있다.

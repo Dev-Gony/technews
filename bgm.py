@@ -147,3 +147,70 @@ def write_wav(samples, path):
         file.writeframes(stereo.tobytes())
 
     return path
+
+
+# ---------------------------------------------------------------------------
+# 효과음 (컷 전환 슉, 숫자 등장 쿵, 카드 등장 뽁)
+# ---------------------------------------------------------------------------
+
+def _lowpass_sweep(noise, start_hz, end_hz):
+    """차단 주파수가 시간에 따라 바뀌는 1차 저역 통과 필터. 바람 가르는 소리를 만든다."""
+    cutoffs = np.geomspace(start_hz, end_hz, len(noise))
+    alphas = 1 - np.exp(-2 * np.pi * cutoffs / SAMPLE_RATE)
+    out = np.zeros_like(noise)
+    value = 0.0
+
+    for i, (sample, alpha) in enumerate(zip(noise, alphas)):
+        value += alpha * (sample - value)
+        out[i] = value
+
+    return out
+
+
+def _whoosh(seconds, start_hz, end_hz, seed):
+    rng = np.random.default_rng(seed)
+    length = int(seconds * SAMPLE_RATE)
+    sound = _lowpass_sweep(rng.normal(0, 1, length), start_hz, end_hz)
+    shape = np.sin(np.linspace(0, np.pi, length)) ** 2
+
+    return sound * shape
+
+
+def _impact():
+    length = int(0.7 * SAMPLE_RATE)
+    t = np.arange(length) / SAMPLE_RATE
+    freq = 38 + 70 * np.exp(-t * 18)
+    body = np.sin(2 * np.pi * np.cumsum(freq) / SAMPLE_RATE) * np.exp(-t * 6)
+    click = np.random.default_rng(7).normal(0, 1, length) * np.exp(-t * 90) * 0.5
+
+    return body + click
+
+
+def _pop():
+    length = int(0.14 * SAMPLE_RATE)
+    t = np.arange(length) / SAMPLE_RATE
+    freq = 520 + 700 * np.exp(-t * 40)
+
+    return np.sin(2 * np.pi * np.cumsum(freq) / SAMPLE_RATE) * np.exp(-t * 35)
+
+
+def write_sfx(directory):
+    """Remotion이 쓰는 효과음 wav를 만든다. 이미 있으면 그대로 둔다."""
+    import os
+
+    os.makedirs(directory, exist_ok=True)
+    sounds = {
+        "whoosh1.wav": lambda: _whoosh(0.32, 400, 6000, seed=1),
+        "whoosh2.wav": lambda: _whoosh(0.28, 6000, 500, seed=2),
+        "impact.wav": _impact,
+        "pop.wav": _pop,
+    }
+
+    for name, make in sounds.items():
+        path = os.path.join(directory, name)
+
+        if os.path.exists(path):
+            continue
+
+        samples = make()
+        write_wav(samples / (np.max(np.abs(samples)) or 1) * 0.9, path)

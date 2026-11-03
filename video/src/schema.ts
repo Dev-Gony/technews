@@ -1,12 +1,6 @@
 import { z } from "zod";
 
-// shorts.py가 만드는 props.json과 같은 구조
-
-export const wordSchema = z.object({
-  text: z.string(),
-  startMs: z.number(),
-  endMs: z.number(),
-});
+// shorts.py가 만드는 props.json과 같은 구조. 타이밍은 모두 프레임 단위.
 
 export const barSchema = z.object({
   label: z.string(),
@@ -15,9 +9,9 @@ export const barSchema = z.object({
 });
 
 export const visualSchema = z.object({
-  // number: 큰 숫자 카운트업 / compare: 막대 비교 / flow: 단계 흐름도
-  // keywords: 핵심 단어 카드 / code: 터미널 코드 / question: 질문 카드 / none: 헤드라인만
-  type: z.enum(["number", "compare", "flow", "keywords", "code", "question", "none"]),
+  // hook: 첫 컷 대형 문구 / number: 숫자 카운트업 / compare: 막대 비교 / flow: 단계 흐름도
+  // keywords: 핵심 단어 카드 / code: 터미널 코드 / question: 질문 카드 / none: 자막만
+  type: z.enum(["hook", "number", "compare", "flow", "keywords", "code", "question", "none"]),
   value: z.string().optional(),
   label: z.string().optional(),
   items: z.array(z.string()).optional(),
@@ -25,24 +19,36 @@ export const visualSchema = z.object({
   code: z.string().optional(),
 });
 
-export const sceneSchema = z.object({
-  headline: z.string(),
-  narration: z.string(),
-  audio: z.string(),
+export const chunkSchema = z.object({
+  text: z.string(),
+  from: z.number().int().min(0),
   durationInFrames: z.number().int().positive(),
-  words: z.array(wordSchema),
+  emphasis: z.boolean(),
+});
+
+export const cutSchema = z.object({
+  from: z.number().int().min(0),
+  durationInFrames: z.number().int().positive(),
   visual: visualSchema,
+  chunks: z.array(chunkSchema),
+});
+
+export const sfxSchema = z.object({
+  src: z.string(),
+  from: z.number().int().min(0),
+  volume: z.number(),
 });
 
 export const shortSchema = z.object({
   channel: z.string(),
   source: z.string(),
-  scenes: z.array(sceneSchema),
+  audio: z.string(),
+  durationInFrames: z.number().int().positive(),
+  cuts: z.array(cutSchema),
+  sfx: z.array(sfxSchema),
 });
 
-export type Word = z.infer<typeof wordSchema>;
 export type Visual = z.infer<typeof visualSchema>;
-export type Scene = z.infer<typeof sceneSchema>;
+export type Chunk = z.infer<typeof chunkSchema>;
+export type Cut = z.infer<typeof cutSchema>;
 export type ShortProps = z.infer<typeof shortSchema>;
-
-export const TRANSITION_FRAMES = 10;
