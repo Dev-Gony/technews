@@ -10,6 +10,7 @@ GitHub Secrets에 바로 등록한다. 토큰을 손으로 복사할 일이 없�
 """
 
 import os
+import base64
 import sys
 import glob
 import json
@@ -25,10 +26,11 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 REPO = os.environ.get("GITHUB_REPOSITORY", "Dev-Gony/technews")
 PORT = 8765
 REDIRECT_URI = f"http://localhost:{PORT}"
-# upload: 영상 업로드 / readonly: 허용한 계정에 어떤 채널이 연결됐는지 확인용
+# upload: 영상 업로드 / readonly: 연결된 채널 확인 / email: 어느 계정으로 로그인했는지 확인
 SCOPE = (
     "https://www.googleapis.com/auth/youtube.upload "
-    "https://www.googleapis.com/auth/youtube.readonly"
+    "https://www.googleapis.com/auth/youtube.readonly "
+    "openid email"
 )
 
 
@@ -140,7 +142,18 @@ def authorize(client_id, client_secret):
     if "refresh_token" not in token:
         raise SystemExit("refresh token을 받지 못했습니다. 다시 실행해 주세요.")
 
-    return token["refresh_token"], token["access_token"]
+    return token["refresh_token"], token["access_token"], token_email(token.get("id_token"))
+
+
+def token_email(id_token):
+    """id_token(JWT) 본문에서 로그인한 계정 이메일을 꺼낸다. 서명 검증은 하지 않는다(표시용)."""
+    if not id_token:
+        return "알 수 없음"
+
+    payload = id_token.split(".")[1]
+    payload += "=" * (-len(payload) % 4)
+
+    return json.loads(base64.urlsafe_b64decode(payload)).get("email", "알 수 없음")
 
 
 def connected_channel(access_token):
@@ -193,8 +206,9 @@ def main():
     print(f"OAuth 클라이언트 파일: {client_file}\n")
 
     client_id, client_secret = load_client(client_file)
-    refresh_token, access_token = authorize(client_id, client_secret)
+    refresh_token, access_token, email = authorize(client_id, client_secret)
 
+    print(f"\n로그인한 Google 계정: {email}")
     channel = connected_channel(access_token)
 
     if not channel:
