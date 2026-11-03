@@ -96,12 +96,28 @@ def authorize(client_id, client_secret):
     webbrowser.open(auth_url)
 
     server = HTTPServer(("localhost", PORT), CallbackHandler)
-    server.handle_request()
+    server.timeout = 300
 
-    result = CallbackHandler.result
+    # 브라우저가 favicon 요청을 먼저 보내거나, 이전 실행의 로그인 결과가 늦게 도착할 수 있다.
+    # 이번 실행의 state와 맞는 결과가 올 때까지 다른 요청은 무시하고 기다린다.
+    while True:
+        CallbackHandler.result = None
+        server.handle_request()
+        result = CallbackHandler.result
 
-    if result.get("state") != state or "code" not in result:
-        raise SystemExit(f"인증 실패: {result.get('error') or result}")
+        if result is None:
+            raise SystemExit("5분 안에 로그인 결과가 오지 않았습니다. 다시 실행해 주세요.")
+
+        if result.get("state") != state:
+            continue
+
+        if "error" in result:
+            raise SystemExit(f"인증 실패: {result['error']}")
+
+        if "code" in result:
+            break
+
+    server.server_close()
 
     data = urllib.parse.urlencode(
         {
