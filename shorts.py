@@ -213,6 +213,44 @@ def build_script_prompt(article):
     return "\n".join(lines)
 
 
+def normalize_oauth_token(value):
+    """복사 과정에서 섞인 공백, 줄바꿈, 안내 문구를 걷어내고 토큰만 남긴다.
+
+    터미널 폭이 좁으면 토큰이 여러 줄로 잘려 복사되므로, 토큰이 시작된 줄 다음에
+    오는 "토큰 글자로만 된 줄"을 이어 붙인다. 공백이 섞인 안내 문장에서 멈춘다.
+    """
+    lines = [line.strip() for line in (value or "").splitlines()]
+
+    for index, line in enumerate(lines):
+        match = re.search(r"sk-ant-oat[A-Za-z0-9_\-]*", line)
+
+        if not match:
+            continue
+
+        token = match.group(0)
+
+        for next_line in lines[index + 1:]:
+            if not re.fullmatch(r"[A-Za-z0-9_\-]+", next_line):
+                break
+
+            token += next_line
+
+        return token
+
+    return re.sub(r"\s+", "", value or "")
+
+
+def describe_oauth_token(token):
+    """토큰 값은 노출하지 않고 형식만 설명한다. 인증 실패 원인 확인용."""
+    if not token:
+        return "토큰 없음"
+
+    return (
+        f"길이 {len(token)}, "
+        f"sk-ant-oat 접두사 {'있음' if token.startswith('sk-ant-oat') else '없음'}"
+    )
+
+
 def generate_script(article):
     """Claude Code CLI(claude -p)로 대본을 만든다.
 
@@ -236,9 +274,16 @@ def generate_script(article):
     if CLAUDE_MODEL:
         command += ["--model", CLAUDE_MODEL]
 
+    env = os.environ.copy()
+    token = normalize_oauth_token(env.get("CLAUDE_CODE_OAUTH_TOKEN"))
+
+    if token:
+        env["CLAUDE_CODE_OAUTH_TOKEN"] = token
+
     result = subprocess.run(
         command,
         input=build_script_prompt(article),
+        env=env,
         capture_output=True,
         text=True,
         encoding="utf-8",
@@ -252,7 +297,12 @@ def generate_script(article):
         raise RuntimeError(f"claude 실행 실패: {result.stderr.strip() or result.stdout.strip()}")
 
     if output.get("is_error") or not output.get("structured_output"):
-        raise RuntimeError(f"대본 생성 실패: {output.get('result') or output.get('subtype')}")
+        message = output.get("result") or output.get("subtype")
+
+        if "CLAUDE_CODE_OAUTH_TOKEN" in os.environ:
+            message += f" (CLAUDE_CODE_OAUTH_TOKEN: {describe_oauth_token(token)})"
+
+        raise RuntimeError(f"대본 생성 실패: {message}")
 
     return validate_script(output["structured_output"])
 

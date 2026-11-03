@@ -97,5 +97,28 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual("".join(lines).replace(" ", ""), "가나다라마바사아자차카타파하하하")
 
 
+    def test_normalize_oauth_token_removes_wrapping_and_noise(self):
+        token = "sk-ant-oat01-" + "Ab_9-" * 10
+
+        self.assertEqual(shorts.normalize_oauth_token(f"  {token}\n"), token)
+        self.assertEqual(
+            shorts.normalize_oauth_token(token[:20] + "\n" + token[20:]),
+            token,
+        )
+        self.assertEqual(
+            shorts.normalize_oauth_token(f"Your OAuth token:\n{token}\nStore this token securely."),
+            token,
+        )
+        self.assertEqual(shorts.normalize_oauth_token(None), "")
+
+    def test_describe_oauth_token_hides_value(self):
+        token = "sk-ant-oat01-secretvalue"
+        description = shorts.describe_oauth_token(token)
+
+        self.assertNotIn("secretvalue", description)
+        self.assertIn(str(len(token)), description)
+        self.assertEqual(shorts.describe_oauth_token(""), "토큰 없음")
+
+
 if __name__ == "__main__":
     unittest.main()
