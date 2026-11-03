@@ -10,6 +10,7 @@ GitHub Secrets에 바로 등록한다. 토큰을 손으로 복사할 일이 없�
 """
 
 import os
+import base64
 import sys
 import glob
 import json
@@ -25,7 +26,12 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 REPO = os.environ.get("GITHUB_REPOSITORY", "Dev-Gony/technews")
 PORT = 8765
 REDIRECT_URI = f"http://localhost:{PORT}"
-SCOPE = "https://www.googleapis.com/auth/youtube.upload"
+# upload: 영상 업로드 / readonly: 연결된 채널 확인 / email: 어느 계정으로 로그인했는지 확인
+SCOPE = (
+    "https://www.googleapis.com/auth/youtube.upload "
+    "https://www.googleapis.com/auth/youtube.readonly "
+    "openid email"
+)
 
 
 class CallbackHandler(BaseHTTPRequestHandler):
@@ -85,7 +91,7 @@ def authorize(client_id, client_secret):
             "response_type": "code",
             "scope": SCOPE,
             "access_type": "offline",
-            "prompt": "consent",
+            "prompt": "select_account consent",
             "state": state,
         }
     )
@@ -96,12 +102,28 @@ def authorize(client_id, client_secret):
     webbrowser.open(auth_url)
 
     server = HTTPServer(("localhost", PORT), CallbackHandler)
-    server.handle_request()
+    server.timeout = 300
 
-    result = CallbackHandler.result
+    # 브라우저가 favicon 요청을 먼저 보내거나, 이전 실행의 로그인 결과가 늦게 도착할 수 있다.
+    # 이번 실행의 state와 맞는 결과가 올 때까지 다른 요청은 무시하고 기다린다.
+    while True:
+        CallbackHandler.result = None
+        server.handle_request()
+        result = CallbackHandler.result
 
-    if result.get("state") != state or "code" not in result:
-        raise SystemExit(f"인증 실패: {result.get('error') or result}")
+        if result is None:
+            raise SystemExit("5분 안에 로그인 결과가 오지 않았습니다. 다시 실행해 주세요.")
+
+        if result.get("state") != state:
+            continue
+
+        if "error" in result:
+            raise SystemExit(f"인증 실패: {result['error']}")
+
+        if "code" in result:
+            break
+
+    server.server_close()
 
     data = urllib.parse.urlencode(
         {
@@ -120,7 +142,34 @@ def authorize(client_id, client_secret):
     if "refresh_token" not in token:
         raise SystemExit("refresh token을 받지 못했습니다. 다시 실행해 주세요.")
 
-    return token["refresh_token"]
+    return token["refresh_token"], token["access_token"], token_email(token.get("id_token"))
+
+
+def token_email(id_token):
+    """id_token(JWT) 본문에서 로그인한 계정 이메일을 꺼낸다. 서명 검증은 하지 않는다(표시용)."""
+    if not id_token:
+        return "알 수 없음"
+
+    payload = id_token.split(".")[1]
+    payload += "=" * (-len(payload) % 4)
+
+    return json.loads(base64.urlsafe_b64decode(payload)).get("email", "알 수 없음")
+
+
+def connected_channel(access_token):
+    """허용한 계정에 연결된 YouTube 채널 이름을 돌려준다. 채널이 없으면 None."""
+    request = urllib.request.Request(
+        "https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true",
+        headers={"Authorization": f"Bearer {access_token}"},
+    )
+
+    with urllib.request.urlopen(request, timeout=30) as response:
+        items = json.loads(response.read().decode("utf-8")).get("items") or []
+
+    if not items:
+        return None
+
+    return items[0]["snippet"]["title"]
 
 
 def find_gh():
@@ -157,7 +206,22 @@ def main():
     print(f"OAuth 클라이언트 파일: {client_file}\n")
 
     client_id, client_secret = load_client(client_file)
-    refresh_token = authorize(client_id, client_secret)
+    refresh_token, access_token, email = authorize(client_id, client_secret)
+
+    print(f"\n로그인한 Google 계정: {email}")
+    channel = connected_channel(access_token)
+
+    if not channel:
+        raise SystemExit(
+            "\n방금 허용한 Google 계정에는 YouTube 채널이 없습니다. 아무것도 저장하지 않았습니다.\n"
+            "다시 실행해서 itgony 채널을 가진 계정을 고르세요.\n"
+            "itgony가 브랜드 채널이면, 계정을 고른 뒤 나오는 '채널 선택' 화면에서 itgony를 고르세요."
+        )
+
+    print(f"\n연결된 채널: {channel}")
+
+    if input("이 채널에 업로드할까요? (y/n): ").strip().lower() != "y":
+        raise SystemExit("취소했습니다. 아무것도 저장하지 않았습니다.")
 
     print()
     set_secret(gh, "YOUTUBE_CLIENT_ID", client_id)
