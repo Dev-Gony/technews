@@ -87,15 +87,31 @@ class ShortsTest(unittest.TestCase):
                 }
             )
 
-    def test_wrap_text_respects_width(self):
-        def measure(text, font):
-            return len(text) * 10
+    def test_validate_visual_falls_back_when_empty(self):
+        self.assertEqual(shorts.validate_visual(None), {"type": "none"})
+        self.assertEqual(shorts.validate_visual({"type": "number", "value": "많이"}), {"type": "none"})
+        self.assertEqual(shorts.validate_visual({"type": "flow", "items": ["하나"]}), {"type": "none"})
+        self.assertEqual(shorts.validate_visual({"type": "unknown"}), {"type": "none"})
 
-        lines = shorts.wrap_text("가나다 라마바사 아자차카타파하하하", None, 50, measure)
+        number = {"type": "number", "value": "0.016%", "label": "수정 비율"}
+        self.assertEqual(shorts.validate_visual(number), number)
 
-        self.assertTrue(all(measure(line, None) <= 50 for line in lines))
-        self.assertEqual("".join(lines).replace(" ", ""), "가나다라마바사아자차카타파하하하")
+    def test_align_words_keeps_punctuation_from_script(self):
+        boundaries = [
+            {"text": "성능이", "startMs": 0, "endMs": 400},
+            {"text": "올랐습니다", "startMs": 400, "endMs": 900},
+        ]
+        words = shorts.align_words("성능이 올랐습니다.", boundaries, 1000)
 
+        self.assertEqual([w["text"] for w in words], ["성능이", "올랐습니다."])
+        self.assertEqual(words[1]["startMs"], 400)
+
+    def test_align_words_estimates_without_boundaries(self):
+        words = shorts.align_words("가나 다라마바", [], 600)
+
+        self.assertEqual([w["text"] for w in words], ["가나", "다라마바"])
+        self.assertAlmostEqual(words[0]["endMs"], 200)
+        self.assertAlmostEqual(words[1]["endMs"], 600)
 
     def test_normalize_oauth_token_removes_wrapping_and_noise(self):
         token = "sk-ant-oat01-" + "Ab_9-" * 10
