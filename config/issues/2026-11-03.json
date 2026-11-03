@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "issue_number": 45,
+  "issue_date": "2026-11-03",
+  "generated_at": "2026-11-03T11:50:44.285523+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n편집 요약 생성 실패\n\n[오늘의 한줄 포인트]\n선별된 개별 글은 정상적으로 준비되었습니다.",
+  "stats": {
+    "candidate_count": 32,
+    "detailed_count": 5,
+    "brief_count": 1,
+    "excluded_count": 12,
+    "unresolved_count": 14
+  },
+  "top_stories": [
+    {
+      "company": "AWS Architecture",
+      "title": "How to run a DR readiness engagement",
+      "link": "https://aws.amazon.com/blogs/architecture/how-to-run-a-dr-readiness-engagement",
+      "published_at": "Mon, 02 Nov 2026 17:26:49 +0000",
+      "selection_score": 11,
+      "selection_reason": "백엔드 아키텍처 및 시스템 안정성 관점에서 재해 복구(DR) 전략을 수립하는 실무적인 가이드라인을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS 환경에서 재해 복구(DR) 준비 상태를 체계적으로 검증하는 5단계 가이드라인",
+      "key_points": [
+        "DR 준비는 비즈니스 의사결정, 단계적 검증, 지속적인 운영이라는 3단계 프레임워크를 통해 수행해야 합니다.",
+        "복구 경로에 포함된 모든 서비스와 소유자를 정의하는 '경계 맵(Boundary Map)' 작성이 모든 DR 전략의 기초가 됩니다.",
+        "테이블탑 훈련부터 계획된 장애 조치, 예고 없는 훈련 순으로 점진적으로 검증 강도를 높여야 합니다."
+      ],
+      "topics": [
+        "RTO(복구 시간 목표)",
+        "RPO(복구 시점 목표)",
+        "Well-Architected Framework"
+      ],
+      "recommended_for": "클라우드 인프라의 안정성을 책임지는 백엔드 엔지니어 및 아키텍트",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 서비스의 핵심 기능에 대한 복구 경로(Boundary Map) 작성",
+        "steps": [
+          "핵심 기능 하나를 선정하여 해당 기능이 의존하는 모든 서비스와 계정을 나열합니다.",
+          "각 서비스별 소유자와 복구 목표 시간을 확인하여 문서화합니다.",
+          "복구 경로상에 단일 장애점(SPOF)이 있는지 식별합니다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Introducing queue consumption mode for Apache Kafka in AWS Lambda",
+      "link": "https://aws.amazon.com/blogs/compute/introducing-queue-consumption-mode-for-apache-kafka-in-aws-lambda",
+      "published_at": "Mon, 02 Nov 2026 21:23:46 +0000",
+      "selection_score": 14,
+      "selection_reason": "AWS Lambda와 Kafka의 최신 연동 방식인 큐 소비 모드는 서버리스 아키텍처의 성능 개선과 확장성에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS Lambda와 Kafka 연동 시 파티션 제약 없이 병렬 처리가 가능한 '큐 소비 모드' 도입",
+      "key_points": [
+        "Kafka 4.2의 Share Groups를 활용하여 파티션 개수와 무관하게 Lambda 동시성을 확장할 수 있습니다.",
+        "순서 보장이 필요 없는 독립적인 이벤트 처리 워크로드(이미지 변환, 알림 발송 등)에 최적화되어 있습니다.",
+        "기존 스트림 모드와 달리 Head-of-line blocking 문제를 해결하여 처리 성능을 개선합니다."
+      ],
+      "topics": [
+        "Kafka Share Groups",
+        "Event Source Mapping",
+        "Provisioned Mode"
+      ],
+      "recommended_for": "Kafka와 Lambda를 사용하여 이벤트 기반 아키텍처를 운영하는 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Kafka 큐 소비 모드 설정을 통한 병렬 처리 테스트",
+        "steps": [
+          "Kafka 4.2 이상 환경에서 공유 그룹(Share Group) 설정을 활성화합니다.",
+          "Lambda 트리거 설정에서 ConsumptionMode를 'Queue'로 변경하여 배포합니다.",
+          "기존 대비 처리량과 동시성 확장성을 모니터링합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "GPT-6 Astra, 신경망 가중치를 직접 읽고 수정해 Qwen 성능 개선",
+      "link": "https://news.hada.io/topic?id=36478",
+      "published_at": "2026-11-03T04:36:21+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM의 가중치를 직접 수정하여 성능을 개선하는 실험은 AI 모델 최적화 및 미래의 AI 개발 워크플로에 중요한 변화를 시사합니다.",
+      "feedback_bias": 0,
+      "one_line": "GPT-6 Astra가 신경망 가중치를 직접 수정하여 Qwen 모델 성능을 대폭 개선한 실험",
+      "key_points": [
+        "학습 루프 없이 모델의 가중치를 직접 읽고 수정하는 것만으로도 특정 작업의 성능을 높일 수 있음을 증명했습니다.",
+        "Qwen3.5-0.8B 모델의 가중치 0.016% 수정만으로 MATH-500 및 IFEval 벤치마크 점수가 크게 상승했습니다.",
+        "모델 실행 없이 가중치 분석만으로 특정 기능을 담당하는 어텐션 헤드를 식별하는 능력을 보였습니다."
+      ],
+      "topics": [
+        "신경망 가중치(Weights)",
+        "모델 해석 가능성(Interpretability)",
+        "LLM 최적화"
+      ],
+      "recommended_for": "LLM 내부 구조와 모델 최적화 기술에 관심 있는 AI 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "Anthropic, 내부 AI 사용액을 고객 요금으로 환산하면 직원 보수 보다 커져",
+      "link": "https://news.hada.io/topic?id=36479",
+      "published_at": "2026-11-03T04:39:21+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 LLM을 활용한 개발 생산성 향상 및 비용 구조 변화를 보여주는 업계의 중요한 사례 연구입니다.",
+      "feedback_bias": 0,
+      "one_line": "Anthropic의 내부 AI 사용량 급증과 개발 생산성 향상 사례",
+      "key_points": [
+        "Anthropic 내부의 Claude 사용량이 9개월 만에 250배 이상 증가하며 핵심 개발 도구로 자리 잡았습니다.",
+        "신규 코드의 90% 이상을 AI가 작성할 정도로 개발 워크플로가 AI 중심으로 재편되었습니다.",
+        "기술 기업들이 AI 토큰 사용량을 급여와 같은 수준의 주요 보상 및 운영 요소로 다루기 시작했습니다."
+      ],
+      "topics": [
+        "AI Agentic Workflow",
+        "Developer Productivity",
+        "AI-Assisted Coding"
+      ],
+      "recommended_for": "AI를 활용한 개발 생산성 극대화에 관심 있는 팀 리더 및 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "PostHog, 데이터 웨어하우스를 DuckDB에서 이전",
+      "link": "https://news.hada.io/topic?id=36484",
+      "published_at": "2026-11-03T06:39:13+09:00",
+      "selection_score": 14,
+      "selection_reason": "데이터 웨어하우스 아키텍처 전환 사례는 백엔드 설계 및 성능 최적화 관점에서 매우 가치 있는 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "PostHog의 데이터 웨어하우스 아키텍처 전환 사례: DuckDB에서 대규모 워크로드 대응으로",
+      "key_points": [
+        "PostHog는 단일 노드 DuckDB 구조의 한계로 인해 대규모 워크로드 처리에 어려움을 겪고 아키텍처를 재설계했습니다.",
+        "카탈로그 호환성 문제와 단일 테이블 쓰기 성능 저하가 DuckDB 이전의 주요 원인이었습니다.",
+        "2PB, 1조 행 규모의 데이터 처리를 위해 확장 가능한 아키텍처로의 전환이 필수적이었습니다."
+      ],
+      "topics": [
+        "데이터 웨어하우스",
+        "DuckDB",
+        "아키텍처 확장성"
+      ],
+      "recommended_for": "대규모 데이터 처리 아키텍처를 설계하는 백엔드 및 데이터 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "좋아하는 웹사이트가 있다면 백업하자",
+      "link": "https://news.hada.io/topic?id=36474",
+      "published_at": "2026-11-03T02:32:43+09:00",
+      "selection_score": 9,
+      "selection_reason": "웹 아카이빙 도구 활용법은 데이터 보존 및 개인적인 지식 관리 측면에서 유용한 도구적 가치를 가집니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

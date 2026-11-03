@@ -1,6 +1,86 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-03T11:50:44.890668+09:00",
+      "company": "AWS Architecture",
+      "title": "How to run a DR readiness engagement",
+      "link": "https://aws.amazon.com/blogs/architecture/how-to-run-a-dr-readiness-engagement",
+      "published_at": "Mon, 02 Nov 2026 17:26:49 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "RTO(복구 시간 목표)",
+        "RPO(복구 시점 목표)",
+        "Well-Architected Framework"
+      ],
+      "one_line": "AWS 환경에서 재해 복구(DR) 준비 상태를 체계적으로 검증하는 5단계 가이드라인",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-03T11:50:44.890668+09:00",
+      "company": "AWS Compute",
+      "title": "Introducing queue consumption mode for Apache Kafka in AWS Lambda",
+      "link": "https://aws.amazon.com/blogs/compute/introducing-queue-consumption-mode-for-apache-kafka-in-aws-lambda",
+      "published_at": "Mon, 02 Nov 2026 21:23:46 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Kafka Share Groups",
+        "Event Source Mapping",
+        "Provisioned Mode"
+      ],
+      "one_line": "AWS Lambda와 Kafka 연동 시 파티션 제약 없이 병렬 처리가 가능한 '큐 소비 모드' 도입",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-03T11:50:44.890668+09:00",
+      "company": "GeekNews",
+      "title": "GPT-6 Astra, 신경망 가중치를 직접 읽고 수정해 Qwen 성능 개선",
+      "link": "https://news.hada.io/topic?id=36478",
+      "published_at": "2026-11-03T04:36:21+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "신경망 가중치(Weights)",
+        "모델 해석 가능성(Interpretability)",
+        "LLM 최적화"
+      ],
+      "one_line": "GPT-6 Astra가 신경망 가중치를 직접 수정하여 Qwen 모델 성능을 대폭 개선한 실험",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-03T11:50:44.890668+09:00",
+      "company": "GeekNews",
+      "title": "Anthropic, 내부 AI 사용액을 고객 요금으로 환산하면 직원 보수 보다 커져",
+      "link": "https://news.hada.io/topic?id=36479",
+      "published_at": "2026-11-03T04:39:21+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agentic Workflow",
+        "Developer Productivity",
+        "AI-Assisted Coding"
+      ],
+      "one_line": "Anthropic의 내부 AI 사용량 급증과 개발 생산성 향상 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-03T11:50:44.890668+09:00",
+      "company": "GeekNews",
+      "title": "PostHog, 데이터 웨어하우스를 DuckDB에서 이전",
+      "link": "https://news.hada.io/topic?id=36484",
+      "published_at": "2026-11-03T06:39:13+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "데이터 웨어하우스",
+        "DuckDB",
+        "아키텍처 확장성"
+      ],
+      "one_line": "PostHog의 데이터 웨어하우스 아키텍처 전환 사례: DuckDB에서 대규모 워크로드 대응으로",
+      "actionability": 2
+    },
+    {
       "recorded_at": "2026-11-02T09:15:41.367424+09:00",
       "company": "GeekNews",
       "title": "JavaScript 프레임워크별 AI 개발 비용 비교",
@@ -7915,87 +7995,7 @@
       ],
       "one_line": "Microsoft 내부 서비스 Titan의 JWT 서명 검증 누락으로 인한 대규모 데이터 접근 취약점 사례",
       "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "SQL 쿼리 빌더의 두 가지 유형",
-      "link": "https://news.hada.io/topic?id=34562",
-      "published_at": "2026-10-01T05:04:10+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "SQL 쿼리 빌더",
-        "DSL(Domain Specific Language)",
-        "SQL 푸시다운(SQL Pushdown)"
-      ],
-      "one_line": "SQL 쿼리 빌더의 두 가지 유형(데이터 지향 vs 구문 지향)과 그에 따른 설계 차이",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Gemini 4 Argon",
-      "link": "https://news.hada.io/topic?id=34563",
-      "published_at": "2026-10-01T05:37:44+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "LLM 에이전트",
-        "추론 최적화",
-        "메모리 안전성(Rust 전환)"
-      ],
-      "one_line": "Google의 차세대 모델 Gemini 4 Argon 발표 및 에이전트 성능 강화",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: herdr web ui - 폰이나 브라우저에서 herdr 사용하는 플러그인",
-      "link": "https://news.hada.io/topic?id=34568",
-      "published_at": "2026-10-01T06:48:55+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "PWA(Progressive Web App)",
-        "TUI(Terminal User Interface)",
-        "AI 에이전트 워크플로"
-      ],
-      "one_line": "모바일 및 브라우저에서 Herdr 에이전트를 제어할 수 있는 웹 UI 플러그인",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Anthropic의 IPO 투자설명서에 담긴 AI 비전과 급증하는 비용",
-      "link": "https://news.hada.io/topic?id=34569",
-      "published_at": "2026-10-01T07:38:39+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "IPO(기업공개)",
-        "AI 인프라 비용",
-        "매출총이익률(Gross Margin)"
-      ],
-      "one_line": "Anthropic의 IPO 투자설명서로 본 AI 산업의 막대한 인프라 비용과 성장 전략",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Firebase SDK로 오늘 아침부터 모든 iOS 앱이 충돌하고 있음",
-      "link": "https://news.hada.io/topic?id=34570",
-      "published_at": "2026-10-01T07:41:39+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "SDK 의존성 관리",
-        "서드파티 라이브러리 위험성",
-        "SRE(사이트 신뢰성 엔지니어링)"
-      ],
-      "one_line": "Firebase SDK의 치명적인 결함으로 인해 이를 사용하는 모든 iOS 앱이 강제 종료되는 장애 발생",
-      "actionability": 4
     }
   ],
-  "updated_at": "2026-11-02T09:15:41.367424+09:00"
+  "updated_at": "2026-11-03T11:50:44.890668+09:00"
 }
