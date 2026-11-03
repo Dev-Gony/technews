@@ -12,7 +12,7 @@ config/issues/YYYY-MM-DD.json
 AI 기사 선택 (selection_score 순, 이미 만든 기사 제외)
       |
       v
-Claude 대본 (훅 → 본문 → 질문, 장면 4~6개)
+Claude 대본 (claude -p, 구독 계정 사용 / 훅 → 본문 → 질문, 장면 4~6개)
       |
       v
 edge-tts 음성 (장면별 mp3)
@@ -46,10 +46,10 @@ Claude 없이 직접 쓴 대본으로 영상만 만들기:
 python shorts.py --date 2026-11-03 --script my_script.json --no-upload
 ```
 
-Claude로 대본까지 만들기:
+Claude로 대본까지 만들기 (Claude Code에 로그인되어 있으면 API 키 없이 구독으로 실행):
 
 ```bash
-ANTHROPIC_API_KEY=... python shorts.py --no-upload
+python shorts.py --no-upload
 ```
 
 Windows에서 `ZoneInfoNotFoundError`가 나면 `pip install tzdata`.
@@ -58,13 +58,21 @@ Windows에서 `ZoneInfoNotFoundError`가 나면 `pip install tzdata`.
 
 | 이름 | 용도 |
 |---|---|
-| `ANTHROPIC_API_KEY` | 대본 생성 |
+| `CLAUDE_CODE_OAUTH_TOKEN` | 대본 생성 (Claude 구독, API 과금 없음) |
 | `YOUTUBE_CLIENT_ID` | YouTube 업로드 |
 | `YOUTUBE_CLIENT_SECRET` | YouTube 업로드 |
 | `YOUTUBE_REFRESH_TOKEN` | YouTube 업로드 |
 | `SLACK_WEBHOOK_URL` | 업로드 알림 (기존 값 재사용) |
 
 YouTube 값이 없으면 영상만 만들고 Actions artifact(`shorts`)로 남긴다.
+
+`CLAUDE_CODE_OAUTH_TOKEN`은 로컬에서 한 번 발급한다. Claude 구독(Pro/Max) 계정으로 로그인하면 1년짜리 토큰이 출력된다.
+
+```bash
+claude setup-token
+```
+
+하루 1번, 짧은 대본 1개라 구독 사용량에는 거의 영향이 없다.
 
 ## YouTube 업로드 준비
 
@@ -88,6 +96,7 @@ YouTube 값이 없으면 영상만 만들고 Actions artifact(`shorts`)로 남�
 
 | 이름 | 기본값 |
 |---|---|
+| `SHORTS_CLAUDE_MODEL` | 비우면 구독 플랜 기본 모델 (`opus`, `sonnet` 등) |
 | `SHORTS_VOICE` | `ko-KR-InJoonNeural` (여성: `ko-KR-SunHiNeural`) |
 | `SHORTS_TTS_RATE` | `+8%` |
 | `SHORTS_PRIVACY` | `private` |

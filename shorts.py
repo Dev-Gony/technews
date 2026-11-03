@@ -6,6 +6,7 @@
 import os
 import re
 import json
+import shutil
 import asyncio
 import argparse
 import subprocess
@@ -16,13 +17,13 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 SLACK_WEBHOOK_URL = os.environ.get("SLACK_WEBHOOK_URL", "").strip()
 YOUTUBE_CLIENT_ID = os.environ.get("YOUTUBE_CLIENT_ID", "").strip()
 YOUTUBE_CLIENT_SECRET = os.environ.get("YOUTUBE_CLIENT_SECRET", "").strip()
 YOUTUBE_REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "").strip()
 
-CLAUDE_MODEL = "claude-opus-5-5"
+# 비우면 구독 플랜의 기본 모델을 쓴다. 예: opus, sonnet
+CLAUDE_MODEL = os.environ.get("SHORTS_CLAUDE_MODEL", "").strip()
 TTS_VOICE = os.environ.get("SHORTS_VOICE", "ko-KR-InJoonNeural")
 TTS_RATE = os.environ.get("SHORTS_TTS_RATE", "+8%")
 # 업로드 기본값은 비공개: YouTube Studio에서 확인한 뒤 직접 공개로 바꾼다.
@@ -213,35 +214,47 @@ def build_script_prompt(article):
 
 
 def generate_script(article):
-    import anthropic
+    """Claude Code CLI(claude -p)로 대본을 만든다.
 
-    if not ANTHROPIC_API_KEY:
-        raise RuntimeError("ANTHROPIC_API_KEY가 없습니다.")
+    API 키 대신 Claude 구독 계정으로 실행된다. 로컬은 로그인된 상태를 쓰고,
+    GitHub Actions에서는 `claude setup-token`으로 만든 CLAUDE_CODE_OAUTH_TOKEN을 쓴다.
+    """
+    claude = shutil.which("claude")
 
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    if not claude:
+        raise RuntimeError("claude CLI가 없습니다. Claude Code를 설치하세요.")
 
-    response = client.beta.messages.create(
-        model=CLAUDE_MODEL,
-        max_tokens=16000,
-        betas=["server-side-fallback-2026-07-01"],
-        fallbacks="default",
-        output_config={
-            "effort": "medium",
-            "format": {"type": "json_schema", "schema": SCRIPT_SCHEMA},
-        },
-        system=SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME),
-        messages=[{"role": "user", "content": build_script_prompt(article)}],
+    command = [
+        claude,
+        "-p",
+        "--output-format", "json",
+        "--tools", "",
+        "--system-prompt", SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME),
+        "--json-schema", json.dumps(SCRIPT_SCHEMA),
+    ]
+
+    if CLAUDE_MODEL:
+        command += ["--model", CLAUDE_MODEL]
+
+    result = subprocess.run(
+        command,
+        input=build_script_prompt(article),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="ignore",
+        timeout=300,
     )
 
-    if response.stop_reason == "refusal":
-        raise RuntimeError(f"Claude가 대본 생성을 거절했습니다: {response.stop_details}")
+    try:
+        output = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        raise RuntimeError(f"claude 실행 실패: {result.stderr.strip() or result.stdout.strip()}")
 
-    if response.stop_reason == "max_tokens":
-        raise RuntimeError("대본 응답이 max_tokens에서 잘렸습니다.")
+    if output.get("is_error") or not output.get("structured_output"):
+        raise RuntimeError(f"대본 생성 실패: {output.get('result') or output.get('subtype')}")
 
-    text = next(block.text for block in response.content if block.type == "text")
-
-    return validate_script(json.loads(text))
+    return validate_script(output["structured_output"])
 
 
 def validate_script(script):
