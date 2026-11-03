@@ -9,9 +9,9 @@ const pop = (frame: number, start: number, length: number) =>
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
 
-// 항목들이 장면 앞쪽 60% 안에 순서대로 나타나도록 시작 프레임을 나눈다.
+// 항목들이 컷 앞쪽 절반 안에 빠르게 순서대로 나타나도록 시작 프레임을 나눈다.
 const staggerStart = (index: number, count: number, sceneFrames: number) =>
-  Math.round(8 + (index * sceneFrames * 0.6) / Math.max(count, 1));
+  Math.round(3 + (index * sceneFrames * 0.45) / Math.max(count, 1));
 
 const Panel: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { width } = useVideoConfig();
@@ -44,7 +44,7 @@ const NumberVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
   const { fps } = useVideoConfig();
   const raw = visual.value ?? "";
   const match = raw.match(/^([^\d]*)([\d,]*\.?\d+)(.*)$/);
-  const progress = pop(frame, 4, 1.2 * fps);
+  const progress = pop(frame, 2, 0.7 * fps);
 
   let text = raw;
 
@@ -107,7 +107,7 @@ const CompareVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visu
       ) : null}
       <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 34 }}>
         {bars.map((bar, index) => {
-          const grow = pop(frame, staggerStart(index, bars.length, sceneFrames), 24);
+          const grow = pop(frame, staggerStart(index, bars.length, sceneFrames), 14);
           const best = bar.value === max;
 
           return (
@@ -144,7 +144,7 @@ const FlowVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual,
     <Panel>
       {items.map((item, index) => {
         const start = staggerStart(index, items.length, sceneFrames);
-        const shown = pop(frame, start, 14);
+        const shown = pop(frame, start, 9);
         const last = index === items.length - 1;
 
         return (
@@ -195,7 +195,7 @@ const KeywordsVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
     <Panel>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 28 }}>
         {items.map((item, index) => {
-          const shown = pop(frame, staggerStart(index, items.length, sceneFrames), 14);
+          const shown = pop(frame, staggerStart(index, items.length, sceneFrames), 9);
 
           return (
             <div
@@ -226,7 +226,7 @@ const CodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual,
   const frame = useCurrentFrame();
   const code = (visual.code ?? "").split("\n").slice(0, 7).join("\n");
   const typed = Math.round(
-    interpolate(frame, [6, sceneFrames * 0.6], [0, code.length], {
+    interpolate(frame, [3, sceneFrames * 0.7], [0, code.length], {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     }),
@@ -310,8 +310,44 @@ const QuestionVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
   );
 };
 
+// 첫 컷: 화면을 꽉 채운 문구가 쾅 하고 내려찍힌다.
+const HookVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
+  const frame = useCurrentFrame();
+  const text = visual.value ?? "";
+  const slam = interpolate(frame, [0, 5], [2.4, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.5, 0, 0.9, 0.6),
+  });
+  // 내려찍은 직후 짧게 흔들린다.
+  const shake = frame >= 5 && frame < 14 ? Math.sin(frame * 2.7) * (14 - frame) * 2.2 : 0;
+
+  return (
+    <Panel>
+      <div
+        style={{
+          fontSize: text.length > 5 ? 190 : 250,
+          fontWeight: 900,
+          lineHeight: 1.05,
+          letterSpacing: -8,
+          textAlign: "center",
+          color: colors.accent,
+          textShadow: `0 0 80px ${colors.accentSoft}`,
+          scale: String(slam),
+          translate: `${shake}px ${-shake / 2}px`,
+          opacity: interpolate(frame, [0, 2], [0, 1], { extrapolateRight: "clamp" }),
+        }}
+      >
+        {text}
+      </div>
+    </Panel>
+  );
+};
+
 export const SceneVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual, sceneFrames }) => {
   switch (visual.type) {
+    case "hook":
+      return <HookVisual visual={visual} />;
     case "number":
       return <NumberVisual visual={visual} />;
     case "compare":

@@ -3,3 +3,4 @@ beautifulsoup4
 edge-tts
 imageio-ffmpeg
 numpy
+faster-whisper
