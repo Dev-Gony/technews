@@ -339,8 +339,8 @@ def describe_oauth_token(token):
     )
 
 
-def generate_script(article):
-    """Claude Code CLI(claude -p)로 대본을 만든다.
+def claude_json(system_prompt, user_prompt, schema):
+    """Claude Code CLI(claude -p)로 schema에 맞는 JSON을 받는다.
 
     API 키 대신 Claude 구독 계정으로 실행된다. 로컬은 로그인된 상태를 쓰고,
     GitHub Actions에서는 `claude setup-token`으로 만든 CLAUDE_CODE_OAUTH_TOKEN을 쓴다.
@@ -355,8 +355,8 @@ def generate_script(article):
         "-p",
         "--output-format", "json",
         "--tools", "",
-        "--system-prompt", SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME),
-        "--json-schema", json.dumps(SCRIPT_SCHEMA),
+        "--system-prompt", system_prompt,
+        "--json-schema", json.dumps(schema),
     ]
 
     if CLAUDE_MODEL:
@@ -370,7 +370,7 @@ def generate_script(article):
 
     result = subprocess.run(
         command,
-        input=build_script_prompt(article),
+        input=user_prompt,
         env=env,
         capture_output=True,
         text=True,
@@ -390,9 +390,19 @@ def generate_script(article):
         if "CLAUDE_CODE_OAUTH_TOKEN" in os.environ:
             message += f" (CLAUDE_CODE_OAUTH_TOKEN: {describe_oauth_token(token)})"
 
-        raise RuntimeError(f"대본 생성 실패: {message}")
+        raise RuntimeError(f"Claude 생성 실패: {message}")
 
-    return validate_script(output["structured_output"])
+    return output["structured_output"]
+
+
+def generate_script(article):
+    script = claude_json(
+        SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME),
+        build_script_prompt(article),
+        SCRIPT_SCHEMA,
+    )
+
+    return validate_script(script)
 
 
 def validate_script(script):
