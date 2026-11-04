@@ -55,15 +55,27 @@ class ShortsTest(unittest.TestCase):
             ],
         }
 
-        picked = shorts.pick_article(issue, used_links=set())
-        self.assertEqual(picked["link"], "llm")
+        issues = [("2026-11-03", issue)]
 
-        picked = shorts.pick_article(issue, used_links={"llm"})
+        picked = shorts.pick_article(issues, used_links=set())
+        self.assertEqual(picked["link"], "llm")
+        self.assertEqual(picked["issue_date"], "2026-11-03")
+
+        picked = shorts.pick_article(issues, used_links={"llm"})
         self.assertEqual(picked["link"], "claude")
 
-        self.assertIsNone(
-            shorts.pick_article(issue, used_links={"llm", "claude"})
-        )
+        # AI 기사를 다 쓰면 다른 기술 기사로 이어서 만든다.
+        picked = shorts.pick_article(issues, used_links={"llm", "claude"})
+        self.assertEqual(picked["link"], "dr")
+
+        self.assertIsNone(shorts.pick_article(issues, used_links={"llm", "claude", "dr"}))
+
+    def test_pick_article_prefers_newer_issue_on_tie(self):
+        older = {"top_stories": [make_article("LLM 소식 A", 14, "old")]}
+        newer = {"top_stories": [make_article("LLM 소식 B", 14, "new")]}
+
+        picked = shorts.pick_article([("2026-11-02", older), ("2026-11-03", newer)], used_links=set())
+        self.assertEqual(picked["link"], "new")
 
     def test_validate_script_cleans_hashtags(self):
         script = shorts.validate_script(
@@ -78,6 +90,62 @@ class ShortsTest(unittest.TestCase):
         # 대사에 없는 강조 단어는 버리고, 그래픽이 없으면 none으로 채운다.
         self.assertEqual(script["cuts"][0]["emphasis"], ["진짜예요."])
         self.assertEqual(script["cuts"][0]["visual"], {"type": "none"})
+
+    def test_validate_script_fixes_cover_and_tips(self):
+        script = shorts.validate_script(
+            {
+                "title": "t",
+                "cover": "첫 줄\\n둘째 줄",
+                "summary": " 요약 ",
+                "tips": [" 버전 확인 ", ""],
+                "caution": "",
+                "hashtags": [],
+                "cuts": [{"line": "엔지니어 / 한 명당 / 병합 5배래요.", "emphasis": ["5배래요."]} for _ in range(8)],
+            }
+        )
+
+        self.assertEqual(script["cover"], "첫 줄\n둘째 줄")
+        self.assertEqual(script["tips"], ["버전 확인"])
+        self.assertEqual(script["cuts"][0]["emphasis"], ["5배래요."])
+
+    def test_spoken_line_and_caption_segments(self):
+        cut = {"line": "엔지니어 / 한 명당 / 병합 5배래요."}
+
+        self.assertEqual(shorts.spoken_line(cut), "엔지니어 한 명당 병합 5배래요.")
+        self.assertEqual(shorts.caption_segments(cut), [1, 2, 2])
+        self.assertIsNone(shorts.caption_segments({"line": "그냥 한 문장"}))
+
+    def test_caption_chunks_follow_script_segments(self):
+        words = [
+            {"text": text, "startMs": i * 300, "endMs": i * 300 + 280}
+            for i, text in enumerate(["엔지니어", "한", "명당", "병합", "5배래요."])
+        ]
+        chunks = shorts.caption_chunks(words, ["5배래요."], [1, 2, 2])
+
+        self.assertEqual([c["text"] for c in chunks], ["엔지니어", "한 명당", "병합 5배래요"])
+        self.assertEqual(chunks[1]["startMs"], 300)
+
+        # 조각 표시가 단어 수와 안 맞으면 기존 방식으로 묶는다.
+        fallback = shorts.caption_chunks(words, [], [1, 1])
+        self.assertEqual([c["text"] for c in fallback], ["엔지니어 한", "명당 병합", "5배래요"])
+
+    def test_build_description_includes_tips_and_recent_videos(self):
+        script = {
+            "title": "제목",
+            "summary": "무슨 일인지 요약",
+            "tips": ["버전 확인하기"],
+            "caution": "토큰 과금 주의",
+            "hashtags": ["AI"],
+        }
+        history = [{"title": "지난 영상", "video_id": "abc123"}]
+        text = shorts.build_description(script, {"link": "https://example.com/a"}, history)
+
+        self.assertIn("무슨 일인지 요약", text)
+        self.assertIn("- 버전 확인하기", text)
+        self.assertIn("토큰 과금 주의", text)
+        self.assertIn("https://example.com/a", text)
+        self.assertIn("https://youtu.be/abc123", text)
+        self.assertIn("#shorts #AI", text)
 
     def test_validate_script_rejects_too_few_cuts(self):
         with self.assertRaises(ValueError):

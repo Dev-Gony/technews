@@ -11,13 +11,15 @@ on:
         type: boolean
         default: true
 
-  workflow_run:
-    workflows:
-      - "Daily Tech News"
-    types:
-      - completed
-    branches:
-      - main
+  # 하루 3편. 실행할 때마다 최근 이슈에서 아직 안 만든 기사 1개로 1편을 만든다.
+  # (YouTube API 하루 한도로 6편까지 가능. 업로드 시간을 나눠야 추천에 고르게 걸린다.)
+  schedule:
+    - cron: "0 8 * * *"
+      timezone: "Asia/Seoul"
+    - cron: "30 12 * * *"
+      timezone: "Asia/Seoul"
+    - cron: "0 19 * * *"
+      timezone: "Asia/Seoul"
 
 permissions:
   contents: write
@@ -28,7 +30,6 @@ concurrency:
 
 jobs:
   shorts:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
 

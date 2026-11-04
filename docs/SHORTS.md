@@ -1,21 +1,22 @@
 # Daily Shorts (itgony)
 
-GONY DAILY 이슈에서 AI 기사 1개를 골라 45초 안팎의 YouTube Shorts를 자동으로 만든다.
+GONY DAILY 기사로 30~45초 YouTube Shorts를 자동으로 만든다.
+하루 3번(08:00, 12:30, 19:00 KST) 실행되고, 실행마다 최근 3일 이슈에서 아직 안 만든 기사 1개로 1편을 만든다. AI 기사를 먼저, 다 쓰면 점수 높은 다른 기술 기사를 고른다.
 
 ```text
-Daily Tech News 완료
+하루 3번 예약 실행
       |
       v
-config/issues/YYYY-MM-DD.json
+config/issues/ 최근 3일
       |
       v
-AI 기사 선택 (selection_score 순, 이미 만든 기사 제외)
+기사 선택 (AI 기사 우선 → 점수 → 최신 이슈, 이미 만든 기사 제외)
       |
       v
 Claude 대본 (claude -p, 구독 계정 사용 / 훅 → 본문 → 질문, 장면 4~6개)
       |
       v
-Gemini TTS 음성 (Leda, 대본 전체를 한 번에, 실패하면 edge-tts) + Whisper로 단어 시점 맞추기
+Gemini TTS 음성 (Leda·Puck·Zephyr·Fenrir 번갈아, 대본 전체를 한 번에, 실패하면 edge-tts) + Whisper로 단어 시점 맞추기
       |
       v
 Remotion 컷 편집 영상 (video/, 1.5~3초마다 컷, 1~2어절 팝업 자막, 컷별 그래픽, 효과음)
@@ -24,7 +25,7 @@ Remotion 컷 편집 영상 (video/, 1.5~3초마다 컷, 1~2어절 팝업 자막,
 배경음 (bgm.py가 날짜별로 직접 만든 로파이 곡, 말할 때 자동으로 작아짐, -14 LUFS)
       |
       v
-YouTube 업로드 (비공개) → Slack 알림 → Studio에서 확인 후 공개
+YouTube 업로드 (공개 요청. API 심사 전에는 YouTube가 비공개로 잠금) → Slack 알림
 ```
 
 ## 파일
@@ -101,12 +102,13 @@ claude setup-token
 | 이름 | 기본값 |
 |---|---|
 | `SHORTS_CLAUDE_MODEL` | 비우면 구독 플랜 기본 모델 (`opus`, `sonnet` 등) |
-| `SHORTS_GEMINI_VOICE` | `Leda` (Puck, Fenrir, Charon, Kore, Zephyr 등) |
+| `SHORTS_GEMINI_VOICES` | `Leda,Puck,Zephyr,Fenrir` (영상마다 차례로 사용) |
+| `SHORTS_LOOKBACK_DAYS` | `3` (기사를 고를 최근 이슈 일수) |
 | `SHORTS_GEMINI_TTS_MODEL` | `gemini-3.1-flash-tts-preview` |
 | `SHORTS_WHISPER_MODEL` | `small` |
 | `SHORTS_VOICE` | 대체 음성 `ko-KR-HyunsuMultilingualNeural` |
 | `SHORTS_TTS_RATE` | 대체 음성 속도 `+22%` |
-| `SHORTS_PRIVACY` | `private` |
+| `SHORTS_PRIVACY` | `public` |
 | `SHORTS_BGM_VOLUME` | `0.15` (0이면 배경음 없음) |
 | `SHORTS_CHANNEL_NAME` | `itgony` |
 
@@ -125,8 +127,19 @@ claude setup-token
 | `question` | 엔딩 질문 카드 (`label`) |
 | `none` | 그래픽 없이 자막만 크게 |
 
-- 자막은 1~2어절씩 화면에 튀어나오고, 대본의 `emphasis` 단어는 노란색이다.
+- 자막은 대본의 ` / ` 표시대로 의미 단위(1~3어절)로 튀어나오고, `emphasis` 단어는 노란색이다.
+- 화면 맨 위에는 대본의 `cover` 제목이 영상 내내 고정된다. Shorts는 썸네일을 직접 지정할 수 없어서, 어느 장면이 잡혀도 제목이 보이게 한 것이다.
+- 더보기란에는 요약, 바로 써먹는 법(`tips`), 주의(`caution`), 원문, 지난 영상 링크가 들어간다.
 - 효과음(컷 전환 슉, 숫자 쿵, 카드 뽁)은 `bgm.py`가 코드로 만든다.
 - 디자인 수정: `cd video && npm install && npm run dev`로 Remotion Studio를 열고 `src/` 파일을 고친다.
 - Remotion은 개인·3인 이하 팀은 무료다.
 - Claude Code용 Remotion 공식 스킬이 `.claude/skills/`에 들어 있다.
+
+## 자동 공개 (YouTube API 심사)
+
+2020년 7월 이후 만든 Google Cloud 프로젝트는 YouTube의 심사(audit)를 통과하기 전까지 API로 올린 영상이 **비공개로 잠긴다**.
+업로드는 이미 공개로 요청하고 있으므로, 심사만 통과하면 코드 수정 없이 바로 자동 공개된다.
+
+- 신청: [YouTube API Services Audit and Quota Extension Form](https://support.google.com/youtube/contact/yt_api_form)
+- 필요한 것: Google Cloud 프로젝트 번호, 앱 설명(개인 채널 자동 업로드), 개인정보처리방침 URL(`https://dev-gony.github.io/technews/privacy.html`)
+- 심사 전에는 Slack 알림의 Studio 링크에서 공개로 바꾸면 된다.
