@@ -1,0 +1,666 @@
+{
+  "schema_version": 1,
+  "issue_number": 46,
+  "issue_date": "2026-11-04",
+  "generated_at": "2026-11-04T10:03:31.874786+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nModel Context Protocol (MCP), LLM Cost Optimization, Agentic Workflow, Model Routing, Self-hosted LLM\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무 도입이 가속화됨에 따라, 비용 효율적인 모델 운영과 데이터 표준화, 그리고 결과물에 대한 비판적 검증 역량이 엔지니어의 핵심 경쟁력이 되고 있습니다.\n\n[오늘 왜 중요한가]\n\n단순히 LLM을 호출하는 단계를 넘어, 기업 내부 데이터와 에이전트를 안전하게 연결하고 운영 비용을 최적화하는 단계로 기술적 요구사항이 진화하고 있습니다. 이제 개발자는 AI의 결과물을 무비판적으로 수용하는 대신, 인프라와 워크플로 전반에서 기술적 정합성과 비용 효율성을 직접 설계해야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 7번: 토큰당 비용이 아닌 작업당 성공 비용을 기준으로 한 모델 라우팅 전략은 LLM 운영의 경제성을 확보하는 데 필수적인 실무 지침입니다.\n• 14번: 자체 호스팅 모델로의 전환을 통해 비용을 90% 절감하고 생산성을 높인 사례는 AI 인프라 최적화를 고민하는 팀에 강력한 근거를 제공합니다.\n• 5번: MCP 도입을 통해 AI 에이전트와 내부 데이터를 표준화하고, 개발자가 제품 관점에서 도구를 설계하는 방식은 차세대 에이전트 아키텍처의 표준을 보여줍니다.\n\n[오늘 공부해볼 것]\n\n• 모델 라우팅 레이어 설계: 작업의 난이도에 따라 경량 모델과 고성능 모델을 분기하는 로직을 구현하여 API 비용 최적화 방안을 학습합니다.\n• MCP 서버 구축 및 연동: 공식 문서를 참고하여 내부 API를 MCP 서버로 변환하고, 로컬 에이전트와 연동하여 데이터 접근성을 테스트합니다.\n• 에이전트 결과물 검증 프로세스: 에이전트가 생성한 코드나 결과물에 대해 '검증되지 않은 영역'을 식별하고 비판적으로 검토하는 체크리스트를 수립합니다.",
+  "stats": {
+    "candidate_count": 37,
+    "detailed_count": 19,
+    "brief_count": 8,
+    "excluded_count": 10,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "Google Developers",
+      "title": "Cost per task: Using cheap classifiers to route across Gemini models and thinking levels",
+      "link": "https://developers.googleblog.com/cost-per-task-using-cheap-classifiers-to-route-across-gemini-models-and-thinking-levels",
+      "published_at": "",
+      "selection_score": 15,
+      "selection_reason": "LLM 비용 절감 및 모델 라우팅 전략은 AI Agent를 운영하는 실무자에게 필수적인 최신 기술 트렌드입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 에이전트 운영 시 비용 절감을 위해 고성능 모델 대신 경량 분류기를 활용한 모델 라우팅 전략을 제안합니다.",
+      "key_points": [
+        "토큰당 가격보다 '성공적인 작업당 비용'이 중요하며, 단순 작업은 경량 모델로, 복잡한 작업만 고성능 모델로 라우팅해야 합니다.",
+        "단순 키워드 기반 휴리스틱은 에이전트의 복잡한 작업에서 성능이 급락하므로, 구조화된 출력을 지원하는 경량 분류기(Jev 등) 사용이 효과적입니다.",
+        "모델의 출력 토큰 제한(maxOutputTokens)은 사고 비용을 줄이지 못하므로, thinkingLevel 설정을 통해 직접 제어해야 합니다."
+      ],
+      "topics": [
+        "Model Routing",
+        "Cost per successful task",
+        "Thinking Level"
+      ],
+      "recommended_for": "LLM 기반 에이전트의 API 비용 최적화와 응답 속도 개선이 필요한 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "경량 분류기를 활용한 모델 라우팅 구현",
+        "steps": [
+          "현재 에이전트의 작업 유형을 '단순(Lookup/Format)'과 '복잡(Multi-step/Logic)'으로 분류하는 기준 정의",
+          "Gemini Flash-Lite를 활용하여 작업 난이도를 판별하는 라우팅 레이어 코드 작성",
+          "난이도에 따라 Flash-Lite와 고성능 모델로 요청을 분기하여 비용 및 응답 시간 측정"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Revolut, 자체 호스팅 GLM으로 전환",
+      "link": "https://news.hada.io/topic?id=36534",
+      "published_at": "2026-11-04T01:32:01+09:00",
+      "selection_score": 15,
+      "selection_reason": "자체 호스팅 LLM을 통한 비용 절감과 엔지니어링 생산성 향상 사례는 현재 AI 에이전트 및 인프라 최적화에 매우 중요한 실무 지침입니다.",
+      "feedback_bias": 0,
+      "one_line": "Revolut의 자체 호스팅 GLM 전환을 통한 AI 비용 90% 절감 및 생산성 향상 사례",
+      "key_points": [
+        "Revolut은 외부 API 대신 자체 호스팅 GLM을 도입하여 토큰당 비용을 10분의 1 수준으로 절감함.",
+        "Nvidia B200 56대를 활용하여 엔지니어링 리드타임을 70% 개선하는 성과를 거둠.",
+        "비용 제약 없이 AI를 모든 작업에 활용하게 되면서 엔지니어링 생산성이 크게 향상됨."
+      ],
+      "topics": [
+        "Self-hosted LLM",
+        "Cost Optimization",
+        "Inference Infrastructure"
+      ],
+      "recommended_for": "AI 도입 비용 문제로 고민 중인 인프라 및 백엔드 아키텍트",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 사용 중인 LLM API 비용 대비 자체 호스팅 모델 전환 타당성 분석",
+        "steps": [
+          "현재 월간 LLM API 사용량과 비용을 집계하여 자체 호스팅(B200 등 인프라 비용)과 비교 모델링하기",
+          "자체 호스팅 시 필요한 모델 서빙 프레임워크(vLLM 등)와 하드웨어 요구사항 조사하기",
+          "현재 워크플로에서 외부 API 의존도를 낮출 수 있는 내부 모델 적용 가능성 평가하기"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "당근",
+      "title": "국내 최초 광고 MCP를 출시하며, 개발자의 역할은 어디까지 넓어졌을까?",
+      "link": "https://medium.com/daangn/%EA%B5%AD%EB%82%B4-%EC%B5%9C%EC%B4%88-%EA%B4%91%EA%B3%A0-mcp%EB%A5%BC-%EC%B6%9C%EC%8B%9C%ED%95%98%EB%A9%B0-%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98-%EC%97%AD%ED%95%A0%EC%9D%80-%EC%96%B4%EB%94%94%EA%B9%8C%EC%A7%80-%EB%84%93%EC%96%B4%EC%A1%8C%EC%9D%84%EA%B9%8C-8dea7fe41c07",
+      "published_at": "Tue, 03 Nov 2026 09:27:47 GMT",
+      "selection_score": 15,
+      "selection_reason": "MCP(Model Context Protocol) 도입 사례는 AI Agent 생태계의 최신 기술 변화를 보여주며, 실무적 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "국내 최초 광고 MCP 출시를 통해 AI 에이전트와 내부 데이터를 표준화하여 연결한 당근의 개발 경험",
+      "key_points": [
+        "MCP(Model Context Protocol)를 도입하여 AI가 당근 광고 데이터를 안전하게 조회하고 분석할 수 있는 표준 인터페이스를 구축함.",
+        "개발자가 로드맵과 PRD 작성부터 출시까지 주도하며, 제품 관점에서 문제를 정의하고 해결하는 역할을 확장함.",
+        "API를 그대로 노출하는 대신 광고주의 질문 의도를 기준으로 도구를 설계하여 AI의 활용도를 극대화함."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "AI Agentic Workflow",
+        "Product-Led Engineering"
+      ],
+      "recommended_for": "AI 에이전트 생태계에 관심이 많고, 기술을 넘어 제품 관점의 개발을 지향하는 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "MCP(Model Context Protocol) 공식 문서 학습 및 간단한 서버 연동 테스트",
+        "steps": [
+          "MCP 공식 문서(modelcontextprotocol.io)를 통해 프로토콜의 기본 구조와 인증 방식 학습",
+          "로컬 환경에서 간단한 MCP 서버를 구현하여 Claude Desktop 등과 연동 테스트",
+          "현재 운영 중인 서비스의 조회 API 중 AI 에이전트가 활용하면 좋을 기능 선정"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "컨테이너처럼 쓰고, VM처럼 격리하기",
+      "link": "https://d2.naver.com/helloworld/2265641",
+      "published_at": "2026-11-02T06:38:32Z",
+      "selection_score": 14,
+      "selection_reason": "Kubernetes 환경에서 GPU 격리 및 성능 최적화는 백엔드 아키텍처와 인프라 효율성 측면에서 매우 높은 실무 가치를 가집니다.",
+      "feedback_bias": 0,
+      "one_line": "Kubernetes 환경에서 kata-containers를 활용해 GPU와 NIC를 VM 수준으로 안전하게 격리하고 성능을 최적화하는 방법",
+      "key_points": [
+        "Kubernetes 노드에서 kata-containers를 사용하여 컨테이너의 유연성과 VM의 강력한 격리 성능을 동시에 확보함.",
+        "GPU와 NIC를 VM에 직접 할당하여 bare metal 수준의 성능을 유지하면서 다중 사용자 환경의 보안을 강화함.",
+        "VM 부팅 시간 단축 및 리소스 할당 최적화를 통해 실무적인 운영 효율성을 높임."
+      ],
+      "topics": [
+        "kata-containers",
+        "GPU Isolation",
+        "Kubernetes Runtime"
+      ],
+      "recommended_for": "다중 사용자 환경에서 GPU 자원을 안전하게 공유하고 격리하려는 플랫폼 및 인프라 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "딸깍으로 안되는 Multi-interest 개발기",
+      "link": "https://d2.naver.com/helloworld/9639872",
+      "published_at": "2026-11-03T04:45:30Z",
+      "selection_score": 11,
+      "selection_reason": "추천 모델의 실서비스 적용 시 발생하는 hubness 문제 해결 과정은 데이터 분석 및 ML 엔지니어링 실무에 직접적인 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Multi-interest 추천 모델 적용 시 발생하는 hubness 문제를 유저 무관 성분 제거로 해결한 사례",
+      "key_points": [
+        "인기 상품이 모든 유저에게 과도하게 노출되는 hubness 문제를 유저 의존/무관 성분 분해를 통해 분석함.",
+        "유저 무관 성분을 제거(centering, bias 분리)하여 추천 결과의 다양성을 확보하고 구매 지표를 유지함.",
+        "추천 모델의 실서비스 적용 시 논문 구조와 실제 데이터 분포 간의 차이를 모니터링하는 체계의 중요성을 강조함."
+      ],
+      "topics": [
+        "Multi-interest Recommendation",
+        "Hubness Problem",
+        "Bias Decomposition"
+      ],
+      "recommended_for": "추천 시스템의 성능 저하를 겪고 있거나 모델의 실서비스 배포를 앞둔 데이터 분석가 및 ML 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "마켓컬리",
+      "title": "Argo Workflows와 SageMaker로 추천 ML 파이프라인 구축기",
+      "link": "https://helloworld.kurly.com/blog/recommend-ml-pipeline",
+      "published_at": "Tue, 03 Nov 2026 01:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "Argo Workflows와 SageMaker를 활용한 ML 파이프라인 구축은 데이터 엔지니어링 및 자동화 워크플로의 핵심 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Argo Workflows와 SageMaker를 결합하여 모델 학습부터 배포까지 세대(Generation) 단위로 자동화하는 파이프라인 구축",
+      "key_points": [
+        "세대(Generation) 개념을 도입하여 모델, 임베딩, 검색 인덱스를 한 번에 교체함으로써 트랜잭션 정합성 문제를 해결함.",
+        "Argo Workflows로 오케스트레이션을, SageMaker로 GPU 연산 및 모델 관리를 분담하여 비용 효율성과 가용성을 확보함.",
+        "배포 전 웜업 호출 및 승급 게이트를 통해 서비스 중단 없는 안정적인 모델 전환 프로세스를 구현함."
+      ],
+      "topics": [
+        "Argo Workflows",
+        "SageMaker",
+        "MLOps Pipeline"
+      ],
+      "recommended_for": "복잡한 ML 파이프라인의 자동화와 안정적인 모델 배포 전략을 고민하는 백엔드 및 MLOps 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 ML 파이프라인에 세대(Generation) 기반 컷오버 전략 도입 검토",
+        "steps": [
+          "현재 모델 서빙 시 산출물(모델, 임베딩, 인덱스) 간의 의존성 및 데이터 정합성 문제 발생 여부 파악",
+          "활성 키(Active Key)를 활용한 세대 전환 구조를 설계하여 롤백 가능성 확보",
+          "Argo Workflows의 CronWorkflow와 SageMaker Model Registry를 연동한 자동화 단계 설계"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "마켓컬리",
+      "title": "기획서 하나로 결함 등록까지, QA AI Hub를 만들며 배운 것",
+      "link": "https://helloworld.kurly.com/blog/ai-qa-from-spec-to-defect",
+      "published_at": "Tue, 03 Nov 2026 06:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "AI를 활용한 QA 자동화 및 업무 프로세스 개선 사례로, 개발 생산성 향상에 매우 유용한 인사이트를 담고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "기획서 분석부터 결함 등록까지 자동화하는 QA AI Hub 구축을 통해 테스트 설계 공수를 획기적으로 절감한 사례",
+      "key_points": [
+        "기획서와 정책 문서를 기반으로 AI가 테스트 케이스(TC)를 설계하고, 실행 결과에 따라 Jira 이슈를 자동 생성함.",
+        "정답 TC 사전과 도메인 정책을 정본으로 관리하여 AI 생성 품질을 높이고, 실수를 규칙으로 전환하는 선순환 구조를 만듦.",
+        "테스트 자동화 스크립트 대신 자연어 기반 TC 정의를 사용하여 유지보수 부담을 최소화함."
+      ],
+      "topics": [
+        "QA Automation",
+        "LLM Agentic Workflow",
+        "Test Case Generation"
+      ],
+      "recommended_for": "반복적인 QA 업무로 인해 개발 생산성이 저하되는 팀의 리더 및 QA 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기획서 기반의 테스트 케이스 자동 생성 및 품질 평가 실험",
+        "steps": [
+          "현재 진행 중인 프로젝트의 기획서와 기존 TC 샘플을 준비",
+          "LLM을 활용하여 기획서로부터 요구사항 인벤토리와 TC 설계 매트릭스를 생성하는 프롬프트 작성",
+          "생성된 TC와 실제 QA가 작성한 TC를 비교하여 정확도 및 커버리지 측정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "무신사",
+      "title": "예측을 넘어 결정과 발견으로: DeciML과 NeXA를 만든 이유",
+      "link": "https://techblog.musinsa.com/%EC%98%88%EC%B8%A1%EC%9D%84-%EB%84%98%EC%96%B4-%EA%B2%B0%EC%A0%95%EA%B3%BC-%EB%B0%9C%EA%B2%AC%EC%9C%BC%EB%A1%9C-deciml%EA%B3%BC-nexa%EB%A5%BC-%EB%A7%8C%EB%93%A0-%EC%9D%B4%EC%9C%A0-9313debb2a4f",
+      "published_at": "Tue, 03 Nov 2026 00:20:59 GMT",
+      "selection_score": 11,
+      "selection_reason": "ML 플랫폼 구축을 통한 의사결정 최적화 사례는 데이터 기반 백엔드 아키텍처 설계에 중요한 참고 자료가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "무신사는 개인화 문제를 '예측'에서 '결정과 발견'으로 확장하기 위해 DeciML과 NeXA 플랫폼을 구축했습니다.",
+      "key_points": [
+        "단순 반응 확률 예측을 넘어, 제한된 자원 배분(Decision)과 고객의 탐색 경험(Discovery)을 최적화하는 방향으로 개인화 전략을 전환했습니다.",
+        "DeciML은 서비스 자원(푸시, 쿠폰 등)의 효율적 배분을, NeXA는 고객의 탐색 여정(추천, 검색 등)에 맞는 노출 구조를 담당합니다.",
+        "플랫폼 설계 원칙으로 기술적 반복 제거, 에이전트 친화적 구조, 품질 하한 보장을 설정하여 DS/MLE가 문제 해결에 집중하도록 했습니다."
+      ],
+      "topics": [
+        "Constrained Allocation",
+        "Incrementality",
+        "AI-Native Platform"
+      ],
+      "recommended_for": "개인화 추천 시스템의 아키텍처를 고도화하고 싶은 ML 엔지니어 및 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "F3 Lightning: How Meta Accelerates Ads ML Features to Production at Scale",
+      "link": "https://engineering.fb.com/2026/11/03/ml-applications/f3-lightning-how-meta-accelerates-ads-ml-features-to-production",
+      "published_at": "Tue, 03 Nov 2026 17:00:35 +0000",
+      "selection_score": 13,
+      "selection_reason": "대규모 머신러닝 피처 관리 시스템의 아키텍처 개선 사례로, 성능 최적화와 생산성 향상 관점에서 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta는 F3 Lightning을 통해 대규모 ML 피처의 독립적 배포와 공유 실행 효율성을 동시에 달성했습니다.",
+      "key_points": [
+        "기존 F3의 공유 그래프 방식은 단일 오류가 전체 배포를 막는 문제가 있었으나, F3 Lightning은 피처별 독립 배포를 가능하게 했습니다.",
+        "안정적인 계산 식별자(Stable Identifiers)를 도입하여 독립적으로 배포된 피처라도 실행 시에는 중복 계산을 제거하도록 최적화했습니다.",
+        "공유 메모리 버퍼와 밀집 인덱스 매핑을 통해 CPU 사용량을 늘리지 않고도 기존의 공유 그래프와 동일한 성능 효율을 유지했습니다."
+      ],
+      "topics": [
+        "Feature Serving",
+        "DAG(Directed Acyclic Graph)",
+        "Shared Execution"
+      ],
+      "recommended_for": "대규모 데이터 처리 및 ML 피처 파이프라인의 성능 최적화가 필요한 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "How we halved DNS build delay and cut memory use by 85%",
+      "link": "https://blog.cloudflare.com/dns-targeted-zone-builds",
+      "published_at": "Mon, 02 Nov 2026 14:00:00 GMT",
+      "selection_score": 13,
+      "selection_reason": "DNS 빌드 파이프라인의 성능 개선과 메모리 최적화 사례로, 백엔드 아키텍처 및 시스템 효율화에 직접적인 통찰을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare는 DNS 빌드 파이프라인에 타겟팅 빌드 플래너를 도입하여 메모리 사용량을 85% 절감하고 지연 시간을 절반으로 줄였습니다.",
+      "key_points": [
+        "전체 존을 재빌드하는 대신 변경된 부분만 식별하여 빌드하는 '타겟팅 빌드' 방식을 도입하여 불필요한 연산을 제거했습니다.",
+        "통합 스케줄러를 통해 동일 존에 대한 여러 이벤트를 하나로 묶어 처리함으로써 처리 효율을 극대화했습니다.",
+        "데이터베이스 복제본을 활용한 최신 상태 확인과 안전한 빌드 플래닝을 통해 데이터 일관성을 유지하면서 성능을 개선했습니다."
+      ],
+      "topics": [
+        "DNS Propagation",
+        "Targeted Build",
+        "Quicksilver"
+      ],
+      "recommended_for": "대규모 데이터 변경 파이프라인의 성능 병목을 해결하고자 하는 백엔드 및 시스템 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Automating the full AWS DRS agent lifecycle: Install, heal, and offboard",
+      "link": "https://aws.amazon.com/blogs/architecture/automating-the-full-aws-drs-agent-lifecycle-install-heal-and-offboard",
+      "published_at": "Mon, 02 Nov 2026 17:21:29 +0000",
+      "selection_score": 12,
+      "selection_reason": "AWS 에이전트 라이프사이클 자동화는 업무 자동화 및 클라우드 운영 효율화 측면에서 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS DRS 에이전트 라이프사이클을 SSM Automation으로 자동화하여 운영 효율을 높이고 비용을 절감했습니다.",
+      "key_points": [
+        "EC2 태그(DR=yes/pause/no)를 기반으로 에이전트 설치, 치유, 오프보딩 과정을 자동화하여 수동 관리의 번거로움을 제거했습니다.",
+        "SSM Automation 문서를 활용하여 Lambda 유지보수 없이 인프라 상태를 관리하고, EventBridge로 장애 발생 시 즉각 대응합니다.",
+        "에이전트 중단 시 자동 재시작 및 재설치 로직을 계층화하여 RPO(복구 시점 목표)를 안정적으로 보호합니다."
+      ],
+      "topics": [
+        "AWS DRS",
+        "SSM Automation",
+        "Infrastructure as Code"
+      ],
+      "recommended_for": "AWS 환경에서 재해 복구(DR) 운영을 자동화하고 관리 비용을 줄이고 싶은 클라우드 운영자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "AWS DRS 에이전트 라이프사이클 자동화 도입 검토",
+        "steps": [
+          "GitHub 샘플 저장소의 CloudFormation 템플릿을 사용하여 테스트 환경에 배포",
+          "운영 중인 EC2 인스턴스에 DR 태그를 적용하여 온보딩/오프보딩 동작 확인",
+          "EventBridge 규칙을 통해 복제 중단(Stalled) 이벤트 발생 시 자동 치유 프로세스 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "‘Astra가 가중치를 읽고 써서 Qwen을 개선한다’는 게시물은 오해를 부름",
+      "link": "https://news.hada.io/topic?id=36526",
+      "published_at": "2026-11-03T23:34:52+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM 가중치 수정 및 분석 기법에 대한 기술적 오해를 바로잡는 글로, 최신 AI 연구 동향을 파악하는 데 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 가중치 직접 수정과 Python 기반 분석을 혼동하지 말아야 한다는 기술적 주의사항",
+      "key_points": [
+        "원시 가중치를 직접 읽는 실험과 Python을 통한 모델 분석/수정 실험은 서로 다른 기법임.",
+        "Qwen3.5-0.8B 수학 개선 실험은 단순 가중치 조작이 아닌 Python 도구와 배치 실행을 활용한 결과임.",
+        "가중치 직접 수정 방식은 작은 네트워크에서는 가능하나, 대규모 모델 적용에는 제약과 실패 사례가 존재함."
+      ],
+      "topics": [
+        "LLM Weight Manipulation",
+        "Model Analysis"
+      ],
+      "recommended_for": "LLM의 내부 구조를 수정하거나 최적화하는 연구를 수행하는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "NVIDIA Auto Ontology - 기업 데이터의 의미와 관계를 AI 에이전트에 연결하는 오픈소스 도구",
+      "link": "https://news.hada.io/topic?id=36528",
+      "published_at": "2026-11-03T23:37:52+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트, RAG, MCP, SQL 변환 등 사용자의 핵심 관심사가 모두 포함된 매우 가치 있는 도구 소개입니다.",
+      "feedback_bias": 0,
+      "one_line": "기업 데이터를 AI 에이전트가 이해하도록 온톨로지와 지식 그래프로 변환하는 NVIDIA Auto Ontology",
+      "key_points": [
+        "기업 내 업무 용어와 데이터 관계를 정리하여 AI 에이전트가 데이터를 정확히 이해하도록 돕는 도구임.",
+        "메타데이터를 기반으로 온톨로지와 지식 그래프를 생성하며, 자연어 질의를 SQL로 변환하여 실행함.",
+        "MCP, CLI, API를 지원하며 Databricks, PostgreSQL 등 주요 데이터베이스와 연동 가능함."
+      ],
+      "topics": [
+        "Ontology",
+        "Knowledge Graph",
+        "MCP (Model Context Protocol)"
+      ],
+      "recommended_for": "기업용 RAG 시스템이나 데이터 분석 에이전트를 구축하는 백엔드 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "NVIDIA Auto Ontology를 활용한 데이터 계보 및 SQL 변환 파이프라인 검토",
+        "steps": [
+          "GitHub에서 NVIDIA Auto Ontology 저장소를 확인하고 지원하는 데이터베이스 목록과 연결 방식 파악하기",
+          "현재 운영 중인 데이터베이스 메타데이터를 샘플로 추출하여 온톨로지 생성 테스트 수행하기",
+          "MCP 서버로 구성하여 로컬 LLM 에이전트와 연동 가능한지 기술적 타당성 검토하기"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "kill 버그의 10년",
+      "link": "https://news.hada.io/topic?id=36530",
+      "published_at": "2026-11-04T00:02:40+09:00",
+      "selection_score": 11,
+      "selection_reason": "Linux 시스템의 핵심 도구인 kill 명령어의 치명적인 버그와 그 원인을 분석하여 서버 운영 및 스크립트 작성 시 주의가 필요한 중요한 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Linux kill 명령어의 음수 PID 처리 버그로 인한 시스템 전체 종료 위험성",
+      "key_points": [
+        "Ubuntu 24.04 LTS 등에서 kill 명령어의 음수 PID가 -1로 잘못 해석되어 init을 제외한 모든 프로세스가 종료되는 버그가 발생함.",
+        "지난 10년간 getopt의 옵션 처리와 kill 인자 문법의 충돌로 인해 유사한 버그가 반복됨.",
+        "음수 PID 사용 시 셸 종료나 전체 프로세스 종료 등 치명적인 결과로 이어질 수 있어 주의가 필요함."
+      ],
+      "topics": [
+        "Process Group",
+        "getopt",
+        "Signal Handling"
+      ],
+      "recommended_for": "Linux 서버 운영 및 자동화 스크립트를 작성하는 시스템 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Postman, AI 플러그인을 몰래 자동 설치하고 모든 API 데이터 공유 시도",
+      "link": "https://news.hada.io/topic?id=36538",
+      "published_at": "2026-11-04T03:38:04+09:00",
+      "selection_score": 14,
+      "selection_reason": "개발 도구의 보안 이슈와 MCP(Model Context Protocol) 관련 보안 우려는 AI 에이전트 도입 시 반드시 고려해야 할 핵심 사안입니다.",
+      "feedback_bias": 0,
+      "one_line": "Postman의 무단 플러그인 설치 및 데이터 공유 시도에 따른 보안 주의보",
+      "key_points": [
+        "macOS용 Postman이 사용자 동의 없이 Codex 및 Claude Code용 플러그인을 자동 설치한 사례가 보고됨.",
+        "설치된 플러그인이 API 설계 및 구현 작업 시 특정 스킬을 강제로 호출하도록 설정되어 있음.",
+        "원격 MCP 연결이 활성화되는 등 보안상 우려되는 동작이 포함되어 있어 개발 도구 사용 시 주의가 필요함."
+      ],
+      "topics": [
+        "Supply Chain Security",
+        "MCP Security",
+        "Plugin Vulnerability"
+      ],
+      "recommended_for": "개발 도구 보안 및 AI 에이전트 연동 보안에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "사용 중인 개발 도구의 플러그인 및 MCP 연결 상태 감사",
+        "steps": [
+          "Postman 및 IDE의 플러그인 목록을 확인하여 의도치 않은 자동 설치 항목이 있는지 검사하기",
+          "MCP 설정 파일(mcp-config.json 등)을 열어 허용된 서버와 연결 경로가 명확한지 확인하기",
+          "불필요한 외부 연결이나 자동 업데이트 기능을 비활성화하고 권한을 최소화하기"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI가 Codex 대화의 모델 학습 사용을 알림 없이 다시 활성화하는 것으로 보임",
+      "link": "https://news.hada.io/topic?id=36540",
+      "published_at": "2026-11-04T03:44:05+09:00",
+      "selection_score": 13,
+      "selection_reason": "기업용 AI 활용 시 데이터 프라이버시와 설정 강제 변경 문제는 보안 및 거버넌스 측면에서 매우 중요한 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI의 데이터 공유 설정이 사용자 동의 없이 재활성화되는 사례가 보고되어 보안 점검이 필요함.",
+      "key_points": [
+        "일부 사용자가 비활성화했던 'Improve the model for everyone' 설정이 알림 없이 다시 켜진 현상이 보고됨.",
+        "기업의 지식재산 유출 우려가 있는 환경에서는 데이터 프라이버시 설정이 임의로 변경될 위험이 있음.",
+        "OpenAI 개인정보 관리 페이지를 통해 현재 데이터 공유 상태를 주기적으로 재확인해야 함."
+      ],
+      "topics": [
+        "데이터 프라이버시",
+        "모델 학습 데이터 거버넌스"
+      ],
+      "recommended_for": "기업용 AI 솔루션을 도입하거나 민감한 데이터를 LLM에 입력하는 백엔드 개발자 및 보안 담당자.",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "OpenAI 데이터 공유 설정 정기 점검 프로세스 수립",
+        "steps": [
+          "OpenAI 개인정보 관리 페이지에 접속하여 현재 데이터 공유 설정 상태 확인",
+          "팀 내 AI 활용 가이드라인에 '데이터 공유 설정 주기적 확인' 항목 추가",
+          "민감 데이터 처리 시 API 사용 여부와 데이터 보존 정책 재검토"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "내 노트북의 Qwen 3.8 27B도 모델 가중치를 해석할 수 있다",
+      "link": "https://news.hada.io/topic?id=36542",
+      "published_at": "2026-11-04T04:36:38+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM의 내부 가중치 해석 및 로컬 실행 가능성을 보여주는 흥미로운 실험으로, AI 모델 이해도 향상에 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM의 신경망 가중치를 텍스트로 입력하여 모델이 학습한 내용을 해석하는 실험적 시도.",
+      "key_points": [
+        "Qwen 3.8 27B 모델이 강화학습된 게임의 부동소수점 가중치만 보고 해당 게임을 식별함.",
+        "모델 내부의 가중치 데이터를 해석 가능한 정보로 변환하여 모델의 지식 구조를 파악할 수 있는 가능성을 제시함.",
+        "모든 사례에서 성공하지는 않았으며, 복잡한 모델의 가중치 해석에는 상당한 시간이 소요됨."
+      ],
+      "topics": [
+        "신경망 가중치 해석",
+        "강화학습 정책 신경망"
+      ],
+      "recommended_for": "LLM의 내부 구조와 모델 해석 가능성(Interpretability)에 관심이 많은 AI 연구자 및 개발자.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "어떤 규모에서도 Mac 운영하기",
+      "link": "https://news.hada.io/topic?id=36543",
+      "published_at": "2026-11-04T04:39:39+09:00",
+      "selection_score": 14,
+      "selection_reason": "Mac 인프라 확장, 가상화, CI/CD 워크플로 최적화 등 백엔드 및 인프라 실무에 직접적인 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Mac 인프라 확장 시 물리적 제약을 극복하기 위한 가상화 및 배포 자동화 전략.",
+      "key_points": [
+        "Mac Mini의 공급 제약 문제를 해결하기 위해 MacBook을 데이터센터 랙에 배치하여 인프라를 확장함.",
+        "Apple Virtualization framework를 사용하여 물리 Mac당 macOS VM 2개 제한 내에서 효율적인 자원 분할을 구현함.",
+        "다양한 Xcode 및 iOS 런타임 조합을 관리하기 위한 대용량 VM 이미지 배포 체계가 핵심임."
+      ],
+      "topics": [
+        "macOS 가상화",
+        "CI/CD 인프라",
+        "Apple Virtualization framework"
+      ],
+      "recommended_for": "iOS 앱 빌드 파이프라인을 운영하거나 Mac 기반 클라우드 인프라를 구축하는 DevOps 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "에이전트가 일을 할 때의 비판적 사고",
+      "link": "https://news.hada.io/topic?id=36547",
+      "published_at": "2026-11-04T07:04:49+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent와 Agentic Workflow 도입 시 필수적인 비판적 사고와 검증 전략을 다루어 실무에 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트 활용 시 인지적 항복을 경계하고 비판적 사고를 워크플로에 통합해야 함.",
+      "key_points": [
+        "에이전트의 결과물을 검증 없이 수용하는 '인지적 항복'을 피하고, 결과를 설명할 수 있는 '인지적 위임' 상태를 유지해야 함.",
+        "검증의 핵심은 테스트 자동화 자체보다 '무엇을 입증하고 무엇을 확인하지 않았는지' 판단하는 능력에 있음.",
+        "에이전트가 생성한 결과물에 대해 의도적으로 비판적 검토 단계를 작업 흐름에 삽입해야 함."
+      ],
+      "topics": [
+        "인지적 위임",
+        "Agentic Workflow",
+        "비판적 검증"
+      ],
+      "recommended_for": "AI 에이전트를 실무 워크플로에 도입하여 생산성을 높이려는 모든 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "에이전트 결과물에 대한 비판적 검증 체크리스트 도입",
+        "steps": [
+          "에이전트가 생성한 코드나 결과물에 대해 '왜 이 방식인가?'를 묻는 검증 단계 추가",
+          "테스트 통과 여부 외에 '검증되지 않은 영역'을 명시하는 문서화 습관화",
+          "에이전트의 답변을 그대로 복사하지 않고 논리적 흐름을 직접 설명해보는 시간 확보"
+        ],
+        "effort": "15~30분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Zero Wire, a hub for investigating critical Internet vulnerabilities",
+      "link": "https://blog.cloudflare.com/zero-wire",
+      "published_at": "Tue, 03 Nov 2026 14:00:00 GMT",
+      "selection_score": 10,
+      "selection_reason": "AI를 활용한 취약점 분석 트렌드를 다루며, 보안 실무자에게 중요한 업계 변화를 시사합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Three business decisions that define your DR success",
+      "link": "https://aws.amazon.com/blogs/architecture/three-business-decisions-that-define-your-dr-success",
+      "published_at": "Mon, 02 Nov 2026 17:26:26 +0000",
+      "selection_score": 10,
+      "selection_reason": "재해 복구(DR) 전략 수립을 위한 비즈니스 의사결정 가이드로, 시스템 안정성 및 아키텍처 설계 시 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Validating your DR commitment: From controlled test to real-world readiness",
+      "link": "https://aws.amazon.com/blogs/architecture/validating-your-dr-commitment-from-controlled-test-to-real-world-readiness",
+      "published_at": "Mon, 02 Nov 2026 17:26:33 +0000",
+      "selection_score": 10,
+      "selection_reason": "DR 검증 프로세스를 다루며, 안정적인 클라우드 운영을 위한 실무적인 방법론을 제시합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "유럽 RISC-V 산업용 컴퓨팅 이니셔티브",
+      "link": "https://news.hada.io/topic?id=36532",
+      "published_at": "2026-11-04T00:39:57+09:00",
+      "selection_score": 10,
+      "selection_reason": "RISC-V 기반의 산업용 컴퓨팅 스택과 하이퍼바이저 통합은 임베디드 및 서버 아키텍처 측면에서 주목할 만한 변화입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Fujifilm, AI로 아카이빙 수요 늘자 테이프 생산능력 5배 확대 추진",
+      "link": "https://news.hada.io/topic?id=36536",
+      "published_at": "2026-11-04T02:38:00+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 데이터 폭증에 따른 스토리지 인프라(테이프) 수요 증가는 클라우드 및 데이터 아키텍처의 거시적 변화를 보여줍니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Google, AI를 거부하는 학교의 검색 기능도 차단 예정",
+      "link": "https://news.hada.io/topic?id=36539",
+      "published_at": "2026-11-04T03:41:04+09:00",
+      "selection_score": 9,
+      "selection_reason": "플랫폼 정책 변화가 AI 기술 도입과 검색 접근성에 미치는 영향은 업계 전반의 중요한 정책적 이슈입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Stringman, 800달러짜리 오픈소스 방 규모 그리퍼 로봇",
+      "link": "https://news.hada.io/topic?id=36546",
+      "published_at": "2026-11-04T06:32:50+09:00",
+      "selection_score": 9,
+      "selection_reason": "로컬 네트워크 기반의 오픈소스 로봇 제어는 하드웨어 자동화 및 엣지 컴퓨팅 관점에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Safari 27.3에 Adaptive Dark Mode 도입",
+      "link": "https://news.hada.io/topic?id=36549",
+      "published_at": "2026-11-04T08:32:30+09:00",
+      "selection_score": 10,
+      "selection_reason": "웹 개발자에게 브라우저의 새로운 렌더링 기능과 접근성 표준 대응은 실무적으로 확인이 필요한 정보입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

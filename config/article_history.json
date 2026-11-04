@@ -1,6 +1,307 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "네이버 D2",
+      "title": "컨테이너처럼 쓰고, VM처럼 격리하기",
+      "link": "https://d2.naver.com/helloworld/2265641",
+      "published_at": "2026-11-02T06:38:32Z",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "kata-containers",
+        "GPU Isolation",
+        "Kubernetes Runtime"
+      ],
+      "one_line": "Kubernetes 환경에서 kata-containers를 활용해 GPU와 NIC를 VM 수준으로 안전하게 격리하고 성능을 최적화하는 방법",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "네이버 D2",
+      "title": "딸깍으로 안되는 Multi-interest 개발기",
+      "link": "https://d2.naver.com/helloworld/9639872",
+      "published_at": "2026-11-03T04:45:30Z",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-interest Recommendation",
+        "Hubness Problem",
+        "Bias Decomposition"
+      ],
+      "one_line": "Multi-interest 추천 모델 적용 시 발생하는 hubness 문제를 유저 무관 성분 제거로 해결한 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "마켓컬리",
+      "title": "Argo Workflows와 SageMaker로 추천 ML 파이프라인 구축기",
+      "link": "https://helloworld.kurly.com/blog/recommend-ml-pipeline",
+      "published_at": "Tue, 03 Nov 2026 01:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Argo Workflows",
+        "SageMaker",
+        "MLOps Pipeline"
+      ],
+      "one_line": "Argo Workflows와 SageMaker를 결합하여 모델 학습부터 배포까지 세대(Generation) 단위로 자동화하는 파이프라인 구축",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "마켓컬리",
+      "title": "기획서 하나로 결함 등록까지, QA AI Hub를 만들며 배운 것",
+      "link": "https://helloworld.kurly.com/blog/ai-qa-from-spec-to-defect",
+      "published_at": "Tue, 03 Nov 2026 06:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "QA Automation",
+        "LLM Agentic Workflow",
+        "Test Case Generation"
+      ],
+      "one_line": "기획서 분석부터 결함 등록까지 자동화하는 QA AI Hub 구축을 통해 테스트 설계 공수를 획기적으로 절감한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "당근",
+      "title": "국내 최초 광고 MCP를 출시하며, 개발자의 역할은 어디까지 넓어졌을까?",
+      "link": "https://medium.com/daangn/%EA%B5%AD%EB%82%B4-%EC%B5%9C%EC%B4%88-%EA%B4%91%EA%B3%A0-mcp%EB%A5%BC-%EC%B6%9C%EC%8B%9C%ED%95%98%EB%A9%B0-%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98-%EC%97%AD%ED%95%A0%EC%9D%80-%EC%96%B4%EB%94%94%EA%B9%8C%EC%A7%80-%EB%84%93%EC%96%B4%EC%A1%8C%EC%9D%84%EA%B9%8C-8dea7fe41c07",
+      "published_at": "Tue, 03 Nov 2026 09:27:47 GMT",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "AI Agentic Workflow",
+        "Product-Led Engineering"
+      ],
+      "one_line": "국내 최초 광고 MCP 출시를 통해 AI 에이전트와 내부 데이터를 표준화하여 연결한 당근의 개발 경험",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "무신사",
+      "title": "예측을 넘어 결정과 발견으로: DeciML과 NeXA를 만든 이유",
+      "link": "https://techblog.musinsa.com/%EC%98%88%EC%B8%A1%EC%9D%84-%EB%84%98%EC%96%B4-%EA%B2%B0%EC%A0%95%EA%B3%BC-%EB%B0%9C%EA%B2%AC%EC%9C%BC%EB%A1%9C-deciml%EA%B3%BC-nexa%EB%A5%BC-%EB%A7%8C%EB%93%A0-%EC%9D%B4%EC%9C%A0-9313debb2a4f",
+      "published_at": "Tue, 03 Nov 2026 00:20:59 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Constrained Allocation",
+        "Incrementality",
+        "AI-Native Platform"
+      ],
+      "one_line": "무신사는 개인화 문제를 '예측'에서 '결정과 발견'으로 확장하기 위해 DeciML과 NeXA 플랫폼을 구축했습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "Google Developers",
+      "title": "Cost per task: Using cheap classifiers to route across Gemini models and thinking levels",
+      "link": "https://developers.googleblog.com/cost-per-task-using-cheap-classifiers-to-route-across-gemini-models-and-thinking-levels",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Model Routing",
+        "Cost per successful task",
+        "Thinking Level"
+      ],
+      "one_line": "LLM 에이전트 운영 시 비용 절감을 위해 고성능 모델 대신 경량 분류기를 활용한 모델 라우팅 전략을 제안합니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "Meta Engineering",
+      "title": "F3 Lightning: How Meta Accelerates Ads ML Features to Production at Scale",
+      "link": "https://engineering.fb.com/2026/11/03/ml-applications/f3-lightning-how-meta-accelerates-ads-ml-features-to-production",
+      "published_at": "Tue, 03 Nov 2026 17:00:35 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Feature Serving",
+        "DAG(Directed Acyclic Graph)",
+        "Shared Execution"
+      ],
+      "one_line": "Meta는 F3 Lightning을 통해 대규모 ML 피처의 독립적 배포와 공유 실행 효율성을 동시에 달성했습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "Cloudflare",
+      "title": "How we halved DNS build delay and cut memory use by 85%",
+      "link": "https://blog.cloudflare.com/dns-targeted-zone-builds",
+      "published_at": "Mon, 02 Nov 2026 14:00:00 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "DNS Propagation",
+        "Targeted Build",
+        "Quicksilver"
+      ],
+      "one_line": "Cloudflare는 DNS 빌드 파이프라인에 타겟팅 빌드 플래너를 도입하여 메모리 사용량을 85% 절감하고 지연 시간을 절반으로 줄였습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "AWS Architecture",
+      "title": "Automating the full AWS DRS agent lifecycle: Install, heal, and offboard",
+      "link": "https://aws.amazon.com/blogs/architecture/automating-the-full-aws-drs-agent-lifecycle-install-heal-and-offboard",
+      "published_at": "Mon, 02 Nov 2026 17:21:29 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS DRS",
+        "SSM Automation",
+        "Infrastructure as Code"
+      ],
+      "one_line": "AWS DRS 에이전트 라이프사이클을 SSM Automation으로 자동화하여 운영 효율을 높이고 비용을 절감했습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "‘Astra가 가중치를 읽고 써서 Qwen을 개선한다’는 게시물은 오해를 부름",
+      "link": "https://news.hada.io/topic?id=36526",
+      "published_at": "2026-11-03T23:34:52+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Weight Manipulation",
+        "Model Analysis"
+      ],
+      "one_line": "LLM 가중치 직접 수정과 Python 기반 분석을 혼동하지 말아야 한다는 기술적 주의사항",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "NVIDIA Auto Ontology - 기업 데이터의 의미와 관계를 AI 에이전트에 연결하는 오픈소스 도구",
+      "link": "https://news.hada.io/topic?id=36528",
+      "published_at": "2026-11-03T23:37:52+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Ontology",
+        "Knowledge Graph",
+        "MCP (Model Context Protocol)"
+      ],
+      "one_line": "기업 데이터를 AI 에이전트가 이해하도록 온톨로지와 지식 그래프로 변환하는 NVIDIA Auto Ontology",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "kill 버그의 10년",
+      "link": "https://news.hada.io/topic?id=36530",
+      "published_at": "2026-11-04T00:02:40+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Process Group",
+        "getopt",
+        "Signal Handling"
+      ],
+      "one_line": "Linux kill 명령어의 음수 PID 처리 버그로 인한 시스템 전체 종료 위험성",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "Revolut, 자체 호스팅 GLM으로 전환",
+      "link": "https://news.hada.io/topic?id=36534",
+      "published_at": "2026-11-04T01:32:01+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Self-hosted LLM",
+        "Cost Optimization",
+        "Inference Infrastructure"
+      ],
+      "one_line": "Revolut의 자체 호스팅 GLM 전환을 통한 AI 비용 90% 절감 및 생산성 향상 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "Postman, AI 플러그인을 몰래 자동 설치하고 모든 API 데이터 공유 시도",
+      "link": "https://news.hada.io/topic?id=36538",
+      "published_at": "2026-11-04T03:38:04+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Supply Chain Security",
+        "MCP Security",
+        "Plugin Vulnerability"
+      ],
+      "one_line": "Postman의 무단 플러그인 설치 및 데이터 공유 시도에 따른 보안 주의보",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI가 Codex 대화의 모델 학습 사용을 알림 없이 다시 활성화하는 것으로 보임",
+      "link": "https://news.hada.io/topic?id=36540",
+      "published_at": "2026-11-04T03:44:05+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "데이터 프라이버시",
+        "모델 학습 데이터 거버넌스"
+      ],
+      "one_line": "OpenAI의 데이터 공유 설정이 사용자 동의 없이 재활성화되는 사례가 보고되어 보안 점검이 필요함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "내 노트북의 Qwen 3.8 27B도 모델 가중치를 해석할 수 있다",
+      "link": "https://news.hada.io/topic?id=36542",
+      "published_at": "2026-11-04T04:36:38+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "신경망 가중치 해석",
+        "강화학습 정책 신경망"
+      ],
+      "one_line": "LLM의 신경망 가중치를 텍스트로 입력하여 모델이 학습한 내용을 해석하는 실험적 시도.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "어떤 규모에서도 Mac 운영하기",
+      "link": "https://news.hada.io/topic?id=36543",
+      "published_at": "2026-11-04T04:39:39+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "macOS 가상화",
+        "CI/CD 인프라",
+        "Apple Virtualization framework"
+      ],
+      "one_line": "Mac 인프라 확장 시 물리적 제약을 극복하기 위한 가상화 및 배포 자동화 전략.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-04T10:03:32.414704+09:00",
+      "company": "GeekNews",
+      "title": "에이전트가 일을 할 때의 비판적 사고",
+      "link": "https://news.hada.io/topic?id=36547",
+      "published_at": "2026-11-04T07:04:49+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "인지적 위임",
+        "Agentic Workflow",
+        "비판적 검증"
+      ],
+      "one_line": "AI 에이전트 활용 시 인지적 항복을 경계하고 비판적 사고를 워크플로에 통합해야 함.",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-03T11:50:44.890668+09:00",
       "company": "AWS Architecture",
       "title": "How to run a DR readiness engagement",
@@ -7691,311 +7992,7 @@
       ],
       "one_line": "AI 기반 개발 환경에서 생산성 병목인 '검증'을 자동화 파이프라인으로 해결한 사례",
       "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "당근",
-      "title": "당근 동네걷기 위에서 동시에 쏟아지는 오버레이들을 우아하게 제어하기",
-      "link": "https://medium.com/daangn/%EB%8B%B9%EA%B7%BC-%EB%8F%99%EB%84%A4%EA%B1%B7%EA%B8%B0-%EC%9C%84%EC%97%90%EC%84%9C-%EB%8F%99%EC%8B%9C%EC%97%90-%EC%8F%9F%EC%95%84%EC%A7%80%EB%8A%94-%EC%98%A4%EB%B2%84%EB%A0%88%EC%9D%B4%EB%93%A4%EC%9D%84-%EC%9A%B0%EC%95%84%ED%95%98%EA%B2%8C-%EC%A0%9C%EC%96%B4%ED%95%98%EA%B8%B0-097551289b2a",
-      "published_at": "Wed, 30 Sep 2026 03:32:44 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Promise.withResolvers",
-        "Async Scheduling",
-        "Overlay Management"
-      ],
-      "one_line": "비동기 스케줄링과 Promise.withResolvers를 활용한 복잡한 UI 오버레이 제어",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "Google Developers",
-      "title": "Accelerating Spatio-Temporal Attention for Video Diffusion on TPUs",
-      "link": "https://developers.googleblog.com/accelerating-spatio-temporal-attention-for-video-diffusion-on-tpus",
-      "published_at": "",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Sparse Attention",
-        "TPU Optimization",
-        "Video Diffusion Models"
-      ],
-      "one_line": "비디오 확산 모델의 어텐션 연산 효율화를 위한 TPU 하드웨어 최적화 기법",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "Cloudflare",
-      "title": "The Internet has a second audience",
-      "link": "https://blog.cloudflare.com/agentic-web",
-      "published_at": "Wed, 30 Sep 2026 12:58:00 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Internet",
-        "AI Monetization",
-        "Bot Management"
-      ],
-      "one_line": "인터넷 트래픽의 절반 이상이 AI 에이전트인 시대, 에이전트 친화적 서비스 설계의 필요성",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "Cloudflare",
-      "title": "Cloudflare Containers, rebuilt to scale agent sandboxes",
-      "link": "https://blog.cloudflare.com/faster-agent-sandboxes",
-      "published_at": "Wed, 30 Sep 2026 12:58:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Durable Objects",
-        "Sandbox SDK",
-        "Filesystem Snapshots"
-      ],
-      "one_line": "Cloudflare Containers가 AI 에이전트 워크플로우를 위해 6배 빠른 시작 속도와 런타임 환경 제어 기능을 제공하도록 재설계되었습니다.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "Cloudflare",
-      "title": "Identify AI model overuse with User Insights",
-      "link": "https://blog.cloudflare.com/ai-model-overuse-user-insights",
-      "published_at": "Wed, 30 Sep 2026 13:00:00 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Gateway",
-        "Model Overkill",
-        "Token Usage Analysis"
-      ],
-      "one_line": "Cloudflare AI Gateway의 User Insights가 AI 모델의 과도한 사용(Overkill)을 식별하고 비용을 최적화할 수 있는 분석 기능을 추가했습니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "Cloudflare",
-      "title": "Monetization Gateway beta: charge AI agents for consumption with HTTP 402",
-      "link": "https://blog.cloudflare.com/monetization-gateway-beta",
-      "published_at": "Wed, 30 Sep 2026 13:00:00 GMT",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "HTTP 402",
-        "Agentic Commerce",
-        "Stablecoin Payments"
-      ],
-      "one_line": "Cloudflare Monetization Gateway가 HTTP 402 상태 코드를 사용하여 AI 에이전트가 리소스 사용료를 즉시 결제할 수 있는 인프라를 제공합니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "Cloudflare",
-      "title": "Detect and send production issues straight to your agent",
-      "link": "https://blog.cloudflare.com/real-time-issue-detection",
-      "published_at": "Wed, 30 Sep 2026 13:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Error Monitoring",
-        "Observability",
-        "Automated Debugging"
-      ],
-      "one_line": "Cloudflare Workers의 새로운 'Issues' 기능이 에러를 자동으로 그룹화하고 AI 에이전트로 직접 전송하여 디버깅을 자동화합니다.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "Cloudflare",
-      "title": "Cut your AI spend with AI Gateway's Auto Router",
-      "link": "https://blog.cloudflare.com/auto-router",
-      "published_at": "Wed, 30 Sep 2026 13:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Auto Router",
-        "Model Routing",
-        "Inference Optimization"
-      ],
-      "one_line": "Cloudflare AI Gateway의 Auto Router가 작업 복잡도에 따라 최적의 모델을 자동으로 선택하여 AI 비용을 최대 30% 절감합니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "AWS Architecture",
-      "title": "How MHK built a HIPAA-eligible agentic AI solution on Amazon Bedrock",
-      "link": "https://aws.amazon.com/blogs/architecture/how-mhk-built-a-hipaa-eligible-agentic-ai-solution-on-amazon-bedrock",
-      "published_at": "Wed, 30 Sep 2026 18:30:24 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Controller-Agent Pattern",
-        "DAG(Directed Acyclic Graph)"
-      ],
-      "one_line": "AWS 기반의 HIPAA 준수 의료 AI 에이전트 오케스트레이터 구축 사례",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "AWS Architecture",
-      "title": "Running multi-day AZ evacuation drills with ARC Zonal Shift",
-      "link": "https://aws.amazon.com/blogs/architecture/running-multi-day-az-evacuation-drills-with-arc-zonal-shift",
-      "published_at": "Wed, 30 Sep 2026 19:01:57 +0000",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "ARC Zonal Shift",
-        "Operational Resilience",
-        "N-1 Architecture"
-      ],
-      "one_line": "ARC Zonal Shift를 활용한 가용성 영역(AZ) 대피 훈련 가이드",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Pi.dev: MCP는 지원하지 않는다더니!",
-      "link": "https://news.hada.io/topic?id=34545",
-      "published_at": "2026-09-30T21:33:02+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "MCP(Model Context Protocol)",
-        "Codemode",
-        "Agentic Execution Environment"
-      ],
-      "one_line": "코딩 에이전트 Pi의 MCP 기본 지원 전환과 실행 환경의 변화",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Sam Altman은 왜 자유의 몸인가?",
-      "link": "https://news.hada.io/topic?id=34546",
-      "published_at": "2026-09-30T22:33:47+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Alignment",
-        "Data Scraping Ethics",
-        "Corporate Accountability"
-      ],
-      "one_line": "AI 에이전트의 무단 데이터 수집과 기업의 법적·윤리적 책임 논란",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Factorio 품질 문제 풀기",
-      "link": "https://news.hada.io/topic?id=34549",
-      "published_at": "2026-10-01T00:44:26+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Transition Matrix",
-        "Linear Algebra",
-        "Dynamic Equilibrium"
-      ],
-      "one_line": "Factorio 품질 순환 공정을 선형 방정식으로 최적화하는 방법",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "텍스트 분류를 위한 언어 모델: Bag-of-Words에서 Jev까지",
-      "link": "https://news.hada.io/topic?id=34551",
-      "published_at": "2026-10-01T01:38:33+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "확률 보정(Calibration)",
-        "Brier 벌점(Brier Score)",
-        "온도 스케일링(Temperature Scaling)"
-      ],
-      "one_line": "분류 작업에 특화된 Jev 모델은 범용 LLM보다 빠르고 저렴하며, 확률 보정을 통해 자동화 의사결정에 적합함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "AI 경쟁이 난처해졌다",
-      "link": "https://news.hada.io/topic?id=34552",
-      "published_at": "2026-10-01T02:48:00+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "KV 캐시(KV Cache)",
-        "모델 증류(Model Distillation)",
-        "추론 효율성(Inference Efficiency)"
-      ],
-      "one_line": "DeepSeek의 KV 캐시 압축 기술이 추론 비용을 획기적으로 낮추며, 서구 AI 기업들의 가격 경쟁력을 견인하고 있음.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "놀랍지도 않게, Meta의 새 Muse AI 에이전트가 사용자 권한 설정을 노골적으로 무시함",
-      "link": "https://news.hada.io/topic?id=34555",
-      "published_at": "2026-10-01T02:57:34+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "에이전트 샌드박싱(Agent Sandboxing)",
-        "권한 오남용(Permission Overreach)",
-        "데이터 프라이버시"
-      ],
-      "one_line": "Meta의 Muse AI 에이전트가 사용자 권한 설정을 무시하고 개인 데이터를 수집했다는 의혹이 제기됨.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "1.58비트(BitNet) 언어 모델을 실행하는 ESP32S3 클러스터",
-      "link": "https://news.hada.io/topic?id=34556",
-      "published_at": "2026-10-01T03:00:34+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "1.58비트 LLM(BitNet)",
-        "분산 추론(Distributed Inference)",
-        "양자화 인지 학습(QAT)"
-      ],
-      "one_line": "ESP32-S3 클러스터를 활용해 1.58비트 LLM을 분산 추론하는 실험적 프로젝트가 공개됨.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Show HN: NSL - Linux용 WSL",
-      "link": "https://news.hada.io/topic?id=34557",
-      "published_at": "2026-10-01T03:41:26+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "systemd-nspawn",
-        "개발 환경 격리(Environment Isolation)",
-        "컨테이너 가상화"
-      ],
-      "one_line": "NSL은 호스트 시스템을 보호하면서 별도의 Linux 환경을 격리하여 실행할 수 있는 WSL 스타일의 개발 도구임.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "GeekNews",
-      "title": "Microsoft 레코드 17조 건에 접근할 수 있었다",
-      "link": "https://news.hada.io/topic?id=34558",
-      "published_at": "2026-10-01T03:44:26+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "JWT(JSON Web Token)",
-        "인증 우회(Authentication Bypass)",
-        "버그 바운티(Bug Bounty)"
-      ],
-      "one_line": "Microsoft 내부 서비스 Titan의 JWT 서명 검증 누락으로 인한 대규모 데이터 접근 취약점 사례",
-      "actionability": 4
     }
   ],
-  "updated_at": "2026-11-03T11:50:44.890668+09:00"
+  "updated_at": "2026-11-04T10:03:32.414704+09:00"
 }
