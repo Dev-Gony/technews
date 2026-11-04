@@ -1,4 +1,5 @@
-import { Composition } from "remotion";
+import { Composition, Still } from "remotion";
+import { Banner, Profile, Watermark } from "./brand/Brand";
 import { Cards, calculateCardsMetadata } from "./cards/Cards";
 import { cardsSchema } from "./cards/schema";
 import { shortSchema } from "./schema";
@@ -127,6 +128,11 @@ export const RemotionRoot: React.FC = () => {
           ],
         }}
       />
+      {/* 채널 꾸미기 이미지: npx remotion still src/index.ts <id> out.png */}
+      <Still id="ProfilePaper" component={Profile} width={800} height={800} defaultProps={{ variant: "paper" as const }} />
+      <Still id="ProfileInk" component={Profile} width={800} height={800} defaultProps={{ variant: "ink" as const }} />
+      <Still id="Banner" component={Banner} width={2560} height={1440} />
+      <Still id="Watermark" component={Watermark} width={150} height={150} />
     </>
   );
 };
