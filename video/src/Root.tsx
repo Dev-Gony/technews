@@ -17,6 +17,7 @@ export const RemotionRoot: React.FC = () => {
       height={1920}
       defaultProps={{
         channel: "itgony",
+        cover: "학습 없이\n성능 상승?",
         source: "출처: GeekNews · news.hada.io",
         audio: "sample/silence.mp3",
         durationInFrames: 150,

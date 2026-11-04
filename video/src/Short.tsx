@@ -54,6 +54,37 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   );
 };
 
+// 상단 고정 제목. 두 번째 줄은 강조색.
+const Cover: React.FC<{ text: string }> = ({ text }) => {
+  const { width } = useVideoConfig();
+  const lines = text.split("\n").slice(0, 2);
+  const longest = Math.max(...lines.map((line) => line.length), 1);
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: layout.coverTop,
+        left: layout.side,
+        width: width - layout.side * 2,
+        textAlign: "center",
+        fontFamily,
+        fontWeight: 900,
+        fontSize: longest > 10 ? 66 : 78,
+        lineHeight: 1.18,
+        letterSpacing: -1.5,
+        wordBreak: "keep-all",
+      }}
+    >
+      {lines.map((line, index) => (
+        <div key={index} style={{ color: index === lines.length - 1 && lines.length > 1 ? colors.highlight : colors.text }}>
+          {line}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 // 상단 채널명 + 전체 진행 막대, 하단 출처
 const Chrome: React.FC<{ channel: string; source: string }> = ({ channel, source }) => {
   const frame = useCurrentFrame();
@@ -110,7 +141,7 @@ const Chrome: React.FC<{ channel: string; source: string }> = ({ channel, source
   );
 };
 
-export const Short: React.FC<ShortProps> = ({ channel, source, audio, cuts, sfx }) => {
+export const Short: React.FC<ShortProps> = ({ channel, cover, source, audio, cuts, sfx }) => {
   return (
     <AbsoluteFill>
       <Background />
@@ -123,6 +154,7 @@ export const Short: React.FC<ShortProps> = ({ channel, source, audio, cuts, sfx 
           <CutView cut={cut} index={index} />
         </Sequence>
       ))}
+      <Cover text={cover} />
       <Chrome channel={channel} source={source} />
     </AbsoluteFill>
   );

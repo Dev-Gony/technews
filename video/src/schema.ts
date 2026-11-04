@@ -41,6 +41,8 @@ export const sfxSchema = z.object({
 
 export const shortSchema = z.object({
   channel: z.string(),
+  // 영상 내내 상단에 고정되는 제목. 어느 장면이 썸네일로 잡혀도 무슨 영상인지 보이게.
+  cover: z.string(),
   source: z.string(),
   audio: z.string(),
   durationInFrames: z.number().int().positive(),

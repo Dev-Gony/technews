@@ -21,7 +21,8 @@ export const colors = {
 // Shorts 화면에서 제목, 버튼에 가리지 않는 영역 (1080x1920 기준)
 export const layout = {
   side: 80,
-  visualTop: 330,
-  visualHeight: 680,
+  coverTop: 250,
+  visualTop: 470,
+  visualHeight: 600,
   captionTop: 1110,
 };

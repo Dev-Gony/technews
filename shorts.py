@@ -14,7 +14,7 @@ import subprocess
 import urllib.request
 import urllib.parse
 import urllib.error
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 
@@ -27,16 +27,23 @@ YOUTUBE_REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "").strip()
 CLAUDE_MODEL = os.environ.get("SHORTS_CLAUDE_MODEL", "").strip()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 GEMINI_TTS_MODEL = os.environ.get("SHORTS_GEMINI_TTS_MODEL", "gemini-3.1-flash-tts-preview")
-GEMINI_TTS_VOICE = os.environ.get("SHORTS_GEMINI_VOICE", "Leda")
+# 영상마다 번갈아 쓰는 목소리 (쉼표로 구분)
+GEMINI_TTS_VOICES = [
+    voice.strip()
+    for voice in os.environ.get("SHORTS_GEMINI_VOICES", "Leda,Puck,Zephyr,Fenrir").split(",")
+    if voice.strip()
+]
 WHISPER_MODEL = os.environ.get("SHORTS_WHISPER_MODEL", "small")
 # Gemini TTS가 실패하면(키 없음, 무료 한도 초과 등) 쓰는 대체 음성
 TTS_VOICE = os.environ.get("SHORTS_VOICE", "ko-KR-HyunsuMultilingualNeural")
 TTS_RATE = os.environ.get("SHORTS_TTS_RATE", "+22%")
 # 업로드 기본값은 비공개: YouTube Studio에서 확인한 뒤 직접 공개로 바꾼다.
-UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "private")
+UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 
 DAILY_ISSUES_DIR = "config/issues"
+# 오늘 이슈에 남은 기사가 없으면 며칠 전 이슈까지 거슬러 올라가서 고른다.
+LOOKBACK_DAYS = int(os.environ.get("SHORTS_LOOKBACK_DAYS", "3"))
 SHORTS_HISTORY_FILE = "config/shorts_history.json"
 OUTPUT_DIR = "runtime/shorts"
 
@@ -123,11 +130,24 @@ def is_ai_article(article):
     return False
 
 
-def pick_article(issue, used_links):
+def recent_issue_dates(base_date, days=LOOKBACK_DAYS):
+    """base_date부터 거꾸로 days일 중 이슈 파일이 있는 날짜."""
+    base = datetime.strptime(base_date, "%Y-%m-%d")
+    dates = [(base - timedelta(days=offset)).strftime("%Y-%m-%d") for offset in range(days)]
+
+    return [date for date in dates if os.path.exists(os.path.join(DAILY_ISSUES_DIR, f"{date}.json"))]
+
+
+def pick_article(issues, used_links):
+    """아직 영상으로 안 만든 기사 중 하나를 고른다.
+
+    issues: [(이슈 날짜, 이슈), ...]. AI 기사를 먼저, 그다음 점수 높은 순, 최신 이슈 순.
+    """
     candidates = [
-        article
+        {**article, "issue_date": issue_date}
+        for issue_date, issue in issues
         for article in issue_articles(issue)
-        if is_ai_article(article) and article["link"] not in used_links
+        if article["link"] not in used_links
     ]
 
     if not candidates:
@@ -136,7 +156,9 @@ def pick_article(issue, used_links):
     return max(
         candidates,
         key=lambda article: (
+            is_ai_article(article),
             article.get("selection_score") or 0,
+            article["issue_date"],
             -(article.get("editorial_rank") or 99),
         ),
     )
@@ -153,6 +175,8 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 YouTube Shorts 채널 "{channel}"의 
 말투:
 - 친구한테 썰 푸는 구어체. "~했습니다" 같은 발표체 금지. "~거든요", "~래요", "~한 거죠", "근데", "심지어" 같은 말로 리듬을 만든다.
 - 한 컷 = 한 호흡. line은 4~18자 짧은 문장 하나. 길면 두 컷으로 쪼갠다.
+- line 안에 화면 자막을 끊을 위치를 " / "로 표시한다. 한 조각은 1~3어절, 의미가 붙어 있는 말은 절대 떼지 않는다.
+  좋은 예: "엔지니어 / 한 명당 / 병합 5배래요."  나쁜 예: "엔지니어 한 / 명당 병합"
 - 컷은 12~16개. 전체 line 글자 수(공백 포함) 합계 190~260자 (약 35~45초).
 - 영어 약어는 한 번은 쉽게 풀어서 말한다.
 
@@ -160,7 +184,8 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 YouTube Shorts 채널 "{channel}"의 
 - 1컷(훅): 가장 놀라운 숫자나 결론을 바로 던진다. 인사, 채널 소개, "오늘은" 금지. (예: "학습 0번.", "월급보다 AI값이 더 나와요.")
 - 2~3컷: "근데 진짜예요." 처럼 궁금증을 키운다.
 - 중간: 무슨 일인지, 왜 놀라운지, 숫자와 사실로 빠르게.
-- 끝 2컷: 그래서 나한테 뭐가 바뀌는지 + 시청자에게 던지는 짧은 질문.
+- 끝나기 전 1~2컷: "그래서 나는 뭘 하면 되냐". 확인할 것, 바꿀 설정, 써볼 방법처럼 바로 따라 할 행동을 구체적으로.
+- 마지막 컷: 시청자에게 던지는 짧은 질문.
 - 숫자, 회사명, 결과는 반드시 주어진 기사에 있는 것만. 없는 사실을 지어내지 않는다.
 
 emphasis: 그 컷에서 화면 자막 색을 바꿀 핵심 단어 0~2개. line에 그대로 들어 있는 어절이어야 한다.
@@ -176,7 +201,9 @@ visual: 컷마다 화면 위쪽에 띄울 그래픽 하나. 같은 type을 연�
 - none: 그래픽 없이 자막만 크게. 흐름상 쉬어가는 컷에만.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 
-title은 40자 이내, 해시태그 없이 클릭하고 싶은 질문형이나 단정형. hashtags는 # 없이 3~5개."""
+cover: 영상 내내 화면 맨 위에 고정되는 제목. 썸네일 역할도 한다. 2줄이면 줄 사이에 \\n, 줄당 10자 이내. 예: "Cursor 확장\\n백도어 주의".
+title은 40자 이내, 해시태그 없이 클릭하고 싶은 질문형이나 단정형. hashtags는 # 없이 3~5개.
+더보기란용: summary는 무슨 일인지 1~2문장. tips는 시청자가 바로 써먹을 행동 1~3개(명령어·설정이 있으면 그대로). caution은 비용·보안·개인정보 주의점 한 줄, 없으면 빈 문자열."""
 
 
 VISUAL_TYPES = ["hook", "number", "compare", "flow", "keywords", "code", "question", "none"]
@@ -213,7 +240,10 @@ SCRIPT_SCHEMA = {
     "type": "object",
     "properties": {
         "title": {"type": "string"},
-        "description": {"type": "string"},
+        "cover": {"type": "string"},
+        "summary": {"type": "string"},
+        "tips": {"type": "array", "items": {"type": "string"}},
+        "caution": {"type": "string"},
         "hashtags": {"type": "array", "items": {"type": "string"}},
         "cuts": {
             "type": "array",
@@ -229,7 +259,7 @@ SCRIPT_SCHEMA = {
             },
         },
     },
-    "required": ["title", "description", "hashtags", "cuts"],
+    "required": ["title", "cover", "summary", "tips", "caution", "hashtags", "cuts"],
     "additionalProperties": False,
 }
 
@@ -370,12 +400,18 @@ def validate_script(script):
     for cut in cuts:
         cut["line"] = (cut.get("line") or "").strip()
 
-        if not cut["line"]:
+        if not spoken_line(cut):
             raise ValueError("대사가 비어 있는 컷이 있습니다.")
 
         # 자막에서 강조할 단어는 대사에 실제로 들어 있는 것만 남긴다.
-        cut["emphasis"] = [word for word in cut.get("emphasis") or [] if word and word in cut["line"]]
-        cut["visual"] = drop_duplicate_label(validate_visual(cut.get("visual")), cut["line"])
+        cut["emphasis"] = [word for word in cut.get("emphasis") or [] if word and word in spoken_line(cut)]
+        cut["visual"] = drop_duplicate_label(validate_visual(cut.get("visual")), spoken_line(cut))
+
+    # 모델이 줄바꿈을 글자 그대로 "\n"으로 쓰는 경우가 있다.
+    script["cover"] = (script.get("cover") or script.get("title") or "").replace("\\n", "\n").strip()
+    script["summary"] = (script.get("summary") or "").strip()
+    script["tips"] = [tip.strip() for tip in script.get("tips") or [] if tip.strip()]
+    script["caution"] = (script.get("caution") or "").strip()
 
     script["hashtags"] = [
         tag.strip().lstrip("#").replace(" ", "")
@@ -384,6 +420,19 @@ def validate_script(script):
     ]
 
     return script
+
+
+def spoken_line(cut):
+    """자막 끊는 표시(/)를 뺀, 실제로 읽을 대사."""
+    return re.sub(r"\s*/\s*", " ", cut["line"]).strip()
+
+
+def caption_segments(cut):
+    """대본이 표시한 자막 조각별 어절 수. 표시가 없으면 None."""
+    if "/" not in cut["line"]:
+        return None
+
+    return [len(piece.split()) for piece in cut["line"].split("/") if piece.split()]
 
 
 def validate_visual(visual):
@@ -483,7 +532,7 @@ GEMINI_TTS_STYLE = (
 )
 
 
-def gemini_tts(text, path):
+def gemini_tts(text, path, voice):
     """Gemini TTS로 내레이션 mp3를 만든다. 말투는 GEMINI_TTS_STYLE 지시로 조절한다."""
     import base64
 
@@ -491,7 +540,7 @@ def gemini_tts(text, path):
         "contents": [{"parts": [{"text": GEMINI_TTS_STYLE + text}]}],
         "generationConfig": {
             "responseModalities": ["AUDIO"],
-            "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": GEMINI_TTS_VOICE}}},
+            "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voice}}},
         },
     }
     request = urllib.request.Request(
@@ -608,21 +657,21 @@ def align_to_script(text, heard, duration_ms):
     return [{"text": token, "startMs": starts[i], "endMs": ends[i]} for i, token in enumerate(tokens)]
 
 
-def synthesize_narration(cuts, work_dir):
+def synthesize_narration(cuts, work_dir, voice):
     """모든 컷의 대사를 한 번에 읽혀서 컷 사이가 끊기지 않게 한다.
 
     Gemini TTS를 먼저 쓰고, 실패하면 edge-tts로 대체한다.
-    돌려주는 값: (mp3 경로, 컷별 단어 목록). 단어마다 startMs, endMs가 있다.
+    돌려주는 값: (mp3 경로, 컷별 단어 목록, 실제로 쓴 목소리). 단어마다 startMs, endMs가 있다.
     """
     path = os.path.join(work_dir, "narration.mp3")
-    text = " ".join(cut["line"] for cut in cuts)
+    text = " ".join(spoken_line(cut) for cut in cuts)
     words = None
 
     if GEMINI_API_KEY:
         try:
-            gemini_tts(text, path)
+            gemini_tts(text, path, voice)
             words = align_to_script(text, transcribe_words(path), audio_duration(path) * 1000)
-            print(f"음성: Gemini TTS ({GEMINI_TTS_VOICE})")
+            print(f"음성: Gemini TTS ({voice})")
         except Exception as error:
             print(f"Gemini TTS 실패, edge-tts로 대체합니다: {error}")
 
@@ -635,15 +684,16 @@ def synthesize_narration(cuts, work_dir):
             words = align_words(text, [], audio_duration(path) * 1000)
 
         print(f"음성: edge-tts ({TTS_VOICE})")
+        voice = TTS_VOICE
 
     per_cut, index = [], 0
 
     for cut in cuts:
-        count = len(cut["line"].split())
+        count = len(spoken_line(cut).split())
         per_cut.append(words[index:index + count])
         index += count
 
-    return path, per_cut
+    return path, per_cut, voice
 
 
 # ---------------------------------------------------------------------------
@@ -654,9 +704,22 @@ def ms_to_frame(ms):
     return round(ms * VIDEO_FPS / 1000)
 
 
-def caption_chunks(words, emphasis):
-    """한 컷의 단어를 1~2어절씩 묶는다. 화면 가운데에 툭툭 튀어나오는 자막 단위."""
+def caption_chunks(words, emphasis, segments=None):
+    """한 컷의 단어를 화면 자막 조각으로 묶는다.
+
+    대본이 "/"로 끊을 위치를 정해 줬으면(segments) 그대로 따르고,
+    아니면 1~2어절씩 기계적으로 묶는다.
+    """
     chunks, current = [], []
+
+    if segments and sum(segments) == len(words):
+        index = 0
+
+        for count in segments:
+            chunks.append(words[index:index + count])
+            index += count
+
+        words = []
 
     for word in words:
         if current and (len(current) == 2 or len("".join(w["text"] for w in current + [word])) > 8):
@@ -700,7 +763,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
 
     for index, (cut, words) in enumerate(zip(cuts, cut_words)):
         start, end = starts[index], max(ends[index], starts[index] + 1)
-        chunks = caption_chunks(words, cut["emphasis"])
+        chunks = caption_chunks(words, cut["emphasis"], caption_segments(cut))
         chunk_starts = [max(ms_to_frame(c["startMs"]) - start, 0) for c in chunks]
         chunk_ends = chunk_starts[1:] + [end - start]
 
@@ -733,6 +796,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
 
     return {
         "channel": CHANNEL_NAME,
+        "cover": script["cover"],
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",
         "durationInFrames": total_frames,
@@ -884,17 +948,29 @@ def youtube_access_token():
         return json.loads(response.read().decode("utf-8"))["access_token"]
 
 
-def build_description(script, article):
+def build_description(script, article, history=()):
     hashtags = " ".join(f"#{tag}" for tag in ["shorts", *script["hashtags"]])
+    sections = [script.get("summary") or script["title"]]
 
-    return "\n\n".join(
-        [
-            script["description"].strip(),
-            f"원문: {article['link']}",
-            "이 영상의 대본과 음성은 AI로 생성되었습니다.",
-            hashtags,
-        ]
-    )
+    if script.get("tips"):
+        sections.append("✅ 바로 써먹는 법\n" + "\n".join(f"- {tip}" for tip in script["tips"]))
+
+    if script.get("caution"):
+        sections.append(f"⚠️ 주의\n{script['caution']}")
+
+    sections.append(f"🔗 원문\n{article['link']}")
+
+    recent = [entry for entry in history if entry.get("video_id")][-3:]
+
+    if recent:
+        sections.append(
+            "📺 지난 영상\n"
+            + "\n".join(f"- {entry['title']}: https://youtu.be/{entry['video_id']}" for entry in reversed(recent))
+        )
+
+    sections += ["이 영상의 대본과 음성은 AI로 생성되었습니다.", hashtags]
+
+    return "\n\n".join(sections)
 
 
 YOUTUBE_ERROR_HINTS = {
@@ -922,12 +998,12 @@ def youtube_error_reason(error):
     return f"{', '.join(filter(None, reasons))} {detail.get('message', '')}".strip()
 
 
-def upload_youtube(video_path, script, article):
+def upload_youtube(video_path, script, article, history=()):
     token = youtube_access_token()
     metadata = {
         "snippet": {
             "title": script["title"][:100],
-            "description": build_description(script, article)[:5000],
+            "description": build_description(script, article, history)[:5000],
             "tags": script["hashtags"],
             "categoryId": "28",  # Science & Technology
             "defaultLanguage": "ko",
@@ -969,7 +1045,10 @@ def upload_youtube(video_path, script, article):
         )
 
     with urllib.request.urlopen(upload, timeout=600) as response:
-        return json.loads(response.read().decode("utf-8"))["id"]
+        result = json.loads(response.read().decode("utf-8"))
+
+    # 심사를 받지 않은 API 프로젝트는 public으로 요청해도 YouTube가 private으로 잠근다.
+    return result["id"], result.get("status", {}).get("privacyStatus", UPLOAD_PRIVACY)
 
 
 def notify_slack(text):
@@ -1005,19 +1084,21 @@ def parse_args():
 def main():
     args = parse_args()
 
-    issue = load_issue(args.date)
     history = load_json(SHORTS_HISTORY_FILE, [])
     used_links = {entry["link"] for entry in history}
+    issues = [(date, load_issue(date)) for date in recent_issue_dates(args.date)]
 
-    article = pick_article(issue, used_links)
+    article = pick_article(issues, used_links)
 
     if not article:
-        print(f"{args.date} 이슈에 영상으로 만들 새 AI 기사가 없습니다.")
+        print(f"{args.date} 기준 최근 {LOOKBACK_DAYS}일 이슈에 영상으로 만들 새 기사가 없습니다.")
         return
 
-    print(f"선택한 기사: {article['title']}")
+    print(f"선택한 기사: [{article['issue_date']}] {article['title']}")
 
-    work_dir = os.path.join(OUTPUT_DIR, args.date)
+    # 같은 날 여러 편을 만들 수 있게 기사마다 작업 폴더를 나눈다.
+    slug = re.sub(r"[^0-9A-Za-z]+", "-", urllib.parse.urlsplit(article["link"]).path + urllib.parse.urlsplit(article["link"]).query)
+    work_dir = os.path.join(OUTPUT_DIR, f"{article['issue_date']}_{slug.strip('-')[-24:]}")
     os.makedirs(work_dir, exist_ok=True)
 
     if args.script:
@@ -1028,7 +1109,9 @@ def main():
     save_json(os.path.join(work_dir, "script.json"), script)
     print(f"대본 생성 완료: {script['title']} (컷 {len(script['cuts'])}개)")
 
-    narration_path, cut_words = synthesize_narration(script["cuts"], work_dir)
+    # 영상마다 목소리를 번갈아 쓴다.
+    voice = GEMINI_TTS_VOICES[len(history) % len(GEMINI_TTS_VOICES)]
+    narration_path, cut_words, voice = synthesize_narration(script["cuts"], work_dir, voice)
     print("음성 생성 완료")
 
     source_label = f"출처: {article.get('company')} · {urllib.parse.urlsplit(article['link']).netloc}"
@@ -1045,21 +1128,28 @@ def main():
     elif not can_upload:
         print("YouTube 인증 정보가 없어 업로드를 건너뜁니다.")
     else:
-        video_id = upload_youtube(video_path, script, article)
-        print(f"업로드 완료 ({UPLOAD_PRIVACY}): https://youtu.be/{video_id}")
+        video_id, privacy = upload_youtube(video_path, script, article, history)
+        print(f"업로드 완료 ({privacy}): https://youtu.be/{video_id}")
+
+        if privacy == "public":
+            headline = f"[{CHANNEL_NAME}] 새 Shorts 공개 업로드"
+        else:
+            headline = f"[{CHANNEL_NAME}] 새 Shorts 업로드 ({privacy}) — Studio에서 공개로 바꿔주세요"
+
         notify_slack(
-            f"[{CHANNEL_NAME}] 새 Shorts 업로드 ({UPLOAD_PRIVACY}) — 확인 후 공개로 바꿔주세요\n"
-            f"*{script['title']}*\nhttps://studio.youtube.com/video/{video_id}/edit\n원문: {article['link']}"
+            f"{headline}\n*{script['title']}*\nhttps://youtu.be/{video_id}\n"
+            f"https://studio.youtube.com/video/{video_id}/edit\n원문: {article['link']}"
         )
 
     # 업로드하지 않은 로컬 테스트는 이력에 남기지 않는다. 같은 기사로 다시 만들 수 있게.
     if video_id:
         history.append(
             {
-                "date": args.date,
+                "date": article["issue_date"],
                 "link": article["link"],
                 "title": script["title"],
                 "video_id": video_id,
+                "voice": voice,
             }
         )
         save_json(SHORTS_HISTORY_FILE, history)
