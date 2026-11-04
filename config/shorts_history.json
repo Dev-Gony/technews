@@ -28,5 +28,11 @@
     "link": "https://news.hada.io/topic?id=36328",
     "title": "엔지니어 1명당 병합 5배, 어떻게 가능했을까?",
     "video_id": "wdw5dWdSCPc"
+  },
+  {
+    "date": "2026-11-04",
+    "link": "https://developers.googleblog.com/cost-per-task-using-cheap-classifiers-to-route-across-gemini-models-and-thinking-levels",
+    "title": "AI 에이전트 비용, 토큰값만 보면 손해인 이유?",
+    "video_id": "tXEkxHTLRqA"
   }
 ]
