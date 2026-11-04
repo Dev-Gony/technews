@@ -105,7 +105,7 @@ def issue_articles(issue):
     for section in ("top_stories", "more_detailed"):
         for article in issue.get(section) or []:
             if article.get("key_points") and article.get("link"):
-                articles.append(article)
+                articles.append({**article, "section": section})
 
     return articles
 
@@ -141,7 +141,10 @@ def recent_issue_dates(base_date, days=LOOKBACK_DAYS):
 def pick_article(issues, used_links):
     """아직 영상으로 안 만든 기사 중 하나를 고른다.
 
-    issues: [(이슈 날짜, 이슈), ...]. AI 기사를 먼저, 그다음 점수 높은 순, 최신 이슈 순.
+    issues: [(이슈 날짜, 이슈), ...]. 고르는 순서:
+    1. 최신 이슈 먼저 (오늘 기사를 다 쓴 뒤에야 전날 기사로 넘어간다)
+    2. 같은 날이면 주요 기사(top_stories) → 나머지 상세 기사
+    3. 그 안에서 AI 기사 → 점수 높은 순 → 편집 순위
     """
     candidates = [
         {**article, "issue_date": issue_date}
@@ -156,9 +159,10 @@ def pick_article(issues, used_links):
     return max(
         candidates,
         key=lambda article: (
+            article["issue_date"],
+            article["section"] == "top_stories",
             is_ai_article(article),
             article.get("selection_score") or 0,
-            article["issue_date"],
             -(article.get("editorial_rank") or 99),
         ),
     )
