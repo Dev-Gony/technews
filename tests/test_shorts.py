@@ -57,25 +57,28 @@ class ShortsTest(unittest.TestCase):
 
         issues = [("2026-11-03", issue)]
 
+        # 주요 기사(top_stories) 안에서 AI 기사가 먼저
         picked = shorts.pick_article(issues, used_links=set())
         self.assertEqual(picked["link"], "llm")
         self.assertEqual(picked["issue_date"], "2026-11-03")
 
+        # 주요 기사는 AI가 아니어도 나머지 상세 기사보다 먼저
         picked = shorts.pick_article(issues, used_links={"llm"})
-        self.assertEqual(picked["link"], "claude")
-
-        # AI 기사를 다 쓰면 다른 기술 기사로 이어서 만든다.
-        picked = shorts.pick_article(issues, used_links={"llm", "claude"})
         self.assertEqual(picked["link"], "dr")
+
+        picked = shorts.pick_article(issues, used_links={"llm", "dr"})
+        self.assertEqual(picked["link"], "claude")
 
         self.assertIsNone(shorts.pick_article(issues, used_links={"llm", "claude", "dr"}))
 
-    def test_pick_article_prefers_newer_issue_on_tie(self):
-        older = {"top_stories": [make_article("LLM 소식 A", 14, "old")]}
-        newer = {"top_stories": [make_article("LLM 소식 B", 14, "new")]}
+    def test_pick_article_uses_today_before_older_issues(self):
+        # 전날 기사가 AI·고득점이어도 오늘 기사를 먼저 쓴다.
+        older = {"top_stories": [make_article("LLM 대형 소식", 15, "old")]}
+        newer = {"more_detailed": [make_article("DB 마이그레이션 사례", 9, "new")]}
+        issues = [("2026-11-03", newer), ("2026-11-02", older)]
 
-        picked = shorts.pick_article([("2026-11-02", older), ("2026-11-03", newer)], used_links=set())
-        self.assertEqual(picked["link"], "new")
+        self.assertEqual(shorts.pick_article(issues, used_links=set())["link"], "new")
+        self.assertEqual(shorts.pick_article(issues, used_links={"new"})["link"], "old")
 
     def test_validate_script_cleans_hashtags(self):
         script = shorts.validate_script(
