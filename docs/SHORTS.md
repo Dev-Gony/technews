@@ -135,11 +135,9 @@ claude setup-token
 - Remotion은 개인·3인 이하 팀은 무료다.
 - Claude Code용 Remotion 공식 스킬이 `.claude/skills/`에 들어 있다.
 
-## 자동 공개 (YouTube API 심사)
+## 공개 업로드와 한도
 
-2020년 7월 이후 만든 Google Cloud 프로젝트는 YouTube의 심사(audit)를 통과하기 전까지 API로 올린 영상이 **비공개로 잠긴다**.
-업로드는 이미 공개로 요청하고 있으므로, 심사만 통과하면 코드 수정 없이 바로 자동 공개된다.
-
-- 신청: [YouTube API Services Audit and Quota Extension Form](https://support.google.com/youtube/contact/yt_api_form)
-- 필요한 것: Google Cloud 프로젝트 번호, 앱 설명(개인 채널 자동 업로드), 개인정보처리방침 URL(`https://dev-gony.github.io/technews/privacy.html`)
-- 심사 전에는 Slack 알림의 Studio 링크에서 공개로 바꾸면 된다.
+- 업로드는 공개로 요청하고, 실제로 공개로 올라간다(2026-11-05 확인, 별도 심사 없이).
+- 하루 한도는 YouTube Data API 10,000 단위, 업로드 1번에 1,600 단위라 하루 6편이 최대다.
+- 더 올리려면 [YouTube API Services Audit and Quota Extension Form](https://support.google.com/youtube/contact/yt_api_form)으로 한도 증설을 신청한다.
+  개인정보처리방침 URL: `https://dev-gony.github.io/technews/privacy.html`
