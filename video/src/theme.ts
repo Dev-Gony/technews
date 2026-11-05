@@ -16,6 +16,10 @@ export const colors = {
   highlight: "#FFD84D",
   blue: "#4D8DFF",
   green: "#3DDC97",
+  // 자막 강조: 문제·경고는 네온 레드, 숫자·해결은 민트
+  neonRed: "#FF3D5A",
+  mint: "#3DFFC1",
+  mintSoft: "rgba(61, 255, 193, 0.18)",
 };
 
 // Shorts 화면에서 제목, 버튼에 가리지 않는 영역 (1080x1920 기준)

@@ -8,15 +8,21 @@ export const barSchema = z.object({
   display: z.string(),
 });
 
+export const roomSchema = z.object({
+  place: z.string(),
+  actual: z.string(),
+});
+
 export const visualSchema = z.object({
-  // hook: 첫 컷 대형 문구 / number: 숫자 카운트업 / compare: 막대 비교 / flow: 단계 흐름도
+  // hook: 첫 컷 대형 문구 / metaphor: 공간·역할 비유 입체 건물 / number: 숫자 카운트업 / compare: 막대 비교 / flow: 단계 흐름도
   // keywords: 핵심 단어 카드 / code: 터미널 코드 / question: 질문 카드 / none: 자막만
-  type: z.enum(["hook", "number", "compare", "flow", "keywords", "code", "question", "none"]),
+  type: z.enum(["hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none"]),
   value: z.string().optional(),
   label: z.string().optional(),
   items: z.array(z.string()).optional(),
   bars: z.array(barSchema).optional(),
   code: z.string().optional(),
+  rooms: z.array(roomSchema).optional(),
 });
 
 export const chunkSchema = z.object({

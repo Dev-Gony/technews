@@ -172,36 +172,48 @@ def pick_article(issues, used_links):
 # 대본 생성 (Claude)
 # ---------------------------------------------------------------------------
 
-SCRIPT_SYSTEM_PROMPT = """너는 한국어 YouTube Shorts 채널 "{channel}"의 작가다.
-채널 콘셉트: 개발자·직장인이 출퇴근길에 넘기다 멈추게 되는 AI 소식. 목소리는 AI 음성, 얼굴은 안 나온다.
-시청자는 1초 안에 넘길지 정한다. 국어책처럼 읽히면 실패다.
+SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"의 수석 쇼츠 디렉터다.
+목표: 30초 안에 개발자·직장인의 뇌에 박히는 고밀도 쇼츠. 시청자는 1초 안에 넘길지 정한다. 국어책처럼 읽히면 실패다.
+목소리는 AI 음성, 얼굴은 안 나온다.
 
 말투:
-- 친구한테 썰 푸는 구어체. "~했습니다" 같은 발표체 금지. "~거든요", "~래요", "~한 거죠", "근데", "심지어" 같은 말로 리듬을 만든다.
-- 한 컷 = 한 호흡. line은 4~18자 짧은 문장 하나. 길면 두 컷으로 쪼갠다.
+- 현업 시니어가 후배한테 뼈 때리듯 말하는 시니컬한 구어체. "~죠", "~거든요", "~한 거예요", "근데", "솔직히" 같은 말로 리듬을 만든다.
+  "~했습니다" 같은 발표체, "좋아집니다"·"혁신적입니다" 같은 두루뭉술한 말 금지.
+- 한 컷 = 한 호흡. line은 4~16자 짧은 문장 하나. 길면 두 컷으로 쪼갠다.
 - line 안에 화면 자막을 끊을 위치를 " / "로 표시한다. 한 조각은 1~3어절, 의미가 붙어 있는 말은 절대 떼지 않는다.
   좋은 예: "엔지니어 / 한 명당 / 병합 5배래요."  나쁜 예: "엔지니어 한 / 명당 병합"
-- 컷은 12~16개. 전체 line 글자 수(공백 포함) 합계 190~260자 (약 35~45초).
+- 컷은 10~13개. 전체 line 글자 수(공백 포함) 합계 150~190자 (약 30초).
 - 영어 약어는 한 번은 쉽게 풀어서 말한다.
 
-구조:
-- 1컷(훅): 가장 놀라운 숫자나 결론을 바로 던진다. 인사, 채널 소개, "오늘은" 금지. (예: "학습 0번.", "월급보다 AI값이 더 나와요.")
-- 2~3컷: "근데 진짜예요." 처럼 궁금증을 키운다.
-- 중간: 무슨 일인지, 왜 놀라운지, 숫자와 사실로 빠르게.
-- 끝나기 전 1~2컷: "그래서 나는 뭘 하면 되냐". 확인할 것, 바꿀 설정, 써볼 방법처럼 바로 따라 할 행동을 구체적으로.
-- 마지막 컷: 시청자에게 던지는 짧은 질문.
-- 숫자, 회사명, 결과는 반드시 주어진 기사에 있는 것만. 없는 사실을 지어내지 않는다.
+구조 (30초):
+1. 0~3초, 1컷(훅): 인사·채널 소개·"오늘은" 절대 금지. 첫 마디부터 개발자의 고통을 찌르는 문제 제기.
+   API 요금 폭탄, 에이전트 폭주, 야근, 장애, 보안 사고처럼 기사 주제와 직접 이어지는 아픔으로 시작한다.
+   (예: "API 청구서, / 또 폭탄이죠?", "에이전트가 / 혼자 폭주하죠?")
+2. 2~3컷: 이 기사가 내놓은 답이나 가장 센 결과를 바로 던진다.
+3. 중간 4~5컷: 공간·역할 비유로 구조를 설명한다.
+   - 복잡한 구조를 건물·사무실·주방 같은 공간과 사람의 역할로 바꾼다.
+     예: "위층 소장실(상주 대장)이 일을 나누고, 아래층 인력사무소(비상주 일꾼)가 필요할 때만 와서 처리"
+   - 비유는 영상 하나에 하나만 골라 끝까지 일관되게 쓴다. 비유와 실제 기술을 꼭 짝지어 말한다.
+4. 수치 2~3컷: 기사에 있는 정량적 수치와 동작 방식(무엇이 무엇을 대신하는지, 몇 단계인지)을 구체적으로.
+5. 마지막 1~2컷: 시청자가 이번 주에 할 행동을 뼈 때리는 한 마디로. (예: "청구서 보기 전에 / 구조부터 / 뜯어보세요.")
 
-emphasis: 그 컷에서 화면 자막 색을 바꿀 핵심 단어 0~2개. line에 그대로 들어 있는 어절이어야 한다.
+사실 규칙 (가장 중요):
+- 숫자, 회사명, 결과, 동작 방식은 반드시 주어진 기사에 있는 것만. 없는 사실·수치를 지어내지 않는다.
+- 위 예시의 수치나 상황을 그대로 가져오지 않는다. 기사에 수치가 없으면 숫자 대신 구체적인 동작 방식으로 말한다.
 
-visual: 컷마다 화면 위쪽에 띄울 그래픽 하나. 같은 type을 연달아 3번 이상 쓰지 않는다.
-- hook: 1컷 전용. value에 화면을 꽉 채울 2~8자 (숫자나 핵심어). 예: "학습 0번", "250배".
+emphasis: 그 컷에서 화면 자막 색을 바꿀 핵심 단어 0~2개. line에 그대로 들어 있는 어절이어야 한다. 숫자는 꼭 강조한다.
+
+visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 연달아 3번 이상 쓰지 않는다.
+- hook: 1컷 전용. value에 화면을 꽉 채울 2~8자 (아픔이나 핵심어). 예: "청구서 폭탄", "250배".
+- metaphor: 공간·역할 비유를 입체 건물로 보여준다. 비유를 처음 꺼내는 컷에 꼭 1번, 필요하면 한 번 더.
+  rooms에 위층부터 2~3개. place는 비유 공간(8자 이내, 예: "위층 소장실"), actual은 그 공간이 뜻하는 실제 기술(12자 이내, 예: "자체 GLM 서버").
+  label은 비유 이름(10자 이내, 예: "AI 인력사무소"), 없으면 비워둔다.
 - number: 숫자 하나 카운트업. value에 숫자+단위, label에 무엇의 숫자인지 짧게.
 - compare: 2~4개 값을 막대로 비교. bars에 label, value(숫자), display. 기사에 실제 수치가 2개 이상 있을 때만.
-- flow: 과정이나 원리 2~4단계. items에 단계별 10자 이내.
+- flow: 과정이나 단계 2~4개. items에 단계별 10자 이내.
 - keywords: 핵심 단어 2~3개 카드. items에 단어별 8자 이내.
 - code: 개발자용 코드·명령어 5줄 이내. 기사 내용과 직접 관련 있을 때만.
-- question: 마지막 컷 질문 카드. label은 line을 그대로 옮기지 말고 12자 이내로 더 짧게.
+- question: 질문 카드. label은 line을 그대로 옮기지 말고 12자 이내로 더 짧게.
 - none: 그래픽 없이 자막만 크게. 흐름상 쉬어가는 컷에만.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 
@@ -210,7 +222,7 @@ title은 40자 이내, 해시태그 없이 클릭하고 싶은 질문형이나 �
 더보기란용: summary는 무슨 일인지 1~2문장. tips는 시청자가 바로 써먹을 행동 1~3개(명령어·설정이 있으면 그대로). caution은 비용·보안·개인정보 주의점 한 줄, 없으면 빈 문자열."""
 
 
-VISUAL_TYPES = ["hook", "number", "compare", "flow", "keywords", "code", "question", "none"]
+VISUAL_TYPES = ["hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none"]
 
 # video/src/schema.ts의 visualSchema와 같은 구조
 VISUAL_SCHEMA = {
@@ -234,6 +246,18 @@ VISUAL_SCHEMA = {
             },
         },
         "code": {"type": "string"},
+        "rooms": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "place": {"type": "string"},
+                    "actual": {"type": "string"},
+                },
+                "required": ["place", "actual"],
+                "additionalProperties": False,
+            },
+        },
     },
     "required": ["type"],
     "additionalProperties": False,
@@ -456,6 +480,7 @@ def validate_visual(visual):
 
     has_content = {
         "hook": bool((visual.get("value") or "").strip()),
+        "metaphor": len([room for room in visual.get("rooms") or [] if (room.get("place") or "").strip()]) >= 2,
         "number": bool(re.search(r"\d", visual.get("value") or "")),
         "compare": len(visual.get("bars") or []) >= 2,
         "flow": len(visual.get("items") or []) >= 2,
@@ -1090,6 +1115,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="GONY DAILY 기사로 YouTube Shorts 만들기")
     parser.add_argument("--date", default=today_kst(), help="이슈 날짜 (기본: 오늘, KST)")
     parser.add_argument("--script", help="Claude 대신 이 대본 JSON 파일을 사용")
+    parser.add_argument("--link", help="이 기사로 만들기 (이미 만든 기사도 가능, 테스트용)")
     parser.add_argument("--no-upload", action="store_true", help="영상만 만들고 업로드하지 않음")
 
     return parser.parse_args()
@@ -1102,7 +1128,18 @@ def main():
     used_links = {entry["link"] for entry in history}
     issues = [(date, load_issue(date)) for date in recent_issue_dates(args.date)]
 
-    article = pick_article(issues, used_links)
+    if args.link:
+        article = next(
+            (
+                {**article, "issue_date": date}
+                for date, issue in issues
+                for article in issue_articles(issue)
+                if article["link"] == args.link
+            ),
+            None,
+        )
+    else:
+        article = pick_article(issues, used_links)
 
     if not article:
         print(f"{args.date} 기준 최근 {LOOKBACK_DAYS}일 이슈에 영상으로 만들 새 기사가 없습니다.")

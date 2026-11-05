@@ -2,7 +2,9 @@ import { Easing, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "
 import type { Chunk } from "./schema";
 import { colors, fontFamily, layout } from "./theme";
 
-// 1~2어절씩 툭 튀어나오는 자막. 강조 단어는 노란색.
+// 1~2어절씩 툭 튀어나오는 자막. 강조 단어는 숫자면 민트, 아니면 네온 레드.
+const emphasisColor = (text: string) => (/\d/.test(text) ? colors.mint : colors.neonRed);
+
 const PopWord: React.FC<{ chunk: Chunk; center: boolean }> = ({ chunk, center }) => {
   const frame = useCurrentFrame();
   const { width } = useVideoConfig();
@@ -22,7 +24,7 @@ const PopWord: React.FC<{ chunk: Chunk; center: boolean }> = ({ chunk, center })
         lineHeight: 1.15,
         letterSpacing: -2,
         wordBreak: "keep-all",
-        color: chunk.emphasis ? colors.highlight : colors.text,
+        color: chunk.emphasis ? emphasisColor(chunk.text) : colors.text,
         WebkitTextStroke: "14px #000",
         paintOrder: "stroke fill",
         textShadow: "0 10px 30px rgba(0,0,0,0.55)",
