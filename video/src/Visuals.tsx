@@ -312,7 +312,7 @@ const QuestionVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
 };
 
 // 공간·역할 비유: 층마다 떨어져 쌓이는 아이소메트릭 건물. 맨 위층(대장)은 네온 레드,
-// 아래층(일꾼)은 남색 + 민트 창문. 층 사이로 일감(점)이 오르내리고, 오른쪽에 "비유 = 실제 기술".
+// 아래층(일꾼)은 먹색 + 골드 창문. 층 사이로 일감(점)이 오르내리고, 오른쪽에 "비유 = 실제 기술".
 const isoPoints = (points: [number, number][]) => points.map(([x, y]) => `${x},${y}`).join(" ");
 
 const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual, sceneFrames }) => {
