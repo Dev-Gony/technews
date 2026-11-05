@@ -1,0 +1,593 @@
+{
+  "schema_version": 1,
+  "issue_number": 47,
+  "issue_date": "2026-11-05",
+  "generated_at": "2026-11-05T10:19:09.068844+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nMCP(Model Context Protocol), AI 에이전트 보안, EC2 용량 관리, 데이터 거버넌스, 인프라 가시성\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 실무 시스템에 깊숙이 통합됨에 따라, 단순한 모델 성능을 넘어 데이터 접근 제어와 인프라 최적화라는 운영 역량이 핵심 경쟁력이 되고 있습니다.\n\n[오늘 왜 중요한가]\n\n최근 AI 기술은 단순한 텍스트 생성을 넘어 실제 데이터베이스를 조회하고 인프라를 제어하는 에이전트 형태로 진화하고 있습니다. 이러한 변화 속에서 보안 사고를 방지하고 시스템 효율성을 극대화하기 위한 실무적인 가이드라인과 도구들을 선제적으로 파악하는 것이 중요합니다.\n\n[왜 이 글들을 골랐나]\n\n• 15번: AI 에이전트가 사내 지표를 안전하게 조회하게 해주는 쿼리 엔진 사례는 데이터 거버넌스와 에이전트 연동의 실무적 해법을 제시합니다.\n• 3번: AI 에이전트의 사이트 접근을 제어하고 가시성을 확보하는 기술은 서비스 보안 담당자에게 필수적인 방어 전략입니다.\n• 4번: EC2 용량 관리 도구는 대규모 인프라 운영 시 비용 효율성과 가용성을 동시에 확보할 수 있는 구체적인 방법론을 담고 있습니다.\n\n[오늘 공부해볼 것]\n\n• MCP(Model Context Protocol) 규격: AI 에이전트가 외부 데이터 소스와 표준화된 방식으로 통신하는 방법을 이해하여 향후 에이전트 아키텍처 설계에 활용하기 위함입니다.\n• AI 에이전트 트래픽 제어 정책: 봇 정책과 접근 제어 설정을 통해 서비스의 데이터 유출을 막고 광고 수익을 보호하는 실무 보안 역량을 강화하기 위함입니다.\n• 클라우드 인프라 용량 충족률(Fulfillment Rate) 분석: 인프라의 유연성을 수치화하여 비용 최적화와 안정적인 서비스 운영을 위한 데이터 기반 의사결정 능력을 기르기 위함입니다.",
+  "stats": {
+    "candidate_count": 25,
+    "detailed_count": 18,
+    "brief_count": 3,
+    "excluded_count": 4,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "sutura - AI 에이전트가 회사의 지표 정의로 데이터를 조회하게 해주는 쿼리 엔진",
+      "link": "https://news.hada.io/topic?id=36620",
+      "published_at": "2026-11-05T09:30:02+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트, MCP, SQL, 데이터 분석 등 사용자의 핵심 관심사가 모두 포함된 실무적이고 혁신적인 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트가 회사의 지표 정의를 기반으로 안전하게 데이터를 조회하게 해주는 쿼리 엔진 'sutura'.",
+      "key_points": [
+        "임의 SQL 대신 사전에 정의된 지표와 분류 기준을 사용하여 데이터 일관성을 보장함.",
+        "HTTP 또는 MCP(Model Context Protocol)를 통해 AI 에이전트와 연동됨.",
+        "Rust 기반으로 설계되었으며 DataHub, OpenMetadata 등과 카탈로그를 연동할 수 있음."
+      ],
+      "topics": [
+        "MCP",
+        "Query Engine",
+        "Data Governance"
+      ],
+      "recommended_for": "데이터 분석 에이전트를 구축하거나 사내 데이터 일관성 문제로 고민 중인 백엔드/데이터 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "sutura의 MCP 연동 방식을 활용한 데이터 에이전트 아키텍처 검토",
+        "steps": [
+          "sutura 공식 문서에서 MCP 연동 규격 확인",
+          "현재 사내 데이터 카탈로그(또는 정의서)와 sutura의 호환성 검토",
+          "기존 LLM 에이전트 워크플로에 sutura를 데이터 조회 도구로 통합하는 방안 설계"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "Cloudflare",
+      "title": "See the agents, set the terms: new visibility and control for personal agents",
+      "link": "https://blog.cloudflare.com/personal-agents-visibility-control",
+      "published_at": "Wed, 04 Nov 2026 14:00:00 GMT",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 트래픽 제어 및 가시성 확보는 현재 가장 중요한 AI 인프라 이슈 중 하나로 실무적 중요도가 매우 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare, 개인용 AI 에이전트의 트래픽 가시성 확보 및 세밀한 제어 정책 도입",
+      "key_points": [
+        "보안 분석 도구에 'Personal Assistants' 카테고리를 추가하여 AI 에이전트의 사이트 접근 현황을 실시간으로 모니터링 가능.",
+        "AI 에이전트별로 접근 허용, 광고 페이지 차단 등 세밀한 정책을 설정할 수 있는 'AI Crawler and Agent access policies' 제공.",
+        "계정 오남용 방지 기능을 통해 특정 사용자를 대리하는 에이전트의 활동을 식별하고 제어할 수 있음."
+      ],
+      "topics": [
+        "AI Bot Policy",
+        "Traffic Visibility",
+        "Access Control"
+      ],
+      "recommended_for": "웹 서비스 보안 담당자 및 AI 에이전트 트래픽 관리가 필요한 백엔드 운영자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "사이트 내 AI 에이전트 접근 정책 검토",
+        "steps": [
+          "Cloudflare Security Analytics에서 현재 AI 에이전트의 접근 비중을 확인한다.",
+          "비즈니스 모델에 따라 에이전트별 접근 허용/차단 정책을 설정한다.",
+          "광고 수익 보호가 필요한 페이지에 대해 에이전트 접근 제한 정책을 적용한다."
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Plan and measure EC2 flexibility with Amazon EC2 Capacity Manager",
+      "link": "https://aws.amazon.com/blogs/compute/plan-and-measure-ec2-flexibility-with-amazon-ec2-capacity-manager",
+      "published_at": "Wed, 04 Nov 2026 18:11:34 +0000",
+      "selection_score": 15,
+      "selection_reason": "클라우드 비용 절감 및 인프라 효율성 관리를 위한 EC2 용량 관리 도구는 대규모 백엔드 운영자에게 필수적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon EC2 Capacity Manager를 활용한 인프라 유연성 계획 및 용량 관리",
+      "key_points": [
+        "Capacity Manager는 인스턴스 유형과 가용 영역(AZ) 조합에 대한 지원 가능성 점수를 제공하여 스케일업 계획을 지원함.",
+        "실제 인스턴스 실행 전후의 용량 충족률(Fulfillment Rate)을 측정하여 인프라 구성의 효율성을 평가함.",
+        "데이터 기반으로 Auto Scaling 그룹이나 Karpenter 설정을 최적화하여 인프라 유연성을 확보할 수 있음."
+      ],
+      "topics": [
+        "Capacity Fulfillment Metrics",
+        "Supportability Checks",
+        "Infrastructure Flexibility"
+      ],
+      "recommended_for": "대규모 클라우드 인프라를 운영하며 비용 효율성과 가용성을 고민하는 DevOps 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 워크로드의 용량 충족률 분석",
+        "steps": [
+          "Capacity Manager를 활성화하고 주요 워크로드에 모니터링 태그를 적용한다.",
+          "Fulfillment 탭에서 현재 워크로드의 인스턴스 유형 x AZ 조합의 충족률을 확인한다.",
+          "충족률이 낮은 워크로드를 식별하고 지원 가능성 점수를 통해 대체 인스턴스 유형을 검토한다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "FE News 26년 11월 소식을 전해드립니다.",
+      "link": "https://d2.naver.com/news/1095957",
+      "published_at": "2026-11-04T01:24:58Z",
+      "selection_score": 14,
+      "selection_reason": "Tailwind Labs의 Shopify 합류와 Rust 기반 TS 컴파일러 등 프론트엔드 생태계의 중요한 변화를 다루고 있어 개발 생산성 측면에서 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "프론트엔드 생태계의 주요 변화: Tailwind의 Shopify 합류, Rust 기반 TS 컴파일러, React 19.3 및 Remix 3 출시",
+      "key_points": [
+        "Tailwind Labs가 Shopify에 합류하며 기존 오픈소스 프로젝트는 유지되나 일부 유료 서비스는 신규 가입이 중단됨.",
+        "TypeScript 컴파일러를 Rust로 포팅한 tsrs가 공개되어 기존 tsc 대비 최대 8배 빠른 성능과 메모리 효율성을 목표로 함.",
+        "React 19.3에서 <ViewTransition>과 Fragment Refs가 안정화되었으며, Remix 3은 자체 UI 런타임을 포함한 풀스택 프레임워크로 정식 출시됨."
+      ],
+      "topics": [
+        "React Compiler",
+        "View Transition API",
+        "Rust 기반 툴체인(Oxc)"
+      ],
+      "recommended_for": "프론트엔드 개발 생산성 향상과 최신 웹 표준 도입에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "CI 환경에서 tsrs 벤치마크 수행",
+        "steps": [
+          "현재 프로젝트의 CI 타입 검사 시간을 측정한다.",
+          "tsrs 또는 Oxc 툴체인을 로컬에서 설정하여 동일한 타입 검사를 수행한다.",
+          "기존 tsc 결과와 비교하여 성능 개선 폭을 확인한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "크림에서 통합 임베딩(Universal Embedding)은 어떻게 쓰일까?",
+      "link": "https://d2.naver.com/helloworld/7134499",
+      "published_at": "2026-11-04T04:54:08Z",
+      "selection_score": 15,
+      "selection_reason": "데이터 분석, 추천 시스템, 임베딩 최적화 등 실무적인 아키텍처 고민이 담겨 있어 기술적 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "크림(KREAM)의 통합 임베딩(Universal Embedding) v2 도입을 통한 추천 시스템 최적화 사례",
+      "key_points": [
+        "구좌별로 분산되어 있던 추천 모델을 하나의 통합 임베딩 모델로 통합하여 운영 효율성을 높임.",
+        "v2 모델에서는 MRL(Matryoshka Representation Learning)을 도입해 벡터 해상도를 조절하고, Roaring Bitmap으로 필터링 성능을 개선함.",
+        "결과적으로 응답 지연 시간은 4배 단축하고 메모리 사용량은 1/6로 줄이는 성과를 거둠."
+      ],
+      "topics": [
+        "Universal Embedding",
+        "Matryoshka Representation Learning",
+        "Roaring Bitmap"
+      ],
+      "recommended_for": "추천 시스템의 성능 개선과 벡터 검색 최적화가 필요한 ML 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Implementing PostgreSQL logical replication between Amazon RDS for PostgreSQL instances on separate AWS Outposts",
+      "link": "https://aws.amazon.com/blogs/compute/implementing-postgresql-logical-replication-between-amazon-rds-for-postgresql-instances-on-separate-aws-outposts",
+      "published_at": "Wed, 04 Nov 2026 22:02:23 +0000",
+      "selection_score": 15,
+      "selection_reason": "AWS Outposts 환경에서의 PostgreSQL 복제는 특정 규제 산업군 백엔드 아키텍처 설계 시 매우 유용한 기술적 가이드입니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS Outposts 간 PostgreSQL 논리적 복제 구현을 통한 데이터 주권 준수 가이드",
+      "key_points": [
+        "데이터가 외부 리전으로 나가지 않도록 두 개의 AWS Outposts 간에 PostgreSQL 논리적 복제를 구성하는 아키텍처를 제시함.",
+        "CoIP(Customer-owned IP)와 Local Gateway(LGW)를 사용하여 온프레미스 네트워크 내에서 안전한 데이터 복제를 수행함.",
+        "RDS 인스턴스 생성 시 CoIP를 명시적으로 활성화하고, 라우팅 테이블에 Hairpin 경로를 설정하는 것이 핵심임."
+      ],
+      "topics": [
+        "AWS Outposts",
+        "PostgreSQL Logical Replication",
+        "Customer-owned IP (CoIP)"
+      ],
+      "recommended_for": "데이터 주권 규제가 엄격한 산업군에서 고가용성 DB 아키텍처를 설계하는 백엔드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "GitBook 침해 사고 발생",
+      "link": "https://news.hada.io/topic?id=36604",
+      "published_at": "2026-11-05T03:44:45+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트를 활용한 보안 침해 사고는 업계 전반의 보안 트렌드와 직결되므로 반드시 숙지해야 할 중요한 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "GitBook, AI 에이전트를 이용한 표적 공격으로 인프라 자격 증명 및 API 토큰 유출 발생",
+      "key_points": [
+        "공격자가 AI 에이전트를 활용해 GitBook의 인프라 자격 증명과 API 토큰에 무단 접근함.",
+        "GitBook Assistant에 입력된 사용자 질문 데이터와 Git Sync 시크릿이 유출되었을 가능성이 있음.",
+        "사고 대응으로 모든 인프라 시크릿을 교체하고 고객 API 토큰을 즉시 무효화함."
+      ],
+      "topics": [
+        "AI Agent Security",
+        "Credential Rotation",
+        "Supply Chain Attack"
+      ],
+      "recommended_for": "SaaS 서비스 운영자 및 API 보안 관리가 필요한 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 서비스의 API 토큰 및 시크릿 관리 정책 점검",
+        "steps": [
+          "현재 사용 중인 모든 외부 서비스 API 토큰의 권한 범위를 최소 권한 원칙에 따라 재검토",
+          "시크릿 관리 도구(Vault 등)를 사용 중인지 확인하고, 주기적인 자동 교체(Rotation) 정책 수립"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Synaptics, 법적 위협으로 오픈소스 DisplayLink 드라이버를 차단하는 것으로 보임",
+      "link": "https://news.hada.io/topic?id=36606",
+      "published_at": "2026-11-05T04:42:25+09:00",
+      "selection_score": 12,
+      "selection_reason": "오픈소스 드라이버에 대한 법적 제재와 Rust/AI 활용 사례는 개발 생태계의 정책적 변화를 보여주는 중요한 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Synaptics의 법적 압박으로 Rust 기반 오픈소스 DisplayLink 드라이버 'Vino' 저장소 폐쇄",
+      "key_points": [
+        "Synaptics가 특허 침해를 이유로 커뮤니티가 개발한 오픈소스 드라이버 Vino에 중단 요구 통지서를 보냄.",
+        "Vino는 Rust로 작성된 실험적 커널 드라이버로, 개발 과정에 AI를 활용한 클린룸 역공학 사례임.",
+        "해당 사건은 오픈소스 하드웨어 드라이버 개발에 대한 기업의 법적 제재 가능성을 시사함."
+      ],
+      "topics": [
+        "Clean Room Reverse Engineering",
+        "Patent Litigation",
+        "Kernel Driver Development"
+      ],
+      "recommended_for": "오픈소스 프로젝트 기여자 및 하드웨어 연동 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM은 신경망 가중치를 읽고 쓰는 데 초인적이지 않다",
+      "link": "https://news.hada.io/topic?id=36609",
+      "published_at": "2026-11-05T05:38:00+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM의 가중치 분석과 스티어링 기법은 AI 모델 최적화 및 성능 개선을 이해하는 데 매우 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM의 성능 향상은 초인적인 가중치 조작보다는 스티어링 등 기존 ML 기법의 최적화 결과임",
+      "key_points": [
+        "LLM의 가중치 분석은 인간 연구자도 수행 가능한 영역이며, 특정 패턴을 통해 모델의 학습 내용을 추론할 수 있음.",
+        "Qwen 모델의 수학 성능 향상은 새로운 능력 습득이 아닌, 반복 추론 문제를 해결하는 스티어링 기법의 적용 결과임.",
+        "신경망 가중치 수정은 마법 같은 과정이 아니라 데이터와 추론 패턴을 정교하게 제어하는 공학적 접근임."
+      ],
+      "topics": [
+        "Model Steering",
+        "Neural Network Weight Analysis",
+        "Inference Optimization"
+      ],
+      "recommended_for": "LLM 파인튜닝 및 모델 최적화에 관심 있는 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "백악관 네트워크에서 주거용 프록시 탐지",
+      "link": "https://news.hada.io/topic?id=36612",
+      "published_at": "2026-11-05T06:33:08+09:00",
+      "selection_score": 11,
+      "selection_reason": "정부 네트워크에서의 보안 취약점 사례는 클라우드 및 서버 보안 관점에서 매우 중요한 시사점을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "백악관 네트워크에서 주거용 프록시 출구 노드 활동이 관측되어 보안 주의 필요",
+      "key_points": [
+        "백악관 행정실 네트워크(AS2650)에서 28개 프록시 서비스를 통한 비정상적인 출구 활동이 발견됨.",
+        "프록시 SDK에 감염된 내부 기기가 외부로 트래픽을 내보내는 좀비 PC 역할을 했을 가능성이 높음.",
+        "특정 타겟 공격이 아닌 전 세계 순환 프록시 요청 과정에서 우연히 식별됨."
+      ],
+      "topics": [
+        "Residential Proxy",
+        "Network Security",
+        "Exit Node"
+      ],
+      "recommended_for": "클라우드 인프라 보안 담당자 및 네트워크 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Tencent, 오픈소스 최상위권을 목표로 한 멀티모달 AI 모델 Hy4 공개",
+      "link": "https://news.hada.io/topic?id=36613",
+      "published_at": "2026-11-05T06:36:08+09:00",
+      "selection_score": 13,
+      "selection_reason": "멀티모달 AI 모델의 컴퓨터 조작 능력은 AI Agent 및 업무 자동화 분야의 핵심적인 기술 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Tencent, GUI/CLI 조작 및 전문 소프트웨어 제어가 가능한 멀티모달 AI 'Hy4' 공개",
+      "key_points": [
+        "Hy4는 시각 인식과 컴퓨터 조작 능력을 갖춘 멀티모달 모델로, GUI와 CLI를 직접 제어 가능함.",
+        "Blender, CAD 등 전문 툴 활용 능력이 뛰어나며 게임 개발 벤치마크에서 높은 성능을 기록함.",
+        "Tencent Cloud와 OpenRouter를 통해 제공되며, 향후 모델 가중치 공개 예정."
+      ],
+      "topics": [
+        "Multimodal AI",
+        "Computer Use",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "업무 자동화 및 AI 에이전트 워크플로우를 구축하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Hy4를 활용한 GUI 기반 업무 자동화 테스트",
+        "steps": [
+          "Tencent Cloud 또는 OpenRouter를 통해 Hy4 API 접근 권한 확보",
+          "단순 텍스트 작업이 아닌, 특정 GUI 소프트웨어(예: 웹 브라우저 내 복잡한 폼 입력) 조작 시나리오 설계 및 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Go의 새로운 JSON API",
+      "link": "https://news.hada.io/topic?id=36615",
+      "published_at": "2026-11-05T07:37:03+09:00",
+      "selection_score": 14,
+      "selection_reason": "Go 언어의 핵심 라이브러리 업데이트는 백엔드 개발자의 실무 생산성과 성능에 직접적인 영향을 미칩니다.",
+      "feedback_bias": 0,
+      "one_line": "Go 1.27에서 성능과 안정성이 개선된 새로운 encoding/json/v2 패키지가 정식 도입됨.",
+      "key_points": [
+        "기존 패키지의 API와 성능 문제를 개선하면서도 익숙한 사용 방식을 유지함.",
+        "구문 처리와 Go 값 변환을 분리하고 스트리밍 방식을 도입하여 메모리 부담을 줄임.",
+        "잘못된 UTF-8 및 중복 객체 이름 거부 등 기본 동작이 더 엄격해짐."
+      ],
+      "topics": [
+        "encoding/json/v2",
+        "Streaming JSON Parsing"
+      ],
+      "recommended_for": "Go 언어로 백엔드 API를 개발하며 JSON 처리 성능 최적화가 필요한 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "기존 JSON 처리 코드를 v2 패키지로 마이그레이션하여 성능 비교하기",
+        "steps": [
+          "Go 1.27 환경으로 업데이트",
+          "기존 프로젝트의 JSON 마샬링/언마샬링 코드를 encoding/json/v2로 교체",
+          "벤치마크 테스트를 통해 기존 대비 성능 개선 폭 확인"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ripple-65B Preview: 에이전트 코딩에서 미국 오픈웨이트 최고 성능 달성",
+      "link": "https://news.hada.io/topic?id=36616",
+      "published_at": "2026-11-05T07:40:03+09:00",
+      "selection_score": 13,
+      "selection_reason": "에이전트 코딩에 특화된 고성능 모델과 비용 효율적 학습 사례는 AI Agent 개발 실무에 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Ricursive Intelligence가 100만 토큰 컨텍스트를 지원하는 고성능 코딩 특화 모델 Ripple-65B를 공개함.",
+      "key_points": [
+        "12조 토큰으로 학습된 65B 모델로, TerminalBench 2.1에서 미국 오픈웨이트 모델 중 최고 성능 달성.",
+        "기존 최고 성능 모델 대비 약 10분의 1 수준의 연구개발비로 학습하여 비용 효율성을 입증함.",
+        "최대 100만 토큰의 컨텍스트 윈도우를 지원하여 대규모 코드베이스 분석에 최적화됨."
+      ],
+      "topics": [
+        "Open-weight Model",
+        "Context Window",
+        "Agentic Coding"
+      ],
+      "recommended_for": "AI 에이전트 기반의 코딩 자동화 도구를 개발하거나 고성능 오픈웨이트 모델을 찾는 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "대규모 언어 모델의 검증 가능한 추론 연구 진전",
+      "link": "https://news.hada.io/topic?id=36617",
+      "published_at": "2026-11-05T08:35:24+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM 추론 검증 기술은 AI 서비스의 신뢰성과 보안을 확보하는 데 중요한 기술적 진전입니다.",
+      "feedback_bias": 0,
+      "one_line": "Anthropic이 모델 가중치 공개 없이 응답의 출처를 검증하는 zkSNARK 기반 FlashProve 기술을 공개함.",
+      "key_points": [
+        "zkSNARK를 활용해 특정 모델이 응답을 생성했음을 가중치 공개 없이 증명함.",
+        "Llama 4 Maverick 모델 기준 초당 110토큰의 증명 생성 속도를 확보함.",
+        "가중치 커밋먼트를 통해 모델 바꿔치기나 토큰 변조를 방지하여 AI 신뢰성을 높임."
+      ],
+      "topics": [
+        "zkSNARK",
+        "Weight Commitment",
+        "Model Provenance"
+      ],
+      "recommended_for": "LLM의 응답 신뢰성과 보안 검증 기술에 관심이 많은 백엔드 및 AI 인프라 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: 매주 IT·Non-IT 공모전을 GitHub 알림 메일로 받아보는 오픈소스 서비스",
+      "link": "https://news.hada.io/topic?id=36618",
+      "published_at": "2026-11-05T09:14:09+09:00",
+      "selection_score": 11,
+      "selection_reason": "GitHub Actions를 활용한 정보 수집 자동화 사례는 업무 자동화 및 개발 생산성 향상을 위한 실용적인 예시입니다.",
+      "feedback_bias": 0,
+      "one_line": "GitHub Actions를 활용해 매주 공모전 정보를 수집하고 이메일로 발송하는 자동화 서비스.",
+      "key_points": [
+        "GitHub 저장소의 Actions 기능을 사용하여 주기적으로 공모전 사이트를 크롤링함.",
+        "수집된 정보를 GitHub Issue로 정리하며, Watch 기능을 통해 이메일 알림을 받을 수 있음.",
+        "상금/시상이 명확한 공모전만 선별하고 마감 임박 공모전을 상단에 배치하는 로직을 포함함."
+      ],
+      "topics": [
+        "GitHub Actions",
+        "Workflow Automation",
+        "Web Scraping"
+      ],
+      "recommended_for": "GitHub Actions를 활용한 업무 자동화 사례를 학습하고 싶은 개발자.",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "GitHub Actions를 활용한 개인 맞춤형 정보 수집 봇 만들기",
+        "steps": [
+          "관심 있는 정보 소스(RSS 또는 웹사이트) 선정",
+          "GitHub Actions 워크플로 파일(.yml) 작성 및 크롤링 스크립트(Python) 구현",
+          "GitHub Issue 생성 기능을 연동하여 주기적 알림 설정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI, Pierre Computer Company 인수 예정",
+      "link": "https://news.hada.io/topic?id=36621",
+      "published_at": "2026-11-05T09:31:40+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 코딩 에이전트와 Git 워크플로의 결합은 개발 생산성 향상에 직결되는 중요한 업계 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI가 개발자 도구 기업 Pierre를 인수하여 AI 코딩 에이전트의 Git 워크플로 및 코드 검토 기능을 강화합니다.",
+      "key_points": [
+        "OpenAI는 코드 저장소 및 개발자 도구 기업인 Pierre를 인수하여 Codex의 코드 이해 및 검토 역량을 확장합니다.",
+        "Pierre의 핵심 기술인 Trees와 Diffs 라이브러리를 통해 대규모 코드 탐색과 변경 사항 검토 기능을 고도화할 예정입니다.",
+        "AI 에이전트가 코드 스트리밍과 실시간 구문 강조를 통해 개발자와 더 긴밀하게 협업할 수 있는 환경을 구축합니다."
+      ],
+      "topics": [
+        "AI Coding Agent",
+        "Git Workflow",
+        "Code Diffing"
+      ],
+      "recommended_for": "AI 기반 코딩 도구를 활용하여 개발 생산성을 높이고자 하는 백엔드 및 풀스택 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "자율 에이전트를 위한 데이터 플랫폼 구축",
+      "link": "https://news.hada.io/topic?id=36622",
+      "published_at": "2026-11-05T09:40:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 안정적인 운영을 위한 데이터 플랫폼 구축은 Agentic Workflow의 핵심 과제로 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "자율 에이전트의 안정적 운영을 위해 데이터의 최신성, 관측 가능성, 비즈니스 맥락을 통합한 데이터 플랫폼 구축이 필수적입니다.",
+      "key_points": [
+        "에이전트가 데이터를 신뢰하려면 시맨틱 모델을 넘어 데이터의 최신성, 완전성, 파이프라인 상태 확인이 필수적입니다.",
+        "연결된 관측 가능성(Connected Observability)을 통해 여러 시스템의 로그를 통합하여 장애의 근본 원인을 빠르게 파악할 수 있습니다.",
+        "데이터 계보와 파이프라인의 목적, 소유자 정보를 코드와 함께 버전 관리하여 에이전트가 비즈니스 맥락을 이해하도록 해야 합니다."
+      ],
+      "topics": [
+        "Connected Observability",
+        "Data Lineage",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "데이터 파이프라인을 운영하거나 AI 에이전트 기반의 데이터 분석 시스템을 구축하는 데이터 엔지니어 및 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 데이터 파이프라인의 관측 가능성 수준 점검하기",
+        "steps": [
+          "현재 파이프라인의 로그가 서로 다른 시스템 간에 어떻게 연결되는지(Trace ID 등) 확인한다.",
+          "데이터 계보(Lineage) 정보가 코드와 함께 버전 관리되고 있는지 검토한다.",
+          "에이전트가 데이터 상태를 판단할 수 있는 메타데이터(완료 기준, 소유자 등)를 문서화한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Thoughtworks Technology Radar, Volume 35 공개",
+      "link": "https://news.hada.io/topic?id=36623",
+      "published_at": "2026-11-05T09:50:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "Thoughtworks의 기술 레이더는 업계 전반의 기술 트렌드와 에이전트 도입 전략을 파악하는 데 필수적인 자료입니다.",
+      "feedback_bias": 0,
+      "one_line": "Thoughtworks 기술 레이더 35호는 AI 에이전트의 조직적 배포와 모델 선택 전략의 중요성을 강조합니다.",
+      "key_points": [
+        "개별 에이전트 설정을 넘어 조직 차원에서 스킬과 가드레일을 배포하고 평가하는 '하네스 엔지니어링'이 중요해졌습니다.",
+        "작업별 품질, 비용, 지연 시간, 데이터 보안 요구사항에 따라 적합한 모델을 선택하는 전략적 접근이 필요합니다.",
+        "에이전트의 자동화 작업량이 늘어남에 따라 사람의 리뷰와 배포 파이프라인이 병목이 되지 않도록 관리해야 합니다."
+      ],
+      "topics": [
+        "Harness Engineering",
+        "Model Selection Strategy",
+        "AI Guardrails"
+      ],
+      "recommended_for": "기술 스택 선정 및 AI 도입 전략을 고민하는 테크 리드 및 아키텍트",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "현재 프로젝트의 AI 모델 선택 기준 및 가드레일 정책 수립하기",
+        "steps": [
+          "현재 사용 중인 LLM의 비용, 지연 시간, 품질을 작업별로 분류하여 기록한다.",
+          "조직 내 AI 에이전트 배포를 위한 가드레일(보안, 품질 기준) 체크리스트를 작성한다.",
+          "Thoughtworks 기술 레이더의 최신 항목 중 우리 팀에 적용 가능한 도구를 선별한다."
+        ],
+        "effort": "1~2시간"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Apple의 단어 목록을 덤프해 봤다",
+      "link": "https://news.hada.io/topic?id=36607",
+      "published_at": "2026-11-05T04:45:26+09:00",
+      "selection_score": 9,
+      "selection_reason": "macOS 내부 데이터 구조 분석은 흥미로운 기술적 탐구이나, 실무적 우선순위는 다소 낮습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "잃어버린 malloc()",
+      "link": "https://news.hada.io/topic?id=36610",
+      "published_at": "2026-11-05T05:41:00+09:00",
+      "selection_score": 9,
+      "selection_reason": "메모리 관리의 역사적 기법은 백엔드 아키텍처와 성능 최적화의 근본 원리를 이해하는 데 도움이 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI는 랜섬웨어 암호화를 해독하지 않고 어떻게 파일을 복구했는가?",
+      "link": "https://news.hada.io/topic?id=36619",
+      "published_at": "2026-11-05T09:21:46+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI를 활용한 데이터 복구 사례는 흥미롭지만, 실무적인 범용성보다는 특정 보안 사고 대응 관점에서의 참고 가치가 큽니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

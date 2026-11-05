@@ -1,6 +1,293 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "네이버 D2",
+      "title": "FE News 26년 11월 소식을 전해드립니다.",
+      "link": "https://d2.naver.com/news/1095957",
+      "published_at": "2026-11-04T01:24:58Z",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "React Compiler",
+        "View Transition API",
+        "Rust 기반 툴체인(Oxc)"
+      ],
+      "one_line": "프론트엔드 생태계의 주요 변화: Tailwind의 Shopify 합류, Rust 기반 TS 컴파일러, React 19.3 및 Remix 3 출시",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "네이버 D2",
+      "title": "크림에서 통합 임베딩(Universal Embedding)은 어떻게 쓰일까?",
+      "link": "https://d2.naver.com/helloworld/7134499",
+      "published_at": "2026-11-04T04:54:08Z",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Universal Embedding",
+        "Matryoshka Representation Learning",
+        "Roaring Bitmap"
+      ],
+      "one_line": "크림(KREAM)의 통합 임베딩(Universal Embedding) v2 도입을 통한 추천 시스템 최적화 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "Cloudflare",
+      "title": "See the agents, set the terms: new visibility and control for personal agents",
+      "link": "https://blog.cloudflare.com/personal-agents-visibility-control",
+      "published_at": "Wed, 04 Nov 2026 14:00:00 GMT",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Bot Policy",
+        "Traffic Visibility",
+        "Access Control"
+      ],
+      "one_line": "Cloudflare, 개인용 AI 에이전트의 트래픽 가시성 확보 및 세밀한 제어 정책 도입",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "AWS Compute",
+      "title": "Plan and measure EC2 flexibility with Amazon EC2 Capacity Manager",
+      "link": "https://aws.amazon.com/blogs/compute/plan-and-measure-ec2-flexibility-with-amazon-ec2-capacity-manager",
+      "published_at": "Wed, 04 Nov 2026 18:11:34 +0000",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Capacity Fulfillment Metrics",
+        "Supportability Checks",
+        "Infrastructure Flexibility"
+      ],
+      "one_line": "Amazon EC2 Capacity Manager를 활용한 인프라 유연성 계획 및 용량 관리",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "AWS Compute",
+      "title": "Implementing PostgreSQL logical replication between Amazon RDS for PostgreSQL instances on separate AWS Outposts",
+      "link": "https://aws.amazon.com/blogs/compute/implementing-postgresql-logical-replication-between-amazon-rds-for-postgresql-instances-on-separate-aws-outposts",
+      "published_at": "Wed, 04 Nov 2026 22:02:23 +0000",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Outposts",
+        "PostgreSQL Logical Replication",
+        "Customer-owned IP (CoIP)"
+      ],
+      "one_line": "AWS Outposts 간 PostgreSQL 논리적 복제 구현을 통한 데이터 주권 준수 가이드",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "GitBook 침해 사고 발생",
+      "link": "https://news.hada.io/topic?id=36604",
+      "published_at": "2026-11-05T03:44:45+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Security",
+        "Credential Rotation",
+        "Supply Chain Attack"
+      ],
+      "one_line": "GitBook, AI 에이전트를 이용한 표적 공격으로 인프라 자격 증명 및 API 토큰 유출 발생",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "Synaptics, 법적 위협으로 오픈소스 DisplayLink 드라이버를 차단하는 것으로 보임",
+      "link": "https://news.hada.io/topic?id=36606",
+      "published_at": "2026-11-05T04:42:25+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Clean Room Reverse Engineering",
+        "Patent Litigation",
+        "Kernel Driver Development"
+      ],
+      "one_line": "Synaptics의 법적 압박으로 Rust 기반 오픈소스 DisplayLink 드라이버 'Vino' 저장소 폐쇄",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "LLM은 신경망 가중치를 읽고 쓰는 데 초인적이지 않다",
+      "link": "https://news.hada.io/topic?id=36609",
+      "published_at": "2026-11-05T05:38:00+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Model Steering",
+        "Neural Network Weight Analysis",
+        "Inference Optimization"
+      ],
+      "one_line": "LLM의 성능 향상은 초인적인 가중치 조작보다는 스티어링 등 기존 ML 기법의 최적화 결과임",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "백악관 네트워크에서 주거용 프록시 탐지",
+      "link": "https://news.hada.io/topic?id=36612",
+      "published_at": "2026-11-05T06:33:08+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Residential Proxy",
+        "Network Security",
+        "Exit Node"
+      ],
+      "one_line": "백악관 네트워크에서 주거용 프록시 출구 노드 활동이 관측되어 보안 주의 필요",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "Tencent, 오픈소스 최상위권을 목표로 한 멀티모달 AI 모델 Hy4 공개",
+      "link": "https://news.hada.io/topic?id=36613",
+      "published_at": "2026-11-05T06:36:08+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Multimodal AI",
+        "Computer Use",
+        "Agentic Workflow"
+      ],
+      "one_line": "Tencent, GUI/CLI 조작 및 전문 소프트웨어 제어가 가능한 멀티모달 AI 'Hy4' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "Go의 새로운 JSON API",
+      "link": "https://news.hada.io/topic?id=36615",
+      "published_at": "2026-11-05T07:37:03+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "encoding/json/v2",
+        "Streaming JSON Parsing"
+      ],
+      "one_line": "Go 1.27에서 성능과 안정성이 개선된 새로운 encoding/json/v2 패키지가 정식 도입됨.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "Ripple-65B Preview: 에이전트 코딩에서 미국 오픈웨이트 최고 성능 달성",
+      "link": "https://news.hada.io/topic?id=36616",
+      "published_at": "2026-11-05T07:40:03+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Open-weight Model",
+        "Context Window",
+        "Agentic Coding"
+      ],
+      "one_line": "Ricursive Intelligence가 100만 토큰 컨텍스트를 지원하는 고성능 코딩 특화 모델 Ripple-65B를 공개함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "대규모 언어 모델의 검증 가능한 추론 연구 진전",
+      "link": "https://news.hada.io/topic?id=36617",
+      "published_at": "2026-11-05T08:35:24+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "zkSNARK",
+        "Weight Commitment",
+        "Model Provenance"
+      ],
+      "one_line": "Anthropic이 모델 가중치 공개 없이 응답의 출처를 검증하는 zkSNARK 기반 FlashProve 기술을 공개함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: 매주 IT·Non-IT 공모전을 GitHub 알림 메일로 받아보는 오픈소스 서비스",
+      "link": "https://news.hada.io/topic?id=36618",
+      "published_at": "2026-11-05T09:14:09+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "GitHub Actions",
+        "Workflow Automation",
+        "Web Scraping"
+      ],
+      "one_line": "GitHub Actions를 활용해 매주 공모전 정보를 수집하고 이메일로 발송하는 자동화 서비스.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "sutura - AI 에이전트가 회사의 지표 정의로 데이터를 조회하게 해주는 쿼리 엔진",
+      "link": "https://news.hada.io/topic?id=36620",
+      "published_at": "2026-11-05T09:30:02+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP",
+        "Query Engine",
+        "Data Governance"
+      ],
+      "one_line": "AI 에이전트가 회사의 지표 정의를 기반으로 안전하게 데이터를 조회하게 해주는 쿼리 엔진 'sutura'.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "OpenAI, Pierre Computer Company 인수 예정",
+      "link": "https://news.hada.io/topic?id=36621",
+      "published_at": "2026-11-05T09:31:40+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Coding Agent",
+        "Git Workflow",
+        "Code Diffing"
+      ],
+      "one_line": "OpenAI가 개발자 도구 기업 Pierre를 인수하여 AI 코딩 에이전트의 Git 워크플로 및 코드 검토 기능을 강화합니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "자율 에이전트를 위한 데이터 플랫폼 구축",
+      "link": "https://news.hada.io/topic?id=36622",
+      "published_at": "2026-11-05T09:40:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Connected Observability",
+        "Data Lineage",
+        "Agentic Workflow"
+      ],
+      "one_line": "자율 에이전트의 안정적 운영을 위해 데이터의 최신성, 관측 가능성, 비즈니스 맥락을 통합한 데이터 플랫폼 구축이 필수적입니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-05T10:19:09.191271+09:00",
+      "company": "GeekNews",
+      "title": "Thoughtworks Technology Radar, Volume 35 공개",
+      "link": "https://news.hada.io/topic?id=36623",
+      "published_at": "2026-11-05T09:50:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Harness Engineering",
+        "Model Selection Strategy",
+        "AI Guardrails"
+      ],
+      "one_line": "Thoughtworks 기술 레이더 35호는 AI 에이전트의 조직적 배포와 모델 선택 전략의 중요성을 강조합니다.",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-04T10:03:32.414704+09:00",
       "company": "네이버 D2",
       "title": "컨테이너처럼 쓰고, VM처럼 격리하기",
@@ -7704,295 +7991,7 @@
       ],
       "one_line": "Cloudflare가 서버리스 환경에서 대규모 데이터 처리를 지원하는 이벤트 스트리밍 서비스 'K2'를 공개했습니다.",
       "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "Cloudflare",
-      "title": "Cloudflare OS: your company’s agent workspace, managed for you",
-      "link": "https://blog.cloudflare.com/managed-cloudflare-os",
-      "published_at": "Thu, 01 Oct 2026 13:00:00 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Agent Workspace",
-        "AI Gateway",
-        "Workflow Automation"
-      ],
-      "one_line": "Cloudflare OS가 기업 내 에이전트 워크스페이스를 위한 관리형 서비스를 시작합니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Workers KV Instant — powered by Quicksilver",
-      "link": "https://blog.cloudflare.com/workers-kv-instant",
-      "published_at": "Thu, 01 Oct 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Key-Value Store",
-        "Edge Computing",
-        "Latency Optimization"
-      ],
-      "one_line": "Cloudflare가 Quicksilver 기반의 초고속 KV 저장소 'Workers KV Instant'를 발표했습니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Clef: our open-source decision models, and new RL fine-tuning platform",
-      "link": "https://blog.cloudflare.com/clef-decision-models",
-      "published_at": "Thu, 01 Oct 2026 15:34:02 GMT",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Decision Model",
-        "Reinforcement Learning",
-        "Agentic Workflow"
-      ],
-      "one_line": "Cloudflare가 의사결정 모델 'Clef'와 강화학습(RL) 기반 파인튜닝 플랫폼을 공개했습니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "AWS Architecture",
-      "title": "Accelerating airline retailing innovation: how Datalex modernized with AWS Experience-Based Acceleration and agentic AI",
-      "link": "https://aws.amazon.com/blogs/architecture/accelerating-airline-retailing-innovation-how-datalex-modernized-with-aws-experience-based-acceleration-and-agentic-ai",
-      "published_at": "Thu, 01 Oct 2026 15:37:06 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Experience-Based Acceleration (EBA)",
-        "Strangler Fig pattern",
-        "Agentic AI Orchestration"
-      ],
-      "one_line": "Datalex가 AWS EBA 방법론과 에이전트 AI를 활용해 레거시 항공 시스템을 현대화한 사례",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "GPT-Synopsys, 칩 설계를 혁신할 최첨단 AI",
-      "link": "https://news.hada.io/topic?id=34616",
-      "published_at": "2026-10-02T02:36:13+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "EDA (Electronic Design Automation)",
-        "Agentic AI",
-        "PPA Optimization"
-      ],
-      "one_line": "OpenAI와 Synopsys가 칩 설계 자동화(EDA)에 특화된 AI 에이전트 'GPT-Synopsys' 공동 개발",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "버그 찾기",
-      "link": "https://news.hada.io/topic?id=34618",
-      "published_at": "2026-10-02T03:03:28+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Differential Fuzzing",
-        "Test Oracle",
-        "Swarm Testing"
-      ],
-      "one_line": "오라클 기반의 생성형 무작위 테스트(퍼징)를 통한 정규식 엔진의 버그 탐지 기법",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "Cloudflare, 의사결정 모델 Clef와 RL 미세조정 서비스 공개",
-      "link": "https://news.hada.io/topic?id=34621",
-      "published_at": "2026-10-02T03:49:49+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Decision Model",
-        "Non-autoregressive Inference",
-        "RLCD (Reinforcement Learning for Calibrated Decisions)"
-      ],
-      "one_line": "Cloudflare가 문장 생성 대신 선택지를 평가하는 고속 의사결정 모델 'Clef' 공개",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "벡터 데이터베이스여, 안녕",
-      "link": "https://news.hada.io/topic?id=34622",
-      "published_at": "2026-10-02T03:52:49+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Vector Database",
-        "Storage Amplification",
-        "ANN (Approximate Nearest Neighbor)"
-      ],
-      "one_line": "Turbopuffer가 벡터 검색 전용 DB에서 범용 쿼리 엔진으로 진화하기 위해 저장 구조를 v3로 개편",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "Figma, MCP 접근을 허용 목록의 클라이언트로 제한하고 Pi는 제외",
-      "link": "https://news.hada.io/topic?id=34626",
-      "published_at": "2026-10-02T04:44:14+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "MCP (Model Context Protocol)",
-        "OAuth 리디렉션 취약점",
-        "허용 목록 (Allowlist) 정책"
-      ],
-      "one_line": "Figma가 원격 MCP 서버 접근을 허용 목록 기반으로 제한하며 Pi 등 일부 클라이언트의 접근을 차단함",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "Git 3.0의 SHA-256 기본값 전환은 값비싼 실수다",
-      "link": "https://news.hada.io/topic?id=34627",
-      "published_at": "2026-10-02T04:47:14+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "SHA-256",
-        "콘텐츠 주소 지정 (Content Addressing)",
-        "공급망 보안"
-      ],
-      "one_line": "Git 3.0의 SHA-256 기본값 전환 계획이 생태계 호환성 및 비용 문제로 논란이 됨",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "Cloudflare K2 - 서버리스 이벤트 스트림",
-      "link": "https://news.hada.io/topic?id=34629",
-      "published_at": "2026-10-02T04:53:14+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "서버리스 이벤트 스트리밍",
-        "객체 스토리지 (R2)",
-        "Pub/Sub 패턴"
-      ],
-      "one_line": "Cloudflare가 R2 객체 스토리지를 기반으로 한 서버리스 이벤트 스트리밍 서비스 'K2' 공개 베타 출시",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "Pi 1.0 출시 - 미니멀한 터미널 코딩 에이전트",
-      "link": "https://news.hada.io/topic?id=34632",
-      "published_at": "2026-10-02T05:38:34+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "AI 에이전트",
-        "Codemode",
-        "지연 로딩 (Lazy Loading)"
-      ],
-      "one_line": "터미널 코딩 에이전트 'Pi'가 1.0으로 정식 출시되며 MCP 및 가상 모델 확장 기능 강화",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "5조 달러의 기회: AI 롤업",
-      "link": "https://news.hada.io/topic?id=34636",
-      "published_at": "2026-10-02T06:50:18+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "AI 롤업 (AI Roll-up)",
-        "EBITDA 마진 개선",
-        "암묵지의 규칙화"
-      ],
-      "one_line": "기존 서비스 기업을 인수하여 AI 에이전트로 운영 효율을 극대화하는 'AI 롤업' 전략",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "AI 네이티브 회사에서 일한다는 것",
-      "link": "https://news.hada.io/topic?id=34639",
-      "published_at": "2026-10-02T07:01:13+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Native Organization",
-        "High-Impact IC (HI-C)",
-        "Context-based Management"
-      ],
-      "one_line": "AI 네이티브 조직은 직급을 최소화하고 정보 공유와 자율성을 극대화하여 AI를 통한 생산성 증폭을 실현함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "‘할 수 있는 일’과 ‘해야 할 일’ 구분하기: Netflix 제품팀은 어떻게 수천 명의 창작자가 AI 전환을 신...",
-      "link": "https://news.hada.io/topic?id=34640",
-      "published_at": "2026-10-02T07:06:29+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "First Team Model",
-        "Evidence-based Decision Making",
-        "Strategic Betting"
-      ],
-      "one_line": "Netflix는 AI 기술 도입 시 '할 수 있는 일'보다 '회원과 창작자에게 필요한 일'을 우선하여 비즈니스 가치를 창출함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GeekNews",
-      "title": "Pi Durable",
-      "link": "https://news.hada.io/topic?id=34641",
-      "published_at": "2026-10-02T07:35:45+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Checkpointing & Recovery",
-        "Idempotent Tool Execution"
-      ],
-      "one_line": "Pi Durable은 장시간 실행되는 AI 에이전트의 작업 상태를 저장하고 장애 시 중단 지점부터 재개할 수 있는 하네스 프레임워크임.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "네이버 D2",
-      "title": "에이전트, 개념부터 같이 정리해봐요 - 워크플로우 · 하네스 · Context/Memory · MCP/A2A",
-      "link": "https://d2.naver.com/helloworld/8118359",
-      "published_at": "2026-09-30T03:51:11Z",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Agent",
-        "MCP (Model Context Protocol)",
-        "Agent Harness"
-      ],
-      "one_line": "AI 에이전트 개발을 위한 핵심 개념(워크플로우, 하네스, MCP 등)을 실무 관점에서 정리",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-01T09:25:21.957633+09:00",
-      "company": "요기요",
-      "title": "Product Engineer의 병목 — 코드에서 검증으로",
-      "link": "https://techblog.yogiyo.co.kr/product-engineer%EC%9D%98-%EB%B3%91%EB%AA%A9-%EC%BD%94%EB%93%9C%EC%97%90%EC%84%9C-%EA%B2%80%EC%A6%9D%EC%9C%BC%EB%A1%9C-17b3db81121d",
-      "published_at": "Wed, 30 Sep 2026 02:19:54 GMT",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "CI/CD Pipeline",
-        "Visual Regression Testing",
-        "Product Engineer"
-      ],
-      "one_line": "AI 기반 개발 환경에서 생산성 병목인 '검증'을 자동화 파이프라인으로 해결한 사례",
-      "actionability": 5
     }
   ],
-  "updated_at": "2026-11-04T10:03:32.414704+09:00"
+  "updated_at": "2026-11-05T10:19:09.191271+09:00"
 }
