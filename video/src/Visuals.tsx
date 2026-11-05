@@ -344,9 +344,9 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
             display: "flex",
             alignItems: "center",
             borderRadius: 999,
-            border: `3px solid ${colors.mint}`,
-            background: colors.mintSoft,
-            color: colors.mint,
+            border: `3px solid ${colors.gold}`,
+            background: colors.goldSoft,
+            color: colors.gold,
             fontSize: 40,
             fontWeight: 900,
             opacity: pop(frame, 0, 8),
@@ -366,13 +366,13 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
 
             return (
               <g key={`link-${index}`} opacity={pop(frame, startOf(index + 1) + 6, 8)}>
-                <line x1={cx} y1={y1} x2={cx} y2={y2 + w / 2} style={{ stroke: colors.mint }} strokeWidth={5} strokeDasharray="8 8" />
+                <line x1={cx} y1={y1} x2={cx} y2={y2 + w / 2} style={{ stroke: colors.gold }} strokeWidth={5} strokeDasharray="8 8" />
                 {visible ? (
                   <circle
                     cx={cx}
                     cy={interpolate(cycle, [0, 1], [y1, y2 + w / 2])}
                     r={11}
-                    style={{ fill: colors.mint, filter: `drop-shadow(0 0 10px ${colors.mint})` }}
+                    style={{ fill: colors.gold, filter: `drop-shadow(0 0 10px ${colors.gold})` }}
                   />
                 ) : null}
               </g>
@@ -386,7 +386,7 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
             const boss = index === 0;
             const face = boss
               ? { top: colors.neonRed, left: "#B3243A", right: "#7A1626", edge: "#FF8A9B" }
-              : { top: colors.floorTop, left: colors.floorLeft, right: colors.floorRight, edge: colors.mint };
+              : { top: colors.floorTop, left: colors.floorLeft, right: colors.floorRight, edge: colors.gold };
             const leftEdge = (a: number): [number, number] => [cx - w + a * w, cy + (a * w) / 2];
             const rightEdge = (a: number): [number, number] => [cx + a * w, cy + w / 2 - (a * w) / 2];
             const windows = [0.12, 0.42, 0.72];
@@ -417,7 +417,7 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
                 {/* 창문: 층이 내려앉은 뒤 하나씩 불이 켜진다 */}
                 {windows.map((a, windowIndex) => {
                   const lit = frame >= startOf(index) + 10 + windowIndex * 4;
-                  const color = lit ? (boss ? "#FFD2D9" : colors.mint) : "rgba(255,255,255,0.12)";
+                  const color = lit ? (boss ? "#FFD2D9" : colors.gold) : "rgba(255,255,255,0.12)";
                   const [lx1, ly1] = leftEdge(a);
                   const [lx2, ly2] = leftEdge(a + 0.18);
                   const [rx1, ry1] = rightEdge(a);
@@ -461,7 +461,7 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
                 <div style={{ fontSize: 60, fontWeight: 900, lineHeight: 1.15, color: index === 0 ? colors.neonRed : colors.text }}>
                   {room.place}
                 </div>
-                <div style={{ marginTop: 6, fontSize: 42, fontWeight: 700, lineHeight: 1.2, color: colors.mint }}>
+                <div style={{ marginTop: 6, fontSize: 42, fontWeight: 700, lineHeight: 1.2, color: colors.gold }}>
                   = {room.actual}
                 </div>
               </div>
