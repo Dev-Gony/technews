@@ -27,15 +27,15 @@ YOUTUBE_REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "").strip()
 CLAUDE_MODEL = os.environ.get("SHORTS_CLAUDE_MODEL", "").strip()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 GEMINI_TTS_MODEL = os.environ.get("SHORTS_GEMINI_TTS_MODEL", "gemini-3.1-flash-tts-preview")
-# 영상마다 번갈아 쓰는 목소리 (쉼표로 구분)
+# 쓰는 목소리 (쉼표로 여러 개 넣으면 영상마다 번갈아 쓴다). 기본은 여성 목소리 Leda 하나로 고정.
 GEMINI_TTS_VOICES = [
     voice.strip()
-    for voice in os.environ.get("SHORTS_GEMINI_VOICES", "Leda,Puck,Zephyr,Fenrir").split(",")
+    for voice in os.environ.get("SHORTS_GEMINI_VOICES", "Leda").split(",")
     if voice.strip()
 ]
 WHISPER_MODEL = os.environ.get("SHORTS_WHISPER_MODEL", "small")
-# Gemini TTS가 실패하면(키 없음, 무료 한도 초과 등) 쓰는 대체 음성
-TTS_VOICE = os.environ.get("SHORTS_VOICE", "ko-KR-HyunsuMultilingualNeural")
+# Gemini TTS가 실패하면(키 없음, 무료 한도 초과 등) 쓰는 대체 음성. 기본 목소리와 맞춰 여성 음성.
+TTS_VOICE = os.environ.get("SHORTS_VOICE", "ko-KR-SunHiNeural")
 TTS_RATE = os.environ.get("SHORTS_TTS_RATE", "+22%")
 # 업로드 기본값은 비공개: YouTube Studio에서 확인한 뒤 직접 공개로 바꾼다.
 UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")

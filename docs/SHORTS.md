@@ -16,7 +16,7 @@ config/issues/ 최근 3일
 Claude 대본 (claude -p, 구독 계정 사용 / 훅 → 본문 → 질문, 장면 4~6개)
       |
       v
-Gemini TTS 음성 (Leda·Puck·Zephyr·Fenrir 번갈아, 대본 전체를 한 번에, 실패하면 edge-tts) + Whisper로 단어 시점 맞추기
+Gemini TTS 음성 (여성 Leda 고정, 대본 전체를 한 번에, 실패하면 edge-tts) + Whisper로 단어 시점 맞추기
       |
       v
 Remotion 컷 편집 영상 (video/, 1.5~3초마다 컷, 1~2어절 팝업 자막, 컷별 그래픽, 효과음)
@@ -102,11 +102,11 @@ claude setup-token
 | 이름 | 기본값 |
 |---|---|
 | `SHORTS_CLAUDE_MODEL` | 비우면 구독 플랜 기본 모델 (`opus`, `sonnet` 등) |
-| `SHORTS_GEMINI_VOICES` | `Leda,Puck,Zephyr,Fenrir` (영상마다 차례로 사용) |
+| `SHORTS_GEMINI_VOICES` | `Leda` (쉼표로 여러 개 넣으면 영상마다 번갈아 사용) |
 | `SHORTS_LOOKBACK_DAYS` | `3` (기사를 고를 최근 이슈 일수) |
 | `SHORTS_GEMINI_TTS_MODEL` | `gemini-3.1-flash-tts-preview` |
 | `SHORTS_WHISPER_MODEL` | `small` |
-| `SHORTS_VOICE` | 대체 음성 `ko-KR-HyunsuMultilingualNeural` |
+| `SHORTS_VOICE` | 대체 음성 `ko-KR-SunHiNeural` (여성) |
 | `SHORTS_TTS_RATE` | 대체 음성 속도 `+22%` |
 | `SHORTS_PRIVACY` | `public` |
 | `SHORTS_BGM_VOLUME` | `0.15` (0이면 배경음 없음) |
