@@ -12,7 +12,7 @@ import {
 import { Background } from "./Background";
 import { Captions } from "./Captions";
 import type { Cut, ShortProps } from "./schema";
-import { colors, fontFamily, layout } from "./theme";
+import { colors, fontFamily, layout, themeVars } from "./theme";
 import { SceneVisual } from "./Visuals";
 
 export const calculateShortMetadata: CalculateMetadataFunction<ShortProps> = ({ props }) => {
@@ -141,9 +141,9 @@ const Chrome: React.FC<{ channel: string; source: string }> = ({ channel, source
   );
 };
 
-export const Short: React.FC<ShortProps> = ({ channel, cover, source, audio, cuts, sfx }) => {
+export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx }) => {
   return (
-    <AbsoluteFill>
+    <AbsoluteFill style={themeVars(theme ?? "ink")}>
       <Background />
       <Audio src={staticFile(audio)} />
       {sfx.map((effect, index) => (

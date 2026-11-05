@@ -40,6 +40,8 @@ TTS_RATE = os.environ.get("SHORTS_TTS_RATE", "+22%")
 # 업로드 기본값은 비공개: YouTube Studio에서 확인한 뒤 직접 공개로 바꾼다.
 UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
+# 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
+SHORTS_THEME = os.environ.get("SHORTS_THEME", "ink")
 
 DAILY_ISSUES_DIR = "config/issues"
 # 오늘 이슈에 남은 기사가 없으면 며칠 전 이슈까지 거슬러 올라가서 고른다.
@@ -209,9 +211,9 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   rooms에 위층부터 2~3개. place는 비유 공간(8자 이내, 예: "위층 소장실"), actual은 그 공간이 뜻하는 실제 기술(12자 이내, 예: "자체 GLM 서버").
   label은 비유 이름(10자 이내, 예: "AI 인력사무소"), 없으면 비워둔다.
 - number: 숫자 하나 카운트업. value에 숫자+단위, label에 무엇의 숫자인지 짧게.
-- compare: 2~4개 값을 막대로 비교. bars에 label, value(숫자), display. 기사에 실제 수치가 2개 이상 있을 때만.
-- flow: 과정이나 단계 2~4개. items에 단계별 10자 이내.
-- keywords: 핵심 단어 2~3개 카드. items에 단어별 8자 이내.
+- compare: 2~4개 값을 막대로 비교. bars에 label, value(숫자), display(단위 포함, 예: "10배", "90%"). 기사에 실제 수치가 2개 이상 있을 때만.
+- flow: 과정이나 단계 2~4개. items에 단계별 10자 이내 명사구 ("끊고" 같은 동사 조각 금지).
+- keywords: 핵심 단어 2~3개 카드. items에 단어별 8자 이내. "=", "vs" 같은 기호만 있는 항목 금지.
 - code: 개발자용 코드·명령어 5줄 이내. 기사 내용과 직접 관련 있을 때만.
 - question: 질문 카드. label은 line을 그대로 옮기지 말고 12자 이내로 더 짧게.
 - none: 그래픽 없이 자막만 크게. 흐름상 쉬어가는 컷에만.
@@ -477,6 +479,10 @@ def validate_visual(visual):
     """그릴 재료가 없는 그래픽은 자막만 보이는 none으로 바꿔서 빈 화면을 막는다."""
     visual = dict(visual or {})
     kind = visual.get("type")
+
+    # "=", "vs", "→"처럼 글자 없는 항목은 카드로 띄우지 않는다.
+    if visual.get("items"):
+        visual["items"] = [item for item in visual["items"] if re.search(r"[0-9A-Za-z가-힣]", item or "") and item.strip().lower() != "vs"]
 
     has_content = {
         "hook": bool((visual.get("value") or "").strip()),
@@ -835,6 +841,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
 
     return {
         "channel": CHANNEL_NAME,
+        "theme": SHORTS_THEME,
         "cover": script["cover"],
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",

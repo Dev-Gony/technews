@@ -320,9 +320,9 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
   const { fps } = useVideoConfig();
   const rooms = (visual.rooms ?? []).filter((room) => room.place.trim()).slice(0, 3);
   const count = rooms.length;
-  const w = count >= 3 ? 112 : 138;
+  const w = count >= 3 ? 128 : 170;
   const t = Math.round(w * 0.36);
-  const gap = 30;
+  const gap = count >= 3 ? 26 : 44;
   const extent = w + t;
   const titleHeight = visual.label ? 78 : 0;
   const stackHeight = count * extent + (count - 1) * gap;
@@ -366,14 +366,13 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
 
             return (
               <g key={`link-${index}`} opacity={pop(frame, startOf(index + 1) + 6, 8)}>
-                <line x1={cx} y1={y1} x2={cx} y2={y2 + w / 2} stroke={colors.mint} strokeWidth={5} strokeDasharray="8 8" />
+                <line x1={cx} y1={y1} x2={cx} y2={y2 + w / 2} style={{ stroke: colors.mint }} strokeWidth={5} strokeDasharray="8 8" />
                 {visible ? (
                   <circle
                     cx={cx}
                     cy={interpolate(cycle, [0, 1], [y1, y2 + w / 2])}
                     r={11}
-                    fill={colors.mint}
-                    style={{ filter: `drop-shadow(0 0 10px ${colors.mint})` }}
+                    style={{ fill: colors.mint, filter: `drop-shadow(0 0 10px ${colors.mint})` }}
                   />
                 ) : null}
               </g>
@@ -387,7 +386,7 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
             const boss = index === 0;
             const face = boss
               ? { top: colors.neonRed, left: "#B3243A", right: "#7A1626", edge: "#FF8A9B" }
-              : { top: "#26344D", left: "#1A2438", right: "#111A2A", edge: colors.mint };
+              : { top: colors.floorTop, left: colors.floorLeft, right: colors.floorRight, edge: colors.mint };
             const leftEdge = (a: number): [number, number] => [cx - w + a * w, cy + (a * w) / 2];
             const rightEdge = (a: number): [number, number] => [cx + a * w, cy + w / 2 - (a * w) / 2];
             const windows = [0.12, 0.42, 0.72];
@@ -400,18 +399,20 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
               >
                 <polygon
                   points={isoPoints([[cx - w, cy], [cx, cy + w / 2], [cx, cy + w / 2 + t], [cx - w, cy + t]])}
-                  fill={face.left}
+                  style={{ fill: face.left }}
                 />
                 <polygon
                   points={isoPoints([[cx, cy + w / 2], [cx + w, cy], [cx + w, cy + t], [cx, cy + w / 2 + t]])}
-                  fill={face.right}
+                  style={{ fill: face.right }}
                 />
                 <polygon
                   points={isoPoints([[cx, cy - w / 2], [cx + w, cy], [cx, cy + w / 2], [cx - w, cy]])}
-                  fill={face.top}
-                  stroke={face.edge}
                   strokeWidth={3}
-                  style={boss ? { filter: `drop-shadow(0 0 22px ${colors.neonRed})` } : undefined}
+                  style={{
+                    fill: face.top,
+                    stroke: face.edge,
+                    filter: boss ? `drop-shadow(0 0 22px ${colors.neonRed})` : undefined,
+                  }}
                 />
                 {/* 창문: 층이 내려앉은 뒤 하나씩 불이 켜진다 */}
                 {windows.map((a, windowIndex) => {
@@ -426,11 +427,11 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
                     <g key={a}>
                       <polygon
                         points={isoPoints([[lx1, ly1 + t * 0.28], [lx2, ly2 + t * 0.28], [lx2, ly2 + t * 0.72], [lx1, ly1 + t * 0.72]])}
-                        fill={color}
+                        style={{ fill: color }}
                       />
                       <polygon
                         points={isoPoints([[rx1, ry1 + t * 0.28], [rx2, ry2 + t * 0.28], [rx2, ry2 + t * 0.72], [rx1, ry1 + t * 0.72]])}
-                        fill={color}
+                        style={{ fill: color }}
                         opacity={0.75}
                       />
                     </g>
@@ -450,17 +451,17 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
                 key={room.place}
                 style={{
                   position: "absolute",
-                  top: floorTop(index) + extent / 2 - 62,
+                  top: floorTop(index) + extent / 2 - 70,
                   left: 0,
                   right: 0,
                   opacity: shown,
                   translate: `${interpolate(shown, [0, 1], [60, 0])}px 0px`,
                 }}
               >
-                <div style={{ fontSize: 52, fontWeight: 900, lineHeight: 1.15, color: index === 0 ? colors.neonRed : colors.text }}>
+                <div style={{ fontSize: 60, fontWeight: 900, lineHeight: 1.15, color: index === 0 ? colors.neonRed : colors.text }}>
                   {room.place}
                 </div>
-                <div style={{ marginTop: 6, fontSize: 38, fontWeight: 700, lineHeight: 1.2, color: colors.mint }}>
+                <div style={{ marginTop: 6, fontSize: 42, fontWeight: 700, lineHeight: 1.2, color: colors.mint }}>
                   = {room.actual}
                 </div>
               </div>

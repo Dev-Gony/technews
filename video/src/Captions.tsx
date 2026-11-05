@@ -25,9 +25,9 @@ const PopWord: React.FC<{ chunk: Chunk; center: boolean }> = ({ chunk, center })
         letterSpacing: -2,
         wordBreak: "keep-all",
         color: chunk.emphasis ? emphasisColor(chunk.text) : colors.text,
-        WebkitTextStroke: "14px #000",
+        WebkitTextStroke: `14px ${colors.stroke}`,
         paintOrder: "stroke fill",
-        textShadow: "0 10px 30px rgba(0,0,0,0.55)",
+        textShadow: `0 10px 30px ${colors.shadow}`,
         opacity: interpolate(frame, [0, 2], [0, 1], { extrapolateRight: "clamp" }),
         scale: String(
           interpolate(frame, [0, 4, 7], [0.55, 1.1, 1], {
