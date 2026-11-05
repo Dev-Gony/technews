@@ -55,5 +55,12 @@
     "title": "AI한테 SQL 대신 지표만 쥐여주면 생기는 일?",
     "video_id": "N1zuiuJbxOc",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-05",
+    "link": "https://blog.cloudflare.com/personal-agents-visibility-control",
+    "title": "내 사이트에 AI 비서가 몰려오는데, 보고 계세요?",
+    "video_id": "mw2k13rjoZo",
+    "voice": "Puck"
   }
 ]
