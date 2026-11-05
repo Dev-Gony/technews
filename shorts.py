@@ -809,7 +809,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
     ends = starts[1:] + [total_frames]
 
-    props_cuts, sfx = [], []
+    props_cuts = []
 
     for index, (cut, words) in enumerate(zip(cuts, cut_words)):
         start, end = starts[index], max(ends[index], starts[index] + 1)
@@ -834,16 +834,6 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
             }
         )
 
-        kind = cut["visual"]["type"]
-
-        if index == 0 or kind in ("hook", "number"):
-            sfx.append({"src": "sfx/impact.wav", "from": start, "volume": 0.55})
-        else:
-            sfx.append({"src": f"sfx/whoosh{index % 2 + 1}.wav", "from": max(start - 3, 0), "volume": 0.35})
-
-        if kind in ("keywords", "flow", "compare"):
-            sfx.append({"src": "sfx/pop.wav", "from": start + 8, "volume": 0.3})
-
     return {
         "channel": CHANNEL_NAME,
         "theme": SHORTS_THEME,
@@ -852,8 +842,22 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         "audio": f"{run_name}/narration.mp3",
         "durationInFrames": total_frames,
         "cuts": props_cuts,
-        "sfx": sfx,
+        "sfx": pick_sfx(cuts, starts),
     }
+
+
+def pick_sfx(cuts, starts):
+    """효과음은 꼭 필요한 순간에만: 첫 컷(훅)의 임팩트, 비유 건물이 처음 나올 때의 휙 소리.
+
+    컷마다 소리를 넣으면 화면이 넘어갈 때마다 소리가 나서 거슬린다.
+    """
+    sfx = [{"src": "sfx/impact.wav", "from": 0, "volume": 0.5}]
+    metaphor = next((index for index, cut in enumerate(cuts) if index > 0 and cut["visual"]["type"] == "metaphor"), None)
+
+    if metaphor is not None:
+        sfx.append({"src": "sfx/whoosh1.wav", "from": max(starts[metaphor] - 3, 0), "volume": 0.25})
+
+    return sfx
 
 
 def render_with_remotion(props, work_dir, output_path):
