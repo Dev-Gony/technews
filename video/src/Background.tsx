@@ -1,7 +1,7 @@
 import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { colors } from "./theme";
 
-// 장면이 바뀌어도 계속 움직이는 배경: 천천히 떠다니는 빛 번짐 + 흐르는 점 격자
+// 배경: 고정된 신문 지면 가로줄(종이색 테마만) + 가장자리 비네트 + 천천히 떠다니는 붉은 빛
 export const Background: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -9,39 +9,21 @@ export const Background: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: colors.background, overflow: "hidden" }}>
       <AbsoluteFill
         style={{
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.09) 2px, transparent 2px)",
-          backgroundSize: "48px 48px",
-          backgroundPosition: `0px ${-frame * 0.6}px`,
-          opacity: 0.6,
+          backgroundImage: `repeating-linear-gradient(0deg, ${colors.rule} 0px, ${colors.rule} 2px, transparent 2px, transparent 72px)`,
         }}
       />
+      <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 45%, transparent 55%, ${colors.vignette} 100%)` }} />
       <div
         style={{
           position: "absolute",
-          width: 900,
-          height: 900,
+          width: 1100,
+          height: 1100,
           borderRadius: "50%",
-          background: `radial-gradient(circle, ${colors.accentSoft} 0%, transparent 65%)`,
-          translate: `${interpolate(Math.sin(frame / 90), [-1, 1], [-260, 260])}px ${interpolate(
+          background: `radial-gradient(circle, ${colors.glow} 0%, transparent 65%)`,
+          translate: `${interpolate(Math.sin(frame / 90), [-1, 1], [-300, 300])}px ${interpolate(
             Math.cos(frame / 120),
             [-1, 1],
-            [-120, 380],
-          )}px`,
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          right: -300,
-          bottom: 200,
-          width: 1000,
-          height: 1000,
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(77,141,255,0.16) 0%, transparent 65%)",
-          translate: `${interpolate(Math.cos(frame / 100), [-1, 1], [-200, 120])}px ${interpolate(
-            Math.sin(frame / 140),
-            [-1, 1],
-            [-300, 100],
+            [0, 700],
           )}px`,
         }}
       />

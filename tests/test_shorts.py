@@ -166,6 +166,14 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual(shorts.validate_visual({"type": "number", "value": "많이"}), {"type": "none"})
         self.assertEqual(shorts.validate_visual({"type": "flow", "items": ["하나"]}), {"type": "none"})
         self.assertEqual(shorts.validate_visual({"type": "unknown"}), {"type": "none"})
+        # 비유 건물은 층이 2개 이상이어야 그린다.
+        one_room = {"type": "metaphor", "rooms": [{"place": "소장실", "actual": "GLM"}, {"place": " ", "actual": "x"}]}
+        self.assertEqual(shorts.validate_visual(one_room), {"type": "none"})
+        two_rooms = {"type": "metaphor", "rooms": [{"place": "소장실", "actual": "GLM"}, {"place": "현장", "actual": "B200"}]}
+        self.assertEqual(shorts.validate_visual(two_rooms), two_rooms)
+        # 기호만 있는 키워드 카드는 뺀다.
+        keywords = shorts.validate_visual({"type": "keywords", "items": ["배달앱", "=", "vs", "외부 API"]})
+        self.assertEqual(keywords["items"], ["배달앱", "외부 API"])
 
         number = {"type": "number", "value": "0.016%", "label": "수정 비율"}
         self.assertEqual(shorts.validate_visual(number), number)
