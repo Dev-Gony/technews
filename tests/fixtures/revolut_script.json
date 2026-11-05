@@ -1,0 +1,174 @@
+{
+  "title": "AI 토큰 비용 90% 줄인 Revolut, 비결은 자체 GLM?",
+  "cover": "Revolut AI 비용\n90% 절감",
+  "summary": "Revolut이 외부 API 대신 자체 호스팅 GLM을 도입해 토큰당 비용을 10분의 1 수준으로 낮췄습니다. Nvidia B200 56대로 엔지니어링 리드타임이 70% 개선됐고, 비용 걱정 없이 모든 작업에 AI를 쓰게 됐습니다.",
+  "tips": [
+    "이번 달 외부 API 토큰 사용량과 단가부터 뽑아보세요",
+    "자체 호스팅 시 필요한 GPU 대수와 API 비용을 비교해 보세요",
+    "비용 걱정 때문에 AI를 못 쓰던 작업 목록을 만들어 보세요"
+  ],
+  "caution": "자체 호스팅은 GPU 장비와 운영 비용이 따로 드니, 기사 속 절감 수치가 우리 팀에도 그대로 나온다고 단정하지 마세요.",
+  "hashtags": [
+    "Revolut",
+    "GLM",
+    "셀프호스팅",
+    "AI비용",
+    "백엔드"
+  ],
+  "cuts": [
+    {
+      "line": "AI 청구서, / 또 폭탄이죠?",
+      "emphasis": [
+        "폭탄이죠?"
+      ],
+      "visual": {
+        "type": "hook",
+        "value": "청구서 폭탄"
+      }
+    },
+    {
+      "line": "Revolut은 / 이걸 풀었어요.",
+      "emphasis": [
+        "Revolut은"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    },
+    {
+      "line": "토큰당 비용이 / 10분의 1이래요.",
+      "emphasis": [
+        "10분의 1이래요."
+      ],
+      "visual": {
+        "type": "number",
+        "value": "1/10",
+        "label": "토큰당 비용"
+      }
+    },
+    {
+      "line": "외부 API 끊고 / GLM 직접 돌렸죠.",
+      "emphasis": [
+        "GLM"
+      ],
+      "visual": {
+        "type": "flow",
+        "items": [
+          "외부 API",
+          "끊고",
+          "자체 GLM"
+        ]
+      }
+    },
+    {
+      "line": "배달 끊고 / 주방 차린 거예요.",
+      "emphasis": [
+        "주방"
+      ],
+      "visual": {
+        "type": "metaphor",
+        "label": "AI 주방",
+        "rooms": [
+          {
+            "place": "배달 앱",
+            "actual": "외부 API"
+          },
+          {
+            "place": "우리 주방",
+            "actual": "자체 호스팅 GLM"
+          },
+          {
+            "place": "주방 설비",
+            "actual": "Nvidia B200"
+          }
+        ]
+      }
+    },
+    {
+      "line": "건당 결제하던 / 배달앱이 / 외부 API죠.",
+      "emphasis": [
+        "외부 API"
+      ],
+      "visual": {
+        "type": "keywords",
+        "items": [
+          "배달앱",
+          "=",
+          "외부 API"
+        ]
+      }
+    },
+    {
+      "line": "주방 설비는 / Nvidia B200 / 56대예요.",
+      "emphasis": [
+        "56대예요."
+      ],
+      "visual": {
+        "type": "number",
+        "value": "56대",
+        "label": "Nvidia B200"
+      }
+    },
+    {
+      "line": "결과는 / 리드타임 / 70% 개선이에요.",
+      "emphasis": [
+        "70%"
+      ],
+      "visual": {
+        "type": "number",
+        "value": "70%",
+        "label": "엔지니어링 리드타임 개선"
+      }
+    },
+    {
+      "line": "비용은 / 90% 절감이고요.",
+      "emphasis": [
+        "90%"
+      ],
+      "visual": {
+        "type": "compare",
+        "bars": [
+          {
+            "label": "외부 API",
+            "value": 100,
+            "display": "100"
+          },
+          {
+            "label": "자체 GLM",
+            "value": 10,
+            "display": "10"
+          }
+        ]
+      }
+    },
+    {
+      "line": "진짜 포인트는 / 비용 눈치 없이 / 다 맡긴 거죠.",
+      "emphasis": [
+        "눈치"
+      ],
+      "visual": {
+        "type": "question",
+        "label": "눈치 안 보고 쓰기"
+      }
+    },
+    {
+      "line": "솔직히 / 토큰 아끼면 / AI를 덜 쓰잖아요.",
+      "emphasis": [
+        "덜"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    },
+    {
+      "line": "이번 주엔 / 토큰 단가부터 / 뽑아보세요.",
+      "emphasis": [
+        "토큰 단가부터"
+      ],
+      "visual": {
+        "type": "code",
+        "code": "월 토큰 사용량 × 단가\n vs\nGPU + 운영비"
+      }
+    }
+  ]
+}

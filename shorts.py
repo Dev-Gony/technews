@@ -41,7 +41,7 @@ TTS_RATE = os.environ.get("SHORTS_TTS_RATE", "+22%")
 UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 # 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
-SHORTS_THEME = os.environ.get("SHORTS_THEME", "ink")
+SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
 
 DAILY_ISSUES_DIR = "config/issues"
 # 오늘 이슈에 남은 기사가 없으면 며칠 전 이슈까지 거슬러 올라가서 고른다.
