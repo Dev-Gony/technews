@@ -27,15 +27,15 @@ YOUTUBE_REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "").strip()
 CLAUDE_MODEL = os.environ.get("SHORTS_CLAUDE_MODEL", "").strip()
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 GEMINI_TTS_MODEL = os.environ.get("SHORTS_GEMINI_TTS_MODEL", "gemini-3.1-flash-tts-preview")
-# 영상마다 번갈아 쓰는 목소리 (쉼표로 구분)
+# 쓰는 목소리 (쉼표로 여러 개 넣으면 영상마다 번갈아 쓴다). 기본은 여성 목소리 Leda 하나로 고정.
 GEMINI_TTS_VOICES = [
     voice.strip()
-    for voice in os.environ.get("SHORTS_GEMINI_VOICES", "Leda,Puck,Zephyr,Fenrir").split(",")
+    for voice in os.environ.get("SHORTS_GEMINI_VOICES", "Leda").split(",")
     if voice.strip()
 ]
 WHISPER_MODEL = os.environ.get("SHORTS_WHISPER_MODEL", "small")
-# Gemini TTS가 실패하면(키 없음, 무료 한도 초과 등) 쓰는 대체 음성
-TTS_VOICE = os.environ.get("SHORTS_VOICE", "ko-KR-HyunsuMultilingualNeural")
+# Gemini TTS가 실패하면(키 없음, 무료 한도 초과 등) 쓰는 대체 음성. 기본 목소리와 맞춰 여성 음성.
+TTS_VOICE = os.environ.get("SHORTS_VOICE", "ko-KR-SunHiNeural")
 TTS_RATE = os.environ.get("SHORTS_TTS_RATE", "+22%")
 # 업로드 기본값은 비공개: YouTube Studio에서 확인한 뒤 직접 공개로 바꾼다.
 UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
@@ -809,7 +809,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
     ends = starts[1:] + [total_frames]
 
-    props_cuts, sfx = [], []
+    props_cuts = []
 
     for index, (cut, words) in enumerate(zip(cuts, cut_words)):
         start, end = starts[index], max(ends[index], starts[index] + 1)
@@ -834,16 +834,6 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
             }
         )
 
-        kind = cut["visual"]["type"]
-
-        if index == 0 or kind in ("hook", "number"):
-            sfx.append({"src": "sfx/impact.wav", "from": start, "volume": 0.55})
-        else:
-            sfx.append({"src": f"sfx/whoosh{index % 2 + 1}.wav", "from": max(start - 3, 0), "volume": 0.35})
-
-        if kind in ("keywords", "flow", "compare"):
-            sfx.append({"src": "sfx/pop.wav", "from": start + 8, "volume": 0.3})
-
     return {
         "channel": CHANNEL_NAME,
         "theme": SHORTS_THEME,
@@ -852,8 +842,22 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         "audio": f"{run_name}/narration.mp3",
         "durationInFrames": total_frames,
         "cuts": props_cuts,
-        "sfx": sfx,
+        "sfx": pick_sfx(cuts, starts),
     }
+
+
+def pick_sfx(cuts, starts):
+    """효과음은 꼭 필요한 순간에만: 첫 컷(훅)의 임팩트, 비유 건물이 처음 나올 때의 휙 소리.
+
+    컷마다 소리를 넣으면 화면이 넘어갈 때마다 소리가 나서 거슬린다.
+    """
+    sfx = [{"src": "sfx/impact.wav", "from": 0, "volume": 0.5}]
+    metaphor = next((index for index, cut in enumerate(cuts) if index > 0 and cut["visual"]["type"] == "metaphor"), None)
+
+    if metaphor is not None:
+        sfx.append({"src": "sfx/whoosh1.wav", "from": max(starts[metaphor] - 3, 0), "volume": 0.25})
+
+    return sfx
 
 
 def render_with_remotion(props, work_dir, output_path):

@@ -161,6 +161,14 @@ class ShortsTest(unittest.TestCase):
                 }
             )
 
+    def test_pick_sfx_only_on_hook_and_first_metaphor(self):
+        cuts = [{"visual": {"type": t}} for t in ["hook", "number", "metaphor", "flow", "metaphor", "keywords"]]
+        sfx = shorts.pick_sfx(cuts, [0, 40, 90, 130, 170, 210])
+
+        self.assertEqual([effect["src"] for effect in sfx], ["sfx/impact.wav", "sfx/whoosh1.wav"])
+        self.assertEqual(sfx[1]["from"], 87)
+        self.assertEqual(len(shorts.pick_sfx(cuts[:2], [0, 40])), 1)
+
     def test_validate_visual_falls_back_when_empty(self):
         self.assertEqual(shorts.validate_visual(None), {"type": "none"})
         self.assertEqual(shorts.validate_visual({"type": "number", "value": "많이"}), {"type": "none"})
