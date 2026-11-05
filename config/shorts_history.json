@@ -62,5 +62,12 @@
     "title": "내 사이트에 AI 비서가 몰려오는데, 보고 계세요?",
     "video_id": "mw2k13rjoZo",
     "voice": "Puck"
+  },
+  {
+    "date": "2026-11-05",
+    "link": "https://aws.amazon.com/blogs/compute/plan-and-measure-ec2-flexibility-with-amazon-ec2-capacity-manager",
+    "title": "스케일업했는데 서버가 안 뜬다면? EC2 용량 미리 확인",
+    "video_id": "ywDrgdgFYoU",
+    "voice": "Zephyr"
   }
 ]
