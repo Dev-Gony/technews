@@ -69,5 +69,12 @@
     "title": "스케일업했는데 서버가 안 뜬다면? EC2 용량 미리 확인",
     "video_id": "ywDrgdgFYoU",
     "voice": "Zephyr"
+  },
+  {
+    "date": "2026-11-05",
+    "link": "https://news.hada.io/topic?id=36604",
+    "title": "GitBook이 AI 에이전트에 뚫렸다고? 토큰 점검하세요",
+    "video_id": "onm8Q7zEcW0",
+    "voice": "Fenrir"
   }
 ]
