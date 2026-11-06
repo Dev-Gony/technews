@@ -111,5 +111,12 @@
     "title": "TUI Amazon Bedrock 위협 모델링 자동화, 컨텍스트 효율 94%",
     "video_id": "jaO7XN3GyjI",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-06",
+    "link": "https://stripe.com/blog/analyze-your-stripe-data-directly-with-your-agent",
+    "title": "Stripe 에이전트 연동, SQL 없이 매출 분석·투자자 슬라이드까지",
+    "video_id": "MQ0LraEpfs8",
+    "voice": "Leda"
   }
 ]
