@@ -211,10 +211,14 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
 emphasis: 그 컷에서 화면 자막 색을 바꿀 핵심 단어 0~2개. line에 그대로 들어 있는 어절이어야 한다. 숫자는 꼭 강조한다.
 
 visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 연달아 3번 이상 쓰지 않는다.
-- hook: 1컷 전용. value에 화면을 꽉 채울 2~8자 (아픔이나 핵심어). 예: "청구서 폭탄", "250배".
-- metaphor: 공간·역할 비유를 입체 건물로 보여준다. 비유를 처음 꺼내는 컷에 꼭 1번, 필요하면 한 번 더.
-  rooms에 위층부터 2~3개. place는 비유 공간(8자 이내, 예: "위층 소장실"), actual은 그 공간이 뜻하는 실제 기술(12자 이내, 예: "자체 GLM 서버").
-  label은 비유 이름(10자 이내, 예: "AI 인력사무소"), 없으면 비워둔다.
+- hook: 1컷 전용. 1컷 동안은 cover(제목)가 화면 가운데에 크게 나오므로 이 그래픽은 화면에 그리지 않는다. 1컷 visual은 hook으로 둔다.
+- metaphor: 공간·역할 비유를 입체 사물 그림(아이소메트릭)으로 보여준다. 그림이 있으면 시청자가 넘기지 않고 보므로,
+  비유를 꺼내는 컷에 꼭 1번, 구조가 바뀌는 지점에 한 번 더 써도 된다.
+  rooms에 핵심부터 2~3개(가로로 나란히 놓인다). place는 비유 이름(8자 이내, 예: "내 주방"), actual은 그것이 뜻하는 실제 기술(12자 이내, 예: "자체 호스팅 GLM").
+  icon은 그 실제 기술을 가장 직관적으로 보여줄 사물 하나: {icons}.
+  (서버·모델=server, GPU·칩=gpu, 클라우드·외부 서비스=cloud, 데이터=database, AI 에이전트·봇=robot, 사용자·직원=person,
+   앱·개발 도구=laptop, 문서·코드·정책=document, 비용·돈=coins, 외부 호출·배달·전송=truck, 보안·권한=lock, 회사·조직=building)
+  label은 비유 이름(10자 이내, 예: "배달 vs 내 주방"), 없으면 비워둔다.
 - number: 숫자 하나 카운트업. value에 숫자+단위, label에 무엇의 숫자인지 짧게.
 - compare: 2~4개 값을 막대로 비교. bars에 label, value(숫자), display(단위 포함, 예: "10배", "90%"). 기사에 실제 수치가 2개 이상 있을 때만.
 - flow: 과정이나 단계 2~4개. items에 단계별 10자 이내 명사구 ("끊고" 같은 동사 조각 금지).
@@ -224,10 +228,18 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
 - none: 그래픽 없이 자막만 크게. 흐름상 쉬어가는 컷에만.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 
-cover: 영상 내내 화면 맨 위에 고정되는 제목. 썸네일 역할도 한다. 2줄이면 줄 사이에 \\n, 줄당 10자 이내. 예: "Cursor 확장\\n백도어 주의".
+cover: 이 영상의 훅이자 썸네일. 1컷 동안 화면 가운데에 크게 나왔다가 위로 줄어들어 영상 내내 고정된다.
+  기사에서 가장 센 구체적 결과(숫자가 있으면 숫자 포함)를 담는다. 숫자가 든 어절은 자동으로 골드로 강조된다.
+  2줄, 줄 사이에 \\n, 줄당 10자 이내. 예: "API 끊고\\nAI 비용 90%↓", "Cursor 확장\\n백도어 주의".
 title은 40자 이내, 해시태그 없이 클릭하고 싶은 질문형이나 단정형. hashtags는 # 없이 3~5개.
 더보기란용: summary는 무슨 일인지 1~2문장. tips는 시청자가 바로 써먹을 행동 1~3개(명령어·설정이 있으면 그대로). caution은 비용·보안·개인정보 주의점 한 줄, 없으면 빈 문자열."""
 
+
+# video/src/Isometric.tsx의 ICONS와 같은 목록 (비유 그림에 올리는 사물)
+ICONS = [
+    "server", "gpu", "cloud", "database", "robot", "person",
+    "laptop", "document", "coins", "truck", "lock", "building",
+]
 
 VISUAL_TYPES = ["hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none"]
 
@@ -260,8 +272,9 @@ VISUAL_SCHEMA = {
                 "properties": {
                     "place": {"type": "string"},
                     "actual": {"type": "string"},
+                    "icon": {"type": "string", "enum": ICONS},
                 },
-                "required": ["place", "actual"],
+                "required": ["place", "actual", "icon"],
                 "additionalProperties": False,
             },
         },
@@ -428,7 +441,7 @@ def claude_json(system_prompt, user_prompt, schema):
 
 def generate_script(article):
     script = claude_json(
-        SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME),
+        SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME, icons=", ".join(ICONS)),
         build_script_prompt(article),
         SCRIPT_SCHEMA,
     )

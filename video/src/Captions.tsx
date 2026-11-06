@@ -2,24 +2,22 @@ import { Easing, interpolate, Sequence, useCurrentFrame, useVideoConfig } from "
 import type { Chunk } from "./schema";
 import { colors, fontFamily, layout } from "./theme";
 
-// 1~2어절씩 툭 튀어나오는 자막. 왼쪽 정렬, 테두리·그림자 없음. 강조 단어는 숫자면 골드, 아니면 빨강.
+// 1~2어절씩 툭 튀어나오는 자막. 가운데 정렬, 발광 없음. 강조 단어는 숫자면 골드, 아니면 빨강.
 const emphasisColor = (text: string) => (/\d/.test(text) ? colors.gold : colors.neonRed);
 
 const PopWord: React.FC<{ chunk: Chunk; center: boolean }> = ({ chunk, center }) => {
   const frame = useCurrentFrame();
   const { width } = useVideoConfig();
-  // 그래픽이 있는 컷은 그래픽이 주인공이라 자막을 한 단계 작게
-  const size = center ? 128 : 88;
+  const size = center ? 132 : 100;
 
   return (
     <div
       style={{
         position: "absolute",
         top: center ? 760 : layout.captionTop,
-        left: layout.side,
-        width: width - layout.side * 2,
-        textAlign: "left",
-        transformOrigin: "left center",
+        left: layout.side / 2,
+        width: width - layout.side,
+        textAlign: "center",
         fontFamily,
         fontWeight: 900,
         fontSize: chunk.text.length > 7 ? size * 0.82 : size,

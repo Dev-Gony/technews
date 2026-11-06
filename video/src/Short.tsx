@@ -36,11 +36,9 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
               easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
             }),
           ),
-          // 왼쪽 기준선이 흔들리지 않게 왼쪽 여백을 중심으로 확대한다.
-          transformOrigin: `${layout.side}px 50%`,
         }}
       >
-        <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />
+        {index === 0 ? null : <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />}
       </AbsoluteFill>
       <Captions chunks={cut.chunks} center={center} />
       {strong ? (
@@ -55,31 +53,58 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   );
 };
 
-// 상단 고정 제목. 브랜드 명조, 왼쪽 정렬, 한 가지 색. 이정표 역할이라 그래픽보다 작게.
-const Cover: React.FC<{ text: string }> = ({ text }) => {
+// 제목(cover) = 이 영상의 훅. 첫 컷 동안은 화면 한가운데 크게 쾅 찍히고,
+// 첫 컷이 끝날 때 상단으로 줄어들어 영상 내내 고정된다. 숫자가 든 어절은 골드.
+const goldDigits = (line: string) =>
+  line.split(/(\s+)/).map((word, index) =>
+    /\d/.test(word) ? (
+      <span key={index} style={{ color: colors.gold }}>
+        {word}
+      </span>
+    ) : (
+      word
+    ),
+  );
+
+const Cover: React.FC<{ text: string; heroFrames: number }> = ({ text, heroFrames }) => {
+  const frame = useCurrentFrame();
   const { width } = useVideoConfig();
   const lines = text.split("\n").slice(0, 2);
   const longest = Math.max(...lines.map((line) => line.length), 1);
+  // 0 = 화면 가운데 크게(훅), 1 = 상단 고정 제목
+  const shrink = interpolate(frame, [heroFrames - 10, heroFrames], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.65, 0, 0.35, 1),
+  });
+  const slam = interpolate(frame, [0, 6], [1.35, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.2, 0.9, 0.3, 1),
+  });
+  const heroSize = longest > 9 ? 112 : 132;
+  const headerSize = longest > 10 ? 58 : 66;
 
   return (
     <div
       style={{
         position: "absolute",
-        top: layout.coverTop,
-        left: layout.side,
-        width: width - layout.side * 2,
-        textAlign: "left",
+        top: interpolate(shrink, [0, 1], [560, layout.coverTop]),
+        left: layout.side / 2,
+        width: width - layout.side,
+        textAlign: "center",
         fontFamily: serifFamily,
         fontWeight: 900,
-        fontSize: longest > 10 ? 56 : 64,
-        lineHeight: 1.22,
-        letterSpacing: -1,
+        fontSize: interpolate(shrink, [0, 1], [heroSize, headerSize]),
+        lineHeight: 1.2,
+        letterSpacing: -1.5,
+        scale: String(shrink > 0 ? 1 : slam),
         wordBreak: "keep-all",
       }}
     >
       {lines.map((line, index) => (
         <div key={index} style={{ color: colors.text }}>
-          {line}
+          {goldDigits(line)}
         </div>
       ))}
     </div>
@@ -145,7 +170,7 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
           <CutView cut={cut} index={index} />
         </Sequence>
       ))}
-      <Cover text={cover} />
+      <Cover text={cover} heroFrames={cuts[0]?.durationInFrames ?? 45} />
       <Chrome channel={channel} source={source} />
     </AbsoluteFill>
   );

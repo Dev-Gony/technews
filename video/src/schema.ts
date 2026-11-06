@@ -11,6 +11,8 @@ export const barSchema = z.object({
 export const roomSchema = z.object({
   place: z.string(),
   actual: z.string(),
+  // 층 위에 올릴 사물 (Isometric.tsx의 ICONS 중 하나)
+  icon: z.string().optional(),
 });
 
 export const visualSchema = z.object({
