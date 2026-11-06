@@ -27,7 +27,7 @@ const Panel: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "flex-start",
         fontFamily,
         color: colors.text,
         wordBreak: "keep-all",
@@ -66,8 +66,9 @@ const NumberVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
           fontSize: text.length > 7 ? 170 : 230,
           fontWeight: 900,
           letterSpacing: -6,
-          color: colors.accent,
-          textShadow: `0 0 60px ${colors.accentSoft}`,
+          color: colors.gold,
+          fontVariantNumeric: "tabular-nums",
+          transformOrigin: "left center",
           scale: String(interpolate(progress, [0, 1], [0.6, 1])),
           opacity: pop(frame, 0, 8),
         }}
@@ -114,7 +115,7 @@ const CompareVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visu
             <div key={bar.label} style={{ opacity: pop(frame, staggerStart(index, bars.length, sceneFrames), 6) }}>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 44, fontWeight: 700 }}>
                 <span>{bar.label}</span>
-                <span style={{ color: best ? colors.accent : colors.text }}>{bar.display}</span>
+                <span style={{ color: best ? colors.gold : colors.muted, fontVariantNumeric: "tabular-nums" }}>{bar.display}</span>
               </div>
               <div style={{ marginTop: 12, height: 44, borderRadius: 22, background: colors.surface }}>
                 <div
@@ -122,8 +123,7 @@ const CompareVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visu
                     height: "100%",
                     borderRadius: 22,
                     width: `${(bar.value / max) * 100 * grow}%`,
-                    background: best ? colors.accent : colors.blue,
-                    boxShadow: best ? `0 0 30px ${colors.accentSoft}` : "none",
+                    background: best ? colors.gold : colors.blue,
                   }}
                 />
               </div>
@@ -148,22 +148,22 @@ const FlowVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual,
         const last = index === items.length - 1;
 
         return (
-          <div key={item} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div key={item} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
             <div
               style={{
                 minWidth: 640,
                 padding: "18px 40px",
                 borderRadius: 28,
-                border: `3px solid ${last ? colors.accent : colors.border}`,
-                background: last ? colors.accentSoft : colors.surface,
+                border: `3px solid ${last ? colors.text : colors.border}`,
+                background: colors.surface,
                 fontSize: 44,
                 fontWeight: 700,
-                textAlign: "center",
+                textAlign: "left",
                 opacity: shown,
                 translate: `${interpolate(shown, [0, 1], [-80, 0])}px 0px`,
               }}
             >
-              <span style={{ color: colors.accent, marginRight: 18 }}>{index + 1}</span>
+              <span style={{ color: colors.muted, marginRight: 18 }}>{index + 1}</span>
               {item}
             </div>
             {last ? null : (
@@ -171,9 +171,9 @@ const FlowVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual,
                 style={{
                   height: 34,
                   width: 6,
-                  margin: "6px 0",
+                  margin: "6px 0 6px 60px",
                   borderRadius: 3,
-                  background: colors.accent,
+                  background: colors.border,
                   scale: `1 ${pop(frame, start + 10, 10)}`,
                   transformOrigin: "top",
                 }}
@@ -193,7 +193,7 @@ const KeywordsVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
 
   return (
     <Panel>
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 28 }}>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start", gap: 28 }}>
         {items.map((item, index) => {
           const shown = pop(frame, staggerStart(index, items.length, sceneFrames), 9);
 
@@ -203,8 +203,8 @@ const KeywordsVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
               style={{
                 padding: "26px 44px",
                 borderRadius: 999,
-                background: index === 0 ? colors.accent : colors.surface,
-                border: `3px solid ${index === 0 ? colors.accent : colors.border}`,
+                background: colors.surface,
+                border: `3px solid ${index === 0 ? colors.text : colors.border}`,
                 fontSize: 54,
                 fontWeight: 900,
                 opacity: shown,
@@ -282,10 +282,11 @@ const QuestionVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
     <Panel>
       <div
         style={{
-          fontSize: 300,
+          fontSize: 260,
           fontWeight: 900,
           lineHeight: 1,
-          color: colors.accent,
+          color: colors.faint,
+          transformOrigin: "left center",
           scale: String(1 + Math.sin(frame / 6) * 0.05),
           opacity: shown,
         }}
@@ -296,9 +297,10 @@ const QuestionVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
         <div
           style={{
             marginTop: 30,
-            fontSize: 62,
+            fontSize: 66,
             fontWeight: 900,
-            textAlign: "center",
+            textAlign: "left",
+            transformOrigin: "left center",
             lineHeight: 1.3,
             opacity: pop(frame, 10, 16),
             scale: String(interpolate(pop(frame, 10, 16), [0, 1], [0.85, 1])),
@@ -340,15 +342,12 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
           style={{
             height: titleHeight - 18,
             marginBottom: 18,
-            padding: "0 30px",
             display: "flex",
             alignItems: "center",
-            borderRadius: 999,
-            border: `3px solid ${colors.gold}`,
-            background: colors.goldSoft,
-            color: colors.gold,
-            fontSize: 40,
+            color: colors.muted,
+            fontSize: 36,
             fontWeight: 900,
+            letterSpacing: 2,
             opacity: pop(frame, 0, 8),
           }}
         >
@@ -366,13 +365,13 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
 
             return (
               <g key={`link-${index}`} opacity={pop(frame, startOf(index + 1) + 6, 8)}>
-                <line x1={cx} y1={y1} x2={cx} y2={y2 + w / 2} style={{ stroke: colors.gold }} strokeWidth={5} strokeDasharray="8 8" />
+                <line x1={cx} y1={y1} x2={cx} y2={y2 + w / 2} style={{ stroke: colors.border }} strokeWidth={4} strokeDasharray="8 8" />
                 {visible ? (
                   <circle
                     cx={cx}
                     cy={interpolate(cycle, [0, 1], [y1, y2 + w / 2])}
                     r={11}
-                    style={{ fill: colors.gold, filter: `drop-shadow(0 0 10px ${colors.gold})` }}
+                    style={{ fill: colors.muted }}
                   />
                 ) : null}
               </g>
@@ -385,8 +384,8 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
             const cy = top + w / 2;
             const boss = index === 0;
             const face = boss
-              ? { top: colors.neonRed, left: "#B3243A", right: "#7A1626", edge: "#FF8A9B" }
-              : { top: colors.floorTop, left: colors.floorLeft, right: colors.floorRight, edge: colors.gold };
+              ? { top: colors.accent, left: "#B83A2E", right: "#8A2B22", edge: colors.accent }
+              : { top: colors.floorTop, left: colors.floorLeft, right: colors.floorRight, edge: colors.border };
             const leftEdge = (a: number): [number, number] => [cx - w + a * w, cy + (a * w) / 2];
             const rightEdge = (a: number): [number, number] => [cx + a * w, cy + w / 2 - (a * w) / 2];
             const windows = [0.12, 0.42, 0.72];
@@ -411,13 +410,12 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
                   style={{
                     fill: face.top,
                     stroke: face.edge,
-                    filter: boss ? `drop-shadow(0 0 22px ${colors.neonRed})` : undefined,
                   }}
                 />
                 {/* 창문: 층이 내려앉은 뒤 하나씩 불이 켜진다 */}
                 {windows.map((a, windowIndex) => {
                   const lit = frame >= startOf(index) + 10 + windowIndex * 4;
-                  const color = lit ? (boss ? "#FFD2D9" : colors.gold) : "rgba(255,255,255,0.12)";
+                  const color = lit ? (boss ? "#F7D9D4" : colors.muted) : "rgba(255,255,255,0.10)";
                   const [lx1, ly1] = leftEdge(a);
                   const [lx2, ly2] = leftEdge(a + 0.18);
                   const [rx1, ry1] = rightEdge(a);
@@ -458,10 +456,10 @@ const MetaphorVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ vis
                   translate: `${interpolate(shown, [0, 1], [60, 0])}px 0px`,
                 }}
               >
-                <div style={{ fontSize: 60, fontWeight: 900, lineHeight: 1.15, color: index === 0 ? colors.neonRed : colors.text }}>
+                <div style={{ fontSize: 60, fontWeight: 900, lineHeight: 1.15, color: colors.text }}>
                   {room.place}
                 </div>
-                <div style={{ marginTop: 6, fontSize: 42, fontWeight: 700, lineHeight: 1.2, color: colors.gold }}>
+                <div style={{ marginTop: 6, fontSize: 40, fontWeight: 700, lineHeight: 1.2, color: colors.muted }}>
                   = {room.actual}
                 </div>
               </div>
@@ -493,9 +491,9 @@ const HookVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
           fontWeight: 900,
           lineHeight: 1.05,
           letterSpacing: -8,
-          textAlign: "center",
+          textAlign: "left",
+          transformOrigin: "left center",
           color: colors.accent,
-          textShadow: `0 0 80px ${colors.accentSoft}`,
           scale: String(slam),
           translate: `${shake}px ${-shake / 2}px`,
           opacity: interpolate(frame, [0, 2], [0, 1], { extrapolateRight: "clamp" }),

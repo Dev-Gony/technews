@@ -12,17 +12,17 @@ import {
 import { Background } from "./Background";
 import { Captions } from "./Captions";
 import type { Cut, ShortProps } from "./schema";
-import { colors, fontFamily, layout, themeVars } from "./theme";
+import { colors, fontFamily, layout, serifFamily, themeVars } from "./theme";
 import { SceneVisual } from "./Visuals";
 
 export const calculateShortMetadata: CalculateMetadataFunction<ShortProps> = ({ props }) => {
   return { durationInFrames: props.durationInFrames };
 };
 
-// 컷이 바뀔 때마다 화면이 확 다가왔다가 자리 잡는다(펀치인). 숫자·훅 컷은 흰 섬광.
+// 컷이 바뀔 때마다 화면이 살짝 다가왔다가 자리 잡는다(펀치인). 흰 섬광은 첫 컷에만.
 const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   const frame = useCurrentFrame();
-  const strong = index === 0 || cut.visual.type === "hook" || cut.visual.type === "number";
+  const strong = index === 0;
   const center = cut.visual.type === "none";
 
   return (
@@ -36,7 +36,8 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
               easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
             }),
           ),
-          translate: `${(index % 2 === 0 ? -1 : 1) * interpolate(frame, [0, cut.durationInFrames], [0, 14])}px 0px`,
+          // 왼쪽 기준선이 흔들리지 않게 왼쪽 여백을 중심으로 확대한다.
+          transformOrigin: `${layout.side}px 50%`,
         }}
       >
         <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />
@@ -54,7 +55,7 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   );
 };
 
-// 상단 고정 제목. 두 번째 줄은 강조색.
+// 상단 고정 제목. 브랜드 명조, 왼쪽 정렬, 한 가지 색. 이정표 역할이라 그래픽보다 작게.
 const Cover: React.FC<{ text: string }> = ({ text }) => {
   const { width } = useVideoConfig();
   const lines = text.split("\n").slice(0, 2);
@@ -67,17 +68,17 @@ const Cover: React.FC<{ text: string }> = ({ text }) => {
         top: layout.coverTop,
         left: layout.side,
         width: width - layout.side * 2,
-        textAlign: "center",
-        fontFamily,
+        textAlign: "left",
+        fontFamily: serifFamily,
         fontWeight: 900,
-        fontSize: longest > 10 ? 66 : 78,
-        lineHeight: 1.18,
-        letterSpacing: -1.5,
+        fontSize: longest > 10 ? 56 : 64,
+        lineHeight: 1.22,
+        letterSpacing: -1,
         wordBreak: "keep-all",
       }}
     >
       {lines.map((line, index) => (
-        <div key={index} style={{ color: index === lines.length - 1 && lines.length > 1 ? colors.highlight : colors.text }}>
+        <div key={index} style={{ color: colors.text }}>
           {line}
         </div>
       ))}
@@ -85,7 +86,7 @@ const Cover: React.FC<{ text: string }> = ({ text }) => {
   );
 };
 
-// 상단 채널명 + 전체 진행 막대, 하단 출처
+// 상단 한 줄: 채널명(왼쪽) + 출처(오른쪽), 그 아래 얇은 진행 막대. 콘텐츠보다 눈에 덜 띄게 회색.
 const Chrome: React.FC<{ channel: string; source: string }> = ({ channel, source }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, width } = useVideoConfig();
@@ -97,45 +98,35 @@ const Chrome: React.FC<{ channel: string; source: string }> = ({ channel, source
           position: "absolute",
           top: 150,
           left: layout.side,
-          fontSize: 40,
-          fontWeight: 900,
-          color: colors.accent,
-          letterSpacing: 1,
+          width: width - layout.side * 2,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "baseline",
+          color: colors.muted,
         }}
       >
-        {channel}
+        <span style={{ fontSize: 32, fontWeight: 900, letterSpacing: 2 }}>{channel}</span>
+        <span style={{ fontSize: 26, fontWeight: 500, color: colors.faint }}>{source}</span>
       </div>
       <div
         style={{
           position: "absolute",
-          top: 215,
+          top: 208,
           left: layout.side,
           width: width - layout.side * 2,
-          height: 8,
-          borderRadius: 4,
+          height: 4,
+          borderRadius: 2,
           background: colors.surface,
         }}
       >
         <div
           style={{
             height: "100%",
-            borderRadius: 4,
+            borderRadius: 2,
             width: `${(frame / Math.max(durationInFrames - 1, 1)) * 100}%`,
-            background: colors.accent,
+            background: colors.muted,
           }}
         />
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          top: 1530,
-          left: layout.side,
-          fontSize: 32,
-          fontWeight: 500,
-          color: colors.muted,
-        }}
-      >
-        {source}
       </div>
     </AbsoluteFill>
   );
