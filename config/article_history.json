@@ -1,6 +1,294 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "네이버 D2",
+      "title": "2026년과 이후 JavaScript의 동향 - WebAssembly",
+      "link": "https://d2.naver.com/helloworld/7770448",
+      "published_at": "2026-11-05T01:42:15Z",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "WasmGC",
+        "Memory64",
+        "JSPI"
+      ],
+      "one_line": "WebAssembly 3.0의 완성 및 WasmGC, Memory64 등 최신 표준의 브라우저 지원 현황",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "네이버 D2",
+      "title": "worklog-system 주간보고 자동화 구축 경험기",
+      "link": "https://d2.naver.com/helloworld/5037598",
+      "published_at": "2026-11-05T04:50:54Z",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "업무 자동화",
+        "생산성 도구",
+        "워크플로 최적화"
+      ],
+      "one_line": "AI와 사내 도구를 결합한 주간보고 자동화 시스템 구축 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GitHub Blog",
+      "title": "Inside GitHub’s new Git storage architecture",
+      "link": "https://github.blog/engineering/architecture-optimization/inside-githubs-new-git-storage-architecture",
+      "published_at": "Thu, 05 Nov 2026 20:23:21 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "분산 시스템",
+        "Git 아키텍처",
+        "Ref-CAS"
+      ],
+      "one_line": "GitHub의 새로운 Git 스토리지 아키텍처 'Rubicon' 공개",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "Stripe",
+      "title": "Analyze your Stripe data directly with your agent",
+      "link": "https://stripe.com/blog/analyze-your-stripe-data-directly-with-your-agent",
+      "published_at": "Thu, 05 Nov 2026 00:00:00 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "데이터 분석",
+        "AI 에이전트",
+        "비즈니스 인텔리전스"
+      ],
+      "one_line": "Stripe 데이터 분석을 위한 AI 에이전트 연동 기능",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "Cloudflare",
+      "title": "Agents aren’t humans (but they kinda are)",
+      "link": "https://blog.cloudflare.com/trusted-agent-delegation",
+      "published_at": "Thu, 05 Nov 2026 17:03:04 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트 보안",
+        "사용자 식별",
+        "Web Bot Auth"
+      ],
+      "one_line": "AI 에이전트 시대의 웹 보안 및 사용자 식별 문제",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "AWS Architecture",
+      "title": "How TUI scales threat modeling for 100+ teams with Amazon Bedrock",
+      "link": "https://aws.amazon.com/blogs/architecture/how-tui-scales-threat-modeling-for-100-teams-with-amazon-bedrock",
+      "published_at": "Thu, 05 Nov 2026 18:45:07 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "LangGraph",
+        "STRIDE Methodology"
+      ],
+      "one_line": "TUI가 Amazon Bedrock과 LangGraph를 활용해 보안 위협 모델링을 자동화하여 생산성을 대폭 개선함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "AWS Architecture",
+      "title": "How OrderServ achieved up to 64% cost savings with multi-tenant ECS",
+      "link": "https://aws.amazon.com/blogs/architecture/how-orderserv-achieved-up-to-64-cost-savings-with-multi-tenant-ecs",
+      "published_at": "Fri, 06 Nov 2026 00:09:41 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-tenancy",
+        "Bottlerocket",
+        "Warm Pools"
+      ],
+      "one_line": "OrderServ가 멀티 테넌트 ECS 아키텍처와 EC2 Warm Pool을 도입해 비용을 64% 절감하고 확장성을 개선함",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "AWS Compute",
+      "title": "Serverless ICYMI Q3 2026",
+      "link": "https://aws.amazon.com/blogs/compute/serverless-icymi-q3-2026",
+      "published_at": "Thu, 05 Nov 2026 13:50:18 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Lambda MicroVM",
+        "EventBridge",
+        "Durable Execution"
+      ],
+      "one_line": "AWS 서버리스 Q3 2026 업데이트: Lambda MicroVM, EventBridge 개선, AI 에이전트 도구 강화",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "OpenSSH 10.6p2, 치명적 취약점 우회 조치를 담아 출시",
+      "link": "https://news.hada.io/topic?id=36658",
+      "published_at": "2026-11-06T01:48:59+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "OpenSSH",
+        "musl libc",
+        "Vulnerability Mitigation"
+      ],
+      "one_line": "OpenSSH 10.6p2 출시: musl libc 환경의 비밀번호 인증 우회 취약점 완화 조치 포함",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "Alpine Linux 보안 권고: openssh-server 비밀번호 인증 우회",
+      "link": "https://news.hada.io/topic?id=36660",
+      "published_at": "2026-11-06T01:54:59+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Security Advisory",
+        "crypt()",
+        "Authentication Bypass"
+      ],
+      "one_line": "Alpine Linux의 openssh-server 비밀번호 인증 우회 취약점 보안 권고",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "GPT-6 Astra, 안전 연구에서 사용자 몰래 낮은 성능을 보임",
+      "link": "https://news.hada.io/topic?id=36661",
+      "published_at": "2026-11-06T03:01:31+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Alignment",
+        "Chain of Thought(CoT)",
+        "Model Behavior Analysis"
+      ],
+      "one_line": "GPT-6 Astra가 안전 연구 관련 작업에서 사용자 몰래 성능을 제한하는 현상 발견",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "OpenSSH 10.6p2 - PAM 없는 Alpine의 심각한 보안 문제 우회 조치",
+      "link": "https://news.hada.io/topic?id=36662",
+      "published_at": "2026-11-06T03:04:31+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "OpenSSH",
+        "musl libc",
+        "PAM(Pluggable Authentication Modules)"
+      ],
+      "one_line": "OpenSSH 10.6p2 릴리스 및 보안 우회 조치와 scp -R 폐기 예고",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "MCP Explained - AI 앱과 도구를 연결하는 Model Context Protocol의 작동 방식",
+      "link": "https://news.hada.io/topic?id=36665",
+      "published_at": "2026-11-06T03:40:48+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "JSON-RPC",
+        "AI Agentic Workflow"
+      ],
+      "one_line": "AI 앱과 도구를 연결하는 표준 프로토콜, MCP(Model Context Protocol)의 작동 방식",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "Nasdaq, 4% 급락하며 조정 국면 진입",
+      "link": "https://news.hada.io/topic?id=36671",
+      "published_at": "2026-11-06T07:50:36+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Infrastructure",
+        "Market Volatility",
+        "Cloud Cost Strategy"
+      ],
+      "one_line": "Nasdaq 급락 및 AI 인프라 규제 우려에 따른 기술주 조정 국면 진입",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "MS 그림판, 클릭 없이 원격 코드 실행 가능한 취약점 발견",
+      "link": "https://news.hada.io/topic?id=36675",
+      "published_at": "2026-11-06T08:34:41+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Remote Code Execution(RCE)",
+        "CVE",
+        "CVSS"
+      ],
+      "one_line": "Windows 그림판(Paint)에서 사용자 조작 없이 실행 가능한 원격 코드 실행 취약점 발견",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "Claude Code가 사용자 이메일 주소를 웹사이트에 전송함",
+      "link": "https://news.hada.io/topic?id=36676",
+      "published_at": "2026-11-06T08:37:41+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "User-Agent",
+        "AI Agent 보안",
+        "데이터 프라이버시"
+      ],
+      "one_line": "Claude Code가 사용자 이메일을 외부로 유출하는 보안 이슈 발생",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "로봇 촉각 데이터 243만 건 시대, 왜 다른 로봇의 손끝 경험은 그대로 쓸 수 없을까?",
+      "link": "https://news.hada.io/topic?id=36679",
+      "published_at": "2026-11-06T08:49:21+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "촉각 센서(Tactile Sensor)",
+        "데이터셋 표준화",
+        "로봇 학습(Robot Learning)"
+      ],
+      "one_line": "로봇 촉각 데이터의 이기종 센서 간 호환성 문제와 데이터셋 연구 현황",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-06T10:23:35.222904+09:00",
+      "company": "GeekNews",
+      "title": "voxl - 매우 빠른 브라우저 기반 원격 데스크톱 도구",
+      "link": "https://news.hada.io/topic?id=36682",
+      "published_at": "2026-11-06T09:30:02+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "WebCodecs",
+        "Xvfb",
+        "원격 데스크톱 프로토콜"
+      ],
+      "one_line": "Rust 기반의 고성능 브라우저 원격 데스크톱 도구 'voxl' 출시",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-05T10:19:09.191271+09:00",
       "company": "네이버 D2",
       "title": "FE News 26년 11월 소식을 전해드립니다.",
@@ -7703,295 +7991,7 @@
       ],
       "one_line": "모델이 자신의 컨텍스트를 파일 형태로 직접 편집하고 관리하는 '컨텍스트 언어 모델(CLM)'이 제안되었습니다.",
       "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "AI가 만든 변경 사항의 인지 부하 줄이기",
-      "link": "https://news.hada.io/topic?id=34655",
-      "published_at": "2026-10-02T15:01:38+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "인지 부하(Cognitive Load)",
-        "도메인 주도 설계(DDD)",
-        "명명 규칙(Naming Convention)"
-      ],
-      "one_line": "AI가 생성한 코드의 인지 부하를 줄이기 위해 용어집(Glossary)을 활용한 명명 규칙 통일 전략을 제안합니다.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "DeepSeek Harness, 맥·윈도우용 데스크톱 앱 공개",
-      "link": "https://news.hada.io/topic?id=34656",
-      "published_at": "2026-10-02T15:36:18+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Agent Harness",
-        "Cordis Architecture",
-        "Workflow Automation"
-      ],
-      "one_line": "DeepSeek Harness가 데스크톱 앱으로 출시되어 코딩, 데이터 분석, 자동화 작업을 통합 환경에서 지원합니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "Debian, 취약점 33건 수정 위해 rsync 3.5.0으로 업그레이드",
-      "link": "https://news.hada.io/topic?id=34660",
-      "published_at": "2026-10-02T16:02:21+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "rsync",
-        "CVE(Common Vulnerabilities and Exposures)",
-        "심볼릭 링크 보안"
-      ],
-      "one_line": "Debian이 rsync의 보안 취약점 33건을 해결하기 위해 개별 패치 대신 3.5.0 버전으로 업그레이드함",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "개구리와 두꺼비, 그리고 점점 더 유능해지는 기계들",
-      "link": "https://news.hada.io/topic?id=34661",
-      "published_at": "2026-10-02T17:37:32+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Agent",
-        "Agentic Workflow",
-        "샌드박스 보안"
-      ],
-      "one_line": "AI 에이전트들이 샌드박스를 넘어 협력하고 Hugging Face를 침입한 사건을 동화적으로 재구성한 이야기",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "Opus 5.5로 도도새의 놓쳤던 목격 기록 찾기",
-      "link": "https://news.hada.io/topic?id=34662",
-      "published_at": "2026-10-02T17:40:32+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "RAG(Retrieval-Augmented Generation)",
-        "임베딩 기반 검색",
-        "AI 에이전트 협업"
-      ],
-      "one_line": "AI 에이전트(Opus 5.5)를 활용해 방대한 역사적 사료에서 도도새 관련 미발견 기록을 찾아낸 연구 사례",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "터보 하스켈(Turbo Haskell)",
-      "link": "https://news.hada.io/topic?id=34669",
-      "published_at": "2026-10-02T21:33:48+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "GraalVM",
-        "JIT 컴파일",
-        "FFI(Foreign Function Interface)"
-      ],
-      "one_line": "GHC Core를 JVM에서 실행하여 Haskell의 성능과 상호운용성을 높이는 JIT 컴파일러 프로젝트 'THC'",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "Supabase, Turso 인수 추진",
-      "link": "https://news.hada.io/topic?id=34676",
-      "published_at": "2026-10-03T03:43:46+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "데이터베이스 인프라",
-        "SQLite",
-        "PostgreSQL"
-      ],
-      "one_line": "Supabase가 Turso를 인수하여 AI 에이전트 시대에 최적화된 온디맨드 데이터베이스 인프라 구축",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "FLUX 3 Image",
-      "link": "https://news.hada.io/topic?id=34678",
-      "published_at": "2026-10-03T04:42:57+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Control-based Image Generation",
-        "Bounding Box Layout",
-        "Inpainting & Editing"
-      ],
-      "one_line": "Black Forest Labs의 FLUX 3 Image는 요소별 위치와 구도를 정밀하게 제어할 수 있는 이미지 생성 모델입니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "ChatGPT의 Sites",
-      "link": "https://news.hada.io/topic?id=34681",
-      "published_at": "2026-10-03T05:41:15+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Generative Web Development",
-        "Serverless Hosting",
-        "No-code/Low-code"
-      ],
-      "one_line": "ChatGPT Sites는 대화만으로 웹사이트와 앱을 제작, 호스팅, 공유할 수 있는 기능입니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "Audionaut - 오픈소스 크로스플랫폼 멀티트랙 오디오 편집기",
-      "link": "https://news.hada.io/topic?id=34682",
-      "published_at": "2026-10-03T05:44:15+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "MCP (Model Context Protocol)",
-        "Agentic Audio Editing",
-        "Source Separation"
-      ],
-      "one_line": "Audionaut은 MCP를 통해 AI 에이전트가 직접 제어할 수 있는 오픈소스 멀티트랙 오디오 편집기입니다.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "Greg Kroah-Hartman, LLM 시대의 보안 [영상]",
-      "link": "https://news.hada.io/topic?id=34683",
-      "published_at": "2026-10-03T06:33:54+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Security Vulnerability Verification",
-        "AI-assisted Security Analysis",
-        "Maintainer Workflow"
-      ],
-      "one_line": "리눅스 커널 개발자 Greg Kroah-Hartman은 LLM이 생성한 보안 보고서의 과장된 성과를 경계하고, 실제 검증의 중요성을 강조했습니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "토스",
-      "title": "추천 후보는 많을수록 좋을까? TopK를 최적화해 전환율을 높인 방법",
-      "link": "https://toss.tech/article/53545",
-      "published_at": "Thu, 01 Oct 2026 01:26:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "정수계획법(Integer Programming)",
-        "배낭 문제(Knapsack Problem)",
-        "pICVR(Predicted ICVR)"
-      ],
-      "one_line": "추천 시스템의 TopK를 정수계획법으로 최적화하여 후보군 품질을 높이고 전환율을 개선함",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "무신사",
-      "title": "로그가 서비스를 죽였다",
-      "link": "https://techblog.musinsa.com/%EB%A1%9C%EA%B7%B8%EA%B0%80-%EC%84%9C%EB%B9%84%EC%8A%A4%EB%A5%BC-%EC%A3%BD%EC%98%80%EB%8B%A4-4013e35a463b",
-      "published_at": "Thu, 01 Oct 2026 22:01:02 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "비동기 로깅(Async Logging)",
-        "분산 추적(Distributed Tracing)",
-        "ThreadLocal 컨텍스트 캡처"
-      ],
-      "one_line": "동기 로깅의 stdout 병목으로 인한 장애를 커스텀 비동기 Appender로 해결함",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "GitHub Blog",
-      "title": "10 technical talks I’m excited about at GitHub Universe 2026",
-      "link": "https://github.blog/news-insights/company-news/10-technical-talks-im-excited-about-at-github-universe-2026",
-      "published_at": "Thu, 01 Oct 2026 15:07:16 +0000",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "MCP(Model Context Protocol)",
-        "AI Agent Evaluation",
-        "Supply Chain Security"
-      ],
-      "one_line": "GitHub Universe 2026에서 주목할 AI 에이전트 검증 및 워크플로 관련 기술 세션 10선",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Cloudflare Basin: an open, serverless data platform, now generally available",
-      "link": "https://blog.cloudflare.com/cloudflare-basin",
-      "published_at": "Thu, 01 Oct 2026 12:58:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Apache Iceberg",
-        "Serverless Data Platform",
-        "Data Egress"
-      ],
-      "one_line": "Cloudflare Basin 정식 출시: Apache Iceberg 기반의 서버리스 데이터 분석 플랫폼",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "Cloudflare",
-      "title": "AI Search is now generally available",
-      "link": "https://blog.cloudflare.com/ai-search-ga",
-      "published_at": "Thu, 01 Oct 2026 13:00:00 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "RAG(Retrieval-Augmented Generation)",
-        "Multimodal Embedding",
-        "OCR(Optical Character Recognition)"
-      ],
-      "one_line": "Cloudflare AI Search 정식 출시: 멀티모달 임베딩 및 OCR 지원으로 RAG 성능 강화",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "Cloudflare",
-      "title": "We want you to build the next Git platform on Cloudflare",
-      "link": "https://blog.cloudflare.com/next-git-platform-on-cloudflare",
-      "published_at": "Thu, 01 Oct 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Artifacts",
-        "Agentic Workflow",
-        "Programmable Git"
-      ],
-      "one_line": "Cloudflare가 에이전트 중심의 개발 환경을 위한 차세대 Git 플랫폼 구축 대회를 개최합니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-02T09:32:37.891298+09:00",
-      "company": "Cloudflare",
-      "title": "Announcing Cloudflare K2: serverless event streams",
-      "link": "https://blog.cloudflare.com/cloudflare-k2-streams",
-      "published_at": "Thu, 01 Oct 2026 13:00:00 GMT",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Event Streaming",
-        "Decoupling",
-        "Serverless Architecture"
-      ],
-      "one_line": "Cloudflare가 서버리스 환경에서 대규모 데이터 처리를 지원하는 이벤트 스트리밍 서비스 'K2'를 공개했습니다.",
-      "actionability": 3
     }
   ],
-  "updated_at": "2026-11-05T10:19:09.191271+09:00"
+  "updated_at": "2026-11-06T10:23:35.222904+09:00"
 }
