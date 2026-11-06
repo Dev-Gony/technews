@@ -1,13 +1,21 @@
 import type { CSSProperties } from "react";
 import { loadFont } from "@remotion/google-fonts/NotoSansKR";
+import { loadFont as loadSerif } from "@remotion/google-fonts/NotoSerifKR";
 
 export const { fontFamily } = loadFont("normal", {
   weights: ["500", "700", "900"],
   subsets: ["korean", "latin"],
 });
 
+// 상단 제목용 명조. 배너·카드뉴스와 같은 글꼴로 브랜드를 맞춘다.
+export const { fontFamily: serifFamily } = loadSerif("normal", {
+  weights: ["900"],
+  subsets: ["korean", "latin"],
+});
+
 // 채널 브랜드(먹색·종이색·빨강)에 맞춘 쇼츠 배경 테마.
 // ink: 프로필 사진처럼 먹색 바탕 / paper: 배너·카드뉴스처럼 종이색 바탕
+// 강조색은 역할별로 하나씩: 빨강(accent) = 문제·핵심, 골드(gold) = 숫자. 발광·테두리 같은 장식은 쓰지 않는다.
 export const palettes = {
   ink: {
     background: "#11110F",
@@ -15,18 +23,19 @@ export const palettes = {
     border: "rgba(247, 244, 234, 0.18)",
     text: "#F7F4EA",
     muted: "#A39E92",
-    accent: "#E5483A",
-    accentSoft: "rgba(229, 72, 58, 0.22)",
-    highlight: "#FF5A4A",
-    blue: "#8A857A",
-    neonRed: "#FF3D5A",
+    faint: "#6E6A61",
+    accent: "#EF4B3C",
+    accentSoft: "rgba(239, 75, 60, 0.18)",
+    highlight: "#EF4B3C",
+    blue: "#4A4741",
+    neonRed: "#EF4B3C",
     gold: "#FFC24B",
     goldSoft: "rgba(255, 194, 75, 0.16)",
-    stroke: "#000000",
-    shadow: "rgba(0, 0, 0, 0.55)",
+    stroke: "transparent",
+    shadow: "transparent",
     rule: "transparent",
-    vignette: "rgba(0, 0, 0, 0.55)",
-    glow: "rgba(229, 72, 58, 0.16)",
+    vignette: "rgba(0, 0, 0, 0.45)",
+    glow: "rgba(239, 75, 60, 0.10)",
     floorTop: "#2E2D29",
     floorLeft: "#21201D",
     floorRight: "#181815",
@@ -37,15 +46,16 @@ export const palettes = {
     border: "rgba(17, 17, 15, 0.22)",
     text: "#11110F",
     muted: "#625F58",
+    faint: "#9A968C",
     accent: "#D4382C",
     accentSoft: "rgba(212, 56, 44, 0.14)",
     highlight: "#D4382C",
-    blue: "#8C877C",
-    neonRed: "#E0263F",
+    blue: "#C9C4B8",
+    neonRed: "#D4382C",
     gold: "#B07A12",
     goldSoft: "rgba(176, 122, 18, 0.12)",
-    stroke: "#F7F4EA",
-    shadow: "rgba(17, 17, 15, 0.12)",
+    stroke: "transparent",
+    shadow: "transparent",
     rule: "rgba(17, 17, 15, 0.07)",
     vignette: "rgba(17, 17, 15, 0.06)",
     glow: "rgba(212, 56, 44, 0.07)",
