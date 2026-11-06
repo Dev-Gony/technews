@@ -150,6 +150,47 @@ class ShortsTest(unittest.TestCase):
         self.assertIn("https://youtu.be/abc123", text)
         self.assertIn("#shorts #AI", text)
 
+    def test_build_description_starts_with_question_and_strips_invisible_chars(self):
+        script = {
+            "title": "제목",
+            "question": "Revolut은 어떻게 AI 비용을 줄였나?",
+            "summary": "요약​입니다",
+            "hashtags": ["AI"],
+        }
+        text = shorts.build_description(script, {"link": "https://example.com/a"})
+
+        self.assertTrue(text.startswith("Revolut은 어떻게 AI 비용을 줄였나?\n\n요약입니다"))
+        self.assertNotIn("​", text)
+
+    def test_parse_probe_reads_ffmpeg_report(self):
+        stderr = (
+            "  Duration: 00:00:36.10, start: 0.000000, bitrate: 925 kb/s\n"
+            "  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), "
+            "1080x1920, 790 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\n"
+            "  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s\n"
+            "[silencedetect @ 0x1] silence_end: 12.5 | silence_duration: 3.1\n"
+            "[Parsed_volumedetect_1 @ 0x2] mean_volume: -17.6 dB\n"
+            "[Parsed_volumedetect_1 @ 0x2] max_volume: -1.8 dB\n"
+        )
+        report = shorts.parse_probe(stderr)
+
+        self.assertEqual((report["width"], report["height"], report["fps"]), (1080, 1920, 30.0))
+        self.assertAlmostEqual(report["duration"], 36.1)
+        self.assertTrue(report["has_audio"])
+        self.assertEqual((report["mean_volume"], report["max_volume"]), (-17.6, -1.8))
+        self.assertEqual(report["silences"], [3.1])
+
+    def test_find_video_problems(self):
+        good = {"width": 1080, "height": 1920, "fps": 30.0, "duration": 36.1, "has_audio": True,
+                "max_volume": -1.8, "mean_volume": -17.6, "silences": []}
+        self.assertEqual(shorts.find_video_problems(good, [("제목", "정상 제목")]), [])
+
+        bad = {**good, "width": 1920, "height": 1080, "duration": 8.0, "max_volume": -0.1, "silences": [3.1]}
+        problems = shorts.find_video_problems(bad, [("제목", "깨진�제목")])
+
+        self.assertEqual(len(problems), 5)
+        self.assertIn("소리 트랙이 없습니다", shorts.find_video_problems({**good, "has_audio": False}))
+
     def test_validate_script_rejects_too_few_cuts(self):
         with self.assertRaises(ValueError):
             shorts.validate_script(

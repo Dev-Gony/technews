@@ -194,13 +194,18 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
    API 요금 폭탄, 에이전트 폭주, 야근, 장애, 보안 사고처럼 기사 주제와 직접 이어지는 아픔으로 시작한다.
    (예: "API 청구서, / 또 폭탄이죠?", "에이전트가 / 혼자 폭주하죠?")
 2. 2~3컷: 이 기사가 내놓은 답이나 가장 센 결과를 바로 던진다.
+   이어서 짧은 "약속" 한 컷: 이 영상에서 알게 될 것을 한 줄로 말해 끝까지 볼 이유를 준다.
+   (예: "어떻게 줄였는지 / 30초면 돼요.", "왜 위험한지 / 바로 볼게요.")
 3. 중간 4~5컷: 공간·역할 비유로 구조를 설명한다.
    - 복잡한 구조를 건물·사무실·주방 같은 공간과 사람의 역할로 바꾼다.
      예: "위층 소장실(상주 대장)이 일을 나누고, 아래층 인력사무소(비상주 일꾼)가 필요할 때만 와서 처리"
    - 비유는 영상 하나에 하나만 골라 끝까지 일관되게 쓴다. 비유와 실제 기술을 꼭 짝지어 말한다.
    - 비유가 사실을 왜곡하면 안 된다. 비유로 설명하기 어려운 내용이면 억지로 쓰지 말고 flow나 compare로 설명한다.
 4. 수치 2~3컷: 기사에 있는 정량적 수치와 동작 방식(무엇이 무엇을 대신하는지, 몇 단계인지)을 구체적으로.
-5. 마지막 1~2컷: 시청자가 이번 주에 할 행동을 뼈 때리는 한 마디로. (예: "청구서 보기 전에 / 구조부터 / 뜯어보세요.")
+   변화는 "줄었다"·"늘었다"로 뭉뚱그리지 말고 기사에 전후 숫자가 있으면 "처음엔 A, 지금은 B"로 말한다.
+5. 끝에서 두 번째 컷: 시청자가 이번 주에 할 행동을 뼈 때리는 한 마디로. (예: "청구서 보기 전에 / 구조부터 / 뜯어보세요.")
+6. 마지막 컷: 다음 영상으로 잇는 짧은 한 줄(12자 안팎). 매번 같은 문장을 쓰지 말고 주제에 맞게 바꾼다.
+   (예: "이런 소식, / 매일 올려요.", "AI 뉴스는 / 3시간마다 와요.")
 
 사실 규칙 (가장 중요):
 - 숫자, 회사명, 결과, 동작 방식은 반드시 주어진 기사에 있는 것만. 없는 사실·수치를 지어내지 않는다.
@@ -231,7 +236,10 @@ visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 cover: 이 영상의 훅이자 썸네일. 1컷 동안 화면 가운데에 크게 나왔다가 위로 줄어들어 영상 내내 고정된다.
   기사에서 가장 센 구체적 결과(숫자가 있으면 숫자 포함)를 담는다. 숫자가 든 어절은 자동으로 골드로 강조된다.
   2줄, 줄 사이에 \\n, 줄당 10자 이내. 예: "API 끊고\\nAI 비용 90%↓", "Cursor 확장\\n백도어 주의".
-title은 40자 이내, 해시태그 없이 클릭하고 싶은 질문형이나 단정형. hashtags는 # 없이 3~5개.
+title은 40자 이내, 해시태그 없이. 사람들이 실제로 검색할 말(회사명·제품명·기술명)을 앞쪽에 넣고 핵심 결과를 붙인다.
+  예: "Revolut 자체 호스팅 GLM, AI 비용 90% 절감" (O) / "AI 비용 이렇게 줄인다고?" (X, 검색어가 없음)
+question: 이 영상이 답하는 질문 한 줄(30자 이내). 설명란 첫 줄에 들어간다. 예: "Revolut은 어떻게 AI 비용을 90% 줄였나?"
+hashtags는 # 없이 3~5개.
 더보기란용: summary는 무슨 일인지 1~2문장. tips는 시청자가 바로 써먹을 행동 1~3개(명령어·설정이 있으면 그대로). caution은 비용·보안·개인정보 주의점 한 줄, 없으면 빈 문자열."""
 
 
@@ -288,6 +296,7 @@ SCRIPT_SCHEMA = {
     "type": "object",
     "properties": {
         "title": {"type": "string"},
+        "question": {"type": "string"},
         "cover": {"type": "string"},
         "summary": {"type": "string"},
         "tips": {"type": "array", "items": {"type": "string"}},
@@ -307,7 +316,7 @@ SCRIPT_SCHEMA = {
             },
         },
     },
-    "required": ["title", "cover", "summary", "tips", "caution", "hashtags", "cuts"],
+    "required": ["title", "question", "cover", "summary", "tips", "caution", "hashtags", "cuts"],
     "additionalProperties": False,
 }
 
@@ -449,10 +458,14 @@ def generate_script(article):
     return validate_script(script)
 
 
+# 화면·제목·설명란에서 지울 글자: 깨진 글자, 제어 문자, 보이지 않는 문자(폭 없는 공백, 방향 표시, BOM, 소프트 하이픈)
+UNWANTED_CHARS = re.compile("[\ufffd\x00-\x08\x0b\x0c\x0e-\x1f\u200b-\u200f\u2060\ufeff\u00ad]")
+
+
 def clean_text(value):
-    """모델 출력에 가끔 섞이는 깨진 글자(U+FFFD)와 제어 문자를 지운다. 화면에 깨진 글자로 보이는 것을 막는다."""
+    """모델 출력에 가끔 섞이는 깨진 글자·제어 문자·보이지 않는 문자를 지운다. 화면에 깨진 글자로 보이는 것을 막는다."""
     if isinstance(value, str):
-        return re.sub(r"[\ufffd\x00-\x08\x0b\x0c\x0e-\x1f]", "", value)
+        return UNWANTED_CHARS.sub("", value)
 
     if isinstance(value, list):
         return [clean_text(item) for item in value]
@@ -483,6 +496,7 @@ def validate_script(script):
     # 모델이 줄바꿈을 글자 그대로 "\n"으로 쓰는 경우가 있다.
     script["cover"] = (script.get("cover") or script.get("title") or "").replace("\\n", "\n").strip()
     script["summary"] = (script.get("summary") or "").strip()
+    script["question"] = (script.get("question") or "").strip()
     script["tips"] = [tip.strip() for tip in script.get("tips") or [] if tip.strip()]
     script["caution"] = (script.get("caution") or "").strip()
 
@@ -959,6 +973,106 @@ def run_ffmpeg(args):
         raise RuntimeError(f"ffmpeg 실패: {result.stderr.strip()}")
 
 
+# ---------------------------------------------------------------------------
+# 업로드 전 자동 검수
+# ---------------------------------------------------------------------------
+
+QA_SIZE = (1080, 1920)
+QA_FPS = 30
+QA_MIN_SECONDS = 15
+QA_MAX_SECONDS = 75
+# 이보다 긴 무음 구간이 있으면 음성이 끊긴 것으로 본다(배경음이 깔려 있어 정상 영상엔 없음).
+QA_MAX_SILENCE_SECONDS = 2.5
+# 최대 음량이 이보다 크면 소리가 찢어질 수 있다(loudnorm 상한 -1.5dB).
+QA_MAX_PEAK_DB = -0.5
+# 평균 음량이 이보다 작으면 사실상 소리가 안 들린다.
+QA_MIN_MEAN_DB = -35.0
+
+
+def probe_video(path):
+    """ffmpeg 한 번으로 해상도·fps·길이·소리 유무·음량·무음 구간을 읽는다."""
+    result = subprocess.run(
+        [
+            ffmpeg_exe(), "-hide_banner", "-i", path,
+            "-af", f"silencedetect=noise=-45dB:d={QA_MAX_SILENCE_SECONDS},volumedetect",
+            "-f", "null", "-",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="ignore",
+    )
+
+    return parse_probe(result.stderr)
+
+
+def parse_probe(stderr):
+    report = {"width": None, "height": None, "fps": None, "duration": None,
+              "has_audio": False, "max_volume": None, "mean_volume": None, "silences": []}
+
+    duration = re.search(r"Duration: (\d+):(\d+):(\d+(?:\.\d+)?)", stderr)
+
+    if duration:
+        hours, minutes, seconds = duration.groups()
+        report["duration"] = int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+
+    video = re.search(r"Stream #\S+.*Video:.*?, (\d{2,5})x(\d{2,5})", stderr)
+
+    if video:
+        report["width"], report["height"] = int(video.group(1)), int(video.group(2))
+
+    fps = re.search(r"Video:.*?([\d.]+) fps", stderr)
+
+    if fps:
+        report["fps"] = float(fps.group(1))
+
+    report["has_audio"] = re.search(r"Stream #\S+.*Audio:", stderr) is not None
+
+    for key in ("max_volume", "mean_volume"):
+        match = re.search(rf"{key}: (-?[\d.]+) dB", stderr)
+
+        if match:
+            report[key] = float(match.group(1))
+
+    report["silences"] = [float(value) for value in re.findall(r"silence_duration: ([\d.]+)", stderr)]
+
+    return report
+
+
+def find_video_problems(report, texts=()):
+    """검수 기준에 안 맞는 항목을 사람이 읽을 수 있는 문장으로 돌려준다. 빈 목록이면 통과."""
+    problems = []
+
+    if (report["width"], report["height"]) != QA_SIZE:
+        problems.append(f"해상도가 {report['width']}x{report['height']}입니다 (기대: 1080x1920)")
+
+    if report["fps"] is None or abs(report["fps"] - QA_FPS) > 0.5:
+        problems.append(f"fps가 {report['fps']}입니다 (기대: {QA_FPS})")
+
+    if report["duration"] is None or not QA_MIN_SECONDS <= report["duration"] <= QA_MAX_SECONDS:
+        problems.append(f"길이가 {report['duration']}초입니다 (기대: {QA_MIN_SECONDS}~{QA_MAX_SECONDS}초)")
+
+    if not report["has_audio"]:
+        problems.append("소리 트랙이 없습니다")
+    else:
+        if report["max_volume"] is not None and report["max_volume"] > QA_MAX_PEAK_DB:
+            problems.append(f"최대 음량이 {report['max_volume']}dB라 소리가 찢어질 수 있습니다")
+
+        if report["mean_volume"] is None or report["mean_volume"] < QA_MIN_MEAN_DB:
+            problems.append(f"평균 음량이 {report['mean_volume']}dB라 너무 작습니다")
+
+        long_silences = [s for s in report["silences"] if s > QA_MAX_SILENCE_SECONDS]
+
+        if long_silences:
+            problems.append(f"{QA_MAX_SILENCE_SECONDS}초 넘는 무음 구간이 {len(long_silences)}곳 있습니다")
+
+    for label, text in texts:
+        if UNWANTED_CHARS.search(text or ""):
+            problems.append(f"{label}에 깨진 글자나 보이지 않는 문자가 있습니다")
+
+    return problems
+
+
 def build_video(script, narration_path, cut_words, source_label, work_dir, output_path):
     """Remotion으로 컷 편집 영상(내레이션, 효과음 포함)을 렌더링하고 배경음을 깐다."""
     import bgm
@@ -1000,7 +1114,9 @@ def add_bgm(video_path, work_dir, output_path):
             "[music][key]sidechaincompress=threshold=0.03:ratio=6:attack=20:release=400[ducked];"
             "[voice][ducked]amix=inputs=2:duration=first:normalize=0,"
             # 휴대폰 스피커에서도 잘 들리게 Shorts 평균 음량(-14 LUFS)으로 맞춘다.
-            "loudnorm=I=-14:TP=-1.5:LRA=11[out]",
+            "loudnorm=I=-14:TP=-1.5:LRA=11,"
+            # loudnorm 한 번만으로는 순간 최대 음량이 0dB 가까이 튈 수 있어서 -1.5dB에서 한 번 더 눌러준다.
+            "alimiter=limit=0.84:level=disabled[out]",
             "-map", "0:v",
             "-map", "[out]",
             "-c:v", "copy",
@@ -1033,7 +1149,9 @@ def youtube_access_token():
 
 def build_description(script, article, history=()):
     hashtags = " ".join(f"#{tag}" for tag in ["shorts", *script["hashtags"]])
-    sections = [script.get("summary") or script["title"]]
+    # 첫 줄은 검색 결과·미리보기에 보이는 줄이라 "이 영상이 답하는 질문"을 둔다.
+    sections = [script["question"]] if script.get("question") else []
+    sections.append(script.get("summary") or script["title"])
 
     if script.get("tips"):
         sections.append("✅ 바로 써먹는 법\n" + "\n".join(f"- {tip}" for tip in script["tips"]))
@@ -1053,7 +1171,7 @@ def build_description(script, article, history=()):
 
     sections += ["이 영상의 대본과 음성은 AI로 생성되었습니다.", hashtags]
 
-    return "\n\n".join(sections)
+    return clean_text("\n\n".join(sections))
 
 
 YOUTUBE_ERROR_HINTS = {
@@ -1215,11 +1333,33 @@ def main():
     )
     print(f"영상 생성 완료: {video_path}")
 
+    report = probe_video(video_path)
+    problems = find_video_problems(
+        report,
+        [("제목", script["title"]), ("설명란", build_description(script, article, history)),
+         ("자막", " ".join(cut["line"] for cut in script["cuts"]))],
+    )
+    save_json(os.path.join(work_dir, "qa.json"), {"report": report, "problems": problems})
+
+    if problems:
+        print("검수 실패:\n- " + "\n- ".join(problems))
+    else:
+        print(f"검수 통과: {report['width']}x{report['height']}, {report['fps']}fps, {report['duration']:.1f}초, "
+              f"평균 {report['mean_volume']}dB / 최대 {report['max_volume']}dB")
+
     video_id = None
     can_upload = YOUTUBE_CLIENT_ID and YOUTUBE_CLIENT_SECRET and YOUTUBE_REFRESH_TOKEN
 
     if args.no_upload:
         print("--no-upload: 업로드를 건너뜁니다.")
+    elif problems:
+        # 이상한 영상은 올리지 않는다. 기록에 남기지 않으므로 다음 실행에서 같은 기사로 다시 만든다.
+        notify_slack(
+            f"[{CHANNEL_NAME}] Shorts 업로드 보류 (검수 실패)\n*{script['title']}*\n"
+            + "\n".join(f"- {problem}" for problem in problems)
+            + f"\n원문: {article['link']}"
+        )
+        raise SystemExit("검수 실패로 업로드하지 않았습니다.")
     elif not can_upload:
         print("YouTube 인증 정보가 없어 업로드를 건너뜁니다.")
     else:
