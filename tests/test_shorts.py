@@ -161,6 +161,13 @@ class ShortsTest(unittest.TestCase):
                 }
             )
 
+    def test_clean_text_removes_broken_characters(self):
+        cleaned = shorts.clean_text({"cuts": [{"line": "아예 �뺐어요", "emphasis": ["�"]}], "n": 3})
+
+        self.assertEqual(cleaned["cuts"][0]["line"], "아예 뺐어요")
+        self.assertEqual(cleaned["cuts"][0]["emphasis"], [""])
+        self.assertEqual(cleaned["n"], 3)
+
     def test_pick_sfx_only_on_hook_and_first_metaphor(self):
         cuts = [{"visual": {"type": t}} for t in ["hook", "number", "metaphor", "flow", "metaphor", "keywords"]]
         sfx = shorts.pick_sfx(cuts, [0, 40, 90, 130, 170, 210])

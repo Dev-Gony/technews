@@ -449,7 +449,22 @@ def generate_script(article):
     return validate_script(script)
 
 
+def clean_text(value):
+    """모델 출력에 가끔 섞이는 깨진 글자(U+FFFD)와 제어 문자를 지운다. 화면에 깨진 글자로 보이는 것을 막는다."""
+    if isinstance(value, str):
+        return re.sub(r"[\ufffd\x00-\x08\x0b\x0c\x0e-\x1f]", "", value)
+
+    if isinstance(value, list):
+        return [clean_text(item) for item in value]
+
+    if isinstance(value, dict):
+        return {key: clean_text(item) for key, item in value.items()}
+
+    return value
+
+
 def validate_script(script):
+    script = clean_text(script)
     cuts = script.get("cuts") or []
 
     if not 6 <= len(cuts) <= 20:

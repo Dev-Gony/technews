@@ -23,7 +23,8 @@ export const calculateShortMetadata: CalculateMetadataFunction<ShortProps> = ({ 
 const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   const frame = useCurrentFrame();
   const strong = index === 0;
-  const center = cut.visual.type === "none";
+  // 그래픽 없는 컷은 자막을 화면 가운데에 크게. 단, 첫 컷은 가운데에 제목(훅)이 있으므로 아래 자리.
+  const center = index > 0 && cut.visual.type === "none";
 
   return (
     <AbsoluteFill>
