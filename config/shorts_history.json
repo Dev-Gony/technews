@@ -118,5 +118,12 @@
     "title": "Stripe 에이전트 연동, SQL 없이 매출 분석·투자자 슬라이드까지",
     "video_id": "MQ0LraEpfs8",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-06",
+    "link": "https://d2.naver.com/helloworld/5037598",
+    "title": "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기",
+    "video_id": "o3mJVyzW8yk",
+    "voice": "Leda"
   }
 ]
