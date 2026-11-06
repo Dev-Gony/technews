@@ -104,5 +104,12 @@
     "title": "Claude Code가 내 이메일을 외부 사이트에 보낸다고?",
     "video_id": "JY8x0KmXXZE",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-06",
+    "link": "https://aws.amazon.com/blogs/architecture/how-tui-scales-threat-modeling-for-100-teams-with-amazon-bedrock",
+    "title": "TUI Amazon Bedrock 위협 모델링 자동화, 컨텍스트 효율 94%",
+    "video_id": "jaO7XN3GyjI",
+    "voice": "Leda"
   }
 ]
