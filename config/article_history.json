@@ -1,6 +1,278 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "네이버 D2",
+      "title": "2026년과 이후 JavaScript의 동향 - 라이브러리와 프레임워크",
+      "link": "https://d2.naver.com/helloworld/0627744",
+      "published_at": "2026-11-06T02:04:33Z",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Server Components",
+        "React Compiler",
+        "Concurrent Rendering"
+      ],
+      "one_line": "2026년 프론트엔드 생태계는 React 중심의 메타 프레임워크와 웹 표준 흡수, AI 도구 활용으로 재편됨.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "뱅크샐러드",
+      "title": "뱅크샐러드가 게임을 만들 때 데이터 정합성을 유지하는 법 (feat. 낙관적 락)",
+      "link": "https://corp.banksalad.com/blog/tech/banksalad-optimistic-lock",
+      "published_at": "Fri, 16 Jan 2026 00:00:00 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Optimistic Lock",
+        "CAS(Compare-And-Swap)",
+        "Idempotency"
+      ],
+      "one_line": "뱅크샐러드는 게임 서비스의 데이터 정합성을 위해 재시도 로직 없는 낙관적 락(Optimistic Lock)을 도입함.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "뱅크샐러드",
+      "title": "AI 코딩 시대, DDD가 더 필요해진 이유",
+      "link": "https://corp.banksalad.com/blog/tech/banksalad-ddd-in-ai-era",
+      "published_at": "Thu, 15 Oct 2026 00:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "DDD-lite",
+        "Clean Architecture",
+        "DIP(Dependency Inversion Principle)"
+      ],
+      "one_line": "AI 코딩 시대일수록 유지보수 가능한 코드 구조를 위해 DDD와 클린 아키텍처 도입이 필수적임.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "뱅크샐러드",
+      "title": "뱅크샐러드, AI 에이전트 판단·실행 제어 기술 특허 출원",
+      "link": "https://corp.banksalad.com/blog/news/bs1502",
+      "published_at": "Fri, 06 Nov 2026 00:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Control",
+        "Hallucination Prevention",
+        "Cross-Verification"
+      ],
+      "one_line": "뱅크샐러드가 금융 AI 에이전트의 환각 방지와 안전한 실행을 제어하는 기술 특허를 출원함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "뱅크샐러드",
+      "title": "뱅크샐러드 '저금리 대출 대리조회' 금융위 혁신금융서비스 지정",
+      "link": "https://corp.banksalad.com/blog/news/bs1501",
+      "published_at": "Fri, 06 Nov 2026 00:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "MyData",
+        "Financial Automation",
+        "Agentic Workflow"
+      ],
+      "one_line": "뱅크샐러드의 '저금리 대출 대리조회' 서비스가 혁신금융서비스로 지정되어 AI 에이전트 기반 금융 자동화가 가속화됨.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "LINE Engineering",
+      "title": "녹화 버튼 뒤에서 일어나는 일: LINE 프리미엄콜 개발기",
+      "link": "https://techblog.lycorp.co.jp/ko/line-premium-call-recording",
+      "published_at": "Fri, 06 Nov 2026 02:00:00 GMT",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "VoIP",
+        "온디바이스 AI",
+        "다운샘플링"
+      ],
+      "one_line": "LINE 프리미엄콜의 음성/영상 통합 녹화 및 온디바이스 STT 구현 기술",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "Google Developers",
+      "title": "Agent Distraction",
+      "link": "https://developers.googleblog.com/agent-distraction",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Hallucination",
+        "Codebase Hygiene"
+      ],
+      "one_line": "코딩 에이전트의 13%가 TODO 주석에 방해받으며, 이는 세션 효율을 크게 저하시킴",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GitHub Blog",
+      "title": "Beyond code generation: A developer’s guide to agentic engineering",
+      "link": "https://github.blog/ai-and-ml/github-copilot/beyond-code-generation-a-developers-guide-to-agentic-engineering",
+      "published_at": "Fri, 06 Nov 2026 22:15:59 +0000",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Engineering",
+        "Stacked Pull Requests",
+        "Observability"
+      ],
+      "one_line": "GitHub Copilot을 활용한 계획, 빌드, 검증, 관찰 단계의 에이전트 엔지니어링 가이드",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "Cloudflare",
+      "title": "The post-quantum future of web privacy",
+      "link": "https://blog.cloudflare.com/vole-mole",
+      "published_at": "Fri, 06 Nov 2026 14:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Post-Quantum Cryptography",
+        "Blind Signature",
+        "Zero-Knowledge Proof"
+      ],
+      "one_line": "양자 컴퓨팅 시대의 웹 프라이버시 보호를 위한 MOLE 및 차세대 암호 기술 연구",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: K-Humanizer - 한국 고객과 자연스럽게 소통하기 위한 한국어 Agent Skill",
+      "link": "https://news.hada.io/topic?id=36707",
+      "published_at": "2026-11-06T23:09:29+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM",
+        "Prompt Engineering",
+        "Localization"
+      ],
+      "one_line": "한국어 비즈니스 커뮤니케이션을 위한 자연스러운 번역 및 교정 에이전트 스킬",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "Kugelblitz - Mac 네이티브 Google Earth 대안",
+      "link": "https://news.hada.io/topic?id=36711",
+      "published_at": "2026-11-07T00:37:01+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "OpenStreetMap",
+        "3D 지리 정보 시스템(GIS)",
+        "네이티브 앱 성능 최적화"
+      ],
+      "one_line": "공개 지리 데이터를 활용한 Mac 네이티브 3D 지구본 탐색 앱 Kugelblitz",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "Gemini Omni 1.2 Flash - 최대 15초 영상 생성과 대화형 편집, API 요금 30% 인하",
+      "link": "https://news.hada.io/topic?id=36712",
+      "published_at": "2026-11-07T01:36:54+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM API",
+        "멀티모달 생성형 AI",
+        "비용 최적화"
+      ],
+      "one_line": "Gemini Omni 1.2 Flash 출시, 영상 생성 시간 확대 및 API 비용 30% 인하",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "Firenook - Rust로 만든 Firebase 에뮬레이터, 쓰기 40배 빠르고 RAM 사용량은 10분의 1",
+      "link": "https://news.hada.io/topic?id=36716",
+      "published_at": "2026-11-07T02:48:19+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Firebase 에뮬레이터",
+        "Rust",
+        "개발 생산성 도구"
+      ],
+      "one_line": "Rust로 구현된 고성능 Firebase 에뮬레이터 Firenook 공개",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "AI의 자율 연구개발이 그렇게 독창적이라는 말을 믿기 어렵다",
+      "link": "https://news.hada.io/topic?id=36717",
+      "published_at": "2026-11-07T03:35:37+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent",
+        "Agentic Workflow",
+        "자율 연구(Autonomous Research)"
+      ],
+      "one_line": "AI Agent의 자율 연구 역량에 대한 비판적 분석과 한계점",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "Ask HN: Ubuntu는 도대체 왜 이렇게 오래 걸리는 건가요?",
+      "link": "https://news.hada.io/topic?id=36722",
+      "published_at": "2026-11-07T05:37:23+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "CVE(Common Vulnerabilities and Exposures)",
+        "보안 파이프라인",
+        "서버 운영 자동화"
+      ],
+      "one_line": "Ubuntu의 보안 패치 대응 지연에 따른 서버 운영 신뢰도 이슈",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "불확실한 사례만 Opus에 맡긴 Jev, 비용은 4분의 1로",
+      "link": "https://news.hada.io/topic?id=36725",
+      "published_at": "2026-11-07T07:37:38+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Cost Optimization",
+        "Agentic Workflow",
+        "Confidence-based Routing"
+      ],
+      "one_line": "저렴한 모델로 1차 판단 후 불확실한 사례만 고성능 모델(Opus)에 위임하여 LLM 비용을 77% 절감함.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-07T09:41:09.273582+09:00",
+      "company": "GeekNews",
+      "title": "UEFI를 활용한 베어메탈 프로그래밍 첫걸음",
+      "link": "https://news.hada.io/topic?id=36727",
+      "published_at": "2026-11-07T07:43:38+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "UEFI",
+        "Bare-metal Programming",
+        "EFI System Partition"
+      ],
+      "one_line": "Linux 환경에서 UEFI 펌웨어를 활용해 베어메탈 애플리케이션을 개발하는 기초 가이드.",
+      "actionability": 2
+    },
+    {
       "recorded_at": "2026-11-06T10:23:35.222904+09:00",
       "company": "네이버 D2",
       "title": "2026년과 이후 JavaScript의 동향 - WebAssembly",
@@ -7719,279 +7991,7 @@
       ],
       "one_line": "Git의 post-checkout 훅을 악용해 자격 증명을 탈취하려는 보안 위협 사례",
       "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "에이전트 코딩의 묵시록 4기사",
-      "link": "https://news.hada.io/topic?id=34713",
-      "published_at": "2026-10-03T23:03:28+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Coding",
-        "Slop",
-        "IKEA Effect"
-      ],
-      "one_line": "에이전트 코딩 도입이 가져오는 개발 문화와 팀 협업의 부작용 분석",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "GLM 5.3 Flash로 한 달간 코딩하기",
-      "link": "https://news.hada.io/topic?id=34714",
-      "published_at": "2026-10-03T23:34:43+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Tokenomics",
-        "Model Efficiency",
-        "Agentic Engineering"
-      ],
-      "one_line": "GLM 5.3 Flash 모델을 활용한 한 달간의 개발 비용 및 효율성 검증",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "Show HN: 독일의 새로운 소버린 AI 모델 Kolibri",
-      "link": "https://news.hada.io/topic?id=34715",
-      "published_at": "2026-10-04T00:37:47+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "MoE (Mixture of Experts)",
-        "Sovereign AI",
-        "UniBPE"
-      ],
-      "one_line": "독일어와 영어에 특화된 오픈 웨이트 MoE 모델 'Kolibri' 공개",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "Kolibri 출시: 주권형 오픈웨이트 모델",
-      "link": "https://news.hada.io/topic?id=34716",
-      "published_at": "2026-10-04T02:01:02+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "MoE(Mixture of Experts)",
-        "주권형 AI(Sovereign AI)",
-        "환각 억제(Grounding)"
-      ],
-      "one_line": "Aleph Alpha가 100만 토큰 문맥을 지원하는 주권형 오픈웨이트 모델 'Kolibri'를 공개함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "모든 SaaS 비즈니스는 모델을 둘러싼 하네스가 될 것",
-      "link": "https://news.hada.io/topic?id=34718",
-      "published_at": "2026-10-04T02:07:02+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "하네스(Harness) 설계",
-        "헤드리스(Headless) 아키텍처"
-      ],
-      "one_line": "SaaS 기업이 AI 에이전트를 중심으로 제품을 재편하며, 기업 자체가 모델을 조율하는 '하네스'가 되어야 한다는 전략적 통찰.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "Cloudflare OHTTP 게이트웨이",
-      "link": "https://news.hada.io/topic?id=34719",
-      "published_at": "2026-10-04T02:10:02+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "OHTTP(Oblivious HTTP)",
-        "HPKE(Hybrid Public Key Encryption)",
-        "신뢰 분리(Trust Separation)"
-      ],
-      "one_line": "Cloudflare가 사용자 IP 노출을 방지하는 OHTTP 게이트웨이 관리형 서비스를 비공개 베타로 출시함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "Show HN: 오픈소스 LEGO AI 생성기를 만들었습니다",
-      "link": "https://news.hada.io/topic?id=34723",
-      "published_at": "2026-10-04T03:32:50+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "LDraw",
-        "코드 생성 기반 설계",
-        "에이전트 루프(Agentic Loop)"
-      ],
-      "one_line": "AI 에이전트가 Python 스크립트를 생성하여 물리적 LEGO 모델을 설계하는 오픈소스 프로젝트 'ldraw-nova' 공개.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "FTL, 클라우드를 위한 새로운 운영체제",
-      "link": "https://news.hada.io/topic?id=34729",
-      "published_at": "2026-10-04T06:43:17+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "사용자 공간 OS(Userspace OS)",
-        "마이크로커널",
-        "컨테이너 격리"
-      ],
-      "one_line": "사용자 공간 라이브러리로 운영체제를 구현하여 클라우드 컨테이너의 보안과 유연성을 높이는 'FTL' OS 공개.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-04T08:32:30.232131+09:00",
-      "company": "GeekNews",
-      "title": "Claude와 Claude Code에서 Opus 5.5를 최대한 활용하는 방법",
-      "link": "https://news.hada.io/topic?id=34734",
-      "published_at": "2026-10-04T07:42:52+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Claude Code",
-        "Sub-agent Orchestration"
-      ],
-      "one_line": "Claude Opus 5.5를 활용해 장기 코딩 작업을 효율적으로 자동화하고 관리하는 실전 가이드",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "LINE Engineering",
-      "title": "LLM이 만든 SQL을 믿고 실행하기까지: A2A 기반의 대화형 BI 애플리케이션 개발기",
-      "link": "https://techblog.lycorp.co.jp/ko/a2a-conversational-bi-app",
-      "published_at": "Fri, 02 Oct 2026 02:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "A2A(Agent-to-Agent) 프로토콜",
-        "온톨로지 기반 RAG",
-        "Query Guardrail"
-      ],
-      "one_line": "대화형 BI 애플리케이션의 신뢰성을 높이기 위한 A2A 에이전트 구조와 온톨로지 기반 RAG 구축기",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GitHub Blog",
-      "title": "AI is changing developer work. Here are three skills to strengthen.",
-      "link": "https://github.blog/ai-and-ml/ai-is-rewriting-the-developer-career-ladder-heres-how-to-stand-out",
-      "published_at": "Fri, 02 Oct 2026 15:00:00 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "AI-Assisted Development",
-        "Technical Judgment"
-      ],
-      "one_line": "AI 시대의 개발자에게 필요한 핵심 역량: AI 지시, 결과 검증, 그리고 기술적 판단력 강화",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "Cloudflare",
-      "title": "Protected Quick Tunnels: simple accountless authentication for your next dev project",
-      "link": "https://blog.cloudflare.com/protected-quick-tunnels",
-      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Quick Tunnels",
-        "Cloudflare Access",
-        "Zero Trust"
-      ],
-      "one_line": "Cloudflare Quick Tunnels에 이메일 인증을 추가하여 로컬 개발 환경을 안전하게 공유하는 방법",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Cloudflare Traces: follow requests through our entire platform",
-      "link": "https://blog.cloudflare.com/cloudflare-tracing",
-      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Distributed Tracing",
-        "OpenTelemetry",
-        "Observability"
-      ],
-      "one_line": "Cloudflare Traces를 통한 엔드투엔드 요청 추적 및 OpenTelemetry 기반 관측 가능성 확보",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "Cloudflare",
-      "title": "8 major updates to Cloudflare Observability",
-      "link": "https://blog.cloudflare.com/one-observability-platform",
-      "published_at": "Fri, 02 Oct 2026 13:00:00 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Unified Observability Platform",
-        "SQL API",
-        "Logpush"
-      ],
-      "one_line": "Cloudflare Observability 통합 플랫폼 출시: SQL API와 통합 로그/트레이스 관리",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing Web Search API via AI Gateway",
-      "link": "https://blog.cloudflare.com/introducing-web-search-api",
-      "published_at": "Fri, 02 Oct 2026 13:28:10 GMT",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Gateway",
-        "Grounded Intelligence",
-        "Zero Data Retention (ZDR)"
-      ],
-      "one_line": "Cloudflare AI Gateway에 실시간 웹 검색 API가 통합되어 에이전트의 정보 접근성이 향상되었습니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "AWS Architecture",
-      "title": "Deploy open source Regional availability tools in your VPC",
-      "link": "https://aws.amazon.com/blogs/architecture/deploy-open-source-regional-availability-tools-in-your-vpc",
-      "published_at": "Fri, 02 Oct 2026 17:50:56 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Multi-Region Architecture",
-        "VPC Endpoint",
-        "CloudFormation"
-      ],
-      "one_line": "AWS VPC 내에서 리전별 서비스 가용성을 직접 관리하고 분석할 수 있는 오픈소스 도구가 공개되었습니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-03T09:10:56.965153+09:00",
-      "company": "GeekNews",
-      "title": "컨텍스트 언어 모델 - 자신의 컨텍스트를 직접 편집하는 AI",
-      "link": "https://news.hada.io/topic?id=34653",
-      "published_at": "2026-10-02T13:35:24+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Context Language Model (CLM)",
-        "Suffix Cache Reuse",
-        "KV Cache"
-      ],
-      "one_line": "모델이 자신의 컨텍스트를 파일 형태로 직접 편집하고 관리하는 '컨텍스트 언어 모델(CLM)'이 제안되었습니다.",
-      "actionability": 4
     }
   ],
-  "updated_at": "2026-11-06T10:23:35.222904+09:00"
+  "updated_at": "2026-11-07T09:41:09.273582+09:00"
 }
