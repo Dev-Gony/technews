@@ -83,6 +83,8 @@ export const shortSchema = z.object({
   audio: z.string(),
   durationInFrames: z.number().int().positive(),
   cuts: z.array(cutSchema),
+  // 마무리 장면이 시작되는 프레임 (마지막 대사 뒤). 없으면 마무리 없음.
+  outroFrom: z.number().int().optional(),
   sfx: z.array(sfxSchema),
 });
 

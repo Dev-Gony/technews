@@ -5,6 +5,7 @@ import {
   Easing,
   interpolate,
   Sequence,
+  spring,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
@@ -177,7 +178,54 @@ const Chrome: React.FC<{ channel: string; source: string }> = ({ channel, source
   );
 };
 
-export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx }) => {
+// 마무리: 화면이 차분히 어두워지며 채널 로고(it.)와 한 줄 소개가 뜬다. 쇼츠가 처음으로 돌아가기 전 "끝"을 알려준다.
+const Outro: React.FC<{ channel: string }> = ({ channel }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const cover = interpolate(frame, [0, 8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const logo = spring({ frame: frame - 4, fps, config: { damping: 12, stiffness: 140 } });
+  const dot = spring({ frame: frame - 12, fps, config: { damping: 8, stiffness: 220 } });
+  const line = interpolate(frame, [14, 24], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  return (
+    <AbsoluteFill style={{ backgroundColor: colors.background, opacity: cover, alignItems: "center", justifyContent: "center" }}>
+      <div
+        style={{
+          fontFamily: serifFamily,
+          fontWeight: 900,
+          fontSize: 260,
+          lineHeight: 1,
+          letterSpacing: -8,
+          color: colors.text,
+          opacity: interpolate(logo, [0, 0.4], [0, 1], { extrapolateRight: "clamp" }),
+          scale: String(interpolate(logo, [0, 1], [0.85, 1])),
+          marginTop: -120,
+        }}
+      >
+        it
+        <span style={{ color: colors.accent, display: "inline-block", scale: String(dot) }}>.</span>
+      </div>
+      <div style={{ marginTop: 24, fontFamily, fontWeight: 900, fontSize: 46, letterSpacing: 6, color: colors.text, opacity: line }}>
+        {channel}
+      </div>
+      <div
+        style={{
+          marginTop: 18,
+          fontFamily,
+          fontWeight: 700,
+          fontSize: 36,
+          color: colors.muted,
+          opacity: line,
+          translate: `0px ${interpolate(line, [0, 1], [16, 0])}px`,
+        }}
+      >
+        AI·개발 뉴스, 매일 3시간마다
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx, outroFrom, durationInFrames }) => {
   return (
     <AbsoluteFill style={themeVars(theme ?? "ink")}>
       <Background />
@@ -202,6 +250,11 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
       ))}
       <Cover text={cover} heroFrames={cuts[0]?.durationInFrames ?? 45} />
       <Chrome channel={channel} source={source} />
+      {outroFrom !== undefined && outroFrom < durationInFrames ? (
+        <Sequence name="Outro" from={outroFrom} durationInFrames={durationInFrames - outroFrom}>
+          <Outro channel={channel} />
+        </Sequence>
+      ) : null}
     </AbsoluteFill>
   );
 };

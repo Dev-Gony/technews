@@ -80,6 +80,8 @@ THUMBNAIL_VISUALS = ["metaphor", "number", "compare", "flow", "keywords"]
 VIDEO_FPS = 30
 # 마지막 대사 뒤 여유
 END_PAD_MS = 600
+# 마지막 대사 뒤 채널 마무리 장면 길이 (뚝 끊기지 않게)
+OUTRO_FRAMES = 42
 
 
 # ---------------------------------------------------------------------------
@@ -1127,6 +1129,9 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     # 컷은 그 컷의 첫 단어를 말하기 시작할 때 바뀐다.
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
     ends = starts[1:] + [total_frames]
+    # 마지막 컷 뒤에 마무리 장면을 붙인다 (자막·그래픽 없이 채널 로고)
+    outro_from = total_frames
+    total_frames += OUTRO_FRAMES
 
     props_cuts = []
 
@@ -1160,6 +1165,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",
         "durationInFrames": total_frames,
+        "outroFrom": outro_from,
         "cuts": props_cuts,
         "sfx": pick_sfx(cuts, starts),
     }
