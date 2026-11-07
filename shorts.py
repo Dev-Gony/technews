@@ -47,6 +47,8 @@ UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 # 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
 SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
+# 배경: type(장면마다 옮겨 가는 빛 + 장면 핵심어 지면 글자) / glow(빛만)
+SHORTS_BACKDROP = os.environ.get("SHORTS_BACKDROP") or "type"
 
 DAILY_ISSUES_DIR = "config/issues"
 # 오늘 이슈에 남은 기사가 없으면 며칠 전 이슈까지 거슬러 올라가서 고른다.
@@ -1237,6 +1239,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     return {
         "channel": CHANNEL_NAME,
         "theme": SHORTS_THEME,
+        "backdrop": SHORTS_BACKDROP,
         "cover": script["cover"],
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",
