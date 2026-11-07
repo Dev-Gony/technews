@@ -112,6 +112,19 @@
 
 ### 3) 대본 쓰기 (`generate_script` → `claude_json`)
 
+영상 하나에 Claude(Opus)를 **5번** 부르는 다단계 방식. 단계별 결과는 작업 폴더 `research/`에 남는다(Actions 결과물에도 포함).
+
+| 단계 | 하는 일 | 함수 |
+|---|---|---|
+| ① 원문 취재 | 기사 링크 본문을 가져온다. GeekNews는 `#topic_contents`의 자세한 정리 + 원본 글(SNS 제외). 최대 14,000자 | `fetch_source_text` |
+| ② 후보 3개 (동시에) | 각도별 대본: 원리·구조 / 숫자·결과 / 실무 적용 | `write_candidate` |
+| ③ 편집장 심사 | 훅·정확도(2배)·이해도·그래픽·지속력 점수로 1개 선택 | `judge_candidates` |
+| ④ 팩트체크 | 모든 문장·숫자·그래픽 값을 원문과 대조, 근거 없으면 고치거나 삭제 | `factcheck_script` |
+
+- 어느 단계든 실패하면(사용량 한도 등) 그때까지의 결과로 진행하고, 후보가 하나도 없으면 한 번에 쓰는 방식으로 후퇴한다.
+- 설정: `SHORTS_CLAUDE_MODEL`(기본 `opus`), `SHORTS_SCRIPT_CANDIDATES`(기본 3, 1이면 심사 생략)
+- 시험 결과(Revolut): 심사가 "원문에 없는 인과"가 있는 후보를 감점, 팩트체크가 "약 2,000명", "월 최대 1만 달러" 같은 조건을 살리고 근거 없는 "GPU 운영 부담" 문장을 삭제
+
 - 명령: `claude -p --output-format json --tools "" --system-prompt <규칙> --json-schema <형식>`
   - `--tools ""`: 파일 읽기·인터넷 검색 같은 도구를 전부 끄고 **글만 쓰게** 한다.
   - `--json-schema`: 정해진 JSON 형식으로만 답하게 강제한다 → 결과는 `structured_output`.
@@ -482,7 +495,8 @@ cd video && npx tsc --noEmit
 
 | 이름 | 기본값 | 설명 |
 |---|---|---|
-| `SHORTS_CLAUDE_MODEL` | (비움) | 비우면 구독 플랜 기본 모델 |
+| `SHORTS_CLAUDE_MODEL` | `opus` | 대본 단계 모델 (비우면 구독 플랜 기본) |
+| `SHORTS_SCRIPT_CANDIDATES` | `3` | 대본 후보 수 (1이면 심사 생략) |
 | `SHORTS_GEMINI_TTS_MODEL` | `gemini-3.1-flash-tts-preview` | TTS 모델 |
 | `SHORTS_GEMINI_VOICES` | `Leda` | 쉼표로 여러 개 넣으면 영상마다 번갈아 사용 |
 | `SHORTS_VOICE` | `ko-KR-SunHiNeural` | 대체 음성 (edge-tts) |
