@@ -85,6 +85,8 @@ export const shortSchema = z.object({
   cuts: z.array(cutSchema),
   // 마무리 장면이 시작되는 프레임 (마지막 대사 뒤). 없으면 마무리 없음.
   outroFrom: z.number().int().optional(),
+  // 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 지면 타이포)
+  backdrop: z.enum(["glow", "type"]).optional(),
   sfx: z.array(sfxSchema),
 });
 
