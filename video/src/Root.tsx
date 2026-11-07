@@ -1,4 +1,5 @@
 import { Composition, Still } from "remotion";
+import { Thumbnail, thumbnailSchema } from "./Thumbnail";
 import { Banner, Profile, Watermark } from "./brand/Brand";
 import { Cards, calculateCardsMetadata } from "./cards/Cards";
 import { cardsSchema } from "./cards/schema";
@@ -126,6 +127,29 @@ export const RemotionRoot: React.FC = () => {
               body: "저장해두고 다음 비용 회의 때 꺼내 보세요.",
             },
           ],
+        }}
+      />
+      {/* 쇼츠 썸네일: shorts.py가 --props로 제목과 대표 그래픽을 넘긴다 */}
+      <Composition
+        id="Thumbnail"
+        component={Thumbnail}
+        schema={thumbnailSchema}
+        durationInFrames={120}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          channel: "itgony",
+          theme: "ink" as const,
+          cover: `API 대신 GLM
+비용 90%↓`,
+          visual: {
+            type: "metaphor" as const,
+            rooms: [
+              { place: "내 주방", actual: "자체 호스팅 GLM", icon: "server" },
+              { place: "배달", actual: "외부 API", icon: "truck" },
+            ],
+          },
         }}
       />
       {/* 채널 꾸미기 이미지: npx remotion still src/index.ts <id> out.png */}

@@ -62,6 +62,14 @@ AI_KEYWORDS = [
 BGM_VOLUME = float(os.environ.get("SHORTS_BGM_VOLUME", "0.15"))
 
 VIDEO_PROJECT_DIR = "video"
+# 업로드 후 썸네일(1080x1920)을 만들어 적용한다. 0이면 끈다.
+# 채널에 맞춤 썸네일 권한(전화번호 인증)이 있어야 한다. 없으면 403 forbidden.
+# itgony 채널은 2026-11-07 인증 후 --thumbnail-only 시험으로 적용 확인.
+THUMBNAIL_ENABLED = os.environ.get("SHORTS_THUMBNAIL") != "0"
+# video/src/Thumbnail.tsx의 THUMBNAIL_FRAME과 같은 값 (그림이 다 그려진 시점)
+THUMBNAIL_FRAME = 90
+# 썸네일 그림으로 쓸 그래픽 우선순위
+THUMBNAIL_VISUALS = ["metaphor", "number", "compare", "flow", "keywords"]
 VIDEO_FPS = 30
 # 마지막 대사 뒤 여유
 END_PAD_MS = 600
@@ -933,6 +941,48 @@ def render_with_remotion(props, work_dir, output_path):
     return output_path
 
 
+def pick_thumbnail_visual(cuts):
+    """썸네일에 넣을 대표 그래픽 하나: 비유 그림 → 숫자 → 비교 → 흐름 → 키워드 순. 없으면 None(제목만)."""
+    for kind in THUMBNAIL_VISUALS:
+        for cut in cuts[1:]:
+            if cut["visual"]["type"] == kind:
+                return cut["visual"]
+
+    return None
+
+
+def render_thumbnail(script, work_dir):
+    """제목(cover) + 대표 그래픽으로 썸네일 PNG를 만든다."""
+    npx = shutil.which("npx")
+    props = {"channel": CHANNEL_NAME, "theme": SHORTS_THEME, "cover": script["cover"]}
+    visual = pick_thumbnail_visual(script["cuts"])
+
+    if visual:
+        props["visual"] = visual
+
+    props_path = os.path.abspath(os.path.join(work_dir, "thumbnail-props.json"))
+    output_path = os.path.abspath(os.path.join(work_dir, "thumbnail.png"))
+    save_json(props_path, props)
+
+    result = subprocess.run(
+        [
+            npx, "remotion", "still", "src/index.ts", "Thumbnail", output_path,
+            f"--frame={THUMBNAIL_FRAME}", f"--props={props_path}", "--log=error",
+        ],
+        cwd=VIDEO_PROJECT_DIR,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="ignore",
+        timeout=600,
+    )
+
+    if result.returncode != 0:
+        raise RuntimeError(f"썸네일 렌더링 실패: {(result.stderr or result.stdout).strip()[-1000:]}")
+
+    return output_path
+
+
 # ---------------------------------------------------------------------------
 # 영상 합성 (ffmpeg)
 # ---------------------------------------------------------------------------
@@ -1253,6 +1303,59 @@ def upload_youtube(video_path, script, article, history=()):
     return result["id"], result.get("status", {}).get("privacyStatus", UPLOAD_PRIVACY)
 
 
+def wait_until_processed(video_id, token, attempts=10, interval=30):
+    """쇼츠 썸네일은 영상 처리가 끝난 뒤에 넣어야 적용된다. 처리 상태를 확인한다(호출당 1유닛)."""
+    import time
+
+    for _ in range(attempts):
+        request = urllib.request.Request(
+            f"https://www.googleapis.com/youtube/v3/videos?part=processingDetails&id={video_id}",
+            headers={"Authorization": f"Bearer {token}"},
+        )
+
+        with urllib.request.urlopen(request, timeout=30) as response:
+            items = json.loads(response.read().decode("utf-8")).get("items") or []
+
+        status = (items[0].get("processingDetails") or {}).get("processingStatus") if items else None
+
+        if status == "succeeded":
+            return True
+
+        if status in ("failed", "terminated"):
+            return False
+
+        time.sleep(interval)
+
+    return False
+
+
+def set_youtube_thumbnail(video_id, image_path):
+    """업로드한 쇼츠에 썸네일을 적용한다(50유닛). 실패해도 영상은 그대로 두고 이유만 돌려준다.
+
+    돌려주는 값: None이면 성공, 문자열이면 실패 이유.
+    """
+    token = youtube_access_token()
+
+    if not wait_until_processed(video_id, token):
+        return "영상 처리가 끝나지 않아 썸네일을 넣지 못했습니다"
+
+    with open(image_path, "rb") as file:
+        data = file.read()
+
+    request = urllib.request.Request(
+        f"https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId={video_id}&uploadType=media",
+        data=data,
+        headers={"Authorization": f"Bearer {token}", "Content-Type": "image/png", "Content-Length": str(len(data))},
+        method="POST",
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=120):
+            return None
+    except urllib.error.HTTPError as error:
+        return f"{error.code} {youtube_error_reason(error)}"
+
+
 def notify_slack(text):
     if not SLACK_WEBHOOK_URL:
         return
@@ -1280,12 +1383,33 @@ def parse_args():
     parser.add_argument("--script", help="Claude 대신 이 대본 JSON 파일을 사용")
     parser.add_argument("--link", help="이 기사로 만들기 (이미 만든 기사도 가능, 테스트용)")
     parser.add_argument("--no-upload", action="store_true", help="영상만 만들고 업로드하지 않음")
+    parser.add_argument(
+        "--thumbnail-only",
+        metavar="VIDEO_ID",
+        help="영상은 만들지 않고, --script 대본으로 썸네일만 만들어 이미 올린 영상에 적용",
+    )
 
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
+
+    if args.thumbnail_only:
+        if not args.script:
+            raise SystemExit("--thumbnail-only에는 --script 대본 파일이 필요합니다.")
+
+        work_dir = os.path.join(OUTPUT_DIR, f"thumbnail_{args.thumbnail_only}")
+        os.makedirs(work_dir, exist_ok=True)
+        image = render_thumbnail(validate_script(load_json(args.script, {})), work_dir)
+        print(f"썸네일 생성 완료: {image}")
+        problem = set_youtube_thumbnail(args.thumbnail_only, image)
+
+        if problem:
+            raise SystemExit(f"썸네일 적용 실패: {problem}")
+
+        print(f"썸네일 적용 완료: https://youtu.be/{args.thumbnail_only}")
+        return
 
     history = load_json(SHORTS_HISTORY_FILE, [])
     used_links = {entry["link"] for entry in history}
@@ -1367,6 +1491,18 @@ def main():
         video_id, privacy = upload_youtube(video_path, script, article, history)
         print(f"업로드 완료 ({privacy}): https://youtu.be/{video_id}")
 
+        thumbnail_note = ""
+
+        if THUMBNAIL_ENABLED:
+            # 썸네일은 덤이다: 실패해도 업로드는 성공으로 두고 이유만 알린다.
+            try:
+                problem = set_youtube_thumbnail(video_id, render_thumbnail(script, work_dir))
+            except Exception as error:
+                problem = str(error)
+
+            thumbnail_note = "\n썸네일: 적용 완료" if problem is None else f"\n썸네일 적용 실패: {problem}"
+            print(thumbnail_note.strip())
+
         if privacy == "public":
             headline = f"[{CHANNEL_NAME}] 새 Shorts 공개 업로드"
         else:
@@ -1374,7 +1510,7 @@ def main():
 
         notify_slack(
             f"{headline}\n*{script['title']}*\nhttps://youtu.be/{video_id}\n"
-            f"https://studio.youtube.com/video/{video_id}/edit\n원문: {article['link']}"
+            f"https://studio.youtube.com/video/{video_id}/edit\n원문: {article['link']}{thumbnail_note}"
         )
 
     # 업로드하지 않은 로컬 테스트는 이력에 남기지 않는다. 같은 기사로 다시 만들 수 있게.
