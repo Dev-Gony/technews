@@ -31,7 +31,7 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
       <AbsoluteFill
         style={{
           scale: String(
-            interpolate(frame, [0, 7, cut.durationInFrames], [strong ? 1.18 : 1.1, 1, 1.03], {
+            interpolate(frame, [0, 7, Math.max(cut.durationInFrames, 8)], [strong ? 1.18 : 1.1, 1, 1.03], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
               easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
