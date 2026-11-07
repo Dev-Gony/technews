@@ -225,10 +225,10 @@ const Outro: React.FC<{ channel: string }> = ({ channel }) => {
   );
 };
 
-export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx, outroFrom, durationInFrames }) => {
+export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx, outroFrom, durationInFrames, backdrop }) => {
   return (
     <AbsoluteFill style={themeVars(theme ?? "ink")}>
-      <Background />
+      <Background cuts={cuts} backdrop={backdrop ?? "glow"} />
       <Audio src={staticFile(audio)} />
       {sfx.map((effect, index) => (
         <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
