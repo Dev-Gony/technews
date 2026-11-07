@@ -1462,7 +1462,7 @@ def apply_thumbnail_batch(path):
         print(f"실패: {video_id} {entry['title']} - {problem}")
 
         if "quota" in problem.lower() or problem.startswith("429"):
-            print("할당량이 떨어져서 멈춥니다. 한도가 초기화된 뒤(한국 17:00) 다시 실행하면 남은 것부터 합니다.")
+            print("YouTube 한도(썸네일 업로드 횟수 또는 API 할당량)에 걸려 멈춥니다. 나중에 남은 것만 다시 실행하세요.")
             break
 
     print(f"\n완료 {len(applied)}개, 실패 {len(failed)}개, 남은 것 {len(entries) - len(done)}개")
