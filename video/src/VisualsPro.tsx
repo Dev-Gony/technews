@@ -230,6 +230,11 @@ export const BeforeAfterVisual: React.FC<{ visual: Visual; sceneFrames: number }
 
   return (
     <Panel>
+      {visual.label ? (
+        <div style={{ marginBottom: 18, fontSize: 36, fontWeight: 900, letterSpacing: 2, color: colors.muted, opacity: pop(frame, 0, 8) }}>
+          {visual.label}
+        </div>
+      ) : null}
       <div style={{ position: "relative", width: AREA_WIDTH, display: "flex", justifyContent: "space-between" }}>
         {side(before, leftIn, beforeScale, false)}
         <div

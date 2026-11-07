@@ -76,7 +76,7 @@ THUMBNAIL_FRAME = 90
 # 일괄 적용 한 번에 넣을 최대 개수 (새 영상 썸네일 몫을 남긴다)
 THUMBNAIL_BATCH_LIMIT = int(os.environ.get("SHORTS_THUMBNAIL_BATCH_LIMIT", "5"))
 # 썸네일 그림으로 쓸 그래픽 우선순위
-THUMBNAIL_VISUALS = ["metaphor", "number", "compare", "flow", "keywords"]
+THUMBNAIL_VISUALS = ["diagram", "metaphor", "beforeafter", "scale", "number", "compare", "flow", "keywords"]
 VIDEO_FPS = 30
 # 마지막 대사 뒤 여유
 END_PAD_MS = 600
@@ -251,6 +251,16 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
 - code: 개발자용 코드·명령어 5줄 이내. 기사 내용과 직접 관련 있을 때만.
 - question: 질문 카드. label은 line을 그대로 옮기지 말고 12자 이내로 더 짧게.
 - none: 그래픽 없이 자막만 크게. 흐름상 쉬어가는 컷에만.
+
+움직이는 그림 그래픽 (시청자가 넘기지 않고 보게 만든다. 영상마다 아래 중 2개 이상을 쓰고, 같은 종류는 한 번씩만):
+- diagram: 구조도. 동작 방식·요청 흐름·구성을 사물 2~4개와 화살표로 보여준다. 화살표가 그려지고 일감이 흐른 뒤 카메라가 focus 마디로 밀고 들어간다.
+  nodes에 흐름 순서대로 {{label(10자 이내), icon}}, focus에 핵심 마디 번호(0부터). 예: 사용자(person) → 게이트웨이(lock) → 자체 모델(server) → GPU(gpu), focus 2.
+- beforeafter: 전후 비교. 기사에 바뀌기 전과 후의 값이 둘 다 있을 때만. before / after에 {{title(8자 이내), value(숫자+단위, 10자 이내), icon}}.
+  예: before {{"외부 API", "$3", cloud}} / after {{"자체 GLM", "$0.3", server}}. label에 무엇의 비교인지(예: "100만 토큰당").
+- scale: 규모. 같은 사물을 격자로 깔아 숫자를 체감시킨다. count에 깔 개수(1~60), icon, value에 화면에 크게 쓸 말(예: "B200 56개"), label에 설명.
+  실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
+- quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
+  원문에 없는 문장은 절대 만들지 않는다.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 
 cover: 이 영상의 훅이자 썸네일. 1컷 동안 화면 가운데에 크게 나왔다가 위로 줄어들어 영상 내내 고정된다.
@@ -269,7 +279,22 @@ ICONS = [
     "laptop", "document", "coins", "truck", "lock", "building",
 ]
 
-VISUAL_TYPES = ["hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none"]
+VISUAL_TYPES = [
+    "hook", "metaphor", "diagram", "beforeafter", "scale", "quote",
+    "number", "compare", "flow", "keywords", "code", "question", "none",
+]
+
+# 전후 비교 한쪽 (video/src/schema.ts의 sideSchema)
+SIDE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "title": {"type": "string"},
+        "value": {"type": "string"},
+        "icon": {"type": "string", "enum": ICONS},
+    },
+    "required": ["title", "value", "icon"],
+    "additionalProperties": False,
+}
 
 # video/src/schema.ts의 visualSchema와 같은 구조
 VISUAL_SCHEMA = {
@@ -306,6 +331,24 @@ VISUAL_SCHEMA = {
                 "additionalProperties": False,
             },
         },
+        "nodes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {"type": "string"},
+                    "icon": {"type": "string", "enum": ICONS},
+                },
+                "required": ["label", "icon"],
+                "additionalProperties": False,
+            },
+        },
+        "focus": {"type": "integer"},
+        "before": SIDE_SCHEMA,
+        "after": SIDE_SCHEMA,
+        "count": {"type": "integer"},
+        "icon": {"type": "string", "enum": ICONS},
+        "quote": {"type": "string"},
     },
     "required": ["type"],
     "additionalProperties": False,
@@ -837,8 +880,14 @@ def validate_visual(visual):
     if visual.get("items"):
         visual["items"] = [item for item in visual["items"] if re.search(r"[0-9A-Za-z가-힣]", item or "") and item.strip().lower() != "vs"]
 
+    before, after = visual.get("before") or {}, visual.get("after") or {}
+
     has_content = {
         "hook": bool((visual.get("value") or "").strip()),
+        "diagram": len([node for node in visual.get("nodes") or [] if (node.get("label") or "").strip()]) >= 2,
+        "beforeafter": all((side.get("value") or "").strip() for side in (before, after)),
+        "scale": (visual.get("count") or 0) >= 2 and bool((visual.get("value") or "").strip()),
+        "quote": len((visual.get("quote") or "").strip()) >= 8,
         "metaphor": len([room for room in visual.get("rooms") or [] if (room.get("place") or "").strip()]) >= 2,
         "number": bool(re.search(r"\d", visual.get("value") or "")),
         "compare": len(visual.get("bars") or []) >= 2,
