@@ -1381,12 +1381,33 @@ def parse_args():
     parser.add_argument("--script", help="Claude 대신 이 대본 JSON 파일을 사용")
     parser.add_argument("--link", help="이 기사로 만들기 (이미 만든 기사도 가능, 테스트용)")
     parser.add_argument("--no-upload", action="store_true", help="영상만 만들고 업로드하지 않음")
+    parser.add_argument(
+        "--thumbnail-only",
+        metavar="VIDEO_ID",
+        help="영상은 만들지 않고, --script 대본으로 썸네일만 만들어 이미 올린 영상에 적용",
+    )
 
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
+
+    if args.thumbnail_only:
+        if not args.script:
+            raise SystemExit("--thumbnail-only에는 --script 대본 파일이 필요합니다.")
+
+        work_dir = os.path.join(OUTPUT_DIR, f"thumbnail_{args.thumbnail_only}")
+        os.makedirs(work_dir, exist_ok=True)
+        image = render_thumbnail(validate_script(load_json(args.script, {})), work_dir)
+        print(f"썸네일 생성 완료: {image}")
+        problem = set_youtube_thumbnail(args.thumbnail_only, image)
+
+        if problem:
+            raise SystemExit(f"썸네일 적용 실패: {problem}")
+
+        print(f"썸네일 적용 완료: https://youtu.be/{args.thumbnail_only}")
+        return
 
     history = load_json(SHORTS_HISTORY_FILE, [])
     used_links = {entry["link"] for entry in history}
