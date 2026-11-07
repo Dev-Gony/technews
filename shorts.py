@@ -68,6 +68,8 @@ VIDEO_PROJECT_DIR = "video"
 THUMBNAIL_ENABLED = os.environ.get("SHORTS_THUMBNAIL") != "0"
 # video/src/Thumbnail.tsx의 THUMBNAIL_FRAME과 같은 값 (그림이 다 그려진 시점)
 THUMBNAIL_FRAME = 90
+# 일괄 적용 한 번에 넣을 최대 개수 (새 영상 썸네일 몫을 남긴다)
+THUMBNAIL_BATCH_LIMIT = int(os.environ.get("SHORTS_THUMBNAIL_BATCH_LIMIT", "5"))
 # 썸네일 그림으로 쓸 그래픽 우선순위
 THUMBNAIL_VISUALS = ["metaphor", "number", "compare", "flow", "keywords"]
 VIDEO_FPS = 30
@@ -954,11 +956,13 @@ def pick_thumbnail_visual(cuts):
 def render_thumbnail(script, work_dir):
     """제목(cover) + 대표 그래픽으로 썸네일 PNG를 만든다."""
     npx = shutil.which("npx")
-    props = {"channel": CHANNEL_NAME, "theme": SHORTS_THEME, "cover": script["cover"]}
-    visual = pick_thumbnail_visual(script["cuts"])
-
-    if visual:
-        props["visual"] = visual
+    props = {
+        "channel": CHANNEL_NAME,
+        "theme": SHORTS_THEME,
+        "cover": script["cover"],
+        # 그림이 없어도 null로 넘긴다(빼면 Remotion이 기본 예시 그림을 넣는다).
+        "visual": pick_thumbnail_visual(script["cuts"]),
+    }
 
     props_path = os.path.abspath(os.path.join(work_dir, "thumbnail-props.json"))
     output_path = os.path.abspath(os.path.join(work_dir, "thumbnail.png"))
@@ -1384,6 +1388,11 @@ def parse_args():
     parser.add_argument("--link", help="이 기사로 만들기 (이미 만든 기사도 가능, 테스트용)")
     parser.add_argument("--no-upload", action="store_true", help="영상만 만들고 업로드하지 않음")
     parser.add_argument(
+        "--thumbnail-batch",
+        metavar="FILE",
+        help="[{video_id, title, script}] 목록 파일로 이미 올린 영상들에 썸네일을 한꺼번에 적용",
+    )
+    parser.add_argument(
         "--thumbnail-only",
         metavar="VIDEO_ID",
         help="영상은 만들지 않고, --script 대본으로 썸네일만 만들어 이미 올린 영상에 적용",
@@ -1392,8 +1401,85 @@ def parse_args():
     return parser.parse_args()
 
 
+def title_cover(title, width=9):
+    """cover가 없는 예전 대본용: 제목을 한 줄 9자 안팎으로 끊어 최대 4줄로 만든다."""
+    words = re.sub(r"[?!]+$", "", title).split()
+    lines, current = [], ""
+
+    for word in words:
+        if current and len(current) + 1 + len(word) > width:
+            lines.append(current)
+            current = word
+        else:
+            current = f"{current} {word}".strip()
+
+    if current:
+        lines.append(current)
+
+    return "\n".join(lines[:4])
+
+
+def thumbnail_script(entry):
+    """일괄 적용용 대본 정리. 예전 형식(장면 scenes)이라 검증이 안 되면 제목만 쓰는 썸네일로."""
+    try:
+        script = validate_script(entry["script"])
+    except (ValueError, KeyError):
+        script = {"title": entry["title"], "cover": "", "cuts": []}
+
+    if not script.get("cover") or script["cover"] == script.get("title"):
+        script["cover"] = title_cover(entry["title"])
+
+    return script
+
+
+def apply_thumbnail_batch(path):
+    """이미 올린 영상들에 썸네일을 적용한다. 할당량이 떨어지면 멈추고, 다시 실행하면 남은 것부터 한다."""
+    entries = load_json(path, [])
+    done_path = os.path.join(OUTPUT_DIR, "thumbnail_batch_done.json")
+    done = set(load_json(done_path, []))
+    applied, failed = [], []
+
+    for entry in entries:
+        video_id = entry["video_id"]
+
+        if video_id in done:
+            continue
+
+        # 썸네일 업로드 횟수 제한(대략 하루 10개 안팎)이 있어서, 새 영상 몫을 남기고 한 번에 조금씩만.
+        if len(applied) >= THUMBNAIL_BATCH_LIMIT:
+            break
+
+        work_dir = os.path.join(OUTPUT_DIR, f"thumbnail_{video_id}")
+        os.makedirs(work_dir, exist_ok=True)
+
+        try:
+            problem = set_youtube_thumbnail(video_id, render_thumbnail(thumbnail_script(entry), work_dir))
+        except Exception as error:
+            problem = str(error)
+
+        if problem is None:
+            applied.append(video_id)
+            done.add(video_id)
+            save_json(done_path, sorted(done))
+            print(f"적용: {video_id} {entry['title']}")
+            continue
+
+        failed.append((video_id, problem))
+        print(f"실패: {video_id} {entry['title']} - {problem}")
+
+        if "quota" in problem.lower() or problem.startswith("429"):
+            print("YouTube 한도(썸네일 업로드 횟수 또는 API 할당량)에 걸려 멈춥니다. 나중에 남은 것만 다시 실행하세요.")
+            break
+
+    print(f"\n완료 {len(applied)}개, 실패 {len(failed)}개, 남은 것 {len(entries) - len(done)}개")
+
+
 def main():
     args = parse_args()
+
+    if args.thumbnail_batch:
+        apply_thumbnail_batch(args.thumbnail_batch)
+        return
 
     if args.thumbnail_only:
         if not args.script:
