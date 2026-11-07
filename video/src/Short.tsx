@@ -5,6 +5,7 @@ import {
   Easing,
   interpolate,
   Sequence,
+  spring,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
@@ -19,7 +20,39 @@ export const calculateShortMetadata: CalculateMetadataFunction<ShortProps> = ({ 
   return { durationInFrames: props.durationInFrames };
 };
 
-// 컷이 바뀔 때마다 화면이 살짝 다가왔다가 자리 잡는다(펀치인). 흰 섬광은 첫 컷에만.
+// 장면 전환: 다음 그래픽이 들어오는 동안 이전 그래픽은 EXIT_FRAMES 동안 살짝 작아지며 흐려진다.
+// (뚝 끊기고 빈 화면이 생기지 않게 두 그래픽이 잠깐 겹친다)
+export const EXIT_FRAMES = 8;
+
+const VisualLayer: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
+  const frame = useCurrentFrame();
+  const length = Math.max(cut.durationInFrames, 8);
+  const exit = interpolate(frame, [length, length + EXIT_FRAMES], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.4, 0, 1, 1),
+  });
+  const enter = interpolate(frame, [0, 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  return (
+    <AbsoluteFill
+      style={{
+        opacity: enter * (1 - exit),
+        scale: String(
+          interpolate(frame, [0, 7, length], [index === 0 ? 1.18 : 1.06, 1, 1.03], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
+          }) * interpolate(exit, [0, 1], [1, 0.94]),
+        ),
+      }}
+    >
+      {index === 0 ? null : <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />}
+    </AbsoluteFill>
+  );
+};
+
+// 자막 + 첫 컷 흰 섬광 (컷 길이 그대로)
 const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   const frame = useCurrentFrame();
   const strong = index === 0;
@@ -28,19 +61,6 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
 
   return (
     <AbsoluteFill>
-      <AbsoluteFill
-        style={{
-          scale: String(
-            interpolate(frame, [0, 7, cut.durationInFrames], [strong ? 1.18 : 1.1, 1, 1.03], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-              easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
-            }),
-          ),
-        }}
-      >
-        {index === 0 ? null : <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />}
-      </AbsoluteFill>
       <Captions chunks={cut.chunks} center={center} />
       {strong ? (
         <AbsoluteFill
@@ -158,7 +178,54 @@ const Chrome: React.FC<{ channel: string; source: string }> = ({ channel, source
   );
 };
 
-export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx }) => {
+// 마무리: 화면이 차분히 어두워지며 채널 로고(it.)와 한 줄 소개가 뜬다. 쇼츠가 처음으로 돌아가기 전 "끝"을 알려준다.
+const Outro: React.FC<{ channel: string }> = ({ channel }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const cover = interpolate(frame, [0, 8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const logo = spring({ frame: frame - 4, fps, config: { damping: 12, stiffness: 140 } });
+  const dot = spring({ frame: frame - 12, fps, config: { damping: 8, stiffness: 220 } });
+  const line = interpolate(frame, [14, 24], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  return (
+    <AbsoluteFill style={{ backgroundColor: colors.background, opacity: cover, alignItems: "center", justifyContent: "center" }}>
+      <div
+        style={{
+          fontFamily: serifFamily,
+          fontWeight: 900,
+          fontSize: 260,
+          lineHeight: 1,
+          letterSpacing: -8,
+          color: colors.text,
+          opacity: interpolate(logo, [0, 0.4], [0, 1], { extrapolateRight: "clamp" }),
+          scale: String(interpolate(logo, [0, 1], [0.85, 1])),
+          marginTop: -120,
+        }}
+      >
+        it
+        <span style={{ color: colors.accent, display: "inline-block", scale: String(dot) }}>.</span>
+      </div>
+      <div style={{ marginTop: 24, fontFamily, fontWeight: 900, fontSize: 46, letterSpacing: 6, color: colors.text, opacity: line }}>
+        {channel}
+      </div>
+      <div
+        style={{
+          marginTop: 18,
+          fontFamily,
+          fontWeight: 700,
+          fontSize: 36,
+          color: colors.muted,
+          opacity: line,
+          translate: `0px ${interpolate(line, [0, 1], [16, 0])}px`,
+        }}
+      >
+        AI·개발 뉴스, 매일 3시간마다
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx, outroFrom, durationInFrames }) => {
   return (
     <AbsoluteFill style={themeVars(theme ?? "ink")}>
       <Background />
@@ -167,12 +234,27 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
         <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
       ))}
       {cuts.map((cut, index) => (
+        <Sequence
+          key={`visual-${index}`}
+          name={`Visual ${index + 1}`}
+          from={cut.from}
+          durationInFrames={cut.durationInFrames + (index < cuts.length - 1 ? EXIT_FRAMES : 0)}
+        >
+          <VisualLayer cut={cut} index={index} />
+        </Sequence>
+      ))}
+      {cuts.map((cut, index) => (
         <Sequence key={`cut-${index}`} name={`Cut ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>
           <CutView cut={cut} index={index} />
         </Sequence>
       ))}
       <Cover text={cover} heroFrames={cuts[0]?.durationInFrames ?? 45} />
       <Chrome channel={channel} source={source} />
+      {outroFrom !== undefined && outroFrom < durationInFrames ? (
+        <Sequence name="Outro" from={outroFrom} durationInFrames={durationInFrames - outroFrom}>
+          <Outro channel={channel} />
+        </Sequence>
+      ) : null}
     </AbsoluteFill>
   );
 };

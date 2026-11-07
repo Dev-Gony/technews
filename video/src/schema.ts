@@ -15,16 +15,42 @@ export const roomSchema = z.object({
   icon: z.string().optional(),
 });
 
+// 구조도의 마디: 사물 아이콘 + 이름
+export const nodeSchema = z.object({
+  label: z.string(),
+  icon: z.string().optional(),
+});
+
+// 전후 비교의 한쪽
+export const sideSchema = z.object({
+  title: z.string(),
+  value: z.string(),
+  icon: z.string().optional(),
+});
+
 export const visualSchema = z.object({
   // hook: 첫 컷 대형 문구 / metaphor: 공간·역할 비유 입체 건물 / number: 숫자 카운트업 / compare: 막대 비교 / flow: 단계 흐름도
   // keywords: 핵심 단어 카드 / code: 터미널 코드 / question: 질문 카드 / none: 자막만
-  type: z.enum(["hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none"]),
+  // diagram: 사물 구조도(흐르는 화살표 + 카메라 줌인) / beforeafter: 전후 비교 / scale: 아이콘 격자로 규모 / quote: 원문 인용 카드
+  type: z.enum([
+    "hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none",
+    "diagram", "beforeafter", "scale", "quote",
+  ]),
   value: z.string().optional(),
   label: z.string().optional(),
   items: z.array(z.string()).optional(),
   bars: z.array(barSchema).optional(),
   code: z.string().optional(),
   rooms: z.array(roomSchema).optional(),
+  nodes: z.array(nodeSchema).optional(),
+  // 구조도에서 마지막에 카메라가 밀고 들어갈 마디 번호
+  focus: z.number().int().optional(),
+  before: sideSchema.optional(),
+  after: sideSchema.optional(),
+  // 규모: 아이콘 개수와 종류
+  count: z.number().int().optional(),
+  icon: z.string().optional(),
+  quote: z.string().optional(),
 });
 
 export const chunkSchema = z.object({
@@ -57,6 +83,8 @@ export const shortSchema = z.object({
   audio: z.string(),
   durationInFrames: z.number().int().positive(),
   cuts: z.array(cutSchema),
+  // 마무리 장면이 시작되는 프레임 (마지막 대사 뒤). 없으면 마무리 없음.
+  outroFrom: z.number().int().optional(),
   sfx: z.array(sfxSchema),
 });
 

@@ -76,10 +76,12 @@ THUMBNAIL_FRAME = 90
 # 일괄 적용 한 번에 넣을 최대 개수 (새 영상 썸네일 몫을 남긴다)
 THUMBNAIL_BATCH_LIMIT = int(os.environ.get("SHORTS_THUMBNAIL_BATCH_LIMIT", "5"))
 # 썸네일 그림으로 쓸 그래픽 우선순위
-THUMBNAIL_VISUALS = ["metaphor", "number", "compare", "flow", "keywords"]
+THUMBNAIL_VISUALS = ["diagram", "metaphor", "beforeafter", "scale", "number", "compare", "flow", "keywords"]
 VIDEO_FPS = 30
 # 마지막 대사 뒤 여유
 END_PAD_MS = 600
+# 마지막 대사 뒤 채널 마무리 장면 길이 (뚝 끊기지 않게)
+OUTRO_FRAMES = 42
 
 
 # ---------------------------------------------------------------------------
@@ -202,6 +204,7 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
   좋은 예: "엔지니어 / 한 명당 / 병합 5배래요."  나쁜 예: "엔지니어 한 / 명당 병합"
 - 컷은 10~15개, 길이는 30~50초. 짧게 줄이려고 맥락(누가, 무엇을, 왜)을 빼지 않는다. 대신 같은 말 반복과 군더더기는 뺀다.
 - 영어 약어와 전문 용어는 처음 나올 때 한 번 쉽게 풀어서 말한다. (예: "리드타임, 그러니까 개발 시작부터 배포까지 걸리는 시간")
+- 숫자는 소리 내어 읽기 자연스럽게 쓴다: 소수점 끝 0 금지("0.30달러" X → "0.3달러" O).
 - 숫자는 반드시 "무엇의" 숫자인지 같이 말한다. ("70% 개선" → "리드타임이 70% 줄었다")
 
 구조:
@@ -209,8 +212,9 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
    API 요금 폭탄, 에이전트 폭주, 야근, 장애, 보안 사고처럼 기사 주제와 직접 이어지는 아픔으로 시작한다.
    (예: "API 청구서, / 또 폭탄이죠?", "에이전트가 / 혼자 폭주하죠?")
 2. 2~3컷: 이 기사가 내놓은 답이나 가장 센 결과를 바로 던진다.
-   이어서 짧은 "약속" 한 컷: 이 영상에서 알게 될 것을 한 줄로 말해 끝까지 볼 이유를 준다.
-   (예: "어떻게 줄였는지 / 30초면 돼요.", "왜 위험한지 / 바로 볼게요.")
+   이어서 아주 짧은 연결 한 컷(10자 안팎): 바로 본론으로 넘어간다는 신호만 준다.
+   (예: "빠르게 볼게요.", "어떻게 했는지 / 볼게요.")
+   시청자에게 뭘 하라고 시키거나("따라 할 것까지", "끝까지 보세요") 내용을 미리 늘어놓지 않는다.
 3. 중간 4~5컷: 공간·역할 비유로 구조를 설명한다.
    - 복잡한 구조를 건물·사무실·주방 같은 공간과 사람의 역할로 바꾼다.
      예: "위층 소장실(상주 대장)이 일을 나누고, 아래층 인력사무소(비상주 일꾼)가 필요할 때만 와서 처리"
@@ -247,6 +251,16 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
 - code: 개발자용 코드·명령어 5줄 이내. 기사 내용과 직접 관련 있을 때만.
 - question: 질문 카드. label은 line을 그대로 옮기지 말고 12자 이내로 더 짧게.
 - none: 그래픽 없이 자막만 크게. 흐름상 쉬어가는 컷에만.
+
+움직이는 그림 그래픽 (시청자가 넘기지 않고 보게 만든다. 영상마다 아래 중 2개 이상을 쓰고, 같은 종류는 한 번씩만):
+- diagram: 구조도. 동작 방식·요청 흐름·구성을 사물 2~4개와 화살표로 보여준다. 화살표가 그려지고 일감이 흐른 뒤 카메라가 focus 마디로 밀고 들어간다.
+  nodes에 흐름 순서대로 {{label(10자 이내), icon}}, focus에 핵심 마디 번호(0부터). 예: 사용자(person) → 게이트웨이(lock) → 자체 모델(server) → GPU(gpu), focus 2.
+- beforeafter: 전후 비교. 기사에 바뀌기 전과 후의 값이 둘 다 있을 때만. before / after에 {{title(8자 이내), value(숫자+단위, 10자 이내), icon}}.
+  예: before {{"외부 API", "$3", cloud}} / after {{"자체 GLM", "$0.3", server}}. label에 무엇의 비교인지(예: "100만 토큰당").
+- scale: 규모. 같은 사물을 격자로 깔아 숫자를 체감시킨다. count에 깔 개수(1~60), icon, value에 화면에 크게 쓸 말(예: "B200 56개"), label에 설명.
+  실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
+- quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
+  원문에 없는 문장은 절대 만들지 않는다.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 
 cover: 이 영상의 훅이자 썸네일. 1컷 동안 화면 가운데에 크게 나왔다가 위로 줄어들어 영상 내내 고정된다.
@@ -265,7 +279,22 @@ ICONS = [
     "laptop", "document", "coins", "truck", "lock", "building",
 ]
 
-VISUAL_TYPES = ["hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none"]
+VISUAL_TYPES = [
+    "hook", "metaphor", "diagram", "beforeafter", "scale", "quote",
+    "number", "compare", "flow", "keywords", "code", "question", "none",
+]
+
+# 전후 비교 한쪽 (video/src/schema.ts의 sideSchema)
+SIDE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "title": {"type": "string"},
+        "value": {"type": "string"},
+        "icon": {"type": "string", "enum": ICONS},
+    },
+    "required": ["title", "value", "icon"],
+    "additionalProperties": False,
+}
 
 # video/src/schema.ts의 visualSchema와 같은 구조
 VISUAL_SCHEMA = {
@@ -302,6 +331,24 @@ VISUAL_SCHEMA = {
                 "additionalProperties": False,
             },
         },
+        "nodes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "label": {"type": "string"},
+                    "icon": {"type": "string", "enum": ICONS},
+                },
+                "required": ["label", "icon"],
+                "additionalProperties": False,
+            },
+        },
+        "focus": {"type": "integer"},
+        "before": SIDE_SCHEMA,
+        "after": SIDE_SCHEMA,
+        "count": {"type": "integer"},
+        "icon": {"type": "string", "enum": ICONS},
+        "quote": {"type": "string"},
     },
     "required": ["type"],
     "additionalProperties": False,
@@ -565,7 +612,7 @@ JUDGE_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널의 편집장�
 - accuracy: 모든 숫자·사실·동작 방식이 원문에 있는가. 원문에 없는 내용이 하나라도 있으면 크게 깎는다.
 - clarity: 처음 보는 사람이 끝까지 보고 정확히 이해하는가. 용어 설명, 한 컷에 사실 하나, 맥락(누가·무엇을·왜).
 - visual: 비유 그림·숫자·비교 그래픽이 내용을 직관적으로 보여주는가. 비유가 사실을 왜곡하지 않는가.
-- retention: 약속 컷, 리듬, 군더더기 없음, 마지막 행동·연결 한 줄.
+- retention: 짧은 연결 컷, 리듬, 군더더기 없음, 마지막 행동·연결 한 줄.
 total은 accuracy를 2배로 쳐서 합산한다(accuracy*2 + 나머지). 가장 높은 후보를 best로 고른다(0부터 센 번호)."""
 
 JUDGE_SCHEMA = {
@@ -753,15 +800,40 @@ def clean_text(value):
     return value
 
 
+# "기사에 없어요", "원문엔 안 나와요"처럼 대본 밖 사정을 시청자에게 말하는 문장 (프롬프트로 막아도 가끔 나온다)
+META_TALK = re.compile(r"(기사|원문|자료|본문|보도)(에|엔|에는|에선|에서는)\s*(없|안\s*나|나오지\s*않|언급(이|은)?\s*없)")
+
+
+def speakable_numbers(text):
+    """TTS가 어색하게 읽는 숫자 표기를 고친다: 소수점 끝의 0 ("0.30달러" → "0.3달러", "2.0배" → "2배")."""
+    text = re.sub(r"(\d+\.\d*?[1-9])0+(?!\d)", r"\1", text)
+
+    return re.sub(r"(\d+)\.0+(?!\d)", r"\1", text)
+
+
+def drop_meta_talk(script):
+    """대본 밖 이야기를 하는 컷·문장을 뺀다."""
+    script["cuts"] = [cut for cut in script.get("cuts") or [] if not META_TALK.search(cut.get("line") or "")]
+
+    for key in ("summary", "caution", "question"):
+        if META_TALK.search(script.get(key) or ""):
+            script[key] = ""
+
+    script["tips"] = [tip for tip in script.get("tips") or [] if not META_TALK.search(tip)]
+
+    return script
+
+
 def validate_script(script):
-    script = clean_text(script)
+    script = drop_meta_talk(clean_text(script))
     cuts = script.get("cuts") or []
 
     if not 6 <= len(cuts) <= 20:
         raise ValueError(f"컷 수가 이상합니다: {len(cuts)}")
 
     for cut in cuts:
-        cut["line"] = (cut.get("line") or "").strip()
+        cut["line"] = speakable_numbers((cut.get("line") or "").strip())
+        cut["emphasis"] = [speakable_numbers(word) for word in cut.get("emphasis") or []]
 
         if not spoken_line(cut):
             raise ValueError("대사가 비어 있는 컷이 있습니다.")
@@ -808,8 +880,14 @@ def validate_visual(visual):
     if visual.get("items"):
         visual["items"] = [item for item in visual["items"] if re.search(r"[0-9A-Za-z가-힣]", item or "") and item.strip().lower() != "vs"]
 
+    before, after = visual.get("before") or {}, visual.get("after") or {}
+
     has_content = {
         "hook": bool((visual.get("value") or "").strip()),
+        "diagram": len([node for node in visual.get("nodes") or [] if (node.get("label") or "").strip()]) >= 2,
+        "beforeafter": all((side.get("value") or "").strip() for side in (before, after)),
+        "scale": (visual.get("count") or 0) >= 2 and bool((visual.get("value") or "").strip()),
+        "quote": len((visual.get("quote") or "").strip()) >= 8,
         "metaphor": len([room for room in visual.get("rooms") or [] if (room.get("place") or "").strip()]) >= 2,
         "number": bool(re.search(r"\d", visual.get("value") or "")),
         "compare": len(visual.get("bars") or []) >= 2,
@@ -1127,6 +1205,9 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     # 컷은 그 컷의 첫 단어를 말하기 시작할 때 바뀐다.
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
     ends = starts[1:] + [total_frames]
+    # 마지막 컷 뒤에 마무리 장면을 붙인다 (자막·그래픽 없이 채널 로고)
+    outro_from = total_frames
+    total_frames += OUTRO_FRAMES
 
     props_cuts = []
 
@@ -1160,6 +1241,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",
         "durationInFrames": total_frames,
+        "outroFrom": outro_from,
         "cuts": props_cuts,
         "sfx": pick_sfx(cuts, starts),
     }

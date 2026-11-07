@@ -1,23 +1,24 @@
 {
-  "title": "Revolut 자체 호스팅 GLM, AI 비용 90% 절감",
-  "question": "Revolut은 어떻게 AI 비용을 90% 줄였나?",
-  "cover": "API 대신 GLM\n비용 90%↓",
-  "summary": "Revolut이 외부 API 대신 자체 호스팅 GLM을 도입해 토큰당 비용을 10분의 1 수준으로 줄였습니다. Nvidia B200 56대를 활용해 엔지니어링 리드타임을 70% 개선했고, 비용 부담 없이 모든 작업에 AI를 쓰게 됐다는 사례입니다.",
+  "title": "Revolut 자체 호스팅 GLM, AI 코딩 비용 10분의 1로",
+  "question": "Revolut은 어떻게 AI 비용을 10분의 1로 줄였나?",
+  "cover": "자체 GLM으로\nAI 비용 1/10",
+  "summary": "Revolut은 엔지니어 약 2,000명에게 NVIDIA B200 GPU 56개로 직접 운영하는 GLM-5.3을 기본으로 제공하고, Claude Code·Codex는 예외적으로만 씁니다. 혼합 기준 100만 토큰당 0.30달러로 Anthropic·OpenAI에 내던 비용의 약 10분의 1이고, 내부 지표 기준 코딩 시간 60%, 리드타임 70% 개선을 기록했습니다(대조 실험 결과는 아님). GPU를 늘리지 않고 추론 설정만 조정해, 요청량이 76% 늘어나는 동안 첫 토큰 대기시간은 88% 줄였습니다.",
   "tips": [
-    "현재 외부 API의 토큰당 단가와 월 사용량부터 계산해 보기",
-    "자체 호스팅 시 필요한 GPU 대수와 API 비용을 나란히 비교해 보기"
+    "이번 주 팀의 월 토큰 사용량과 API 청구액을 뽑아서 100만 토큰당 단가로 바꾼 뒤, Revolut의 혼합 단가 0.30달러와 비교해 보세요.",
+    "자체 호스팅을 검토한다면 GPU부터 늘리지 말고 추론 설정을 먼저 조정하세요. 문맥 길이를 실제 업무에 맞추고, FP4 양자화·텐서 병렬화·KV 캐시를 점검하세요.",
+    "모델 가중치가 GPU 4개에 들어가더라도 KV 캐시 공간 때문에 8개 구성이 더 나을 수 있으니, 대화형 기준(첫 토큰 3초 미만, 초당 약 200토큰)을 정해 놓고 테스트하세요."
   ],
-  "caution": "GPU 서버 구매·운영 비용은 기사에 없으니, 도입 전 총비용을 직접 따져봐야 합니다.",
+  "caution": "사내 에이전트에는 샌드박스·작업별 승인 규칙·로그를 갖춰 내부자 오용과 프롬프트 인젝션을 막아야 합니다. 생산성 수치는 내부 지표이며 대조 실험 결과가 아닙니다.",
   "hashtags": [
     "Revolut",
     "GLM",
     "자체호스팅LLM",
-    "AI비용",
-    "Nvidia"
+    "AI비용절감",
+    "B200"
   ],
   "cuts": [
     {
-      "line": "AI 청구서, / 또 폭탄이죠?",
+      "line": "AI 코딩 청구서, / 또 폭탄이죠?",
       "emphasis": [
         "폭탄이죠?"
       ],
@@ -26,151 +27,192 @@
       }
     },
     {
-      "line": "Revolut은 / 토큰당 비용을 / 10분의 1로 줄였어요.",
+      "line": "Revolut은 / 엔지니어 약 2천 명에게 / 자체 GLM을 깔았죠.",
       "emphasis": [
-        "10분의 1로"
+        "2천",
+        "GLM을"
+      ],
+      "visual": {
+        "type": "keywords",
+        "items": [
+          "Revolut",
+          "엔지니어 약 2천",
+          "자체 GLM"
+        ]
+      }
+    },
+    {
+      "line": "외부 API 비용의 / 약 10분의 1이에요.",
+      "emphasis": [
+        "10분의"
       ],
       "visual": {
         "type": "number",
         "value": "1/10",
-        "label": "토큰당 비용"
+        "label": "Anthropic·OpenAI 대비 비용"
       }
     },
     {
-      "line": "어떻게 했는지 / 30초면 돼요.",
+      "line": "빠르게 / 볼게요.",
       "emphasis": [
-        "30초면"
+        "따라"
       ],
       "visual": {
-        "type": "none"
+        "type": "question",
+        "label": "어떻게 1/10?"
       }
     },
     {
-      "line": "외부 API는 / 시킬 때마다 / 배달 시키는 거예요.",
+      "line": "API는 배달, / 자체 호스팅은 / 내 주방이에요.",
       "emphasis": [
-        "외부 API는",
-        "배달"
+        "배달,",
+        "주방이에요."
       ],
       "visual": {
         "type": "metaphor",
         "label": "배달 vs 내 주방",
         "rooms": [
           {
-            "place": "배달",
-            "actual": "외부 API",
-            "icon": "truck"
-          },
-          {
             "place": "내 주방",
             "actual": "자체 호스팅 GLM",
             "icon": "server"
+          },
+          {
+            "place": "화구 56개",
+            "actual": "B200 GPU 56개",
+            "icon": "gpu"
+          },
+          {
+            "place": "배달 음식",
+            "actual": "Claude·Codex",
+            "icon": "cloud"
           }
         ]
       }
     },
     {
-      "line": "Revolut은 / 아예 내 주방을 / 차린 거죠.",
+      "line": "B200 GPU 56개로 / GLM-5.3을 / 돌려요.",
       "emphasis": [
-        "내 주방을"
-      ],
-      "visual": {
-        "type": "none"
-      }
-    },
-    {
-      "line": "GLM 모델을 / 자기 서버에서 / 직접 돌린 거예요.",
-      "emphasis": [
-        "GLM",
-        "직접"
-      ],
-      "visual": {
-        "type": "flow",
-        "items": [
-          "외부 API",
-          "자체 호스팅",
-          "GLM 모델"
-        ]
-      }
-    },
-    {
-      "line": "주방 설비는 / Nvidia B200 / 56대예요.",
-      "emphasis": [
-        "56대예요."
+        "56개로",
+        "GLM-5.3을"
       ],
       "visual": {
         "type": "number",
-        "value": "56대",
-        "label": "Nvidia B200 GPU"
+        "value": "56개",
+        "label": "NVIDIA B200 GPU"
       }
     },
     {
-      "line": "리드타임, / 그러니까 개발부터 배포까지가",
+      "line": "Claude Code·Codex는 / 예외로만 / 쓰고요.",
       "emphasis": [
-        "리드타임,"
+        "예외로만"
       ],
       "visual": {
         "type": "keywords",
         "items": [
-          "개발 시작",
-          "배포 완료"
+          "기본 GLM",
+          "예외 Claude",
+          "예외 Codex"
         ]
       }
     },
     {
-      "line": "엔지니어링 기준 / 70% 개선됐대요.",
+      "line": "혼합 기준 / 100만 토큰당 / 0.30달러예요.",
       "emphasis": [
-        "70%"
+        "0.30달러예요."
       ],
       "visual": {
         "type": "number",
-        "value": "70%",
-        "label": "엔지니어링 리드타임 개선"
+        "value": "$0.30",
+        "label": "100만 토큰당 혼합 단가"
       }
     },
     {
-      "line": "비용 눈치 없이 / 모든 작업에 / AI를 쓰게 됐거든요.",
+      "line": "Claude Code 초기엔 / 월 최대 1만 달러 쓴 / 사람도 있었죠.",
       "emphasis": [
-        "모든 작업에"
+        "1만"
+      ],
+      "visual": {
+        "type": "number",
+        "value": "$1,000~10,000",
+        "label": "일부 엔지니어 월 사용액"
+      }
+    },
+    {
+      "line": "토큰 제한 풀자 / 메일·Jira까지 / AI로 하죠.",
+      "emphasis": [
+        "제한",
+        "메일·Jira까지"
+      ],
+      "visual": {
+        "type": "flow",
+        "items": [
+          "토큰 제한 해제",
+          "어려운 코딩",
+          "메일·Jira·Confluence"
+        ]
+      }
+    },
+    {
+      "line": "내부 지표 기준, / 리드타임 70% / 개선됐대요.",
+      "emphasis": [
+        "70%"
       ],
       "visual": {
         "type": "compare",
         "bars": [
           {
-            "label": "외부 API",
-            "value": 10,
-            "display": "10"
+            "label": "코딩 시간 개선",
+            "value": 60,
+            "display": "60%"
           },
           {
-            "label": "자체 GLM",
-            "value": 1,
-            "display": "1"
+            "label": "리드타임 개선",
+            "value": 70,
+            "display": "70%"
           }
         ]
       }
     },
     {
-      "line": "솔직히 / GPU 값은 / 기사에 없어요.",
+      "line": "리드타임은 / 개발 착수부터 / 배포 준비까지예요.",
       "emphasis": [
-        "GPU 값은"
+        "리드타임은"
       ],
       "visual": {
         "type": "none"
       }
     },
     {
-      "line": "청구서 보기 전에 / 토큰당 단가부터 / 계산해 보세요.",
+      "line": "GPU 증설 없이 / 첫 토큰 대기를 / 88% 줄였어요.",
       "emphasis": [
-        "토큰당 단가부터"
+        "증설",
+        "88%"
       ],
       "visual": {
-        "type": "question",
-        "label": "내 토큰 단가는?"
+        "type": "number",
+        "value": "88%",
+        "label": "첫 토큰 대기시간 단축"
       }
     },
     {
-      "line": "AI 비용 소식, / 계속 올려요.",
+      "line": "청구서 옆에 / 0.30달러 놓고 / 계산부터 하세요.",
       "emphasis": [
-        "AI 비용"
+        "0.30달러"
+      ],
+      "visual": {
+        "type": "flow",
+        "items": [
+          "월 토큰량 집계",
+          "100만당 단가",
+          "자체 호스팅 검토"
+        ]
+      }
+    },
+    {
+      "line": "AI 비용 얘기, / 계속 뜯어볼게요.",
+      "emphasis": [
+        "뜯어볼게요."
       ],
       "visual": {
         "type": "none"

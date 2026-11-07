@@ -212,6 +212,39 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual(len(calls), 5)
         self.assertTrue(script["title"].startswith("후보"))
 
+    def test_validate_visual_new_motion_types(self):
+        diagram = {"type": "diagram", "nodes": [{"label": "사용자", "icon": "person"}, {"label": "서버", "icon": "server"}], "focus": 1}
+        self.assertEqual(shorts.validate_visual(diagram), diagram)
+        self.assertEqual(shorts.validate_visual({"type": "diagram", "nodes": [{"label": "하나", "icon": "server"}]}), {"type": "none"})
+
+        pair = {"type": "beforeafter", "before": {"title": "외부", "value": "$3", "icon": "cloud"}, "after": {"title": "자체", "value": "$0.3", "icon": "server"}}
+        self.assertEqual(shorts.validate_visual(pair)["type"], "beforeafter")
+        self.assertEqual(shorts.validate_visual({**pair, "after": {"title": "자체", "value": "", "icon": "server"}}), {"type": "none"})
+
+        self.assertEqual(shorts.validate_visual({"type": "scale", "count": 56, "icon": "gpu", "value": "B200 56개"})["type"], "scale")
+        self.assertEqual(shorts.validate_visual({"type": "scale", "count": 1, "value": "1개"}), {"type": "none"})
+        self.assertEqual(shorts.validate_visual({"type": "quote", "quote": "토큰 제한을 **없앴다**"})["type"], "quote")
+        self.assertEqual(shorts.validate_visual({"type": "quote", "quote": "짧음"}), {"type": "none"})
+
+    def test_speakable_numbers_drops_trailing_decimal_zeros(self):
+        self.assertEqual(shorts.speakable_numbers("100만 토큰당 / 0.30달러예요."), "100만 토큰당 / 0.3달러예요.")
+        self.assertEqual(shorts.speakable_numbers("2.0배, 1.50%, 10.25초"), "2배, 1.5%, 10.25초")
+        self.assertEqual(shorts.speakable_numbers("1,000~10,000달러, 버전 3.10"), "1,000~10,000달러, 버전 3.1")
+
+    def test_drop_meta_talk_removes_out_of_script_remarks(self):
+        script = {
+            "caution": "GPU 비용은 기사에 없으니 직접 따져보세요.",
+            "summary": "요약",
+            "tips": ["단가 계산하기", "원문엔 안 나와요"],
+            "cuts": [{"line": "솔직히 / GPU 값은 / 기사에 없어요."}, {"line": "B200 / 56개예요."}],
+        }
+        cleaned = shorts.drop_meta_talk(script)
+
+        self.assertEqual([cut["line"] for cut in cleaned["cuts"]], ["B200 / 56개예요."])
+        self.assertEqual(cleaned["caution"], "")
+        self.assertEqual(cleaned["summary"], "요약")
+        self.assertEqual(cleaned["tips"], ["단가 계산하기"])
+
     def test_parse_probe_reads_ffmpeg_report(self):
         stderr = (
             "  Duration: 00:00:36.10, start: 0.000000, bitrate: 925 kb/s\n"
