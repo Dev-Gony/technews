@@ -2,7 +2,7 @@ import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "re
 import { IsoIcon, IsoThing, isoProject } from "./Isometric";
 import type { Visual } from "./schema";
 import { colors, layout, serifFamily } from "./theme";
-import { Panel, pop } from "./visualKit";
+import { fitFontSize, Panel, pop } from "./visualKit";
 
 // 애프터이펙트식 연출을 코드로: 선이 그려지는 화살표(Trim Paths), 카메라 줌인, 전후 분할, 규모 격자, 신문 인용.
 
@@ -211,7 +211,8 @@ export const BeforeAfterVisual: React.FC<{ visual: Visual; sceneFrames: number }
       <div
         style={{
           marginTop: 8,
-          fontSize: 92,
+          fontSize: fitFontSize(data.value, 92, AREA_WIDTH / 2 - 40),
+          whiteSpace: "nowrap",
           fontWeight: 900,
           letterSpacing: -2,
           fontVariantNumeric: "tabular-nums",
@@ -269,7 +270,8 @@ export const ScaleVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({
     <Panel>
       <div
         style={{
-          fontSize: 120,
+          fontSize: fitFontSize(visual.value ?? "", 120),
+          whiteSpace: "nowrap",
           fontWeight: 900,
           lineHeight: 1,
           letterSpacing: -4,

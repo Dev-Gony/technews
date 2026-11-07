@@ -212,6 +212,11 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual(len(calls), 5)
         self.assertTrue(script["title"].startswith("후보"))
 
+    def test_speakable_numbers_drops_trailing_decimal_zeros(self):
+        self.assertEqual(shorts.speakable_numbers("100만 토큰당 / 0.30달러예요."), "100만 토큰당 / 0.3달러예요.")
+        self.assertEqual(shorts.speakable_numbers("2.0배, 1.50%, 10.25초"), "2배, 1.5%, 10.25초")
+        self.assertEqual(shorts.speakable_numbers("1,000~10,000달러, 버전 3.10"), "1,000~10,000달러, 버전 3.1")
+
     def test_drop_meta_talk_removes_out_of_script_remarks(self):
         script = {
             "caution": "GPU 비용은 기사에 없으니 직접 따져보세요.",

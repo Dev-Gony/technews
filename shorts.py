@@ -204,6 +204,7 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
   좋은 예: "엔지니어 / 한 명당 / 병합 5배래요."  나쁜 예: "엔지니어 한 / 명당 병합"
 - 컷은 10~15개, 길이는 30~50초. 짧게 줄이려고 맥락(누가, 무엇을, 왜)을 빼지 않는다. 대신 같은 말 반복과 군더더기는 뺀다.
 - 영어 약어와 전문 용어는 처음 나올 때 한 번 쉽게 풀어서 말한다. (예: "리드타임, 그러니까 개발 시작부터 배포까지 걸리는 시간")
+- 숫자는 소리 내어 읽기 자연스럽게 쓴다: 소수점 끝 0 금지("0.30달러" X → "0.3달러" O).
 - 숫자는 반드시 "무엇의" 숫자인지 같이 말한다. ("70% 개선" → "리드타임이 70% 줄었다")
 
 구조:
@@ -759,6 +760,13 @@ def clean_text(value):
 META_TALK = re.compile(r"(기사|원문|자료|본문|보도)(에|엔|에는|에선|에서는)\s*(없|안\s*나|나오지\s*않|언급(이|은)?\s*없)")
 
 
+def speakable_numbers(text):
+    """TTS가 어색하게 읽는 숫자 표기를 고친다: 소수점 끝의 0 ("0.30달러" → "0.3달러", "2.0배" → "2배")."""
+    text = re.sub(r"(\d+\.\d*?[1-9])0+(?!\d)", r"\1", text)
+
+    return re.sub(r"(\d+)\.0+(?!\d)", r"\1", text)
+
+
 def drop_meta_talk(script):
     """대본 밖 이야기를 하는 컷·문장을 뺀다."""
     script["cuts"] = [cut for cut in script.get("cuts") or [] if not META_TALK.search(cut.get("line") or "")]
@@ -780,7 +788,8 @@ def validate_script(script):
         raise ValueError(f"컷 수가 이상합니다: {len(cuts)}")
 
     for cut in cuts:
-        cut["line"] = (cut.get("line") or "").strip()
+        cut["line"] = speakable_numbers((cut.get("line") or "").strip())
+        cut["emphasis"] = [speakable_numbers(word) for word in cut.get("emphasis") or []]
 
         if not spoken_line(cut):
             raise ValueError("대사가 비어 있는 컷이 있습니다.")

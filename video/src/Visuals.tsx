@@ -1,7 +1,7 @@
 import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import type { Visual } from "./schema";
 import { IsoIcon, IsoPlate, isoProject } from "./Isometric";
-import { Panel, pop, staggerStart } from "./visualKit";
+import { fitFontSize, Panel, pop, staggerStart } from "./visualKit";
 import { BeforeAfterVisual, DiagramVisual, QuoteVisual, ScaleVisual } from "./VisualsPro";
 import { colors, fontFamily, layout } from "./theme";
 
@@ -30,7 +30,8 @@ const NumberVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
     <Panel>
       <div
         style={{
-          fontSize: text.length > 7 ? 170 : 230,
+          fontSize: fitFontSize(raw, 230),
+          whiteSpace: "nowrap",
           fontWeight: 900,
           letterSpacing: -6,
           color: colors.gold,
@@ -400,7 +401,7 @@ const HookVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
     <Panel>
       <div
         style={{
-          fontSize: text.length > 5 ? 190 : 250,
+          fontSize: fitFontSize(text, 250),
           fontWeight: 900,
           lineHeight: 1.05,
           letterSpacing: -8,
