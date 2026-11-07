@@ -139,5 +139,12 @@
     "title": "Jev·Opus 하이브리드 워크플로, LLM 비용 77% 절감",
     "video_id": "LsKUEu50EWc",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-07",
+    "link": "https://github.blog/ai-and-ml/github-copilot/beyond-code-generation-a-developers-guide-to-agentic-engineering",
+    "title": "GitHub Copilot 에이전트 엔지니어링, 4단계로 병목 줄이기",
+    "video_id": "tHkl3MGNOg0",
+    "voice": "Leda"
   }
 ]
