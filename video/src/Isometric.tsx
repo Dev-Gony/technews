@@ -228,3 +228,22 @@ export const IsoPlate: React.FC<{ u: number; main: boolean }> = ({ u, main }) =>
 );
 
 export const isoProject = project;
+
+// 바닥 판 + 사물을 화면 좌표 (x, y)에 놓는다. (x, y) = 바닥 판 가운데.
+export const IsoThing: React.FC<{ name: string; u: number; main: boolean; x: number; y: number; scale?: number }> = ({
+  name,
+  u,
+  main,
+  x,
+  y,
+  scale = 1,
+}) => {
+  const [ox, oy] = project(u, 0.5, 0.5, 0);
+
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale}) translate(${-ox} ${-oy})`}>
+      <IsoPlate u={u} main={main} />
+      <IsoIcon name={name} u={u} main={main} />
+    </g>
+  );
+};
