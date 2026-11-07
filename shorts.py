@@ -755,8 +755,25 @@ def clean_text(value):
     return value
 
 
+# "기사에 없어요", "원문엔 안 나와요"처럼 대본 밖 사정을 시청자에게 말하는 문장 (프롬프트로 막아도 가끔 나온다)
+META_TALK = re.compile(r"(기사|원문|자료|본문|보도)(에|엔|에는|에선|에서는)\s*(없|안\s*나|나오지\s*않|언급(이|은)?\s*없)")
+
+
+def drop_meta_talk(script):
+    """대본 밖 이야기를 하는 컷·문장을 뺀다."""
+    script["cuts"] = [cut for cut in script.get("cuts") or [] if not META_TALK.search(cut.get("line") or "")]
+
+    for key in ("summary", "caution", "question"):
+        if META_TALK.search(script.get(key) or ""):
+            script[key] = ""
+
+    script["tips"] = [tip for tip in script.get("tips") or [] if not META_TALK.search(tip)]
+
+    return script
+
+
 def validate_script(script):
-    script = clean_text(script)
+    script = drop_meta_talk(clean_text(script))
     cuts = script.get("cuts") or []
 
     if not 6 <= len(cuts) <= 20:
