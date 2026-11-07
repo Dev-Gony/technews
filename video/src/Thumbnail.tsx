@@ -14,7 +14,8 @@ export const thumbnailSchema = z.object({
   channel: z.string(),
   theme: z.enum(["ink", "paper"]).optional(),
   cover: z.string(),
-  visual: visualSchema.optional(),
+  // null이면 제목만. (빼면 Remotion이 defaultProps의 예시 그림을 대신 넣는다)
+  visual: visualSchema.nullable().optional(),
 });
 
 export type ThumbnailProps = z.infer<typeof thumbnailSchema>;
@@ -24,9 +25,14 @@ export type ThumbnailProps = z.infer<typeof thumbnailSchema>;
 export const THUMBNAIL_FRAME = 90;
 
 export const Thumbnail: React.FC<ThumbnailProps> = ({ channel, theme, cover, visual }) => {
-  const lines = cover.split("\n").slice(0, 2);
-  const longest = Math.max(...lines.map((line) => line.length), 1);
-  const showVisual = visual && !["none", "hook", "question", "code"].includes(visual.type);
+  // 예전 영상은 긴 제목을 여러 줄로 쓴다(최대 4줄). 3줄 이상이면 그림 없이 제목만 크게.
+  const lines = cover.split("\n").slice(0, 4);
+  // 글자 폭 어림: 영문·숫자·공백 0.6, 한글·기호(↓ 등) 1
+  const lineWidth = (line: string) => [...line].reduce((sum, ch) => sum + (/[\x20-\x7e]/.test(ch) ? 0.6 : 1), 0);
+  const longest = Math.max(...lines.map(lineWidth), 1);
+  const showVisual = Boolean(visual) && lines.length <= 2 && !["none", "hook", "question", "code"].includes(visual!.type);
+  // 한 줄이 화면 너비(약 1000px)를 넘지 않게 글자 크기를 줄인다.
+  const fontSize = Math.min(longest > 8 ? 136 : 158, Math.floor(1000 / (longest * 0.95)));
 
   return (
     <AbsoluteFill style={themeVars(theme ?? "ink")}>
@@ -52,13 +58,13 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({ channel, theme, cover, vis
       <div
         style={{
           position: "absolute",
-          top: showVisual ? 400 : 640,
+          top: showVisual ? 400 : 960 - (lines.length * fontSize * 1.18) / 2,
           left: 40,
           right: 40,
           textAlign: "center",
           fontFamily: serifFamily,
           fontWeight: 900,
-          fontSize: longest > 9 ? 136 : 158,
+          fontSize,
           lineHeight: 1.18,
           letterSpacing: -3,
           color: colors.text,
@@ -73,7 +79,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({ channel, theme, cover, vis
       {showVisual ? (
         // 영상 속 그래픽 영역(470~1070)을 제목 아래로 내려서 그대로 쓴다.
         <AbsoluteFill style={{ translate: "0px 360px" }}>
-          <SceneVisual visual={visual} sceneFrames={120} />
+          <SceneVisual visual={visual!} sceneFrames={120} />
         </AbsoluteFill>
       ) : null}
     </AbsoluteFill>
