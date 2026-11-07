@@ -62,10 +62,10 @@ AI_KEYWORDS = [
 BGM_VOLUME = float(os.environ.get("SHORTS_BGM_VOLUME", "0.15"))
 
 VIDEO_PROJECT_DIR = "video"
-# 업로드 후 썸네일(1080x1920)을 만들어 적용한다. 1이면 켠다.
-# 채널에 맞춤 썸네일 권한이 있어야 한다(전화번호 인증, 쇼츠는 파트너 프로그램 채널부터).
-# 권한이 없으면 403 forbidden이 나서 기본은 꺼 둔다. 확인 방법: --thumbnail-only로 기존 영상 하나에 시험.
-THUMBNAIL_ENABLED = os.environ.get("SHORTS_THUMBNAIL", "0") == "1"
+# 업로드 후 썸네일(1080x1920)을 만들어 적용한다. 0이면 끈다.
+# 채널에 맞춤 썸네일 권한(전화번호 인증)이 있어야 한다. 없으면 403 forbidden.
+# itgony 채널은 2026-11-07 인증 후 --thumbnail-only 시험으로 적용 확인.
+THUMBNAIL_ENABLED = os.environ.get("SHORTS_THUMBNAIL") != "0"
 # video/src/Thumbnail.tsx의 THUMBNAIL_FRAME과 같은 값 (그림이 다 그려진 시점)
 THUMBNAIL_FRAME = 90
 # 썸네일 그림으로 쓸 그래픽 우선순위

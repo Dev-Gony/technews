@@ -107,7 +107,7 @@ jobs:
           INPUT_SCRIPT: ${{ github.event.inputs.script }}
           INPUT_THUMBNAIL_ONLY: ${{ github.event.inputs.thumbnail_only }}
           SHORTS_THEME: ${{ github.event.inputs.theme }}
-          # 저장소 Variables에 SHORTS_THUMBNAIL=1을 넣으면 업로드 후 썸네일을 적용한다(채널 권한 필요).
+          # 업로드 후 썸네일을 적용한다. 끄려면 저장소 Variables에 SHORTS_THUMBNAIL=0.
           SHORTS_THUMBNAIL: ${{ vars.SHORTS_THUMBNAIL }}
         run: |
           args=()
