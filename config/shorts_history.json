@@ -146,5 +146,12 @@
     "title": "GitHub Copilot 에이전트 엔지니어링, 4단계로 병목 줄이기",
     "video_id": "tHkl3MGNOg0",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-07",
+    "link": "https://developers.googleblog.com/agent-distraction",
+    "title": "코딩 에이전트 TODO 주석 방해, 토큰 77% 낭비",
+    "video_id": "0YLLVyMpQy4",
+    "voice": "Leda"
   }
 ]
