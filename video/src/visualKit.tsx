@@ -12,7 +12,7 @@ export const pop = (frame: number, start: number, length: number) =>
 
 // 항목들이 컷 앞쪽 절반 안에 빠르게 순서대로 나타나도록 시작 프레임을 나눈다.
 export const staggerStart = (index: number, count: number, sceneFrames: number) =>
-  Math.round(3 + (index * sceneFrames * 0.45) / Math.max(count, 1));
+  Math.round((index * sceneFrames * 0.45) / Math.max(count, 1));
 
 export const Panel: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { width } = useVideoConfig();

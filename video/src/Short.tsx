@@ -19,7 +19,39 @@ export const calculateShortMetadata: CalculateMetadataFunction<ShortProps> = ({ 
   return { durationInFrames: props.durationInFrames };
 };
 
-// 컷이 바뀔 때마다 화면이 살짝 다가왔다가 자리 잡는다(펀치인). 흰 섬광은 첫 컷에만.
+// 장면 전환: 다음 그래픽이 들어오는 동안 이전 그래픽은 EXIT_FRAMES 동안 살짝 작아지며 흐려진다.
+// (뚝 끊기고 빈 화면이 생기지 않게 두 그래픽이 잠깐 겹친다)
+export const EXIT_FRAMES = 8;
+
+const VisualLayer: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
+  const frame = useCurrentFrame();
+  const length = Math.max(cut.durationInFrames, 8);
+  const exit = interpolate(frame, [length, length + EXIT_FRAMES], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.4, 0, 1, 1),
+  });
+  const enter = interpolate(frame, [0, 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+
+  return (
+    <AbsoluteFill
+      style={{
+        opacity: enter * (1 - exit),
+        scale: String(
+          interpolate(frame, [0, 7, length], [index === 0 ? 1.18 : 1.06, 1, 1.03], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
+          }) * interpolate(exit, [0, 1], [1, 0.94]),
+        ),
+      }}
+    >
+      {index === 0 ? null : <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />}
+    </AbsoluteFill>
+  );
+};
+
+// 자막 + 첫 컷 흰 섬광 (컷 길이 그대로)
 const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   const frame = useCurrentFrame();
   const strong = index === 0;
@@ -28,19 +60,6 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
 
   return (
     <AbsoluteFill>
-      <AbsoluteFill
-        style={{
-          scale: String(
-            interpolate(frame, [0, 7, Math.max(cut.durationInFrames, 8)], [strong ? 1.18 : 1.1, 1, 1.03], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-              easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
-            }),
-          ),
-        }}
-      >
-        {index === 0 ? null : <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />}
-      </AbsoluteFill>
       <Captions chunks={cut.chunks} center={center} />
       {strong ? (
         <AbsoluteFill
@@ -165,6 +184,16 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
       <Audio src={staticFile(audio)} />
       {sfx.map((effect, index) => (
         <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
+      ))}
+      {cuts.map((cut, index) => (
+        <Sequence
+          key={`visual-${index}`}
+          name={`Visual ${index + 1}`}
+          from={cut.from}
+          durationInFrames={cut.durationInFrames + (index < cuts.length - 1 ? EXIT_FRAMES : 0)}
+        >
+          <VisualLayer cut={cut} index={index} />
+        </Sequence>
       ))}
       {cuts.map((cut, index) => (
         <Sequence key={`cut-${index}`} name={`Cut ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>

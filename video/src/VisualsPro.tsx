@@ -49,7 +49,7 @@ export const DiagramVisual: React.FC<{ visual: Visual; sceneFrames: number }> = 
   const focus = Math.min(Math.max(visual.focus ?? count - 1, 0), nodes.length - 1);
 
   // 시간표: 마디 등장(앞 35%) → 화살표 그리기 → 일감 흐름 → 줌인(60%부터)
-  const nodeStart = (index: number) => Math.round(2 + (index * sceneFrames * 0.35) / count);
+  const nodeStart = (index: number) => Math.round((index * sceneFrames * 0.35) / count);
   const linkStart = (index: number) => nodeStart(index + 1) - 2;
   const linkLength = Math.max(Math.round(sceneFrames * 0.12), 8);
   const zoomStart = Math.round(sceneFrames * 0.6);
@@ -182,8 +182,8 @@ export const BeforeAfterVisual: React.FC<{ visual: Visual; sceneFrames: number }
   const ratio = a && b ? Math.max(Math.min(Math.sqrt(b / a), 1 / 0.55), 0.55) : 1;
   const beforeScale = ratio > 1 ? 1 / ratio : 1;
   const afterScale = ratio > 1 ? 1 : ratio;
-  const divider = ease(frame, 2, 12);
-  const leftIn = spring({ frame: frame - 6, fps, config: { damping: 13 } });
+  const divider = ease(frame, 0, 10);
+  const leftIn = spring({ frame, fps, config: { damping: 13 } });
   const rightStart = Math.round(sceneFrames * 0.32);
   const rightIn = spring({ frame: frame - rightStart, fps, config: { damping: 13 } });
   const u = 150;
@@ -286,7 +286,7 @@ export const ScaleVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({
           const col = index % cols;
           const row = Math.floor(index / cols);
           // 왼쪽 위에서 오른쪽 아래로 물결치듯
-          const start = 6 + ((col + row) / (cols + rows)) * fillFrames;
+          const start = 2 + ((col + row) / (cols + rows)) * fillFrames;
           const appear = spring({ frame: frame - start, fps, config: { damping: 11, stiffness: 200 } });
 
           return (
