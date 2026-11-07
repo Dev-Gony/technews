@@ -162,6 +162,16 @@ class ShortsTest(unittest.TestCase):
         self.assertTrue(text.startswith("Revolut은 어떻게 AI 비용을 줄였나?\n\n요약입니다"))
         self.assertNotIn("​", text)
 
+    def test_pick_thumbnail_visual_prefers_metaphor_then_number(self):
+        cuts = [{"visual": {"type": t}} for t in ["hook", "flow", "number", "metaphor", "keywords"]]
+        self.assertEqual(shorts.pick_thumbnail_visual(cuts)["type"], "metaphor")
+
+        no_metaphor = [cut for cut in cuts if cut["visual"]["type"] != "metaphor"]
+        self.assertEqual(shorts.pick_thumbnail_visual(no_metaphor)["type"], "number")
+
+        # 첫 컷(hook)만 있으면 그림 없이 제목만
+        self.assertIsNone(shorts.pick_thumbnail_visual([{"visual": {"type": "hook"}}, {"visual": {"type": "none"}}]))
+
     def test_parse_probe_reads_ffmpeg_report(self):
         stderr = (
             "  Duration: 00:00:36.10, start: 0.000000, bitrate: 925 kb/s\n"

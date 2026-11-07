@@ -56,7 +56,7 @@ const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
 
 // 제목(cover) = 이 영상의 훅. 첫 컷 동안은 화면 한가운데 크게 쾅 찍히고,
 // 첫 컷이 끝날 때 상단으로 줄어들어 영상 내내 고정된다. 숫자가 든 어절은 골드.
-const goldDigits = (line: string) =>
+export const goldDigits = (line: string) =>
   line.split(/(\s+)/).map((word, index) =>
     /\d/.test(word) ? (
       <span key={index} style={{ color: colors.gold }}>
