@@ -172,6 +172,46 @@ class ShortsTest(unittest.TestCase):
         # 첫 컷(hook)만 있으면 그림 없이 제목만
         self.assertIsNone(shorts.pick_thumbnail_visual([{"visual": {"type": "hook"}}, {"visual": {"type": "none"}}]))
 
+    def test_page_text_keeps_article_body_only(self):
+        html = (
+            "<html><body><nav>메뉴</nav><article><h1>제목</h1><p>본문 <b>굵게</b> 이어짐</p>"
+            "<script>x()</script><li>항목</li></article><footer>꼬리말</footer></body></html>"
+        )
+        self.assertEqual(shorts.page_text(html), "제목\n본문 굵게 이어짐\n항목")
+
+    def test_build_script_prompt_includes_source_and_angle(self):
+        article = {"title": "t", "one_line": "o", "key_points": ["k"], "company": "c", "link": "l"}
+        prompt = shorts.build_script_prompt(article, "원문 내용", "숫자 중심")
+
+        self.assertIn("<<<원문\n원문 내용\n원문>>>", prompt)
+        self.assertIn("이번 대본의 각도: 숫자 중심", prompt)
+        self.assertNotIn("원문>>>", shorts.build_script_prompt(article))
+
+    def test_generate_script_picks_judged_candidate_and_falls_back(self):
+        from unittest import mock
+
+        def fake_script(tag):
+            cuts = [{"line": f"{tag} 대사 {i}", "emphasis": [], "visual": {"type": "none"}} for i in range(8)]
+            return {"title": tag, "question": "", "cover": tag, "summary": "", "tips": [], "caution": "", "hashtags": [], "cuts": cuts}
+
+        calls = []
+
+        def fake_claude(system, prompt, schema):
+            calls.append(system)
+            if system is shorts.JUDGE_SYSTEM_PROMPT:
+                return {"scores": [], "best": 1, "reason": "두 번째가 정확함"}
+            if system is shorts.FACTCHECK_SYSTEM_PROMPT:
+                raise RuntimeError("사용량 한도")
+            return fake_script("후보" + str(len(calls)))
+
+        with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
+                mock.patch.object(shorts, "claude_json", side_effect=fake_claude):
+            script = shorts.generate_script({"title": "t", "link": "l"})
+
+        # 후보 3개 + 심사 + (실패한) 검증 = 5번 호출, 심사가 고른 후보를 그대로 쓴다
+        self.assertEqual(len(calls), 5)
+        self.assertTrue(script["title"].startswith("후보"))
+
     def test_parse_probe_reads_ffmpeg_report(self):
         stderr = (
             "  Duration: 00:00:36.10, start: 0.000000, bitrate: 925 kb/s\n"

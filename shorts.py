@@ -24,7 +24,12 @@ YOUTUBE_CLIENT_SECRET = os.environ.get("YOUTUBE_CLIENT_SECRET", "").strip()
 YOUTUBE_REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "").strip()
 
 # 비우면 구독 플랜의 기본 모델을 쓴다. 예: opus, sonnet
-CLAUDE_MODEL = os.environ.get("SHORTS_CLAUDE_MODEL", "").strip()
+# 대본 단계(취재·후보·심사·검증)에 쓸 모델. 품질을 위해 기본은 opus, 비우면 구독 플랜 기본 모델.
+CLAUDE_MODEL = os.environ.get("SHORTS_CLAUDE_MODEL", "opus").strip()
+# 대본 후보 수. 1이면 예전처럼 한 번에 쓰고 심사 단계를 건너뛴다.
+SCRIPT_CANDIDATES = int(os.environ.get("SHORTS_SCRIPT_CANDIDATES", "3"))
+# 원문 본문을 대본 재료로 넣을 최대 글자 수
+SOURCE_MAX_CHARS = 14000
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
 GEMINI_TTS_MODEL = os.environ.get("SHORTS_GEMINI_TTS_MODEL", "gemini-3.1-flash-tts-preview")
 # 쓰는 목소리 (쉼표로 여러 개 넣으면 영상마다 번갈아 쓴다). 기본은 여성 목소리 Leda 하나로 고정.
@@ -332,7 +337,7 @@ SCRIPT_SCHEMA = {
 }
 
 
-def build_script_prompt(article):
+def build_script_prompt(article, source_text="", angle=""):
     lines = [
         "아래 기사로 Shorts 대본을 써줘.",
         "",
@@ -349,6 +354,18 @@ def build_script_prompt(article):
         f"추천 대상: {article.get('recommended_for') or ''}",
         f"출처: {article.get('company')} ({article.get('link')})",
     ]
+
+    if source_text:
+        lines += [
+            "",
+            "원문 본문 (요약보다 이걸 우선해서 사실·숫자·동작 방식을 가져온다. 여기에 없는 내용은 쓰지 않는다):",
+            "<<<원문",
+            source_text,
+            "원문>>>",
+        ]
+
+    if angle:
+        lines += ["", f"이번 대본의 각도: {angle}"]
 
     return "\n".join(lines)
 
@@ -440,7 +457,7 @@ def claude_json(system_prompt, user_prompt, schema):
         text=True,
         encoding="utf-8",
         errors="ignore",
-        timeout=300,
+        timeout=600,
     )
 
     try:
@@ -459,14 +476,263 @@ def claude_json(system_prompt, user_prompt, schema):
     return output["structured_output"]
 
 
-def generate_script(article):
-    script = claude_json(
-        SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME, icons=", ".join(ICONS)),
-        build_script_prompt(article),
-        SCRIPT_SCHEMA,
+# ---------------------------------------------------------------------------
+# 취재: 원문 본문 가져오기
+# ---------------------------------------------------------------------------
+
+BROWSER_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+}
+
+# 본문을 긁어올 수 없는 곳(로그인·스크립트로만 보이는 SNS)
+UNFETCHABLE_HOSTS = ("twitter.com", "x.com", "linkedin.com", "facebook.com", "instagram.com", "youtube.com", "youtu.be")
+
+
+def download_page(url):
+    request = urllib.request.Request(url, headers=BROWSER_HEADERS)
+
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return response.read().decode("utf-8", errors="ignore")
+
+
+def page_text(html):
+    """웹페이지에서 본문 글만 뽑는다: 스크립트·메뉴·꼬리말을 빼고 article → main → body 순으로."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    for tag in soup(["script", "style", "noscript", "nav", "header", "footer", "aside", "form", "svg"]):
+        tag.decompose()
+
+    root = soup.find("article") or soup.find("main") or soup.body or soup
+    blocks = [block.get_text(" ", strip=True) for block in root.find_all(["h1", "h2", "h3", "p", "li", "pre", "blockquote"])]
+    text = "\n".join(block for block in blocks if len(block) > 1)
+
+    return re.sub(r"\n{3,}", "\n\n", text).strip()
+
+
+def fetch_source_text(article):
+    """기사 원문 본문을 가져온다. GeekNews는 자세한 한국어 정리 + 원본 글(가능하면)까지. 실패하면 빈 문자열."""
+    from bs4 import BeautifulSoup
+
+    link = article.get("link") or ""
+    parts = []
+
+    try:
+        html = download_page(link)
+
+        if "news.hada.io" in link:
+            soup = BeautifulSoup(html, "html.parser")
+            contents = soup.select_one("#topic_contents")
+
+            if contents:
+                # 굵은 글씨 등 인라인 태그에서 줄이 끊기지 않게 문단·목록 단위로 모은다.
+                blocks = [el.get_text(" ", strip=True) for el in contents.find_all(["h2", "h3", "h4", "p", "li", "pre"])]
+                text = "\n".join(block for block in blocks if block) or contents.get_text(" ", strip=True)
+                parts.append("[GeekNews 정리]\n" + text)
+
+            original = soup.select_one(".topictitle a")
+            original_url = original.get("href") if original else ""
+
+            if original_url and not any(host in original_url for host in UNFETCHABLE_HOSTS):
+                try:
+                    parts.append(f"[원본 글: {original_url}]\n" + page_text(download_page(original_url)))
+                except Exception as error:
+                    print(f"원본 글을 가져오지 못했습니다: {original_url} ({error})")
+        else:
+            parts.append(page_text(html))
+    except Exception as error:
+        print(f"원문을 가져오지 못했습니다: {link} ({error})")
+
+    return clean_text("\n\n".join(part for part in parts if part.strip()))[:SOURCE_MAX_CHARS]
+
+
+# ---------------------------------------------------------------------------
+# 다단계 대본: 후보 여러 개 → 심사 → 사실 검증
+# ---------------------------------------------------------------------------
+
+SCRIPT_ANGLES = [
+    "원리·구조 중심. 이게 어떻게 동작하는지를 공간·역할 비유로 가장 쉽게 보여준다.",
+    "숫자·결과 중심. 가장 센 숫자로 훅을 걸고, 전후 비교와 조건을 정확히 짚는다.",
+    "실무 적용 중심. 개발자·직장인이 이번 주에 바로 따라 할 수 있는 행동까지 이어지게 한다.",
+]
+
+JUDGE_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널의 편집장이다. 같은 기사로 쓴 쇼츠 대본 후보들을 심사해서 하나를 고른다.
+기준(각 1~10점):
+- hook: 첫 3초에 넘기던 손가락을 멈추게 하는가. cover(제목)에 구체적인 숫자·결과가 있는가.
+- accuracy: 모든 숫자·사실·동작 방식이 원문에 있는가. 원문에 없는 내용이 하나라도 있으면 크게 깎는다.
+- clarity: 처음 보는 사람이 끝까지 보고 정확히 이해하는가. 용어 설명, 한 컷에 사실 하나, 맥락(누가·무엇을·왜).
+- visual: 비유 그림·숫자·비교 그래픽이 내용을 직관적으로 보여주는가. 비유가 사실을 왜곡하지 않는가.
+- retention: 약속 컷, 리듬, 군더더기 없음, 마지막 행동·연결 한 줄.
+total은 accuracy를 2배로 쳐서 합산한다(accuracy*2 + 나머지). 가장 높은 후보를 best로 고른다(0부터 센 번호)."""
+
+JUDGE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "scores": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "candidate": {"type": "integer"},
+                    "hook": {"type": "integer"},
+                    "accuracy": {"type": "integer"},
+                    "clarity": {"type": "integer"},
+                    "visual": {"type": "integer"},
+                    "retention": {"type": "integer"},
+                    "total": {"type": "integer"},
+                    "note": {"type": "string"},
+                },
+                "required": ["candidate", "hook", "accuracy", "clarity", "visual", "retention", "total", "note"],
+                "additionalProperties": False,
+            },
+        },
+        "best": {"type": "integer"},
+        "reason": {"type": "string"},
+    },
+    "required": ["scores", "best", "reason"],
+    "additionalProperties": False,
+}
+
+FACTCHECK_SYSTEM_PROMPT = """너는 기술 뉴스 쇼츠의 팩트체커다. 대본(JSON)의 모든 문장, 숫자, 회사·제품명, 그래픽 값(value, label, items, bars, rooms), cover, title, question, summary, tips, caution을 원문과 하나씩 대조한다.
+- 원문에 근거가 없거나 원문과 다른 내용은 원문에 있는 사실로 고치고, 고칠 수 없으면 그 문장·그래픽을 뺀다(컷을 빼도 된다).
+- 원문에 조건이 붙은 내용(예: "내부 지표 기준", "약")은 조건을 살린다.
+- 맞는 내용은 그대로 둔다. 말투, 구조, 자막 끊기(" / "), 컷 순서, 그래픽 종류는 바꾸지 않는다.
+- "기사에 없어요" 같은 대본 밖 이야기를 넣지 않는다.
+script에 고친 대본 전체를, changes에 고친 곳마다 before / after / reason을 적는다. 고칠 게 없으면 changes는 빈 배열."""
+
+
+def factcheck_schema():
+    return {
+        "type": "object",
+        "properties": {
+            "script": SCRIPT_SCHEMA,
+            "changes": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "before": {"type": "string"},
+                        "after": {"type": "string"},
+                        "reason": {"type": "string"},
+                    },
+                    "required": ["before", "after", "reason"],
+                    "additionalProperties": False,
+                },
+            },
+        },
+        "required": ["script", "changes"],
+        "additionalProperties": False,
+    }
+
+
+def script_system_prompt():
+    return SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME, icons=", ".join(ICONS))
+
+
+def write_candidate(article, source_text, angle):
+    return validate_script(
+        claude_json(script_system_prompt(), build_script_prompt(article, source_text, angle), SCRIPT_SCHEMA)
     )
 
-    return validate_script(script)
+
+def judge_candidates(candidates, article, source_text):
+    prompt = "\n".join(
+        [
+            f"기사 제목: {article.get('title')}",
+            "",
+            "<<<원문",
+            source_text or "(원문 없음. 아래 요약만 사실로 인정한다)\n" + build_script_prompt(article),
+            "원문>>>",
+            "",
+            *[f"[후보 {index}]\n{json.dumps(script, ensure_ascii=False)}" for index, script in enumerate(candidates)],
+        ]
+    )
+
+    return claude_json(JUDGE_SYSTEM_PROMPT, prompt, JUDGE_SCHEMA)
+
+
+def factcheck_script(script, article, source_text):
+    prompt = "\n".join(
+        [
+            "<<<원문",
+            source_text or "(원문 없음. 아래 요약만 사실로 인정한다)\n" + build_script_prompt(article),
+            "원문>>>",
+            "",
+            "[대본]",
+            json.dumps(script, ensure_ascii=False),
+        ]
+    )
+    result = claude_json(FACTCHECK_SYSTEM_PROMPT, prompt, factcheck_schema())
+
+    return validate_script(result["script"]), result.get("changes") or []
+
+
+def generate_script(article, work_dir=None):
+    """원문 취재 → 각도가 다른 대본 후보 여러 개(동시에) → 편집장 심사 → 팩트체크.
+
+    중간 단계가 실패하면(사용량 한도 등) 그 단계까지 나온 결과로, 그것도 없으면 예전처럼 한 번에 쓴다.
+    단계별 결과는 work_dir/research/에 남긴다.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    research_dir = os.path.join(work_dir, "research") if work_dir else None
+
+    def keep(name, data):
+        if research_dir:
+            save_json(os.path.join(research_dir, name), data)
+
+    source_text = fetch_source_text(article)
+    print(f"원문 취재: {len(source_text)}자")
+
+    if research_dir:
+        os.makedirs(research_dir, exist_ok=True)
+
+        with open(os.path.join(research_dir, "source.txt"), "w", encoding="utf-8") as file:
+            file.write(source_text)
+
+    angles = SCRIPT_ANGLES[: max(SCRIPT_CANDIDATES, 1)]
+
+    with ThreadPoolExecutor(max_workers=len(angles)) as pool:
+        futures = [pool.submit(write_candidate, article, source_text, angle) for angle in angles]
+        candidates = []
+
+        for future in futures:
+            try:
+                candidates.append(future.result())
+            except Exception as error:
+                print(f"대본 후보 하나를 만들지 못했습니다: {error}")
+
+    if not candidates:
+        print("대본 후보를 하나도 만들지 못해 한 번에 쓰는 방식으로 다시 시도합니다.")
+        return write_candidate(article, source_text, "")
+
+    keep("candidates.json", candidates)
+    print(f"대본 후보 {len(candidates)}개 작성")
+    best = candidates[0]
+
+    if len(candidates) > 1:
+        try:
+            verdict = judge_candidates(candidates, article, source_text)
+            keep("judge.json", verdict)
+
+            if 0 <= verdict["best"] < len(candidates):
+                best = candidates[verdict["best"]]
+
+            print(f"심사: 후보 {verdict['best']} 선택 ({verdict['reason'][:80]})")
+        except Exception as error:
+            print(f"심사 단계 실패, 첫 후보를 씁니다: {error}")
+
+    try:
+        checked, changes = factcheck_script(best, article, source_text)
+        keep("factcheck.json", {"changes": changes})
+        print(f"사실 검증: {len(changes)}곳 수정")
+        return checked
+    except Exception as error:
+        print(f"사실 검증 단계 실패, 심사 결과를 그대로 씁니다: {error}")
+        return best
 
 
 # 화면·제목·설명란에서 지울 글자: 깨진 글자, 제어 문자, 보이지 않는 문자(폭 없는 공백, 방향 표시, BOM, 소프트 하이픈)
@@ -1528,7 +1794,7 @@ def main():
     if args.script:
         script = validate_script(load_json(args.script, {}))
     else:
-        script = generate_script(article)
+        script = generate_script(article, work_dir)
 
     save_json(os.path.join(work_dir, "script.json"), script)
     print(f"대본 생성 완료: {script['title']} (컷 {len(script['cuts'])}개)")
