@@ -1,5 +1,189 @@
 [
  {
+  "video_id": "T5zvIxmcnak",
+  "title": "뱅크샐러드 DDD-lite·클린 아키텍처, AI 코딩 시대 필수인 이유",
+  "script": {
+   "title": "뱅크샐러드 DDD-lite·클린 아키텍처, AI 코딩 시대 필수인 이유",
+   "question": "AI 코딩 시대에 왜 DDD가 더 필요할까?",
+   "cover": "AI가 짠 코드\n핸들러가 문제",
+   "summary": "뱅크샐러드가 AI 코딩 시대에 DDD가 더 필요해진 이유를 정리했다. 핸들러에 로직이 몰린 구조는 AI가 짜도 사이드 이펙트를 만들고, DDD-lite와 클린 아키텍처로 구조를 나누면 AI 에이전트가 읽을 코드 범위가 줄어 토큰 효율과 코드 품질이 함께 좋아진다.",
+   "tips": [
+    "핸들러에 비즈니스 로직이 몰려 있는지 먼저 점검하기",
+    "폴더를 기술 계층이 아니라 비즈니스 개념 단위로 나눠보기",
+    "도메인 계층이 DB나 외부 인프라를 직접 import하지 않도록 DIP 적용하기"
+   ],
+   "caution": "AI가 짠 코드도 구조가 나쁘면 사이드 이펙트가 생기니 리뷰 없이 병합하지 마세요.",
+   "hashtags": [
+    "DDD",
+    "클린아키텍처",
+    "AI코딩",
+    "뱅크샐러드",
+    "백엔드"
+   ],
+   "cuts": [
+    {
+     "line": "AI가 짠 코드, / 리뷰가 / 더 힘들죠?",
+     "emphasis": [
+      "리뷰가"
+     ],
+     "visual": {
+      "type": "none"
+     }
+    },
+    {
+     "line": "핸들러에 / 로직이 몰리면 / AI도 사고 쳐요.",
+     "emphasis": [
+      "핸들러에",
+      "사고"
+     ],
+     "visual": {
+      "type": "keywords",
+      "items": [
+       "핸들러에 로직",
+       "사이드 이펙트"
+      ]
+     }
+    },
+    {
+     "line": "답은 / DDD-lite랑 / 클린 아키텍처예요.",
+     "emphasis": [
+      "DDD-lite랑"
+     ],
+     "visual": {
+      "type": "keywords",
+      "items": [
+       "DDD-lite",
+       "클린 아키텍처"
+      ]
+     }
+    },
+    {
+     "line": "뱅크샐러드가 / 정리한 이유, / 바로 볼게요.",
+     "emphasis": [
+      "뱅크샐러드가"
+     ],
+     "visual": {
+      "type": "none"
+     }
+    },
+    {
+     "line": "핸들러가 / 모든 걸 / 다 하는 구조 있죠?",
+     "emphasis": [
+      "핸들러가"
+     ],
+     "visual": {
+      "type": "question",
+      "label": "핸들러에 몰린 로직"
+     }
+    },
+    {
+     "line": "이러면 / 하나 고칠 때 / 사이드 이펙트가 터져요.",
+     "emphasis": [
+      "사이드 이펙트가"
+     ],
+     "visual": {
+      "type": "flow",
+      "items": [
+       "핸들러 수정",
+       "다른 로직 영향",
+       "리뷰 난항"
+      ]
+     }
+    },
+    {
+     "line": "AI가 써도 / 똑같이 / 터지는 거예요.",
+     "emphasis": [
+      "AI가"
+     ],
+     "visual": {
+      "type": "none"
+     }
+    },
+    {
+     "line": "첫째, / 폴더를 비즈니스 / 개념 단위로 나눠요.",
+     "emphasis": [
+      "비즈니스"
+     ],
+     "visual": {
+      "type": "keywords",
+      "items": [
+       "비즈니스 개념",
+       "폴더 분리"
+      ]
+     }
+    },
+    {
+     "line": "둘째, / 도메인 계층은 / 외부 인프라를 몰라야 해요.",
+     "emphasis": [
+      "도메인",
+      "몰라야"
+     ],
+     "visual": {
+      "type": "flow",
+      "items": [
+       "도메인 계층",
+       "인터페이스",
+       "외부 인프라"
+      ]
+     }
+    },
+    {
+     "line": "이게 DIP, / 그러니까 의존성 / 역전 원칙이에요.",
+     "emphasis": [
+      "DIP,"
+     ],
+     "visual": {
+      "type": "code",
+      "code": "domain → interface\ninfra → implements interface"
+     }
+    },
+    {
+     "line": "구조가 명확하면 / AI가 읽을 / 코드 범위가 줄어요.",
+     "emphasis": [
+      "코드 범위가"
+     ],
+     "visual": {
+      "type": "keywords",
+      "items": [
+       "읽을 범위 축소",
+       "명확한 구조"
+      ]
+     }
+    },
+    {
+     "line": "그래서 / 토큰 효율과 품질이 / 같이 올라요.",
+     "emphasis": [
+      "토큰",
+      "품질이"
+     ],
+     "visual": {
+      "type": "keywords",
+      "items": [
+       "토큰 효율",
+       "코드 품질"
+      ]
+     }
+    },
+    {
+     "line": "이번 주엔 / 핸들러에 몰린 로직부터 / 찾아보세요.",
+     "emphasis": [
+      "핸들러에"
+     ],
+     "visual": {
+      "type": "none"
+     }
+    },
+    {
+     "line": "개발 뉴스, / 계속 올려요.",
+     "emphasis": [],
+     "visual": {
+      "type": "none"
+     }
+    }
+   ]
+  }
+ },
+ {
   "video_id": "FKAsnUn2QF4",
   "title": "MCP, AI가 도구를 직접 호출하는 게 아니라고?",
   "script": {
