@@ -68,6 +68,8 @@ VIDEO_PROJECT_DIR = "video"
 THUMBNAIL_ENABLED = os.environ.get("SHORTS_THUMBNAIL") != "0"
 # video/src/Thumbnail.tsx의 THUMBNAIL_FRAME과 같은 값 (그림이 다 그려진 시점)
 THUMBNAIL_FRAME = 90
+# 일괄 적용 한 번에 넣을 최대 개수 (새 영상 썸네일 몫을 남긴다)
+THUMBNAIL_BATCH_LIMIT = int(os.environ.get("SHORTS_THUMBNAIL_BATCH_LIMIT", "5"))
 # 썸네일 그림으로 쓸 그래픽 우선순위
 THUMBNAIL_VISUALS = ["metaphor", "number", "compare", "flow", "keywords"]
 VIDEO_FPS = 30
@@ -1442,6 +1444,10 @@ def apply_thumbnail_batch(path):
 
         if video_id in done:
             continue
+
+        # 썸네일 업로드 횟수 제한(대략 하루 10개 안팎)이 있어서, 새 영상 몫을 남기고 한 번에 조금씩만.
+        if len(applied) >= THUMBNAIL_BATCH_LIMIT:
+            break
 
         work_dir = os.path.join(OUTPUT_DIR, f"thumbnail_{video_id}")
         os.makedirs(work_dir, exist_ok=True)
