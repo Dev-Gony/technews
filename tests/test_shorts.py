@@ -172,6 +172,31 @@ class ShortsTest(unittest.TestCase):
         # 첫 컷(hook)만 있으면 그림 없이 제목만
         self.assertIsNone(shorts.pick_thumbnail_visual([{"visual": {"type": "hook"}}, {"visual": {"type": "none"}}]))
 
+    def test_generate_script_falls_back_to_gemini_when_claude_is_limited(self):
+        from unittest import mock
+
+        cuts = [{"line": f"대사 {i}", "emphasis": [], "visual": {"type": "none"}} for i in range(8)]
+        gemini_script = {"title": "제미나이", "question": "", "cover": "c", "summary": "", "tips": [], "caution": "", "hashtags": [], "cuts": cuts}
+
+        def limited(*args, **kwargs):
+            raise RuntimeError("You've hit your 5-hour limit")
+
+        with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
+                mock.patch.object(shorts, "claude_json", side_effect=limited), \
+                mock.patch.object(shorts, "gemini_json", return_value=gemini_script) as gemini:
+            script = shorts.generate_script({"title": "t", "link": "l"})
+
+        self.assertEqual(script["title"], "제미나이")
+        gemini.assert_called_once()
+
+    def test_speech_coverage_detects_cut_off_narration(self):
+        text = "에이전트가 어제 한 실수 또 하죠 검색만 쓰면 53%였는데요 위키를 더하니 최대 61%예요"
+        full = [{"text": word} for word in text.split()]
+        cut = full[:5]
+
+        self.assertGreater(shorts.speech_coverage(text, full), 0.95)
+        self.assertLess(shorts.speech_coverage(text, cut), 0.5)
+
     def test_page_text_keeps_article_body_only(self):
         html = (
             "<html><body><nav>메뉴</nav><article><h1>제목</h1><p>본문 <b>굵게</b> 이어짐</p>"
@@ -196,7 +221,7 @@ class ShortsTest(unittest.TestCase):
 
         calls = []
 
-        def fake_claude(system, prompt, schema):
+        def fake_claude(system, prompt, schema, model=None):
             calls.append(system)
             if system is shorts.JUDGE_SYSTEM_PROMPT:
                 return {"scores": [], "best": 1, "reason": "두 번째가 정확함"}
