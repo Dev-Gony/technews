@@ -193,16 +193,16 @@ const Outro: React.FC<{ channel: string }> = ({ channel }) => {
         style={{
           fontFamily: serifFamily,
           fontWeight: 900,
-          fontSize: 260,
+          fontSize: 240,
           lineHeight: 1,
-          letterSpacing: -8,
+          letterSpacing: -4,
           color: colors.text,
           opacity: interpolate(logo, [0, 0.4], [0, 1], { extrapolateRight: "clamp" }),
           scale: String(interpolate(logo, [0, 1], [0.85, 1])),
           marginTop: -120,
         }}
       >
-        it
+        IT
         <span style={{ color: colors.accent, display: "inline-block", scale: String(dot) }}>.</span>
       </div>
       <div style={{ marginTop: 24, fontFamily, fontWeight: 900, fontSize: 46, letterSpacing: 6, color: colors.text, opacity: line }}>
