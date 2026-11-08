@@ -47,8 +47,8 @@ UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 # 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
 SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
-# 배경: type(장면마다 옮겨 가는 빛 + 장면 핵심어 지면 글자) / glow(빛만)
-SHORTS_BACKDROP = os.environ.get("SHORTS_BACKDROP") or "type"
+# 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 윤곽 글자)
+SHORTS_BACKDROP = os.environ.get("SHORTS_BACKDROP") or "glow"
 
 DAILY_ISSUES_DIR = "config/issues"
 # 오늘 이슈에 남은 기사가 없으면 며칠 전 이슈까지 거슬러 올라가서 고른다.
@@ -1246,7 +1246,8 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         "durationInFrames": total_frames,
         "outroFrom": outro_from,
         "cuts": props_cuts,
-        "sfx": pick_sfx(cuts, starts),
+        # 마무리 로고가 뜰 때 짧은 실로폰 소리 (마지막 음이 로고 빨간 점과 맞도록)
+        "sfx": pick_sfx(cuts, starts) + [{"src": "sfx/chime.wav", "from": outro_from + 5, "volume": 0.55}],
     }
 
 
