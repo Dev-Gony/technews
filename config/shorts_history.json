@@ -181,5 +181,12 @@
     "title": "Entire 분산 Git 네트워크 공개, 최대 25배 성능",
     "video_id": "B_iiFl_VTMw",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-08",
+    "link": "https://news.hada.io/topic?id=36778",
+    "title": "Discord Rust GPUI 재구축, 1GB 대비 RAM 약 70%↓",
+    "video_id": "WF3CpyqQX2c",
+    "voice": "Leda"
   }
 ]
