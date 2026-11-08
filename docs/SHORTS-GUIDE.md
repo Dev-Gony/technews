@@ -1,7 +1,7 @@
 # itgony 쇼츠 자동 제작 전체 가이드
 
 > GONY DAILY(매일 아침 테크 신문) 기사로 YouTube Shorts를 **하루 6편, 사람 손 없이, 비용 0원**으로 만들어 올리는 시스템의 모든 것.
-> 기준일: 2026-11-06 · 레포: `Dev-Gony/technews` (공개 저장소)
+> 기준일: 2026-11-08 · 레포: `Dev-Gony/technews` (공개 저장소)
 
 ---
 
@@ -33,12 +33,12 @@
 | 원재료 | GONY DAILY 기사 (https://dev-gony.github.io/technews/) |
 | 편수 | 하루 6편 (07·10·13·16·19·22시 KST) |
 | 길이 | 30~50초 (짧게보다 **정확하고 이해하기 쉽게**가 우선) |
-| 대본 | Claude (구독 계정, `claude -p`) |
-| 목소리 | Gemini TTS 여성 목소리 **Leda** (실패 시 edge-tts 여성 SunHi) |
+| 대본 | Claude (구독 계정, `claude -p`): 후보는 Sonnet, 심사·팩트체크는 Opus. Claude가 막히면 Gemini가 대신 씀 |
+| 목소리 | Gemini TTS 여성 목소리 **Leda** 고정 (끝까지 실패하면 그 회차는 **업로드하지 않고 건너뜀**) |
 | 자막 시점 | faster-whisper로 받아 적어서 단어별 시점 계산 |
 | 편집 | Remotion (React로 영상 만드는 도구) |
 | 배경음·효과음 | 코드로 직접 만든 음원 (저작권 걱정 없음) |
-| 업로드 | YouTube Data API v3, **공개**로 바로 올라감 |
+| 업로드 | YouTube Data API v3, **공개**로 바로 올라감 + 맞춤 썸네일 자동 적용 |
 | 실행 장소 | GitHub Actions (공개 저장소라 무료) |
 | 비용 | **0원** |
 | 사람이 하는 일 | 없음 (가끔 영상 품질 확인, 코드 개선 PR 머지) |
@@ -56,23 +56,25 @@
 [07·10·13·16·19·22시 KST] Daily Shorts 워크플로 (shorts.py) — 실행 1번 = 영상 1편
         |
         |  ① 기사 고르기 ─ 오늘 주요 기사 → 오늘 상세 기사 → 최근 3일 남은 기사
-        |                  (이미 만든 기사는 config/shorts_history.json으로 제외)
+        |                  (이미 만든 기사는 최신 main의 config/shorts_history.json으로 제외)
         v
-        ② 대본 쓰기 ─ Claude (claude -p, 구독 계정) → JSON 대본 (컷 10~15개)
+        ② 대본 쓰기 ─ 원문 취재 → 후보 3개(Sonnet) → 심사(Opus) → 팩트체크(Opus) → JSON 대본 (컷 10~15개)
+        |              (Claude가 사용량 한도로 막히면 무료 Gemini가 대신 씀)
         v
         ③ 목소리 ─ Gemini TTS(Leda)로 대본 전체를 한 번에 읽기
+        |          (중간에 끊기면 다시 만들고, 한도에 걸리면 기다렸다 재시도. 끝까지 안 되면 이번 회차는 건너뜀)
         v
         ④ 자막 시점 ─ faster-whisper로 받아 적기 → 대본 어절에 글자 단위로 맞추기
         v
-        ⑤ 영상 렌더링 ─ Remotion: 배경 + 컷별 그래픽 + 팝업 자막 + 상단 제목 + 효과음
+        ⑤ 영상 렌더링 ─ Remotion: 배경 + 컷별 그래픽 + 팝업 자막 + 상단 제목 + 효과음 + 마무리 로고
         v
         ⑥ 배경음 ─ bgm.py로 곡 생성 → 말할 때 자동으로 작아지게(덕킹) → -14 LUFS + 리미터(-1.5dB)
         v
         ⑦ 자동 검수 ─ 해상도·fps·길이·소리·음량·무음·깨진 글자 확인. 실패하면 업로드 보류 + Slack 알림
         v
-        ⑧ 업로드 ─ YouTube API (공개, AI 합성 콘텐츠 표시, 과학기술 카테고리)
+        ⑧ 업로드 ─ YouTube API (공개, AI 합성 콘텐츠 표시, 과학기술 카테고리) → 썸네일 적용
         v
-        ⑨ 마무리 ─ 업로드 기록 저장(git 커밋) + Slack 알림 + 영상 파일 14일 보관
+        ⑨ 마무리 ─ 업로드 기록을 최신 main 기록과 합쳐 커밋 + Slack 알림 + 영상 파일 14일 보관
 ```
 
 한 편 만드는 데 GitHub Actions에서 **약 8~10분** 걸린다.
@@ -96,13 +98,14 @@
 - **왜 3시간 간격인가:** 한도는 미국 태평양 시간 자정(**한국 17:00**)에 초기화된다. 고르게 나눠야 한도에 걸리지 않는다.
 - `concurrency: tech-news-bot`: 뉴스 수집 등 다른 작업과 겹치지 않게 줄 세운다.
 - 실행 환경: Ubuntu, Python 3.12, Node.js 22, Claude Code CLI(`npm install -g @anthropic-ai/claude-code`), Remotion용 Chrome(`remotion browser ensure`), Whisper 모델 캐시.
-- 제한 시간 30분.
+- 제한 시간 45분.
+- **체크아웃 직후 `config/shorts_history.json`만 최신 main으로 맞춘다.** 실행이 줄 서 있다가 시작되면 체크아웃은 "예약된 시점"의 코드라서, 바로 앞 실행이 올린 영상 기록이 빠져 있다. 그대로 두면 같은 기사로 또 만들어 중복 업로드된다(실제로 겪음).
 
 ### 2) 기사 고르기 (`pick_article`)
 
 1. 오늘부터 거꾸로 **최근 3일** 이슈 파일을 읽는다 (`SHORTS_LOOKBACK_DAYS`).
 2. `key_points`가 있는 기사만 후보로 쓴다 (단신은 정보가 부족해서 제외).
-3. `config/shorts_history.json`에 있는 링크(이미 만든 기사)는 뺀다.
+3. `config/shorts_history.json`에 있는 링크(이미 만든 기사)는 뺀다. (위에서 최신 main 기록으로 맞춘 파일)
 4. 남은 후보를 이 순서로 정렬해 1개를 고른다.
    1. **최신 날짜 먼저**: 오늘 기사를 다 쓰기 전에는 전날 기사로 넘어가지 않는다.
    2. 같은 날이면 **주요 기사(top_stories) → 상세 기사**
@@ -112,17 +115,18 @@
 
 ### 3) 대본 쓰기 (`generate_script` → `claude_json`)
 
-영상 하나에 Claude(Opus)를 **5번** 부르는 다단계 방식. 단계별 결과는 작업 폴더 `research/`에 남는다(Actions 결과물에도 포함).
+영상 하나에 Claude를 **5번** 부르는 다단계 방식. 사용량 대부분인 후보 3개는 가벼운 **Sonnet**, 심사·팩트체크는 **Opus**. 단계별 결과는 작업 폴더 `research/`에 남는다(Actions 결과물에도 포함).
 
 | 단계 | 하는 일 | 함수 |
 |---|---|---|
 | ① 원문 취재 | 기사 링크 본문을 가져온다. GeekNews는 `#topic_contents`의 자세한 정리 + 원본 글(SNS 제외). 최대 14,000자 | `fetch_source_text` |
-| ② 후보 3개 (동시에) | 각도별 대본: 원리·구조 / 숫자·결과 / 실무 적용 | `write_candidate` |
-| ③ 편집장 심사 | 훅·정확도(2배)·이해도·그래픽·지속력 점수로 1개 선택 | `judge_candidates` |
-| ④ 팩트체크 | 모든 문장·숫자·그래픽 값을 원문과 대조, 근거 없으면 고치거나 삭제 | `factcheck_script` |
+| ② 후보 3개 (동시에, Sonnet) | 각도별 대본: 원리·구조 / 숫자·결과 / 실무 적용 | `write_candidate` |
+| ③ 편집장 심사 (Opus) | 훅·정확도(2배)·이해도·그래픽·지속력 점수로 1개 선택 | `judge_candidates` |
+| ④ 팩트체크 (Opus) | 모든 문장·숫자·그래픽 값을 원문과 대조, 근거 없으면 고치거나 삭제 | `factcheck_script` |
 
-- 어느 단계든 실패하면(사용량 한도 등) 그때까지의 결과로 진행하고, 후보가 하나도 없으면 한 번에 쓰는 방식으로 후퇴한다.
-- 설정: `SHORTS_CLAUDE_MODEL`(기본 `opus`), `SHORTS_SCRIPT_CANDIDATES`(기본 3, 1이면 심사 생략)
+- 심사·팩트체크가 실패하면 그때까지의 결과로 진행한다.
+- **후보가 하나도 안 나오면**(대부분 Claude 구독 사용량 한도) Claude로 다시 해도 같으므로 **무료 Gemini `gemini-3.1-flash-lite`로 대본 1개**를 쓴다. 이때 `research/fallback.json`에 기록한다. 쇼츠 대본은 사람이 쓰는 Claude 대화와 같은 구독 한도를 나눠 쓰기 때문에 둔 예비 경로다.
+- 설정: `SHORTS_CANDIDATE_MODEL`(후보, 기본 `sonnet`), `SHORTS_CLAUDE_MODEL`(심사·검증, 기본 `opus`), `SHORTS_SCRIPT_CANDIDATES`(기본 3, 1이면 심사 생략), `SHORTS_SCRIPT_WRITER=gemini`(예비 경로 바로 시험)
 - 시험 결과(Revolut): 심사가 "원문에 없는 인과"가 있는 후보를 감점, 팩트체크가 "약 2,000명", "월 최대 1만 달러" 같은 조건을 살리고 근거 없는 "GPU 운영 부담" 문장을 삭제
 
 - 명령: `claude -p --output-format json --tools "" --system-prompt <규칙> --json-schema <형식>`
@@ -163,7 +167,11 @@
 - **대본 전체를 한 번에** 읽힌다. 컷마다 따로 읽히면 컷 사이가 뚝뚝 끊기기 때문이다.
 - 말투 지시: "유튜브 쇼츠 내레이터처럼… 빠르고 텐션 높게, 문장 끝을 늘이지 말고 툭툭 끊어서"
 - 결과는 PCM(24kHz)으로 오고, ffmpeg로 mp3로 바꾼다.
-- **실패하면**(키 없음, 무료 한도 초과 등) **edge-tts 여성 `ko-KR-SunHiNeural`**, 속도 +22%로 대체한다. 영상은 끊기지 않고 계속 만들어진다.
+- **음성 끊김 검사:** Gemini TTS는 가끔 대본 중간에서 음성을 끊어 버린다. 만든 음성을 Whisper로 받아 적어 **대본 글자의 70% 미만**이면 끊긴 것으로 보고 다시 만든다. (영어 이름이 한글로 받아써져 글자 수가 줄기 때문에 여유를 둔 값. 실제로 끊긴 경우는 30% 안팎)
+- **한도 대기:** 무료 등급은 분당 요청 한도(429)가 있다. 실패하면 **30초 → 60초 → 90초** 기다렸다가 다시 한다(최대 4번). 분당 한도라 1~2분이면 풀린다.
+- **끝까지 실패하면 업로드하지 않고 건너뛴다.** 예비 목소리(edge-tts)는 품질이 떨어지고 채널 목소리가 섞이므로 기본으로 쓰지 않는다. 기록에 남지 않으니 다음 실행(3시간 뒤)에서 같은 기사로 다시 만든다.
+  - `SHORTS_ALLOW_FALLBACK_VOICE=1`로 켜면 예전처럼 edge-tts 여성 `ko-KR-SunHiNeural`(속도 +22%)로 대신 만들어 올린다.
+  - `GEMINI_API_KEY`가 없는 로컬 시험에서는 바로 edge-tts로 만든다.
 
 ### 5) 자막 시점 맞추기 (`transcribe_words` → `align_to_script`)
 
@@ -178,6 +186,7 @@
 - `video/` 폴더의 Remotion 프로젝트, 컴포지션 `Short` (1080×1920, 30fps).
 - shorts.py가 컷별 시작 프레임, 자막 조각 시점, 그래픽, 효과음 목록을 `props.json`으로 넘긴다.
 - 명령: `npx remotion render src/index.ts Short <출력> --props=props.json`
+- 마지막 대사 뒤 0.6초 여유 + **마무리 장면 42프레임(1.4초)**: "IT." 로고 + 채널명 + "AI·개발 뉴스, 매일 3시간마다" + 실로폰 효과음. 마지막 자막에서 뚝 끊기지 않게 한다.
 - 화면 구성은 [5. 화면 디자인 사양](#5-화면-디자인-사양) 참고.
 
 ### 7) 배경음 (`add_bgm`)
@@ -214,10 +223,16 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
   - `selfDeclaredMadeForKids: false` (아동용 아님)
   - `containsSyntheticMedia: true` (AI 합성 콘텐츠 표시, YouTube 정책)
 - 설명란 구성은 [7. 업로드와 영상 설명란](#7-업로드와-영상-설명란) 참고.
+- **썸네일 (`render_thumbnail` → `set_youtube_thumbnail`):** 업로드 직후 Remotion `Thumbnail` 컴포지션으로 1080×1920 PNG를 만들어 `thumbnails.set`으로 적용한다.
+  - 구성: cover 제목 + 대표 그래픽 하나 (우선순위 diagram → metaphor → beforeafter → scale → number → compare → flow → keywords, 없으면 제목만)
+  - 채널에 **맞춤 썸네일 권한(전화번호 인증)**이 있어야 한다. 없으면 403. itgony는 2026-11-07 인증 완료.
+  - 썸네일 업로드는 하루 횟수 제한(대략 10개 안팎)이 있다. 예전 영상 일괄 적용(`--thumbnail-batch`)은 한 번에 5개까지만 하고 새 영상 몫을 남긴다.
+  - 끄려면 저장소 Variables에 `SHORTS_THUMBNAIL=0`.
 
 ### 9) 마무리
 
 - `config/shorts_history.json`에 `{날짜, 링크, 제목, video_id, voice}`를 추가하고 main 브랜치에 커밋한다. 다음 실행에서 같은 기사를 다시 만들지 않는다.
+  - **기록 합치기:** 그사이 다른 실행이 기록을 올렸으면 충돌로 실패하는 대신, 최신 main 기록에 내 기록 중 없는 항목(`video_id` 기준)만 덧붙여 커밋한다. push가 실패하면 다시 받아와 합치기를 최대 3번 반복한다.
   - 다른 브랜치에서 시험 실행한 결과는 main에 커밋하지 않는다.
   - 업로드하지 않은 시험 영상은 기록에 남기지 않는다.
 - Slack으로 "새 Shorts 공개 업로드 + 제목 + 영상 링크 + Studio 링크 + 원문"을 알린다.
@@ -239,10 +254,11 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
 - 컷 10~15개, 30~50초
 - 전문 용어는 처음 나올 때 쉽게 풀기 (예: "리드타임, 그러니까 개발 시작부터 배포까지 걸리는 시간")
 - 숫자는 "무엇의" 숫자인지 같이 말하기 ("70% 개선" → "리드타임이 70% 줄었다")
+- 숫자는 소리 내어 읽기 자연스럽게: 소수점 끝 0 금지 ("0.30달러" → "0.3달러")
 
 ### 구조
 1. **훅 (첫 3초):** 인사·채널 소개 금지. 기사 주제와 이어지는 개발자의 아픔으로 시작 (예: "AI 청구서, 또 폭탄이죠?")
-2. **답:** 이 기사가 내놓은 답이나 가장 센 결과, 이어서 **약속** 한 컷 ("어떻게 줄였는지 30초면 돼요." — 끝까지 볼 이유)
+2. **답:** 이 기사가 내놓은 답이나 가장 센 결과, 이어서 **짧은 연결** 한 컷(10자 안팎, 예: "빠르게 볼게요."). 시청자에게 뭘 하라고 시키거나("끝까지 보세요") 내용을 미리 늘어놓지 않는다.
 3. **공간·역할 비유:** 복잡한 구조를 건물·사무실·주방 같은 공간과 역할로 설명 (예: "배달 끊고 자기 주방을 차린 셈"). 영상 하나에 비유 하나만, 끝까지 일관되게. 사실을 왜곡하면 비유 대신 흐름도·비교 그래프로.
 4. **수치:** 기사에 있는 숫자와 동작 방식을 구체적으로. 변화는 "처음엔 A, 지금은 B"처럼 전후 숫자로
 5. **행동:** 시청자가 이번 주에 할 행동 한 마디 (예: "청구서 보기 전에 토큰 단가부터 뽑아보세요")
@@ -258,14 +274,19 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
 - 예시에 나온 수치를 그대로 가져오지 않기
 - 기사에 없는 효과("생산성 향상", "보안 강화" 등) 덧붙이지 않기
 - 조건이 붙은 내용은 조건까지 같이 말하기
+- 기사에 없는 내용은 그냥 넘어간다. "기사엔 안 나와요" 같은 대본 밖 사정을 말하지 않는다
 
 ### 그래픽 고르기 (`visual.type`)
-같은 종류를 3번 연속 쓰지 않는다.
+같은 종류를 3번 연속 쓰지 않는다. **움직이는 그림 그래픽(diagram·beforeafter·scale·quote)은 영상마다 2개 이상, 종류별로 한 번씩** 쓴다 (시청자가 넘기지 않고 보게 만드는 장치).
 
 | type | 화면 | 쓰는 때 |
 |---|---|---|
 | `hook` | (그리지 않음) 첫 컷은 cover 제목이 화면 가운데에 크게 나옴 | 첫 컷 전용 |
 | `metaphor` | 아이소메트릭 사물 2~3개를 가로로 나란히 + "비유 / 실제 기술". 사물 12종: server, gpu, cloud, database, robot, person, laptop, document, coins, truck, lock, building | 비유를 꺼낼 때 (구조가 바뀌면 한 번 더) |
+| `diagram` | 구조도: 사물 2~4개를 화살표로 잇고, 화살표가 그려진 뒤 일감이 흐르고, 카메라가 핵심 마디(`focus`)로 밀고 들어감 | 동작 방식·요청 흐름·구성 |
+| `beforeafter` | 전후 비교: 왼쪽 before / 오른쪽 after, 각각 제목·값·사물 | 기사에 바뀌기 전·후 값이 **둘 다** 있을 때만 |
+| `scale` | 규모: 같은 사물을 격자로 최대 60개 깔고 큰 숫자 표시 | 숫자를 체감시킬 때 (60 넘으면 상징 개수 + 실제 숫자는 글자로) |
+| `quote` | 원문 인용 카드, 핵심 구절은 `**강조**` | 원문 핵심 문장 그대로 (지어낸 문장 금지) |
 | `number` | 숫자 카운트업 + 설명 | 인상적인 숫자 하나 |
 | `compare` | 막대 비교 그래프 | 기사에 실제 수치가 2개 이상일 때 |
 | `flow` | 단계 흐름도 (2~4단계, 명사구) | 과정·원리 |
@@ -304,16 +325,18 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
 
 **원칙 (AI 티 줄이기):** 강조색은 역할별로 하나씩만(빨강 = 문제·핵심, 골드 = 숫자). 글자 발광·네온 빛·테두리·그림자 같은 장식은 쓰지 않는다. 글자는 가운데 정렬.
 
-- 배경: 고정 바탕 + 가장자리를 살짝 어둡게 하는 **비네트** + 천천히 떠다니는 붉은 빛. (움직이는 줄무늬는 거슬려서 없앰. 종이색 테마에만 고정된 신문 가로줄)
+- 배경(`SHORTS_BACKDROP=glow`, 기본): 고정 바탕 + **비네트** + **장면마다 자리를 옮기는 빛**. 컷이 바뀌면 빛이 다음 위치로 부드럽게 이동하고, 숫자 장면(number·scale·beforeafter·compare)에서는 빨강에서 골드로 색이 섞인다. 천천히 흔들리는 움직임이 더해진다. (움직이는 줄무늬는 거슬려서 없앰)
+  - `SHORTS_BACKDROP=type`: 위 빛 + 장면 핵심어를 크게 깐 옅은 윤곽 글자.
 - 글꼴: Noto Sans KR 500/700/900 (Google Fonts). 코드 화면은 Consolas/DejaVu Sans Mono, 한글은 Noto로 대체(서버에서 □로 깨지는 것 방지).
 
 ### 움직임
 
-- **컷 전환:** 화면이 살짝 확대됐다가 자리 잡는 펀치인 + 좌우로 천천히 흐름.
+- **컷 전환:** 화면이 살짝 확대됐다가 자리 잡는 펀치인 + 좌우로 천천히 흐름. 컷끼리 살짝 겹쳐서 그래픽이 **교차 페이드**로 넘어간다(빈 화면이 번쩍이지 않게).
+- **마무리:** 화면이 바탕색으로 덮이고 "IT" + 빨간 점 "." 로고가 튀어나온 뒤 채널명과 "AI·개발 뉴스, 매일 3시간마다"가 올라온다.
 - **첫 컷:** 흰 섬광이 짧게 번쩍 + 제목이 쾅 찍힘. 첫 컷이 끝나면 제목이 위로 줄어듦.
 - **자막:** 0.7배 → 1.05배 → 1배로 튀어나옴. 강조 단어는 색이 바뀜 (숫자가 있으면 골드, 아니면 빨강).
 - **3D 그림:** 바닥 판이 위에서 떨어져 내려앉고 사물이 톡 튀어나옴. 사물 사이로 일감(골드 점)이 오감. 첫 번째(핵심)만 빨강.
-- **숫자:** 고정폭 숫자로 카운트업 (올라가는 동안 좌우로 떨리지 않음).
+- **숫자:** 고정폭 숫자로 카운트업 (올라가는 동안 좌우로 떨리지 않음). 큰 숫자는 화면 폭에 맞게 자동으로 줄어든다.
 
 ### 채널 꾸미기 (같은 브랜드)
 `video/src/brand/Brand.tsx`로 만든다. 자세한 건 `docs/BRANDING.md`.
@@ -327,13 +350,14 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
 
 | 소리 | 만드는 곳 | 크기 | 비고 |
 |---|---|---|---|
-| 내레이션 | Gemini TTS (Leda) | 기준 | 실패 시 edge-tts SunHi |
+| 내레이션 | Gemini TTS (Leda) | 기준 | 끝까지 실패하면 그 회차 건너뜀 |
 | 배경음 | `bgm.py` 코드 생성 | 0.15 | 말할 때 자동으로 작아짐 |
 | 효과음 "쾅" | `bgm.py` (`impact.wav`) | 0.5 | **첫 장면에만** |
 | 효과음 "휙" | `bgm.py` (`whoosh1.wav`) | 0.25 | **3D 건물이 처음 나올 때만** |
+| 효과음 "딩-딩-딩-띵" | `bgm.py` (`chime.wav`, 실로폰 C6·E6·G6→C7, 약 1초) | 0.55 | **마무리 로고에서만** |
 | 최종 음량 | ffmpeg loudnorm | -14 LUFS | 쇼츠 표준 음량 |
 
-> 예전에는 컷이 바뀔 때마다 효과음이 나서(영상당 15~20번) 거슬렸다. 지금은 **영상당 최대 2번**만 난다. (PR #61, 머지 후 적용)
+> 예전에는 컷이 바뀔 때마다 효과음이 나서(영상당 15~20번) 거슬렸다. 지금은 본편에서 **최대 2번** + 마무리 차임 1번만 난다. (PR #61, #69)
 
 ---
 
@@ -376,9 +400,9 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
 |---|---|---|---|
 | 실행 서버 | **GitHub Actions** | 공개(Public) 저장소는 표준 러너 사용 시간이 무료 | 해당 없음 (공개 저장소 무제한) |
 | 뉴스 요약 | **Gemini `gemini-3.1-flash-lite`** | Google AI Studio 무료 등급 API 키 (결제 수단 미연결) | 요금이 아니라 **요청 실패**로 끝남 |
-| 대본 | **Claude (`claude -p`)** | API 키가 아니라 **이미 내고 있는 Claude 구독**으로 실행 (`CLAUDE_CODE_OAUTH_TOKEN`, `claude setup-token`으로 발급한 1년짜리 토큰) | 구독 사용량 한도 안에서만 동작. 추가 과금 없음. 하루 6번 짧은 대본이라 영향 미미 |
-| 목소리 | **Gemini TTS** | 같은 무료 등급 키 | 실패 → **edge-tts로 자동 대체** |
-| 대체 목소리 | **edge-tts** | Microsoft Edge "소리 내어 읽기" 음성, 무료 | — |
+| 대본 | **Claude (`claude -p`)** | API 키가 아니라 **이미 내고 있는 Claude 구독**으로 실행 (`CLAUDE_CODE_OAUTH_TOKEN`, `claude setup-token`으로 발급한 1년짜리 토큰) | 구독 사용량 한도 안에서만 동작. 추가 과금 없음. 한도에 걸리면 **무료 Gemini로 대본**을 씀 |
+| 목소리 | **Gemini TTS** | 같은 무료 등급 키 | 기다렸다 재시도, 그래도 안 되면 **그 회차 건너뜀** |
+| 예비 목소리 | **edge-tts** | Microsoft Edge "소리 내어 읽기" 음성, 무료. 로컬 시험용 (업로드에는 기본으로 안 씀) | — |
 | 자막 시점 | **faster-whisper** | 오픈소스, GitHub Actions 서버에서 직접 실행 | — |
 | 영상 편집 | **Remotion** | 개인·3인 이하 회사는 무료 라이선스 | — |
 | 글꼴 | **Noto Sans/Serif KR** | Google Fonts, 오픈 폰트 라이선스(OFL) | — |
@@ -392,7 +416,7 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
 1. **결제 수단을 어디에도 연결하지 않는다.** (Google Cloud, Google AI Studio) → 한도를 넘어도 청구가 아니라 실패로 끝난다.
 2. **유료 API 키 대신 이미 내는 구독을 쓴다.** (Claude Pro/Max → `claude -p`) Anthropic API 키(`ANTHROPIC_API_KEY`)는 쓰지 않는다. 쓰면 사용량만큼 과금된다.
 3. **외부 음원·이미지를 쓰지 않는다.** 소리·그래픽은 전부 코드로 만든다.
-4. **실패해도 멈추지 않게 대체 경로를 둔다.** (Gemini TTS → edge-tts)
+4. **품질을 낮춰서라도 올리기보다, 건너뛰고 다음 실행에서 다시 한다.** 기록에 남기지 않으면 같은 기사가 다음 실행에서 자동으로 다시 잡힌다. (대본은 Claude → Gemini 예비 경로가 있지만, 목소리는 채널 정체성이라 대체하지 않음)
 
 > ⚠️ 주의: Google Cloud 프로젝트나 AI Studio에 결제 계정을 연결하면 무료 한도를 넘는 순간부터 과금될 수 있다. 연결하지 말 것.
 
@@ -405,10 +429,10 @@ ffmpeg 한 번으로 영상을 읽고 아래를 확인한다. **하나라도 실
 | YouTube 업로드 | 하루 10,000유닛 ÷ 1,600 = **6편** | 3시간 간격 6번. 더 늘리려면 할당량 증가 신청(무료, 초안: `youtube-audit-answers.md`) |
 | 할당량 초기화 | 미국 태평양 자정 = **한국 17:00** | 이 시점을 걸쳐 고르게 실행 |
 | 할당량 우회 | Cloud 프로젝트 여러 개로 나눠 쓰기는 **정책 위반** | 하지 않음 (레포를 늘려도 한도는 그대로) |
-| Gemini 무료 등급 | 분당·일일 요청 수 제한 | 실패 시 edge-tts |
-| Claude 구독 | 플랜별 사용량 한도 | 하루 6번, 짧은 요청이라 여유 |
-| GitHub Actions | 실행 1번 30분 제한, 대기열 지연 있을 수 있음 | 한 편 8~10분 |
-| 쇼츠 썸네일 | API로 지정 불가 | 상단 고정 제목(cover)으로 대체 |
+| Gemini 무료 등급 (TTS) | 분당·일일 요청 수 제한 (429) | 30·60·90초 기다렸다 재시도, 그래도 안 되면 건너뜀 |
+| Claude 구독 | 플랜별 사용량 한도 (사람이 쓰는 대화와 공유) | 후보는 Sonnet으로 아끼고, 막히면 Gemini가 대본 작성 |
+| GitHub Actions | 실행 1번 45분 제한, 대기열 지연 있을 수 있음 | 한 편 8~10분 (TTS 대기 시 최대 3분 더) |
+| 썸네일 업로드 | 하루 횟수 제한 (대략 10개 안팎), 채널 전화번호 인증 필요 | 새 영상 우선, 일괄 적용은 한 번에 5개 |
 
 ---
 
@@ -460,6 +484,9 @@ gh workflow run shorts.yml --ref <브랜치> -f upload=false
 | `link` | 이 기사로 만들기 (이미 만든 기사도 가능) | `https://news.hada.io/topic?id=36534` |
 | `theme` | 배경 테마 | `ink` / `paper` |
 | `script` | Claude 대신 이 대본 파일 사용 | `tests/fixtures/revolut_script.json` |
+| `writer` | 대본 작성자 (`gemini`면 예비 경로 시험) | `gemini` |
+| `thumbnail_only` | 영상은 안 만들고, `script` 대본으로 만든 썸네일만 이 영상 ID에 적용 | `abc123XYZ` |
+| `thumbnail_batch` | 이미 올린 영상들에 썸네일 일괄 적용 (`[{video_id, title, script}]` 파일) | `runtime/thumbs.json` |
 
 결과 영상 받기:
 
@@ -477,7 +504,7 @@ cd video && npm ci && cd ..
 python shorts.py --no-upload
 ```
 
-- `--date`, `--link`, `--script` 옵션은 Actions 입력과 같다.
+- `--date`, `--link`, `--script`, `--thumbnail-only`, `--thumbnail-batch` 옵션은 Actions 입력과 같다.
 - 로컬에 `GEMINI_API_KEY`가 없으면 edge-tts 목소리로 만들어진다. (실제와 같은 목소리로 보려면 Actions에서 시험)
 - Windows: `PYTHONIOENCODING=utf-8`, `pip install tzdata` 필요.
 - 디자인 미리보기: `cd video && npm run dev` (Remotion Studio)
@@ -495,14 +522,21 @@ cd video && npx tsc --noEmit
 
 | 이름 | 기본값 | 설명 |
 |---|---|---|
-| `SHORTS_CLAUDE_MODEL` | `opus` | 대본 단계 모델 (비우면 구독 플랜 기본) |
+| `SHORTS_CLAUDE_MODEL` | `opus` | 심사·팩트체크 모델 (비우면 구독 플랜 기본) |
+| `SHORTS_CANDIDATE_MODEL` | `sonnet` | 대본 후보 3개 작성 모델 |
+| `SHORTS_SCRIPT_WRITER` | `claude` | `gemini`면 Claude 없이 예비 경로로 바로 작성 (시험용) |
+| `SHORTS_GEMINI_SCRIPT_MODEL` | `gemini-3.1-flash-lite` | Claude가 막혔을 때 대본 쓰는 모델 |
 | `SHORTS_SCRIPT_CANDIDATES` | `3` | 대본 후보 수 (1이면 심사 생략) |
 | `SHORTS_GEMINI_TTS_MODEL` | `gemini-3.1-flash-tts-preview` | TTS 모델 |
 | `SHORTS_GEMINI_VOICES` | `Leda` | 쉼표로 여러 개 넣으면 영상마다 번갈아 사용 |
-| `SHORTS_VOICE` | `ko-KR-SunHiNeural` | 대체 음성 (edge-tts) |
-| `SHORTS_TTS_RATE` | `+22%` | 대체 음성 속도 |
+| `SHORTS_ALLOW_FALLBACK_VOICE` | (꺼짐) | `1`이면 Gemini TTS 실패 시 edge-tts 목소리로 만들어 업로드 |
+| `SHORTS_VOICE` | `ko-KR-SunHiNeural` | 예비 음성 (edge-tts) |
+| `SHORTS_TTS_RATE` | `+22%` | 예비 음성 속도 |
 | `SHORTS_WHISPER_MODEL` | `small` | 자막 시점용 Whisper 모델 |
 | `SHORTS_THEME` | `ink` | 배경 테마 `ink` / `paper` |
+| `SHORTS_BACKDROP` | `glow` | 배경 `glow`(장면마다 옮겨 가는 빛) / `type`(빛 + 핵심어 윤곽 글자) |
+| `SHORTS_THUMBNAIL` | (켜짐) | `0`이면 썸네일 적용 안 함 (저장소 Variables) |
+| `SHORTS_THUMBNAIL_BATCH_LIMIT` | `5` | 일괄 적용 한 번에 넣을 최대 개수 |
 | `SHORTS_BGM_VOLUME` | `0.15` | 배경음 크기 (0이면 없음) |
 | `SHORTS_LOOKBACK_DAYS` | `3` | 기사 고를 최근 이슈 일수 |
 | `SHORTS_PRIVACY` | `public` | 업로드 공개 상태 |
@@ -522,17 +556,21 @@ cd video && npx tsc --noEmit
 | `config/shorts_history.json` | 업로드한 영상 기록 (중복 방지) |
 | `.github/workflows/shorts.yml` | 하루 6번 예약 실행 + 수동 실행 |
 | `video/src/Root.tsx` | Remotion 컴포지션 등록 (Short, Cards, 채널 꾸미기) |
-| `video/src/Short.tsx` | 쇼츠 화면 (컷, 상단 제목, 진행 막대, 출처) |
-| `video/src/Visuals.tsx` | 컷별 그래픽 9종 |
+| `video/src/Short.tsx` | 쇼츠 화면 (컷, 상단 제목, 진행 막대, 출처, 마무리 로고) |
+| `video/src/Visuals.tsx` | 기본 컷 그래픽 (number, compare, flow, keywords, code, question 등) |
+| `video/src/VisualsPro.tsx` | 움직이는 그림 그래픽 (diagram, beforeafter, scale, quote) |
+| `video/src/visualKit.tsx` | 그래픽 공용 부품 |
+| `video/src/Isometric.tsx` | 아이소메트릭 사물 12종 |
+| `video/src/Thumbnail.tsx` | 썸네일 (cover + 대표 그래픽) |
 | `video/src/Captions.tsx` | 팝업 자막 |
-| `video/src/Background.tsx` | 배경 |
+| `video/src/Background.tsx` | 배경 (장면마다 옮겨 가는 빛) |
 | `video/src/theme.ts` | 테마 색 (ink/paper), 글꼴, 레이아웃 |
 | `video/src/schema.ts` | props 형식 (shorts.py와 같은 구조) |
 | `video/src/brand/Brand.tsx` | 프로필·배너·워터마크 |
 | `.claude/skills/` | Remotion 공식 Claude Code 스킬 |
 | `tests/test_shorts.py` | 쇼츠 테스트 |
 | `tests/fixtures/revolut_script.json` | 시험용 고정 대본 |
-| `runtime/shorts/<날짜>_<기사>/` | 작업 폴더: 대본, 음성, props, 최종 `short.mp4` (git 제외) |
+| `runtime/shorts/<날짜>_<기사>/` | 작업 폴더: 대본, `research/`(원문·후보·심사·팩트체크), 음성, props, `qa.json`, `thumbnail.png`, 최종 `short.mp4` (git 제외) |
 | `docs/SHORTS.md` | 기술 문서 (짧은 버전) |
 | `docs/BRANDING.md` | 채널 꾸미기 |
 
@@ -559,13 +597,23 @@ cd video && npx tsc --noEmit
 | 대본에 깨진 글자(�) | 모델 출력 | `clean_text`로 자동 제거 |
 | 최대 음량 -0.1dB (찢어짐 직전) | loudnorm 한 번 | 리미터 추가 + 업로드 전 자동 검수 |
 | 하루 한 편만 만듦 | 하루 1번 실행 | 6번 실행 + 오늘 기사 우선 선택 |
+| 그래픽이 단조로워 넘김 | 숫자·키워드 카드 위주 | 구조도·전후 비교·규모·인용 그래픽 추가, 영상마다 2개 이상 (PR #67) |
+| 컷 넘어갈 때 빈 화면이 번쩍 | 앞 그래픽이 사라진 뒤 다음 그래픽 등장 | 컷을 겹쳐 교차 페이드 (PR #67) |
+| 마지막 자막에서 영상이 뚝 끊김 | 대사 끝 = 영상 끝 | "IT." 마무리 로고 + 실로폰 차임 (PR #69) |
+| "0.30달러"처럼 어색하게 읽힘 | 소수점 끝 0 | 대본 규칙 + 끝 0 자동 제거 (PR #67) |
+| "기사엔 안 나와요" 같은 말이 대본에 들어감 | 대본이 빠진 정보를 굳이 언급 | 대본 밖 사정 언급 금지 규칙 (PR #67) |
+| 대본 때문에 Claude 대화 한도가 금방 참 | 대본 5번 호출 모두 Opus | 후보 3개는 Sonnet, 막히면 Gemini (PR #70) |
+| 음성이 대본 중간에서 끊긴 채 업로드 | Gemini TTS가 가끔 중간에 멈춤 | Whisper로 받아 적어 70% 미만이면 다시 만듦 (PR #70) |
+| 한도(429)에 걸려 SunHi 목소리 영상이 섞임 | 바로 edge-tts로 대체 | 30·60·90초 기다렸다 재시도, 그래도 안 되면 업로드 안 함 |
+| 같은 기사가 두 번 업로드됨 | 줄 서 있던 실행이 앞 실행의 기록 없이 시작 + 기록 push 충돌 | 시작 시 최신 main 기록 받기 + push 때 기록 합치기 |
 
 ---
 
 ## 15. 앞으로 할 것
 
 - [x] PR #61 머지 (효과음 줄이기 + 목소리 고정)
-- [ ] PR #62 머지 (새 디자인)
+- [x] PR #62 머지 (새 디자인)
+- [x] 맞춤 썸네일 자동 적용 (PR #64, #65)
 - [ ] 주간 성과 리포트 (조회수 TOP 5 + 형식 분석, 영상 2주 쌓인 뒤)
 - [ ] 먹색/종이색 번갈아 올려 시청 지속률 비교 (선택)
 - [ ] 인스타그램: 카드뉴스 하루 2편 + 릴스 3편 (계정 생성 대기 중, 카드 생성기는 `cards.py`로 완성)

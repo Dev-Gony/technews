@@ -16,7 +16,7 @@ config/issues/ 최근 3일
 Claude 대본 (claude -p, 구독 계정 사용 / 훅 → 본문 → 질문, 장면 4~6개)
       |
       v
-Gemini TTS 음성 (여성 Leda 고정, 대본 전체를 한 번에, 실패하면 edge-tts) + Whisper로 단어 시점 맞추기
+Gemini TTS 음성 (여성 Leda 고정, 대본 전체를 한 번에. 끊기면 다시, 한도면 기다렸다 재시도, 끝까지 실패하면 이번 회차 건너뜀) + Whisper로 단어 시점 맞추기
       |
       v
 Remotion 컷 편집 영상 (video/, 1.5~3초마다 컷, 1~2어절 팝업 자막, 컷별 그래픽, 효과음)
