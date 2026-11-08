@@ -174,5 +174,12 @@
     "title": "Anthropic 에이전트 메모리, 드리밍으로 질문당 약 2만 토큰 절약",
     "video_id": "j-ZU-FdNo0M",
     "voice": "ko-KR-SunHiNeural"
+  },
+  {
+    "date": "2026-11-08",
+    "link": "https://news.hada.io/topic?id=36760",
+    "title": "Entire 분산 Git 네트워크 공개, 최대 25배 성능",
+    "video_id": "B_iiFl_VTMw",
+    "voice": "Leda"
   }
 ]
