@@ -21,6 +21,11 @@ on:
       script:
         description: "Claude 대신 이 대본 JSON 파일로 만들기 (테스트용, 레포 안 경로)"
         required: false
+      writer:
+        description: "대본 작성자 (비우면 claude, gemini는 예비 경로 시험용)"
+        required: false
+        type: choice
+        options: ["", "claude", "gemini"]
       thumbnail_only:
         description: "이미 올린 영상 ID에 script 대본으로 만든 썸네일만 적용 (영상은 안 만듦)"
         required: false
@@ -111,6 +116,7 @@ jobs:
           INPUT_THUMBNAIL_ONLY: ${{ github.event.inputs.thumbnail_only }}
           INPUT_THUMBNAIL_BATCH: ${{ github.event.inputs.thumbnail_batch }}
           SHORTS_THEME: ${{ github.event.inputs.theme }}
+          SHORTS_SCRIPT_WRITER: ${{ github.event.inputs.writer }}
           # 업로드 후 썸네일을 적용한다. 끄려면 저장소 Variables에 SHORTS_THUMBNAIL=0.
           SHORTS_THUMBNAIL: ${{ vars.SHORTS_THUMBNAIL }}
         run: |

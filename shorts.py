@@ -26,6 +26,13 @@ YOUTUBE_REFRESH_TOKEN = os.environ.get("YOUTUBE_REFRESH_TOKEN", "").strip()
 # 비우면 구독 플랜의 기본 모델을 쓴다. 예: opus, sonnet
 # 대본 단계(취재·후보·심사·검증)에 쓸 모델. 품질을 위해 기본은 opus, 비우면 구독 플랜 기본 모델.
 CLAUDE_MODEL = os.environ.get("SHORTS_CLAUDE_MODEL", "opus").strip()
+# 대본 후보 작성용 모델. 후보 3개가 사용량 대부분이라 가벼운 sonnet으로 쓰고, 심사·검증만 CLAUDE_MODEL(opus).
+# (쇼츠 대본은 사람이 쓰는 대화와 같은 구독 사용량 한도를 나눠 쓴다)
+CANDIDATE_MODEL = os.environ.get("SHORTS_CANDIDATE_MODEL", "sonnet").strip()
+# Claude가 사용량 한도 등으로 대본을 못 쓰면 무료 Gemini로 대신 쓴다.
+GEMINI_SCRIPT_MODEL = os.environ.get("SHORTS_GEMINI_SCRIPT_MODEL", "gemini-3.1-flash-lite")
+# 대본 작성자: claude(기본) / gemini(시험용으로 예비 경로를 바로 쓴다)
+SCRIPT_WRITER = os.environ.get("SHORTS_SCRIPT_WRITER") or "claude"
 # 대본 후보 수. 1이면 예전처럼 한 번에 쓰고 심사 단계를 건너뛴다.
 SCRIPT_CANDIDATES = int(os.environ.get("SHORTS_SCRIPT_CANDIDATES", "3"))
 # 원문 본문을 대본 재료로 넣을 최대 글자 수
@@ -469,7 +476,7 @@ def describe_oauth_token(token):
     )
 
 
-def claude_json(system_prompt, user_prompt, schema):
+def claude_json(system_prompt, user_prompt, schema, model=None):
     """Claude Code CLI(claude -p)로 schema에 맞는 JSON을 받는다.
 
     API 키 대신 Claude 구독 계정으로 실행된다. 로컬은 로그인된 상태를 쓰고,
@@ -489,8 +496,8 @@ def claude_json(system_prompt, user_prompt, schema):
         "--json-schema", json.dumps(schema),
     ]
 
-    if CLAUDE_MODEL:
-        command += ["--model", CLAUDE_MODEL]
+    if model or CLAUDE_MODEL:
+        command += ["--model", model or CLAUDE_MODEL]
 
     env = os.environ.copy()
     token = normalize_oauth_token(env.get("CLAUDE_CODE_OAUTH_TOKEN"))
@@ -683,7 +690,56 @@ def script_system_prompt():
 
 def write_candidate(article, source_text, angle):
     return validate_script(
-        claude_json(script_system_prompt(), build_script_prompt(article, source_text, angle), SCRIPT_SCHEMA)
+        claude_json(
+            script_system_prompt(),
+            build_script_prompt(article, source_text, angle),
+            SCRIPT_SCHEMA,
+            model=CANDIDATE_MODEL,
+        )
+    )
+
+
+def gemini_json(system_prompt, user_prompt, schema):
+    """Gemini(무료 등급)로 schema에 맞는 JSON을 받는다. Claude를 못 쓸 때의 예비 경로."""
+    if not GEMINI_API_KEY:
+        raise RuntimeError("GEMINI_API_KEY가 없어 Gemini 예비 경로를 쓸 수 없습니다.")
+
+    body = {
+        "systemInstruction": {"parts": [{"text": system_prompt}]},
+        "contents": [
+            {
+                "role": "user",
+                "parts": [
+                    {
+                        "text": user_prompt
+                        + "\n\n아래 JSON 스키마를 정확히 따르는 JSON 하나만 답한다. 설명·코드블록 없이.\n"
+                        + json.dumps(schema, ensure_ascii=False)
+                    }
+                ],
+            }
+        ],
+        "generationConfig": {"responseMimeType": "application/json", "temperature": 0.7},
+    }
+    request = urllib.request.Request(
+        "https://generativelanguage.googleapis.com/v1beta/models/"
+        f"{GEMINI_SCRIPT_MODEL}:generateContent?key={urllib.parse.quote(GEMINI_API_KEY)}",
+        data=json.dumps(body).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+
+    with urllib.request.urlopen(request, timeout=300) as response:
+        result = json.loads(response.read().decode("utf-8"))
+
+    text = "".join(part.get("text", "") for part in result["candidates"][0]["content"]["parts"])
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
+
+    return json.loads(text)
+
+
+def write_candidate_with_gemini(article, source_text):
+    return validate_script(
+        gemini_json(script_system_prompt(), build_script_prompt(article, source_text, SCRIPT_ANGLES[0]), SCRIPT_SCHEMA)
     )
 
 
@@ -742,9 +798,9 @@ def generate_script(article, work_dir=None):
         with open(os.path.join(research_dir, "source.txt"), "w", encoding="utf-8") as file:
             file.write(source_text)
 
-    angles = SCRIPT_ANGLES[: max(SCRIPT_CANDIDATES, 1)]
+    angles = SCRIPT_ANGLES[: max(SCRIPT_CANDIDATES, 1)] if SCRIPT_WRITER == "claude" else []
 
-    with ThreadPoolExecutor(max_workers=len(angles)) as pool:
+    with ThreadPoolExecutor(max_workers=max(len(angles), 1)) as pool:
         futures = [pool.submit(write_candidate, article, source_text, angle) for angle in angles]
         candidates = []
 
@@ -755,8 +811,12 @@ def generate_script(article, work_dir=None):
                 print(f"대본 후보 하나를 만들지 못했습니다: {error}")
 
     if not candidates:
-        print("대본 후보를 하나도 만들지 못해 한 번에 쓰는 방식으로 다시 시도합니다.")
-        return write_candidate(article, source_text, "")
+        # 대부분 Claude 사용량 한도라 Claude로 다시 시도해도 같다. 무료 Gemini로 대신 쓴다.
+        print("Claude로 대본 후보를 하나도 만들지 못해 Gemini로 대신 씁니다.")
+        script = write_candidate_with_gemini(article, source_text)
+        keep("candidates.json", [script])
+        keep("fallback.json", {"writer": GEMINI_SCRIPT_MODEL})
+        return script
 
     keep("candidates.json", candidates)
     print(f"대본 후보 {len(candidates)}개 작성")
