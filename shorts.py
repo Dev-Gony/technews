@@ -1167,7 +1167,11 @@ def align_to_script(text, heard, duration_ms):
 
 
 # Gemini TTS 시도 횟수와, 받아쓴 글자가 대본의 몇 % 이상이어야 끝까지 읽은 것으로 볼지
-TTS_ATTEMPTS = 3
+TTS_ATTEMPTS = 4
+# 무료 Gemini TTS가 429(분당 한도)로 막히면 기다렸다 다시 한다 (초). 분당 한도라 1~2분이면 풀린다.
+TTS_RETRY_WAITS = [30, 60, 90]
+# 예비 목소리(edge-tts)로 업로드할지. 품질이 떨어져서 기본은 업로드하지 않고 다음 실행으로 미룬다.
+ALLOW_FALLBACK_VOICE = os.environ.get("SHORTS_ALLOW_FALLBACK_VOICE") == "1"
 # 영어 이름은 한글로 받아써져 글자 수가 줄어서 여유를 둔다 (실제로 끊긴 경우는 30% 안팎)
 TTS_MIN_COVERAGE = 0.7
 
@@ -1207,10 +1211,20 @@ def synthesize_narration(cuts, work_dir, voice):
             except Exception as error:
                 print(f"Gemini TTS {attempt}번째 실패: {error}")
 
+                if attempt <= len(TTS_RETRY_WAITS):
+                    import time
+
+                    time.sleep(TTS_RETRY_WAITS[attempt - 1])
+
         if words is None:
+            if not ALLOW_FALLBACK_VOICE:
+                # 예비 목소리로 올리느니 이번엔 건너뛴다. 기록에 안 남으므로 다음 실행에서 같은 기사로 다시 만든다.
+                raise RuntimeError("Gemini TTS를 쓰지 못해 이번 영상은 건너뜁니다 (예비 목소리 업로드 꺼짐)")
+
             print("Gemini TTS를 쓰지 못해 edge-tts로 대체합니다.")
 
     if words is None:
+        # 여기까지 오면 Gemini 키가 없는 로컬 시험이거나, 예비 목소리 업로드를 켠 경우다.
         boundaries = asyncio.run(_synthesize(text, path))
         words = align_words(text, boundaries, audio_duration(path) * 1000)
 
