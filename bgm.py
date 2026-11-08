@@ -194,6 +194,25 @@ def _pop():
     return np.sin(2 * np.pi * np.cumsum(freq) / SAMPLE_RATE) * np.exp(-t * 35)
 
 
+def _chime():
+    """마무리 로고용 짧고 귀여운 실로폰 "딩-딩-딩-띵" (C6 E6 G6 → C7). 약 1초."""
+    notes = [(84, 0.0, 0.35), (88, 0.08, 0.35), (91, 0.16, 0.35), (96, 0.26, 0.75)]
+    total = int(1.05 * SAMPLE_RATE)
+    out = np.zeros(total)
+
+    for note, start, length in notes:
+        n = int(length * SAMPLE_RATE)
+        t = np.arange(n) / SAMPLE_RATE
+        freq = midi_to_hz(note)
+        # 실로폰 느낌: 기본음 + 맑은 배음, 빠르게 사라짐
+        tone = np.sin(2 * np.pi * freq * t) + 0.35 * np.sin(2 * np.pi * freq * 3.9 * t) * np.exp(-t * 30)
+        tone *= np.exp(-t * (5 if length > 0.5 else 9)) * envelope(n, int(0.003 * SAMPLE_RATE), int(0.02 * SAMPLE_RATE))
+        begin = int(start * SAMPLE_RATE)
+        out[begin:begin + n] += tone[: total - begin]
+
+    return out
+
+
 def write_sfx(directory):
     """Remotion이 쓰는 효과음 wav를 만든다. 이미 있으면 그대로 둔다."""
     import os
@@ -204,6 +223,7 @@ def write_sfx(directory):
         "whoosh2.wav": lambda: _whoosh(0.28, 6000, 500, seed=2),
         "impact.wav": _impact,
         "pop.wav": _pop,
+        "chime.wav": _chime,
     }
 
     for name, make in sounds.items():
