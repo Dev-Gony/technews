@@ -189,6 +189,14 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual(script["title"], "제미나이")
         gemini.assert_called_once()
 
+    def test_speech_coverage_detects_cut_off_narration(self):
+        text = "에이전트가 어제 한 실수 또 하죠 검색만 쓰면 53%였는데요 위키를 더하니 최대 61%예요"
+        full = [{"text": word} for word in text.split()]
+        cut = full[:5]
+
+        self.assertGreater(shorts.speech_coverage(text, full), 0.95)
+        self.assertLess(shorts.speech_coverage(text, cut), 0.5)
+
     def test_page_text_keeps_article_body_only(self):
         html = (
             "<html><body><nav>메뉴</nav><article><h1>제목</h1><p>본문 <b>굵게</b> 이어짐</p>"

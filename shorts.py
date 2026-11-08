@@ -1166,6 +1166,20 @@ def align_to_script(text, heard, duration_ms):
     return [{"text": token, "startMs": starts[i], "endMs": ends[i]} for i, token in enumerate(tokens)]
 
 
+# Gemini TTS 시도 횟수와, 받아쓴 글자가 대본의 몇 % 이상이어야 끝까지 읽은 것으로 볼지
+TTS_ATTEMPTS = 3
+# 영어 이름은 한글로 받아써져 글자 수가 줄어서 여유를 둔다 (실제로 끊긴 경우는 30% 안팎)
+TTS_MIN_COVERAGE = 0.7
+
+
+def speech_coverage(text, heard):
+    """받아쓴 단어들의 글자 수 / 대본 글자 수. 음성이 중간에 끊겼는지 확인한다(숫자·영문 표기 차이를 감안해 대략)."""
+    expected = len(_letters(text))
+    got = len(_letters(" ".join(word["text"] for word in heard)))
+
+    return got / expected if expected else 1.0
+
+
 def synthesize_narration(cuts, work_dir, voice):
     """모든 컷의 대사를 한 번에 읽혀서 컷 사이가 끊기지 않게 한다.
 
@@ -1177,12 +1191,24 @@ def synthesize_narration(cuts, work_dir, voice):
     words = None
 
     if GEMINI_API_KEY:
-        try:
-            gemini_tts(text, path, voice)
-            words = align_to_script(text, transcribe_words(path), audio_duration(path) * 1000)
-            print(f"음성: Gemini TTS ({voice})")
-        except Exception as error:
-            print(f"Gemini TTS 실패, edge-tts로 대체합니다: {error}")
+        # Gemini TTS는 가끔 대본 중간에서 음성을 끊어 버린다. 받아쓴 글자가 대본보다 크게 모자라면 다시 만든다.
+        for attempt in range(1, TTS_ATTEMPTS + 1):
+            try:
+                gemini_tts(text, path, voice)
+                heard = transcribe_words(path)
+                coverage = speech_coverage(text, heard)
+
+                if coverage < TTS_MIN_COVERAGE:
+                    raise RuntimeError(f"음성이 대본의 {coverage:.0%}에서 끊겼습니다")
+
+                words = align_to_script(text, heard, audio_duration(path) * 1000)
+                print(f"음성: Gemini TTS ({voice}, 대본의 {coverage:.0%} 확인)")
+                break
+            except Exception as error:
+                print(f"Gemini TTS {attempt}번째 실패: {error}")
+
+        if words is None:
+            print("Gemini TTS를 쓰지 못해 edge-tts로 대체합니다.")
 
     if words is None:
         boundaries = asyncio.run(_synthesize(text, path))
