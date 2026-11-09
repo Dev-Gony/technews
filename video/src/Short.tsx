@@ -10,7 +10,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { Background } from "./Background";
+import { Background, Desk3DLayer } from "./Background";
 import { Captions } from "./Captions";
 import type { Cut, ShortProps } from "./schema";
 import { colors, fontFamily, layout, serifFamily, themeVars } from "./theme";
@@ -53,15 +53,16 @@ const VisualLayer: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
 };
 
 // 자막 + 첫 컷 흰 섬광 (컷 길이 그대로)
-const CutView: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
+const CutView: React.FC<{ cut: Cut; index: number; pill: boolean }> = ({ cut, index, pill }) => {
   const frame = useCurrentFrame();
   const strong = index === 0;
   // 그래픽 없는 컷은 자막을 화면 가운데에 크게. 단, 첫 컷은 가운데에 제목(훅)이 있으므로 아래 자리.
-  const center = index > 0 && cut.visual.type === "none";
+  // 3D 배경(pill)일 때는 가운데를 장면에 비워 두고 자막은 늘 책상 아래 어두운 바탕 위에.
+  const center = !pill && index > 0 && cut.visual.type === "none";
 
   return (
     <AbsoluteFill>
-      <Captions chunks={cut.chunks} center={center} />
+      <Captions chunks={cut.chunks} center={center} pill={pill} />
       {strong ? (
         <AbsoluteFill
           style={{
@@ -229,6 +230,7 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
   return (
     <AbsoluteFill style={themeVars(theme ?? "ink")}>
       <Background cuts={cuts} backdrop={backdrop ?? "glow"} />
+      {backdrop === "desk3d" ? <Desk3DLayer cuts={cuts} /> : null}
       <Audio src={staticFile(audio)} />
       {sfx.map((effect, index) => (
         <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
@@ -245,7 +247,7 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
       ))}
       {cuts.map((cut, index) => (
         <Sequence key={`cut-${index}`} name={`Cut ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>
-          <CutView cut={cut} index={index} />
+          <CutView cut={cut} index={index} pill={backdrop === "desk3d"} />
         </Sequence>
       ))}
       <Cover text={cover} heroFrames={cuts[0]?.durationInFrames ?? 45} />

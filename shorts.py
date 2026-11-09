@@ -54,8 +54,19 @@ UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 # 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
 SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
-# 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 윤곽 글자)
+# 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 윤곽 글자) / desk3d(빛 + 3D 책상 장면)
 SHORTS_BACKDROP = os.environ.get("SHORTS_BACKDROP") or "glow"
+# 기본 배경(glow)일 때 에이전트·토큰·코딩 도구 주제면 3D 책상 장면(desk3d)을 자동으로 깐다. 0이면 끈다.
+# 장면: video/public/assets3d/desk_world_loop.webm (사용자 PC에서 Blender로 미리 렌더링, video/assets3d/ 참고)
+DESK3D_AUTO = os.environ.get("SHORTS_DESK3D") != "0"
+# 3D 장면(노트북 앞 꼬마 에이전트들, 토큰 동전 탑)과 어울리는 주제어. 영문은 단어 경계로만 찾는다.
+DESK3D_KEYWORDS = [
+    "에이전트", "agent", "agents", "agentic",
+    "토큰", "token", "tokens",
+    "코딩", "coding", "바이브 코딩", "vibe coding", "코드 리뷰",
+    "claude code", "클로드 코드", "codex", "코덱스", "copilot", "코파일럿",
+    "cursor", "windsurf", "ide", "mcp",
+]
 
 DAILY_ISSUES_DIR = "config/issues"
 # 오늘 이슈에 남은 기사가 없으면 며칠 전 이슈까지 거슬러 올라가서 고른다.
@@ -1339,7 +1350,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     return {
         "channel": CHANNEL_NAME,
         "theme": SHORTS_THEME,
-        "backdrop": SHORTS_BACKDROP,
+        "backdrop": pick_backdrop(script),
         "cover": script["cover"],
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",
@@ -1349,6 +1360,37 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         # 마무리 로고가 뜰 때 짧은 실로폰 소리 (마지막 음이 로고 빨간 점과 맞도록)
         "sfx": pick_sfx(cuts, starts) + [{"src": "sfx/chime.wav", "from": outro_from + 5, "volume": 0.55}],
     }
+
+
+def desk3d_hits(text):
+    """주제어가 몇 개 나오는지. 영문은 단어 경계(예: 'ide'가 'video'에 걸리지 않게), 한글은 그대로 찾는다."""
+    text = (text or "").lower()
+    hits = 0
+
+    for keyword in DESK3D_KEYWORDS:
+        if re.fullmatch(r"[a-z ]+", keyword):
+            hits += len(re.findall(rf"\b{re.escape(keyword)}\b", text))
+        else:
+            hits += text.count(keyword)
+
+    return hits
+
+
+def pick_backdrop(script):
+    """배경 고르기. 직접 정한 배경(SHORTS_BACKDROP)이 있으면 그대로 쓴다.
+
+    기본(glow)일 때만, 제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오면
+    (에이전트·토큰·코딩 도구 이야기) 3D 책상 장면을 깐다. 한 번 스치듯 나온 단어로는 고르지 않는다.
+    """
+    if SHORTS_BACKDROP != "glow" or not DESK3D_AUTO:
+        return SHORTS_BACKDROP
+
+    lines = " ".join(spoken_line(cut) for cut in script.get("cuts") or [])
+
+    if desk3d_hits(script.get("cover")) or desk3d_hits(lines) >= 2:
+        return "desk3d"
+
+    return SHORTS_BACKDROP
 
 
 def pick_sfx(cuts, starts):
