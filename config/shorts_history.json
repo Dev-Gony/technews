@@ -230,5 +230,12 @@
     "title": "LLM 확장형 웹 앱, 샌드박스·권한 객체로 안전하게",
     "video_id": "L3vPxqkFfHQ",
     "voice": "Leda"
+  },
+  {
+    "date": "2026-11-09",
+    "link": "https://news.hada.io/topic?id=36828",
+    "title": "Replit microVM 샌드박스 재구축, 커널 공유 끊었다",
+    "video_id": "ttIqWRE6tPU",
+    "voice": "Leda"
   }
 ]
