@@ -1,7 +1,8 @@
 """9:16 '책상 위 꼬마 에이전트들' 장면.
 
 둥근 책상판 위 거대한 노트북 앞을 짜리몽땅한 꼬마들이 종종걸음으로 돈다.
-- 걷는 꼬마 4명: 토큰 동전 / 코드 블록 / 문서 / 빈손 (닫힌 길을 따라 돌고, 4초 뒤 정확히 다음 꼬마 자리로 → 끊김 없는 루프)
+- 걷는 꼬마 4명: 토큰 동전 / 코드 블록 / 문서 / 빈손 (닫힌 길을 따라 12초에 한 바퀴 → 제자리로, 끊김 없는 루프)
+  (예전 4초 루프는 1/4 바퀴만 돌아서 이음새에서 꼬마들이 옆자리로 순간 이동했다)
 - 키보드 위에서 통통 뛰며 타이핑하는 꼬마 1명
 - 화면 위 모서리에 걸터앉아 다리 흔드는 꼬마 1명
 - 금색 토큰 탑, 빨간 머그, 화분, 포스트잇
@@ -23,8 +24,8 @@ import bpy  # noqa: E402
 
 import iso_kit as kit  # noqa: E402
 
-FRAMES = 120  # 4초 루프
-STEPS = 12  # 루프 동안 걸음 수 (정수여야 끊김 없음) → 초당 3걸음, 종종걸음
+FRAMES = 360  # 12초 루프: 걷는 꼬마들이 정확히 한 바퀴 돌아 제자리로
+STEPS = 36  # 루프 동안 걸음 수 (짝수여야 끊김 없음) → 초당 3걸음, 종종걸음
 SIZE = 2.1  # 꼬마 크기 배율 (장면의 주인공이 되게 크게)
 BASE_TOP = 0.22  # 노트북 본체 윗면 높이
 HINGE_Y = -1.75
@@ -241,12 +242,13 @@ def build_characters():
 def animate(cam_rig):
     for f in range(1, FRAMES + 1):
         t = (f - 1) / FRAMES
+        T = 3 * t  # 4초 박자 (통통·흔들기·깜빡임은 4초에 정수 번)
         cam_rig.rotation_euler.z = math.radians(3) * math.sin(2 * math.pi * t)
         cam_rig.keyframe_insert("rotation_euler", index=2, frame=f)
 
         step = STEPS * t  # 걸음 진행
         for rig, body, feet, offset in WALKERS:
-            u = offset + t / len(WALKERS)  # 루프 끝에 다음 꼬마 자리
+            u = offset + t  # 루프 동안 한 바퀴 → 제자리
             x, y, heading = path_point(u)
             ph = math.pi * step + offset * 7
             rig.location = (x, y, SIZE * 0.035 * abs(math.sin(ph)))
@@ -264,25 +266,25 @@ def animate(cam_rig):
             body.keyframe_insert("scale", frame=f)
 
         for rig, body, feet in HOPPERS:  # 통통 타자
-            hop = abs(math.sin(math.pi * 16 * t))
+            hop = abs(math.sin(math.pi * 16 * T))
             body.location.z = 0.07 * hop
             body.scale = (1 + 0.06 * (1 - hop), 1, 1 - 0.06 * (1 - hop))
             body.keyframe_insert("location", frame=f)
             body.keyframe_insert("scale", frame=f)
             for k, foot in enumerate(feet):
-                foot.location.z = 0.03 + 0.05 * hop * (1 if k == (int(16 * t) % 2) else 0.4)
+                foot.location.z = 0.03 + 0.05 * hop * (1 if k == (int(16 * T) % 2) else 0.4)
                 foot.keyframe_insert("location", frame=f)
 
         for rig, body, feet in SITTERS:  # 다리 달랑달랑 + 갸웃
-            body.rotation_euler.y = math.radians(8) * math.sin(2 * math.pi * 2 * t)
+            body.rotation_euler.y = math.radians(8) * math.sin(2 * math.pi * 2 * T)
             body.keyframe_insert("rotation_euler", frame=f)
             for k, foot in enumerate(feet):
-                foot.rotation_euler.x = math.radians(-50 + 25 * math.sin(2 * math.pi * 4 * t + k * math.pi))
+                foot.rotation_euler.x = math.radians(-50 + 25 * math.sin(2 * math.pi * 4 * T + k * math.pi))
                 foot.keyframe_insert("rotation_euler", frame=f)
 
         for mat, cycles, phase in BLINKS:
             inp = mat.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
-            inp.default_value = 1.6 if math.sin(2 * math.pi * cycles * t + phase) > 0 else 0.0
+            inp.default_value = 1.6 if math.sin(2 * math.pi * cycles * T + phase) > 0 else 0.0
             inp.keyframe_insert("default_value", frame=f)
     for action in bpy.data.actions:
         for fc in getattr(action, "fcurves", []):

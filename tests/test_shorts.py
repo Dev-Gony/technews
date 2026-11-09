@@ -1,4 +1,6 @@
 import unittest
+from pathlib import Path
+from unittest import mock
 
 import shorts
 
@@ -446,10 +448,91 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual(shorts.pick_backdrop(script("코드 에이전트 토큰\n77% 절감", "주석만 지웠어요")), "desk3d")
         self.assertEqual(shorts.pick_backdrop(script("Claude Code 새 기능", "써 봤어요")), "desk3d")
         # 대사에 두 번 이상 나와도 3D
-        self.assertEqual(shorts.pick_backdrop(script("비용이 확 줄었다", "토큰을 덜 써요", "토큰 / 절반이요")), "desk3d")
+        self.assertEqual(shorts.pick_backdrop(script("확 줄었다", "토큰을 덜 써요", "토큰 / 절반이요")), "desk3d")
         # 한 번 스치는 정도, 관계없는 주제는 기본 배경
-        self.assertEqual(shorts.pick_backdrop(script("새 GPU 발표", "에이전트도 돌린대요")), "glow")
+        self.assertEqual(shorts.pick_backdrop(script("새 폰 발표", "에이전트도 돌린대요")), "glow")
         self.assertEqual(shorts.pick_backdrop(script("유튜브 video 정책 변경", "idea 공유 기능")), "glow")
+
+    def test_pick_backdrop_picks_topic_scene(self):
+        def script(cover, *lines):
+            return {"cover": cover, "cuts": [{"line": line} for line in lines]}
+
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True):
+            # 장면마다 제목 주제어 하나로 고른다
+            self.assertEqual(shorts.pick_backdrop(script("확장에 백도어 발견", "지우세요")), "vault3d")
+            self.assertEqual(shorts.pick_backdrop(script("DMARC 없는 메일 거부", "레코드 한 줄")), "vault3d")
+            self.assertEqual(shorts.pick_backdrop(script("LLM 비용 77% 절감", "모델을 섞었어요")), "coins3d")
+            self.assertEqual(shorts.pick_backdrop(script("EC2 용량 미리 확인", "안 뜰 수 있어요")), "server3d")
+            self.assertEqual(shorts.pick_backdrop(script("RAM 70%↓ 재구축", "가벼워졌어요")), "server3d")
+            self.assertEqual(shorts.pick_backdrop(script("MaxxBench 점수 추락", "74%가 53%로")), "lab3d")
+            self.assertEqual(shorts.pick_backdrop(script("가중치 0.016%만 고쳤다", "그런데요")), "lab3d")
+            # 대사에 두 번 이상 나오면 제목에 없어도 고른다, 한 번은 아니다
+            self.assertEqual(shorts.pick_backdrop(script("이거 아세요?", "백도어가 있었어요", "공급망 공격이죠")), "vault3d")
+            self.assertEqual(shorts.pick_backdrop(script("이거 아세요?", "서버 한 대로요")), "glow")
+            # 여러 장면이 걸리면 가장 많이 맞는 장면
+            self.assertEqual(shorts.pick_backdrop(script("AI 에이전트 비용, 토큰값만 보면 손해인 이유?")), "coins3d")
+            self.assertEqual(shorts.pick_backdrop(script("코딩 에이전트 TODO 주석 방해, 토큰 77% 낭비")), "desk3d")
+            self.assertEqual(shorts.pick_backdrop(script("에이전트 메모리, 질문당 2만 토큰 절약")), "desk3d")
+            # 점수가 같으면 더 구체적인 장면 (책상보다 보안)
+            self.assertEqual(shorts.pick_backdrop(script("확장 지워도 백도어가 남는다고? Cursor 사고")), "vault3d")
+
+    def test_pick_backdrop_past_titles(self):
+        """지난 영상 제목만으로 고른 장면 (대사가 더해지면 바뀔 수 있다). 엉뚱한 장면이 고르지 않는지 확인."""
+        expected = {
+            "확장 지워도 백도어가 남는다고? Cursor 사고": "vault3d",
+            "GitBook이 AI 에이전트에 뚫렸다고? 토큰 점검하세요": "vault3d",
+            "Claude Code가 내 이메일을 외부 사이트에 보낸다고?": "vault3d",
+            "TUI Amazon Bedrock 위협 모델링 자동화, 컨텍스트 효율 94%": "vault3d",
+            "Outlook.com DMARC 없는 도메인 메일 거부, 레코드 한 줄로 해결": "vault3d",
+            "AI 사용료가 직원 보수보다 커졌다고?": "coins3d",
+            "AI 에이전트 비용, 토큰값만 보면 손해인 이유?": "coins3d",
+            "AI 비용 90% 줄인 Revolut, 대체 뭘 했길래?": "coins3d",
+            "Jev·Opus 하이브리드 워크플로, LLM 비용 77% 절감": "coins3d",
+            "Gemini Omni 1.2 Flash, 최대 15초 영상·API 30% 인하": "coins3d",
+            "스케일업했는데 서버가 안 뜬다면? EC2 용량 미리 확인": "server3d",
+            "Entire 분산 Git 네트워크 공개, 최대 25배 성능": "server3d",
+            "Discord Rust GPUI 재구축, 1GB 대비 RAM 약 70%↓": "server3d",
+            "학습 없이 가중치 0.016%만 고쳤더니 성능이 올랐다?": "lab3d",
+            "GPT-6 Astra 안전 연구 성능 40% 낮아, 몰래 봐주기?": "lab3d",
+            "MaxxBench, DeepSWE 약 74% 모델이 53.4%로 추락": "lab3d",
+            "AI가 코드 짜는데 프레임워크가 왜 중요할까?": "desk3d",
+            "AI 에이전트가 틀린 답 내놓는 진짜 이유?": "desk3d",
+            "MCP, AI가 도구를 직접 호출하는 게 아니라고?": "desk3d",
+            "코딩 에이전트 TODO 주석 방해, 토큰 77% 낭비": "desk3d",
+            "Anthropic 에이전트 메모리, 드리밍으로 질문당 약 2만 토큰 절약": "desk3d",
+            "Claude Code·Codex 두뇌 과부하, Git 작업 큐로 푸는 법": "desk3d",
+            "광고를 AI한테 물어보게 만든 당근, 어떻게 했을까?": "glow",
+            "AI한테 SQL 대신 지표만 쥐여주면 생기는 일?": "glow",
+            "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기": "glow",
+            "Zed Delta 공개 베타, PR 끄고 33명이 570건 반영": "glow",
+        }
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True):
+            for title, scene in expected.items():
+                with self.subTest(title=title):
+                    self.assertEqual(shorts.pick_backdrop({"cover": title, "cuts": []}), scene)
+
+    def test_pick_backdrop_skips_scene_without_file(self):
+        script = {"cover": "MaxxBench 점수 추락", "cuts": []}
+
+        with mock.patch.object(shorts, "scene3d_ready", side_effect=lambda scene: scene != "lab3d"):
+            self.assertEqual(shorts.pick_backdrop(script), "glow")
+
+    def test_scene3d_files_exist_and_match_remotion(self):
+        # Blender 스크립트가 있는 장면은 루프 파일도 함께 있어야 하고(책상 장면은 늘),
+        # Remotion 쪽 배경 목록(schema.ts, Background.tsx)과 이름이 같아야 한다
+        video = Path(__file__).resolve().parent.parent / "video"
+        self.assertTrue(shorts.scene3d_ready("desk3d"))
+        for scene, filename in shorts.SCENE3D_FILES.items():
+            script = video / "assets3d" / "scripts" / filename.replace("_loop.webm", ".py")
+            if script.exists():
+                with self.subTest(scene=scene):
+                    self.assertTrue(shorts.scene3d_ready(scene), filename)
+        root = video / "src"
+        schema = (root / "schema.ts").read_text(encoding="utf-8")
+        background = (root / "Background.tsx").read_text(encoding="utf-8")
+        for scene, filename in shorts.SCENE3D_FILES.items():
+            self.assertIn(f'"{scene}"', schema)
+            self.assertIn(f'{scene}: "assets3d/{filename}"', background)
 
     def test_pick_backdrop_respects_explicit_setting_and_off_switch(self):
         script = {"cover": "에이전트 토큰 절감", "cuts": [{"line": "에이전트"}]}

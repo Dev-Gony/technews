@@ -96,7 +96,7 @@ const DeskShort: React.FC = () => (
         backgroundSize: "54px 54px",
       }}
     />
-    <Loop durationInFrames={120}>
+    <Loop durationInFrames={360}>
       <OffthreadVideo src={staticFile("assets3d/desk_world_loop.webm")} transparent muted style={{ width: 1080, height: 1920 }} />
     </Loop>
     <div

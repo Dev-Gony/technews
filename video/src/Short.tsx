@@ -10,7 +10,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { Background, Desk3DLayer } from "./Background";
+import { Background, is3DBackdrop, Scene3DLayer } from "./Background";
 import { Captions } from "./Captions";
 import type { Cut, ShortProps } from "./schema";
 import { colors, fontFamily, layout, serifFamily, themeVars } from "./theme";
@@ -230,7 +230,7 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
   return (
     <AbsoluteFill style={themeVars(theme ?? "ink")}>
       <Background cuts={cuts} backdrop={backdrop ?? "glow"} />
-      {backdrop === "desk3d" ? <Desk3DLayer cuts={cuts} /> : null}
+      {is3DBackdrop(backdrop) ? <Scene3DLayer cuts={cuts} scene={backdrop} /> : null}
       <Audio src={staticFile(audio)} />
       {sfx.map((effect, index) => (
         <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
@@ -247,7 +247,7 @@ export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, aud
       ))}
       {cuts.map((cut, index) => (
         <Sequence key={`cut-${index}`} name={`Cut ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>
-          <CutView cut={cut} index={index} pill={backdrop === "desk3d"} />
+          <CutView cut={cut} index={index} pill={is3DBackdrop(backdrop)} />
         </Sequence>
       ))}
       <Cover text={cover} heroFrames={cuts[0]?.durationInFrames ?? 45} />

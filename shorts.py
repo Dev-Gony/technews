@@ -54,19 +54,59 @@ UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 # 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
 SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
-# 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 윤곽 글자) / desk3d(빛 + 3D 책상 장면)
+# 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 윤곽 글자) / 3D 장면(아래 SCENE3D_FILES)
 SHORTS_BACKDROP = os.environ.get("SHORTS_BACKDROP") or "glow"
-# 기본 배경(glow)일 때 에이전트·토큰·코딩 도구 주제면 3D 책상 장면(desk3d)을 자동으로 깐다. 0이면 끈다.
-# 장면: video/public/assets3d/desk_world_loop.webm (사용자 PC에서 Blender로 미리 렌더링, video/assets3d/ 참고)
+# 기본 배경(glow)일 때 기사 주제에 맞는 3D 장면을 자동으로 깐다. 0이면 끈다.
+# 장면: video/public/assets3d/*_loop.webm (사용자 PC에서 Blender로 미리 렌더링, video/assets3d/ 참고)
 DESK3D_AUTO = os.environ.get("SHORTS_DESK3D") != "0"
-# 3D 장면(노트북 앞 꼬마 에이전트들, 토큰 동전 탑)과 어울리는 주제어. 영문은 단어 경계로만 찾는다.
-DESK3D_KEYWORDS = [
-    "에이전트", "agent", "agents", "agentic",
-    "토큰", "token", "tokens",
-    "코딩", "coding", "바이브 코딩", "vibe coding", "코드 리뷰",
-    "claude code", "클로드 코드", "codex", "코덱스", "copilot", "코파일럿",
-    "cursor", "windsurf", "ide", "mcp",
-]
+# 3D 장면 이름 → 루프 파일. 파일이 저장소에 없으면 그 장면은 고르지 않는다.
+SCENE3D_FILES = {
+    "vault3d": "vault_world_loop.webm",  # 살짝 열린 금고, 방패, 자물쇠
+    "coins3d": "coins_world_loop.webm",  # 저울, 동전 탑, 긴 영수증
+    "server3d": "server_world_loop.webm",  # 서버 랙, 케이블 빛 줄기, 구름, 속도계
+    "lab3d": "lab_world_loop.webm",  # 점수판, 시상대, 실험대
+    "desk3d": "desk_world_loop.webm",  # 노트북 앞 꼬마 에이전트들, 토큰 동전 탑
+}
+# 장면마다 어울리는 주제어. 영문·숫자는 단어 경계로만 찾고(예: 'ide'가 'video'에 걸리지 않게),
+# 한글은 그대로 찾는다. 're:'로 시작하면 정규식(예: 'MaxxBench'의 bench).
+# 지난 영상 제목으로 확인한 배정은 tests/test_shorts.py test_pick_backdrop_past_titles 참고.
+SCENE3D_KEYWORDS = {
+    "vault3d": [
+        "보안", "백도어", "backdoor", "해킹", "해커", "취약점", "vulnerability", "cve", "제로데이", "zero-day",
+        "유출", "탈취", "뚫", "악성", "malware", "멀웨어", "랜섬웨어", "피싱", "phishing", "공급망 공격", "익스플로잇", "exploit",
+        "인증", "2fa", "mfa", "otp", "비밀번호", "패스워드", "password", "dmarc", "spf", "dkim", "스푸핑", "스팸",
+        "위협", "권한 상승", "시크릿", "api 키", "토큰 점검", "암호화", "개인정보", "프라이버시", "privacy",
+        "외부 사이트", "외부로", "외부 전송", "인젝션", "injection", "security",
+    ],
+    "coins3d": [
+        "비용", "요금", "사용료", "가격", "청구서", "과금", "수수료", "구독료", "예산", "지출", "원가",
+        "절감", "절약", "인하", "할인", "낭비", "손해", "토큰값", "토큰 값", "비싸", "저렴", "가성비",
+        "cost", "costs", "price", "pricing", "billing",
+    ],
+    "server3d": [
+        "서버", "server", "servers", "클라우드", "cloud", "ec2", "aws", "gcp", "azure", "데이터센터", "인프라",
+        "메모리", "ram", "gpu", "gpus", "지연", "레이턴시", "latency", "처리량", "throughput", "캐시", "cdn",
+        "스케일업", "스케일 아웃", "오토스케일", "용량", "쿠버네티스", "kubernetes", "k8s", "컨테이너", "도커", "docker",
+        "트래픽", "장애", "다운타임", "분산", "네트워크", "배 성능", "배 빨라", "배 빠른",
+    ],
+    "lab3d": [
+        "벤치마크", "벤치", "benchmark", r"re:[a-z0-9-]*bench(?![a-z])", "리더보드", "leaderboard", "sota", "mmlu",
+        "가중치", "weights", "오픈 웨이트", "파라미터", "학습", "훈련", "training", "파인튜닝", "fine-tuning",
+        "연구", "research", "논문", "arxiv", "안전성", "안전 연구", "정렬", "alignment", "평가", "eval", "evals",
+        "점수", "정확도", "accuracy",
+    ],
+    "desk3d": [
+        "에이전트", "agent", "agents", "agentic",
+        "토큰", "token", "tokens",
+        "코딩", "coding", "바이브 코딩", "vibe coding", "코드 리뷰", "코드 짜", "코드를 짜",
+        "claude code", "클로드 코드", "codex", "코덱스", "copilot", "코파일럿",
+        "cursor", "windsurf", "ide", "mcp",
+    ],
+}
+# 예전 이름 (책상 장면 주제어)
+DESK3D_KEYWORDS = SCENE3D_KEYWORDS["desk3d"]
+# 제목(cover) 주제어 한 개는 대사 주제어 몇 개와 맞먹는지. 제목이 기사 주제를 가장 잘 말한다.
+SCENE3D_COVER_WEIGHT = 3
 
 DAILY_ISSUES_DIR = "config/issues"
 # 오늘 이슈에 남은 기사가 없으면 며칠 전 이슈까지 거슬러 올라가서 고른다.
@@ -1362,35 +1402,67 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     }
 
 
-def desk3d_hits(text):
-    """주제어가 몇 개 나오는지. 영문은 단어 경계(예: 'ide'가 'video'에 걸리지 않게), 한글은 그대로 찾는다."""
+def scene3d_hits(text, keywords):
+    """주제어가 몇 번 나오는지. 영문·숫자는 단어 경계, 한글은 그대로, 're:'는 정규식으로 찾는다."""
     text = (text or "").lower()
     hits = 0
 
-    for keyword in DESK3D_KEYWORDS:
-        if re.fullmatch(r"[a-z ]+", keyword):
-            hits += len(re.findall(rf"\b{re.escape(keyword)}\b", text))
+    for keyword in keywords:
+        if keyword.startswith("re:"):
+            hits += len(re.findall(keyword[3:], text))
+        elif re.fullmatch(r"[a-z0-9 .\-]+", keyword):
+            hits += len(re.findall(rf"(?<![a-z0-9]){re.escape(keyword)}(?![a-z0-9])", text))
         else:
             hits += text.count(keyword)
 
     return hits
 
 
+def desk3d_hits(text):
+    return scene3d_hits(text, DESK3D_KEYWORDS)
+
+
+def scene3d_ready(scene):
+    """장면 루프 파일이 저장소에 있는지 (없는 장면은 고르지 않는다)."""
+    root = os.path.dirname(os.path.abspath(__file__))
+    return os.path.exists(os.path.join(root, VIDEO_PROJECT_DIR, "public", "assets3d", SCENE3D_FILES[scene]))
+
+
+def scene3d_scores(script):
+    """장면마다 (점수, 제목 주제어 수, 대사 주제어 수). 점수 = 제목 × SCENE3D_COVER_WEIGHT + 대사."""
+    cover = script.get("cover") or ""
+    lines = " ".join(spoken_line(cut) for cut in script.get("cuts") or [])
+    scores = {}
+
+    for scene, keywords in SCENE3D_KEYWORDS.items():
+        in_cover, in_lines = scene3d_hits(cover, keywords), scene3d_hits(lines, keywords)
+        scores[scene] = (in_cover * SCENE3D_COVER_WEIGHT + in_lines, in_cover, in_lines)
+
+    return scores
+
+
 def pick_backdrop(script):
     """배경 고르기. 직접 정한 배경(SHORTS_BACKDROP)이 있으면 그대로 쓴다.
 
-    기본(glow)일 때만, 제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오면
-    (에이전트·토큰·코딩 도구 이야기) 3D 책상 장면을 깐다. 한 번 스치듯 나온 단어로는 고르지 않는다.
+    기본(glow)일 때만, 제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오는 3D 장면 중
+    가장 많이 맞는 장면을 깐다. 한 번 스치듯 나온 단어로는 고르지 않는다.
+    점수가 같으면 SCENE3D_FILES 순서(보안 > 비용 > 인프라 > 연구 > 책상)로, 더 구체적인 장면을 고른다.
+    맞는 장면이 없거나 장면 파일이 없으면 기본 배경(glow)을 쓴다.
     """
     if SHORTS_BACKDROP != "glow" or not DESK3D_AUTO:
         return SHORTS_BACKDROP
 
-    lines = " ".join(spoken_line(cut) for cut in script.get("cuts") or [])
+    scores = scene3d_scores(script)
+    order = list(SCENE3D_FILES)
+    candidates = [
+        scene for scene in order
+        if (scores[scene][1] >= 1 or scores[scene][2] >= 2) and scene3d_ready(scene)
+    ]
 
-    if desk3d_hits(script.get("cover")) or desk3d_hits(lines) >= 2:
-        return "desk3d"
+    if not candidates:
+        return SHORTS_BACKDROP
 
-    return SHORTS_BACKDROP
+    return max(candidates, key=lambda scene: (scores[scene][0], -order.index(scene)))
 
 
 def pick_sfx(cuts, starts):
