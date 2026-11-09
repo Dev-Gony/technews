@@ -438,6 +438,31 @@ class ShortsTest(unittest.TestCase):
         self.assertIn(str(len(token)), description)
         self.assertEqual(shorts.describe_oauth_token(""), "토큰 없음")
 
+    def test_pick_backdrop_desk3d_for_agent_token_coding_topics(self):
+        def script(cover, *lines):
+            return {"cover": cover, "cuts": [{"line": line} for line in lines]}
+
+        # 제목에 주제어가 있으면 3D 책상 장면
+        self.assertEqual(shorts.pick_backdrop(script("코드 에이전트 토큰\n77% 절감", "주석만 지웠어요")), "desk3d")
+        self.assertEqual(shorts.pick_backdrop(script("Claude Code 새 기능", "써 봤어요")), "desk3d")
+        # 대사에 두 번 이상 나와도 3D
+        self.assertEqual(shorts.pick_backdrop(script("비용이 확 줄었다", "토큰을 덜 써요", "토큰 / 절반이요")), "desk3d")
+        # 한 번 스치는 정도, 관계없는 주제는 기본 배경
+        self.assertEqual(shorts.pick_backdrop(script("새 GPU 발표", "에이전트도 돌린대요")), "glow")
+        self.assertEqual(shorts.pick_backdrop(script("유튜브 video 정책 변경", "idea 공유 기능")), "glow")
+
+    def test_pick_backdrop_respects_explicit_setting_and_off_switch(self):
+        script = {"cover": "에이전트 토큰 절감", "cuts": [{"line": "에이전트"}]}
+        original = (shorts.SHORTS_BACKDROP, shorts.DESK3D_AUTO)
+
+        try:
+            shorts.SHORTS_BACKDROP, shorts.DESK3D_AUTO = "type", True
+            self.assertEqual(shorts.pick_backdrop(script), "type")
+            shorts.SHORTS_BACKDROP, shorts.DESK3D_AUTO = "glow", False
+            self.assertEqual(shorts.pick_backdrop(script), "glow")
+        finally:
+            shorts.SHORTS_BACKDROP, shorts.DESK3D_AUTO = original
+
 
 if __name__ == "__main__":
     unittest.main()

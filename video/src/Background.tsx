@@ -1,11 +1,11 @@
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, interpolate, Loop, OffthreadVideo, staticFile, useCurrentFrame } from "remotion";
 import type { Cut } from "./schema";
 import { colors, serifFamily } from "./theme";
 
 // 배경: 비네트 + 장면마다 자리를 옮기는 빛 + (선택) 장면 핵심어를 크게 깐 지면 타이포.
 // 장식이 아니라 "장면이 바뀌었다"는 리듬을 주는 용도라, 아주 흐리고 천천히 움직인다.
 
-export type Backdrop = "glow" | "type";
+export type Backdrop = "glow" | "type" | "desk3d";
 
 // 장면이 바뀔 때마다 빛이 옮겨 가는 자리 (화면 좌표, 1080x1920)
 const ANCHORS: [number, number][] = [
@@ -112,6 +112,45 @@ export const Background: React.FC<{ cuts?: Cut[]; backdrop?: Backdrop }> = ({ cu
       ) : null}
 
       <AbsoluteFill style={{ background: `radial-gradient(ellipse at 50% 45%, transparent 55%, ${colors.vignette} 100%)` }} />
+    </AbsoluteFill>
+  );
+};
+
+// 미리 렌더링한 3D 장면 (Blender, video/assets3d/). 1080x1920 VP9 알파, 120프레임 끊김 없는 루프.
+export const DESK3D_SRC = "assets3d/desk_world_loop.webm";
+export const DESK3D_LOOP_FRAMES = 120;
+
+// 장면 위에 그래픽이 올라오는 동안 3D 장면을 배경색으로 얼마나 덮을지 (0 = 그대로, 1 = 완전히 가림)
+// 첫 컷은 화면 가운데 큰 제목(훅)이 있어 반쯤, 그래픽 컷은 그래픽이 읽히도록 많이, 그래픽 없는 컷은 장면을 그대로 보여 준다.
+const DESK3D_HOOK_DIM = 0.55;
+const DESK3D_VISUAL_DIM = 0.82;
+const DESK3D_FADE_FRAMES = 8;
+
+const deskDim = (cut: Cut | undefined, index: number) => {
+  if (!cut) return 0;
+  if (index === 0) return DESK3D_HOOK_DIM;
+  return cut.visual.type === "none" ? 0 : DESK3D_VISUAL_DIM;
+};
+
+// 3D 배경: 장면은 계속 돌고, 그 위 덮개만 컷에 맞춰 짙어지거나 걷힌다.
+export const Desk3DLayer: React.FC<{ cuts?: Cut[] }> = ({ cuts = [] }) => {
+  const frame = useCurrentFrame();
+  const index = Math.max(cuts.reduce((found, cut, i) => (cut.from <= frame ? i : found), -1), 0);
+  const cut = cuts[index];
+  const since = cut ? frame - cut.from : frame;
+  const before = index > 0 ? deskDim(cuts[index - 1], index - 1) : deskDim(cut, index);
+  const dim = interpolate(since, [0, DESK3D_FADE_FRAMES], [before, deskDim(cut, index)], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.65, 0, 0.35, 1),
+  });
+
+  return (
+    <AbsoluteFill>
+      <Loop durationInFrames={DESK3D_LOOP_FRAMES} name="Desk 3D">
+        <OffthreadVideo src={staticFile(DESK3D_SRC)} transparent muted style={{ width: 1080, height: 1920 }} />
+      </Loop>
+      <AbsoluteFill style={{ backgroundColor: colors.background, opacity: dim }} />
     </AbsoluteFill>
   );
 };

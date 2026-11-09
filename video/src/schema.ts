@@ -86,7 +86,8 @@ export const shortSchema = z.object({
   // 마무리 장면이 시작되는 프레임 (마지막 대사 뒤). 없으면 마무리 없음.
   outroFrom: z.number().int().optional(),
   // 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 지면 타이포)
-  backdrop: z.enum(["glow", "type"]).optional(),
+  // desk3d(빛 + 미리 렌더링한 3D '책상 위 꼬마 에이전트들' 루프, public/assets3d/desk_world_loop.webm)
+  backdrop: z.enum(["glow", "type", "desk3d"]).optional(),
   sfx: z.array(sfxSchema),
 });
 
