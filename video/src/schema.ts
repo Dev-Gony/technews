@@ -86,8 +86,9 @@ export const shortSchema = z.object({
   // 마무리 장면이 시작되는 프레임 (마지막 대사 뒤). 없으면 마무리 없음.
   outroFrom: z.number().int().optional(),
   // 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 지면 타이포)
-  // desk3d(빛 + 미리 렌더링한 3D '책상 위 꼬마 에이전트들' 루프, public/assets3d/desk_world_loop.webm)
-  backdrop: z.enum(["glow", "type", "desk3d"]).optional(),
+  // 3D 장면(빛 + 미리 렌더링한 Blender 루프, public/assets3d/*_loop.webm. Background.tsx SCENES_3D):
+  // desk3d 책상 위 꼬마 에이전트들 / vault3d 금고(보안) / coins3d 저울·동전(비용) / server3d 서버실(인프라) / lab3d 점수판·시상대(연구)
+  backdrop: z.enum(["glow", "type", "desk3d", "vault3d", "coins3d", "server3d", "lab3d"]).optional(),
   sfx: z.array(sfxSchema),
 });
 
