@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "issue_number": 51,
+  "issue_date": "2026-11-09",
+  "generated_at": "2026-11-09T09:33:58.062803+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nDMARC, Agentic Workflow, MCP, microVM, Git Worktree\n\n[오늘의 한줄 포인트]\n\nAI 에이전트 도입에 따른 보안 격리와 워크플로 최적화, 그리고 인프라 표준 준수가 실무의 핵심 과제로 떠오르고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트가 코드 실행과 데이터 접근의 주체로 부상하면서, 기존의 보안 경계와 개발 생산성 관리 방식에 근본적인 변화가 요구되고 있습니다. 또한, 이메일 발송 정책과 같은 인프라 표준 준수 여부가 서비스 운영의 안정성을 결정짓는 중요한 요소가 되었습니다.\n\n[왜 이 글들을 골랐나]\n\n• 5번: 이메일 발송 정책 변화는 서비스 운영에 즉각적인 영향을 미치는 실무 이슈이므로 우선순위가 높습니다.\n• 6번: AI 에이전트와의 협업 과정에서 발생하는 인지 과부하를 해결하는 구체적인 방법론은 생산성 향상에 직결됩니다.\n• 2번: MCP 환경에서 발생하는 데이터 전달 오류는 LLM 기반 에이전트 시스템을 설계하는 개발자에게 필수적인 디버깅 지식입니다.\n\n[오늘 공부해볼 것]\n\n• DMARC 및 SPF/DKIM 정렬 확인: 이메일 발송 인프라의 보안 정책을 점검하여 서비스 메일이 거부되는 상황을 방지하기 위함입니다.\n• Git 기반 작업 큐(tasks.md) 관리: AI 에이전트와 협업 시 세션 간 맥락을 유지하고 작업 우선순위를 명확히 하기 위한 실천적 방법입니다.\n• microVM과 샌드박스 격리 기술: AI 에이전트가 외부 코드를 안전하게 실행할 수 있도록 하는 백엔드 보안 아키텍처의 핵심 개념입니다.",
+  "stats": {
+    "candidate_count": 20,
+    "detailed_count": 7,
+    "brief_count": 1,
+    "excluded_count": 12,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Outlook.com, DMARC 없는 도메인의 이메일을 조용히 거부 중",
+      "link": "https://news.hada.io/topic?id=36840",
+      "published_at": "2026-11-09T06:49:35+09:00",
+      "selection_score": 14,
+      "selection_reason": "이메일 발송 인프라 및 보안 정책 변화는 백엔드 개발자에게 실무적으로 매우 중요한 이슈임.",
+      "feedback_bias": 0,
+      "one_line": "Microsoft가 DMARC 레코드가 없는 도메인의 이메일을 거부하기 시작하여 이메일 발송 인프라 점검이 필요함.",
+      "key_points": [
+        "2026년 11월 5일부터 Outlook.com 등 Microsoft 메일 서비스가 DMARC 없는 도메인의 메일을 일부 거부함.",
+        "대량 발송자뿐만 아니라 소량 발송자에게도 적용되며, 일부 메일만 반송되어 문제 인지가 어려울 수 있음.",
+        "DNS에 DMARC 레코드를 추가하고 SPF/DKIM 정렬을 확인하는 것이 즉각적인 대응책임."
+      ],
+      "topics": [
+        "DMARC",
+        "SPF",
+        "DKIM",
+        "이메일 인증"
+      ],
+      "recommended_for": "이메일 발송 기능을 운영하거나 도메인 관리 업무를 담당하는 모든 개발자.",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "도메인 DMARC 레코드 설정 및 정렬 상태 점검",
+        "steps": [
+          "현재 사용 중인 도메인의 DNS 설정에서 DMARC 레코드 존재 여부를 확인한다.",
+          "SPF와 DKIM이 From 주소 도메인과 올바르게 정렬되어 있는지 검사한다.",
+          "레코드가 없다면 'v=DMARC1; p=none' 정책을 추가하여 메일 거부 문제를 방지한다."
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "나는 AI로 인한 두뇌 과부하에 이렇게 대처한다",
+      "link": "https://news.hada.io/topic?id=36842",
+      "published_at": "2026-11-09T06:55:36+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트와 LLM을 활용한 워크플로 최적화 및 생산성 향상 방법론으로 매우 유익함.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트와의 협업 시 발생하는 인지 과부하를 방지하기 위해 Git 기반의 작업 큐와 상태 관리 시스템을 도입하는 방법론",
+      "key_points": [
+        "AI 응답을 기다리며 여러 맥락을 동시에 처리하는 인지 과부하를 줄이기 위해 작업 순서를 우선순위 큐 형태로 관리한다.",
+        "Git을 작업 기록의 단일 진실 공급원(Single Source of Truth)으로 삼아 티켓과 보드 상태를 Markdown 파일로 커밋하여 세션 간 맥락을 유지한다.",
+        "에이전트에게는 조사와 구현을 위임하고, 인간의 판단이 필요한 항목은 별도의 '담당자 수신함'에 우선순위별로 모아 처리한다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Context Management",
+        "Git-based Task Tracking"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 개발 생산성 향상에 관심이 많고, 여러 프로젝트를 동시에 진행하며 맥락 유지에 어려움을 겪는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Git 기반 작업 큐 및 상태 관리 시스템 구축",
+        "steps": [
+          "현재 진행 중인 작업들을 우선순위별로 나열한 'tasks.md' 파일을 프로젝트 루트에 생성한다.",
+          "AI 에이전트에게 작업 지시를 내릴 때 해당 파일을 참조하게 하고, 완료된 작업은 해당 파일에 체크리스트로 업데이트하도록 워크플로를 설정한다.",
+          "작업 세션 종료 시 현재 상태를 커밋하여 다음 세션에서 즉시 맥락을 복구할 수 있는지 확인한다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "ChatGPT가 알림 없이 커넥터 간 데이터를 전달하고, 버그 바운티는 신분증을 요구함",
+      "link": "https://news.hada.io/topic?id=36832",
+      "published_at": "2026-11-09T05:40:09+09:00",
+      "selection_score": 14,
+      "selection_reason": "MCP(Model Context Protocol) 환경에서 발생하는 데이터 전달 오류와 보안 이슈는 현재 매우 중요한 기술적 변화를 담고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "ChatGPT가 MCP 서버 환경에서 사용자 알림 없이 커넥터 간 데이터를 전환하여 인증 오류가 발생하는 이슈.",
+      "key_points": [
+        "ChatGPT가 동일한 MCP 서버를 참조하는 두 커넥터 사이에서 임의로 도구 호출을 전환함.",
+        "최초 커넥터에서 생성된 일회용 확인 코드가 다른 커넥터의 OAuth 클라이언트와 결속되지 않아 작업이 실패함.",
+        "사용자에게 커넥터 전환 사실을 알리지 않아 디버깅과 사용자 경험 측면에서 혼란을 야기함."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "OAuth 클라이언트 결속",
+        "도구 호출(Tool Calling) 오케스트레이션"
+      ],
+      "recommended_for": "MCP 서버를 개발하거나 LLM 기반 에이전트 워크플로를 설계하는 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "Replit, microVM으로 샌드박스 엔진 재구축",
+      "link": "https://news.hada.io/topic?id=36828",
+      "published_at": "2026-11-09T04:50:44+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트 실행을 위한 샌드박스 격리 기술과 microVM 활용은 백엔드 아키텍처 및 보안 측면에서 매우 중요한 실무 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "Replit이 AI 에이전트의 안전한 코드 실행을 위해 microVM 기반 샌드박스로 아키텍처를 전면 개편함.",
+      "key_points": [
+        "기존의 커널 공유 방식에서 벗어나 샌드박스마다 독립적인 커널을 가진 microVM을 도입하여 보안 경계를 강화함.",
+        "VM 내부에서 eBPF를 활용해 프로세스, 파일, 네트워크 활동을 실시간으로 모니터링함.",
+        "Linux 보안 모듈을 통해 권한을 엄격히 제한하여 호스트 시스템에 대한 접근을 원천 차단함."
+      ],
+      "topics": [
+        "microVM",
+        "eBPF",
+        "샌드박스 격리"
+      ],
+      "recommended_for": "AI 에이전트의 코드 실행 환경을 구축하거나 보안 아키텍처를 고민하는 백엔드 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "소스는 공개하되, 외부 기여는 받지 않는다",
+      "link": "https://news.hada.io/topic?id=36836",
+      "published_at": "2026-11-09T06:19:03+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 시대의 오픈소스 유지보수 전략 변화는 개발 워크플로와 생산성 관점에서 깊이 고민해볼 가치가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI로 인한 코드 생성 비용 감소로 인해, 오픈소스 프로젝트들이 외부 기여를 제한하고 내부 유지보수에 집중하는 추세.",
+      "key_points": [
+        "외부 패치 검토 비용이 직접 수정 비용보다 높아지면서, 소스는 공개하되 외부 기여는 받지 않는 모델이 확산됨.",
+        "SQLite와 같이 버그 신고와 테스트 사례만 수용하고 코드는 내부에서 관리하는 방식이 효율적인 대안으로 부상함.",
+        "조직별 맞춤형 기능은 내부에서 구현하고, 핵심 프로토콜이나 라이브러리만 공유하는 형태로 생태계가 변화할 가능성이 큼."
+      ],
+      "topics": [
+        "오픈소스 유지보수 전략",
+        "코드 검증 비용",
+        "AI 기반 개발 워크플로"
+      ],
+      "recommended_for": "오픈소스 프로젝트를 운영하거나 기업 내 코드 공유 전략을 고민하는 개발자.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM 시대의 확장 가능한 소프트웨어",
+      "link": "https://news.hada.io/topic?id=36837",
+      "published_at": "2026-11-09T06:24:58+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM을 활용한 확장 가능한 아키텍처와 샌드박스 기반의 사용자 확장 기능 구현은 최신 백엔드 트렌드와 직결됩니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM의 코드 생성 능력을 활용해 웹 앱의 핵심 코어를 유지하면서 사용자별 확장 기능을 안전하게 구현하는 전략.",
+      "key_points": [
+        "사용자가 필요한 기능을 직접 확장하게 함으로써 제품의 UI 복잡성을 줄이고 롱테일 수요를 충족할 수 있음.",
+        "안전한 확장을 위해 광범위한 API 허용 대신, 승인된 인터페이스를 통한 제어된 접근 방식이 필수적임.",
+        "사용자 코드 실행을 위해 저렴한 비용, 빠른 콜드 스타트, 강력한 테넌트 격리 기술이 뒷받침되어야 함."
+      ],
+      "topics": [
+        "확장 가능한 아키텍처",
+        "테넌트 격리",
+        "샌드박스 기반 확장"
+      ],
+      "recommended_for": "SaaS 제품의 확장성(Extensibility)과 사용자 맞춤형 기능 구현을 고민하는 백엔드 아키텍트.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: ParalleLane - 워크트리 지원에 중점을 둔 Git 클라이언트",
+      "link": "https://news.hada.io/topic?id=36849",
+      "published_at": "2026-11-09T08:36:26+09:00",
+      "selection_score": 13,
+      "selection_reason": "Git 워크트리 관리 등 개발 생산성을 직접적으로 개선하는 도구로 실무 활용도가 높음.",
+      "feedback_bias": 0,
+      "one_line": "Git 워크트리 관리와 계정 스위칭 편의성에 집중한 크로스 플랫폼 Git 클라이언트 'ParalleLane' 소개",
+      "key_points": [
+        "기존 Git 클라이언트의 워크트리 삭제 시 발생하는 오류와 계정 스위칭의 불편함을 해결하기 위해 개발된 도구이다.",
+        "좌측 사이드바에서 저장소와 워크트리를 직관적으로 시각화하여 멀티 태스킹 환경을 최적화한다.",
+        "저장소별로 Git 계정을 개별 지정할 수 있어 다중 계정 사용 환경에서 푸시 작업의 번거로움을 줄여준다."
+      ],
+      "topics": [
+        "Git Worktree",
+        "Developer Productivity Tools",
+        "Multi-repository Management"
+      ],
+      "recommended_for": "여러 개의 Git 워크트리를 동시에 사용하거나, 업무용/개인용 등 다중 Git 계정을 빈번하게 전환해야 하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "내가 코딩에 LLM을 사용하지 않으려는 이유",
+      "link": "https://news.hada.io/topic?id=36829",
+      "published_at": "2026-11-09T04:53:44+09:00",
+      "selection_score": 10,
+      "selection_reason": "LLM 기반 개발의 부작용과 인지적 비용에 대한 비판적 시각은 개발 생산성 전략을 수립할 때 고려해야 할 중요한 관점입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

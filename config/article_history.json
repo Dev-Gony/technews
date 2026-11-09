@@ -1,6 +1,119 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-09T09:33:58.514251+09:00",
+      "company": "GeekNews",
+      "title": "Replit, microVM으로 샌드박스 엔진 재구축",
+      "link": "https://news.hada.io/topic?id=36828",
+      "published_at": "2026-11-09T04:50:44+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "microVM",
+        "eBPF",
+        "샌드박스 격리"
+      ],
+      "one_line": "Replit이 AI 에이전트의 안전한 코드 실행을 위해 microVM 기반 샌드박스로 아키텍처를 전면 개편함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-09T09:33:58.514251+09:00",
+      "company": "GeekNews",
+      "title": "ChatGPT가 알림 없이 커넥터 간 데이터를 전달하고, 버그 바운티는 신분증을 요구함",
+      "link": "https://news.hada.io/topic?id=36832",
+      "published_at": "2026-11-09T05:40:09+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "OAuth 클라이언트 결속",
+        "도구 호출(Tool Calling) 오케스트레이션"
+      ],
+      "one_line": "ChatGPT가 MCP 서버 환경에서 사용자 알림 없이 커넥터 간 데이터를 전환하여 인증 오류가 발생하는 이슈.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-09T09:33:58.514251+09:00",
+      "company": "GeekNews",
+      "title": "소스는 공개하되, 외부 기여는 받지 않는다",
+      "link": "https://news.hada.io/topic?id=36836",
+      "published_at": "2026-11-09T06:19:03+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "오픈소스 유지보수 전략",
+        "코드 검증 비용",
+        "AI 기반 개발 워크플로"
+      ],
+      "one_line": "AI로 인한 코드 생성 비용 감소로 인해, 오픈소스 프로젝트들이 외부 기여를 제한하고 내부 유지보수에 집중하는 추세.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-09T09:33:58.514251+09:00",
+      "company": "GeekNews",
+      "title": "LLM 시대의 확장 가능한 소프트웨어",
+      "link": "https://news.hada.io/topic?id=36837",
+      "published_at": "2026-11-09T06:24:58+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "확장 가능한 아키텍처",
+        "테넌트 격리",
+        "샌드박스 기반 확장"
+      ],
+      "one_line": "LLM의 코드 생성 능력을 활용해 웹 앱의 핵심 코어를 유지하면서 사용자별 확장 기능을 안전하게 구현하는 전략.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-09T09:33:58.514251+09:00",
+      "company": "GeekNews",
+      "title": "Outlook.com, DMARC 없는 도메인의 이메일을 조용히 거부 중",
+      "link": "https://news.hada.io/topic?id=36840",
+      "published_at": "2026-11-09T06:49:35+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "DMARC",
+        "SPF",
+        "DKIM",
+        "이메일 인증"
+      ],
+      "one_line": "Microsoft가 DMARC 레코드가 없는 도메인의 이메일을 거부하기 시작하여 이메일 발송 인프라 점검이 필요함.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-09T09:33:58.514251+09:00",
+      "company": "GeekNews",
+      "title": "나는 AI로 인한 두뇌 과부하에 이렇게 대처한다",
+      "link": "https://news.hada.io/topic?id=36842",
+      "published_at": "2026-11-09T06:55:36+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Context Management",
+        "Git-based Task Tracking"
+      ],
+      "one_line": "AI 에이전트와의 협업 시 발생하는 인지 과부하를 방지하기 위해 Git 기반의 작업 큐와 상태 관리 시스템을 도입하는 방법론",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-09T09:33:58.514251+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: ParalleLane - 워크트리 지원에 중점을 둔 Git 클라이언트",
+      "link": "https://news.hada.io/topic?id=36849",
+      "published_at": "2026-11-09T08:36:26+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Git Worktree",
+        "Developer Productivity Tools",
+        "Multi-repository Management"
+      ],
+      "one_line": "Git 워크트리 관리와 계정 스위칭 편의성에 집중한 크로스 플랫폼 Git 클라이언트 'ParalleLane' 소개",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-11-08T09:12:27.263485+09:00",
       "company": "GeekNews",
       "title": "Entire, 에이전트 시대를 위한 분산 Git 네트워크 공개",
@@ -7879,119 +7992,7 @@
       ],
       "one_line": "패치 시리즈 워크플로 최적화 코드 리뷰 도구 'Flirt' 오픈소스 공개",
       "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "OpenRig - Claude Code와 Codex를 팀으로 운영하는 멀티 에이전트 오케스트레이터",
-      "link": "https://news.hada.io/topic?id=34854",
-      "published_at": "2026-10-06T09:30:02+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Multi-Agent Orchestration",
-        "MCP (Model Context Protocol)",
-        "Developer Tools"
-      ],
-      "one_line": "Claude Code와 Codex를 팀으로 운영하는 멀티 에이전트 오케스트레이터 'OpenRig'",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Hack에서 Skip까지: 모든 것을 증분 처리하기",
-      "link": "https://news.hada.io/topic?id=34859",
-      "published_at": "2026-10-06T09:55:02+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Incremental Computation (증분 계산)",
-        "Immutability (불변성)",
-        "Reactive Programming (반응형 프로그래밍)"
-      ],
-      "one_line": "대규모 코드베이스와 실시간 서비스에서 변경된 부분만 효율적으로 재계산하는 증분 처리 아키텍처와 Skip 프레임워크 소개",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
-      "company": "GeekNews",
-      "title": "Ask GN: 코딩 에이전트 뭐 쓰고 계세요? 고른 이유가 궁금합니다",
-      "link": "https://news.hada.io/topic?id=34756",
-      "published_at": "2026-10-04T20:15:26+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Acceptance Criteria",
-        "Agentic Workflow",
-        "Test Harness"
-      ],
-      "one_line": "코딩 에이전트 활용 시, 작업 계획 단계에서 상세한 인수조건(Acceptance Criteria)을 설정하면 저사양 모델로도 효율적인 구현이 가능함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: cuesheet - 링크 하나로 MSW 응답을 바꿔, AI도 QA도 상황별 화면을 확인하는 도구",
-      "link": "https://news.hada.io/topic?id=34757",
-      "published_at": "2026-10-04T21:21:06+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "MSW (Mock Service Worker)",
-        "API Mocking",
-        "Dynamic Mock Scenarios"
-      ],
-      "one_line": "MSW 핸들러 응답을 URL 파라미터로 제어하여, AI와 QA가 상황별 화면을 즉시 확인하게 돕는 도구 'cuesheet'.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
-      "company": "GeekNews",
-      "title": "Qwen 3.8 Flash Next(125B)를 소비자용 하드웨어(RTX 4090)에서 초당 100토큰으로 실행하기",
-      "link": "https://news.hada.io/topic?id=34761",
-      "published_at": "2026-10-04T23:44:10+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "LLM Quantization",
-        "MoE (Mixture of Experts)",
-        "Local Inference Engine"
-      ],
-      "one_line": "Strata를 활용해 소비자용 GPU(RTX 4090 등)에서 Qwen 3.8 Flash Next 모델을 초당 100토큰 이상의 속도로 로컬 실행.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
-      "company": "GeekNews",
-      "title": "gVisor, CNCF에 기증 추진",
-      "link": "https://news.hada.io/topic?id=34764",
-      "published_at": "2026-10-05T01:02:52+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "gVisor",
-        "CNCF",
-        "Container Runtime Security"
-      ],
-      "one_line": "Google의 보안 컨테이너 런타임 gVisor가 CNCF로 기증되어, 오픈 거버넌스 체제로 전환 및 생태계 확장을 추진함.",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-05T08:50:30.287962+09:00",
-      "company": "GeekNews",
-      "title": "Pi pod - 자체 서버의 샌드박스에서 pi 코딩 에이전트 실행하기",
-      "link": "https://news.hada.io/topic?id=34766",
-      "published_at": "2026-10-05T01:40:46+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Self-hosting",
-        "Agent Sandbox",
-        "RBAC (Role-Based Access Control)"
-      ],
-      "one_line": "Pi 코딩 에이전트를 자체 서버의 격리된 샌드박스 환경에서 실행하고 관리하는 오픈소스 도구 'Pi pod'.",
-      "actionability": 3
     }
   ],
-  "updated_at": "2026-11-08T09:12:27.263485+09:00"
+  "updated_at": "2026-11-09T09:33:58.514251+09:00"
 }
