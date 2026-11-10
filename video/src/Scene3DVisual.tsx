@@ -32,9 +32,9 @@ const LABEL_HEIGHT = 76;
 const BOTTOM_GAP = 24;
 
 // 이야기 연출
-const ESTABLISH = 12; // 처음 장면 전체를 보여 주는 프레임 (0.4초)
-const MOVE = 16; // 카메라가 다음 대상으로 옮겨 가는 프레임
-const MIN_BEAT = 24; // beat 하나가 화면에 머무는 최소 프레임 (0.8초)
+const ESTABLISH = 8; // 처음 장면 전체를 보여 주는 프레임 (0.27초)
+const MOVE = 12; // 카메라가 다음 대상으로 옮겨 가는 프레임
+const MIN_BEAT = 32; // beat 하나가 머무는 최소 프레임 (이름표가 0.7초 이상 읽히게)
 const TARGET_RADIUS = 170; // 밀고 들어간 뒤 대상이 화면에서 차지할 반지름(px)
 const MAX_ZOOM = 2.05;
 const MIN_ZOOM = 1.2;
