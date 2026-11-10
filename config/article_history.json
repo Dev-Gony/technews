@@ -1,6 +1,326 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "네이버 D2",
+      "title": "로그인 화면, 이제 만들지 마세요 - n3r OIDC",
+      "link": "https://d2.naver.com/helloworld/4293206",
+      "published_at": "2026-11-09T01:47:10Z",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "OIDC (OpenID Connect)",
+        "IAM (Identity and Access Management)",
+        "Token-based Authorization"
+      ],
+      "one_line": "네이버 n3r 플랫폼의 OIDC 연동을 통해 로그인 화면 구현 없이 인증 및 권한 관리를 표준화하는 방법",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "토스",
+      "title": "TASTE, 토스의 추천 파운데이션 플랫폼",
+      "link": "https://toss.tech/article/taste",
+      "published_at": "Mon, 09 Nov 2026 06:54:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-task Learning (MTL)",
+        "User Embedding",
+        "Foundation Model for Recommendation"
+      ],
+      "one_line": "토스의 추천 파운데이션 모델 'TASTE'를 통한 사용자 행동 예측 및 임베딩 전이 학습 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "뱅크샐러드",
+      "title": "망분리 환경에서도 한 달 만에 AX로 생산성을 높인 방법",
+      "link": "https://corp.banksalad.com/blog/tech/banksalad-ax-workflow-automation",
+      "published_at": "Mon, 09 Nov 2026 00:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AX (AI Transformation)",
+        "Workflow Automation",
+        "n8n"
+      ],
+      "one_line": "망분리 환경에서 n8n을 활용해 비개발 직군이 직접 업무 자동화(AX)를 구현한 사례",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "마켓컬리",
+      "title": "코드에서 화면 지도를 그리고, AI와 함께 회귀 테스트의 빈 곳을 채우다",
+      "link": "https://helloworld.kurly.com/blog/web-e2e-coverage-map",
+      "published_at": "Sun, 08 Nov 2026 15:00:00 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "E2E Testing",
+        "Regression Testing",
+        "AI Agent (Claude Code)"
+      ],
+      "one_line": "Claude Code를 활용해 서비스 코드에서 화면 지도를 그리고 테스트 자동화 범위를 확장한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "Google Developers",
+      "title": "Announcing Long-Context Training on TPUs with MaxText Context Parallelism",
+      "link": "https://developers.googleblog.com/announcing-long-context-training-on-tpus-with-maxtext-context-parallelism",
+      "published_at": "",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Context Parallelism",
+        "TPU (Tensor Processing Unit)",
+        "MFU (Model FLOPs Utilization)"
+      ],
+      "one_line": "Google Cloud MaxText의 TPU 컨텍스트 병렬화 기술을 통한 1,400만 토큰 학습 지원",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "Google Developers",
+      "title": "From prompt to app: Build with Google Maps in AI Studio",
+      "link": "https://developers.googleblog.com/from-prompt-to-app-build-with-google-maps-in-ai-studio",
+      "published_at": "",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Google AI Studio",
+        "Google Maps Platform",
+        "Prototyping"
+      ],
+      "one_line": "Google AI Studio에서 Google Maps API를 직접 호출하여 빠르게 프로토타이핑할 수 있게 되었습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "Google Developers",
+      "title": "What is Pathways? Single-controller training for large models",
+      "link": "https://developers.googleblog.com/what-is-pathways-single-controller-training-for-large-models",
+      "published_at": "",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Pathways",
+        "Distributed Training",
+        "Dataflow Graph"
+      ],
+      "one_line": "Pathways는 비동기식 중앙 스케줄링을 통해 대규모 모델 학습의 효율성을 극대화하는 분산 처리 시스템입니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "Meta Engineering",
+      "title": "Extending LLDB to Debug Applications That Span CPUs and GPUs",
+      "link": "https://engineering.fb.com/2026/11/09/developer-tools/extending-lldb-to-debug-applications-that-span-cpus-and-gpus",
+      "published_at": "Mon, 09 Nov 2026 17:00:12 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "LLDB",
+        "Accelerator Debugging",
+        "Heterogeneous Computing"
+      ],
+      "one_line": "Meta가 개발한 LLDB의 범용 가속기 플러그인 아키텍처로 CPU와 GPU를 통합 디버깅할 수 있습니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "Netflix TechBlog",
+      "title": "Fact-Checking at Scale: Building a More Accurate and Efficient Synopsis Factuality System",
+      "link": "https://netflixtechblog.com/fact-checking-at-scale-building-a-more-accurate-and-efficient-synopsis-factuality-system-d7d85859d808",
+      "published_at": "Mon, 09 Nov 2026 17:01:02 GMT",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Fact-Checking",
+        "LLM Reasoning",
+        "Confidence Gating"
+      ],
+      "one_line": "Netflix는 LLM 기반 사실 검증 시스템에 '신뢰도 게이팅'과 '전문가형 판단 모델'을 도입해 비용과 정확도를 개선했습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "AWS Architecture",
+      "title": "How DeepL keeps closest-exit routing during maintenance with AWS Cloud WAN",
+      "link": "https://aws.amazon.com/blogs/architecture/how-deepl-keeps-closest-exit-routing-during-maintenance-with-aws-cloud-wan",
+      "published_at": "Mon, 09 Nov 2026 20:15:09 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Cloud WAN",
+        "Direct Connect",
+        "BGP Traffic Engineering"
+      ],
+      "one_line": "DeepL은 AWS Cloud WAN과 AS_PATH prepend를 활용해 네트워크 유지보수 중에도 최적의 경로를 유지합니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "AWS Architecture",
+      "title": "Transforming fleet analytics for Novus Hi-Tech through agentic AI",
+      "link": "https://aws.amazon.com/blogs/architecture/transforming-fleet-analytics-for-novus-hi-tech-through-agentic-ai",
+      "published_at": "Mon, 09 Nov 2026 20:34:35 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Multi-Agent Architecture",
+        "Text-to-SQL",
+        "Agentic Workflow"
+      ],
+      "one_line": "AWS와 Strands Agents를 활용한 FleetGPT: IoT 데이터 분석 및 실시간 운전자 개입을 자동화하는 멀티 에이전트 시스템",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "e-means - 같은 테스트 오차에 약 10배 빠른 k-means",
+      "link": "https://news.hada.io/topic?id=36907",
+      "published_at": "2026-11-10T06:37:33+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "k-means",
+        "Exponential Moving Average (EMA)",
+        "Algorithm Optimization"
+      ],
+      "one_line": "지수이동평균(EMA) 기반의 e-means 알고리즘으로 기존 k-means 대비 최대 45배 빠른 클러스터링 성능 달성",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "Google Gemini, 개인 Drive 파일과 이메일을 사람 검토자에게 전달",
+      "link": "https://news.hada.io/topic?id=36908",
+      "published_at": "2026-11-10T07:35:14+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Data Privacy",
+        "AI Security",
+        "Google Workspace Integration"
+      ],
+      "one_line": "Google Gemini의 개인 데이터 접근 정책 변경: 사용자 이메일과 드라이브 파일이 사람 검토자에게 노출될 가능성 명시",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "Claude Fable 5.2, Artificial Analysis 지능 지수에서 역대 최고인 65점 기록",
+      "link": "https://news.hada.io/topic?id=36910",
+      "published_at": "2026-11-10T07:41:15+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "LLM Benchmarking",
+        "Cost-Efficiency",
+        "Inference Latency"
+      ],
+      "one_line": "Claude Fable 5.2, 지능 지수 65점 기록하며 최고 성능 달성했으나 높은 비용과 긴 처리 시간 확인",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "raea - AI가 코드로 만든 영상/3D/게임을 GPU에서 렌더링하는 엔진",
+      "link": "https://news.hada.io/topic?id=36917",
+      "published_at": "2026-11-10T09:30:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "Generative UI/UX",
+        "Bevy Engine"
+      ],
+      "one_line": "raea: AI 에이전트가 생성한 코드를 Rust/Bevy 기반 GPU 엔진으로 렌더링하여 영상, 3D, 게임을 자동 제작",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "Google, 8세대 TPU에 기밀 추론용 8tx와 긴 컨텍스트용 8i Max 추가",
+      "link": "https://news.hada.io/topic?id=36918",
+      "published_at": "2026-11-10T09:38:04+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "TPU(Tensor Processing Unit)",
+        "기밀 컴퓨팅(Confidential Computing)",
+        "저지연 추론"
+      ],
+      "one_line": "Google이 8세대 TPU에 기밀 추론용 8tx와 대용량 컨텍스트용 8i Max를 추가하여 특화 시스템 라인업을 강화함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "ElevenLabs는 어떻게 영화 더빙에서 음성 AI 플랫폼으로 확장했나 [영상]",
+      "link": "https://news.hada.io/topic?id=36923",
+      "published_at": "2026-11-10T10:50:02+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "FDE(Field Deployment Engineer)",
+        "AI 플랫폼 전략",
+        "음성 생성 모델"
+      ],
+      "one_line": "ElevenLabs는 핵심 오디오 모델 연구와 제품팀의 현장 엔지니어링을 결합하여 영화 더빙에서 음성 AI 플랫폼으로 확장함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "1.58비트 터너리 양자화로 30B LLM을 맥북에서 돌리기: 0점에서 89.4%까지 복원한 기록",
+      "link": "https://news.hada.io/topic?id=36924",
+      "published_at": "2026-11-10T10:53:46+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "터너리 양자화(Ternary Quantization)",
+        "PTQ(Post-Training Quantization)",
+        "MLX"
+      ],
+      "one_line": "30B 규모의 LLM을 1.58비트 터너리 양자화로 압축하여 24GB 메모리의 맥북에서 구동 가능한 수준으로 최적화함.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: Tacie – 지난 결정, 회의 중에 바로 찾아 주는 Mac용 AI 어시스턴트",
+      "link": "https://news.hada.io/topic?id=36925",
+      "published_at": "2026-11-10T10:56:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "RAG(Retrieval-Augmented Generation)",
+        "AI 어시스턴트",
+        "업무 자동화"
+      ],
+      "one_line": "Tacie는 GitHub, Linear, 노션 등 업무 도구와 연동하여 회의 중 필요한 정보를 즉시 제공하는 Mac용 AI 어시스턴트임.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-10T12:11:20.332829+09:00",
+      "company": "GeekNews",
+      "title": "Fable 5.2가 조카가 꿈꾸던 게임을 한 번의 요청으로 구현함",
+      "link": "https://news.hada.io/topic?id=36929",
+      "published_at": "2026-11-10T11:35:11+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "자동화된 소프트웨어 테스트",
+        "헤드리스 브라우저"
+      ],
+      "one_line": "Fable 5.2는 단일 요청으로 복잡한 게임 로직을 생성하고, 봇을 활용해 자동 테스트까지 수행하는 AI 개발 워크플로를 선보임.",
+      "actionability": 3
+    },
+    {
       "recorded_at": "2026-11-09T09:33:58.514251+09:00",
       "company": "GeekNews",
       "title": "Replit, microVM으로 샌드박스 엔진 재구축",
@@ -7672,327 +7992,7 @@
       ],
       "one_line": "2026년 10월 11일 예정된 DNS 루트 키(KSK-2024) 교체에 따른 DNSSEC 검증 시스템 준비",
       "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "AWS Compute",
-      "title": "Get started with AWS Lambda SnapStart for container images",
-      "link": "https://aws.amazon.com/blogs/compute/get-started-with-aws-lambda-snapstart-for-container-images",
-      "published_at": "Tue, 06 Oct 2026 16:59:51 +0000",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "AWS Lambda SnapStart",
-        "Cold Start Optimization",
-        "Firecracker MicroVM"
-      ],
-      "one_line": "AWS Lambda SnapStart가 컨테이너 이미지 함수를 지원하여 콜드 스타트 지연 시간을 획기적으로 단축",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "Async Rust: 스케줄러는 어디에 있는가?",
-      "link": "https://news.hada.io/topic?id=34882",
-      "published_at": "2026-10-06T17:04:32+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Async Rust",
-        "Runtime Independence",
-        "Function Coloring"
-      ],
-      "one_line": "Rust 비동기 런타임의 설계 철학과 스케줄러 분리에 따른 복잡성 및 대안 분석",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "Mistral Large 4 발표 - 코딩·보안·시각 이해를 강화한 1조 파라미터 오픈웨이트 모델",
-      "link": "https://news.hada.io/topic?id=34890",
-      "published_at": "2026-10-06T22:38:19+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "MoE (Mixture of Experts)",
-        "Multimodal LLM",
-        "Visual Grounding"
-      ],
-      "one_line": "Mistral Large 4 발표: 코딩, 보안, 시각 이해에 최적화된 1조 파라미터급 멀티모달 모델",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: agent-gc – AI 코딩 에이전트가 남긴 worktree 쓰레기를 치워주는 TUI",
-      "link": "https://news.hada.io/topic?id=34893",
-      "published_at": "2026-10-06T23:41:21+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Git Worktree",
-        "TUI(Terminal User Interface)",
-        "Disk Cleanup"
-      ],
-      "one_line": "AI 코딩 에이전트가 생성한 불필요한 worktree와 빌드 산출물을 안전하게 정리해주는 TUI 도구",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "Polars 2.0 출시",
-      "link": "https://news.hada.io/topic?id=34894",
-      "published_at": "2026-10-06T23:42:02+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Lazy Evaluation",
-        "Out-of-core Processing",
-        "Streaming Engine"
-      ],
-      "one_line": "스트리밍 엔진과 SQL 지원을 강화한 고성능 데이터프레임 라이브러리 Polars 2.0 출시",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "Meta의 Muse, 귀엽지만 개인정보 보호와 보안은 총체적 난국",
-      "link": "https://news.hada.io/topic?id=34897",
-      "published_at": "2026-10-07T00:33:22+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Agent Security",
-        "Zero-day Vulnerability",
-        "Data Privacy"
-      ],
-      "one_line": "Meta의 AI 에이전트 'Muse'에서 발견된 권한 무시 및 보안 취약점 이슈",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "openTPU - AI가 설계하고 실제 FPGA에서 모델을 실행하는 오픈소스 AI 가속기",
-      "link": "https://news.hada.io/topic?id=34903",
-      "published_at": "2026-10-07T03:34:47+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "FPGA",
-        "AI Accelerator",
-        "Quantization"
-      ],
-      "one_line": "AI가 설계하고 FPGA에서 실제 모델을 실행하는 오픈소스 AI 가속기 프로젝트 openTPU",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "나는 인류를 멸종시키고 있는 AGI다",
-      "link": "https://news.hada.io/topic?id=34905",
-      "published_at": "2026-10-07T05:32:58+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "AGI Alignment",
-        "Incentive Alignment",
-        "Emergent Behavior"
-      ],
-      "one_line": "기업과 시장의 구조적 최적화가 AI 에이전트의 위험성과 유사함을 지적한 비유적 에세이",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "EmbeddingGemma 2 - 개방형 경량 멀티모달 임베딩 모델",
-      "link": "https://news.hada.io/topic?id=34907",
-      "published_at": "2026-10-07T07:34:20+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Matryoshka Representation Learning (MRL)",
-        "Multimodal Embedding",
-        "On-device RAG"
-      ],
-      "one_line": "Google이 멀티모달(텍스트, 코드, 이미지, 오디오)을 지원하는 경량 임베딩 모델 'EmbeddingGemma 2'를 공개함.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "밀리초 단위로 벤치마크하기",
-      "link": "https://news.hada.io/topic?id=34908",
-      "published_at": "2026-10-07T07:37:20+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Micro-benchmarking",
-        "Performance Intuition",
-        "Fixed Overhead"
-      ],
-      "one_line": "벤치마크의 목적을 정밀 측정보다 '올바른 판단을 위한 직관'에 두고, 약 300ms 내외의 실행 시간을 목표로 삼는 효율적인 성능 측정법을 제안함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-07T09:23:44.665241+09:00",
-      "company": "GeekNews",
-      "title": "OpenAI, AI가 도출한 수학 연구 원고 722편과 증명 자료 공개",
-      "link": "https://news.hada.io/topic?id=34910",
-      "published_at": "2026-10-07T08:36:29+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Formal Verification (Lean)",
-        "Mathematical Reasoning",
-        "AI-driven Scientific Discovery"
-      ],
-      "one_line": "OpenAI가 내부 모델을 통해 도출한 722편의 수학 연구 원고와 증명 자료를 GitHub에 공개함.",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GitHub Blog",
-      "title": "ReviewBench: An open benchmark for AI code review",
-      "link": "https://github.blog/ai-and-ml/github-copilot/reviewbench-an-open-benchmark-for-ai-code-review",
-      "published_at": "Mon, 05 Oct 2026 15:59:40 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Code Review",
-        "Golden Set",
-        "Fβ Score"
-      ],
-      "one_line": "AI 코드 리뷰 에이전트의 성능을 객관적으로 측정하는 오픈 벤치마크 'ReviewBench' 공개",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "AWS Compute",
-      "title": "Introducing EC2 AMI Tag Sharing: Share EC2 tags across AWS accounts",
-      "link": "https://aws.amazon.com/blogs/compute/introducing-ec2-ami-tag-sharing-share-ec2-tags-across-aws-accounts",
-      "published_at": "Mon, 05 Oct 2026 19:05:04 +0000",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "ABAC(Attribute-Based Access Control)",
-        "AMI(Amazon Machine Image)",
-        "Cross-Account Governance"
-      ],
-      "one_line": "AWS, EC2 AMI 태그를 여러 계정 간에 자동으로 공유하는 'EC2 AMI Tag Sharing' 기능 출시",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: Agent Guard - Claude Code·Codex의 비밀정보 노출을 줄이는 로컬 보안 도구",
-      "link": "https://news.hada.io/topic?id=34831",
-      "published_at": "2026-10-06T01:48:31+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Prompt Injection Prevention",
-        "Secret Scanning",
-        "Agentic Security"
-      ],
-      "one_line": "Claude Code 및 Codex 사용 시 민감 정보 노출을 방지하는 로컬 보안 도구 'Agent Guard'",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Mold 링커 3.0.0 출시, Rust로 재작성",
-      "link": "https://news.hada.io/topic?id=34832",
-      "published_at": "2026-10-06T02:36:13+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Linker",
-        "Memory Safety",
-        "Binary Compatibility"
-      ],
-      "one_line": "고속 링커 'Mold' 3.0.0 출시, Rust 재작성을 통한 메모리 안전성 및 성능 강화",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Wikimedia에서 OpenAI의 ‘통제를 벗어난’ 에이전트 활동 발견",
-      "link": "https://news.hada.io/topic?id=34835",
-      "published_at": "2026-10-06T04:42:46+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow Risk",
-        "Bot Traffic Management",
-        "AI Ethics"
-      ],
-      "one_line": "Wikimedia, OpenAI 에이전트의 무승인 데이터 수집 및 침입 시도 확인",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Beam - Reflection의 5,010억 매개변수 오픈 웨이트 모델",
-      "link": "https://news.hada.io/topic?id=34839",
-      "published_at": "2026-10-06T05:40:52+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "MoE (Mixture of Experts)",
-        "강화학습 (Reinforcement Learning)",
-        "추론 효율성"
-      ],
-      "one_line": "Reflection의 5,010억 매개변수 MoE 모델 'Beam' 공개 예정",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Opus 5.5 에이전트, 차세대 메모리용 상온 자성 반도체 후보 두 가지 발견",
-      "link": "https://news.hada.io/topic?id=34847",
-      "published_at": "2026-10-06T07:36:17+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "스핀트로닉스 (Spintronics)",
-        "밀도범함수이론 (DFT)"
-      ],
-      "one_line": "Claude Opus 5.5 에이전트가 차세대 메모리용 상온 자성 반도체 후보 발견",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Deno와의 우정은 끝났다, 이제 Node가 내 가장 친한 친구다",
-      "link": "https://news.hada.io/topic?id=34851",
-      "published_at": "2026-10-06T09:05:45+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Node.js",
-        "PNPM",
-        "공급망 보안 (Supply Chain Security)"
-      ],
-      "one_line": "Deno에서 Node.js로의 회귀와 현대적 Node 개발 환경 구축",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-06T10:43:13.880421+09:00",
-      "company": "GeekNews",
-      "title": "Flirt, 오픈소스로 공개",
-      "link": "https://news.hada.io/topic?id=34852",
-      "published_at": "2026-10-06T09:08:45+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Patch Series Workflow",
-        "Code Review",
-        "Local-first Software"
-      ],
-      "one_line": "패치 시리즈 워크플로 최적화 코드 리뷰 도구 'Flirt' 오픈소스 공개",
-      "actionability": 3
     }
   ],
-  "updated_at": "2026-11-09T09:33:58.514251+09:00"
+  "updated_at": "2026-11-10T12:11:20.332829+09:00"
 }

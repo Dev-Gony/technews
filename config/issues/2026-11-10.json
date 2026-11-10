@@ -1,0 +1,665 @@
+{
+  "schema_version": 1,
+  "issue_number": 52,
+  "issue_date": "2026-11-10",
+  "generated_at": "2026-11-10T12:11:20.106730+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAX(업무 자동화), Agentic Workflow, OIDC, Multi-Agent Architecture, LLM 최적화\n\n[오늘의 한줄 포인트]\n\nAI 에이전트와 표준화된 인증 아키텍처를 통해 단순 반복 업무를 넘어 복잡한 개발 및 운영 프로세스를 자동화하는 시대가 도래했습니다.\n\n[오늘 왜 중요한가]\n\n단순한 AI 모델 활용을 넘어, 에이전트가 직접 코드를 생성하고 테스트하며 사내 워크플로를 제어하는 실무 사례가 급증하고 있습니다. 이러한 기술적 흐름을 이해하고 도입하는 것은 개발 생산성을 비약적으로 높이고 운영 비용을 절감하는 핵심 경쟁력이 될 것입니다.\n\n[왜 이 글들을 골랐나]\n\n• 3번: 보안이 엄격한 망분리 환경에서도 비개발 직군이 직접 업무 자동화를 구현한 실질적인 생산성 향상 사례이기 때문입니다.\n• 11번: 멀티 에이전트 아키텍처를 통해 IoT 데이터 분석부터 실시간 대응까지 자동화한 에이전틱 AI의 완성도 높은 실무 모델이기 때문입니다.\n• 15번: AI 에이전트가 코드 생성부터 렌더링, 피드백 루프를 통한 품질 개선까지 수행하는 최신 에이전틱 워크플로를 잘 보여주기 때문입니다.\n\n[오늘 공부해볼 것]\n\n• n8n을 활용한 워크플로 자동화: 비개발 직군도 활용 가능한 로우코드 도구를 통해 사내 반복 업무를 자동화하는 구조를 익히기 위함입니다.\n• 멀티 에이전트 아키텍처(Supervisor-Worker): 복잡한 작업을 여러 에이전트가 분담하여 처리하는 설계 방식을 이해하고 실무에 적용하기 위함입니다.\n• OIDC 기반 인증 표준화: 서비스마다 로그인 화면을 만들지 않고 IAM을 통해 인증을 통합하여 보안과 개발 생산성을 동시에 확보하는 방법을 학습하기 위함입니다.",
+  "stats": {
+    "candidate_count": 37,
+    "detailed_count": 20,
+    "brief_count": 6,
+    "excluded_count": 11,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "뱅크샐러드",
+      "title": "망분리 환경에서도 한 달 만에 AX로 생산성을 높인 방법",
+      "link": "https://corp.banksalad.com/blog/tech/banksalad-ax-workflow-automation",
+      "published_at": "Mon, 09 Nov 2026 00:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "망분리 환경에서의 업무 자동화(AX) 사례는 실질적인 생산성 향상과 비용 절감 측면에서 매우 높은 가치를 지닙니다.",
+      "feedback_bias": 0,
+      "one_line": "망분리 환경에서 n8n을 활용해 비개발 직군이 직접 업무 자동화(AX)를 구현한 사례",
+      "key_points": [
+        "개인정보 제외, 사내 용도 한정 등 명확한 가이드라인을 통해 보안 검토 병목을 제거함.",
+        "비개발 직군이 직접 워크플로를 수정할 수 있는 n8n을 도입하여 기술팀의 개입을 최소화함.",
+        "정부지원과제 모니터링, 법인카드 잔액 조회, 뉴스 모니터링 등 반복 업무를 자동화하여 생산성을 높임."
+      ],
+      "topics": [
+        "AX (AI Transformation)",
+        "Workflow Automation",
+        "n8n"
+      ],
+      "recommended_for": "보안이 엄격한 환경에서 업무 자동화를 통해 생산성을 높이고 싶은 기술 리드 및 운영 담당자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "n8n을 활용한 사내 반복 업무 자동화 파일럿 프로젝트 시작",
+        "steps": [
+          "개인정보를 포함하지 않는 사내 반복 업무(예: 뉴스 모니터링, 공지사항 수집) 리스트업",
+          "n8n 오픈소스 버전을 로컬 또는 사내 개발망에 설치하여 워크플로 프로토타입 제작",
+          "해당 업무 담당자와 함께 워크플로를 검토하고 Slack 알림 연동 테스트"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Transforming fleet analytics for Novus Hi-Tech through agentic AI",
+      "link": "https://aws.amazon.com/blogs/architecture/transforming-fleet-analytics-for-novus-hi-tech-through-agentic-ai",
+      "published_at": "Mon, 09 Nov 2026 20:34:35 +0000",
+      "selection_score": 14,
+      "selection_reason": "Agentic AI를 활용한 실제 데이터 분석 및 업무 자동화 성공 사례로, 사용자의 핵심 관심사와 완벽히 일치합니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS와 Strands Agents를 활용한 FleetGPT: IoT 데이터 분석 및 실시간 운전자 개입을 자동화하는 멀티 에이전트 시스템",
+      "key_points": [
+        "Text-to-SQL 및 RAG를 결합하여 자연어로 차량 데이터와 정책 문서를 즉시 조회하고 분석하는 Analyst 에이전트 구현",
+        "DynamoDB Streams를 통해 실시간 안전 이벤트를 감지하고, AI 음성 통화로 운전자에게 즉각 대응하는 Intervention 엔진 구축",
+        "Supervisor 에이전트가 의도를 파악하여 적절한 서브 에이전트(SQL, Python, RAG)로 작업을 위임하는 멀티 에이전트 아키텍처 적용"
+      ],
+      "topics": [
+        "Multi-Agent Architecture",
+        "Text-to-SQL",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "대규모 IoT 데이터를 실시간으로 처리하고 AI 에이전트를 통해 운영 효율을 높이려는 백엔드 및 데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Strands Agents SDK를 활용한 멀티 에이전트 아키텍처 검토",
+        "steps": [
+          "Strands Agents SDK의 문서와 예제 코드를 확인하여 현재 운영 중인 데이터 파이프라인에 적용 가능한지 아키텍처 설계",
+          "Supervisor 에이전트가 처리할 수 있는 도구(Tool) 목록을 정의하고, 간단한 Text-to-SQL 프로토타입 구현"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "raea - AI가 코드로 만든 영상/3D/게임을 GPU에서 렌더링하는 엔진",
+      "link": "https://news.hada.io/topic?id=36917",
+      "published_at": "2026-11-10T09:30:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트가 코드를 생성하고 렌더링하는 워크플로는 최신 Agentic Workflow 트렌드와 직접적으로 맞닿아 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "raea: AI 에이전트가 생성한 코드를 Rust/Bevy 기반 GPU 엔진으로 렌더링하여 영상, 3D, 게임을 자동 제작",
+      "key_points": [
+        "사용자의 자연어 명령을 React/TypeScript 코드로 변환하고, 이를 GPU 렌더링 엔진을 통해 시각화",
+        "에이전트가 생성된 프레임을 직접 검사하고 코드를 수정하는 피드백 루프를 통해 품질 개선",
+        "Bevy 엔진을 활용하여 3D/게임의 물리, 사운드, 입력을 처리하며 독립 실행 프로그램으로 빌드 가능"
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Generative UI/UX",
+        "Bevy Engine"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 콘텐츠 생성 자동화 및 인터랙티브 애플리케이션 개발에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "raea를 활용한 간단한 모션 그래픽 자동 생성 실험",
+        "steps": [
+          "raea 저장소를 클론하고 로컬 환경에 설치하여 기본 예제 실행",
+          "Claude Code 플러그인을 연동하여 간단한 텍스트 기반 애니메이션 생성 요청 후 결과물 확인"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "로그인 화면, 이제 만들지 마세요 - n3r OIDC",
+      "link": "https://d2.naver.com/helloworld/4293206",
+      "published_at": "2026-11-09T01:47:10Z",
+      "selection_score": 13,
+      "selection_reason": "OIDC 표준을 활용한 인증 통합 및 권한 관리 설계는 백엔드 아키텍처와 보안 측면에서 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "네이버 n3r 플랫폼의 OIDC 연동을 통해 로그인 화면 구현 없이 인증 및 권한 관리를 표준화하는 방법",
+      "key_points": [
+        "n3r.iam을 OIDC Provider로 활용하여 서비스별 로그인 화면 구현 없이 인증을 통합함.",
+        "사용자의 프로젝트, 역할(role), 그룹 정보를 표준 토큰에 포함하여 API 호출 시 인가(Authorization)에 활용함.",
+        "Access Token 재발급을 통해 실시간으로 권한 변경 사항을 반영하는 설계 구조를 채택함."
+      ],
+      "topics": [
+        "OIDC (OpenID Connect)",
+        "IAM (Identity and Access Management)",
+        "Token-based Authorization"
+      ],
+      "recommended_for": "사내 서비스 인증 아키텍처를 표준화하고 개발 생산성을 높이고 싶은 백엔드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "토스",
+      "title": "TASTE, 토스의 추천 파운데이션 플랫폼",
+      "link": "https://toss.tech/article/taste",
+      "published_at": "Mon, 09 Nov 2026 06:54:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "추천 파운데이션 모델을 통한 데이터 활용 최적화는 대규모 서비스의 데이터 분석 및 아키텍처 설계에 중요한 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "토스의 추천 파운데이션 모델 'TASTE'를 통한 사용자 행동 예측 및 임베딩 전이 학습 사례",
+      "key_points": [
+        "여러 서비스의 데이터를 통합 학습하여 사용자 표현(임베딩)을 생성하고, 이를 다양한 추천 모델에 활용함.",
+        "MMoE, PLE 등 멀티태스크 학습 구조를 도입하고, 데이터 규모와 시퀀스 학습을 강화하여 예측 성능을 개선함.",
+        "TASTE Bench를 통해 임베딩의 전이 효과를 사전에 검증하여 서비스별 모델 최적화 비용을 절감함."
+      ],
+      "topics": [
+        "Multi-task Learning (MTL)",
+        "User Embedding",
+        "Foundation Model for Recommendation"
+      ],
+      "recommended_for": "대규모 사용자 데이터를 활용한 추천 시스템 고도화 및 모델 아키텍처 통합에 관심 있는 데이터 분석가 및 ML 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "마켓컬리",
+      "title": "코드에서 화면 지도를 그리고, AI와 함께 회귀 테스트의 빈 곳을 채우다",
+      "link": "https://helloworld.kurly.com/blog/web-e2e-coverage-map",
+      "published_at": "Sun, 08 Nov 2026 15:00:00 GMT",
+      "selection_score": 12,
+      "selection_reason": "AI를 활용한 테스트 자동화 및 회귀 테스트 효율화는 개발 생산성 향상에 즉각적으로 기여할 수 있는 실무 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Code를 활용해 서비스 코드에서 화면 지도를 그리고 테스트 자동화 범위를 확장한 사례",
+      "key_points": [
+        "문서 대신 실제 코드의 라우트(Route)를 분석하여 서비스 전체 화면 지도를 5일 만에 완성함.",
+        "AI가 제안한 테스트 시나리오를 사람이 검토하고, 고장 주입(Fault Injection)을 통해 테스트의 신뢰성을 검증함.",
+        "PC와 모바일웹을 한 쌍으로 관리하는 규칙을 통해 테스트 커버리지를 효율적으로 확보함."
+      ],
+      "topics": [
+        "E2E Testing",
+        "Regression Testing",
+        "AI Agent (Claude Code)"
+      ],
+      "recommended_for": "테스트 자동화 커버리지를 체계적으로 넓히고 싶은 QA 엔지니어 및 개발 생산성 담당자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 프로젝트의 라우트 기반 테스트 커버리지 분석",
+        "steps": [
+          "프로젝트의 프론트엔드 코드에서 전체 라우트 목록을 추출하여 문서화",
+          "현재 운영 중인 E2E 테스트가 커버하는 라우트와 누락된 라우트 분류",
+          "누락된 핵심 화면에 대해 AI 에이전트를 활용한 테스트 시나리오 초안 생성"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Announcing Long-Context Training on TPUs with MaxText Context Parallelism",
+      "link": "https://developers.googleblog.com/announcing-long-context-training-on-tpus-with-maxtext-context-parallelism",
+      "published_at": "",
+      "selection_score": 13,
+      "selection_reason": "초장문 컨텍스트 학습을 위한 TPU 최적화 기술은 LLM 및 인프라 성능 개선 분야의 중요한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Google Cloud MaxText의 TPU 컨텍스트 병렬화 기술을 통한 1,400만 토큰 학습 지원",
+      "key_points": [
+        "MaxText 프레임워크가 All-gather, A2A, P2P, USP 등 4가지 컨텍스트 병렬 전략을 지원함.",
+        "Tokamax Splash Attention 커널을 통해 메모리 병목을 해결하고 대규모 모델 학습 효율(MFU)을 극대화함.",
+        "최대 1,400만 토큰의 초장문 컨텍스트 학습이 가능해져 대규모 언어 모델 학습 인프라 성능이 개선됨."
+      ],
+      "topics": [
+        "Context Parallelism",
+        "TPU (Tensor Processing Unit)",
+        "MFU (Model FLOPs Utilization)"
+      ],
+      "recommended_for": "초대형 언어 모델 학습 및 고성능 클라우드 인프라 최적화에 관심 있는 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "From prompt to app: Build with Google Maps in AI Studio",
+      "link": "https://developers.googleblog.com/from-prompt-to-app-build-with-google-maps-in-ai-studio",
+      "published_at": "",
+      "selection_score": 13,
+      "selection_reason": "AI Studio와 Google Maps API의 통합은 개발 생산성을 획기적으로 높이는 도구 변화로, 빠르게 프로토타이핑을 수행하는 데 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Google AI Studio에서 Google Maps API를 직접 호출하여 빠르게 프로토타이핑할 수 있게 되었습니다.",
+      "key_points": [
+        "Google AI Studio 내에서 Gemini 프롬프트를 통해 Google Maps, Places, Routes API를 즉시 활용 가능합니다.",
+        "Cloud Console 설정이나 신용카드 등록 없이 원클릭으로 데모 키를 생성하여 개발 환경을 즉시 구성할 수 있습니다.",
+        "샌드박스 할당량을 제공하여 지리 공간 개념을 활용한 애플리케이션 개발 및 테스트를 간소화합니다."
+      ],
+      "topics": [
+        "Google AI Studio",
+        "Google Maps Platform",
+        "Prototyping"
+      ],
+      "recommended_for": "지리 정보 기반의 AI 애플리케이션을 빠르게 프로토타이핑하고 싶은 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Google AI Studio에서 Maps API 연동 테스트하기",
+        "steps": [
+          "Google AI Studio에 접속하여 새 프롬프트 생성",
+          "Google Maps API 데모 키를 활성화하고 간단한 위치 기반 쿼리 실행",
+          "Gemini가 생성한 응답과 지도 API 결과가 어떻게 연동되는지 확인"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "What is Pathways? Single-controller training for large models",
+      "link": "https://developers.googleblog.com/what-is-pathways-single-controller-training-for-large-models",
+      "published_at": "",
+      "selection_score": 12,
+      "selection_reason": "대규모 모델 학습을 위한 분산 처리 아키텍처는 LLM 엔지니어링 및 인프라 최적화 측면에서 매우 중요한 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Pathways는 비동기식 중앙 스케줄링을 통해 대규모 모델 학습의 효율성을 극대화하는 분산 처리 시스템입니다.",
+      "key_points": [
+        "글로벌 데이터플로우 그래프를 사용하여 여러 가속기 그룹에 걸쳐 대규모 모델 학습을 조정합니다.",
+        "비동기식 디스패치와 중앙 스케줄러를 도입해 기존 동기식 분산 학습의 병목 현상과 데드락을 방지합니다.",
+        "모델 정의와 물리적 하드웨어를 분리하여 강화 학습 등 복잡하고 동적인 워크로드의 확장성을 높입니다."
+      ],
+      "topics": [
+        "Pathways",
+        "Distributed Training",
+        "Dataflow Graph"
+      ],
+      "recommended_for": "대규모 LLM 학습 인프라와 분산 처리 아키텍처에 관심 있는 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "Extending LLDB to Debug Applications That Span CPUs and GPUs",
+      "link": "https://engineering.fb.com/2026/11/09/developer-tools/extending-lldb-to-debug-applications-that-span-cpus-and-gpus",
+      "published_at": "Mon, 09 Nov 2026 17:00:12 +0000",
+      "selection_score": 13,
+      "selection_reason": "CPU와 GPU를 넘나드는 복잡한 AI 애플리케이션 디버깅은 실무 개발자에게 매우 실용적이고 가치 있는 기술적 해결책입니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta가 개발한 LLDB의 범용 가속기 플러그인 아키텍처로 CPU와 GPU를 통합 디버깅할 수 있습니다.",
+      "key_points": [
+        "lldb-server에 하드웨어 독립적인 플러그인 아키텍처를 도입하여 CPU와 GPU를 하나의 디버깅 세션에서 관리합니다.",
+        "CPU와 GPU를 별도의 타겟으로 분리하여 각기 다른 아키텍처와 메모리 공간을 효과적으로 처리합니다.",
+        "공통 프로토콜을 통해 하드웨어 벤더는 특정 장치에 대한 구현만 담당하고, 디버거의 핵심 기능은 공유할 수 있습니다."
+      ],
+      "topics": [
+        "LLDB",
+        "Accelerator Debugging",
+        "Heterogeneous Computing"
+      ],
+      "recommended_for": "CPU와 GPU를 넘나드는 복잡한 AI 모델 및 커널을 디버깅해야 하는 시스템 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Fact-Checking at Scale: Building a More Accurate and Efficient Synopsis Factuality System",
+      "link": "https://netflixtechblog.com/fact-checking-at-scale-building-a-more-accurate-and-efficient-synopsis-factuality-system-d7d85859d808",
+      "published_at": "Mon, 09 Nov 2026 17:01:02 GMT",
+      "selection_score": 11,
+      "selection_reason": "LLM을 활용한 콘텐츠 사실 검증 시스템 구축 사례는 RAG 및 자동화 워크플로를 설계하는 실무자에게 좋은 레퍼런스가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix는 LLM 기반 사실 검증 시스템에 '신뢰도 게이팅'과 '전문가형 판단 모델'을 도입해 비용과 정확도를 개선했습니다.",
+      "key_points": [
+        "단순 반복 호출 대신 신뢰도 점수를 기반으로 복잡한 케이스만 심층 검사하는 계층적 파이프라인을 구축했습니다.",
+        "Literal Judge와 Implicature Judge로 역할을 분담하여 사실 관계와 문맥적 오해를 각각 정밀하게 검증합니다.",
+        "모델의 추론 과정에서 발생하는 불확실성을 식별하고, 이를 다시 검증하는 2단계 라우팅을 통해 정확도를 높였습니다."
+      ],
+      "topics": [
+        "Fact-Checking",
+        "LLM Reasoning",
+        "Confidence Gating"
+      ],
+      "recommended_for": "LLM을 활용한 RAG 시스템의 정확도 향상과 비용 최적화가 필요한 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "LLM 파이프라인에 신뢰도 기반 게이팅 도입 검토",
+        "steps": [
+          "현재 LLM 호출 파이프라인에서 결과의 신뢰도를 측정할 수 있는 프롬프트 전략 수립",
+          "신뢰도가 낮은 응답만 재검증하거나 더 큰 모델로 라우팅하는 로직 설계",
+          "전체 호출 횟수 대비 비용 절감 효과 시뮬레이션"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How DeepL keeps closest-exit routing during maintenance with AWS Cloud WAN",
+      "link": "https://aws.amazon.com/blogs/architecture/how-deepl-keeps-closest-exit-routing-during-maintenance-with-aws-cloud-wan",
+      "published_at": "Mon, 09 Nov 2026 20:15:09 +0000",
+      "selection_score": 13,
+      "selection_reason": "AWS Cloud WAN을 활용한 네트워크 아키텍처 최적화 사례로, 클라우드 인프라 운영 및 비용/성능 개선에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "DeepL은 AWS Cloud WAN과 AS_PATH prepend를 활용해 네트워크 유지보수 중에도 최적의 경로를 유지합니다.",
+      "key_points": [
+        "AWS Cloud WAN의 핵심 네트워크를 통해 여러 리전의 하이브리드 연결을 효율적으로 관리합니다.",
+        "특정 Direct Connect 링크 유지보수 시 AS_PATH prepend를 사용하여 해당 리전의 트래픽만 우회시키고 나머지는 로컬 경로를 유지합니다.",
+        "BGP 로컬 우선순위 대신 AS_PATH 길이를 조절하여 리전별로 독립적인 트래픽 제어가 가능합니다."
+      ],
+      "topics": [
+        "AWS Cloud WAN",
+        "Direct Connect",
+        "BGP Traffic Engineering"
+      ],
+      "recommended_for": "글로벌 하이브리드 클라우드 네트워크 아키텍처를 운영하는 네트워크 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "e-means - 같은 테스트 오차에 약 10배 빠른 k-means",
+      "link": "https://news.hada.io/topic?id=36907",
+      "published_at": "2026-11-10T06:37:33+09:00",
+      "selection_score": 13,
+      "selection_reason": "데이터 분석 및 머신러닝 성능 개선을 위한 알고리즘 최적화 사례로, 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "지수이동평균(EMA) 기반의 e-means 알고리즘으로 기존 k-means 대비 최대 45배 빠른 클러스터링 성능 달성",
+      "key_points": [
+        "미니배치와 지수이동평균을 결합하여 오래된 할당의 영향을 줄이고 최근 데이터를 중심점에 빠르게 반영",
+        "Lloyd 알고리즘 대비 1.2~3 에포크 만에 동일한 테스트 오차에 도달하는 높은 학습 효율성 제공",
+        "데이터 규모와 클러스터 수에 따라 배치 크기와 스텝 크기를 자동 설정하는 스케일링 법칙 적용"
+      ],
+      "topics": [
+        "k-means",
+        "Exponential Moving Average (EMA)",
+        "Algorithm Optimization"
+      ],
+      "recommended_for": "대규모 데이터셋의 클러스터링 속도 개선이 필요한 데이터 분석가 및 머신러닝 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Google Gemini, 개인 Drive 파일과 이메일을 사람 검토자에게 전달",
+      "link": "https://news.hada.io/topic?id=36908",
+      "published_at": "2026-11-10T07:35:14+09:00",
+      "selection_score": 12,
+      "selection_reason": "개인 데이터가 AI 모델 학습 및 검토에 활용될 수 있다는 보안 및 프라이버시 이슈는 실무자에게 매우 중요한 정책 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Google Gemini의 개인 데이터 접근 정책 변경: 사용자 이메일과 드라이브 파일이 사람 검토자에게 노출될 가능성 명시",
+      "key_points": [
+        "기존의 '사람이 검토하지 않음' 약속과 달리, 연결된 Workspace 데이터가 사람의 검토 대상이 될 수 있음을 정책에 명시",
+        "Connected Apps 활성화 시 명시적 태그 없이도 일상 대화 중 개인 데이터를 조회하는 비결정적 동작 관찰",
+        "개인정보가 포함된 파일 전체가 세션 문맥에 포함될 수 있어 보안 및 프라이버시 주의 필요"
+      ],
+      "topics": [
+        "Data Privacy",
+        "AI Security",
+        "Google Workspace Integration"
+      ],
+      "recommended_for": "Google Workspace와 AI를 연동하여 업무 자동화를 구축 중인 개발자 및 보안 담당자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude Fable 5.2, Artificial Analysis 지능 지수에서 역대 최고인 65점 기록",
+      "link": "https://news.hada.io/topic?id=36910",
+      "published_at": "2026-11-10T07:41:15+09:00",
+      "selection_score": 12,
+      "selection_reason": "최신 LLM의 성능 지표와 비용 효율성을 파악하는 것은 AI 도입 및 아키텍처 설계 시 필수적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Fable 5.2, 지능 지수 65점 기록하며 최고 성능 달성했으나 높은 비용과 긴 처리 시간 확인",
+      "key_points": [
+        "Artificial Analysis Intelligence Index에서 65점을 기록하여 중앙값 40점을 크게 상회하는 지능 수준 입증",
+        "작업당 평균 처리 시간이 44.1분으로 비교 모델 중앙값 대비 3.4배 길어 실시간 서비스 적용 시 고려 필요",
+        "100만 토큰당 입력 8달러, 출력 40달러의 높은 비용 구조를 가지고 있어 비용 대비 성능 분석 필수"
+      ],
+      "topics": [
+        "LLM Benchmarking",
+        "Cost-Efficiency",
+        "Inference Latency"
+      ],
+      "recommended_for": "최신 LLM 도입을 검토 중이며 성능과 비용 사이의 균형을 고민하는 아키텍트",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Google, 8세대 TPU에 기밀 추론용 8tx와 긴 컨텍스트용 8i Max 추가",
+      "link": "https://news.hada.io/topic?id=36918",
+      "published_at": "2026-11-10T09:38:04+09:00",
+      "selection_score": 14,
+      "selection_reason": "클라우드 인프라 및 AI 추론 가속을 위한 하드웨어 기술 변화는 백엔드 아키텍처 설계에 중요한 지표입니다.",
+      "feedback_bias": 0,
+      "one_line": "Google이 8세대 TPU에 기밀 추론용 8tx와 대용량 컨텍스트용 8i Max를 추가하여 특화 시스템 라인업을 강화함.",
+      "key_points": [
+        "Google은 기존 TPU 칩 설계를 기반으로 패키징, 메모리, 네트워크를 최적화하여 용도별 TPU 시스템을 빠르게 출시함.",
+        "TPU 8tx는 하드웨어 수준에서 민감 데이터와 모델 가중치를 보호하며, 기존 대비 지연 시간을 최대 50% 단축함.",
+        "이번 라인업 확장을 통해 대규모 학습부터 비공개 미세 조정, 에이전트 실행까지 최적화된 인프라를 제공함."
+      ],
+      "topics": [
+        "TPU(Tensor Processing Unit)",
+        "기밀 컴퓨팅(Confidential Computing)",
+        "저지연 추론"
+      ],
+      "recommended_for": "클라우드 인프라 아키텍처를 설계하거나 AI 모델의 보안 및 추론 성능 최적화에 관심 있는 백엔드 엔지니어.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "ElevenLabs는 어떻게 영화 더빙에서 음성 AI 플랫폼으로 확장했나 [영상]",
+      "link": "https://news.hada.io/topic?id=36923",
+      "published_at": "2026-11-10T10:50:02+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 에이전트 및 LLM 기반 제품 확장 전략을 다루고 있어 실무적인 인사이트를 얻기에 매우 좋습니다.",
+      "feedback_bias": 0,
+      "one_line": "ElevenLabs는 핵심 오디오 모델 연구와 제품팀의 현장 엔지니어링을 결합하여 영화 더빙에서 음성 AI 플랫폼으로 확장함.",
+      "key_points": [
+        "초기에는 고품질 음성 생성이라는 기술적 난제 해결에 집중하고, 이후 외부 LLM과 연동하여 제품 생태계를 구축함.",
+        "제품팀 소속 현장 엔지니어(FDE)를 배치하여 고객의 실제 업무 흐름 속에서 필요한 기능을 빠르게 파악하고 적용함.",
+        "연구 격차가 줄어들 미래를 대비해 단순 모델 제공을 넘어 음성 마켓플레이스 등 플랫폼 비즈니스로 확장함."
+      ],
+      "topics": [
+        "FDE(Field Deployment Engineer)",
+        "AI 플랫폼 전략",
+        "음성 생성 모델"
+      ],
+      "recommended_for": "AI 기반 제품을 기획하거나 기술 중심의 스타트업에서 제품 확장 전략을 고민하는 개발자 및 PM.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "1.58비트 터너리 양자화로 30B LLM을 맥북에서 돌리기: 0점에서 89.4%까지 복원한 기록",
+      "link": "https://news.hada.io/topic?id=36924",
+      "published_at": "2026-11-10T10:53:46+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM 양자화 기술은 로컬 환경에서 모델을 구동하고 비용을 절감하는 데 직접적인 실무 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "30B 규모의 LLM을 1.58비트 터너리 양자화로 압축하여 24GB 메모리의 맥북에서 구동 가능한 수준으로 최적화함.",
+      "key_points": [
+        "가중치를 -1, 0, +1로 표현하는 1.58비트 터너리 양자화를 통해 모델 크기를 약 60GB에서 10GB로 대폭 축소함.",
+        "사전학습 없이 가중치만 변환하는 PTQ 방식을 사용했으며, 성능 복원을 위한 정교한 튜닝이 필수적임.",
+        "결과 모델은 MLX 프리뷰 체크포인트로 공개되어 로컬 환경에서의 LLM 실행 효율성을 높임."
+      ],
+      "topics": [
+        "터너리 양자화(Ternary Quantization)",
+        "PTQ(Post-Training Quantization)",
+        "MLX"
+      ],
+      "recommended_for": "로컬 환경에서 대규모 언어 모델을 구동하거나 온디바이스 AI 최적화에 관심 있는 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "MLX를 활용한 로컬 LLM 양자화 테스트",
+        "steps": [
+          "Hugging Face에서 공개된 터너리 양자화 체크포인트를 다운로드한다.",
+          "Apple Silicon 환경에서 MLX 프레임워크를 설치하고 모델을 로드하여 추론 속도와 메모리 점유율을 측정한다.",
+          "기존 4비트 양자화 모델과 성능 및 리소스 사용량을 비교 분석한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Tacie – 지난 결정, 회의 중에 바로 찾아 주는 Mac용 AI 어시스턴트",
+      "link": "https://news.hada.io/topic?id=36925",
+      "published_at": "2026-11-10T10:56:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "RAG와 AI 에이전트를 활용한 업무 자동화 사례로, 개발 생산성 향상에 즉각적인 영감을 주는 유용한 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "Tacie는 GitHub, Linear, 노션 등 업무 도구와 연동하여 회의 중 필요한 정보를 즉시 제공하는 Mac용 AI 어시스턴트임.",
+      "key_points": [
+        "회의 중 질문이 나오면 과거 결정 사항과 근거 데이터를 실시간으로 검색하여 화면에 띄워줌.",
+        "회의 종료 후 결정된 사항과 할 일을 자동으로 정리하고 기한별로 분류하여 관리함.",
+        "RAG 기술을 활용해 사내 문서와 프로젝트 관리 도구의 데이터를 맥락에 맞게 추출함."
+      ],
+      "topics": [
+        "RAG(Retrieval-Augmented Generation)",
+        "AI 어시스턴트",
+        "업무 자동화"
+      ],
+      "recommended_for": "회의가 잦고 여러 협업 툴을 사용하여 정보 파편화 문제를 겪는 개발 팀장 및 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Fable 5.2가 조카가 꿈꾸던 게임을 한 번의 요청으로 구현함",
+      "link": "https://news.hada.io/topic?id=36929",
+      "published_at": "2026-11-10T11:35:11+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI 에이전트가 복잡한 소프트웨어 개발 워크플로를 자동화하는 미래를 보여주는 매우 중요한 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Fable 5.2는 단일 요청으로 복잡한 게임 로직을 생성하고, 봇을 활용해 자동 테스트까지 수행하는 AI 개발 워크플로를 선보임.",
+      "key_points": [
+        "사용자의 요청을 바탕으로 코드 작성, 에셋 생성, 컷신 추가 등 게임 개발 전 과정을 자동화함.",
+        "헤드리스 브라우저에서 봇이 직접 게임을 플레이하며 스크린샷으로 버그를 확인하는 자동 검증 루프를 구현함.",
+        "초기 구현 이후 플레이테스트 피드백을 반영하여 캐릭터와 기능을 확장하는 반복적 개발이 가능함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "자동화된 소프트웨어 테스트",
+        "헤드리스 브라우저"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 개발 생산성 향상과 자동화된 테스트 파이프라인에 관심 있는 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "네이버 D2",
+      "title": "우리 팀만의 스펙 주도 개발 정착기",
+      "link": "https://d2.naver.com/helloworld/8644274",
+      "published_at": "2026-11-10T01:32:48Z",
+      "selection_score": 10,
+      "selection_reason": "스펙 주도 개발(SDD)은 개발 생산성과 협업 효율을 높이는 중요한 방법론으로, 팀 단위 도입을 고민하는 개발자에게 유익합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "왓챠",
+      "title": "왓챠가 사용자의 취향에 다가가는 방법 (feat. CIKM)",
+      "link": "https://medium.com/watcha/%EC%99%93%EC%B1%A0%EA%B0%80-%EC%82%AC%EC%9A%A9%EC%9E%90%EC%9D%98-%EC%B7%A8%ED%96%A5%EC%97%90-%EB%8B%A4%EA%B0%80%EA%B0%80%EB%8A%94-%EB%B0%A9%EB%B2%95-feat-cikm-ba3ce5c7d787",
+      "published_at": "Mon, 09 Nov 2026 06:20:25 GMT",
+      "selection_score": 10,
+      "selection_reason": "추천 시스템의 편향 제거 및 성능 개선을 위한 학술적 접근은 데이터 분석 및 ML 엔지니어링 관점에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "무신사",
+      "title": "캠페인 메타엔진 — 무진장 많은 콘텐츠를 하나의 캠페인 구조로 통합하다",
+      "link": "https://techblog.musinsa.com/%EC%BA%A0%ED%8E%98%EC%9D%B8-%EB%A9%94%ED%83%80%EC%97%94%EC%A7%84-%EB%AC%B4%EC%A7%84%EC%9E%A5-%EB%A7%8E%EC%9D%80-%EC%BD%98%ED%85%90%EC%B8%A0%EB%A5%BC-%ED%95%98%EB%82%98%EC%9D%98-%EC%BA%A0%ED%8E%98%EC%9D%B8-%EA%B5%AC%EC%A1%B0%EB%A1%9C-%ED%86%B5%ED%95%A9%ED%95%98%EB%8B%A4-a29ece6ae6d9",
+      "published_at": "Mon, 09 Nov 2026 22:01:01 GMT",
+      "selection_score": 9,
+      "selection_reason": "다양한 콘텐츠를 통합 관리하는 메타엔진 설계는 대규모 서비스의 백엔드 아키텍처 및 데이터 구조화에 대한 좋은 사례 연구입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Launching the Vite Ecosystem Fund",
+      "link": "https://blog.cloudflare.com/launching-vite-ecosystem-fund",
+      "published_at": "Mon, 09 Nov 2026 13:00:00 GMT",
+      "selection_score": 9,
+      "selection_reason": "오픈소스 생태계와 AI의 결합에 따른 변화를 다루고 있어 업계 흐름 파악에 유의미합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "CUI - C용 네이티브 UI 컴포넌트",
+      "link": "https://news.hada.io/topic?id=36919",
+      "published_at": "2026-11-10T09:41:04+09:00",
+      "selection_score": 10,
+      "selection_reason": "C언어 기반의 경량 UI 컴포넌트 라이브러리는 특정 성능 최적화가 필요한 프로젝트에서 유용한 도구가 될 수 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "DeepX, 2세대 AI 칩 DX-M2 테이프아웃 완료 - 5W 미만에서 최대 1,000억 파라미터 모델 추론 목표",
+      "link": "https://news.hada.io/topic?id=36920",
+      "published_at": "2026-11-10T09:44:04+09:00",
+      "selection_score": 10,
+      "selection_reason": "엣지 AI 추론을 위한 하드웨어 최적화는 LLM 배포 및 비용 절감 측면에서 중요한 기술적 변화입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
