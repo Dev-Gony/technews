@@ -1788,6 +1788,10 @@ def pick_sfx(cuts, starts):
     return sfx
 
 
+# 렌더링 시도 횟수 (3D 루프 프레임 추출이 가끔 일시적으로 멈춘다)
+RENDER_ATTEMPTS = 2
+
+
 def render_with_remotion(props, work_dir, output_path):
     npx = shutil.which("npx")
 
@@ -1797,28 +1801,37 @@ def render_with_remotion(props, work_dir, output_path):
     props_path = os.path.abspath(os.path.join(work_dir, "props.json"))
     save_json(props_path, props)
 
-    result = subprocess.run(
-        [
-            npx, "remotion", "render", "src/index.ts", "Short",
-            os.path.abspath(output_path),
-            f"--props={props_path}",
-            # YouTube가 다시 압축해도 글자·3D 경계가 뭉개지지 않게 원본 화질을 높게 (기본 crf 18)
-            f"--crf={RENDER_CRF}",
-            "--x264-preset=slow",
-            "--log=error",
-        ],
-        cwd=VIDEO_PROJECT_DIR,
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="ignore",
-        timeout=1800,
-    )
+    command = [
+        npx, "remotion", "render", "src/index.ts", "Short",
+        os.path.abspath(output_path),
+        f"--props={props_path}",
+        # YouTube가 다시 압축해도 글자·3D 경계가 뭉개지지 않게 원본 화질을 높게 (기본 crf 18)
+        f"--crf={RENDER_CRF}",
+        "--x264-preset=slow",
+        # 3D 루프(OffthreadVideo) 프레임 추출이 가끔 기본 30초 delayRender 제한에 걸린다. 넉넉히 준다.
+        "--timeout=120000",
+        "--log=error",
+    ]
 
-    if result.returncode != 0:
-        raise RuntimeError(f"Remotion 렌더링 실패: {(result.stderr or result.stdout).strip()[-2000:]}")
+    # 그래도 가끔 멈추는 일이 있어 한 번 더 시도한다 (다시 하면 통과하는 일시적 문제).
+    for attempt in range(1, RENDER_ATTEMPTS + 1):
+        result = subprocess.run(
+            command,
+            cwd=VIDEO_PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="ignore",
+            timeout=1800,
+        )
 
-    return output_path
+        if result.returncode == 0:
+            return output_path
+
+        error = (result.stderr or result.stdout).strip()[-2000:]
+        print(f"Remotion 렌더링 {attempt}번째 실패: {error[-300:]}")
+
+    raise RuntimeError(f"Remotion 렌더링 실패: {error}")
 
 
 def pick_thumbnail_visual(cuts):
