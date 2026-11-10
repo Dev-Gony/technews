@@ -583,11 +583,14 @@ class ShortsTest(unittest.TestCase):
             self.assertEqual(script["cuts"][3]["visual"], {"type": "scene3d", "scene": "vault3d"})
             self.assertEqual(script["cuts"][2]["visual"]["type"], "none")
 
-            # 대본이 이미 썼으면 그대로 두고, 두 번째부터는 지운다
-            written = {"cover": "x", "cuts": [cut("hook"), cut("scene3d", scene="coins3d"), cut("scene3d", scene="lab3d"), cut(), cut(), cut()]}
+            # 대본이 이미 썼으면 그대로 두되, 붙어 있는 컷 연달아와 세 번째부터는 지운다
+            written = {"cover": "x", "cuts": [cut("hook"), cut("scene3d", scene="coins3d"), cut("scene3d", scene="lab3d"),
+                                              cut("scene3d", scene="deploy3d"), cut(), cut("scene3d", scene="web3d"), cut()]}
             shorts.add_scene3d_cut(written)
             self.assertEqual(written["cuts"][1]["visual"]["scene"], "coins3d")
             self.assertEqual(written["cuts"][2]["visual"], {"type": "none"})
+            self.assertEqual(written["cuts"][3]["visual"]["scene"], "deploy3d")
+            self.assertEqual(written["cuts"][5]["visual"], {"type": "none"})
 
             # 주제가 맞지 않으면 넣지 않는다
             plain = {"cover": "광고를 AI한테 물어보게 만든 당근", "cuts": [cut("hook"), cut(), cut(), cut()]}
