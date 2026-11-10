@@ -17,18 +17,23 @@
 | `scripts/web_world.py` | `web3d` | `web_world.png`, `web_world_loop.webm` | 떠 있는 브라우저 창(점 3개, 주소창, 로딩 막대, 톡 튀는 카드), 도는 지구본, 빨간 버튼을 누르는 화살표 | 웹, 브라우저, 사이트, 프런트엔드 |
 | `scripts/repo_world.py` | `repo3d` | `repo_world.png`, `repo_world_loop.webm` | 갈라졌다 합쳐지는 깃 가지 그래프와 깃발, 열린 패키지 상자에서 튀는 코드 블록, 도는 금색 별 | 오픈소스, 깃허브, Git, 라이브러리, PR |
 | `scripts/launch_world.py` | `launch3d` | `launch_world.png`, `launch_world_loop.webm` | 발사대 위 로켓(불꽃, 연기), 발사탑, 3·2·1 카운트다운, 뚜껑이 들썩이는 선물 상자 | 새 모델·제품 출시, 공개, 베타 |
+| `scripts/law_world.py` | `law3d` | `law_world.png`, `law_world_loop.webm` | 기둥 4개 법원 건물, 땅땅 내려치는 의사봉과 금색 물결, 서류에 쾅 찍히는 빨간 도장 | 법, 규제, 소송, 저작권, 약관 |
+| `scripts/chip_world.py` | `chip3d` | `chip_world.png`, `chip_world_loop.webm` | 금색 다리가 난 큰 칩(빛나는 다이), 칩으로 흘러드는 회로 선, 도는 웨이퍼, 냉각 팬 | 칩, 반도체, GPU, NPU, 하드웨어 |
+| `scripts/phone_world.py` | `phone3d` | `phone_world.png`, `phone_world_loop.webm` | 앱 아이콘이 차례로 튀는 큰 스마트폰과 알림 말풍선, 태블릿, 흔들리는 알림 종 | 모바일, 앱, iOS, Android |
+| `scripts/deploy_world.py` | `deploy3d` | `deploy_world.png`, `deploy_world_loop.webm` | 빌드 톱니 → 검사 터널 → 체크 깃발로 상자가 흐르는 컨베이어, 신호등 | 배포, CI/CD, 테스트, 빌드, 모니터링 |
 
 결과물은 모두 `public/assets3d/`에 있고, 1080x1920 투명 배경이다. 루프는 **12초(360프레임)** 이다.
 걷는 꼬마들은 루프 동안 정확히 한 바퀴를 돌아 제자리로 오므로 이음새가 보이지 않는다.
 (1/n 바퀴만 돌게 하면 이음새에서 색이 다른 꼬마가 옆자리로 순간 이동해 튄다.) 깜빡임, 통통, 흔들림은 4초에 정수 번 반복한다.
 
 어떤 장면을 고를지는 `shorts.py`의 `SCENE3D_KEYWORDS`가 정한다. 제목 주제어는 3점, 대사 주제어는 1점으로 세고,
-제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 `SCENE3D_FILES` 순서: 보안 > 비용 > 인프라 > 연구 > 데이터 > 웹 > 오픈소스 > 책상 > 출시).
-출시·공개처럼 넓은 말을 쓰는 장면은 맨 뒤에 두어, 더 구체적인 주제와 겹치면 구체적인 장면이 이긴다.
+제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 `SCENE3D_FILES` 순서: 보안 > 법 > 비용 > 인프라 > 칩 > 연구 > 데이터 > 웹 > 배포 > 오픈소스 > 책상 > 모바일 > 출시).
+'앱', 출시·공개처럼 넓은 말을 쓰는 장면은 뒤에 두어, 더 구체적인 주제와 겹치면 구체적인 장면이 이긴다.
 맞는 장면이 없거나 루프 파일이 없으면 기본 배경(glow)을 쓴다.
 
 `scripts/iso_kit.py`는 모든 장면이 같이 쓰는 틀이다. 카메라(9:16), 조명, 팔레트 재질, 둥근 도형, 출력(PNG, VP9 알파 WebM)을 담당한다.
 `scripts/chibi_kit.py`는 그 위의 두 번째 틀이다. 꼬마 캐릭터, 받침 원판, 걷기·통통 애니메이션, 책상 장면과 똑같은 카메라를 담당한다.
+장면 이름 목록은 `video/src/schema.ts`의 `SCENE3D_NAMES`, `Background.tsx`의 `SCENES_3D`, `shorts.py`의 `SCENE3D_FILES` 세 곳이 같아야 한다(타입 검사와 테스트가 확인한다).
 관(`tube`)과 그 위를 흐르는 점(`sample`), 원뿔(`cone`), 원그래프 조각(`wedge`), 보였다 숨기기(`show`)도 여기 있다.
 
 ## 다시 만들기

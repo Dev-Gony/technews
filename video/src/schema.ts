@@ -28,6 +28,12 @@ export const sideSchema = z.object({
   icon: z.string().optional(),
 });
 
+// 3D 장면 이름 (Background.tsx SCENES_3D, shorts.py SCENE3D_FILES 와 같아야 한다)
+export const SCENE3D_NAMES = [
+  "desk3d", "vault3d", "coins3d", "server3d", "lab3d", "data3d", "web3d", "repo3d", "launch3d",
+  "law3d", "chip3d", "phone3d", "deploy3d",
+] as const;
+
 export const visualSchema = z.object({
   // hook: 첫 컷 대형 문구 / metaphor: 공간·역할 비유 입체 건물 / number: 숫자 카운트업 / compare: 막대 비교 / flow: 단계 흐름도
   // keywords: 핵심 단어 카드 / code: 터미널 코드 / question: 질문 카드 / none: 자막만
@@ -52,9 +58,7 @@ export const visualSchema = z.object({
   icon: z.string().optional(),
   quote: z.string().optional(),
   // scene3d: 미리 렌더링한 3D 장면 (Background.tsx SCENES_3D)
-  scene: z
-    .enum(["desk3d", "vault3d", "coins3d", "server3d", "lab3d", "data3d", "web3d", "repo3d", "launch3d"])
-    .optional(),
+  scene: z.enum(SCENE3D_NAMES).optional(),
 });
 
 export const chunkSchema = z.object({
@@ -92,7 +96,7 @@ export const shortSchema = z.object({
   // 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 지면 타이포)
   // 3D 장면(빛 + 미리 렌더링한 Blender 루프, public/assets3d/*_loop.webm. Background.tsx SCENES_3D):
   // desk3d 책상 위 꼬마 에이전트들 / vault3d 금고(보안) / coins3d 저울·동전(비용) / server3d 서버실(인프라) / lab3d 점수판·시상대(연구)
-  backdrop: z.enum(["glow", "type", "desk3d", "vault3d", "coins3d", "server3d", "lab3d"]).optional(),
+  backdrop: z.enum(["glow", "type", ...SCENE3D_NAMES]).optional(),
   sfx: z.array(sfxSchema),
 });
 

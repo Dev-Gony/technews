@@ -1,5 +1,5 @@
 import { AbsoluteFill, Easing, interpolate, Loop, OffthreadVideo, staticFile, useCurrentFrame } from "remotion";
-import type { Cut } from "./schema";
+import type { Cut, SCENE3D_NAMES } from "./schema";
 import { colors, serifFamily } from "./theme";
 
 // 배경: 비네트 + 장면마다 자리를 옮기는 빛 + (선택) 장면 핵심어를 크게 깐 지면 타이포.
@@ -9,6 +9,7 @@ import { colors, serifFamily } from "./theme";
 // desk3d 책상 위 꼬마 에이전트들 / vault3d 살짝 열린 금고(보안) / coins3d 저울·동전·영수증(비용)
 // server3d 작은 서버실(인프라·성능) / lab3d 점수판·시상대·실험대(모델 연구·벤치마크)
 // data3d DB 원통·표·원그래프(데이터) / web3d 브라우저 창·지구본(웹) / repo3d 깃 그래프·패키지(오픈소스) / launch3d 로켓(출시)
+// law3d 법원·의사봉·도장(법·규제) / chip3d 칩·웨이퍼(반도체) / phone3d 스마트폰·앱(모바일) / deploy3d 컨베이어·신호등(배포)
 export const SCENES_3D = {
   desk3d: "assets3d/desk_world_loop.webm",
   vault3d: "assets3d/vault_world_loop.webm",
@@ -19,7 +20,11 @@ export const SCENES_3D = {
   web3d: "assets3d/web_world_loop.webm",
   repo3d: "assets3d/repo_world_loop.webm",
   launch3d: "assets3d/launch_world_loop.webm",
-} as const;
+  law3d: "assets3d/law_world_loop.webm",
+  chip3d: "assets3d/chip_world_loop.webm",
+  phone3d: "assets3d/phone_world_loop.webm",
+  deploy3d: "assets3d/deploy_world_loop.webm",
+} as const satisfies Record<(typeof SCENE3D_NAMES)[number], string>;
 export type Scene3D = keyof typeof SCENES_3D;
 export type Backdrop = "glow" | "type" | Scene3D;
 
