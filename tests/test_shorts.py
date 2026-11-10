@@ -450,7 +450,7 @@ class ShortsTest(unittest.TestCase):
         # 대사에 두 번 이상 나와도 3D
         self.assertEqual(shorts.pick_scene3d(script("확 줄었다", "토큰을 덜 써요", "토큰 / 절반이요")), "desk3d")
         # 한 번 스치는 정도, 관계없는 주제는 기본 배경
-        self.assertEqual(shorts.pick_scene3d(script("새 폰 발표", "에이전트도 돌린대요")), None)
+        self.assertEqual(shorts.pick_scene3d(script("새 폰 디자인", "에이전트도 돌린대요")), None)
         self.assertEqual(shorts.pick_scene3d(script("유튜브 video 정책 변경", "idea 공유 기능")), None)
 
     def test_pick_scene3d_picks_topic_scene(self):
@@ -466,6 +466,13 @@ class ShortsTest(unittest.TestCase):
             self.assertEqual(shorts.pick_scene3d(script("RAM 70%↓ 재구축", "가벼워졌어요")), "server3d")
             self.assertEqual(shorts.pick_scene3d(script("MaxxBench 점수 추락", "74%가 53%로")), "lab3d")
             self.assertEqual(shorts.pick_scene3d(script("가중치 0.016%만 고쳤다", "그런데요")), "lab3d")
+            self.assertEqual(shorts.pick_scene3d(script("Postgres 인덱스 하나로", "쿼리가 빨라졌어요")), "data3d")
+            self.assertEqual(shorts.pick_scene3d(script("Chrome에 JPEG XL 지원", "브라우저가 바뀝니다")), "web3d")
+            self.assertEqual(shorts.pick_scene3d(script("핵심 오픈소스 23개 중 11개, 1~2명이 운영", "메인테이너가 지쳐요")), "repo3d")
+            self.assertEqual(shorts.pick_scene3d(script("Claude Opus 5.5 출시", "새 모델이 나왔어요")), "launch3d")
+            # 넓은 말(출시·공개)은 더 구체적인 장면에 진다, '퇴출시킨'은 출시가 아니다
+            self.assertEqual(shorts.pick_scene3d(script("DuckDB 2.0 출시")), "data3d")
+            self.assertEqual(shorts.pick_scene3d(script("Tor 출구 노드 300개를 퇴출시킨 과정")), None)
             # 대사에 두 번 이상 나오면 제목에 없어도 고른다, 한 번은 아니다
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "백도어가 있었어요", "공급망 공격이죠")), "vault3d")
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "서버 한 대로요")), None)
@@ -501,10 +508,14 @@ class ShortsTest(unittest.TestCase):
             "코딩 에이전트 TODO 주석 방해, 토큰 77% 낭비": "desk3d",
             "Anthropic 에이전트 메모리, 드리밍으로 질문당 약 2만 토큰 절약": "desk3d",
             "Claude Code·Codex 두뇌 과부하, Git 작업 큐로 푸는 법": "desk3d",
+            "AI한테 SQL 대신 지표만 쥐여주면 생기는 일?": "data3d",
+            "Stripe 에이전트 연동, SQL 없이 매출 분석·투자자 슬라이드까지": "data3d",
+            "내 사이트에 AI 비서가 몰려오는데, 보고 계세요?": "web3d",
+            "LLM 확장형 웹 앱, 샌드박스·권한 객체로 안전하게": "web3d",
+            "SQLite 오픈소스 외부 기여 금지, AI 시대 유지보수 전략": "repo3d",
+            "Zed Delta 공개 베타, PR 끄고 33명이 570건 반영": "launch3d",
             "광고를 AI한테 물어보게 만든 당근, 어떻게 했을까?": None,
-            "AI한테 SQL 대신 지표만 쥐여주면 생기는 일?": None,
             "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기": None,
-            "Zed Delta 공개 베타, PR 끄고 33명이 570건 반영": None,
         }
         with mock.patch.object(shorts, "scene3d_ready", return_value=True):
             for title, scene in expected.items():
@@ -556,7 +567,7 @@ class ShortsTest(unittest.TestCase):
             self.assertEqual(written["cuts"][2]["visual"], {"type": "none"})
 
             # 주제가 맞지 않으면 넣지 않는다
-            plain = {"cover": "새 폰 발표", "cuts": [cut("hook"), cut(), cut(), cut()]}
+            plain = {"cover": "광고를 AI한테 물어보게 만든 당근", "cuts": [cut("hook"), cut(), cut(), cut()]}
             shorts.add_scene3d_cut(plain)
             self.assertNotIn("scene3d", [c["visual"]["type"] for c in plain["cuts"]])
 

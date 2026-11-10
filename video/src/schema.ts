@@ -52,7 +52,9 @@ export const visualSchema = z.object({
   icon: z.string().optional(),
   quote: z.string().optional(),
   // scene3d: 미리 렌더링한 3D 장면 (Background.tsx SCENES_3D)
-  scene: z.enum(["desk3d", "vault3d", "coins3d", "server3d", "lab3d"]).optional(),
+  scene: z
+    .enum(["desk3d", "vault3d", "coins3d", "server3d", "lab3d", "data3d", "web3d", "repo3d", "launch3d"])
+    .optional(),
 });
 
 export const chunkSchema = z.object({

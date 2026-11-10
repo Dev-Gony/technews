@@ -8,12 +8,17 @@ import { colors, serifFamily } from "./theme";
 // 3D 배경: Blender 로 미리 렌더링한 장면 (video/assets3d/). 1080x1920 VP9 알파, 360프레임(12초) 끊김 없는 루프.
 // desk3d 책상 위 꼬마 에이전트들 / vault3d 살짝 열린 금고(보안) / coins3d 저울·동전·영수증(비용)
 // server3d 작은 서버실(인프라·성능) / lab3d 점수판·시상대·실험대(모델 연구·벤치마크)
+// data3d DB 원통·표·원그래프(데이터) / web3d 브라우저 창·지구본(웹) / repo3d 깃 그래프·패키지(오픈소스) / launch3d 로켓(출시)
 export const SCENES_3D = {
   desk3d: "assets3d/desk_world_loop.webm",
   vault3d: "assets3d/vault_world_loop.webm",
   coins3d: "assets3d/coins_world_loop.webm",
   server3d: "assets3d/server_world_loop.webm",
   lab3d: "assets3d/lab_world_loop.webm",
+  data3d: "assets3d/data_world_loop.webm",
+  web3d: "assets3d/web_world_loop.webm",
+  repo3d: "assets3d/repo_world_loop.webm",
+  launch3d: "assets3d/launch_world_loop.webm",
 } as const;
 export type Scene3D = keyof typeof SCENES_3D;
 export type Backdrop = "glow" | "type" | Scene3D;

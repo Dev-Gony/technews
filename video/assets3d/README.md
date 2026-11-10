@@ -13,17 +13,23 @@
 | `scripts/coins_world.py` | `coins3d` | `coins_world.png`, `coins_world_loop.webm` | 동전 쪽으로 기운 저울, 낮아지는 동전 탑과 빨간 화살표, 바닥에 길게 깔린 영수증 | 비용, 사용료, 가격 인하, % 절감 |
 | `scripts/server_world.py` | `server3d` | `server_world.png`, `server_world_loop.webm` | 서버 랙 3대의 LED, 케이블을 따라 허브로 흐르는 빛 알갱이, 구름, 메모리 막대, 속도계 | 서버, 클라우드, EC2, RAM, 성능 n배 |
 | `scripts/lab_world.py` | `lab3d` | `lab_world.png`, `lab_world_loop.webm` | 막대가 오르내리는 점수판, 1·2·3등 시상대(트로피 꼬마), 기포가 오르는 실험대, 논문 더미 | 가중치, 학습, 벤치마크, 안전 연구 |
+| `scripts/data_world.py` | `data3d` | `data_world.png`, `data_world_loop.webm` | 3단 DB 원통(단 사이 금색 빛 띠), 표에서 한 행씩 골라지는 쿼리, 빠졌다 들어가는 원그래프 조각, 관을 따라 흐르는 빛 알갱이 | 데이터, DB, SQL, 지표, 대시보드 |
+| `scripts/web_world.py` | `web3d` | `web_world.png`, `web_world_loop.webm` | 떠 있는 브라우저 창(점 3개, 주소창, 로딩 막대, 톡 튀는 카드), 도는 지구본, 빨간 버튼을 누르는 화살표 | 웹, 브라우저, 사이트, 프런트엔드 |
+| `scripts/repo_world.py` | `repo3d` | `repo_world.png`, `repo_world_loop.webm` | 갈라졌다 합쳐지는 깃 가지 그래프와 깃발, 열린 패키지 상자에서 튀는 코드 블록, 도는 금색 별 | 오픈소스, 깃허브, Git, 라이브러리, PR |
+| `scripts/launch_world.py` | `launch3d` | `launch_world.png`, `launch_world_loop.webm` | 발사대 위 로켓(불꽃, 연기), 발사탑, 3·2·1 카운트다운, 뚜껑이 들썩이는 선물 상자 | 새 모델·제품 출시, 공개, 베타 |
 
 결과물은 모두 `public/assets3d/`에 있고, 1080x1920 투명 배경이다. 루프는 **12초(360프레임)** 이다.
 걷는 꼬마들은 루프 동안 정확히 한 바퀴를 돌아 제자리로 오므로 이음새가 보이지 않는다.
 (1/n 바퀴만 돌게 하면 이음새에서 색이 다른 꼬마가 옆자리로 순간 이동해 튄다.) 깜빡임, 통통, 흔들림은 4초에 정수 번 반복한다.
 
 어떤 장면을 고를지는 `shorts.py`의 `SCENE3D_KEYWORDS`가 정한다. 제목 주제어는 3점, 대사 주제어는 1점으로 세고,
-제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 보안 > 비용 > 인프라 > 연구 > 책상).
+제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 `SCENE3D_FILES` 순서: 보안 > 비용 > 인프라 > 연구 > 데이터 > 웹 > 오픈소스 > 책상 > 출시).
+출시·공개처럼 넓은 말을 쓰는 장면은 맨 뒤에 두어, 더 구체적인 주제와 겹치면 구체적인 장면이 이긴다.
 맞는 장면이 없거나 루프 파일이 없으면 기본 배경(glow)을 쓴다.
 
 `scripts/iso_kit.py`는 모든 장면이 같이 쓰는 틀이다. 카메라(9:16), 조명, 팔레트 재질, 둥근 도형, 출력(PNG, VP9 알파 WebM)을 담당한다.
 `scripts/chibi_kit.py`는 그 위의 두 번째 틀이다. 꼬마 캐릭터, 받침 원판, 걷기·통통 애니메이션, 책상 장면과 똑같은 카메라를 담당한다.
+관(`tube`)과 그 위를 흐르는 점(`sample`), 원뿔(`cone`), 원그래프 조각(`wedge`), 보였다 숨기기(`show`)도 여기 있다.
 
 ## 다시 만들기
 

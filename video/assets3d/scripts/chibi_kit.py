@@ -289,3 +289,84 @@ def frame_camera(lens=50, elevation=38, azimuth=68, margin=0.8, shift_y=0.05):
     bpy.data.objects.remove(proxy, do_unlink=True)
     cam.data.shift_y = shift_y
     return cam, rig
+
+
+# ---------------------------------------------------------------- 두 번째 묶음 장면들이 같이 쓰는 도형·움직임
+def tube(name, points, radius, mat, parent=None):
+    """점들을 지나는 둥근 관 (케이블, 깃 가지, 빛 줄기)."""
+    curve = bpy.data.curves.new(name, "CURVE")
+    curve.dimensions = "3D"
+    curve.bevel_depth = radius
+    curve.bevel_resolution = 4
+    curve.use_fill_caps = True
+    spline = curve.splines.new("POLY")
+    spline.points.add(len(points) - 1)
+    for p, co in zip(spline.points, points):
+        p.co = (*co, 1.0)
+    obj = bpy.data.objects.new(name, curve)
+    bpy.context.collection.objects.link(obj)
+    obj.data.materials.append(mat)
+    if parent is not None:
+        obj.parent = parent
+    return obj
+
+
+def sample(points, u):
+    """꺾은선 위 길이 비율 u(0~1) 자리."""
+    seg = [(Vector(a), Vector(b)) for a, b in zip(points, points[1:])]
+    lengths = [(b - a).length for a, b in seg]
+    target = u * sum(lengths)
+    for (a, b), length in zip(seg, lengths):
+        if target <= length:
+            return a.lerp(b, target / length if length else 0)
+        target -= length
+    return Vector(points[-1])
+
+
+def cone(name, center, r1, r2, depth, mat, vertices=48, rotation=(0, 0, 0), parent=None):
+    """원뿔(로켓 코, 깔때기, 불꽃). r1 = 아래 반지름, r2 = 위 반지름."""
+    bpy.ops.mesh.primitive_cone_add(vertices=vertices, radius1=r1, radius2=r2, depth=depth, location=center, rotation=rotation)
+    obj = bpy.context.active_object
+    obj.name = name
+    obj.data.materials.append(mat)
+    for p in obj.data.polygons:
+        p.use_smooth = True
+    if parent is not None:
+        obj.parent = parent
+    return obj
+
+
+def wedge(name, radius, height, a0, a1, mat, center=(0, 0, 0), steps=24, parent=None):
+    """원기둥 부채꼴 조각 (원그래프). 각도는 도(degree), 원점 = 부채꼴 꼭짓점 바닥."""
+    me = bpy.data.meshes.new(name)
+    bm = bmesh.new()
+    ring = []
+    for i in range(steps + 1):
+        a = math.radians(a0 + (a1 - a0) * i / steps)
+        ring.append((radius * math.cos(a), radius * math.sin(a)))
+    pts = [(0.0, 0.0)] + ring
+    bottom = [bm.verts.new((x, y, 0)) for x, y in pts]
+    top = [bm.verts.new((x, y, height)) for x, y in pts]
+    bm.faces.new(list(reversed(bottom)))
+    bm.faces.new(top)
+    n = len(pts)
+    for i in range(n):
+        j = (i + 1) % n
+        bm.faces.new((bottom[i], bottom[j], top[j], top[i]))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    bm.to_mesh(me)
+    bm.free()
+    obj = bpy.data.objects.new(name, me)
+    bpy.context.collection.objects.link(obj)
+    obj.location = center
+    kit.finish(obj, mat, 0.015, 2, parent)
+    for p in obj.data.polygons:
+        p.use_smooth = False
+    return obj
+
+
+def show(obj, f, visible):
+    """보였다 안 보였다 (매 프레임 키를 넣으므로 크기 0/1 로 끊어서 바꾼다)."""
+    s = 1.0 if visible else 0.0
+    obj.scale = (s, s, s)
+    obj.keyframe_insert("scale", frame=f)
