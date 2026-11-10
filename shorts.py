@@ -62,13 +62,18 @@ DESK3D_AUTO = os.environ.get("SHORTS_DESK3D") == "1"
 # 3D 장면 이름 → 루프 파일. 파일이 저장소에 없으면 그 장면은 고르지 않는다.
 SCENE3D_FILES = {
     "vault3d": "vault_world_loop.webm",  # 살짝 열린 금고, 방패, 자물쇠
+    "law3d": "law_world_loop.webm",  # 법원 건물, 의사봉, 도장
     "coins3d": "coins_world_loop.webm",  # 저울, 동전 탑, 긴 영수증
     "server3d": "server_world_loop.webm",  # 서버 랙, 케이블 빛 줄기, 구름, 속도계
+    "chip3d": "chip_world_loop.webm",  # 큰 칩, 회로 선, 웨이퍼, 냉각 팬
     "lab3d": "lab_world_loop.webm",  # 점수판, 시상대, 실험대
     "data3d": "data_world_loop.webm",  # DB 원통, 표에서 골라지는 행, 원그래프
     "web3d": "web_world_loop.webm",  # 떠 있는 브라우저 창, 지구본, 버튼 누르는 화살표
+    "deploy3d": "deploy_world_loop.webm",  # 빌드 톱니 → 검사 터널 → 체크 깃발 컨베이어, 신호등
     "repo3d": "repo_world_loop.webm",  # 깃 가지 그래프, 열린 패키지 상자, 금색 별
     "desk3d": "desk_world_loop.webm",  # 노트북 앞 꼬마 에이전트들, 토큰 동전 탑
+    # '앱'은 데스크톱 앱에도 쓰는 말이라 책상(코딩 도구) 뒤
+    "phone3d": "phone_world_loop.webm",  # 큰 스마트폰과 앱 아이콘, 태블릿, 알림 종
     # 출시·공개는 다른 주제와 자주 겹치는 넓은 말이라 맨 뒤(점수가 같으면 더 구체적인 장면이 이긴다)
     "launch3d": "launch_world_loop.webm",  # 발사대 위 로켓, 카운트다운, 선물 상자
 }
@@ -90,7 +95,7 @@ SCENE3D_KEYWORDS = {
     ],
     "server3d": [
         "서버", "server", "servers", "클라우드", "cloud", "ec2", "aws", "gcp", "azure", "데이터센터", "인프라",
-        "메모리", "ram", "gpu", "gpus", "지연", "레이턴시", "latency", "처리량", "throughput", "캐시", "cdn",
+        "메모리", "ram", "지연", "레이턴시", "latency", "처리량", "throughput", "캐시", "cdn",
         "스케일업", "스케일 아웃", "오토스케일", "용량", "쿠버네티스", "kubernetes", "k8s", "컨테이너", "도커", "docker",
         "트래픽", "장애", "다운타임", "분산", "네트워크", "배 성능", "배 빨라", "배 빠른",
     ],
@@ -99,6 +104,27 @@ SCENE3D_KEYWORDS = {
         "가중치", "weights", "오픈 웨이트", "파라미터", "학습", "훈련", "training", "파인튜닝", "fine-tuning",
         "연구", "research", "논문", "arxiv", "안전성", "안전 연구", "정렬", "alignment", "평가", "eval", "evals",
         "점수", "정확도", "accuracy",
+    ],
+    # '법'만으로는 고르지 않는다 ('~하는 법', '방법'), '정책'도 너무 넓다
+    "law3d": [
+        "법원", "판결", "판사", "소송", "고소", "제소", "재판", "규제", "법안", "입법", "법률", "위법", "불법", "합법",
+        "저작권", "copyright", "특허", "patent", "라이선스", "license", "약관", "반독점", "독점", "antitrust", "공정위", "ftc",
+        "gdpr", "ai act", "ai 기본법", "의회", "국회", "벌금", "과징금", "제재", "변호사", "lawsuit", "court", "regulation",
+    ],
+    "chip3d": [
+        "칩", "반도체", "웨이퍼", "파운드리", "tsmc", "nvidia", "엔비디아", "gpu", "gpus", "npu", "tpu", "cpu", "프로세서", "processor",
+        "실리콘", "silicon", "하드웨어", "hardware", "amd", "intel", "인텔", "퀄컴", "qualcomm", "hbm", "asic", "fpga",
+        "블랙웰", "blackwell", "b200", "h100", "h200", "라즈베리 파이", "raspberry pi", "m5", "m6",
+    ],
+    "phone3d": [
+        "모바일", "mobile", "앱", "ios", "android", "안드로이드", "아이폰", "iphone", "갤럭시", "galaxy",
+        "스마트폰", "휴대폰", "핸드폰", "태블릿", "ipad", "아이패드", "앱스토어", "app store", "플레이스토어", "play store",
+        "xcode", "swift", "kotlin", "flutter", "react native", "푸시 알림", "애플워치", "워치", "watchos",
+    ],
+    "deploy3d": [
+        "배포", "deploy", "deployment", "ci", "ci/cd", "파이프라인", "pipeline", "github actions", "테스트", "test", "tests",
+        "testing", "빌드", "build", r"re:(?<!스크)롤백", "rollback", "데브옵스", "devops", "sre", "모니터링", "monitoring", "관측성",
+        "observability", "온콜", "on-call", "카나리", "canary", "terraform", "테라폼", "helm", "gitops", "릴리스 파이프라인",
     ],
     # '분석'만으로는 고르지 않는다 ('~라는 분석' 같은 기사 제목이 많다)
     "data3d": [
@@ -346,8 +372,9 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
 - scene3d: 3D 장면 그림. 기사 주제를 한눈에 보여주는 입체 장면을 화면 가운데에 크게 띄운다. 영상에 한 번만,
   문제나 주제를 처음 꺼내는 컷(보통 2~4번째 컷)에 쓴다. scene은 주제에 가장 맞는 것 하나:
-  vault3d(보안·유출·해킹·인증) / coins3d(비용·절감·가격) / server3d(서버·클라우드·인프라·성능) / lab3d(연구·학습·벤치마크)
-  / data3d(데이터·DB·SQL·지표) / web3d(웹·브라우저·사이트) / repo3d(오픈소스·깃허브·Git·라이브러리)
+  vault3d(보안·유출·해킹·인증) / law3d(법·규제·소송·저작권) / coins3d(비용·절감·가격) / server3d(서버·클라우드·인프라·성능)
+  / chip3d(칩·반도체·GPU·하드웨어) / lab3d(연구·학습·벤치마크) / data3d(데이터·DB·SQL·지표) / web3d(웹·브라우저·사이트)
+  / phone3d(모바일·앱·iOS·Android) / deploy3d(배포·CI/CD·테스트·빌드) / repo3d(오픈소스·깃허브·Git·라이브러리)
   / desk3d(AI 에이전트·코딩 도구·토큰·MCP) / launch3d(새 모델·제품 출시·공개·베타).
   label에 장면 위에 띄울 짧은 말(10자 이내, 예: "토큰이 새는 곳"), 없으면 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
@@ -1479,7 +1506,7 @@ def pick_scene3d(script):
 
     제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오는 장면 중 가장 많이 맞는 장면.
     한 번 스치듯 나온 단어로는 고르지 않는다.
-    점수가 같으면 SCENE3D_FILES 순서(보안 > 비용 > 인프라 > 연구 > ... > 책상 > 출시)로, 더 구체적인 장면을 고른다.
+    점수가 같으면 SCENE3D_FILES 순서(보안 > 법 > 비용 > 인프라 > 칩 > ... > 책상 > 출시)로, 더 구체적인 장면을 고른다.
     장면 파일이 없으면 고르지 않는다.
     """
     scores = scene3d_scores(script)

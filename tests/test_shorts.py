@@ -473,6 +473,14 @@ class ShortsTest(unittest.TestCase):
             # 넓은 말(출시·공개)은 더 구체적인 장면에 진다, '퇴출시킨'은 출시가 아니다
             self.assertEqual(shorts.pick_scene3d(script("DuckDB 2.0 출시")), "data3d")
             self.assertEqual(shorts.pick_scene3d(script("Tor 출구 노드 300개를 퇴출시킨 과정")), None)
+            self.assertEqual(shorts.pick_scene3d(script("Epic 대 Apple 소송, 호주 법원 판결")), "law3d")
+            self.assertEqual(shorts.pick_scene3d(script("DeepX 2세대 AI 칩 테이프아웃", "5W로 돌아요")), "chip3d")
+            self.assertEqual(shorts.pick_scene3d(script("Firebase SDK로 iOS 앱이 충돌")), "phone3d")
+            self.assertEqual(shorts.pick_scene3d(script("AI 코딩으로 병목이 된 CI", "배포가 밀려요")), "deploy3d")
+            # '하는 법'은 법이 아니고, '스크롤백'은 롤백이 아니고, 'Copilot app'은 모바일 앱이 아니다
+            self.assertEqual(shorts.pick_scene3d(script("Git 작업 큐로 푸는 법")), "repo3d")
+            self.assertEqual(shorts.pick_scene3d(script("Ghostty 1.4.0 스크롤백 압축")), None)
+            self.assertEqual(shorts.pick_scene3d(script("Copilot 앱에서 세션 이어 하기")), "desk3d")
             # 대사에 두 번 이상 나오면 제목에 없어도 고른다, 한 번은 아니다
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "백도어가 있었어요", "공급망 공격이죠")), "vault3d")
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "서버 한 대로요")), None)
