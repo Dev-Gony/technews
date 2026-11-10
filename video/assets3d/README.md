@@ -25,13 +25,18 @@
 | `scripts/search_world.py` | `search3d` | `search_world.png`, `search_world_loop.webm` | 입력이 쳐지는 큰 검색창, 결과 카드를 훑는 돋보기(밑 카드가 골라짐), 책 더미 | 검색, RAG, 추천, 임베딩 |
 | `scripts/invest_world.py` | `invest3d` | `invest_world.png`, `invest_world_loop.webm` | 창문이 켜지는 빌딩 3채, 치솟는 빨간 화살표, 통통 튀는 돈 자루, 지폐 다발 | 투자, 스타트업, 상장, 인수 |
 | `scripts/terminal_world.py` | `terminal3d` | `terminal_world.png`, `terminal_world_loop.webm` | 한 줄씩 쳐지는 터미널 창과 깜빡이는 커서, 맞물려 도는 톱니바퀴, 폴더 | 터미널, CLI, 리눅스, macOS, OS |
+| `scripts/chat_world.py` | `chat3d` | `chat_world.png`, `chat_world_loop.webm` | 뚜껑이 열리고 편지가 올라오는 봉투, 말풍선(입력 중 점 3개), 원판을 도는 종이비행기 | 메일, 메신저, 채팅, 슬랙 |
+| `scripts/voice_world.py` | `voice3d` | `voice_world.png`, `voice_world_loop.webm` | 스튜디오 마이크와 퍼지는 음파 고리, 오르내리는 음파 막대, 헤드폰, 음표 | 음성, TTS, STT, 오디오, 음악 |
+| `scripts/robot_world.py` | `robot3d` | `robot_world.png`, `robot_world_loop.webm` | 손 흔드는 네모 로봇, 둥근 길을 도는 라이다 자율주행차, 드론, 고깔 | 로봇, 휴머노이드, 자율주행, 드론 |
+| `scripts/ai_world.py` | `ai3d` | `ai_world.png`, `ai_world_loop.webm` | 빛이 흐르는 3겹 신경망, 도는 금색 반짝이, 'AI' 말풍선 | AI 모델·LLM·챗봇 일반 (다른 장면이 안 맞을 때만) |
 
 결과물은 모두 `public/assets3d/`에 있고, 1080x1920 투명 배경이다. 루프는 **12초(360프레임)** 이다.
 걷는 꼬마들은 루프 동안 정확히 한 바퀴를 돌아 제자리로 오므로 이음새가 보이지 않는다.
 (1/n 바퀴만 돌게 하면 이음새에서 색이 다른 꼬마가 옆자리로 순간 이동해 튄다.) 깜빡임, 통통, 흔들림은 4초에 정수 번 반복한다.
 
 어떤 장면을 고를지는 `shorts.py`의 `SCENE3D_KEYWORDS`가 정한다. 제목 주제어는 3점, 대사 주제어는 1점으로 세고,
-제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 `SCENE3D_FILES` 순서: 보안 > 법 > 비용 > 인프라 > 칩 > 연구 > 데이터 > 영상 > 검색 > 투자 > 웹 > 배포 > 터미널 > 오픈소스 > 책상 > 모바일 > 출시).
+제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 `SCENE3D_FILES` 순서: 보안 > 법 > 비용 > 인프라 > 칩 > 연구 > 데이터 > 영상 > 검색 > 투자 > 웹 > 배포 > 터미널 > 오픈소스 > 책상 > 모바일 > 출시, 로봇은 칩 뒤·음성은 영상 뒤·메일은 웹 뒤).
+`ai3d`(AI 일반)는 `SCENE3D_FALLBACK`이라 다른 장면이 하나도 맞지 않을 때만 고른다.
 '앱', 출시·공개처럼 넓은 말을 쓰는 장면은 뒤에 두어, 더 구체적인 주제와 겹치면 구체적인 장면이 이긴다.
 맞는 장면이 없거나 루프 파일이 없으면 기본 배경(glow)을 쓴다.
 

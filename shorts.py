@@ -66,12 +66,15 @@ SCENE3D_FILES = {
     "coins3d": "coins_world_loop.webm",  # 저울, 동전 탑, 긴 영수증
     "server3d": "server_world_loop.webm",  # 서버 랙, 케이블 빛 줄기, 구름, 속도계
     "chip3d": "chip_world_loop.webm",  # 큰 칩, 회로 선, 웨이퍼, 냉각 팬
+    "robot3d": "robot_world_loop.webm",  # 손 흔드는 로봇, 둥근 길을 도는 자율주행차, 드론
     "lab3d": "lab_world_loop.webm",  # 점수판, 시상대, 실험대
     "data3d": "data_world_loop.webm",  # DB 원통, 표에서 골라지는 행, 원그래프
     "media3d": "media_world_loop.webm",  # 이젤 그림, 슬레이트, 캠코더, 떠 있는 사진
+    "voice3d": "voice_world_loop.webm",  # 스튜디오 마이크, 음파 막대, 헤드폰, 음표
     "search3d": "search_world_loop.webm",  # 큰 검색창, 결과 카드를 훑는 돋보기, 책 더미
     "invest3d": "invest_world_loop.webm",  # 빌딩 3채, 치솟는 빨간 화살표, 돈 자루, 지폐 다발
-    "web3d": "web_world_loop.webm",  # 떠 있는 브라우저 창, 지구본, 버튼 누르는 화살표
+    "web3d": "web_world_loop.webm",
+    "chat3d": "chat_world_loop.webm",  # 열리는 편지 봉투, 말풍선, 도는 종이비행기  # 떠 있는 브라우저 창, 지구본, 버튼 누르는 화살표
     "deploy3d": "deploy_world_loop.webm",
     "terminal3d": "terminal_world_loop.webm",  # 터미널 창과 프롬프트, 맞물린 톱니바퀴, 폴더  # 빌드 톱니 → 검사 터널 → 체크 깃발 컨베이어, 신호등
     "repo3d": "repo_world_loop.webm",  # 깃 가지 그래프, 열린 패키지 상자, 금색 별
@@ -80,6 +83,8 @@ SCENE3D_FILES = {
     "phone3d": "phone_world_loop.webm",  # 큰 스마트폰과 앱 아이콘, 태블릿, 알림 종
     # 출시·공개는 다른 주제와 자주 겹치는 넓은 말이라 맨 뒤(점수가 같으면 더 구체적인 장면이 이긴다)
     "launch3d": "launch_world_loop.webm",  # 발사대 위 로켓, 카운트다운, 선물 상자
+    # AI 모델·챗봇 일반: 다른 장면이 하나도 안 맞을 때의 마지막 선택지
+    "ai3d": "ai_world_loop.webm",  # 신경망 조형물, 금색 반짝이, 'AI' 말풍선
 }
 # 장면마다 어울리는 주제어. 영문·숫자는 단어 경계로만 찾고(예: 'ide'가 'video'에 걸리지 않게),
 # 한글은 그대로 찾는다. 're:'로 시작하면 정규식(예: 'MaxxBench'의 bench).
@@ -150,6 +155,24 @@ SCENE3D_KEYWORDS = {
         "macos", "맥os", "윈도우", "windows", "운영체제", "os", "커널", "kernel", "우분투", "ubuntu", "데비안", "nixos",
         "tmux", "vim", "neovim", "emacs", "dotfiles", "파일 시스템", "filesystem",
     ],
+    # '이메일'은 '메일'로 같이 센다 (두 번 세지 않게)
+    "chat3d": [
+        "메일", "email", "e-mail", "메신저", "messenger", "slack", "슬랙", "텔레그램", "telegram", "카카오톡", "카톡",
+        "채팅", "메시지", "message", "messages", "dm", "뉴스레터", "newsletter", "imessage", "whatsapp", "왓츠앱",
+    ],
+    "voice3d": [
+        "음성", "voice", "tts", "stt", "speech", "받아쓰기", "전사", "transcribe", "transcription", "오디오", "audio",
+        "팟캐스트", "podcast", "목소리", "음악", "music", "노래", "사운드", "sound", "녹음", "마이크", "더빙", "elevenlabs",
+    ],
+    "robot3d": [
+        "로봇", "robot", "robots", "robotics", "휴머노이드", "humanoid", "자율주행", "self-driving", "waymo", "웨이모",
+        "tesla", "테슬라", "드론", "drone", "그리퍼", "자동차", "차량", "운전", "fleet", "물리 ai", "physical ai", "로보택시",
+    ],
+    "ai3d": [
+        "llm", "llms", "챗봇", "chatbot", "chatgpt", "gpt", "claude", "클로드", "gemini", "제미나이", "언어 모델",
+        "ai 모델", "모델", "추론", "reasoning", "프롬프트", "prompt", "컨텍스트", "context", "환각", "hallucination",
+        "멀티모달", "multimodal", "트랜스포머", "transformer", "openai", "anthropic", "딥시크", "deepseek",
+    ],
     # '분석'만으로는 고르지 않는다 ('~라는 분석' 같은 기사 제목이 많다)
     "data3d": [
         "데이터", "data", "db", "dbms", "데이터베이스", "database", "sql", "nosql", "postgres", "postgresql", "mysql",
@@ -180,6 +203,8 @@ SCENE3D_KEYWORDS = {
 }
 # 예전 이름 (책상 장면 주제어)
 DESK3D_KEYWORDS = SCENE3D_KEYWORDS["desk3d"]
+# 다른 장면이 하나도 맞지 않을 때만 고르는 장면 (AI 일반 주제는 거의 모든 기사에 걸린다)
+SCENE3D_FALLBACK = ("ai3d",)
 # 제목(cover) 주제어 한 개는 대사 주제어 몇 개와 맞먹는지. 제목이 기사 주제를 가장 잘 말한다.
 SCENE3D_COVER_WEIGHT = 3
 
@@ -400,8 +425,10 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   / chip3d(칩·반도체·GPU·하드웨어) / lab3d(연구·학습·벤치마크) / data3d(데이터·DB·SQL·지표) / web3d(웹·브라우저·사이트)
   / media3d(이미지·영상 생성·사진·디자인) / search3d(검색·RAG·추천) / invest3d(투자·스타트업·상장·인수·매출)
   / phone3d(모바일·앱·iOS·Android) / deploy3d(배포·CI/CD·테스트·빌드) / terminal3d(터미널·CLI·리눅스·OS)
+  / chat3d(메일·메신저·채팅) / voice3d(음성·TTS·오디오·음악) / robot3d(로봇·자율주행·드론)
   / repo3d(오픈소스·깃허브·Git·라이브러리)
-  / desk3d(AI 에이전트·코딩 도구·토큰·MCP) / launch3d(새 모델·제품 출시·공개·베타).
+  / desk3d(AI 에이전트·코딩 도구·토큰·MCP) / launch3d(새 모델·제품 출시·공개·베타)
+  / ai3d(AI 모델·LLM·챗봇 일반: 위 장면이 하나도 맞지 않을 때).
   label에 장면 위에 띄울 짧은 말(10자 이내, 예: "토큰이 새는 곳"), 없으면 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
   원문에 없는 문장은 절대 만들지 않는다.
@@ -1533,7 +1560,7 @@ def pick_scene3d(script):
     제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오는 장면 중 가장 많이 맞는 장면.
     한 번 스치듯 나온 단어로는 고르지 않는다.
     점수가 같으면 SCENE3D_FILES 순서(보안 > 법 > 비용 > 인프라 > 칩 > ... > 책상 > 출시)로, 더 구체적인 장면을 고른다.
-    장면 파일이 없으면 고르지 않는다.
+    장면 파일이 없으면 고르지 않는다. SCENE3D_FALLBACK(AI 일반)은 다른 장면이 하나도 맞지 않을 때만 고른다.
     """
     scores = scene3d_scores(script)
     order = list(SCENE3D_FILES)
@@ -1541,6 +1568,9 @@ def pick_scene3d(script):
         scene for scene in order
         if (scores[scene][1] >= 1 or scores[scene][2] >= 2) and scene3d_ready(scene)
     ]
+
+    specific = [scene for scene in candidates if scene not in SCENE3D_FALLBACK]
+    candidates = specific or candidates
 
     if not candidates:
         return None
