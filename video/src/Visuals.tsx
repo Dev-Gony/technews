@@ -2,6 +2,7 @@ import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "re
 import type { Visual } from "./schema";
 import { IsoIcon, IsoPlate, isoProject } from "./Isometric";
 import { fitFontSize, Panel, pop, staggerStart } from "./visualKit";
+import { Scene3DVisual } from "./Scene3DVisual";
 import { BeforeAfterVisual, DiagramVisual, QuoteVisual, ScaleVisual } from "./VisualsPro";
 import { colors, fontFamily, layout } from "./theme";
 
@@ -430,6 +431,8 @@ export const SceneVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({
       return <BeforeAfterVisual visual={visual} sceneFrames={sceneFrames} />;
     case "scale":
       return <ScaleVisual visual={visual} sceneFrames={sceneFrames} />;
+    case "scene3d":
+      return <Scene3DVisual visual={visual} />;
     case "quote":
       return <QuoteVisual visual={visual} sceneFrames={sceneFrames} />;
     case "number":
