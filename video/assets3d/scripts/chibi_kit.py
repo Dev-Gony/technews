@@ -11,6 +11,7 @@ desk_world.py 는 먼저 만들어진 장면이라 자기 안에 같은 코드�
 """
 
 import math
+import os
 
 import bmesh
 import bpy
@@ -370,3 +371,69 @@ def show(obj, f, visible):
     s = 1.0 if visible else 0.0
     obj.scale = (s, s, s)
     obj.keyframe_insert("scale", frame=f)
+
+
+# ---------------------------------------------------------------- 이름표(anchor): 사물·꼬마의 화면 좌표
+def _meshes(obj):
+    out = [obj] if obj.type in ("MESH", "CURVE", "FONT") else []
+    for child in obj.children_recursive:
+        if child.type in ("MESH", "CURVE", "FONT"):
+            out.append(child)
+    return out
+
+
+def export_anchors(name, anchors, frames, scene_name):
+    """사물·꼬마가 루프의 프레임마다 화면(1080x1920) 어디에 있는지 JSON 으로 내보낸다.
+    Remotion 의 scene3d 컷이 대사에 맞춰 그 대상으로 카메라를 밀고 들어가 이름표를 붙인다.
+
+    anchors: {이름: (객체 또는 객체 목록, "object"|"character", 한국어 설명)}
+    track[i] = 루프 i 번째 프레임(Blender 프레임 i+1)의 [가운데 x, 가운데 y, 반지름] (px).
+    걷는 꼬마의 발걸음 흔들림은 앞뒤 프레임 평균으로 눅인다(루프라 처음과 끝도 이어서 평균)."""
+    import json
+
+    from bpy_extras.object_utils import world_to_camera_view
+
+    scene = bpy.context.scene
+    cam = scene.camera
+    W, H = scene.render.resolution_x, scene.render.resolution_y
+    targets = {}
+    for key, (objs, kind, desc) in anchors.items():
+        objs = objs if isinstance(objs, (list, tuple)) else [objs]
+        meshes = [m for o in objs for m in _meshes(o)]
+        targets[key] = (meshes, kind, desc)
+    raw = {key: [] for key in anchors}
+    for f in range(1, frames + 1):
+        scene.frame_set(f)
+        dg = bpy.context.evaluated_depsgraph_get()
+        for key, (meshes, _, _) in targets.items():
+            xs, ys = [], []
+            for m in meshes:
+                ev = m.evaluated_get(dg)
+                mw = ev.matrix_world
+                if min(abs(s) for s in mw.to_scale()) < 1e-4:  # 숨긴(크기 0) 조각은 빼기
+                    continue
+                for c in ev.bound_box:
+                    p = world_to_camera_view(scene, cam, mw @ Vector(c))
+                    xs.append(p.x * W)
+                    ys.append((1 - p.y) * H)
+            if not xs:
+                raw[key].append(raw[key][-1] if raw[key] else (W / 2, H / 2, 0))
+                continue
+            cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
+            r = max(max(xs) - min(xs), max(ys) - min(ys)) / 2
+            raw[key].append((cx, cy, r))
+
+    out = {"scene": scene_name, "frames": frames, "width": W, "height": H, "anchors": {}}
+    for key, (_, kind, desc) in targets.items():
+        pts = raw[key]
+        n = len(pts)
+        smooth = []
+        for i in range(n):
+            win = [pts[(i + d) % n] for d in range(-6, 7)]
+            smooth.append([round(sum(p[k] for p in win) / len(win)) for k in range(3)])
+        out["anchors"][key] = {"kind": kind, "desc": desc, "track": smooth}
+    path = os.path.join(kit.OUT_DIR, f"{name}_anchors.json")
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(out, fh, ensure_ascii=False, separators=(",", ":"))
+    scene.frame_set(1)
+    return path

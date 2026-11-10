@@ -1,5 +1,5 @@
 import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import type { Visual } from "./schema";
+import type { Chunk, Visual } from "./schema";
 import { IsoIcon, IsoPlate, isoProject } from "./Isometric";
 import { fitFontSize, Panel, pop, staggerStart } from "./visualKit";
 import { Scene3DVisual } from "./Scene3DVisual";
@@ -419,7 +419,7 @@ const HookVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
   );
 };
 
-export const SceneVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual, sceneFrames }) => {
+export const SceneVisual: React.FC<{ visual: Visual; sceneFrames: number; chunks?: Chunk[] }> = ({ visual, sceneFrames, chunks }) => {
   switch (visual.type) {
     case "hook":
       return <HookVisual visual={visual} />;
@@ -432,7 +432,7 @@ export const SceneVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({
     case "scale":
       return <ScaleVisual visual={visual} sceneFrames={sceneFrames} />;
     case "scene3d":
-      return <Scene3DVisual visual={visual} />;
+      return <Scene3DVisual visual={visual} sceneFrames={sceneFrames} chunks={chunks} />;
     case "quote":
       return <QuoteVisual visual={visual} sceneFrames={sceneFrames} />;
     case "number":

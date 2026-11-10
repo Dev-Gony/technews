@@ -49,6 +49,22 @@
 장면 이름 목록은 `video/src/schema.ts`의 `SCENE3D_NAMES`, `Background.tsx`의 `SCENES_3D`, `shorts.py`의 `SCENE3D_FILES` 세 곳이 같아야 한다(타입 검사와 테스트가 확인한다).
 관(`tube`)과 그 위를 흐르는 점(`sample`), 원뿔(`cone`), 원그래프 조각(`wedge`), 보였다 숨기기(`show`)도 여기 있다.
 
+## 배역 이름표 (anchor) — 장면이 대사를 설명하는 이야기가 되게
+
+3D 장면 컷은 장식이 아니라 그 컷의 대사를 설명하는 그림이다. 대본은 scene3d 에 `beats`(배역 2~4개)를 쓴다:
+장면 속 사물·꼬마에 대사 속 개념을 하나씩 붙이면(예: 빨간 꼬마 = "공격자", 금고 문 = "원격 접속"),
+`src/Scene3DVisual.tsx` 가 대사 순서대로 카메라를 그 대상으로 밀고 들어가 링과 이름표를 붙이고 나머지는 흐리게 한다.
+
+대상의 화면 좌표는 Blender 스크립트가 `ck.export_anchors()` 로 루프의 프레임마다 투영해 `public/assets3d/*_anchors.json` 에 내보낸다.
+`{"anchors": {이름: {"kind": "object"|"character", "desc": 설명, "track": [[x, y, 반지름], ...360개]}}}` (1080x1920 px, 걷는 꼬마도 따라간다).
+`desc` 는 `shorts.py` 가 대본 요청의 "3D 장면 배역" 목록으로 그대로 넣는다. 이름표 파일이 없는 장면은 예전처럼 장면만 띄운다.
+
+이름표만 다시 뽑기 (렌더링 없이 몇 초, 장면을 바꾸지 않았으면 루프 파일과 그대로 맞는다):
+
+```bash
+blender -b -P assets3d/scripts/vault_world.py -- --anchors-only
+```
+
 ## 다시 만들기
 
 Blender 5.2 (`winget install --id BlenderFoundation.Blender -e`), `video` 폴더에서 실행한다.

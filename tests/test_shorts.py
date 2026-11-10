@@ -584,7 +584,8 @@ class ShortsTest(unittest.TestCase):
         script = {"cover": "확장에 백도어 발견", "cuts": [cut("hook"), cut("number", value="3"), cut(), cut(), cut(), cut("question")]}
         script["cuts"][3]["line"] = "확장을 지워도 백도어는 남아 있었어요"
 
-        with mock.patch.object(shorts, "scene3d_ready", return_value=True):
+        # 배역 이름표 파일이 없는 장면 (예전 방식: 자동으로 장면만 띄운다)
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True), mock.patch.object(shorts, "scene3d_anchors", return_value={}):
             # 기본은 배경에 깔지 않는다
             self.assertEqual(shorts.pick_backdrop(script), "glow")
             # 자막만 있는 컷 중 대사가 가장 긴 컷에 장면을 띄운다 (끝 쪽 컷은 제외)
@@ -605,6 +606,51 @@ class ShortsTest(unittest.TestCase):
             plain = {"cover": "광고를 AI한테 물어보게 만든 당근", "cuts": [cut("hook"), cut(), cut(), cut()]}
             shorts.add_scene3d_cut(plain)
             self.assertNotIn("scene3d", [c["visual"]["type"] for c in plain["cuts"]])
+
+    def test_scene3d_with_anchors_is_never_auto_inserted(self):
+        # 배역 이름표가 있는 장면은 대본이 쓴 beats가 있어야 한다 → 자동 삽입(beats 없음)은 하지 않는다
+        def cut(kind="none"):
+            return {"line": "확장을 지워도 백도어는 남아 있었어요", "visual": {"type": kind}}
+
+        script = {"cover": "확장에 백도어 발견", "cuts": [cut("hook"), cut(), cut(), cut(), cut("question")]}
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True),                 mock.patch.object(shorts, "scene3d_anchors", return_value={"red": "빨간 꼬마"}):
+            shorts.add_scene3d_cut(script)
+        self.assertNotIn("scene3d", [c["visual"]["type"] for c in script["cuts"]])
+
+    def test_validate_visual_scene3d_beats(self):
+        anchors = {"red": "빨간 꼬마", "door": "금고 문", "lock": "자물쇠"}
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True),                 mock.patch.object(shorts, "scene3d_anchors", return_value=anchors):
+            visual = shorts.validate_visual({
+                "type": "scene3d", "scene": "vault3d", "label": "백도어",
+                "beats": [
+                    {"target": "red", "label": " 공격자 "},
+                    {"target": "moon", "label": "없는 배역"},
+                    {"target": "door", "label": "열두 글자를 훌쩍 넘는 아주 긴 이름표"},
+                    {"target": "red", "label": "같은 대상 두 번"},
+                    {"target": "lock", "label": "원격 접속"},
+                ],
+            })
+            self.assertEqual(visual["beats"], [{"target": "red", "label": "공격자"}, {"target": "lock", "label": "원격 접속"}])
+            # 배역 이야기가 있으면 장면 위 문구는 뺀다
+            self.assertNotIn("label", visual)
+            # 쓸 수 있는 배역이 없으면 꼬마만 돌아다니는 그림이 되므로 넣지 않는다
+            self.assertEqual(shorts.validate_visual({"type": "scene3d", "scene": "vault3d"}), {"type": "none"})
+            self.assertEqual(shorts.validate_visual({"type": "scene3d", "scene": "vault3d", "beats": [{"target": "x", "label": "y"}]}), {"type": "none"})
+
+        # 이름표 파일이 없는 장면은 예전처럼 장면만 (beats는 버린다)
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True),                 mock.patch.object(shorts, "scene3d_anchors", return_value={}):
+            visual = shorts.validate_visual({"type": "scene3d", "scene": "coins3d", "beats": [{"target": "a", "label": "b"}]})
+            self.assertEqual(visual, {"type": "scene3d", "scene": "coins3d"})
+
+    def test_vault3d_anchor_file_lists_roles(self):
+        # 저장소에 들어 있는 금고 장면 이름표: 사물과 꼬마 4색
+        anchors = shorts.scene3d_anchors("vault3d")
+        for key in ("door", "shield", "lock", "red", "blue", "yellow", "white"):
+            self.assertIn(key, anchors)
+        prompt = shorts.build_script_prompt({"title": "Cursor 확장에 백도어", "one_line": "악성 코드", "key_points": [], "topics": []})
+        self.assertIn("3D 장면 배역", prompt)
+        self.assertIn("- vault3d", prompt)
+        self.assertIn("  - door:", prompt)
 
     def test_validate_visual_scene3d_needs_known_scene(self):
         with mock.patch.object(shorts, "scene3d_ready", return_value=True):

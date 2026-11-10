@@ -28,6 +28,12 @@ export const sideSchema = z.object({
   icon: z.string().optional(),
 });
 
+// 3D 장면 배역 하나: 장면 속 대상(anchor 이름) + 화면에 붙일 이름표(12자 이내)
+export const beatSchema = z.object({
+  target: z.string(),
+  label: z.string(),
+});
+
 // 3D 장면 이름 (Background.tsx SCENES_3D, shorts.py SCENE3D_FILES 와 같아야 한다)
 export const SCENE3D_NAMES = [
   "desk3d", "vault3d", "coins3d", "server3d", "lab3d", "data3d", "web3d", "repo3d", "launch3d",
@@ -60,6 +66,8 @@ export const visualSchema = z.object({
   quote: z.string().optional(),
   // scene3d: 미리 렌더링한 3D 장면 (Background.tsx SCENES_3D)
   scene: z.enum(SCENE3D_NAMES).optional(),
+  // scene3d 배역: 장면 속 사물·꼬마(public/assets3d/*_anchors.json 의 이름)에 대사 속 개념을 붙여 차례로 보여 준다
+  beats: z.array(beatSchema).optional(),
 });
 
 export const chunkSchema = z.object({
