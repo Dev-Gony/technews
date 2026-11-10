@@ -65,7 +65,12 @@ SCENE3D_FILES = {
     "coins3d": "coins_world_loop.webm",  # 저울, 동전 탑, 긴 영수증
     "server3d": "server_world_loop.webm",  # 서버 랙, 케이블 빛 줄기, 구름, 속도계
     "lab3d": "lab_world_loop.webm",  # 점수판, 시상대, 실험대
+    "data3d": "data_world_loop.webm",  # DB 원통, 표에서 골라지는 행, 원그래프
+    "web3d": "web_world_loop.webm",  # 떠 있는 브라우저 창, 지구본, 버튼 누르는 화살표
+    "repo3d": "repo_world_loop.webm",  # 깃 가지 그래프, 열린 패키지 상자, 금색 별
     "desk3d": "desk_world_loop.webm",  # 노트북 앞 꼬마 에이전트들, 토큰 동전 탑
+    # 출시·공개는 다른 주제와 자주 겹치는 넓은 말이라 맨 뒤(점수가 같으면 더 구체적인 장면이 이긴다)
+    "launch3d": "launch_world_loop.webm",  # 발사대 위 로켓, 카운트다운, 선물 상자
 }
 # 장면마다 어울리는 주제어. 영문·숫자는 단어 경계로만 찾고(예: 'ide'가 'video'에 걸리지 않게),
 # 한글은 그대로 찾는다. 're:'로 시작하면 정규식(예: 'MaxxBench'의 bench).
@@ -73,7 +78,7 @@ SCENE3D_FILES = {
 SCENE3D_KEYWORDS = {
     "vault3d": [
         "보안", "백도어", "backdoor", "해킹", "해커", "취약점", "vulnerability", "cve", "제로데이", "zero-day",
-        "유출", "탈취", "뚫", "악성", "malware", "멀웨어", "랜섬웨어", "피싱", "phishing", "공급망 공격", "익스플로잇", "exploit",
+        "유출", "탈취", "뚫", "악성", "malware", "멀웨어", "랜섬웨어", "피싱", "phishing", "공급망 공격", "공격", "익스플로잇", "exploit",
         "인증", "2fa", "mfa", "otp", "비밀번호", "패스워드", "password", "dmarc", "spf", "dkim", "스푸핑", "스팸",
         "위협", "권한 상승", "시크릿", "api 키", "토큰 점검", "암호화", "개인정보", "프라이버시", "privacy",
         "외부 사이트", "외부로", "외부 전송", "인젝션", "injection", "security",
@@ -95,12 +100,32 @@ SCENE3D_KEYWORDS = {
         "연구", "research", "논문", "arxiv", "안전성", "안전 연구", "정렬", "alignment", "평가", "eval", "evals",
         "점수", "정확도", "accuracy",
     ],
+    # '분석'만으로는 고르지 않는다 ('~라는 분석' 같은 기사 제목이 많다)
+    "data3d": [
+        "데이터", "data", "db", "dbms", "데이터베이스", "database", "sql", "nosql", "postgres", "postgresql", "mysql",
+        "sqlite", "duckdb", "clickhouse", "bigquery", "snowflake", "databricks", "쿼리", "query", "지표", "metric", "metrics",
+        "대시보드", "dashboard", "스프레드시트", "엑셀", "excel", "데이터 분석", "로그 분석", "etl", "벡터 db", "인덱스",
+    ],
+    "web3d": [
+        "웹", "web", "브라우저", "browser", "chrome", "크롬", "safari", "사파리", "firefox", "파이어폭스",
+        "사이트", "website", "html", "css", "javascript", "자바스크립트", "typescript", "타입스크립트", "react", "next.js",
+        "프런트엔드", "프론트엔드", "frontend", "http", "https", "url", "seo", "웹앱", "pwa", "확장 프로그램",
+    ],
+    "repo3d": [
+        "오픈소스", "오픈 소스", "open source", "open-source", "깃허브", "github", "gitlab", "git", "깃",
+        "레포", "repo", "저장소", "라이브러리", "library", "패키지", "package", "npm", "pypi", "crate", "crates",
+        "포크", "fork", "커밋", "commit", "브랜치", "branch", "머지", "merge", "pr", "pull request", "풀 리퀘스트", "기여", "메인테이너",
+    ],
     "desk3d": [
         "에이전트", "agent", "agents", "agentic",
         "토큰", "token", "tokens",
         "코딩", "coding", "바이브 코딩", "vibe coding", "코드 리뷰", "코드 짜", "코드를 짜",
         "claude code", "클로드 코드", "codex", "코덱스", "copilot", "코파일럿",
         "cursor", "windsurf", "ide", "mcp",
+    ],
+    "launch3d": [
+        r"re:(?<!퇴)출시", "공개", "발표", "런칭", "론칭", "launch", "릴리스", "릴리즈", "release", "정식", "베타", "beta",
+        "프리뷰", "preview", "신모델", "새 모델", "신제품", "선보", "데뷔", "generally available", "ga",
     ],
 }
 # 예전 이름 (책상 장면 주제어)
@@ -321,8 +346,9 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
 - scene3d: 3D 장면 그림. 기사 주제를 한눈에 보여주는 입체 장면을 화면 가운데에 크게 띄운다. 영상에 한 번만,
   문제나 주제를 처음 꺼내는 컷(보통 2~4번째 컷)에 쓴다. scene은 주제에 가장 맞는 것 하나:
-  vault3d(보안·유출·해킹·인증), coins3d(비용·절감·가격·낭비), server3d(서버·클라우드·인프라·메모리·성능),
-  lab3d(모델 연구·학습·가중치·벤치마크·점수), desk3d(AI 에이전트·코딩 도구·토큰·MCP).
+  vault3d(보안·유출·해킹·인증) / coins3d(비용·절감·가격) / server3d(서버·클라우드·인프라·성능) / lab3d(연구·학습·벤치마크)
+  / data3d(데이터·DB·SQL·지표) / web3d(웹·브라우저·사이트) / repo3d(오픈소스·깃허브·Git·라이브러리)
+  / desk3d(AI 에이전트·코딩 도구·토큰·MCP) / launch3d(새 모델·제품 출시·공개·베타).
   label에 장면 위에 띄울 짧은 말(10자 이내, 예: "토큰이 새는 곳"), 없으면 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
   원문에 없는 문장은 절대 만들지 않는다.
@@ -414,7 +440,7 @@ VISUAL_SCHEMA = {
         "count": {"type": "integer"},
         "icon": {"type": "string", "enum": ICONS},
         "quote": {"type": "string"},
-        "scene": {"type": "string", "enum": ["vault3d", "coins3d", "server3d", "lab3d", "desk3d"]},
+        "scene": {"type": "string", "enum": list(SCENE3D_FILES)},
     },
     "required": ["type"],
     "additionalProperties": False,
@@ -1453,7 +1479,7 @@ def pick_scene3d(script):
 
     제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오는 장면 중 가장 많이 맞는 장면.
     한 번 스치듯 나온 단어로는 고르지 않는다.
-    점수가 같으면 SCENE3D_FILES 순서(보안 > 비용 > 인프라 > 연구 > 책상)로, 더 구체적인 장면을 고른다.
+    점수가 같으면 SCENE3D_FILES 순서(보안 > 비용 > 인프라 > 연구 > ... > 책상 > 출시)로, 더 구체적인 장면을 고른다.
     장면 파일이 없으면 고르지 않는다.
     """
     scores = scene3d_scores(script)
