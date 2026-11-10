@@ -24,6 +24,18 @@ export const calculateShortMetadata: CalculateMetadataFunction<ShortProps> = ({ 
 // (뚝 끊기고 빈 화면이 생기지 않게 두 그래픽이 잠깐 겹친다)
 export const EXIT_FRAMES = 8;
 
+// 컷 끝까지 카메라가 밀고 들어가는 정도. 숫자·인용은 그 글자로 더 세게, 표·흐름처럼 읽을 게 많은 건 약하게.
+const CAMERA_PUSH: Partial<Record<Cut["visual"]["type"], number>> = {
+  number: 1.1,
+  quote: 1.07,
+  scene3d: 1.06,
+  question: 1.06,
+  compare: 1.03,
+  flow: 1.03,
+  diagram: 1.02,
+  code: 1.02,
+};
+
 const VisualLayer: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
   const frame = useCurrentFrame();
   const length = Math.max(cut.durationInFrames, 8);
@@ -33,16 +45,26 @@ const VisualLayer: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
     easing: Easing.bezier(0.4, 0, 1, 1),
   });
   const enter = interpolate(frame, [0, 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  // 카메라는 멈추지 않는다: 컷 내내 천천히 밀고 들어가고(숫자는 숫자로 더 세게), 컷마다 방향을 바꿔 옆으로 흐른다.
+  const push = CAMERA_PUSH[cut.visual.type] ?? 1.045;
+  const side = index % 2 === 0 ? 1 : -1;
+  const drift = interpolate(frame, [0, length], [side * 18, -side * 18], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   return (
     <AbsoluteFill
       style={{
         opacity: enter * (1 - exit),
+        // 그래픽 영역(470~1070) 가운데를 기준으로 밀고 들어간다
+        transformOrigin: "50% 40%",
+        translate: `${drift}px 0px`,
         scale: String(
-          interpolate(frame, [0, 7, length], [index === 0 ? 1.18 : 1.06, 1, 1.03], {
+          interpolate(frame, [0, 7, length], [index === 0 ? 1.18 : 1.06, 1, push], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
-            easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.linear],
+            easing: [Easing.bezier(0.16, 1, 0.3, 1), Easing.bezier(0.33, 0, 0.67, 1)],
           }) * interpolate(exit, [0, 1], [1, 0.94]),
         ),
       }}

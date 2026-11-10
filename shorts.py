@@ -426,8 +426,9 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   예: before {{"외부 API", "$3", cloud}} / after {{"자체 GLM", "$0.3", server}}. label에 무엇의 비교인지(예: "100만 토큰당").
 - scale: 규모. 같은 사물을 격자로 깔아 숫자를 체감시킨다. count에 깔 개수(1~60), icon, value에 화면에 크게 쓸 말(예: "B200 56개"), label에 설명.
   실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
-- scene3d: 3D 장면 그림. 기사 주제를 한눈에 보여주는 입체 장면을 화면 가운데에 크게 띄운다. 영상에 한 번만,
-  문제나 주제를 처음 꺼내는 컷(보통 2~4번째 컷)에 쓴다. scene은 주제에 가장 맞는 것 하나:
+- scene3d: 3D 장면 그림. 기사 주제를 한눈에 보여주는 입체 장면을 화면 가운데에 크게 띄운다. 영상에 1~2번:
+  문제나 주제를 처음 꺼내는 컷(보통 2~4번째 컷)에 한 번, 해결책이나 결과가 나오는 뒤쪽 컷에 한 번 더 써도 된다.
+  두 번 쓸 때는 서로 멀리 떨어진 컷에, 가능하면 다른 장면으로(예: 문제는 vault3d, 해결은 deploy3d). scene은 주제에 가장 맞는 것 하나:
   vault3d(보안·유출·해킹·인증) / law3d(법·규제·소송·저작권) / coins3d(비용·절감·가격) / server3d(서버·클라우드·인프라·성능)
   / chip3d(칩·반도체·GPU·하드웨어) / lab3d(연구·학습·벤치마크) / data3d(데이터·DB·SQL·지표) / web3d(웹·브라우저·사이트)
   / media3d(이미지·영상 생성·사진·디자인) / search3d(검색·RAG·추천) / invest3d(투자·스타트업·상장·인수·매출)
@@ -1594,19 +1595,23 @@ def pick_backdrop(script):
     return pick_scene3d(script) or SHORTS_BACKDROP
 
 
+SCENE3D_MAX_CUTS = 2
+
+
 def add_scene3d_cut(script):
-    """3D 장면 컷은 영상에 한 번만. 대본이 안 썼는데 주제가 맞는 장면이 있으면,
+    """3D 장면 컷은 영상에 최대 SCENE3D_MAX_CUTS번 (붙어 있는 컷 연달아는 안 됨). 대본이 안 썼는데 주제가 맞는 장면이 있으면,
     훅 다음 ~ 끝에서 3번째 전의 자막만 있는 컷 중 대사가 가장 긴 컷에 그 장면을 띄운다."""
     cuts = script["cuts"]
-    seen = False
+    kept = []
 
-    for cut in cuts:
+    for index, cut in enumerate(cuts):
         if cut["visual"].get("type") == "scene3d":
-            if seen:
+            if len(kept) >= SCENE3D_MAX_CUTS or (kept and index - kept[-1] < 2):
                 cut["visual"] = {"type": "none"}
-            seen = True
+            else:
+                kept.append(index)
 
-    if seen:
+    if kept:
         return script
 
     scene = pick_scene3d(script)
@@ -1652,6 +1657,9 @@ def render_with_remotion(props, work_dir, output_path):
             npx, "remotion", "render", "src/index.ts", "Short",
             os.path.abspath(output_path),
             f"--props={props_path}",
+            # YouTube가 다시 압축해도 글자·3D 경계가 뭉개지지 않게 원본 화질을 높게 (기본 crf 18)
+            f"--crf={RENDER_CRF}",
+            "--x264-preset=slow",
             "--log=error",
         ],
         cwd=VIDEO_PROJECT_DIR,
@@ -1977,6 +1985,10 @@ def youtube_error_reason(error):
             return f"{reason}: {YOUTUBE_ERROR_HINTS[reason]}"
 
     return f"{', '.join(filter(None, reasons))} {detail.get('message', '')}".strip()
+
+
+# 렌더링 화질 (x264 crf, 낮을수록 고화질·큰 파일). 50초 영상 기준 약 30~60MB.
+RENDER_CRF = int(os.environ.get("SHORTS_RENDER_CRF", "14"))
 
 
 def next_publish_slot(history, now=None):
