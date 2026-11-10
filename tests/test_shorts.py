@@ -450,8 +450,8 @@ class ShortsTest(unittest.TestCase):
         # 대사에 두 번 이상 나와도 3D
         self.assertEqual(shorts.pick_scene3d(script("확 줄었다", "토큰을 덜 써요", "토큰 / 절반이요")), "desk3d")
         # 한 번 스치는 정도, 관계없는 주제는 기본 배경
-        self.assertEqual(shorts.pick_scene3d(script("새 폰 디자인", "에이전트도 돌린대요")), None)
-        self.assertEqual(shorts.pick_scene3d(script("유튜브 video 정책 변경", "idea 공유 기능")), None)
+        self.assertEqual(shorts.pick_scene3d(script("새 폰 색깔", "에이전트도 돌린대요")), None)
+        self.assertEqual(shorts.pick_scene3d(script("idea 공유 기능 정책", "slideshow 정리")), None)
 
     def test_pick_scene3d_picks_topic_scene(self):
         def script(cover, *lines):
@@ -481,6 +481,13 @@ class ShortsTest(unittest.TestCase):
             self.assertEqual(shorts.pick_scene3d(script("Git 작업 큐로 푸는 법")), "repo3d")
             self.assertEqual(shorts.pick_scene3d(script("Ghostty 1.4.0 스크롤백 압축")), None)
             self.assertEqual(shorts.pick_scene3d(script("Copilot 앱에서 세션 이어 하기")), "desk3d")
+            self.assertEqual(shorts.pick_scene3d(script("Qwen-Image-2.1, 소형 이미지 생성 모델")), "media3d")
+            self.assertEqual(shorts.pick_scene3d(script("Kagi Search, 가입 없이 무료 검색")), "search3d")
+            self.assertEqual(shorts.pick_scene3d(script("Anthropic, 나스닥 상장 신청")), "invest3d")
+            self.assertEqual(shorts.pick_scene3d(script("Linux 커널 스케줄링 개선")), "terminal3d")
+            # '[영상]'은 발표 영상 표시, '인수인계'는 인수가 아니다
+            self.assertEqual(shorts.pick_scene3d(script("Rails World 2026 개막 기조연설 [영상]")), None)
+            self.assertEqual(shorts.pick_scene3d(script("AI 챗 간 인수인계 확장")), None)
             # 대사에 두 번 이상 나오면 제목에 없어도 고른다, 한 번은 아니다
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "백도어가 있었어요", "공급망 공격이죠")), "vault3d")
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "서버 한 대로요")), None)
@@ -521,6 +528,7 @@ class ShortsTest(unittest.TestCase):
             "내 사이트에 AI 비서가 몰려오는데, 보고 계세요?": "web3d",
             "LLM 확장형 웹 앱, 샌드박스·권한 객체로 안전하게": "web3d",
             "SQLite 오픈소스 외부 기여 금지, AI 시대 유지보수 전략": "repo3d",
+            "Replit microVM 샌드박스 재구축, 커널 공유 끊었다": "terminal3d",
             "Zed Delta 공개 베타, PR 끄고 33명이 570건 반영": "launch3d",
             "광고를 AI한테 물어보게 만든 당근, 어떻게 했을까?": None,
             "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기": None,

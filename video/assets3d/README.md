@@ -21,13 +21,17 @@
 | `scripts/chip_world.py` | `chip3d` | `chip_world.png`, `chip_world_loop.webm` | 금색 다리가 난 큰 칩(빛나는 다이), 칩으로 흘러드는 회로 선, 도는 웨이퍼, 냉각 팬 | 칩, 반도체, GPU, NPU, 하드웨어 |
 | `scripts/phone_world.py` | `phone3d` | `phone_world.png`, `phone_world_loop.webm` | 앱 아이콘이 차례로 튀는 큰 스마트폰과 알림 말풍선, 태블릿, 흔들리는 알림 종 | 모바일, 앱, iOS, Android |
 | `scripts/deploy_world.py` | `deploy3d` | `deploy_world.png`, `deploy_world_loop.webm` | 빌드 톱니 → 검사 터널 → 체크 깃발로 상자가 흐르는 컨베이어, 신호등 | 배포, CI/CD, 테스트, 빌드, 모니터링 |
+| `scripts/media_world.py` | `media3d` | `media_world.png`, `media_world_loop.webm` | 이젤 위 산·해 그림(붓이 오감), 떠 있는 사진 3장, 딱 닫히는 슬레이트, 릴이 도는 캠코더 | 이미지·영상 생성, 사진, 디자인 |
+| `scripts/search_world.py` | `search3d` | `search_world.png`, `search_world_loop.webm` | 입력이 쳐지는 큰 검색창, 결과 카드를 훑는 돋보기(밑 카드가 골라짐), 책 더미 | 검색, RAG, 추천, 임베딩 |
+| `scripts/invest_world.py` | `invest3d` | `invest_world.png`, `invest_world_loop.webm` | 창문이 켜지는 빌딩 3채, 치솟는 빨간 화살표, 통통 튀는 돈 자루, 지폐 다발 | 투자, 스타트업, 상장, 인수 |
+| `scripts/terminal_world.py` | `terminal3d` | `terminal_world.png`, `terminal_world_loop.webm` | 한 줄씩 쳐지는 터미널 창과 깜빡이는 커서, 맞물려 도는 톱니바퀴, 폴더 | 터미널, CLI, 리눅스, macOS, OS |
 
 결과물은 모두 `public/assets3d/`에 있고, 1080x1920 투명 배경이다. 루프는 **12초(360프레임)** 이다.
 걷는 꼬마들은 루프 동안 정확히 한 바퀴를 돌아 제자리로 오므로 이음새가 보이지 않는다.
 (1/n 바퀴만 돌게 하면 이음새에서 색이 다른 꼬마가 옆자리로 순간 이동해 튄다.) 깜빡임, 통통, 흔들림은 4초에 정수 번 반복한다.
 
 어떤 장면을 고를지는 `shorts.py`의 `SCENE3D_KEYWORDS`가 정한다. 제목 주제어는 3점, 대사 주제어는 1점으로 세고,
-제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 `SCENE3D_FILES` 순서: 보안 > 법 > 비용 > 인프라 > 칩 > 연구 > 데이터 > 웹 > 배포 > 오픈소스 > 책상 > 모바일 > 출시).
+제목에 1개 이상 또는 대사에 2개 이상 나온 장면 중 점수가 가장 높은 장면을 고른다(같으면 `SCENE3D_FILES` 순서: 보안 > 법 > 비용 > 인프라 > 칩 > 연구 > 데이터 > 영상 > 검색 > 투자 > 웹 > 배포 > 터미널 > 오픈소스 > 책상 > 모바일 > 출시).
 '앱', 출시·공개처럼 넓은 말을 쓰는 장면은 뒤에 두어, 더 구체적인 주제와 겹치면 구체적인 장면이 이긴다.
 맞는 장면이 없거나 루프 파일이 없으면 기본 배경(glow)을 쓴다.
 

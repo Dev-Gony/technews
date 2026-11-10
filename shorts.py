@@ -68,8 +68,12 @@ SCENE3D_FILES = {
     "chip3d": "chip_world_loop.webm",  # 큰 칩, 회로 선, 웨이퍼, 냉각 팬
     "lab3d": "lab_world_loop.webm",  # 점수판, 시상대, 실험대
     "data3d": "data_world_loop.webm",  # DB 원통, 표에서 골라지는 행, 원그래프
+    "media3d": "media_world_loop.webm",  # 이젤 그림, 슬레이트, 캠코더, 떠 있는 사진
+    "search3d": "search_world_loop.webm",  # 큰 검색창, 결과 카드를 훑는 돋보기, 책 더미
+    "invest3d": "invest_world_loop.webm",  # 빌딩 3채, 치솟는 빨간 화살표, 돈 자루, 지폐 다발
     "web3d": "web_world_loop.webm",  # 떠 있는 브라우저 창, 지구본, 버튼 누르는 화살표
-    "deploy3d": "deploy_world_loop.webm",  # 빌드 톱니 → 검사 터널 → 체크 깃발 컨베이어, 신호등
+    "deploy3d": "deploy_world_loop.webm",
+    "terminal3d": "terminal_world_loop.webm",  # 터미널 창과 프롬프트, 맞물린 톱니바퀴, 폴더  # 빌드 톱니 → 검사 터널 → 체크 깃발 컨베이어, 신호등
     "repo3d": "repo_world_loop.webm",  # 깃 가지 그래프, 열린 패키지 상자, 금색 별
     "desk3d": "desk_world_loop.webm",  # 노트북 앞 꼬마 에이전트들, 토큰 동전 탑
     # '앱'은 데스크톱 앱에도 쓰는 말이라 책상(코딩 도구) 뒤
@@ -125,6 +129,26 @@ SCENE3D_KEYWORDS = {
         "배포", "deploy", "deployment", "ci", "ci/cd", "파이프라인", "pipeline", "github actions", "테스트", "test", "tests",
         "testing", "빌드", "build", r"re:(?<!스크)롤백", "rollback", "데브옵스", "devops", "sre", "모니터링", "monitoring", "관측성",
         "observability", "온콜", "on-call", "카나리", "canary", "terraform", "테라폼", "helm", "gitops", "릴리스 파이프라인",
+    ],
+    "media3d": [
+        # 제목 끝 '[영상]', '[동영상]'은 발표 영상 링크 표시라 주제가 아니다
+        "이미지", "image", "images", r"re:(?<![\[동])영상(?!\])", r"re:(?<!\[)동영상(?!\])", "video", "videos", "사진", "photo", "그림", "디자인",
+        "이미지 생성", "영상 생성", "sora", "veo", "midjourney", "미드저니", "stable diffusion", "diffusion", "확산 모델",
+        "애니메이션", "animation", "카메라", "영상 편집", "이미지 편집", "유튜브", "youtube", "틱톡", "썸네일", "jpeg", "png", "3d",
+    ],
+    "search3d": [
+        "검색", "search", "검색엔진", "검색 엔진", "구글 검색", "google search", "perplexity", "퍼플렉시티", "rag",
+        "색인", "indexing", "추천", "recommendation", "랭킹", "ranking", "seo", "임베딩", "embedding", "벡터 검색", "retrieval",
+    ],
+    "invest3d": [
+        "투자", "invest", "investment", "스타트업", "startup", "상장", "ipo", r"re:인수(?!인계)", "acquisition", "acquire",
+        "합병", "m&a", "기업가치", "밸류에이션", "valuation", "펀딩", "funding", "시리즈 a", "시리즈 b", "유니콘",
+        "revenue", "arr", "주가", "주식", "나스닥", "nasdaq", "증권", "억 달러", "조 원", "실적", "흑자", "적자", "벤처",
+    ],
+    "terminal3d": [
+        "터미널", "terminal", "cli", "셸", "shell", "bash", "zsh", "명령줄", "커맨드", "command line", "리눅스", "linux",
+        "macos", "맥os", "윈도우", "windows", "운영체제", "os", "커널", "kernel", "우분투", "ubuntu", "데비안", "nixos",
+        "tmux", "vim", "neovim", "emacs", "dotfiles", "파일 시스템", "filesystem",
     ],
     # '분석'만으로는 고르지 않는다 ('~라는 분석' 같은 기사 제목이 많다)
     "data3d": [
@@ -374,7 +398,9 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   문제나 주제를 처음 꺼내는 컷(보통 2~4번째 컷)에 쓴다. scene은 주제에 가장 맞는 것 하나:
   vault3d(보안·유출·해킹·인증) / law3d(법·규제·소송·저작권) / coins3d(비용·절감·가격) / server3d(서버·클라우드·인프라·성능)
   / chip3d(칩·반도체·GPU·하드웨어) / lab3d(연구·학습·벤치마크) / data3d(데이터·DB·SQL·지표) / web3d(웹·브라우저·사이트)
-  / phone3d(모바일·앱·iOS·Android) / deploy3d(배포·CI/CD·테스트·빌드) / repo3d(오픈소스·깃허브·Git·라이브러리)
+  / media3d(이미지·영상 생성·사진·디자인) / search3d(검색·RAG·추천) / invest3d(투자·스타트업·상장·인수·매출)
+  / phone3d(모바일·앱·iOS·Android) / deploy3d(배포·CI/CD·테스트·빌드) / terminal3d(터미널·CLI·리눅스·OS)
+  / repo3d(오픈소스·깃허브·Git·라이브러리)
   / desk3d(AI 에이전트·코딩 도구·토큰·MCP) / launch3d(새 모델·제품 출시·공개·베타).
   label에 장면 위에 띄울 짧은 말(10자 이내, 예: "토큰이 새는 곳"), 없으면 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
