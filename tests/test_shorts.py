@@ -440,43 +440,43 @@ class ShortsTest(unittest.TestCase):
         self.assertIn(str(len(token)), description)
         self.assertEqual(shorts.describe_oauth_token(""), "토큰 없음")
 
-    def test_pick_backdrop_desk3d_for_agent_token_coding_topics(self):
+    def test_pick_scene3d_desk3d_for_agent_token_coding_topics(self):
         def script(cover, *lines):
             return {"cover": cover, "cuts": [{"line": line} for line in lines]}
 
         # 제목에 주제어가 있으면 3D 책상 장면
-        self.assertEqual(shorts.pick_backdrop(script("코드 에이전트 토큰\n77% 절감", "주석만 지웠어요")), "desk3d")
-        self.assertEqual(shorts.pick_backdrop(script("Claude Code 새 기능", "써 봤어요")), "desk3d")
+        self.assertEqual(shorts.pick_scene3d(script("코드 에이전트 토큰\n77% 절감", "주석만 지웠어요")), "desk3d")
+        self.assertEqual(shorts.pick_scene3d(script("Claude Code 새 기능", "써 봤어요")), "desk3d")
         # 대사에 두 번 이상 나와도 3D
-        self.assertEqual(shorts.pick_backdrop(script("확 줄었다", "토큰을 덜 써요", "토큰 / 절반이요")), "desk3d")
+        self.assertEqual(shorts.pick_scene3d(script("확 줄었다", "토큰을 덜 써요", "토큰 / 절반이요")), "desk3d")
         # 한 번 스치는 정도, 관계없는 주제는 기본 배경
-        self.assertEqual(shorts.pick_backdrop(script("새 폰 발표", "에이전트도 돌린대요")), "glow")
-        self.assertEqual(shorts.pick_backdrop(script("유튜브 video 정책 변경", "idea 공유 기능")), "glow")
+        self.assertEqual(shorts.pick_scene3d(script("새 폰 발표", "에이전트도 돌린대요")), None)
+        self.assertEqual(shorts.pick_scene3d(script("유튜브 video 정책 변경", "idea 공유 기능")), None)
 
-    def test_pick_backdrop_picks_topic_scene(self):
+    def test_pick_scene3d_picks_topic_scene(self):
         def script(cover, *lines):
             return {"cover": cover, "cuts": [{"line": line} for line in lines]}
 
         with mock.patch.object(shorts, "scene3d_ready", return_value=True):
             # 장면마다 제목 주제어 하나로 고른다
-            self.assertEqual(shorts.pick_backdrop(script("확장에 백도어 발견", "지우세요")), "vault3d")
-            self.assertEqual(shorts.pick_backdrop(script("DMARC 없는 메일 거부", "레코드 한 줄")), "vault3d")
-            self.assertEqual(shorts.pick_backdrop(script("LLM 비용 77% 절감", "모델을 섞었어요")), "coins3d")
-            self.assertEqual(shorts.pick_backdrop(script("EC2 용량 미리 확인", "안 뜰 수 있어요")), "server3d")
-            self.assertEqual(shorts.pick_backdrop(script("RAM 70%↓ 재구축", "가벼워졌어요")), "server3d")
-            self.assertEqual(shorts.pick_backdrop(script("MaxxBench 점수 추락", "74%가 53%로")), "lab3d")
-            self.assertEqual(shorts.pick_backdrop(script("가중치 0.016%만 고쳤다", "그런데요")), "lab3d")
+            self.assertEqual(shorts.pick_scene3d(script("확장에 백도어 발견", "지우세요")), "vault3d")
+            self.assertEqual(shorts.pick_scene3d(script("DMARC 없는 메일 거부", "레코드 한 줄")), "vault3d")
+            self.assertEqual(shorts.pick_scene3d(script("LLM 비용 77% 절감", "모델을 섞었어요")), "coins3d")
+            self.assertEqual(shorts.pick_scene3d(script("EC2 용량 미리 확인", "안 뜰 수 있어요")), "server3d")
+            self.assertEqual(shorts.pick_scene3d(script("RAM 70%↓ 재구축", "가벼워졌어요")), "server3d")
+            self.assertEqual(shorts.pick_scene3d(script("MaxxBench 점수 추락", "74%가 53%로")), "lab3d")
+            self.assertEqual(shorts.pick_scene3d(script("가중치 0.016%만 고쳤다", "그런데요")), "lab3d")
             # 대사에 두 번 이상 나오면 제목에 없어도 고른다, 한 번은 아니다
-            self.assertEqual(shorts.pick_backdrop(script("이거 아세요?", "백도어가 있었어요", "공급망 공격이죠")), "vault3d")
-            self.assertEqual(shorts.pick_backdrop(script("이거 아세요?", "서버 한 대로요")), "glow")
+            self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "백도어가 있었어요", "공급망 공격이죠")), "vault3d")
+            self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "서버 한 대로요")), None)
             # 여러 장면이 걸리면 가장 많이 맞는 장면
-            self.assertEqual(shorts.pick_backdrop(script("AI 에이전트 비용, 토큰값만 보면 손해인 이유?")), "coins3d")
-            self.assertEqual(shorts.pick_backdrop(script("코딩 에이전트 TODO 주석 방해, 토큰 77% 낭비")), "desk3d")
-            self.assertEqual(shorts.pick_backdrop(script("에이전트 메모리, 질문당 2만 토큰 절약")), "desk3d")
+            self.assertEqual(shorts.pick_scene3d(script("AI 에이전트 비용, 토큰값만 보면 손해인 이유?")), "coins3d")
+            self.assertEqual(shorts.pick_scene3d(script("코딩 에이전트 TODO 주석 방해, 토큰 77% 낭비")), "desk3d")
+            self.assertEqual(shorts.pick_scene3d(script("에이전트 메모리, 질문당 2만 토큰 절약")), "desk3d")
             # 점수가 같으면 더 구체적인 장면 (책상보다 보안)
-            self.assertEqual(shorts.pick_backdrop(script("확장 지워도 백도어가 남는다고? Cursor 사고")), "vault3d")
+            self.assertEqual(shorts.pick_scene3d(script("확장 지워도 백도어가 남는다고? Cursor 사고")), "vault3d")
 
-    def test_pick_backdrop_past_titles(self):
+    def test_pick_scene3d_past_titles(self):
         """지난 영상 제목만으로 고른 장면 (대사가 더해지면 바뀔 수 있다). 엉뚱한 장면이 고르지 않는지 확인."""
         expected = {
             "확장 지워도 백도어가 남는다고? Cursor 사고": "vault3d",
@@ -501,21 +501,21 @@ class ShortsTest(unittest.TestCase):
             "코딩 에이전트 TODO 주석 방해, 토큰 77% 낭비": "desk3d",
             "Anthropic 에이전트 메모리, 드리밍으로 질문당 약 2만 토큰 절약": "desk3d",
             "Claude Code·Codex 두뇌 과부하, Git 작업 큐로 푸는 법": "desk3d",
-            "광고를 AI한테 물어보게 만든 당근, 어떻게 했을까?": "glow",
-            "AI한테 SQL 대신 지표만 쥐여주면 생기는 일?": "glow",
-            "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기": "glow",
-            "Zed Delta 공개 베타, PR 끄고 33명이 570건 반영": "glow",
+            "광고를 AI한테 물어보게 만든 당근, 어떻게 했을까?": None,
+            "AI한테 SQL 대신 지표만 쥐여주면 생기는 일?": None,
+            "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기": None,
+            "Zed Delta 공개 베타, PR 끄고 33명이 570건 반영": None,
         }
         with mock.patch.object(shorts, "scene3d_ready", return_value=True):
             for title, scene in expected.items():
                 with self.subTest(title=title):
-                    self.assertEqual(shorts.pick_backdrop({"cover": title, "cuts": []}), scene)
+                    self.assertEqual(shorts.pick_scene3d({"cover": title, "cuts": []}), scene)
 
-    def test_pick_backdrop_skips_scene_without_file(self):
+    def test_pick_scene3d_skips_scene_without_file(self):
         script = {"cover": "MaxxBench 점수 추락", "cuts": []}
 
         with mock.patch.object(shorts, "scene3d_ready", side_effect=lambda scene: scene != "lab3d"):
-            self.assertEqual(shorts.pick_backdrop(script), "glow")
+            self.assertEqual(shorts.pick_scene3d(script), None)
 
     def test_scene3d_files_exist_and_match_remotion(self):
         # Blender 스크립트가 있는 장면은 루프 파일도 함께 있어야 하고(책상 장면은 늘),
@@ -533,6 +533,38 @@ class ShortsTest(unittest.TestCase):
         for scene, filename in shorts.SCENE3D_FILES.items():
             self.assertIn(f'"{scene}"', schema)
             self.assertIn(f'{scene}: "assets3d/{filename}"', background)
+
+    def test_scene3d_goes_to_a_cut_not_the_backdrop(self):
+        def cut(kind="none", **extra):
+            return {"line": "대사", "visual": {"type": kind, **extra}}
+
+        script = {"cover": "확장에 백도어 발견", "cuts": [cut("hook"), cut("number", value="3"), cut(), cut(), cut(), cut("question")]}
+        script["cuts"][3]["line"] = "확장을 지워도 백도어는 남아 있었어요"
+
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True):
+            # 기본은 배경에 깔지 않는다
+            self.assertEqual(shorts.pick_backdrop(script), "glow")
+            # 자막만 있는 컷 중 대사가 가장 긴 컷에 장면을 띄운다 (끝 쪽 컷은 제외)
+            shorts.add_scene3d_cut(script)
+            self.assertEqual(script["cuts"][3]["visual"], {"type": "scene3d", "scene": "vault3d"})
+            self.assertEqual(script["cuts"][2]["visual"]["type"], "none")
+
+            # 대본이 이미 썼으면 그대로 두고, 두 번째부터는 지운다
+            written = {"cover": "x", "cuts": [cut("hook"), cut("scene3d", scene="coins3d"), cut("scene3d", scene="lab3d"), cut(), cut(), cut()]}
+            shorts.add_scene3d_cut(written)
+            self.assertEqual(written["cuts"][1]["visual"]["scene"], "coins3d")
+            self.assertEqual(written["cuts"][2]["visual"], {"type": "none"})
+
+            # 주제가 맞지 않으면 넣지 않는다
+            plain = {"cover": "새 폰 발표", "cuts": [cut("hook"), cut(), cut(), cut()]}
+            shorts.add_scene3d_cut(plain)
+            self.assertNotIn("scene3d", [c["visual"]["type"] for c in plain["cuts"]])
+
+    def test_validate_visual_scene3d_needs_known_scene(self):
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True):
+            self.assertEqual(shorts.validate_visual({"type": "scene3d", "scene": "server3d"})["scene"], "server3d")
+            self.assertEqual(shorts.validate_visual({"type": "scene3d", "scene": "moon3d"}), {"type": "none"})
+            self.assertEqual(shorts.validate_visual({"type": "scene3d"}), {"type": "none"})
 
     def test_pick_backdrop_respects_explicit_setting_and_off_switch(self):
         script = {"cover": "에이전트 토큰 절감", "cuts": [{"line": "에이전트"}]}

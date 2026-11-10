@@ -56,9 +56,9 @@ CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
 # 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 윤곽 글자) / 3D 장면(아래 SCENE3D_FILES)
 SHORTS_BACKDROP = os.environ.get("SHORTS_BACKDROP") or "glow"
-# 기본 배경(glow)일 때 기사 주제에 맞는 3D 장면을 자동으로 깐다. 0이면 끈다.
-# 장면: video/public/assets3d/*_loop.webm (사용자 PC에서 Blender로 미리 렌더링, video/assets3d/ 참고)
-DESK3D_AUTO = os.environ.get("SHORTS_DESK3D") != "0"
+# 3D 장면(video/public/assets3d/*_loop.webm, 사용자 PC에서 Blender로 미리 렌더링)은 배경이 아니라
+# 설명 컷의 그림(visual type "scene3d")으로 쓴다. 1이면 예전처럼 배경에도 깐다.
+DESK3D_AUTO = os.environ.get("SHORTS_DESK3D") == "1"
 # 3D 장면 이름 → 루프 파일. 파일이 저장소에 없으면 그 장면은 고르지 않는다.
 SCENE3D_FILES = {
     "vault3d": "vault_world_loop.webm",  # 살짝 열린 금고, 방패, 자물쇠
@@ -319,6 +319,11 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   예: before {{"외부 API", "$3", cloud}} / after {{"자체 GLM", "$0.3", server}}. label에 무엇의 비교인지(예: "100만 토큰당").
 - scale: 규모. 같은 사물을 격자로 깔아 숫자를 체감시킨다. count에 깔 개수(1~60), icon, value에 화면에 크게 쓸 말(예: "B200 56개"), label에 설명.
   실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
+- scene3d: 3D 장면 그림. 기사 주제를 한눈에 보여주는 입체 장면을 화면 가운데에 크게 띄운다. 영상에 한 번만,
+  문제나 주제를 처음 꺼내는 컷(보통 2~4번째 컷)에 쓴다. scene은 주제에 가장 맞는 것 하나:
+  vault3d(보안·유출·해킹·인증), coins3d(비용·절감·가격·낭비), server3d(서버·클라우드·인프라·메모리·성능),
+  lab3d(모델 연구·학습·가중치·벤치마크·점수), desk3d(AI 에이전트·코딩 도구·토큰·MCP).
+  label에 장면 위에 띄울 짧은 말(10자 이내, 예: "토큰이 새는 곳"), 없으면 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
   원문에 없는 문장은 절대 만들지 않는다.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
@@ -340,7 +345,7 @@ ICONS = [
 ]
 
 VISUAL_TYPES = [
-    "hook", "metaphor", "diagram", "beforeafter", "scale", "quote",
+    "hook", "metaphor", "diagram", "beforeafter", "scale", "quote", "scene3d",
     "number", "compare", "flow", "keywords", "code", "question", "none",
 ]
 
@@ -409,6 +414,7 @@ VISUAL_SCHEMA = {
         "count": {"type": "integer"},
         "icon": {"type": "string", "enum": ICONS},
         "quote": {"type": "string"},
+        "scene": {"type": "string", "enum": ["vault3d", "coins3d", "server3d", "lab3d", "desk3d"]},
     },
     "required": ["type"],
     "additionalProperties": False,
@@ -1001,6 +1007,7 @@ def validate_visual(visual):
         "beforeafter": all((side.get("value") or "").strip() for side in (before, after)),
         "scale": (visual.get("count") or 0) >= 2 and bool((visual.get("value") or "").strip()),
         "quote": len((visual.get("quote") or "").strip()) >= 8,
+        "scene3d": visual.get("scene") in SCENE3D_FILES and scene3d_ready(visual.get("scene")),
         "metaphor": len([room for room in visual.get("rooms") or [] if (room.get("place") or "").strip()]) >= 2,
         "number": bool(re.search(r"\d", visual.get("value") or "")),
         "compare": len(visual.get("bars") or []) >= 2,
@@ -1353,7 +1360,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     shutil.copyfile(narration_path, os.path.join(public_dir, "narration.mp3"))
 
     total_frames = ms_to_frame(audio_duration(narration_path) * 1000 + END_PAD_MS)
-    cuts = script["cuts"]
+    cuts = add_scene3d_cut(script)["cuts"]
 
     # 컷은 그 컷의 첫 단어를 말하기 시작할 때 바뀐다.
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
@@ -1441,17 +1448,14 @@ def scene3d_scores(script):
     return scores
 
 
-def pick_backdrop(script):
-    """배경 고르기. 직접 정한 배경(SHORTS_BACKDROP)이 있으면 그대로 쓴다.
+def pick_scene3d(script):
+    """기사 주제에 맞는 3D 장면. 없으면 None.
 
-    기본(glow)일 때만, 제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오는 3D 장면 중
-    가장 많이 맞는 장면을 깐다. 한 번 스치듯 나온 단어로는 고르지 않는다.
+    제목에 주제어가 있거나 대사 전체에 주제어가 2번 이상 나오는 장면 중 가장 많이 맞는 장면.
+    한 번 스치듯 나온 단어로는 고르지 않는다.
     점수가 같으면 SCENE3D_FILES 순서(보안 > 비용 > 인프라 > 연구 > 책상)로, 더 구체적인 장면을 고른다.
-    맞는 장면이 없거나 장면 파일이 없으면 기본 배경(glow)을 쓴다.
+    장면 파일이 없으면 고르지 않는다.
     """
-    if SHORTS_BACKDROP != "glow" or not DESK3D_AUTO:
-        return SHORTS_BACKDROP
-
     scores = scene3d_scores(script)
     order = list(SCENE3D_FILES)
     candidates = [
@@ -1460,9 +1464,48 @@ def pick_backdrop(script):
     ]
 
     if not candidates:
-        return SHORTS_BACKDROP
+        return None
 
     return max(candidates, key=lambda scene: (scores[scene][0], -order.index(scene)))
+
+
+def pick_backdrop(script):
+    """배경 고르기. 직접 정한 배경(SHORTS_BACKDROP)이 있으면 그대로 쓴다.
+    3D 장면은 기본적으로 설명 컷(scene3d)에 쓰고, SHORTS_DESK3D=1일 때만 배경에도 깐다."""
+    if SHORTS_BACKDROP != "glow" or not DESK3D_AUTO:
+        return SHORTS_BACKDROP
+
+    return pick_scene3d(script) or SHORTS_BACKDROP
+
+
+def add_scene3d_cut(script):
+    """3D 장면 컷은 영상에 한 번만. 대본이 안 썼는데 주제가 맞는 장면이 있으면,
+    훅 다음 ~ 끝에서 3번째 전의 자막만 있는 컷 중 대사가 가장 긴 컷에 그 장면을 띄운다."""
+    cuts = script["cuts"]
+    seen = False
+
+    for cut in cuts:
+        if cut["visual"].get("type") == "scene3d":
+            if seen:
+                cut["visual"] = {"type": "none"}
+            seen = True
+
+    if seen:
+        return script
+
+    scene = pick_scene3d(script)
+
+    if not scene:
+        return script
+
+    # 장면이 충분히 오래 보이도록, 자막만 있는 컷 중 대사가 가장 긴 컷에 띄운다.
+    spots = [index for index in range(1, max(len(cuts) - 2, 1)) if cuts[index]["visual"].get("type") == "none"]
+
+    if spots:
+        best = max(spots, key=lambda index: len(spoken_line(cuts[index])))
+        cuts[best]["visual"] = {"type": "scene3d", "scene": scene}
+
+    return script
 
 
 def pick_sfx(cuts, starts):
