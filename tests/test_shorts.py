@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime
 from pathlib import Path
 from unittest import mock
 
@@ -611,6 +612,32 @@ class ShortsTest(unittest.TestCase):
         finally:
             shorts.SHORTS_BACKDROP, shorts.DESK3D_AUTO = original
 
+
+    def test_next_publish_slot_takes_earliest_free_slot(self):
+        kst = shorts.KST
+        original = shorts.PUBLISH_SLOTS
+
+        try:
+            shorts.PUBLISH_SLOTS = [7, 8, 12, 13, 17, 18]
+            now = datetime(2026, 11, 11, 4, 0, tzinfo=kst)
+            self.assertEqual(shorts.next_publish_slot([], now), datetime(2026, 11, 11, 7, tzinfo=kst))
+
+            # 이미 예약된 시각은 건너뛴다
+            history = [{"publish_at": datetime(2026, 11, 11, 7, tzinfo=kst).isoformat()}]
+            self.assertEqual(shorts.next_publish_slot(history, now), datetime(2026, 11, 11, 8, tzinfo=kst))
+
+            # 늦게 시작해 7시가 20분도 안 남았으면 다음 시각
+            late = datetime(2026, 11, 11, 6, 50, tzinfo=kst)
+            self.assertEqual(shorts.next_publish_slot([], late), datetime(2026, 11, 11, 8, tzinfo=kst))
+
+            # 오늘 시각을 다 썼으면 내일 첫 시각
+            evening = datetime(2026, 11, 11, 18, 30, tzinfo=kst)
+            self.assertEqual(shorts.next_publish_slot([], evening), datetime(2026, 11, 12, 7, tzinfo=kst))
+
+            shorts.PUBLISH_SLOTS = []
+            self.assertIsNone(shorts.next_publish_slot([], now))
+        finally:
+            shorts.PUBLISH_SLOTS = original
 
 if __name__ == "__main__":
     unittest.main()

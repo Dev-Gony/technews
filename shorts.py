@@ -51,6 +51,13 @@ TTS_VOICE = os.environ.get("SHORTS_VOICE", "ko-KR-SunHiNeural")
 TTS_RATE = os.environ.get("SHORTS_TTS_RATE", "+22%")
 # 업로드 기본값은 비공개: YouTube Studio에서 확인한 뒤 직접 공개로 바꾼다.
 UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
+# 공개 시각 (KST, 시). GitHub 예약 실행은 몇 시간씩 늦게 시작되기도 해서, 영상은 미리 만들어
+# 비공개로 올리고 YouTube 예약 공개(publishAt)로 이 시각에 정확히 공개한다. 비우면 올리자마자 공개.
+PUBLISH_SLOTS = [
+    int(hour) for hour in os.environ.get("SHORTS_PUBLISH_SLOTS", "7,8,12,13,17,18").split(",") if hour.strip()
+]
+# 업로드·처리 시간을 감안해 지금부터 최소 이만큼 뒤의 시각에만 예약한다 (분).
+PUBLISH_LEAD_MINUTES = 20
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 # 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
 SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
@@ -1972,7 +1979,28 @@ def youtube_error_reason(error):
     return f"{', '.join(filter(None, reasons))} {detail.get('message', '')}".strip()
 
 
-def upload_youtube(video_path, script, article, history=()):
+def next_publish_slot(history, now=None):
+    """아직 아무 영상도 예약하지 않은 가장 이른 공개 시각 (KST). 슬롯을 안 쓰면 None."""
+    if not PUBLISH_SLOTS:
+        return None
+
+    now = now or datetime.now(KST)
+    earliest = now + timedelta(minutes=PUBLISH_LEAD_MINUTES)
+    taken = {entry.get("publish_at") for entry in history if entry.get("publish_at")}
+
+    for day in range(3):
+        date = (now + timedelta(days=day)).date()
+
+        for hour in sorted(PUBLISH_SLOTS):
+            slot = datetime(date.year, date.month, date.day, hour, tzinfo=KST)
+
+            if slot >= earliest and slot.isoformat() not in taken:
+                return slot
+
+    return None
+
+
+def upload_youtube(video_path, script, article, history=(), publish_at=None):
     token = youtube_access_token()
     metadata = {
         "snippet": {
@@ -1989,6 +2017,11 @@ def upload_youtube(video_path, script, article, history=()):
             "containsSyntheticMedia": True,
         },
     }
+
+    if publish_at and UPLOAD_PRIVACY == "public":
+        # 예약 공개: 비공개로 올리고 publishAt(UTC)에 YouTube가 공개로 바꾼다.
+        metadata["status"]["privacyStatus"] = "private"
+        metadata["status"]["publishAt"] = publish_at.astimezone(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%SZ")
     size = os.path.getsize(video_path)
 
     start = urllib.request.Request(
@@ -2292,8 +2325,15 @@ def main():
     elif not can_upload:
         print("YouTube 인증 정보가 없어 업로드를 건너뜁니다.")
     else:
-        video_id, privacy = upload_youtube(video_path, script, article, history)
-        print(f"업로드 완료 ({privacy}): https://youtu.be/{video_id}")
+        publish_at = next_publish_slot(history) if UPLOAD_PRIVACY == "public" else None
+        video_id, privacy = upload_youtube(video_path, script, article, history, publish_at)
+
+        if publish_at and privacy == "private":
+            privacy = "scheduled"
+            print(f"업로드 완료 (예약 공개 {publish_at:%m/%d %H:%M} KST): https://youtu.be/{video_id}")
+        else:
+            publish_at = None
+            print(f"업로드 완료 ({privacy}): https://youtu.be/{video_id}")
 
         thumbnail_note = ""
 
@@ -2307,7 +2347,9 @@ def main():
             thumbnail_note = "\n썸네일: 적용 완료" if problem is None else f"\n썸네일 적용 실패: {problem}"
             print(thumbnail_note.strip())
 
-        if privacy == "public":
+        if privacy == "scheduled":
+            headline = f"[{CHANNEL_NAME}] 새 Shorts 예약 공개 ({publish_at:%m/%d %H:%M} KST)"
+        elif privacy == "public":
             headline = f"[{CHANNEL_NAME}] 새 Shorts 공개 업로드"
         else:
             headline = f"[{CHANNEL_NAME}] 새 Shorts 업로드 ({privacy}) — Studio에서 공개로 바꿔주세요"
@@ -2326,6 +2368,7 @@ def main():
                 "title": script["title"],
                 "video_id": video_id,
                 "voice": voice,
+                **({"publish_at": publish_at.isoformat()} if publish_at else {}),
             }
         )
         save_json(SHORTS_HISTORY_FILE, history)

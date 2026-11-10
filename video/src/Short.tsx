@@ -220,7 +220,7 @@ const Outro: React.FC<{ channel: string }> = ({ channel }) => {
           translate: `0px ${interpolate(line, [0, 1], [16, 0])}px`,
         }}
       >
-        AI·개발 뉴스, 매일 3시간마다
+        AI·개발 뉴스, 출근·점심·퇴근길에
       </div>
     </AbsoluteFill>
   );

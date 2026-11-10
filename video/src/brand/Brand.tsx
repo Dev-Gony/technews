@@ -148,7 +148,7 @@ export const Banner: React.FC = () => {
               letterSpacing: 1,
             }}
           >
-            매일 6편 · 07시부터 3시간마다
+            매일 6편 · 출근·점심·퇴근길
           </div>
         </div>
       </div>

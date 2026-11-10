@@ -38,17 +38,19 @@ on:
   # 한도는 미국 태평양 시간 자정(한국 17:00)에 초기화되므로, 그 사이에 6번이 고르게 들어가도록 3시간 간격.
   # 만들 기사가 없으면 아무것도 하지 않고 끝난다.
   schedule:
-    - cron: "0 7 * * *"
+    # 공개는 7·8·12·13·17·18시(shorts.py PUBLISH_SLOTS, YouTube 예약 공개).
+    # GitHub 예약 실행은 정각에 몰리면 몇 시간씩 늦어지므로, 약 3시간 앞서 정각을 피해 만든다.
+    - cron: "47 3 * * *"
       timezone: "Asia/Seoul"
-    - cron: "0 10 * * *"
+    - cron: "47 4 * * *"
       timezone: "Asia/Seoul"
-    - cron: "0 13 * * *"
+    - cron: "47 8 * * *"
       timezone: "Asia/Seoul"
-    - cron: "0 16 * * *"
+    - cron: "47 9 * * *"
       timezone: "Asia/Seoul"
-    - cron: "0 19 * * *"
+    - cron: "47 13 * * *"
       timezone: "Asia/Seoul"
-    - cron: "0 22 * * *"
+    - cron: "47 14 * * *"
       timezone: "Asia/Seoul"
 
 permissions:
