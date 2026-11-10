@@ -162,6 +162,18 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("lang_world", {
+        "sign": (obj["Sign"], "object", "받침 위 큰 '</>' 글자 조형물 (프로그래밍 언어·코드)"),
+        "compiler": ([o for o in obj if o.name.startswith("Cmp_")], "object",
+                     "컴파일러 기계: 코드 블록을 삼켜 0·1 조각을 뱉는다 (컴파일러·런타임·빌드)"),
+        "tower": (obj["CodeTower"], "object", "들여쓰기가 다른 색색 코드 블록 탑 (코드베이스·라이브러리·스택)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 코드를 들고 걸어 다닌다 (개발자·새 언어)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 문서를 들고 걸어 다닌다 (문서·명세·사용자)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 코드를 들고 걸어 다닌다 (개발자·버그·경쟁 언어)"),
+    }, FRAMES, "lang3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("lang_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

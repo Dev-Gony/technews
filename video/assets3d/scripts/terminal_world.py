@@ -174,6 +174,17 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("terminal_world", {
+        "terminal": (obj["Terminal"], "object", "공중에 뜬 먹색 터미널 창, 명령 줄이 쳐진다 (CLI·셸·명령 실행)"),
+        "gears": (obj["GearStand"], "object", "맞물려 도는 빨강·금색 톱니바퀴 (설정·시스템·자동화)"),
+        "folders": (obj["Folders"], "object", "금색 폴더 두 개, 서류가 들락날락 (파일·디렉터리·저장소)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 코드 조각을 들고 걸어 다닌다 (개발자·스크립트)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 문서를 들고 걸어 다닌다 (문서·설정 파일)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 빈손으로 걸어 다닌다 (사용자·관리자)"),
+    }, FRAMES, "terminal3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("terminal_world", resolution=1080, height=1920, frame=100))
     if "--still-only" not in opts:

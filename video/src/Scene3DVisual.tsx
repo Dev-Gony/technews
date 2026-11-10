@@ -197,7 +197,8 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
   // ---- 지금 대상 (링·이름표·조명)
   const focus = story && current >= 0 ? point(beats[current].target) : null;
   const focusScreen = focus ? toScreen(focus.x, focus.y) : null;
-  const ringR = focus ? Math.max(focus.r * s * 0.82, 46) : 0;
+  // 큰 사물(저울·서버 랙 3대)도 링이 너무 커서 이름표가 자막 쪽으로 밀리지 않게 상한을 둔다
+  const ringR = focus ? Math.min(Math.max(focus.r * s * 0.82, 46), 150) : 0;
   const beatEnd = current >= 0 && current + 1 < starts.length ? starts[current + 1] : sceneFrames + 100;
   // 다음 beat 로 넘어가기 직전에 이름표를 거둬, 한 번에 하나만 보이게
   const out = interpolate(frame, [beatEnd - 5, beatEnd], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
@@ -252,6 +253,8 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
     pillTop = hole.y + ringR + gap;
     above = false;
   }
+  // 어떤 경우에도 자막 영역(captionTop)과 상단 제목을 가리지 않게
+  pillTop = Math.min(Math.max(pillTop, CLIP_TOP + 8), CLIP_BOTTOM - pillH - 8);
   const pillCenter = Math.min(Math.max(hole.x, pillW / 2 + 48), 1080 - pillW / 2 - 48);
   const lineFrom = { x: hole.x, y: above ? hole.y - ringR : hole.y + ringR };
   const lineTo = { x: pillCenter, y: above ? pillTop + pillH : pillTop };

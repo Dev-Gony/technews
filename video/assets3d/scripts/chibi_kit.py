@@ -416,8 +416,8 @@ def export_anchors(name, anchors, frames, scene_name):
                     p = world_to_camera_view(scene, cam, mw @ Vector(c))
                     xs.append(p.x * W)
                     ys.append((1 - p.y) * H)
-            if not xs:
-                raw[key].append(raw[key][-1] if raw[key] else (W / 2, H / 2, 0))
+            if not xs:  # 이 프레임엔 숨어 있다 → 아래에서 가장 가까운 보이는 프레임 값으로 채운다
+                raw[key].append(None)
                 continue
             cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
             r = max(max(xs) - min(xs), max(ys) - min(ys)) / 2
@@ -427,6 +427,10 @@ def export_anchors(name, anchors, frames, scene_name):
     for key, (_, kind, desc) in targets.items():
         pts = raw[key]
         n = len(pts)
+        seen = [i for i, p in enumerate(pts) if p is not None]
+        if not seen:
+            raise RuntimeError(f"anchor {key}: 루프 내내 보이지 않는다")
+        pts = [p if p is not None else pts[min(seen, key=lambda j: min(abs(j - i), n - abs(j - i)))] for i, p in enumerate(pts)]
         smooth = []
         for i in range(n):
             win = [pts[(i + d) % n] for d in range(-6, 7)]

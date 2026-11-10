@@ -162,6 +162,17 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("law_world", {
+        "court": (obj["Court"], "object", "기둥 4개 선 법원 건물, 지붕에 금색 문장 (법원·정부·규제 당국)"),
+        "gavel": ([obj["Block_Base"], obj["Block"], obj["Block_Ring"], ANIM["gavel"]], "object", "받침을 땅땅 내려치는 의사봉 (판결·결정·제재)"),
+        "stamp": (obj["StampSet"], "object", "서류 더미에 쾅 찍히는 빨간 도장 (승인·법안 통과·허가)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (소송 서류·원고)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 열쇠를 들고 걸어 다닌다 (권리·저작권 가진 쪽)"),
+        "yellow": (walkers[2].rig, "character", "노란 꼬마: 문서를 들고 걸어 다닌다 (기업·피고·신청인)"),
+    }, FRAMES, "law3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("law_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

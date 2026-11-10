@@ -176,6 +176,19 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers, fan)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("repo_world", {
+        "graph": ([o for o in obj if o.name.startswith(("Commit", "Graph_Post", "Graph_Foot"))], "object", "공중의 깃 그래프, 빨강·금색 가지가 갈라졌다 합쳐진다 (브랜치·병합·버전)"),
+        "flag": ([obj["Commit_Head"], obj["Flag_Pole"], ANIM["flag"]], "object", "그래프 끝 금색 커밋 위 펄럭이는 빨간 깃발 (최신 릴리스·마일스톤)"),
+        "package": ([o for o in obj if o.name.startswith(("Box_", "Block"))], "object", "뚜껑 열린 상자, 코드 블록이 통통 튀어나온다 (패키지·라이브러리·배포)"),
+        "star": ([obj["Star_Base"], obj["Star_Stem"], ANIM["star"]], "object", "받침 위에서 도는 금색 별 (깃허브 스타·인기·추천)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 코드를 들고 걸어 다닌다 (개발자·기여자)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 문서를 들고 걸어 다닌다 (문서·메인테이너)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 빈손으로 걸어 다닌다 (사용자·새 기여자)"),
+        "yellow": (fan[0], "character", "노란 꼬마: 별 옆에서 통통 뛴다 (팬·별 누른 사용자)"),
+    }, FRAMES, "repo3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("repo_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

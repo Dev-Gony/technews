@@ -652,8 +652,15 @@ class ShortsTest(unittest.TestCase):
         self.assertIn("- vault3d", prompt)
         self.assertIn("  - door:", prompt)
 
+    def test_every_scene3d_has_anchor_roles(self):
+        # 25개 장면 모두 배역 이름표 파일이 있어야 한다 (꼬마만 돌아다니는 장면이 남지 않게)
+        for scene in shorts.SCENE3D_FILES:
+            anchors = shorts.scene3d_anchors(scene)
+            self.assertGreaterEqual(len(anchors), 4, scene)
+            self.assertTrue(all(desc.strip() for desc in anchors.values()), scene)
+
     def test_validate_visual_scene3d_needs_known_scene(self):
-        with mock.patch.object(shorts, "scene3d_ready", return_value=True):
+        with mock.patch.object(shorts, "scene3d_ready", return_value=True), mock.patch.object(shorts, "scene3d_anchors", return_value={}):
             self.assertEqual(shorts.validate_visual({"type": "scene3d", "scene": "server3d"})["scene"], "server3d")
             self.assertEqual(shorts.validate_visual({"type": "scene3d", "scene": "moon3d"}), {"type": "none"})
             self.assertEqual(shorts.validate_visual({"type": "scene3d"}), {"type": "none"})

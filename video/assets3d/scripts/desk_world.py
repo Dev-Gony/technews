@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import bpy  # noqa: E402
 
+import chibi_kit as ck  # noqa: E402  (export_anchors 만 쓴다)
 import iso_kit as kit  # noqa: E402
 
 FRAMES = 360  # 12초 루프: 걷는 꼬마들이 정확히 한 바퀴 돌아 제자리로
@@ -310,6 +311,20 @@ def main():
     # 위는 제목·UI 카드, 아래는 자막 자리. 장면을 살짝 아래로
     cam.data.shift_y = 0.05
     animate(rig)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("desk_world", {
+        "laptop": (obj["Lap_ScreenRig"], "object", "거대한 노트북 화면, 코드 줄과 카드가 빛난다 (AI 도구·코딩 앱·화면)"),
+        "tower": ([o for o in obj if o.name.startswith(("Tower_", "Loose_"))], "object", "금색 동전 탑 (토큰·비용·사용량)"),
+        "mug": ([obj["Mug"], obj["Mug_Coffee"], obj["Mug_Handle"]], "object", "빨간 커피 머그 (개발자의 일상·작업 시간)"),
+        "red": (obj["WalkerRed_Rig"], "character", "빨간 꼬마: 금색 동전을 머리 위로 들고 걷는다 (토큰·요금)"),
+        "white_code": (obj["WalkerPaper_Rig"], "character", "흰 꼬마: 빨간 코드 블록을 들고 걷는다 (코드·AI 에이전트)"),
+        "yellow": (obj["WalkerGold_Rig"], "character", "노란 꼬마: 문서를 들고 걷는다 (문서·프롬프트)"),
+        "blue": (obj["WalkerBlue_Rig"], "character", "파란 꼬마: 빈손으로 걸어 다닌다 (사용자·개발자)"),
+        "white_typer": (obj["Typer_Rig"], "character", "흰 꼬마: 키보드 위에서 통통 뛰며 타자 (일하는 에이전트)"),
+        "yellow_sitter": (obj["Sitter_Rig"], "character", "노란 꼬마: 화면 위에 걸터앉아 다리를 흔든다 (지켜보는 쪽)"),
+    }, FRAMES, "desk3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("desk_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

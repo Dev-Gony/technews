@@ -182,6 +182,17 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("web_world", {
+        "browser": (obj["Browser"], "object", "공중에 뜬 큰 브라우저 창, 로딩 막대와 카드가 뜬다 (웹사이트·브라우저)"),
+        "globe": (obj["Globe_Tilt"], "object", "받침 위에서 도는 파란 지구본 (인터넷·전 세계)"),
+        "cursor": ([obj["Cursor"], obj["Button_Base"], obj["Button_Top"]], "object", "큰 마우스 화살표가 빨간 버튼을 누른다 (클릭·사용자 조작)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걷는다 (웹 문서·콘텐츠)"),
+        "red": (walkers[1].rig, "character", "빨간 꼬마: 빨간 코드 블록을 들고 걷는다 (프런트엔드 코드)"),
+        "yellow": (walkers[2].rig, "character", "노란 꼬마: 빈손으로 걸어 다닌다 (방문자·사용자)"),
+    }, FRAMES, "web3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("web_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

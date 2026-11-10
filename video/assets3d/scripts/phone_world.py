@@ -169,6 +169,17 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("phone_world", {
+        "phone": (obj["Phone"], "object", "큰 스마트폰, 앱 아이콘이 톡톡 튀고 알림이 내려온다 (모바일·앱·OS)"),
+        "tablet": (obj["Tablet"], "object", "거치대 위 흰 태블릿, 화면에 색 카드 (태블릿·화면 UI·위젯)"),
+        "bell": ([obj["Bell_Base"], obj["Bell_Post"], ANIM["bell"], ANIM["badge"]], "object", "흔들리는 금색 알림 종과 빨간 숫자 배지 (푸시 알림·경고)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 코드를 들고 걸어 다닌다 (앱 개발자)"),
+        "red": (walkers[1].rig, "character", "빨간 꼬마: 문서를 들고 걸어 다닌다 (정책·약관·심사)"),
+        "blue": (walkers[2].rig, "character", "파란 꼬마: 빈손으로 걸어 다닌다 (사용자)"),
+    }, FRAMES, "phone3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("phone_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

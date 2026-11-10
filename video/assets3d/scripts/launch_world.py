@@ -205,6 +205,19 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers, cheer)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("launch_world", {
+        "rocket": (ANIM["rocket"], "object", "발사대 위 흰 로켓, 아래로 불꽃이 일렁인다 (새 모델·제품 출시)"),
+        "tower": ([o for o in obj if o.name.startswith("Tower_")], "object", "로켓 옆 먹색 발사탑, 꼭대기 빨간 등이 깜빡 (출시 준비·인프라)"),
+        "countdown": (obj["Countdown"], "object", "카운트다운 화면, 3→2→1 숫자가 바뀐다 (출시 임박·일정)"),
+        "gift": ([o for o in obj if o.name.startswith("Gift_")], "object", "뚜껑이 들썩이는 빨간 선물 상자 (새 기능·무료 공개·혜택)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (발표 자료·공지)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 코드를 들고 걸어 다닌다 (개발자·개발팀)"),
+        "yellow": (walkers[2].rig, "character", "노란 꼬마: 빈손으로 걸어 다닌다 (사용자·고객)"),
+        "red": (cheer[0], "character", "빨간 꼬마: 발사대 앞에서 통통 뛴다 (환호하는 팬·얼리어답터)"),
+    }, FRAMES, "launch3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("launch_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:
