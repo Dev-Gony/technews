@@ -494,6 +494,14 @@ class ShortsTest(unittest.TestCase):
             # AI 일반(ai3d)은 다른 장면이 하나도 안 맞을 때만
             self.assertEqual(shorts.pick_scene3d(script("LLM이 소프트웨어 정형 검증을 가능하게")), "ai3d")
             self.assertEqual(shorts.pick_scene3d(script("OpenAI는 자체 LLM으로 칩을 어떻게 설계했나")), "chip3d")
+            self.assertEqual(shorts.pick_scene3d(script("Rust 컴파일러 속도를 높이는 방법")), "lang3d")
+            self.assertEqual(shorts.pick_scene3d(script("AI 시대 주니어 개발자의 역할")), "work3d")
+            self.assertEqual(shorts.pick_scene3d(script("PS2 게임을 재컴파일하기")), "game3d")
+            self.assertEqual(shorts.pick_scene3d(script("Terence Tao: 수학 2.0")), "math3d")
+            self.assertEqual(shorts.pick_scene3d(script("Let's Encrypt 인증서 검증 지점 추가")), "vault3d")
+            self.assertEqual(shorts.pick_scene3d(script("FreeDNS - 무료 DNS 호스팅")), "server3d")
+            # '언어 모델'은 프로그래밍 언어가 아니다 → AI 일반
+            self.assertEqual(shorts.pick_scene3d(script("gzip도 언어 모델이 될 수 있을까?")), "ai3d")
             # 대사에 두 번 이상 나오면 제목에 없어도 고른다, 한 번은 아니다
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "백도어가 있었어요", "공급망 공격이죠")), "vault3d")
             self.assertEqual(shorts.pick_scene3d(script("이거 아세요?", "서버 한 대로요")), None)
@@ -535,7 +543,8 @@ class ShortsTest(unittest.TestCase):
             "LLM 확장형 웹 앱, 샌드박스·권한 객체로 안전하게": "web3d",
             "SQLite 오픈소스 외부 기여 금지, AI 시대 유지보수 전략": "repo3d",
             "Replit microVM 샌드박스 재구축, 커널 공유 끊었다": "terminal3d",
-            "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기": "chat3d",
+            "worklog-system 주간보고 자동화, Slack·Jira·AI 연동 후기": "work3d",
+            "뱅크샐러드 망분리 n8n AX, 인당 매일 30분~1시간 절약": "work3d",
             "Zed Delta 공개 베타, PR 끄고 33명이 570건 반영": "launch3d",
             "광고를 AI한테 물어보게 만든 당근, 어떻게 했을까?": None,
         }

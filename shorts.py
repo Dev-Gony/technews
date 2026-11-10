@@ -68,8 +68,10 @@ SCENE3D_FILES = {
     "chip3d": "chip_world_loop.webm",  # 큰 칩, 회로 선, 웨이퍼, 냉각 팬
     "robot3d": "robot_world_loop.webm",  # 손 흔드는 로봇, 둥근 길을 도는 자율주행차, 드론
     "lab3d": "lab_world_loop.webm",  # 점수판, 시상대, 실험대
+    "math3d": "math_world_loop.webm",  # 칠판 식과 곡선, 도는 도형, 원을 그리는 컴퍼스
     "data3d": "data_world_loop.webm",  # DB 원통, 표에서 골라지는 행, 원그래프
     "media3d": "media_world_loop.webm",  # 이젤 그림, 슬레이트, 캠코더, 떠 있는 사진
+    "game3d": "game_world_loop.webm",  # 큰 게임 패드, 픽셀 하트, 아케이드 조이스틱, 픽셀 동전
     "voice3d": "voice_world_loop.webm",  # 스튜디오 마이크, 음파 막대, 헤드폰, 음표
     "search3d": "search_world_loop.webm",  # 큰 검색창, 결과 카드를 훑는 돋보기, 책 더미
     "invest3d": "invest_world_loop.webm",  # 빌딩 3채, 치솟는 빨간 화살표, 돈 자루, 지폐 다발
@@ -77,8 +79,11 @@ SCENE3D_FILES = {
     "chat3d": "chat_world_loop.webm",  # 열리는 편지 봉투, 말풍선, 도는 종이비행기  # 떠 있는 브라우저 창, 지구본, 버튼 누르는 화살표
     "deploy3d": "deploy_world_loop.webm",
     "terminal3d": "terminal_world_loop.webm",  # 터미널 창과 프롬프트, 맞물린 톱니바퀴, 폴더  # 빌드 톱니 → 검사 터널 → 체크 깃발 컨베이어, 신호등
+    "lang3d": "lang_world_loop.webm",  # '</>' 조형물, 코드 블록을 0·1 로 바꾸는 컴파일러 기계
     "repo3d": "repo_world_loop.webm",  # 깃 가지 그래프, 열린 패키지 상자, 금색 별
     "desk3d": "desk_world_loop.webm",  # 노트북 앞 꼬마 에이전트들, 토큰 동전 탑
+    # '업무', '팀'처럼 넓은 말이 많아 책상(코딩 도구) 뒤
+    "work3d": "work_world_loop.webm",  # 칸반 보드, 벽시계, 김 나는 커피와 달력
     # '앱'은 데스크톱 앱에도 쓰는 말이라 책상(코딩 도구) 뒤
     "phone3d": "phone_world_loop.webm",  # 큰 스마트폰과 앱 아이콘, 태블릿, 알림 종
     # 출시·공개는 다른 주제와 자주 겹치는 넓은 말이라 맨 뒤(점수가 같으면 더 구체적인 장면이 이긴다)
@@ -96,6 +101,7 @@ SCENE3D_KEYWORDS = {
         "인증", "2fa", "mfa", "otp", "비밀번호", "패스워드", "password", "dmarc", "spf", "dkim", "스푸핑", "스팸",
         "위협", "권한 상승", "시크릿", "api 키", "토큰 점검", "암호화", "개인정보", "프라이버시", "privacy",
         "외부 사이트", "외부로", "외부 전송", "인젝션", "injection", "security",
+        "인증서", "certificate", "암호", "post-quantum", "양자내성", "스파이웨어", "spyware", "안티바이러스", "antivirus", "tls", "ssl",
     ],
     "coins3d": [
         "비용", "요금", "사용료", "가격", "청구서", "과금", "수수료", "구독료", "예산", "지출", "원가",
@@ -107,6 +113,7 @@ SCENE3D_KEYWORDS = {
         "메모리", "ram", "지연", "레이턴시", "latency", "처리량", "throughput", "캐시", "cdn",
         "스케일업", "스케일 아웃", "오토스케일", "용량", "쿠버네티스", "kubernetes", "k8s", "컨테이너", "도커", "docker",
         "트래픽", "장애", "다운타임", "분산", "네트워크", "배 성능", "배 빨라", "배 빠른",
+        "dns", "serverless", "서버리스", "api gateway", "wireguard", "vpn", "터널", "스토리지", "storage",
     ],
     "lab3d": [
         "벤치마크", "벤치", "benchmark", r"re:[a-z0-9-]*bench(?![a-z])", "리더보드", "leaderboard", "sota", "mmlu",
@@ -172,6 +179,26 @@ SCENE3D_KEYWORDS = {
         "llm", "llms", "챗봇", "chatbot", "chatgpt", "gpt", "claude", "클로드", "gemini", "제미나이", "언어 모델",
         "ai 모델", "모델", "추론", "reasoning", "프롬프트", "prompt", "컨텍스트", "context", "환각", "hallucination",
         "멀티모달", "multimodal", "트랜스포머", "transformer", "openai", "anthropic", "딥시크", "deepseek",
+    ],
+    # '언어 모델'은 언어(프로그래밍)가 아니다
+    "lang3d": [
+        "프로그래밍", "programming", r"re:언어(?! ?모델)", "컴파일러", "compiler", "컴파일", "jit", "런타임", "runtime",
+        "rust", "python", "파이썬", "golang", "go의", "zig", "ocaml", "haskell", "java", "jdk", "c++", "c#", ".net",
+        "webassembly", "wasm", "타입 시스템", "타입 안전", "리팩터링", "refactoring", "함수형", "문법", "syntax", "가비지",
+    ],
+    "work3d": [
+        "일하는 방식", "일자리", "주니어", "시니어", "커리어", "채용", "면접", "이직", "해고", "레이오프", "layoff",
+        "조직", "팀", "생산성", "productivity", "자동화", "워크플로", "workflow", "업무", "회의", "기획", "협업",
+        "리더십", "매니저", "번아웃", "과부하", "주간보고", "보고서", "jira", "노션", "notion", "n8n", "zapier", "ax",
+    ],
+    "game3d": [
+        "게임", "game", "games", "gaming", "게이밍", "닌텐도", "nintendo", "steam", "스팀", "플레이스테이션", "playstation",
+        "ps2", "ps5", "xbox", "에뮬레이터", "emulator", "unity", "언리얼", "unreal", "godot", "콘솔",
+    ],
+    # '정리'(요약)는 수학이 아니다
+    "math3d": [
+        "수학", "math", "mathematics", "수학자", "증명", "proof", "알고리즘", "알고리듬", "algorithm", "방정식",
+        "미적분", "기하", "확률", "푸리에", "추측", "terence tao", "테렌스 타오",
     ],
     # '분석'만으로는 고르지 않는다 ('~라는 분석' 같은 기사 제목이 많다)
     "data3d": [
@@ -426,6 +453,7 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   / media3d(이미지·영상 생성·사진·디자인) / search3d(검색·RAG·추천) / invest3d(투자·스타트업·상장·인수·매출)
   / phone3d(모바일·앱·iOS·Android) / deploy3d(배포·CI/CD·테스트·빌드) / terminal3d(터미널·CLI·리눅스·OS)
   / chat3d(메일·메신저·채팅) / voice3d(음성·TTS·오디오·음악) / robot3d(로봇·자율주행·드론)
+  / lang3d(프로그래밍 언어·컴파일러·런타임) / work3d(일하는 방식·조직·커리어·업무 자동화) / game3d(게임) / math3d(수학·알고리즘·증명)
   / repo3d(오픈소스·깃허브·Git·라이브러리)
   / desk3d(AI 에이전트·코딩 도구·토큰·MCP) / launch3d(새 모델·제품 출시·공개·베타)
   / ai3d(AI 모델·LLM·챗봇 일반: 위 장면이 하나도 맞지 않을 때).

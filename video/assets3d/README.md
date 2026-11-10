@@ -29,6 +29,10 @@
 | `scripts/voice_world.py` | `voice3d` | `voice_world.png`, `voice_world_loop.webm` | 스튜디오 마이크와 퍼지는 음파 고리, 오르내리는 음파 막대, 헤드폰, 음표 | 음성, TTS, STT, 오디오, 음악 |
 | `scripts/robot_world.py` | `robot3d` | `robot_world.png`, `robot_world_loop.webm` | 손 흔드는 네모 로봇, 둥근 길을 도는 라이다 자율주행차, 드론, 고깔 | 로봇, 휴머노이드, 자율주행, 드론 |
 | `scripts/ai_world.py` | `ai3d` | `ai_world.png`, `ai_world_loop.webm` | 빛이 흐르는 3겹 신경망, 도는 금색 반짝이, 'AI' 말풍선 | AI 모델·LLM·챗봇 일반 (다른 장면이 안 맞을 때만) |
+| `scripts/lang_world.py` | `lang3d` | `lang_world.png`, `lang_world_loop.webm` | 큰 '</>' 조형물, 코드 블록이 들어가 0·1 이 나오는 컴파일러 기계, 들여쓰기 코드 블록 탑 | 프로그래밍 언어, 컴파일러, 런타임 |
+| `scripts/work_world.py` | `work3d` | `work_world.png`, `work_world_loop.webm` | 메모지가 할 일 → 하는 중 → 끝으로 옮겨 가는 칸반 보드, 벽시계, 김 나는 커피와 달력 | 일하는 방식, 조직, 커리어, 업무 자동화 |
+| `scripts/game_world.py` | `game3d` | `game_world.png`, `game_world_loop.webm` | 버튼이 차례로 눌리는 큰 게임 패드, 도는 픽셀 하트, 흔들리는 조이스틱, 픽셀 동전 | 게임, 게임 개발, 에뮬레이터 |
+| `scripts/math_world.py` | `math3d` | `math_world.png`, `math_world_loop.webm` | 식과 곡선이 있는 칠판(곡선 위 빨간 점), 도는 도형들, 원을 그리는 컴퍼스, 떠 있는 기호 | 수학, 알고리즘, 증명 |
 
 결과물은 모두 `public/assets3d/`에 있고, 1080x1920 투명 배경이다. 루프는 **12초(360프레임)** 이다.
 걷는 꼬마들은 루프 동안 정확히 한 바퀴를 돌아 제자리로 오므로 이음새가 보이지 않는다.

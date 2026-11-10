@@ -12,6 +12,7 @@ import { colors, serifFamily } from "./theme";
 // law3d 법원·의사봉·도장(법·규제) / chip3d 칩·웨이퍼(반도체) / phone3d 스마트폰·앱(모바일) / deploy3d 컨베이어·신호등(배포)
 // media3d 이젤 그림·슬레이트(이미지·영상) / search3d 검색창·돋보기(검색) / invest3d 빌딩·화살표·돈 자루(투자) / terminal3d 터미널·톱니(OS·CLI)
 // chat3d 편지 봉투·말풍선(메일·메신저) / voice3d 마이크·음파(음성) / robot3d 로봇·자율주행차·드론 / ai3d 신경망·반짝이(AI 일반)
+// lang3d </>·컴파일러(프로그래밍 언어) / work3d 칸반·시계·커피(일·조직) / game3d 게임 패드·픽셀 하트(게임) / math3d 칠판·도형·컴퍼스(수학)
 export const SCENES_3D = {
   desk3d: "assets3d/desk_world_loop.webm",
   vault3d: "assets3d/vault_world_loop.webm",
@@ -34,6 +35,10 @@ export const SCENES_3D = {
   voice3d: "assets3d/voice_world_loop.webm",
   robot3d: "assets3d/robot_world_loop.webm",
   ai3d: "assets3d/ai_world_loop.webm",
+  lang3d: "assets3d/lang_world_loop.webm",
+  work3d: "assets3d/work_world_loop.webm",
+  game3d: "assets3d/game_world_loop.webm",
+  math3d: "assets3d/math_world_loop.webm",
 } as const satisfies Record<(typeof SCENE3D_NAMES)[number], string>;
 export type Scene3D = keyof typeof SCENES_3D;
 export type Backdrop = "glow" | "type" | Scene3D;

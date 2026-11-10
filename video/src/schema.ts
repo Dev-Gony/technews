@@ -32,7 +32,7 @@ export const sideSchema = z.object({
 export const SCENE3D_NAMES = [
   "desk3d", "vault3d", "coins3d", "server3d", "lab3d", "data3d", "web3d", "repo3d", "launch3d",
   "law3d", "chip3d", "phone3d", "deploy3d", "media3d", "search3d", "invest3d", "terminal3d",
-  "chat3d", "voice3d", "robot3d", "ai3d",
+  "chat3d", "voice3d", "robot3d", "ai3d", "lang3d", "work3d", "game3d", "math3d",
 ] as const;
 
 export const visualSchema = z.object({
