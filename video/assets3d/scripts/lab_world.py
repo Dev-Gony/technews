@@ -185,6 +185,20 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers, hoppers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("lab_world", {
+        "board": ([o for o in obj if o.name.startswith("Board")], "object", "막대 4개가 오르내리는 점수판, 빨간 막대가 1등 (벤치마크 점수)"),
+        "podium": ([o for o in obj if o.name.startswith("Podium_")], "object", "1·2·3등 시상대 (순위·경쟁 모델)"),
+        "bench": ([o for o in obj if o.name.startswith(("Bench_", "Flask"))], "object", "실험대 위 플라스크들, 액체에서 기포가 오른다 (연구·학습·실험)"),
+        "papers": ([o for o in obj if o.name.startswith("Paper")], "object", "쌓인 논문 더미 (논문·연구 결과)"),
+        "white_flask": (walkers[0].rig, "character", "흰 꼬마: 플라스크를 들고 걷는다 (연구자·실험)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 문서를 들고 걷는다 (논문·보고서)"),
+        "yellow": (obj["Winner1_Rig"], "character", "노란 꼬마: 1등 단상에서 트로피를 들고 통통 (1위 모델)"),
+        "white_second": (obj["Winner2_Rig"], "character", "흰 꼬마: 2등 단상에서 통통 (2위·경쟁 모델)"),
+        "red": (obj["Winner3_Rig"], "character", "빨간 꼬마: 3등 단상에서 통통 (3위·뒤처진 모델)"),
+    }, FRAMES, "lab3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("lab_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

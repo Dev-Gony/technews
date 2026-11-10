@@ -182,13 +182,26 @@ def main():
     kit.reset_scene()
     ck.mats()
     ck.disc()
-    safe()
-    shield(2.45, -0.55)
-    padlock(-2.45, -0.35)
+    hinge = safe()
+    shield_rig = shield(2.45, -0.55)[0]
+    lock_rig = padlock(-2.45, -0.35)
     walkers, peeker = build_characters()
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, rig = ck.frame_camera()
     animate(rig, walkers, peeker)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("vault_world", {
+        "safe": (obj["Safe_Body"], "object", "큰 금고 (지켜야 할 자산·시스템)"),
+        "door": (hinge, "object", "살짝 열린 금고 문, 문틈으로 빨간 빛이 샌다 (뚫린 틈·백도어·취약점)"),
+        "shield": (shield_rig, "object", "빨간 방패 (방어·보안 대책·점검)"),
+        "lock": (lock_rig, "object", "금색 자물쇠 (인증·암호화·잠금)"),
+        "red": (peeker[0], "character", "빨간 꼬마: 금고 문틈을 몰래 엿본다 (공격자·악성 코드)"),
+        "yellow": (walkers[0].rig, "character", "노란 꼬마: 열쇠를 들고 걸어 다닌다 (키·토큰을 가진 쪽)"),
+        "white": (walkers[1].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (사용자·관리자·문서)"),
+        "blue": (walkers[2].rig, "character", "파란 꼬마: 빈손으로 걸어 다닌다 (사용자·개발자)"),
+    }, FRAMES, "vault3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("vault_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

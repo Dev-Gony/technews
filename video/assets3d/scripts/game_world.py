@@ -166,6 +166,18 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("game_world", {
+        "gamepad": (obj["PadRig"], "object", "큰 게임 패드, 버튼이 차례로 눌리고 불이 깜빡인다 (게임·콘솔·플레이)"),
+        "heart": ([obj["Heart"], obj["Heart_Base"], obj["Heart_Stem"]], "object", "빙글 도는 빨간 픽셀 하트 (생명력·인기·레트로 게임)"),
+        "joystick": (obj["StickBox"], "object", "흔들리는 아케이드 조이스틱 (조작·아케이드·에뮬레이터)"),
+        "coins": ([obj[f"PixCoin{k}"] for k in range(3)], "object", "위에 떠서 도는 금색 픽셀 동전 3개 (보상·결제·수익)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 빈손으로 걸어 다닌다 (게이머·사용자)"),
+        "red": (walkers[1].rig, "character", "빨간 꼬마: 빈손으로 걸어 다닌다 (게이머·경쟁자)"),
+        "blue": (walkers[2].rig, "character", "파란 꼬마: 동전을 들고 걸어 다닌다 (구매자·개발사 수익)"),
+    }, FRAMES, "game3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("game_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

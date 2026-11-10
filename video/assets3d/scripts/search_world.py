@@ -163,6 +163,18 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("search_world", {
+        "searchbar": (obj["Bar"], "object", "공중에 뜬 큰 검색창, 글자가 쳐진다 (검색어·질의·프롬프트)"),
+        "cards": ([obj[f"Card{k}"] for k in range(N_CARD)], "object", "바닥에 줄지어 놓인 결과 카드 5장 (검색 결과·문서 후보)"),
+        "magnifier": (obj["Lens"], "object", "카드 위를 훑는 금색 돋보기, 밑 카드가 골라진다 (검색·탐색·선별)"),
+        "books": (obj["Books"], "object", "책갈피 꽂힌 책 더미 (색인·데이터베이스·지식)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (사용자·문서)"),
+        "yellow": (walkers[1].rig, "character", "노란 꼬마: 빈손으로 걸어 다닌다 (사용자·검색하는 쪽)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 문서를 들고 걸어 다닌다 (찾아낸 결과·답변)"),
+    }, FRAMES, "search3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("search_world", resolution=1080, height=1920, frame=20))
     if "--still-only" not in opts:

@@ -169,6 +169,18 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("ai_world", {
+        "network": ([o for o in obj if o.name.startswith(("Net_Post", "Net_Foot", "Node"))], "object", "세 겹 신경망 조형물, 빛 알갱이가 마디를 따라 흐른다 (AI 모델·추론·학습)"),
+        "sparkle": ([obj["SparkBig"], obj["SparkSmall0"], obj["SparkSmall1"], obj["Spark_Base"], obj["Spark_Stem"]], "object",
+                    "천천히 도는 큰 금색 반짝이 (생성 AI·새 기능·마법 같은 결과)"),
+        "bubble": ([obj["Bubble"], obj["Bubble_Post"], obj["Bubble_Foot"]], "object", "'AI' 라고 쓴 빨간 말풍선, 점 3개가 통통 (챗봇·답변 생성 중)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (사용자·프롬프트·데이터)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 코드를 들고 걸어 다닌다 (개발자·API·에이전트)"),
+        "yellow": (walkers[2].rig, "character", "노란 꼬마: 빈손으로 걸어 다닌다 (사용자·기업)"),
+    }, FRAMES, "ai3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("ai_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

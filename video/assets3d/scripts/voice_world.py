@@ -150,6 +150,20 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    # 마이크: 퍼지는 음파 고리는 빼고 몸·머리·받침대만. 헤드폰: 띠(커브)는 경계 상자가 커서 컵·받침만
+    mic_parts = [obj[n] for n in ("Mic_Base", "Mic_Pole", "Mic_Yoke", "Mic_Body", "Mic_Band", "Mic_Head")]
+    print("ANCHORS", ck.export_anchors("voice_world", {
+        "mic": (mic_parts, "object", "받침대에 선 큰 금색 스튜디오 마이크 (음성 입력·녹음·STT)"),
+        "bars": (obj["Bars"], "object", "오르내리는 음파 막대 9개 (소리·음성 합성·TTS 출력)"),
+        "headphones": ([obj[n] for n in ("Hp_Base", "Hp_Pole", "Hp_Cup-1", "Hp_Cup1")], "object", "받침에 걸린 빨간 헤드폰 (듣기·오디오·음악 감상)"),
+        "notes": ([obj["Note0"], obj["Note1"]], "object", "둥실 떠 있는 빨강·금색 음표 2개 (음악·작곡 AI)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 빈손으로 걸어 다닌다 (청취자·사용자)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 문서를 들고 걸어 다닌다 (대본·받아쓰기 결과)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 빈손으로 걸어 다닌다 (화자·진행자)"),
+    }, FRAMES, "voice3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("voice_world", resolution=1080, height=1920, frame=20))
     if "--still-only" not in opts:

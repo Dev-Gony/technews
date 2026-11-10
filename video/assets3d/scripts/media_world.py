@@ -194,6 +194,18 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("media_world", {
+        "canvas": (obj["Canvas"], "object", "이젤 위 큰 캔버스에 산·해 그림, 붓이 오간다 (생성된 이미지·작품)"),
+        "photo": (obj["Photo0"], "object", "공중에 떠 오르내리는 사진 한 장 (사진·생성 결과물)"),
+        "clapper": (obj["Clapper"], "object", "4초마다 딱 닫히는 슬레이트 (영상 촬영·영상 생성 시작)"),
+        "camcorder": (obj["Cam"], "object", "릴이 돌고 빨간 녹화등이 켜진 캠코더 (동영상·녹화)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 빈손으로 걸어 다닌다 (사용자·크리에이터)"),
+        "red": (walkers[1].rig, "character", "빨간 꼬마: 문서를 들고 걸어 다닌다 (프롬프트·기획안)"),
+        "blue": (walkers[2].rig, "character", "파란 꼬마: 빈손으로 걸어 다닌다 (사용자·디자이너)"),
+    }, FRAMES, "media3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("media_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:
