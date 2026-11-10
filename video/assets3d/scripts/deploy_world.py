@@ -178,6 +178,19 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("deploy_world", {
+        "belt": ([o for o in obj if o.name.startswith(("Belt_", "Roller"))], "object", "상자가 줄지어 흐르는 긴 컨베이어 벨트 (파이프라인·자동화)"),
+        "gear": ([ANIM["gear"], obj["Gear_Post"]], "object", "벨트 끝에서 도는 빨간 톱니바퀴 (빌드·컴파일)"),
+        "gate": ([o for o in obj if o.name.startswith("Gate_")], "object", "벨트 가운데 검사 터널, 지붕 등이 반짝 (테스트·검증·CI)"),
+        "flag": (ANIM["flag"], "object", "벨트 끝 높이 걸린 흰 체크 표시 금색 깃발 (배포 완료·릴리스)"),
+        "signal": (obj["Signal"], "object", "빨강→금색→초록으로 바뀌는 신호등 (승인·대기·배포 상태)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 코드를 들고 걸어 다닌다 (개발자·커밋)"),
+        "yellow": (walkers[1].rig, "character", "노란 꼬마: 문서를 들고 걸어 다닌다 (릴리스 노트·리뷰어)"),
+        "blue": (walkers[2].rig, "character", "파란 꼬마: 빈손으로 걸어 다닌다 (운영자·사용자)"),
+    }, FRAMES, "deploy3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("deploy_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

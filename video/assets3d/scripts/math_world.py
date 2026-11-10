@@ -162,6 +162,17 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("math_world", {
+        "board": (obj["Board"], "object", "'x+y=1' 과 곡선이 그려진 초록 칠판 (수식·증명·알고리즘)"),
+        "solids": ([obj["Solids_Turn"], obj["Solid_Base"]], "object", "받침 위에서 도는 정육면체·원뿔·구·고리 (도형·기하·구조)"),
+        "compass": ([obj["Compass"], obj["Compass_Circle"]], "object", "돌며 바닥에 금색 원을 그리는 컴퍼스 (계산·정밀함·설계)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (연구자·논문)"),
+        "yellow": (walkers[1].rig, "character", "노란 꼬마: 빈손으로 걸어 다닌다 (학생·사용자)"),
+        "blue": (walkers[2].rig, "character", "파란 꼬마: 문서를 들고 걸어 다닌다 (수학자·풀이)"),
+    }, FRAMES, "math3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("math_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

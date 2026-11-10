@@ -186,6 +186,21 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers, beam, pans, sitter)
+    obj = bpy.data.objects
+    stand = [obj[n] for n in ("Scale_Base", "Scale_Foot", "Scale_Pillar", "Scale_Pivot", "Scale_Needle")]
+    print("ANCHORS", ck.export_anchors("coins_world", {
+        "scale": (stand + [beam, pans[0][0], pans[1][0]], "object", "큰 양팔 저울, 동전 쪽으로 기울어 흔들린다 (비교·무게·균형)"),
+        "heavy": (pans[0][0], "object", "동전이 수북한 무거운 접시 (큰 비용·많이 드는 쪽)"),
+        "receipt": ([obj["Printer"], obj["Receipt_Paper"]], "object", "출력기에서 길게 늘어진 영수증, 끝에 빨간 합계 (청구서·비용)"),
+        "stacks": ([o for o in obj if o.name.startswith(("Stack", "SpinCoin"))], "object", "점점 낮아지는 동전 탑 3개, 위에 도는 동전 (절감·가격 인하)"),
+        "arrow": (ANIM["arrow"], "object", "빨간 아래 화살표 (가격 하락·감소)"),
+        "red": (walkers[0].rig, "character", "빨간 꼬마: 금색 동전을 들고 걷는다 (돈·토큰을 내는 쪽)"),
+        "white": (walkers[1].rig, "character", "흰 꼬마: 문서를 들고 걷는다 (청구서·보고서)"),
+        "yellow": (walkers[2].rig, "character", "노란 꼬마: 빈손으로 걸어 다닌다 (사용자·고객)"),
+        "blue": (sitter[0], "character", "파란 꼬마: 가벼운 저울 접시에 앉아 갸웃 (가벼운 쪽·싼 선택지)"),
+    }, FRAMES, "coins3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("coins_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

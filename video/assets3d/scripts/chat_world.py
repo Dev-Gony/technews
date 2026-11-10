@@ -161,6 +161,19 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("chat_world", {
+        "envelope": (obj["Envelope"], "object", "빨간 봉인 큰 봉투, 뚜껑이 열리고 편지가 올라온다 (메일·메시지 도착)"),
+        "typing": (obj["Bubble1"], "object", "점 3개가 통통 튀는 금색 말풍선 (입력 중·답장 대기·AI 응답)"),
+        "bubble_white": (obj["Bubble0"], "object", "글줄이 적힌 흰 말풍선 (보낸 메시지·대화)"),
+        "bubble_red": (obj["Bubble2"], "object", "글줄이 적힌 빨간 말풍선 (알림·중요 메시지)"),
+        "plane": (obj["Plane"], "object", "원판 위를 크게 도는 흰 종이비행기 (전송·발송 중인 메시지)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (보내는 사람·사용자)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 문서를 들고 걸어 다닌다 (받는 사람·동료)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 빈손으로 걸어 다닌다 (사용자·스팸 보내는 쪽)"),
+    }, FRAMES, "chat3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("chat_world", resolution=1080, height=1920, frame=60))
     if "--still-only" not in opts:

@@ -224,6 +224,18 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("robot_world", {
+        "robot": (obj["Robot"], "object", "네모 머리 로봇, 금색 눈을 깜빡이며 한 팔을 흔든다 (로봇·휴머노이드·AI)"),
+        "car": (obj["Car"], "object", "지붕 라이다가 빛나는 흰 자율주행차, 길을 돈다 (자율주행·모빌리티)"),
+        "drone": (obj["Drone"], "object", "프로펠러 4개가 도는 드론이 둥실 떠 있다 (드론·하늘·감시)"),
+        "cone": ([obj["Cone_Base"], obj["Cone_Body"], obj["Cone_Stripe"]], "object", "주황 고깔 (주의·규제·테스트 구간)"),
+        "yellow": (walkers[1].rig, "character", "노란 꼬마: 열쇠를 들고 걸어 다닌다 (키·권한을 가진 쪽)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 빈손으로 걸어 다닌다 (사용자·시민)"),
+        "blue": (walkers[2].rig, "character", "파란 꼬마: 빈손으로 걸어 다닌다 (사용자·개발자)"),
+    }, FRAMES, "robot3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("robot_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

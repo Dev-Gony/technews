@@ -69,7 +69,7 @@ const VisualLayer: React.FC<{ cut: Cut; index: number }> = ({ cut, index }) => {
         ),
       }}
     >
-      {index === 0 ? null : <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} />}
+      {index === 0 ? null : <SceneVisual visual={cut.visual} sceneFrames={cut.durationInFrames} chunks={cut.chunks} />}
     </AbsoluteFill>
   );
 };

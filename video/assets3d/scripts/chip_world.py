@@ -178,6 +178,17 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("chip_world", {
+        "chip": (obj["Chip"], "object", "금색 다리 달린 큰 칩, 가운데 코어가 빛난다 (반도체·GPU·NPU)"),
+        "wafer": (obj["Wafer"], "object", "받침 위에서 천천히 도는 은색 웨이퍼 (생산·파운드리·공정)"),
+        "fan": (obj["FanBox"], "object", "팬이 빙빙 도는 냉각 모듈 (발열·전력·데이터센터)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 코드를 들고 걸어 다닌다 (개발자·소프트웨어)"),
+        "red": (walkers[1].rig, "character", "빨간 꼬마: 동전을 들고 걸어 다닌다 (투자·가격·매출)"),
+        "yellow": (walkers[2].rig, "character", "노란 꼬마: 빈손으로 걸어 다닌다 (사용자·고객사)"),
+    }, FRAMES, "chip3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("chip_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

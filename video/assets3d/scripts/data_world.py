@@ -161,6 +161,17 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("data_world", {
+        "db": ([o for o in obj if o.name.startswith("DB_")], "object", "3단 원통 데이터베이스, 단 사이 금색 띠가 켜진다 (DB·저장소)"),
+        "table": (obj["Table"], "object", "격자 표, 행이 하나씩 빨갛게 골라진다 (쿼리·SQL·레코드)"),
+        "pie": ([obj["Pie_Base"]] + [obj[f"PieRig{k}"] for k in range(4)], "object", "원그래프, 빨간 조각이 빠졌다 들어간다 (지표·점유율·분석)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걷는다 (보고서·데이터 문서)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 금색 동전을 들고 걷는다 (비용·가치)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 빈손으로 걸어 다닌다 (사용자·분석가)"),
+    }, FRAMES, "data3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("data_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

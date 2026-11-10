@@ -465,7 +465,13 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   / repo3d(오픈소스·깃허브·Git·라이브러리)
   / desk3d(AI 에이전트·코딩 도구·토큰·MCP) / launch3d(새 모델·제품 출시·공개·베타)
   / ai3d(AI 모델·LLM·챗봇 일반: 위 장면이 하나도 맞지 않을 때).
-  label에 장면 위에 띄울 짧은 말(10자 이내, 예: "토큰이 새는 곳"), 없으면 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
+  scene3d는 장식이 아니라 그 컷의 대사를 설명하는 짧은 이야기다. beats(배역) 2~4개를 반드시 쓴다:
+  장면 속 사물·꼬마(아래 대본 요청의 "3D 장면 배역" 목록에 있는 이름만)에 대사 속 개념을 하나씩 붙이면,
+  카메라가 대사 순서대로 그 대상으로 밀고 들어가 이름표를 띄운다. beat는 {{target: 배역 이름, label: 이름표(12자 이내)}}.
+  예: 대사 "SSH 원격 접속 열쇠를 꽂는 거죠" → [{{red, "공격자"}}, {{yellow, "SSH 키"}}, {{door, "원격 접속"}}].
+  label은 그 컷 대사나 기사에 나오는 말만 쓰고, 대사에 나오는 순서대로 놓는다. 기사에 없는 비유·역할을 지어내지 않는다.
+  배역 목록이 없는 장면은 쓰지 않는다. 이름표를 읽을 시간이 필요하니 대사가 긴 컷(말하는 데 2.5초 이상, 15자 이상)에만 쓴다.
+  label(장면 위 문구)은 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에, 그중 가장 중요한 구절을 **이렇게** 감싼다. label에 출처(예: "GeekNews 정리").
   원문에 없는 문장은 절대 만들지 않는다.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
@@ -557,6 +563,18 @@ VISUAL_SCHEMA = {
         "icon": {"type": "string", "enum": ICONS},
         "quote": {"type": "string"},
         "scene": {"type": "string", "enum": list(SCENE3D_FILES)},
+        "beats": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "target": {"type": "string"},
+                    "label": {"type": "string"},
+                },
+                "required": ["target", "label"],
+                "additionalProperties": False,
+            },
+        },
     },
     "required": ["type"],
     "additionalProperties": False,
@@ -621,6 +639,11 @@ def build_script_prompt(article, source_text="", angle=""):
 
     if angle:
         lines += ["", f"이번 대본의 각도: {angle}"]
+
+    roles = scene3d_roles_prompt(article)
+
+    if roles:
+        lines += ["", roles]
 
     return "\n".join(lines)
 
@@ -851,7 +874,7 @@ JUDGE_SCHEMA = {
     "additionalProperties": False,
 }
 
-FACTCHECK_SYSTEM_PROMPT = """너는 기술 뉴스 쇼츠의 팩트체커다. 대본(JSON)의 모든 문장, 숫자, 회사·제품명, 그래픽 값(value, label, items, bars, rooms), cover, title, question, summary, tips, caution을 원문과 하나씩 대조한다.
+FACTCHECK_SYSTEM_PROMPT = """너는 기술 뉴스 쇼츠의 팩트체커다. 대본(JSON)의 모든 문장, 숫자, 회사·제품명, 그래픽 값(value, label, items, bars, rooms, beats의 label), cover, title, question, summary, tips, caution을 원문과 하나씩 대조한다.
 - 원문에 근거가 없거나 원문과 다른 내용은 원문에 있는 사실로 고치고, 고칠 수 없으면 그 문장·그래픽을 뺀다(컷을 빼도 된다).
 - 원문에 조건이 붙은 내용(예: "내부 지표 기준", "약")은 조건을 살린다.
 - 맞는 내용은 그대로 둔다. 말투, 구조, 자막 끊기(" / "), 컷 순서, 그래픽 종류는 바꾸지 않는다.
@@ -1164,6 +1187,38 @@ def validate_visual(visual):
     if not has_content.get(kind):
         return {"type": "none"}
 
+    if kind == "scene3d":
+        return validate_scene3d_beats(visual)
+
+    return visual
+
+
+def validate_scene3d_beats(visual):
+    """scene3d 배역(beats)은 장면 이름표 파일(*_anchors.json)에 있는 대상만, 이름표는 12자 이내만 남긴다.
+    이름표 파일이 있는 장면인데 쓸 수 있는 배역이 하나도 없으면, 꼬마가 그냥 돌아다니기만 하는 그림이 되므로 넣지 않는다.
+    이름표 파일이 없는 장면은 예전처럼 장면만 띄운다."""
+    anchors = scene3d_anchors(visual.get("scene"))
+
+    if not anchors:
+        visual.pop("beats", None)
+        return visual
+
+    beats, seen = [], set()
+
+    for beat in visual.get("beats") or []:
+        target = (beat.get("target") or "").strip()
+        label = re.sub(r"\s+", " ", beat.get("label") or "").strip()
+
+        if target in anchors and target not in seen and label and len(label) <= SCENE3D_BEAT_LABEL_MAX:
+            beats.append({"target": target, "label": label})
+            seen.add(target)
+
+    if not beats:
+        return {"type": "none"}
+
+    visual["beats"] = beats[:SCENE3D_MAX_BEATS]
+    # 배역 이야기가 있으면 장면 위 문구는 띄우지 않는다 (한 번에 하나만)
+    visual.pop("label", None)
     return visual
 
 
@@ -1519,11 +1574,17 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         chunk_starts = [max(ms_to_frame(c["startMs"]) - start, 0) for c in chunks]
         chunk_ends = chunk_starts[1:] + [end - start]
 
+        visual = cut["visual"]
+
+        # 3D 장면 이야기는 이름표를 읽을 시간이 필요하다. 2.5초보다 짧은 컷이면 자막만 둔다.
+        if visual.get("type") == "scene3d" and end - start < SCENE3D_MIN_FRAMES:
+            visual = cut["visual"] = {"type": "none"}
+
         props_cuts.append(
             {
                 "from": start,
                 "durationInFrames": end - start,
-                "visual": cut["visual"],
+                "visual": visual,
                 "chunks": [
                     {
                         "text": chunk["text"],
@@ -1575,6 +1636,61 @@ def scene3d_ready(scene):
     """장면 루프 파일이 저장소에 있는지 (없는 장면은 고르지 않는다)."""
     root = os.path.dirname(os.path.abspath(__file__))
     return os.path.exists(os.path.join(root, VIDEO_PROJECT_DIR, "public", "assets3d", SCENE3D_FILES[scene]))
+
+
+SCENE3D_MIN_FRAMES = 75  # 3D 장면 컷 최소 길이 (2.5초): beat 이름표를 읽을 시간
+SCENE3D_MAX_BEATS = 4
+SCENE3D_BEAT_LABEL_MAX = 12
+SCENE3D_ROLE_SCENES = 3  # 대본 요청에 배역 목록을 넣을 장면 수 (기사 주제와 가장 맞는 순)
+_SCENE3D_ANCHORS = {}
+
+
+def scene3d_anchors(scene):
+    """장면 이름표 파일(video/public/assets3d/*_anchors.json)의 {배역 이름: 설명}. 파일이 없으면 빈 dict.
+    Blender 스크립트가 사물·꼬마의 화면 좌표를 프레임마다 내보낸 파일이다 (video/assets3d/README.md)."""
+    if scene not in SCENE3D_FILES:
+        return {}
+
+    if scene not in _SCENE3D_ANCHORS:
+        root = os.path.dirname(os.path.abspath(__file__))
+        name = SCENE3D_FILES[scene].replace("_loop.webm", "_anchors.json")
+        path = os.path.join(root, VIDEO_PROJECT_DIR, "public", "assets3d", name)
+
+        try:
+            with open(path, encoding="utf-8") as file:
+                data = json.load(file)
+            _SCENE3D_ANCHORS[scene] = {key: value.get("desc", "") for key, value in (data.get("anchors") or {}).items()}
+        except (OSError, ValueError):
+            _SCENE3D_ANCHORS[scene] = {}
+
+    return _SCENE3D_ANCHORS[scene]
+
+
+def scene3d_roles_prompt(article):
+    """대본 요청에 넣을 "3D 장면 배역" 목록. 기사 주제어와 가장 맞는 장면 몇 개만 넣어 프롬프트를 짧게 둔다."""
+    text = " ".join(
+        [article.get("title") or "", article.get("one_line") or ""]
+        + list(article.get("key_points") or [])
+        + list(article.get("topics") or [])
+    )
+    order = list(SCENE3D_FILES)
+    scored = [(scene3d_hits(text, keywords), scene) for scene, keywords in SCENE3D_KEYWORDS.items()]
+    scenes = [scene for hits, scene in sorted(scored, key=lambda item: (-item[0], order.index(item[1]))) if hits > 0]
+    scenes = [scene for scene in scenes if scene not in SCENE3D_FALLBACK and scene3d_anchors(scene)][:SCENE3D_ROLE_SCENES]
+
+    if not scenes and scene3d_anchors(SCENE3D_FALLBACK[0]):
+        scenes = [SCENE3D_FALLBACK[0]]
+
+    if not scenes:
+        return ""
+
+    lines = ["3D 장면 배역 (scene3d를 쓸 때 이 장면들 중에서 고르고, beats의 target은 아래 이름만 쓴다):"]
+
+    for scene in scenes:
+        lines.append(f"- {scene}")
+        lines += [f"  - {key}: {desc}" for key, desc in scene3d_anchors(scene).items()]
+
+    return "\n".join(lines)
 
 
 def scene3d_scores(script):
@@ -1644,7 +1760,8 @@ def add_scene3d_cut(script):
 
     scene = pick_scene3d(script)
 
-    if not scene:
+    # 배역 이름표가 있는 장면은 대본이 쓴 beats(이야기)가 있어야 한다. 자동으로는 beats를 만들 수 없으니 넣지 않는다.
+    if not scene or scene3d_anchors(scene):
         return script
 
     # 장면이 충분히 오래 보이도록, 자막만 있는 컷 중 대사가 가장 긴 컷에 띄운다.

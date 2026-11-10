@@ -166,6 +166,19 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("work_world", {
+        "board": (obj["Board"], "object", "세 칸 칸반 보드, 빨간 메모지가 끝 칸으로 옮겨 간다 (업무·프로젝트·진행 상황)"),
+        "note": (obj["Mover"], "object", "칸반 보드 위를 옮겨 다니는 빨간 메모지 (할 일·작업 하나)"),
+        "clock": ([obj["Clock"], obj["Clock_Base"], obj["Clock_Post"]], "object", "분침이 도는 큰 빨간 시계 (시간·마감·근무 시간)"),
+        "coffee": ([obj["Saucer"], obj["Cup"], obj["Cup_Coffee"], obj["Cup_Handle"]], "object", "김이 오르는 빨간 커피 잔 (휴식·직장 생활)"),
+        "calendar": (obj["Calendar"], "object", "금색 날짜 하나가 표시된 달력 (일정·기한·주 4일제)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 문서를 들고 걸어 다닌다 (직원·보고서)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 코드를 들고 걸어 다닌다 (개발자·자동화)"),
+        "yellow": (walkers[2].rig, "character", "노란 꼬마: 문서를 들고 걸어 다닌다 (관리자·회사)"),
+    }, FRAMES, "work3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("work_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

@@ -227,6 +227,20 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers, keeper)
+    obj = bpy.data.objects
+    print("ANCHORS", ck.export_anchors("server_world", {
+        "racks": ([obj["Rack0"], obj["Rack1"], obj["Rack2"]], "object", "반원으로 선 서버 랙 3대, LED 가 깜빡인다 (서버·데이터센터)"),
+        "cloud": (ANIM["cloud"], "object", "가운데 랙 위에 둥실 뜬 흰 구름 (클라우드·호스팅)"),
+        "hub": ([obj["Hub"], obj["Hub_Ring"]], "object", "랙 케이블이 모이는 빛나는 허브 (네트워크·트래픽)"),
+        "ram": (obj["Ram"], "object", "큰 초록 메모리(RAM) 막대 (메모리·용량)"),
+        "gauge": (obj["Gauge"], "object", "바늘이 빨간 칸까지 치솟는 속도계 (성능·속도·지연)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 빨간 코드 블록을 들고 걷는다 (코드·워크로드)"),
+        "yellow": (walkers[1].rig, "character", "노란 꼬마: 문서를 들고 걷는다 (요청·문서)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 빈손으로 걸어 다닌다 (사용자·트래픽)"),
+        "blue": (keeper[0], "character", "파란 꼬마: 허브 위에서 통통 뛴다 (서버 관리자·운영자)"),
+    }, FRAMES, "server3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("server_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:

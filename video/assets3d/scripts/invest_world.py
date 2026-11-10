@@ -158,6 +158,20 @@ def main():
     kit.studio_lights(sun_dir=(-0.75, 0.55, 0.8), sun=1.15, sun_angle=8, world=0.42)
     _, cam_rig = ck.frame_camera()
     animate(cam_rig, walkers)
+    obj = bpy.data.objects
+    # 관(커브)은 경계 상자가 커서 빼고, 꺾임 구슬과 화살촉으로 화살표 자리를 잡는다
+    arrow_parts = [obj["Arrow_Head"]] + [o for o in obj if o.name.startswith("Arrow_Joint")]
+    print("ANCHORS", ck.export_anchors("invest_world", {
+        "towers": (obj["City"], "object", "창문이 차례로 켜지는 회사 빌딩 3채 (기업·스타트업·시장)"),
+        "arrow": (arrow_parts, "object", "위로 치솟는 빨간 지그재그 화살표 (성장·주가·기업가치 상승)"),
+        "bag": (obj["Bag"], "object", "통통 튀는 금색 $ 돈 자루 (투자금·자금 조달)"),
+        "bills": (obj["Bills"], "object", "금색 띠를 두른 지폐 다발 (매출·현금·인수 대금)"),
+        "white": (walkers[0].rig, "character", "흰 꼬마: 동전을 들고 걸어 다닌다 (투자자·돈을 대는 쪽)"),
+        "blue": (walkers[1].rig, "character", "파란 꼬마: 문서를 들고 걸어 다닌다 (계약서·사업계획·창업자)"),
+        "red": (walkers[2].rig, "character", "빨간 꼬마: 동전을 들고 걸어 다닌다 (투자자·인수하는 쪽)"),
+    }, FRAMES, "invest3d"))
+    if "--anchors-only" in opts:
+        return
 
     print("STILL", kit.render_still("invest_world", resolution=1080, height=1920, frame=1))
     if "--still-only" not in opts:
