@@ -281,5 +281,13 @@
     "video_id": "AmhLDb25QjA",
     "voice": "Leda",
     "publish_at": "2026-11-11T13:00:00+09:00"
+  },
+  {
+    "date": "2026-11-11",
+    "link": "https://news.hada.io/topic?id=36967",
+    "title": "Vercel agent-desktop, AI 에이전트가 데스크톱 앱 직접 조작",
+    "video_id": "-BNJqo8x7zc",
+    "voice": "Leda",
+    "publish_at": "2026-11-11T17:00:00+09:00"
   }
 ]
