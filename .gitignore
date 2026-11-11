@@ -4,3 +4,5 @@ __pycache__/
 runtime/telegram_offset.json
 .venv/
 runtime/shorts/
+
+.claude/settings.local.json
