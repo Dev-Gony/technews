@@ -55,7 +55,7 @@
 - [x] 썸네일 일괄 적용 끝 (11/11): 마지막 1개 적용, 남은 3개는 비공개라 목록에서 제외하고 목록 파일 삭제
 - [ ] 임시 워크플로 "Still check (temporary)", "TTS Samples (temporary)" 정리 (사용자에게 아직 말 안 함)
 - [ ] 문서 갱신: `docs/BRANDING.md` 채널 설명("07시부터 3시간마다" → 새 슬롯), `SHORTS-GUIDE.md` 1장의 "공개로 바로 올라감" → 예약 공개. YouTube Studio 설명은 사용자가 직접 수정
-- [ ] **(사용자) 계정 변경 시 `claude setup-token`으로 새 토큰 발급 → GitHub Secret `CLAUDE_CODE_OAUTH_TOKEN` 갱신.** 안 하면 대본이 Gemini 대체 경로로만 만들어짐
+- [x] 계정 변경 끝 (11/11): 개인 Ultra 구독 토큰으로 `CLAUDE_CODE_OAUTH_TOKEN` 갱신, 업로드 없는 테스트 실행에서 Claude 대본 생성 확인. 한도 걱정 불필요
 - [ ] (사용자, 선택) YouTube API 할당량 증가 신청 — 초안 `youtube-audit-answers.md`. 하루 6편보다 늘릴 때만 필요
 - 보류/아이디어: 인스타(카드뉴스+릴스, `cards.py` 완성)·스레드·틱톡(인스타 계정 정지 반복 → YouTube 품질 우선), 주간 성과 리포트, ink/paper 테마 A/B, 3D 후보(우주·바이오·에너지)
 - 두 번째 채널(쇼핑/드라마 쇼츠, 다른 YouTube 계정): 아직 없음. 답을 기다리는 질문 3개 — 수익화(쿠팡 파트너스 vs YouTube 쇼핑), 상품 분야, 새 저장소 여부. 관련 작업은 `C:\shorts`(그쪽 HANDOFF.md 참고)
