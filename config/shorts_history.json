@@ -305,5 +305,13 @@
     "video_id": "_LMxPfeTBuM",
     "voice": "Leda",
     "publish_at": "2026-11-12T07:00:00+09:00"
+  },
+  {
+    "date": "2026-11-11",
+    "link": "https://toss.tech/article/agent-platform-foundation",
+    "title": "토스 Agent Platform 망분리 설계, 격리하고 세션 잇기",
+    "video_id": "mQM2a6iNwWI",
+    "voice": "Leda",
+    "publish_at": "2026-11-12T08:00:00+09:00"
   }
 ]
