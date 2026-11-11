@@ -52,9 +52,7 @@
 
 - [ ] **#85·#87·#88 적용 후 첫 영상(11/11 공개분) 확인 보고 안 함** — 카메라 움직임, 3D 이름표, 렌더 실패 여부
 - [ ] 아침 슬롯(07·08시)이 비는지 확인. 11/11은 03:47 예약 실행이 08:43쯤에야 시작돼 비었음 → 필요하면 cron 더 앞당기기
-- [ ] 썸네일 일괄 적용: `config/thumbnail_backfill.json`에 4개 남음. 11/11 20:28쯤 수동 실행 결과 미확인.
-      매일 돌리던 예약 작업은 이전 계정 세션 전용이라 사라짐 → 직접 실행 후 적용된 ID는 새 브랜치 + PR로 목록에서 제거
-      `gh workflow run shorts.yml --ref main -f upload=false -f thumbnail_batch=config/thumbnail_backfill.json`
+- [x] 썸네일 일괄 적용 끝 (11/11): 마지막 1개 적용, 남은 3개는 비공개라 목록에서 제외하고 목록 파일 삭제
 - [ ] 임시 워크플로 "Still check (temporary)", "TTS Samples (temporary)" 정리 (사용자에게 아직 말 안 함)
 - [ ] 문서 갱신: `docs/BRANDING.md` 채널 설명("07시부터 3시간마다" → 새 슬롯), `SHORTS-GUIDE.md` 1장의 "공개로 바로 올라감" → 예약 공개. YouTube Studio 설명은 사용자가 직접 수정
 - [ ] **(사용자) 계정 변경 시 `claude setup-token`으로 새 토큰 발급 → GitHub Secret `CLAUDE_CODE_OAUTH_TOKEN` 갱신.** 안 하면 대본이 Gemini 대체 경로로만 만들어짐
