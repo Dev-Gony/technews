@@ -329,5 +329,13 @@
     "video_id": "x83DzU34mIY",
     "voice": "Leda",
     "publish_at": "2026-11-12T13:00:00+09:00"
+  },
+  {
+    "date": "2026-11-12",
+    "link": "https://developers.googleblog.com/a2ui-10-build-delightful-fast-reliable-agentic-experiences",
+    "title": "구글 A2UI 1.0 출시, AI 에이전트가 직접 화면 그린다",
+    "video_id": "_wrQh0iFSbo",
+    "voice": "Leda",
+    "publish_at": "2026-11-12T17:00:00+09:00"
   }
 ]
