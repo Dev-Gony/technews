@@ -1,6 +1,278 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "네이버 D2",
+      "title": "Socket.IO 서버를 여러 Pod에서 운영하기",
+      "link": "https://d2.naver.com/helloworld/3517874",
+      "published_at": "2026-11-11T08:14:48Z",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Socket.IO",
+        "Kubernetes",
+        "Event Broadcasting"
+      ],
+      "one_line": "쿠버네티스 환경에서 다중 Pod 기반 Socket.IO 서버 운영을 위한 설계 및 검증 전략",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "네이버 D2",
+      "title": "검수도 답변도 호출도 AI가? 커머스API의 2026",
+      "link": "https://d2.naver.com/helloworld/7749530",
+      "published_at": "2026-11-11T08:11:58Z",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent",
+        "MCP (Model Context Protocol)",
+        "API Gateway"
+      ],
+      "one_line": "커머스 API 플랫폼에 AI Native 기술을 도입하여 검수, 도구화, 운영 자동화를 구현한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "네이버 D2",
+      "title": "AI 산출물이 프로덕션이 되기까지-AI와 디자인시스템이 함께 일하는 법",
+      "link": "https://d2.naver.com/helloworld/2568242",
+      "published_at": "2026-11-11T08:10:44Z",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Design System",
+        "Design Tokens",
+        "Code Connect"
+      ],
+      "one_line": "AI 산출물을 디자인 시스템과 연동하여 프로덕션 코드로 자동 전환하는 워크플로 구축",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "Google Developers",
+      "title": "A2UI 1.0: Build delightful, fast, reliable, agentic experiences",
+      "link": "https://developers.googleblog.com/a2ui-10-build-delightful-fast-reliable-agentic-experiences",
+      "published_at": "",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Generative UI",
+        "AI Agent",
+        "Open Protocol"
+      ],
+      "one_line": "AI 에이전트가 웹/모바일 인터페이스를 직접 렌더링하는 Generative UI 프로토콜 A2UI 1.0 출시",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "Meta Engineering",
+      "title": "Intelligent Delivery: Making Every Unit of Compute Serve Better Ads",
+      "link": "https://engineering.fb.com/2026/11/11/ml-applications/intelligent-delivery-serve-better-ads",
+      "published_at": "Wed, 11 Nov 2026 17:00:38 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Resource Allocation",
+        "Agentic AI",
+        "System Optimization"
+      ],
+      "one_line": "메타의 광고 랭킹 시스템에서 AI 에이전트를 활용한 컴퓨팅 자원 최적화 사례",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "AWS Architecture",
+      "title": "How Zillow runs 100 million daily notifications on AWS Step Functions",
+      "link": "https://aws.amazon.com/blogs/architecture/how-zillow-runs-100-million-daily-notifications-on-aws-step-functions",
+      "published_at": "Wed, 11 Nov 2026 23:25:00 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Step Functions Express Workflows",
+        "Configuration-driven Orchestration",
+        "Idempotency"
+      ],
+      "one_line": "AWS Step Functions Express Workflows를 활용한 Zillow의 대규모 알림 오케스트레이션 시스템 구축 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "AWS Compute",
+      "title": "Monitor application health with Amazon EC2 application status checks",
+      "link": "https://aws.amazon.com/blogs/compute/monitor-application-health-with-amazon-ec2-application-status-checks",
+      "published_at": "Wed, 11 Nov 2026 15:48:19 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "EC2 Application Status Checks",
+        "Auto Scaling Group",
+        "Health Check Grace Period"
+      ],
+      "one_line": "EC2 애플리케이션 상태 체크를 활용한 자동화된 인스턴스 복구 및 모니터링",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "AWS가 마침내 자체 AWS 에뮬레이터를 만들었다",
+      "link": "https://news.hada.io/topic?id=37001",
+      "published_at": "2026-11-12T04:38:36+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Emulator",
+        "Local Development Environment",
+        "CI/CD Optimization"
+      ],
+      "one_line": "AWS 공식 에뮬레이터 출시로 로컬 개발 및 테스트 환경 개선",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "선형계획법으로 가중치 공간 프로그래밍을 할 수 있을까?",
+      "link": "https://news.hada.io/topic?id=37003",
+      "published_at": "2026-11-12T04:44:36+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Linear Programming (LP)",
+        "Steering Vector",
+        "Weight Optimization"
+      ],
+      "one_line": "선형계획법(LP)을 활용한 LLM 가중치 최적화 및 조향 벡터 기술",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "Fireworks AI 보안 침해, Notion과 고객에게 영향",
+      "link": "https://news.hada.io/topic?id=37005",
+      "published_at": "2026-11-12T05:40:44+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Supply Chain Security",
+        "Data Breach",
+        "Credential Rotation"
+      ],
+      "one_line": "Fireworks AI 보안 사고에 따른 Notion 사용자 데이터 보안 주의보",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "100% AI 사용 의무화 1년 후, 아무도 이해하지 못하는 우리의 코드",
+      "link": "https://news.hada.io/topic?id=37006",
+      "published_at": "2026-11-12T05:43:45+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "바이브 코딩(Vibe Coding)",
+        "기술 부채",
+        "문학적 프로그래밍(Literate Programming)"
+      ],
+      "one_line": "AI 코드 생성 의무화가 개발자의 학습 기회를 박탈하고 코드베이스의 유지보수성을 악화시키고 있음.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "Atuin Threads: 모든 머신의 에이전트 세션을 한곳에",
+      "link": "https://news.hada.io/topic?id=37009",
+      "published_at": "2026-11-12T06:44:21+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "에이전트 세션 동기화",
+        "종단 간 암호화"
+      ],
+      "one_line": "Atuin Threads를 통해 여러 머신과 에이전트 간의 작업 맥락을 통합하고 검색할 수 있음.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "Gemini Decisions API - 입력 하나에 최대 1,000개 질문을 평가하는 멀티모달 API",
+      "link": "https://news.hada.io/topic?id=37011",
+      "published_at": "2026-11-12T07:33:12+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "멀티모달 API",
+        "순전파(Forward Pass) 최적화",
+        "신뢰도 점수(Confidence Score)"
+      ],
+      "one_line": "Gemini Decisions API는 단일 요청으로 최대 1,000개의 질문을 고속으로 평가하는 비용 효율적인 멀티모달 도구임.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "United Airlines, AI 에이전트의 여행객 대리 항공편 예약 금지",
+      "link": "https://news.hada.io/topic?id=37014",
+      "published_at": "2026-11-12T08:38:13+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트 보안",
+        "서비스 정책 준수",
+        "API 접근 제어"
+      ],
+      "one_line": "United Airlines가 보안 및 규정 준수를 이유로 AI 에이전트의 대리 예약 서비스를 차단함.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "실제로 셀프 호스팅을 안전하게 하려면 어떻게 해야 하나요?",
+      "link": "https://news.hada.io/topic?id=37015",
+      "published_at": "2026-11-12T09:06:05+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "셀프 호스팅",
+        "네트워크 격리",
+        "오픈 소스 보안"
+      ],
+      "one_line": "셀프 호스팅 환경에서 외부 서비스 의존도를 낮추고 보안을 강화하는 오픈 소스 중심의 운영 전략이 필요함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "OpenMAIC - 주제나 문서를 AI 교사와 토론하는 수업으로 만드는 오픈소스 플랫폼",
+      "link": "https://news.hada.io/topic?id=37017",
+      "published_at": "2026-11-12T09:30:02+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agentic Workflow",
+        "Project-Based Learning (PBL)",
+        "Multimodal AI Tutoring"
+      ],
+      "one_line": "사용자 입력 기반으로 슬라이드, 퀴즈, 토론형 수업을 자동 생성하는 AI 교육 플랫폼 OpenMAIC",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-12T11:08:11.864361+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: OpenPhoneUse – 화면을 보고 직접 탭하는 모바일용 Computer Use",
+      "link": "https://news.hada.io/topic?id=37020",
+      "published_at": "2026-11-12T09:51:56+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Android Accessibility Service",
+        "Computer Use",
+        "UI Automation"
+      ],
+      "one_line": "ADB나 PC 연결 없이 안드로이드 기기 내에서 직접 화면을 조작하는 모바일용 Computer Use 에이전트",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-11T10:01:09.726549+09:00",
       "company": "네이버 D2",
       "title": "AI 스킬 만들기 10계명: Figma→Code 자동화 실전기",
@@ -7720,278 +7992,7 @@
       ],
       "one_line": "조건문은 호출자로, 반복문은 배치 함수로 옮겨 코드의 제어 흐름을 단순화하는 관용 패턴",
       "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: Porch - 클로드코드·코덱스로 한 일을 프로젝트별로 정리하는 맥 메뉴바 앱",
-      "link": "https://news.hada.io/topic?id=35010",
-      "published_at": "2026-10-08T22:51:04+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Developer Productivity",
-        "AI Agent Workflow",
-        "Local-first Software"
-      ],
-      "one_line": "코딩 에이전트 작업 기록을 프로젝트별로 자동 요약하고 관리하는 맥 메뉴바 앱 Porch",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "Opus 5.5에 프롬프트 하나와 6시간을 주고 『보이지 않는 도시들』을 시각화하게 해봤다",
-      "link": "https://news.hada.io/topic?id=35013",
-      "published_at": "2026-10-08T23:42:25+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "AI 에이전트 병렬 실행",
-        "인터랙티브 데이터 시각화",
-        "three.js"
-      ],
-      "one_line": "Claude Opus 5.5와 GPT-6 Astra를 활용한 『보이지 않는 도시들』 인터랙티브 시각화 실험",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "OpenAI, 수학 결과 3건 철회",
-      "link": "https://news.hada.io/topic?id=35024",
-      "published_at": "2026-10-09T02:40:08+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Lean (형식 증명 언어)",
-        "수학적 형식화",
-        "AI 모델 신뢰성 검증"
-      ],
-      "one_line": "OpenAI, 수학 저장소에서 오류가 발견된 결과 3건 철회 및 형식화 작업 지속",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "Whistle - 16.9 MB로 구현한 음성 텍스트 변환",
-      "link": "https://news.hada.io/topic?id=35027",
-      "published_at": "2026-10-09T04:35:44+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "온디바이스 AI",
-        "ASR (음성 인식)",
-        "모델 경량화"
-      ],
-      "one_line": "16.9MB 초경량 온디바이스 음성 인식 모델 'Whistle' 공개",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "SynthID Detector - AI 생성 미디어 워터마크 탐지 도구",
-      "link": "https://news.hada.io/topic?id=35030",
-      "published_at": "2026-10-09T05:37:02+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "디지털 워터마킹",
-        "AI 생성 콘텐츠 탐지",
-        "SynthID"
-      ],
-      "one_line": "Google, AI 생성 미디어 워터마크 탐지 도구 'SynthID Detector' 공개",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "왜 AI 업계는 DeepSeek 4.1 Flash에 긴장하지 않는가?",
-      "link": "https://news.hada.io/topic?id=35032",
-      "published_at": "2026-10-09T06:38:33+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "KV 캐시 최적화",
-        "비용 효율적 LLM 활용",
-        "에이전트 워크플로"
-      ],
-      "one_line": "DeepSeek 4.1 Flash를 통한 개발 생산성 향상 및 비용 절감 사례",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "내 웹사이트가 Google 검색 색인에서 삭제됐다",
-      "link": "https://news.hada.io/topic?id=35037",
-      "published_at": "2026-10-09T09:01:24+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "robots.txt",
-        "noindex 메타 태그",
-        "검색 엔진 크롤링 정책"
-      ],
-      "one_line": "웹사이트를 검색 엔진 색인에서 완전히 삭제하려면 robots.txt 차단과 함께 noindex 메타 태그를 병행해야 합니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-09T09:59:48.897706+09:00",
-      "company": "GeekNews",
-      "title": "tinyjs - JavaScript로 약 6MB 데스크톱 앱을 만드는 경량 프레임워크",
-      "link": "https://news.hada.io/topic?id=35038",
-      "published_at": "2026-10-09T09:30:02+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "WebView2",
-        "txiki.js",
-        "경량 데스크톱 프레임워크"
-      ],
-      "one_line": "Electron을 대체하여 약 6MB의 초경량 데스크톱 앱을 개발할 수 있는 JavaScript 프레임워크 tinyjs입니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "네이버 D2",
-      "title": "FE News 26년 10월 소식을 전해드립니다.",
-      "link": "https://d2.naver.com/news/8711937",
-      "published_at": "2026-10-07T08:43:28Z",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "LSP (Language Server Protocol)",
-        "Spec-Driven Development",
-        "MCP (Model Context Protocol)"
-      ],
-      "one_line": "VS Code의 역사와 Shopify의 네이티브 회귀, AI 검증 도구 등 최신 FE 기술 트렌드 요약",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "Google Developers",
-      "title": "Supercharge your development with the Google Developer Knowledge API ecosystem",
-      "link": "https://developers.googleblog.com/supercharge-your-development-with-the-google-developer-knowledge-api-ecosystem",
-      "published_at": "",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "MCP (Model Context Protocol)",
-        "RAG (Retrieval-Augmented Generation)"
-      ],
-      "one_line": "Google이 개발자 문서 검색 및 활용을 위한 Developer Knowledge API와 MCP 서버를 공개함",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "GitHub Blog",
-      "title": "Secret protection must scale with software",
-      "link": "https://github.blog/ai-and-ml/github-copilot/secret-protection-must-scale-with-software",
-      "published_at": "Wed, 07 Oct 2026 17:45:34 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Secret Scanning",
-        "Push Protection",
-        "ModernBERT"
-      ],
-      "one_line": "AI 에이전트의 코드 생성 속도에 대응하기 위한 GitHub의 차세대 시크릿 탐지 모델 도입",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "Cloudflare",
-      "title": "Building an evidence-grounded agentic security operations harness on Cloudflare",
-      "link": "https://blog.cloudflare.com/agentic-security-operations",
-      "published_at": "Wed, 07 Oct 2026 16:30:36 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Deterministic Recon",
-        "Security Operations Harness"
-      ],
-      "one_line": "Cloudflare의 다중 AI 에이전트 기반 보안 운영 자동화 아키텍처 사례",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "GeekNews",
-      "title": "Chrome에 JPEG XL 지원 도입",
-      "link": "https://news.hada.io/topic?id=34946",
-      "published_at": "2026-10-07T22:42:53+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "JPEG XL",
-        "Memory Safety",
-        "SIMD"
-      ],
-      "one_line": "Chrome 155부터 Rust 기반의 JPEG XL 디코더 지원 시작",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "GeekNews",
-      "title": "Codemode란 무엇인가 - AI의 도구 호출을 코드로 묶기",
-      "link": "https://news.hada.io/topic?id=34952",
-      "published_at": "2026-10-08T00:46:47+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Codemode",
-        "Agentic Workflow",
-        "Harness"
-      ],
-      "one_line": "AI 에이전트가 도구 호출을 코드로 묶어 실행하여 컨텍스트 효율과 작업 복잡도를 개선하는 'Codemode' 개념",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: Boxdawn - 에이전트 트레이스 파일 하나 올리면 멀티에이전트가 같은 일을 두 번 한 지점을 찾습니다",
-      "link": "https://news.hada.io/topic?id=34953",
-      "published_at": "2026-10-08T00:58:10+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Multi-Agent System",
-        "Token Optimization",
-        "Trace Analysis"
-      ],
-      "one_line": "멀티 에이전트 시스템의 중복 작업과 토큰 낭비를 찾아내는 분석 도구 'Boxdawn'",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "GeekNews",
-      "title": "GitHub의 Git 작업, Pull Requests, Actions 장애",
-      "link": "https://news.hada.io/topic?id=34954",
-      "published_at": "2026-10-08T01:34:56+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Service Availability",
-        "Incident Response",
-        "CI/CD Reliability"
-      ],
-      "one_line": "GitHub의 Git 작업, PR, Actions 등 광범위한 서비스 장애 발생 및 복구 완료",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-08T09:44:09.217455+09:00",
-      "company": "GeekNews",
-      "title": "해커들, Google과 다른 대형 서비스의 위조 TLS 인증서 확보",
-      "link": "https://news.hada.io/topic?id=34955",
-      "published_at": "2026-10-08T01:37:56+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "TLS Certificate",
-        "DNS Hijacking",
-        "CAA Record"
-      ],
-      "one_line": "국가 코드 최상위 도메인(ccTLD) DNS 탈취를 통한 위조 TLS 인증서 발급 사고",
-      "actionability": 4
     }
   ],
-  "updated_at": "2026-11-11T10:01:09.726549+09:00"
+  "updated_at": "2026-11-12T11:08:11.864361+09:00"
 }
