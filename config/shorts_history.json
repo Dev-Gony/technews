@@ -345,5 +345,13 @@
     "video_id": "vzezlx1UAiA",
     "voice": "Leda",
     "publish_at": "2026-11-12T18:00:00+09:00"
+  },
+  {
+    "date": "2026-11-12",
+    "link": "https://news.hada.io/topic?id=37011",
+    "title": "Gemini Decisions API, 한 요청에 질문 1,000개 평가",
+    "video_id": "J3OBjLD4F70",
+    "voice": "Leda",
+    "publish_at": "2026-11-13T07:00:00+09:00"
   }
 ]
