@@ -409,5 +409,13 @@
     "video_id": "cYkmLqIc-Uw",
     "voice": "Leda",
     "publish_at": "2026-11-14T08:00:00+09:00"
+  },
+  {
+    "date": "2026-11-13",
+    "link": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills",
+    "title": "GitHub 에이전트 스킬 SKILL.md, 어떤 에이전트에서도 재사용",
+    "video_id": "j4PwgF4Ud2U",
+    "voice": "Leda",
+    "publish_at": "2026-11-14T12:00:00+09:00"
   }
 ]
