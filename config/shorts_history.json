@@ -385,5 +385,13 @@
     "video_id": "FnZrD-yBOwc",
     "voice": "Leda",
     "publish_at": "2026-11-13T17:00:00+09:00"
+  },
+  {
+    "date": "2026-11-13",
+    "link": "https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write",
+    "title": "Google Agent Anomaly Detection, 실행된 유해 명령 87% 탐지",
+    "video_id": "xGRiDHd5ehA",
+    "voice": "Leda",
+    "publish_at": "2026-11-13T18:00:00+09:00"
   }
 ]
