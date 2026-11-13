@@ -369,5 +369,13 @@
     "video_id": "z0vfHJrR86w",
     "voice": "Leda",
     "publish_at": "2026-11-13T12:00:00+09:00"
+  },
+  {
+    "date": "2026-11-12",
+    "link": "https://news.hada.io/topic?id=37003",
+    "title": "Qwen3.5-0.8B 반복 사고, 선형계획법으로 가중치 8분의 1만 수정",
+    "video_id": "As1B4CE6Ax4",
+    "voice": "Leda",
+    "publish_at": "2026-11-13T13:00:00+09:00"
   }
 ]
