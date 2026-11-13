@@ -1,0 +1,554 @@
+{
+  "schema_version": 1,
+  "issue_number": 55,
+  "issue_date": "2026-11-13",
+  "generated_at": "2026-11-13T10:42:19.854876+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI 에이전트, Agentic Workflow, 관측 가능성, MCP, 모델 오케스트레이션\n\n[오늘의 한줄 포인트]\n\n단순 챗봇을 넘어 실무 환경에서 안정적으로 동작하는 AI 에이전트 아키텍처와 워크플로 최적화가 핵심 과제로 떠오르고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트가 실험 단계를 지나 엔터프라이즈 환경에 도입되면서 보안, 거버넌스, 그리고 복잡한 작업을 완수하기 위한 오케스트레이션 능력이 필수적인 역량이 되었습니다. 개발자는 이제 모델의 성능뿐만 아니라 에이전트가 목표를 잃지 않게 설계하고, 실시간으로 이상을 탐지하며, 비용 효율적으로 운영하는 아키텍처를 이해해야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 4번: 엔터프라이즈 환경에서 AI 에이전트를 운영하기 위한 필수적인 거버넌스와 관측 가능성 아키텍처를 체계적으로 제시합니다.\n• 1번: 에이전트의 도구 오남용과 목표 탈취를 실시간으로 방어하는 실무적인 보안 가이드를 제공합니다.\n• 16번: 복잡한 다단계 작업을 수행할 때 에이전트가 맥락을 유지하고 목표를 달성하도록 돕는 하네스 설계 방식을 다룹니다.\n\n[오늘 공부해볼 것]\n\n• Agentic Loop 아키텍처: 이해, 계획, 실행, 관찰의 루프 구조를 이해하여 에이전트의 신뢰성을 높이는 설계를 학습합니다.\n• MCP(Model Context Protocol) 표준: 다양한 로컬 도구와 에이전트를 연결하는 표준 프로토콜을 익혀 확장성 있는 워크플로를 구축합니다.\n• 모델 오케스트레이션 전략: 작업의 난이도와 성격에 따라 고성능 모델과 경량 모델을 적절히 전환하여 비용과 성능을 최적화하는 방법을 연구합니다.",
+  "stats": {
+    "candidate_count": 29,
+    "detailed_count": 16,
+    "brief_count": 5,
+    "excluded_count": 8,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "AWS Architecture",
+      "title": "Inside an enterprise AI agent: A governed, observable loop architecture",
+      "link": "https://aws.amazon.com/blogs/architecture/inside-an-enterprise-ai-agent-a-governed-observable-loop-architecture",
+      "published_at": "Thu, 12 Nov 2026 19:31:28 +0000",
+      "selection_score": 15,
+      "selection_reason": "엔터프라이즈 AI 에이전트의 거버넌스와 아키텍처를 다루는 매우 수준 높은 기술 문서입니다.",
+      "feedback_bias": 0,
+      "one_line": "엔터프라이즈 환경을 위한 거버넌스, 관측 가능성, 신뢰성을 갖춘 5단계 AI 에이전트 루프 아키텍처",
+      "key_points": [
+        "엔터프라이즈 에이전트는 단순 챗봇과 달리 이해, 계획, 검색, 추론, 행동 및 관찰의 5단계 루프를 반복하며 목표를 달성합니다.",
+        "제로 트러스트, 방어 심층 설계, 관측 가능성 기본 탑재 등 5가지 원칙을 기반으로 각 단계마다 정책과 검증을 적용합니다.",
+        "AWS 서비스를 활용하여 API 게이트웨이, 에이전트 런타임, 지식/상태 계층, 플랫폼 서비스, 신뢰/제어 프레임워크로 계층화된 아키텍처를 구현합니다."
+      ],
+      "topics": [
+        "Agentic Loop",
+        "Zero Trust",
+        "Observability"
+      ],
+      "recommended_for": "엔터프라이즈급 AI 에이전트 시스템을 설계하거나 아키텍처를 고도화하려는 백엔드 아키텍트",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "Google Developers",
+      "title": "How Agent Anomaly Detection scores on benchmarks we didn't write",
+      "link": "https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write",
+      "published_at": "",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 보안과 이상 탐지를 다루는 매우 실무적이고 중요한 기술적 가이드를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 보안을 위해 OpenTelemetry 기반의 이상 탐지(AAD) 기술을 활용한 실시간 모니터링 전략",
+      "key_points": [
+        "Agent Anomaly Detection(AAD)은 OpenTelemetry 트레이스와 로그를 분석하여 에이전트의 목표 탈취 및 도구 오남용을 실시간으로 탐지합니다.",
+        "5개의 공개 보안 벤치마크 테스트에서 런타임 지연 시간 추가 없이 유해한 명령의 87%를 성공적으로 차단했습니다.",
+        "의미론적 거버넌스 및 도구 사용 제한과 결합하여 에이전트 애플리케이션의 다중 방어 전략을 구축할 수 있습니다."
+      ],
+      "topics": [
+        "Agent Anomaly Detection",
+        "OpenTelemetry",
+        "Defense-in-depth"
+      ],
+      "recommended_for": "AI 에이전트의 보안과 안정적인 운영을 고민하는 백엔드 및 보안 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "nac - 긴 작업에서 원래 목표를 잃지 않게 하는 에이전트 하네스",
+      "link": "https://news.hada.io/topic?id=37085",
+      "published_at": "2026-11-13T09:30:03+09:00",
+      "selection_score": 14,
+      "selection_reason": "복잡한 작업을 관리하는 에이전트 하네스이자 MCP를 지원하는 도구로, 백엔드 아키텍처와 에이전트 워크플로 설계에 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "복잡하고 긴 작업을 수행할 때 에이전트가 목표를 잃지 않도록 돕는 오케스트레이션 하네스, nac",
+      "key_points": [
+        "중앙 오케스트레이터가 전체 계획을 수립하고, 개별 Thread가 명령 실행과 파일 수정을 담당하는 구조로 작업을 분리합니다.",
+        "작업 이력을 가진 Thread를 재사용하고, 각 작업의 핵심 결과를 Episode로 기록하여 후속 작업의 맥락을 유지합니다.",
+        "AGENTS.md와 MCP(Model Context Protocol)를 지원하여 기존 에이전트 도구 및 스킬과 쉽게 통합할 수 있습니다."
+      ],
+      "topics": [
+        "Agent Harness",
+        "MCP (Model Context Protocol)",
+        "Orchestration"
+      ],
+      "recommended_for": "복잡한 에이전트 워크플로를 설계하거나 긴 호흡의 자동화 작업을 구현하는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "nac를 활용한 로컬 에이전트 워크플로 프로토타이핑",
+        "steps": [
+          "nac 저장소에서 예제 프로젝트를 클론하고 로컬 환경에 설치합니다.",
+          "기존에 사용 중인 MCP 서버를 nac 설정에 연결하여 에이전트가 도구를 인식하는지 확인합니다.",
+          "간단한 다단계 작업을 정의하고 AGENTS.md를 작성하여 오케스트레이터가 작업을 분배하는 과정을 테스트합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "Google Developers",
+      "title": "Catch Go bugs that fuzzing misses with Gemini and a constraint solver",
+      "link": "https://developers.googleblog.com/catch-go-bugs-that-fuzzing-misses-with-gemini-and-a-constraint-solver",
+      "published_at": "",
+      "selection_score": 13,
+      "selection_reason": "LLM과 제약 솔버를 활용한 코드 품질 개선 및 버그 탐지 기법은 개발 생산성 측면에서 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Gemini와 Z3 제약 솔버를 결합하여 Go 언어의 런타임 패닉과 퍼징의 한계를 보완하는 버그 탐지 기법",
+      "key_points": [
+        "Go 컴파일러의 경계 검사 트랩과 Gemini 4 Argon, Z3 제약 솔버를 결합하여 잠재적인 out-of-bounds 패닉을 탐지합니다.",
+        "기존 go test -fuzz가 놓치기 쉬운 슬라이스 용량 관련 사각지대를 효과적으로 찾아냅니다.",
+        "LLM의 추론 능력과 정형화된 제약 솔버를 결합하여 코드 품질을 자동화된 방식으로 개선합니다."
+      ],
+      "topics": [
+        "Constraint Solver",
+        "Fuzzing",
+        "Go Runtime Panic"
+      ],
+      "recommended_for": "Go 언어를 사용하며 코드 안정성과 테스트 커버리지 향상에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "Build once, run on any agent: A practical guide to agent skills",
+      "link": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills",
+      "published_at": "Thu, 12 Nov 2026 22:54:52 +0000",
+      "selection_score": 14,
+      "selection_reason": "Agentic Workflow를 위한 재사용 가능한 스킬 설계는 AI 에이전트 도입을 고민하는 실무자에게 핵심적인 가이드를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "재사용 가능한 '에이전트 스킬' 설계를 통해 에이전트 워크플로의 일관성과 생산성을 높이는 실무 가이드",
+      "key_points": [
+        "에이전트 스킬은 SKILL.md 파일을 중심으로 특정 작업을 정의하며, 여러 에이전트 간에 재사용 가능한 버전 관리 디렉토리로 구성됩니다.",
+        "자체 검증(Self-verification)은 불완전하므로 별도의 검증 에이전트를 두어 독립적으로 결과를 확인하는 구조가 권장됩니다.",
+        "프로젝트 설정(manifest)과 스킬 로직을 분리하여 특정 프로젝트에 종속되지 않는 범용적인 스킬을 설계해야 합니다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Agent Skills",
+        "Separation of Concerns"
+      ],
+      "recommended_for": "AI 에이전트 도입을 통해 업무 자동화 파이프라인을 구축하려는 개발자 및 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "반복적인 업무를 위한 에이전트 스킬 정의 및 구조화",
+        "steps": [
+          "현재 반복적으로 수행하는 업무 중 하나를 선정하여 SKILL.md 파일로 작업 단계와 입출력을 문서화합니다.",
+          "프로젝트별 설정값(DB 정보, 규칙 등)을 별도의 manifest 파일로 분리하여 스킬 로직에서 참조하도록 수정합니다.",
+          "GitHub Copilot 또는 Cursor 등 사용하는 에이전트 환경에 해당 스킬을 적용하고 테스트합니다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Scale distributed AI workloads with Ray and Anyscale on Amazon EC2",
+      "link": "https://aws.amazon.com/blogs/architecture/scale-distributed-ai-workloads-with-ray-and-anyscale-on-amazon-ec2",
+      "published_at": "Thu, 12 Nov 2026 20:51:20 +0000",
+      "selection_score": 13,
+      "selection_reason": "분산 AI 워크로드의 확장과 비용 효율적인 인프라 운영을 다루어 실무적 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Ray와 Anyscale을 활용하여 분산 AI 워크로드를 Amazon EC2에서 비용 효율적으로 확장하는 방법",
+      "key_points": [
+        "Ray Core를 기반으로 데이터 처리, 모델 학습, 추론 등 파이프라인 단계별로 최적화된 인스턴스(Graviton, GPU, Inferentia)를 매칭합니다.",
+        "Anyscale은 클러스터 관리와 오토스케일링을 자동화하여 인프라 운영 부담을 줄이고 코드 변경 없이 프로토타입에서 프로덕션으로 확장 가능합니다.",
+        "Spot 인스턴스와 Capacity Blocks를 조합하여 분산 학습 및 전처리 비용을 최대 90%까지 절감할 수 있는 전략을 제공합니다."
+      ],
+      "topics": [
+        "Distributed Computing",
+        "Ray",
+        "Cost Optimization"
+      ],
+      "recommended_for": "대규모 AI 모델 학습 및 분산 데이터 처리를 수행하는 ML 엔지니어 및 클라우드 운영자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Ray 기반 분산 처리 워크로드의 비용 최적화 검토",
+        "steps": [
+          "현재 수행 중인 데이터 전처리 및 학습 워크로드의 인스턴스 유형을 분석하여 Graviton 또는 Spot 인스턴스 전환 가능성을 검토합니다.",
+          "Ray Data를 활용해 단일 노드에서 처리 중인 파이프라인을 분산 처리 구조로 변경하기 위한 초기 설정을 테스트합니다.",
+          "Anyscale 또는 관리형 Ray 클러스터의 모니터링 대시보드를 통해 단계별 리소스 사용량과 비용 효율성을 측정합니다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Modular regression testing framework built on AWS for large-scale systems",
+      "link": "https://aws.amazon.com/blogs/architecture/modular-regression-testing-framework-built-on-aws-for-large-scale-systems",
+      "published_at": "Thu, 12 Nov 2026 21:51:43 +0000",
+      "selection_score": 12,
+      "selection_reason": "대규모 시스템의 회귀 테스트 자동화는 백엔드 아키텍처 및 개발 생산성 향상에 매우 실질적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS 서비스를 활용한 대규모 시스템용 모듈형 회귀 테스트 프레임워크 구축",
+      "key_points": [
+        "운영 환경의 실제 트래픽을 캡처하고 테스트 환경에 재현하여 코드 변경이 기존 기능에 미치는 영향을 검증함.",
+        "Step Functions, Lambda, DynamoDB 등을 활용해 인프라 관리 부담을 줄이고 비용 효율적인 자동화 파이프라인을 구성함.",
+        "상태 비저장 시스템에 최적화되어 있으며, 배포 게이트에 품질 지표를 제공하여 배포 안정성을 높임."
+      ],
+      "topics": [
+        "회귀 테스트(Regression Testing)",
+        "트래픽 재현(Traffic Replay)",
+        "품질 게이트(Quality Gate)"
+      ],
+      "recommended_for": "배포 파이프라인의 안정성을 높이고 수동 테스트를 자동화하고 싶은 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 서비스의 API 트래픽을 캡처하여 테스트 환경에 재현하는 프로토타입 구축",
+        "steps": [
+          "API Gateway 또는 로드밸런서 로그를 S3/DynamoDB에 저장하는 파이프라인 구성",
+          "저장된 요청을 테스트 환경으로 재전송하는 Lambda 함수 작성",
+          "응답 결과를 비교하여 일치율(Match Fraction)을 계산하는 로직 구현"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Per-customer invoice management with Amazon EventBridge Scheduler",
+      "link": "https://aws.amazon.com/blogs/compute/per-customer-invoice-management-with-amazon-eventbridge-scheduler",
+      "published_at": "Thu, 12 Nov 2026 20:26:38 +0000",
+      "selection_score": 12,
+      "selection_reason": "이벤트 기반 아키텍처를 활용한 업무 자동화 및 비용 절감 사례로 실무 적용 가능성이 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon EventBridge Scheduler를 활용한 대규모 고객별 청구 및 알림 자동화",
+      "key_points": [
+        "고객별로 상이한 청구 주기를 관리하기 위해 수백만 개의 개별 스케줄을 생성하는 서버리스 아키텍처를 제안함.",
+        "기존의 폴링 방식(Cron) 대신 이벤트 기반 스케줄링을 사용하여 인프라 운영 부담과 비용을 획기적으로 절감함.",
+        "유연한 시간 창(Flexible Time Window) 기능을 통해 대규모 이벤트 발생 시 부하를 분산함."
+      ],
+      "topics": [
+        "이벤트 기반 아키텍처",
+        "서버리스 스케줄링",
+        "멱등성(Idempotency)"
+      ],
+      "recommended_for": "대규모 사용자 대상의 정기 작업이나 알림 시스템을 운영 중인 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "기존의 배치 작업(Cron)을 EventBridge Scheduler로 전환 검토",
+        "steps": [
+          "현재 운영 중인 배치 작업 중 특정 시간에 실행되는 작업을 리스트업",
+          "EventBridge Scheduler의 멱등성 처리 및 재시도 정책 설계",
+          "AWS SAM 또는 Terraform을 사용하여 스케줄 그룹 프로비저닝 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "CPU를 새로 설계하기 위해 약 390억원 투자 유치",
+      "link": "https://news.hada.io/topic?id=37067",
+      "published_at": "2026-11-13T03:37:56+09:00",
+      "selection_score": 12,
+      "selection_reason": "병렬 컴퓨팅을 위한 새로운 CPU 아키텍처와 언어 설계는 향후 고성능 백엔드 및 AI 인프라의 근간이 될 수 있는 중요한 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "병렬 컴퓨팅 최적화를 위한 새로운 CPU 아키텍처 및 언어 'Vine' 개발",
+      "key_points": [
+        "기존 CPU의 순차 실행 및 하위 호환성 제약에서 벗어나 수천 개의 코어가 병렬로 동작하는 프로세서를 설계함.",
+        "복잡한 캐시 일관성 프로토콜을 제거하여 확장성 병목을 해결하는 것을 목표로 함.",
+        "프로세서 설계와 함께 병렬 처리를 우선시하는 오픈소스 언어 'Vine'을 개발 중임."
+      ],
+      "topics": [
+        "병렬 컴퓨팅",
+        "CPU 아키텍처",
+        "하드웨어-소프트웨어 공동 설계"
+      ],
+      "recommended_for": "고성능 컴퓨팅 및 차세대 백엔드 인프라 아키텍처에 관심 있는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Gemini 4 Hydrogen - 일상적인 코딩과 에이전트 작업을 위한 빠른 실행 모델",
+      "link": "https://news.hada.io/topic?id=37068",
+      "published_at": "2026-11-13T04:43:36+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent, LLM, 에이전트 워크플로 최적화 등 사용자의 핵심 관심사를 모두 관통하는 최신 모델 소식입니다.",
+      "feedback_bias": 0,
+      "one_line": "일상 코딩 및 에이전트 작업에 최적화된 고성능 모델 'Gemini 4 Hydrogen' 공개",
+      "key_points": [
+        "Gemini 4 Hydrogen은 일상적인 코딩과 에이전트 작업에 특화된 빠른 실행 모델로, Argon 모델의 성능을 상회함.",
+        "Google Antigravity Orchestrator를 통해 작업 성격에 따라 모델을 자동 전환하여 비용과 시간을 최적화함.",
+        "100만 토큰 컨텍스트를 지원하며, 효율적인 토큰당 요금 체계를 적용함."
+      ],
+      "topics": [
+        "LLM 에이전트",
+        "모델 오케스트레이션",
+        "추론 최적화"
+      ],
+      "recommended_for": "AI 에이전트 워크플로를 구축하거나 LLM 기반 코딩 도구를 활용하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Gemini 4 Hydrogen을 활용한 에이전트 워크플로 성능 테스트",
+        "steps": [
+          "기존 에이전트 워크플로에서 모델을 Hydrogen으로 교체",
+          "Terminal-Bench 4.0 기준 완료 시간 및 성공률 측정",
+          "Orchestrator를 통한 모델 자동 전환 로직 적용 검토"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Rust 1.100.0 - never 타입과 사용자 정의 메모리 할당자 안정화",
+      "link": "https://news.hada.io/topic?id=37070",
+      "published_at": "2026-11-13T04:49:36+09:00",
+      "selection_score": 13,
+      "selection_reason": "Rust의 주요 기능 안정화는 백엔드 성능 개선 및 개발 생산성에 직접적인 영향을 주는 중요한 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "Rust 1.100.0 업데이트: never 타입 및 사용자 정의 메모리 할당자 안정화",
+      "key_points": [
+        "never 타입(!)이 안정화되어 실패할 수 없는 연산을 명확하게 표현할 수 있게 됨.",
+        "사용자 정의 메모리 할당자 API가 안정화되어 Vec, Box 등에서 커스텀 할당자를 지정할 수 있음.",
+        "2024 에디션과 유사하게 타입 추론 폴백이 변경되어 기존 코드의 타입 추론에 영향을 줄 수 있음."
+      ],
+      "topics": [
+        "Rust 언어",
+        "Never 타입",
+        "메모리 할당자(Allocator)"
+      ],
+      "recommended_for": "Rust를 사용하여 고성능 백엔드 시스템을 개발하거나 메모리 제어가 중요한 시스템을 다루는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "작고 오래된 기기에서도 LLM이 돌아가게 만들고 있습니다",
+      "link": "https://news.hada.io/topic?id=37071",
+      "published_at": "2026-11-13T04:52:37+09:00",
+      "selection_score": 14,
+      "selection_reason": "저사양 기기에서의 LLM 구동 최적화는 비용 절감 및 엣지 AI 구현을 위한 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "저사양 기기에서 LLM을 구동하기 위한 최적화 프로젝트 smolmaxxing 소개",
+      "key_points": [
+        "smolmaxxing은 맞춤형 커널과 메모리 최적화, 가중치 스트리밍을 통해 저사양 기기에서 LLM을 구동함.",
+        "Xiaomi TV Box S 3세대에서 Qwen3.5-2B 및 MoE 모델들을 실사용 가능한 속도로 구동함.",
+        "RAM 용량이 모델보다 작을 경우 플래시 메모리의 대역폭이 성능의 병목 구간이 됨."
+      ],
+      "topics": [
+        "가중치 스트리밍",
+        "MoE(Mixture of Experts)",
+        "플래시 대역폭 최적화"
+      ],
+      "recommended_for": "엣지 AI 구현이나 저사양 하드웨어에서 LLM 구동을 고민하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Jane Street의 소프트웨어 엔지니어링 면접이 조금 달라집니다",
+      "link": "https://news.hada.io/topic?id=37075",
+      "published_at": "2026-11-13T06:21:12+09:00",
+      "selection_score": 11,
+      "selection_reason": "LLM 시대의 엔지니어링 역량 변화를 보여주는 사례로, 개발 생산성과 평가 기준의 변화를 이해하는 데 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Jane Street의 소프트웨어 엔지니어링 면접 방식 변화: 코드 작성보다 설계와 LLM 활용 능력 강조",
+      "key_points": [
+        "단순 코드 작성 비중을 줄이고 소프트웨어 설계, 코드 검증, LLM 활용 능력을 평가하는 면접을 도입함.",
+        "코드 생성 비용이 낮아짐에 따라 무엇을 만들지 판단하는 안목과 추상화 선택 능력이 중요해짐.",
+        "기존의 LLM 없이 진행하는 코딩 면접은 유지하며, LLM 활용은 선택적인 보조 도구로 평가함."
+      ],
+      "topics": [
+        "소프트웨어 설계 역량",
+        "코드 검증",
+        "LLM 기반 엔지니어링 워크플로"
+      ],
+      "recommended_for": "LLM 시대의 엔지니어링 역량 변화와 채용 트렌드에 관심 있는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: 300달러짜리 자수기에 구독이 필요해서 직접 앱을 만들었다",
+      "link": "https://news.hada.io/topic?id=37076",
+      "published_at": "2026-11-13T06:35:41+09:00",
+      "selection_score": 14,
+      "selection_reason": "MCP를 활용한 실제 에이전트 워크플로 구현 사례로, 개인 프로젝트 및 업무 자동화에 직접적인 영감을 주는 매우 유용한 글입니다.",
+      "feedback_bias": 0,
+      "one_line": "MCP를 내장하여 AI 에이전트와 협업하는 자수 디자인 앱 ZigZag",
+      "key_points": [
+        "ZigZag는 Rust로 작성된 자수 디자인 앱으로, MCP를 내장해 AI 에이전트가 디자인 편집에 직접 참여함.",
+        "Claude Code나 Codex와 연동하여 AI가 생성한 디자인을 실시간으로 편집하고 검토할 수 있음.",
+        "벡터 편집, 이미지 자동 추적, 자수기 전송까지의 과정을 하나의 워크플로로 통합함."
+      ],
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "AI 에이전트 워크플로",
+        "Rust 기반 데스크톱 앱"
+      ],
+      "recommended_for": "MCP를 활용한 에이전트 기반의 도구 개발 사례를 찾는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "MCP를 활용한 로컬 도구 연동 방식 학습",
+        "steps": [
+          "MCP 공식 문서에서 클라이언트-서버 통신 구조 파악하기",
+          "ZigZag의 GitHub 저장소에서 MCP 구현 코드 확인하기",
+          "자신이 사용하는 로컬 도구에 MCP 서버를 붙일 수 있는 포인트 찾기"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Google Antigravity에 Orchestrator 추가, 코딩 중 Carbon과 Hydrogen 자동 전환",
+      "link": "https://news.hada.io/topic?id=37077",
+      "published_at": "2026-11-13T06:38:41+09:00",
+      "selection_score": 14,
+      "selection_reason": "Agentic Workflow의 최신 트렌드인 오케스트레이션과 모델 자동 전환을 다루고 있어 실무적인 개발 생산성 향상에 직결됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Google Antigravity에 작업 단계별 모델 자동 전환 기능인 Orchestrator 추가",
+      "key_points": [
+        "Orchestrator는 코딩 세션 중 계획 단계의 Carbon과 실행 단계의 Hydrogen을 자동으로 전환함.",
+        "모델 자동 전환을 통해 단일 모델 사용 대비 할당량은 24% 절감하고 작업 속도는 19% 향상함.",
+        "Hydrogen 모델은 추론 수준을 세분화하여 일상적인 코딩 작업에 최적화된 선택이 가능함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "모델 오케스트레이션",
+        "비용 효율적 LLM 활용"
+      ],
+      "recommended_for": "LLM 기반 코딩 도구의 효율성과 비용 절감에 관심 있는 백엔드 및 생산성 도구 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 사용하는 코딩 에이전트 워크플로에 모델 분리 적용 검토",
+        "steps": [
+          "현재 사용하는 LLM 작업 중 '계획'과 '구현' 단계를 분리할 수 있는지 분석",
+          "비용 효율적인 소형 모델과 고성능 모델을 조합하는 파이프라인 설계",
+          "Antigravity의 Orchestrator 방식처럼 단계별 모델 전환 로직 구현 가능성 검토"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: kr-career-skill - 채용 사이트 270 여곳의 공고 검색과 기업분석 및 자소서 초안 작성을 하는 한국 취...",
+      "link": "https://news.hada.io/topic?id=37079",
+      "published_at": "2026-11-13T07:57:53+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트를 활용한 실질적인 업무 자동화 도구이며, 오픈소스 스킬 형태로 제공되어 즉시 활용 및 학습이 가능합니다.",
+      "feedback_bias": 0,
+      "one_line": "채용 공고 검색 및 자소서 초안 작성을 자동화하는 오픈소스 에이전트 스킬",
+      "key_points": [
+        "270여 곳의 채용 사이트 공고를 검색하고 기업 분석 및 자소서 초안을 작성해주는 에이전트 스킬임.",
+        "사용자가 직무, 지역, 경력 등을 입력하면 에이전트가 맞춤형 공고를 찾아주는 방식으로 동작함.",
+        "GitHub에 오픈소스로 공개되어 있어 즉시 설치 및 활용이 가능함."
+      ],
+      "topics": [
+        "업무 자동화",
+        "AI 에이전트 스킬",
+        "데이터 수집 자동화"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 실무 자동화 사례를 직접 써보고 싶은 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "kr-career-skill 에이전트 스킬 설치 및 테스트",
+        "steps": [
+          "GitHub 저장소에서 SKILL.md 파일 확인하기",
+          "사용 중인 AI 에이전트 환경에 해당 스킬 추가하기",
+          "실제 이직 희망 직무를 입력하여 공고 검색 및 자소서 초안 생성 테스트하기"
+        ],
+        "effort": "15~30분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Ask HN: Microsoft/Azure 장애인가요?",
+      "link": "https://news.hada.io/topic?id=37069",
+      "published_at": "2026-11-13T04:46:36+09:00",
+      "selection_score": 10,
+      "selection_reason": "클라우드 서비스 장애는 실무자에게 즉각적인 대응과 모니터링의 중요성을 상기시키는 중요한 이슈입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Microsoft Outlook, 대규모 접속 장애 발생",
+      "link": "https://news.hada.io/topic?id=37073",
+      "published_at": "2026-11-13T05:32:45+09:00",
+      "selection_score": 10,
+      "selection_reason": "대규모 클라우드 서비스 장애는 인프라 아키텍처의 안정성과 복구 전략을 고민하게 만드는 중요한 업계 소식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "AMD In-Depth에서 Mike Clark과 나눈 Zen 6 심층 대화",
+      "link": "https://news.hada.io/topic?id=37074",
+      "published_at": "2026-11-13T05:35:45+09:00",
+      "selection_score": 10,
+      "selection_reason": "차세대 CPU 아키텍처의 변화는 서버 성능 최적화 및 인프라 설계 방향을 결정짓는 중요한 기술적 지표입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "데이터센터에 필요한 전력, 저소득층과 농촌 주민이 대가를 치른다",
+      "link": "https://news.hada.io/topic?id=37082",
+      "published_at": "2026-11-13T08:38:47+09:00",
+      "selection_score": 9,
+      "selection_reason": "데이터센터 인프라 비용과 사회적 영향은 클라우드 및 서버 아키텍처를 다루는 실무자에게 거시적인 관점을 제공합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "자애로운 수출 통제 기계",
+      "link": "https://news.hada.io/topic?id=37088",
+      "published_at": "2026-11-13T10:14:00+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 산업의 규제와 수출 통제에 관한 논의는 기술 생태계의 미래를 이해하는 데 중요한 배경 지식이 됩니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
