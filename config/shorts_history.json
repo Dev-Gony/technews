@@ -377,5 +377,13 @@
     "video_id": "As1B4CE6Ax4",
     "voice": "Leda",
     "publish_at": "2026-11-13T13:00:00+09:00"
+  },
+  {
+    "date": "2026-11-13",
+    "link": "https://aws.amazon.com/blogs/architecture/inside-an-enterprise-ai-agent-a-governed-observable-loop-architecture",
+    "title": "AWS 엔터프라이즈 AI 에이전트 5단계 루프 아키텍처",
+    "video_id": "FnZrD-yBOwc",
+    "voice": "Leda",
+    "publish_at": "2026-11-13T17:00:00+09:00"
   }
 ]
