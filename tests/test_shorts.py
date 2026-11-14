@@ -184,13 +184,19 @@ class ShortsTest(unittest.TestCase):
         def limited(*args, **kwargs):
             raise RuntimeError("You've hit your 5-hour limit")
 
+        def fake_gemini(system, prompt, schema):
+            if system is shorts.FACTCHECK_SYSTEM_PROMPT:
+                return {"script": {**gemini_script, "title": "제미나이 검증"}, "changes": []}
+            return gemini_script
+
         with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
                 mock.patch.object(shorts, "claude_json", side_effect=limited), \
-                mock.patch.object(shorts, "gemini_json", return_value=gemini_script) as gemini:
+                mock.patch.object(shorts, "gemini_json", side_effect=fake_gemini) as gemini:
             script = shorts.generate_script({"title": "t", "link": "l"})
 
-        self.assertEqual(script["title"], "제미나이")
-        gemini.assert_called_once()
+        # Gemini로 쓰고, Claude 팩트체크가 막혀 Gemini로 팩트체크까지 한다
+        self.assertEqual(script["title"], "제미나이 검증")
+        self.assertEqual(gemini.call_count, 2)
 
     def test_speech_coverage_detects_cut_off_narration(self):
         text = "에이전트가 어제 한 실수 또 하죠 검색만 쓰면 53%였는데요 위키를 더하니 최대 61%예요"
@@ -232,13 +238,58 @@ class ShortsTest(unittest.TestCase):
                 raise RuntimeError("사용량 한도")
             return fake_script("후보" + str(len(calls)))
 
-        with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
-                mock.patch.object(shorts, "claude_json", side_effect=fake_claude):
-            script = shorts.generate_script({"title": "t", "link": "l"})
+        def bad_gemini(system, prompt, schema):
+            return {"script": {**fake_script("짧음"), "cuts": fake_script("짧음")["cuts"][:2]}, "changes": []}
 
-        # 후보 3개 + 심사 + (실패한) 검증 = 5번 호출, 심사가 고른 후보를 그대로 쓴다
+        with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
+                mock.patch.object(shorts, "claude_json", side_effect=fake_claude), \
+                mock.patch.object(shorts, "gemini_json", side_effect=bad_gemini):
+            with self.assertRaises(shorts.FactCheckFailed):
+                shorts.generate_script({"title": "t", "link": "l"})
+
+        # 후보 3개 + 심사 + (실패한) Claude 검증 = 5번 호출. Gemini 검증도 컷 2개라 실패 → 업로드 안 함
         self.assertEqual(len(calls), 5)
-        self.assertTrue(script["title"].startswith("후보"))
+
+    def test_main_skips_article_when_factcheck_fails(self):
+        from unittest import mock
+
+        articles = [{"title": f"기사{i}", "link": f"https://a/{i}", "issue_date": "2026-11-14"} for i in range(3)]
+        picked = []
+
+        def fake_pick(issues, used):
+            article = next(a for a in articles if a["link"] not in used)
+            picked.append(article["link"])
+            return article
+
+        saved = {}
+        with mock.patch("sys.argv", ["shorts.py", "--date", "2026-11-14"]), \
+                mock.patch.object(shorts, "load_json", return_value=[]), \
+                mock.patch.object(shorts, "load_issue", return_value={}), \
+                mock.patch.object(shorts, "pick_article", side_effect=fake_pick), \
+                mock.patch.object(shorts, "generate_script", side_effect=shorts.FactCheckFailed("컷 수가 이상합니다: 2")), \
+                mock.patch.object(shorts, "notify_slack") as slack, \
+                mock.patch.object(shorts, "save_json", side_effect=lambda path, data: saved.update({path: list(data)})), \
+                mock.patch.object(shorts, "synthesize_narration") as tts, \
+                mock.patch("os.makedirs"):
+            shorts.main()
+
+        # 기사 2개를 시도하고 둘 다 건너뜀: 영상 제작·업로드 없음, 다음 실행에서 다시 고르지 않게 기록
+        self.assertEqual(picked, ["https://a/0", "https://a/1"])
+        tts.assert_not_called()
+        self.assertEqual(slack.call_count, 2)
+        history = saved[shorts.SHORTS_HISTORY_FILE]
+        self.assertEqual([entry["skipped"] for entry in history], ["factcheck", "factcheck"])
+        self.assertTrue(all("video_id" not in entry for entry in history))
+
+    def test_youtube_safe_metadata(self):
+        self.assertEqual(shorts.youtube_safe("A -> B, <폴더> 접근"), "A → B, ‹폴더› 접근")
+        self.assertEqual(shorts.cut_bytes("가나다", 7), "가나")
+        self.assertEqual(len(shorts.cut_bytes("가" * 3000, 5000).encode("utf-8")), 4998)
+        cuts = [{"line": f"대사 {i}", "emphasis": [], "visual": {"type": "none"}} for i in range(8)]
+        script = {"title": "t", "question": "", "summary": "a->b <x>", "tips": [], "caution": "", "hashtags": [], "cuts": cuts}
+        description = shorts.build_description(script, {"link": "https://x"})
+        self.assertNotIn("<", description)
+        self.assertNotIn(">", description)
 
     def test_validate_visual_new_motion_types(self):
         diagram = {"type": "diagram", "nodes": [{"label": "사용자", "icon": "person"}, {"label": "서버", "icon": "server"}], "focus": 1}
