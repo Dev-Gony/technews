@@ -281,6 +281,45 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual([entry["skipped"] for entry in history], ["factcheck", "factcheck"])
         self.assertTrue(all("video_id" not in entry for entry in history))
 
+    def test_script_style_and_prompt(self):
+        from unittest import mock
+
+        cuts = [{"line": f"대사 {i}", "emphasis": [], "visual": {"type": "none"}} for i in range(8)]
+        script = {"title": "t", "question": "", "cover": "c", "summary": "", "tips": [], "caution": "", "hashtags": [], "cuts": cuts}
+
+        # 대본에 style이 없거나 이상하면 news
+        self.assertEqual(shorts.validate_script({**script, "style": "weird"})["style"], "news")
+        self.assertEqual(shorts.validate_script({**script, "style": "explain"})["style"], "explain")
+
+        with mock.patch.object(shorts, "SHORTS_STYLE", "auto"):
+            self.assertEqual(shorts.script_style({"style": "explain"}), "explain")
+            self.assertEqual(shorts.script_style({}), "news")
+            self.assertIn("화면 스타일 (style", shorts.script_system_prompt())
+        with mock.patch.object(shorts, "SHORTS_STYLE", "explain"):
+            self.assertEqual(shorts.script_style({"style": "news"}), "explain")
+        with mock.patch.object(shorts, "SHORTS_STYLE", "classic"):
+            self.assertEqual(shorts.script_style({"style": "news"}), "classic")
+            self.assertNotIn("화면 스타일 (style", shorts.script_system_prompt())
+
+    def test_code_visual_highlight_is_kept_only_in_range(self):
+        code = "fn a() {\n  errdefer free(x);\n}"
+        self.assertEqual(shorts.validate_visual({"type": "code", "code": code, "highlight": 2})["highlight"], 2)
+        self.assertNotIn("highlight", shorts.validate_visual({"type": "code", "code": code, "highlight": 0}))
+        self.assertNotIn("highlight", shorts.validate_visual({"type": "code", "code": code, "highlight": 9}))
+        long_code = "\n".join(f"line {i}" for i in range(12))
+        self.assertEqual(len(shorts.validate_visual({"type": "code", "code": long_code})["code"].split("\n")), 8)
+
+    def test_fill_empty_cuts_uses_spoken_emphasis_only(self):
+        cuts = [{"line": "대사" * (i + 1), "emphasis": [f"단어{i}"] if i % 2 else [], "visual": {"type": "none"}} for i in range(10)]
+        cuts[0]["visual"] = {"type": "hook"}
+        shorts.fill_empty_cuts(cuts, limit=3)
+        empty = [c for c in cuts if c["visual"]["type"] in ("none", "hook")]
+        # 강조 단어가 있는 컷(1,3,5,7)만 바뀐다. 마지막 2컷(8,9)과 첫 컷은 그대로
+        self.assertEqual([i for i, c in enumerate(cuts) if c["visual"]["type"] == "keywords"], [1, 3, 5, 7])
+        self.assertEqual(cuts[7]["visual"]["items"], ["단어7"])
+        self.assertEqual(len(empty), 6)
+        self.assertEqual(cuts[9]["visual"]["type"], "none")
+
     def test_youtube_safe_metadata(self):
         self.assertEqual(shorts.youtube_safe("A -> B, <폴더> 접근"), "A → B, ‹폴더› 접근")
         self.assertEqual(shorts.cut_bytes("가나다", 7), "가나")
@@ -694,11 +733,15 @@ class ShortsTest(unittest.TestCase):
             self.assertEqual(visual, {"type": "scene3d", "scene": "coins3d"})
 
     def test_vault3d_anchor_file_lists_roles(self):
+        from unittest import mock
+
         # 저장소에 들어 있는 금고 장면 이름표: 사물과 꼬마 4색
         anchors = shorts.scene3d_anchors("vault3d")
         for key in ("door", "shield", "lock", "red", "blue", "yellow", "white"):
             self.assertIn(key, anchors)
-        prompt = shorts.build_script_prompt({"title": "Cursor 확장에 백도어", "one_line": "악성 코드", "key_points": [], "topics": []})
+        # 3D 배역은 예전 화면(classic)에서만 대본 요청에 붙는다
+        with mock.patch.object(shorts, "SHORTS_STYLE", "classic"):
+            prompt = shorts.build_script_prompt({"title": "Cursor 확장에 백도어", "one_line": "악성 코드", "key_points": [], "topics": []})
         self.assertIn("3D 장면 배역", prompt)
         self.assertIn("- vault3d", prompt)
         self.assertIn("  - door:", prompt)

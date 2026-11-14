@@ -2,6 +2,7 @@ import { Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "re
 import type { Chunk, Visual } from "./schema";
 import { IsoIcon, IsoPlate, isoProject } from "./Isometric";
 import { fitFontSize, Panel, pop, staggerStart } from "./visualKit";
+import { IdeCodeVisual, isEditorial, useShortStyle } from "./editorial/Editorial";
 import { Scene3DVisual } from "./Scene3DVisual";
 import { BeforeAfterVisual, DiagramVisual, QuoteVisual, ScaleVisual } from "./VisualsPro";
 import { colors, fontFamily, layout } from "./theme";
@@ -420,6 +421,13 @@ const HookVisual: React.FC<{ visual: Visual }> = ({ visual }) => {
 };
 
 export const SceneVisual: React.FC<{ visual: Visual; sceneFrames: number; chunks?: Chunk[] }> = ({ visual, sceneFrames, chunks }) => {
+  const style = useShortStyle();
+
+  // news/explain 스타일의 코드는 문법 색·강조 줄이 있는 에디터 창으로
+  if (visual.type === "code" && isEditorial(style)) {
+    return <IdeCodeVisual visual={visual} sceneFrames={sceneFrames} />;
+  }
+
   switch (visual.type) {
     case "hook":
       return <HookVisual visual={visual} />;

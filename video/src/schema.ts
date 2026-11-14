@@ -54,6 +54,8 @@ export const visualSchema = z.object({
   items: z.array(z.string()).optional(),
   bars: z.array(barSchema).optional(),
   code: z.string().optional(),
+  // code: 노란 띠로 강조할 줄 번호(1부터). explain/news 스타일의 코드 창에서 커서가 그 줄로 간다.
+  highlight: z.number().int().optional(),
   rooms: z.array(roomSchema).optional(),
   nodes: z.array(nodeSchema).optional(),
   // 구조도에서 마지막에 카메라가 밀고 들어갈 마디 번호
@@ -93,7 +95,9 @@ export const sfxSchema = z.object({
 export const shortSchema = z.object({
   channel: z.string(),
   // 배경 테마: ink(먹색) / paper(종이색)
-  theme: z.enum(["ink", "paper"]).optional(),
+  theme: z.enum(["ink", "paper", "news", "explain"]).optional(),
+  // 화면 스타일: classic(기존 먹색·3D) / news(크림 잡지) / explain(남색 다크 + 코드 창). 없으면 classic.
+  style: z.enum(["classic", "news", "explain"]).optional(),
   // 영상 내내 상단에 고정되는 제목. 어느 장면이 썸네일로 잡혀도 무슨 영상인지 보이게.
   cover: z.string(),
   source: z.string(),

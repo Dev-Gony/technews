@@ -5,6 +5,7 @@ import { Cards, calculateCardsMetadata } from "./cards/Cards";
 import { cardsSchema } from "./cards/schema";
 import { shortSchema } from "./schema";
 import { calculateShortMetadata, Short } from "./Short";
+import { SAMPLE_EXPLAIN, SAMPLE_NEWS } from "./editorial/samples";
 
 // 실제 렌더링은 shorts.py / cards.py가 --props로 내용을 넘겨준다.
 // defaultProps는 Studio 미리보기용 샘플이다. (효과음은 shorts.py 실행 시 public/sfx에 생성됨)
@@ -58,6 +59,24 @@ export const RemotionRoot: React.FC = () => {
           ],
         }}
       />
+      {/* news(크림 잡지) / explain(다크 코드) 스타일 미리보기용 샘플 */}
+      {[
+        { id: "ShortNews", props: SAMPLE_NEWS },
+        { id: "ShortExplain", props: SAMPLE_EXPLAIN },
+      ].map(({ id, props }) => (
+        <Composition
+          key={id}
+          id={id}
+          component={Short}
+          schema={shortSchema}
+          calculateMetadata={calculateShortMetadata}
+          durationInFrames={props.durationInFrames}
+          fps={30}
+          width={1080}
+          height={1920}
+          defaultProps={props}
+        />
+      ))}
       {/* 인스타그램 카드뉴스 (1080x1350, 프레임 하나 = 카드 한 장) */}
       <Composition
         id="Cards"

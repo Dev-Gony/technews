@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import { loadFont } from "@remotion/google-fonts/NotoSansKR";
 import { loadFont as loadSerif } from "@remotion/google-fonts/NotoSerifKR";
+import { loadFont as loadMono } from "@remotion/google-fonts/JetBrainsMono";
 
 export const { fontFamily } = loadFont("normal", {
   weights: ["500", "700", "900"],
@@ -11,6 +12,12 @@ export const { fontFamily } = loadFont("normal", {
 export const { fontFamily: serifFamily } = loadSerif("normal", {
   weights: ["900"],
   subsets: ["korean", "latin"],
+});
+
+// 코드·터미널용 고정폭 글꼴. 한글 글리프가 없으므로 한글은 본문 글꼴로 대체한다.
+export const { fontFamily: monoFamily } = loadMono("normal", {
+  weights: ["400", "700"],
+  subsets: ["latin"],
 });
 
 // 채널 브랜드(먹색·종이색·빨강)에 맞춘 쇼츠 배경 테마.
@@ -67,7 +74,61 @@ export const palettes = {
   },
 };
 
-export type ThemeName = keyof typeof palettes;
+// 영상 스타일 (Solostack 레퍼런스, 2026-11-14 사용자 승인 시안)
+// news: 크림 잡지 — 신모델·연구·수치 뉴스 / explain: 남색 다크 + 코드 창 — 언어·도구·개념 설명
+const editorialPalettes = {
+  news: {
+    background: "#F4EFE3",
+    surface: "rgba(21, 19, 15, 0.06)",
+    border: "rgba(21, 19, 15, 0.85)",
+    text: "#15130F",
+    muted: "#6E675B",
+    faint: "#8A8376",
+    accent: "#C8402F",
+    accentSoft: "rgba(200, 64, 47, 0.12)",
+    highlight: "#C8402F",
+    blue: "#D9D1C0",
+    neonRed: "#C8402F",
+    gold: "#C8402F",
+    goldSoft: "rgba(200, 64, 47, 0.10)",
+    stroke: "transparent",
+    shadow: "transparent",
+    rule: "transparent",
+    vignette: "rgba(21, 19, 15, 0.05)",
+    glow: "rgba(255, 255, 255, 0.55)",
+    glowGold: "rgba(255, 255, 255, 0.55)",
+    floorTop: "#2E2D29",
+    floorLeft: "#15130F",
+    floorRight: "#000000",
+  },
+  explain: {
+    background: "#0B0F1A",
+    surface: "rgba(232, 236, 245, 0.07)",
+    border: "rgba(232, 236, 245, 0.16)",
+    text: "#E8ECF5",
+    muted: "#9AA4B8",
+    faint: "#5E6880",
+    accent: "#6EA8FF",
+    accentSoft: "rgba(76, 141, 255, 0.14)",
+    highlight: "#F7B955",
+    blue: "#26324A",
+    neonRed: "#F7B955",
+    gold: "#F7B955",
+    goldSoft: "rgba(247, 185, 85, 0.14)",
+    stroke: "transparent",
+    shadow: "transparent",
+    rule: "transparent",
+    vignette: "rgba(0, 0, 0, 0.5)",
+    glow: "rgba(76, 141, 255, 0.16)",
+    glowGold: "rgba(247, 185, 85, 0.10)",
+    floorTop: "#1B2436",
+    floorLeft: "#131A28",
+    floorRight: "#0B0F1A",
+  },
+} satisfies Record<string, (typeof palettes)["ink"]>;
+
+export type ThemeName = keyof typeof palettes | keyof typeof editorialPalettes;
+export type StyleName = "classic" | "news" | "explain";
 type ColorKey = keyof (typeof palettes)["ink"];
 
 // 컴포넌트는 CSS 변수만 쓰고, 실제 색은 Short 맨 바깥에서 테마로 정한다.
@@ -77,8 +138,10 @@ export const colors = {
   green: "#3DDC97",
 };
 
+const allPalettes: Record<ThemeName, (typeof palettes)["ink"]> = { ...palettes, ...editorialPalettes };
+
 export const themeVars = (theme: ThemeName): CSSProperties =>
-  Object.fromEntries(Object.entries(palettes[theme]).map(([key, value]) => [`--c-${key}`, value])) as CSSProperties;
+  Object.fromEntries(Object.entries(allPalettes[theme]).map(([key, value]) => [`--c-${key}`, value])) as CSSProperties;
 
 // Shorts 화면에서 제목, 버튼에 가리지 않는 영역 (1080x1920 기준)
 export const layout = {
