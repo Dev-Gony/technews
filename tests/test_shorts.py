@@ -309,6 +309,17 @@ class ShortsTest(unittest.TestCase):
         long_code = "\n".join(f"line {i}" for i in range(12))
         self.assertEqual(len(shorts.validate_visual({"type": "code", "code": long_code})["code"].split("\n")), 8)
 
+    def test_fill_empty_cuts_uses_spoken_emphasis_only(self):
+        cuts = [{"line": "대사" * (i + 1), "emphasis": [f"단어{i}"] if i % 2 else [], "visual": {"type": "none"}} for i in range(10)]
+        cuts[0]["visual"] = {"type": "hook"}
+        shorts.fill_empty_cuts(cuts, limit=3)
+        empty = [c for c in cuts if c["visual"]["type"] in ("none", "hook")]
+        # 강조 단어가 있는 컷(1,3,5,7)만 바뀐다. 마지막 2컷(8,9)과 첫 컷은 그대로
+        self.assertEqual([i for i, c in enumerate(cuts) if c["visual"]["type"] == "keywords"], [1, 3, 5, 7])
+        self.assertEqual(cuts[7]["visual"]["items"], ["단어7"])
+        self.assertEqual(len(empty), 6)
+        self.assertEqual(cuts[9]["visual"]["type"], "none")
+
     def test_youtube_safe_metadata(self):
         self.assertEqual(shorts.youtube_safe("A -> B, <폴더> 접근"), "A → B, ‹폴더› 접근")
         self.assertEqual(shorts.cut_bytes("가나다", 7), "가나")

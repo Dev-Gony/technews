@@ -65,7 +65,7 @@ export const SAMPLE_EXPLAIN: ShortProps = {
     {
       from: 160,
       durationInFrames: 110,
-      visual: { type: "code", label: "zsh", code: "$ zig build run\n# 슬라이스 범위 검사\n# comptime: 컴파일 때 실행" },
+      visual: { type: "code", label: "build.zig", code: "if (builtin.os.tag == .linux) {\n    // 컴파일 타임 분기\n}\n$ zig cc -target x86_64-linux-musl -o sum sum.c", highlight: 1 },
       chunks: [chunk("범위 밖 접근은", 0, 55), chunk("언어가 막아요", 55, 55, true)],
     },
   ],

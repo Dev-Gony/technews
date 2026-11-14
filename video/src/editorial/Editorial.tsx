@@ -419,7 +419,16 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = 
             {filename}
           </div>
         </div>
-        <div style={{ padding: "34px 0", fontFamily: `${monoFamily}, ${fontFamily}`, fontSize, lineHeight: `${LINE_HEIGHT}px` }}>
+        <div
+          style={{
+            padding: "34px 0",
+            fontFamily: `${monoFamily}, ${fontFamily}`,
+            fontSize,
+            lineHeight: `${LINE_HEIGHT}px`,
+            // "=="가 한 글자(═)로 붙어 보이지 않게 합자를 끈다
+            fontVariantLigatures: "none",
+          }}
+        >
           {lines.map((line, index) => {
             const start = index * perLine;
             const chars = [...line];
@@ -509,7 +518,7 @@ const ExplainOutro: React.FC<{ channel: string }> = ({ channel }) => {
             <div key={color} style={{ width: 22, height: 22, borderRadius: 11, background: color }} />
           ))}
         </div>
-        <div style={{ padding: "40px 44px", fontFamily: monoFamily, fontSize: 52, color: SYNTAX.text, whiteSpace: "pre" }}>
+        <div style={{ padding: "40px 44px", fontFamily: monoFamily, fontSize: 52, color: SYNTAX.text, whiteSpace: "pre", fontVariantLigatures: "none" }}>
           <span style={{ color: SYNTAX.prompt }}>$ </span>
           {command.slice(0, typed)}
           <span style={{ opacity: cursorOn ? 1 : 0 }}>▌</span>

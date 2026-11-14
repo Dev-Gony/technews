@@ -938,6 +938,31 @@ code 그래픽 (두 스타일 모두 에디터 창으로 보인다):
 STYLE_PROMPT += STYLE_PROMPT_TAIL
 
 
+EDITORIAL_MAX_EMPTY_CUTS = 3
+
+
+def fill_empty_cuts(cuts, limit=EDITORIAL_MAX_EMPTY_CUTS):
+    """잡지·다크 화면은 그래픽 없는 컷이 많으면 휑하다. 자막만 있는 컷이 limit개를 넘으면,
+    첫 컷·마지막 2컷을 뺀 자막 컷 중 강조 단어가 있는 컷(대사가 긴 컷부터)에 그 강조 단어를 키워드 카드로 띄운다.
+    대사에 이미 있는 말만 쓰므로 새 사실이 들어가지 않는다."""
+    empty = [index for index, cut in enumerate(cuts) if cut["visual"].get("type") in ("none", "hook")]
+    extra = len(empty) - limit
+
+    if extra <= 0:
+        return cuts
+
+    spots = [
+        index for index in empty
+        if 0 < index < len(cuts) - 2 and [word for word in cuts[index].get("emphasis") or [] if len(word) <= 8]
+    ]
+
+    for index in sorted(spots, key=lambda i: len(spoken_line(cuts[i])), reverse=True)[:extra]:
+        words = [word for word in cuts[index]["emphasis"] if len(word) <= 8][:3]
+        cuts[index]["visual"] = {"type": "keywords", "items": words}
+
+    return cuts
+
+
 def editorial_mode():
     """news/explain 스타일(잡지·다크 화면)을 쓰는지. classic이면 예전 먹색·3D 화면."""
     return SHORTS_STYLE != "classic"
@@ -1648,6 +1673,8 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         for cut in cuts:
             if cut["visual"].get("type") == "scene3d":
                 cut["visual"] = {"type": "none"}
+
+        fill_empty_cuts(cuts)
 
     # 컷은 그 컷의 첫 단어를 말하기 시작할 때 바뀐다.
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
