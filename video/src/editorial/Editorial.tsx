@@ -386,7 +386,7 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = 
     <Panel>
       <div
         style={{
-          width: "104%",
+          width: "100%",
           borderRadius: 26,
           overflow: "hidden",
           background: "#111827",
@@ -396,7 +396,7 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = 
           translate: `0px ${interpolate(shown, [0, 1], [50, 0])}px`,
           // 강조 줄로 카메라가 다가간다 (Screen Studio 식 부드러운 줌)
           transformOrigin: `50% ${rowTop}px`,
-          scale: String(interpolate(focus, [0, 1], [1, 1.12])),
+          scale: String(interpolate(focus, [0, 1], [1, 1.06])),
           position: "relative",
         }}
       >
@@ -465,7 +465,7 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = 
               position: "absolute",
               width: 44,
               height: 56,
-              left: interpolate(focus, [0, 1], [900, 620]),
+              left: interpolate(focus, [0, 1], [860, 600]),
               top: interpolate(focus, [0, 1], [rowTop + 220, rowTop + 26]),
               opacity: interpolate(frame, [typingEnd - 6, typingEnd], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
             }}
