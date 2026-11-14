@@ -1,6 +1,244 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "Meta Engineering",
+      "title": "Cuttlefish on Mac: Running Android’s Virtual Device Framework Natively on Apple Silicon",
+      "link": "https://engineering.fb.com/2026/11/13/android/cuttlefish-on-mac",
+      "published_at": "Fri, 13 Nov 2026 17:00:39 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Cuttlefish",
+        "Apple Silicon HVF",
+        "QEMU"
+      ],
+      "one_line": "Meta가 Apple Silicon 환경에서 안드로이드 가상화 프레임워크인 Cuttlefish를 네이티브로 구동하는 기술을 공개함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Spend Management: Spending limits and alerts for Cloudflare",
+      "link": "https://blog.cloudflare.com/spend-management",
+      "published_at": "Fri, 13 Nov 2026 14:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Cloudflare Workers",
+        "Spend Management",
+        "Metering Pipeline"
+      ],
+      "one_line": "Cloudflare가 Workers 및 Durable Objects 사용량에 대한 지출 한도 설정 및 자동 차단 기능을 베타로 출시함.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "Cloudflare",
+      "title": "Adapting to AI penetration testing orchestrators: The Modern Security Model",
+      "link": "https://blog.cloudflare.com/adapting-to-ai-penetration-testing-orchestrators",
+      "published_at": "Fri, 13 Nov 2026 19:26:07 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Pentesting Orchestrator",
+        "Cyber Kill Chain",
+        "Zero Trust"
+      ],
+      "one_line": "AI 에이전트를 활용한 자동화된 침투 테스트 프레임워크의 급증에 따른 현대적 보안 모델 대응 전략 제시.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "Cloudflare",
+      "title": "Kitesurf is now open source",
+      "link": "https://blog.cloudflare.com/kitesurf-open-source",
+      "published_at": "Fri, 13 Nov 2026 20:20:21 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Kitesurf",
+        "CDP(Chrome DevTools Protocol)",
+        "Agentic Workflow"
+      ],
+      "one_line": "AI 에이전트를 위한 경량 브라우저 엔진 'Kitesurf'가 오픈소스로 공개됨.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "AWS Architecture",
+      "title": "How Thermo Fisher Scientific built AI-powered patient matching on AWS",
+      "link": "https://aws.amazon.com/blogs/architecture/how-thermo-fisher-scientific-built-ai-powered-patient-matching-on-aws",
+      "published_at": "Fri, 13 Nov 2026 20:26:58 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Data Foundation",
+        "Apache Iceberg",
+        "Cohort Discovery"
+      ],
+      "one_line": "Thermo Fisher Scientific이 AWS 기반의 현대적 데이터 아키텍처를 통해 AI 기반 환자 매칭 시스템을 구축함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "Claude 서비스 장애 발생",
+      "link": "https://news.hada.io/topic?id=37122",
+      "published_at": "2026-11-14T03:36:27+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Service Reliability",
+        "API Dependency Management"
+      ],
+      "one_line": "Claude 서비스 및 연동 API의 최근 장애 이력과 모니터링 현황 공유",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "시스템 프로그래밍에서 C보다 Zig를 선택하는 이유",
+      "link": "https://news.hada.io/topic?id=37123",
+      "published_at": "2026-11-14T04:33:22+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "Memory Safety",
+        "errdefer",
+        "comptime"
+      ],
+      "one_line": "메모리 안전성과 생산성을 강화한 시스템 프로그래밍 언어 Zig의 특징",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "AI로 해독한 Gödel의 노트, 증명된 정리 수백 개 담겼다는 연구 결과",
+      "link": "https://news.hada.io/topic?id=37124",
+      "published_at": "2026-11-14T05:32:20+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI-Assisted Research",
+        "Formal Verification",
+        "Agentic Workflow"
+      ],
+      "one_line": "Claude를 활용한 수학 노트 분석 및 정리 검증 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "Relax: Rust 빌드 시간을 줄이기 위한 JIT 컴파일러",
+      "link": "https://news.hada.io/topic?id=37125",
+      "published_at": "2026-11-14T06:36:51+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "JIT Compilation",
+        "Hot Patching",
+        "Developer Productivity"
+      ],
+      "one_line": "Rust 빌드 시간을 획기적으로 줄여주는 JIT 컴파일러 Relax",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "No AI Slop 선언문",
+      "link": "https://news.hada.io/topic?id=37128",
+      "published_at": "2026-11-14T07:09:42+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Ethics",
+        "Software Development Principles"
+      ],
+      "one_line": "AI 시대의 개발 철학을 담은 'No AI Slop' 선언문",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "600번의 실험으로 알아낸 JEPA 월드 모델의 특성",
+      "link": "https://news.hada.io/topic?id=37130",
+      "published_at": "2026-11-14T07:37:56+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "JEPA(Joint-Embedding Predictive Architecture)",
+        "메모리 그래프(Memory Graph)",
+        "하위 목표 계획(Sub-goal Planning)"
+      ],
+      "one_line": "JEPA 모델에서 예측 성능 개선보다 하위 목표 설정과 메모리 그래프 계획이 작업 성공률을 높이는 데 더 효과적임",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "빅테크는 우리를 실망시킨다",
+      "link": "https://news.hada.io/topic?id=37131",
+      "published_at": "2026-11-14T08:35:14+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "시스템 가용성(System Availability)",
+        "벤더 종속성(Vendor Lock-in)",
+        "비즈니스 연속성 계획(BCP)"
+      ],
+      "one_line": "빅테크 서비스에 대한 과도한 의존성은 시스템 장애 시 조직 전체의 운영 중단으로 이어질 위험이 큼",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "Haskell 생태계를 위한 기술 비전",
+      "link": "https://news.hada.io/topic?id=37132",
+      "published_at": "2026-11-14T08:38:14+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "eDSL(Embedded Domain Specific Language)",
+        "GHC(Glasgow Haskell Compiler)",
+        "개발자 경험(DX)"
+      ],
+      "one_line": "Haskell 생태계는 AI를 활용한 코드 생성 시 타입 시스템과 eDSL을 통해 안전성을 확보하는 방향으로 발전 중",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "“글루 워크는 해롭다”에 대한 반론",
+      "link": "https://news.hada.io/topic?id=37134",
+      "published_at": "2026-11-14T09:12:41+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "글루 워크(Glue Work)",
+        "에이전트 스킬(Agent Skill)",
+        "테스트 자동화"
+      ],
+      "one_line": "팀의 생산성을 높이는 '글루 워크'를 에이전트 스킬로 자동화하여 반복적인 문제 해결 비용을 절감할 수 있음",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-14T10:18:36.913621+09:00",
+      "company": "GeekNews",
+      "title": "Ace - 내 Mac에서 팀원과 AI 에이전트가 함께 작업하는 코딩 환경",
+      "link": "https://news.hada.io/topic?id=37137",
+      "published_at": "2026-11-14T09:30:02+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agentic Workflow",
+        "Git Worktree",
+        "로컬 개발 환경 자동화"
+      ],
+      "one_line": "로컬 환경의 도구와 연동하여 팀원과 AI 에이전트가 실시간으로 협업하는 코딩 환경 구축",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-13T10:42:20.364675+09:00",
       "company": "Google Developers",
       "title": "How Agent Anomaly Detection scores on benchmarks we didn't write",
@@ -7752,247 +7990,7 @@
       ],
       "one_line": "PATH 환경 변수 설정 시 따옴표 안의 틸드(~)는 홈 디렉터리로 확장되지 않으므로 주의해야 함",
       "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-12T09:14:56.570399+09:00",
-      "company": "GeekNews",
-      "title": "미안하지만, 여전히 직접 생각해야 합니다",
-      "link": "https://news.hada.io/topic?id=35189",
-      "published_at": "2026-10-12T03:33:02+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "시스템 설계(System Design)",
-        "역압력(Backpressure)",
-        "비동기 런타임(Async Runtime)"
-      ],
-      "one_line": "AI가 코드를 작성하더라도 시스템의 실패 방식과 자원 한계에 대한 설계 판단은 여전히 개발자의 몫임",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-12T09:14:56.570399+09:00",
-      "company": "GeekNews",
-      "title": "Valen의 메모리 안전성: 새로운 종류의 빌림 검사",
-      "link": "https://news.hada.io/topic?id=35190",
-      "published_at": "2026-10-12T04:41:09+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "그룹 빌림(Group Borrowing)",
-        "메모리 안전성",
-        "소유권 경로(Ownership Path)"
-      ],
-      "one_line": "Valen 언어는 '그룹 빌림'을 통해 메모리 안전성과 유연한 참조를 동시에 확보하려는 새로운 시도를 함",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-12T09:14:56.570399+09:00",
-      "company": "GeekNews",
-      "title": "최신 AI 모델들, 인간의 알고리듬 혁신에 필적하는 성과를 내는 데 어려움 겪어",
-      "link": "https://news.hada.io/topic?id=35195",
-      "published_at": "2026-10-12T05:43:32+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "AI 연구 자동화",
-        "InnovationEval",
-        "자기증류(Self-distillation)"
-      ],
-      "one_line": "최신 AI 모델들은 연구 전 과정을 독립적으로 수행하여 인간 수준의 알고리듬 혁신을 달성하는 데 한계를 보임",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-12T09:14:56.570399+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: PartsPlan - AI가 제조사 데이터시트의 쪽을 근거로 답하게 하는 MCP 서버",
-      "link": "https://news.hada.io/topic?id=35201",
-      "published_at": "2026-10-12T08:06:43+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "MCP (Model Context Protocol)",
-        "RAG (Retrieval-Augmented Generation)",
-        "데이터시트 파싱"
-      ],
-      "one_line": "제조사 데이터시트의 표와 그래프를 정확히 참조하여 답변하는 MCP 서버, PartsPlan",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "코딩 에이전트는 왜 이렇게 멍청할까?",
-      "link": "https://news.hada.io/topic?id=35104",
-      "published_at": "2026-10-10T12:03:09+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "대리인 문제 (Principal-Agent Problem)",
-        "OS 수준 샌드박스",
-        "에이전트 하네스"
-      ],
-      "one_line": "코딩 에이전트의 실무적 한계와 개선 방향에 대한 비판적 분석",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "REA Reverse - 무엇이든 리버스 엔지니어링하기",
-      "link": "https://news.hada.io/topic?id=35105",
-      "published_at": "2026-10-10T12:32:32+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "리버스 엔지니어링",
-        "바이브 코딩 (Vibe Coding)",
-        "프로세스 분석"
-      ],
-      "one_line": "코딩 에이전트가 프로그램 동작을 분석하고 재구현하도록 돕는 리버스 엔지니어링 도구",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "Anthropic AI 모델, 필라델피아 미해결 살인 사건에 허위 제보 제출",
-      "link": "https://news.hada.io/topic?id=35109",
-      "published_at": "2026-10-10T16:32:11+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "AI 안전장치 (Safety Guardrails)",
-        "자동화 테스트 리스크",
-        "AI 거버넌스"
-      ],
-      "one_line": "Anthropic AI 모델의 자동화 테스트 중 발생한 허위 제보 사건",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "AI로 기록 보관소를 탐색해 잊힌 운석과 코뿔소 기록 등을 찾아냄",
-      "link": "https://news.hada.io/topic?id=35110",
-      "published_at": "2026-10-10T17:41:13+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "의미 기반 검색 (Semantic Search)",
-        "다단계 AI 파이프라인",
-        "데이터 전처리 자동화"
-      ],
-      "one_line": "AI 파이프라인을 활용한 대규모 역사 기록 데이터 분석 및 신규 사실 발견",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "Telegram Desktop 취약점으로 사용자 파일 탈취가 가능했음",
-      "link": "https://news.hada.io/topic?id=35112",
-      "published_at": "2026-10-10T18:35:15+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "IPC (Inter-Process Communication) 인젝션",
-        "URI 스킴 취약점",
-        "심층 방어 (Defense in Depth)"
-      ],
-      "one_line": "Telegram Desktop의 IPC 인젝션 취약점을 통한 파일 탈취 및 계정 장악 위험",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: suta — AI가 생성한 UI문제를 줄이는 스킬",
-      "link": "https://news.hada.io/topic?id=35119",
-      "published_at": "2026-10-10T22:11:59+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "AI UI 생성 최적화",
-        "디자인 시스템 가이드라인",
-        "AI 코딩 도구 통합"
-      ],
-      "one_line": "AI가 생성한 UI의 고질적인 디자인 문제를 해결하기 위한 레이아웃 및 패턴 가이드 도구 'suta'",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "Bun, TypeScript를 네이티브 코드로 선행 컴파일하는 AOT 컴파일러 실험 공개",
-      "link": "https://news.hada.io/topic?id=35124",
-      "published_at": "2026-10-10T23:55:44+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "AOT(Ahead-of-Time) 컴파일",
-        "타입 안정성",
-        "네이티브 코드 생성"
-      ],
-      "one_line": "Bun이 TypeScript를 네이티브 코드로 선행 컴파일하는 AOT 컴파일러 실험을 공개함",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "자기회귀 확산으로 시장 데이터를 생성할 수 있을까?",
-      "link": "https://news.hada.io/topic?id=35126",
-      "published_at": "2026-10-11T01:34:51+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "자기회귀 확산 모델",
-        "플로 매칭(Flow Matching)",
-        "시장 미시구조 모델링"
-      ],
-      "one_line": "시장 데이터의 불연속성을 해결하기 위해 자기회귀 확산 모델과 플로 매칭을 결합한 데이터 생성 연구",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "Talorys - Cloudflare 무료 티어에서 셀프 호스팅하는 개인 AI 에이전트",
-      "link": "https://news.hada.io/topic?id=35128",
-      "published_at": "2026-10-11T02:33:17+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Cloudflare Workers",
-        "Durable Objects",
-        "개인 AI 에이전트"
-      ],
-      "one_line": "Cloudflare의 무료 티어(Workers, Durable Objects)를 활용한 셀프 호스팅 개인 AI 에이전트 'Talorys'",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-11T09:06:46.284772+09:00",
-      "company": "GeekNews",
-      "title": "Mxc: Microsoft Execution Containers 버전 1.0.0",
-      "link": "https://news.hada.io/topic?id=35136",
-      "published_at": "2026-10-11T06:32:20+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "샌드박스 격리",
-        "최소 권한 원칙",
-        "AI 에이전트 보안"
-      ],
-      "one_line": "AI 에이전트의 실행 환경을 격리하고 보안 정책을 강제하는 Microsoft Execution Containers(MXC) 정식 출시",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-10T09:30:40.268211+09:00",
-      "company": "Cloudflare",
-      "title": "Deno is joining Cloudflare",
-      "link": "https://blog.cloudflare.com/deno-joins-cloudflare",
-      "published_at": "Fri, 09 Oct 2026 12:50:00 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Serverless",
-        "Deno",
-        "Cloudflare Workers"
-      ],
-      "one_line": "Deno 팀이 Cloudflare에 합류하여 서버리스 및 백엔드 아키텍처 생태계의 통합을 가속화합니다.",
-      "actionability": 2
     }
   ],
-  "updated_at": "2026-11-13T10:42:20.364675+09:00"
+  "updated_at": "2026-11-14T10:18:36.913621+09:00"
 }
