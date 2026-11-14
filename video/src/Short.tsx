@@ -12,6 +12,7 @@ import {
 } from "remotion";
 import { Background, is3DBackdrop, Scene3DLayer } from "./Background";
 import { Captions } from "./Captions";
+import { EditorialBackdrop, EditorialChrome, EditorialCover, EditorialOutro, isEditorial, StyleContext } from "./editorial/Editorial";
 import type { Cut, ShortProps } from "./schema";
 import { colors, fontFamily, layout, serifFamily, themeVars } from "./theme";
 import { SceneVisual } from "./Visuals";
@@ -248,37 +249,71 @@ const Outro: React.FC<{ channel: string }> = ({ channel }) => {
   );
 };
 
-export const Short: React.FC<ShortProps> = ({ channel, theme, cover, source, audio, cuts, sfx, outroFrom, durationInFrames, backdrop }) => {
+export const Short: React.FC<ShortProps> = ({
+  channel,
+  theme,
+  style,
+  cover,
+  source,
+  audio,
+  cuts,
+  sfx,
+  outroFrom,
+  durationInFrames,
+  backdrop,
+}) => {
+  // news/explain 스타일은 배경·머리·제목·마무리를 잡지/다크 화면으로 바꾸고 3D 배경은 쓰지 않는다.
+  const editorial = isEditorial(style) ? style : null;
+  const use3D = !editorial && is3DBackdrop(backdrop);
+  const heroFrames = cuts[0]?.durationInFrames ?? 45;
+
   return (
-    <AbsoluteFill style={themeVars(theme ?? "ink")}>
-      <Background cuts={cuts} backdrop={backdrop ?? "glow"} />
-      {is3DBackdrop(backdrop) ? <Scene3DLayer cuts={cuts} scene={backdrop} /> : null}
-      <Audio src={staticFile(audio)} />
-      {sfx.map((effect, index) => (
-        <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
-      ))}
-      {cuts.map((cut, index) => (
-        <Sequence
-          key={`visual-${index}`}
-          name={`Visual ${index + 1}`}
-          from={cut.from}
-          durationInFrames={cut.durationInFrames + (index < cuts.length - 1 ? EXIT_FRAMES : 0)}
-        >
-          <VisualLayer cut={cut} index={index} />
-        </Sequence>
-      ))}
-      {cuts.map((cut, index) => (
-        <Sequence key={`cut-${index}`} name={`Cut ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>
-          <CutView cut={cut} index={index} pill={is3DBackdrop(backdrop)} />
-        </Sequence>
-      ))}
-      <Cover text={cover} heroFrames={cuts[0]?.durationInFrames ?? 45} />
-      <Chrome channel={channel} source={source} />
-      {outroFrom !== undefined && outroFrom < durationInFrames ? (
-        <Sequence name="Outro" from={outroFrom} durationInFrames={durationInFrames - outroFrom}>
-          <Outro channel={channel} />
-        </Sequence>
-      ) : null}
-    </AbsoluteFill>
+    <StyleContext.Provider value={style ?? "classic"}>
+      <AbsoluteFill style={themeVars(editorial ?? theme ?? "ink")}>
+        {editorial ? (
+          <AbsoluteFill style={{ backgroundColor: colors.background }}>
+            <EditorialBackdrop style={editorial} />
+          </AbsoluteFill>
+        ) : (
+          <Background cuts={cuts} backdrop={backdrop ?? "glow"} />
+        )}
+        {use3D && is3DBackdrop(backdrop) ? <Scene3DLayer cuts={cuts} scene={backdrop} /> : null}
+        <Audio src={staticFile(audio)} />
+        {sfx.map((effect, index) => (
+          <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
+        ))}
+        {cuts.map((cut, index) => (
+          <Sequence
+            key={`visual-${index}`}
+            name={`Visual ${index + 1}`}
+            from={cut.from}
+            durationInFrames={cut.durationInFrames + (index < cuts.length - 1 ? EXIT_FRAMES : 0)}
+          >
+            <VisualLayer cut={cut} index={index} />
+          </Sequence>
+        ))}
+        {cuts.map((cut, index) => (
+          <Sequence key={`cut-${index}`} name={`Cut ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>
+            <CutView cut={cut} index={index} pill={use3D} />
+          </Sequence>
+        ))}
+        {editorial ? (
+          <>
+            <EditorialCover style={editorial} text={cover} heroFrames={heroFrames} />
+            <EditorialChrome style={editorial} channel={channel} source={source} />
+          </>
+        ) : (
+          <>
+            <Cover text={cover} heroFrames={heroFrames} />
+            <Chrome channel={channel} source={source} />
+          </>
+        )}
+        {outroFrom !== undefined && outroFrom < durationInFrames ? (
+          <Sequence name="Outro" from={outroFrom} durationInFrames={durationInFrames - outroFrom}>
+            {editorial ? <EditorialOutro style={editorial} channel={channel} /> : <Outro channel={channel} />}
+          </Sequence>
+        ) : null}
+      </AbsoluteFill>
+    </StyleContext.Provider>
   );
 };

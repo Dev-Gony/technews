@@ -12,7 +12,7 @@ import { SceneVisual } from "./Visuals";
 
 export const thumbnailSchema = z.object({
   channel: z.string(),
-  theme: z.enum(["ink", "paper"]).optional(),
+  theme: z.enum(["ink", "paper", "news", "explain"]).optional(),
   cover: z.string(),
   // null이면 제목만. (빼면 Remotion이 defaultProps의 예시 그림을 대신 넣는다)
   visual: visualSchema.nullable().optional(),

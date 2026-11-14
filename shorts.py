@@ -61,6 +61,10 @@ PUBLISH_LEAD_MINUTES = 20
 CHANNEL_NAME = os.environ.get("SHORTS_CHANNEL_NAME", "itgony")
 # 영상 배경: ink(먹색, 프로필 사진과 같은 톤) / paper(종이색, 배너·카드뉴스와 같은 톤)
 SHORTS_THEME = os.environ.get("SHORTS_THEME") or "ink"
+# 화면 스타일: auto(대본이 기사마다 news/explain 중 고름, 기본) / news(크림 잡지) / explain(남색 다크 + 코드 창)
+# / classic(예전 먹색·3D 화면). news/explain에서는 3D 장면을 쓰지 않는다.
+SHORTS_STYLE = (os.environ.get("SHORTS_STYLE") or "auto").strip().lower()
+EDITORIAL_STYLES = ("news", "explain")
 # 배경: glow(장면마다 옮겨 가는 빛) / type(빛 + 장면 핵심어 윤곽 글자) / 3D 장면(아래 SCENE3D_FILES)
 SHORTS_BACKDROP = os.environ.get("SHORTS_BACKDROP") or "glow"
 # 3D 장면(video/public/assets3d/*_loop.webm, 사용자 PC에서 Blender로 미리 렌더링)은 배경이 아니라
@@ -531,6 +535,7 @@ VISUAL_SCHEMA = {
             },
         },
         "code": {"type": "string"},
+        "highlight": {"type": "integer"},
         "rooms": {
             "type": "array",
             "items": {
@@ -584,6 +589,7 @@ VISUAL_SCHEMA = {
 SCRIPT_SCHEMA = {
     "type": "object",
     "properties": {
+        "style": {"type": "string", "enum": list(EDITORIAL_STYLES)},
         "title": {"type": "string"},
         "question": {"type": "string"},
         "cover": {"type": "string"},
@@ -605,7 +611,7 @@ SCRIPT_SCHEMA = {
             },
         },
     },
-    "required": ["title", "question", "cover", "summary", "tips", "caution", "hashtags", "cuts"],
+    "required": ["style", "title", "question", "cover", "summary", "tips", "caution", "hashtags", "cuts"],
     "additionalProperties": False,
 }
 
@@ -640,7 +646,7 @@ def build_script_prompt(article, source_text="", angle=""):
     if angle:
         lines += ["", f"이번 대본의 각도: {angle}"]
 
-    roles = scene3d_roles_prompt(article)
+    roles = "" if editorial_mode() else scene3d_roles_prompt(article)
 
     if roles:
         lines += ["", roles]
@@ -906,8 +912,44 @@ def factcheck_schema():
     }
 
 
+STYLE_PROMPT = """
+화면 스타일 (style, 꼭 고른다):
+- news: 크림색 잡지 화면. 신모델·제품 출시, 연구·벤치마크 결과, 회사 소식처럼 "무슨 일이 있었고 숫자가 어떻다"가 핵심인 기사.
+  number, beforeafter, compare, quote, flow 그래픽이 잘 어울린다.
+- explain: 남색 다크 + 코드 에디터 화면. 프로그래밍 언어, 개발 도구·CLI, DB·인프라, 설계 개념처럼 "어떻게·왜 동작하나"가 핵심인 기사.
+  1컷은 "왜 다들 X를 쓸까?", "A인데 왜 B?" 같은 질문형 훅이 잘 맞는다. code, diagram, flow 그래픽이 잘 어울린다.
+- 애매하면 기사에 코드·명령어·설정이 나오면 explain, 아니면 news.
+
+이 스타일에서는 scene3d를 쓰지 않는다 (위 scene3d 설명은 무시한다).
+
+code 그래픽 (두 스타일 모두 에디터 창으로 보인다):
+- 원문에 실제로 나온 코드·명령어·설정·API 이름만 쓴다. 원문에 없는 코드를 지어내지 않는다. 원문에 코드가 없으면 code를 쓰지 않는다.
+- 8줄 이내, 한 줄 40자 이내. 쉘 명령은 "$ "로 시작한다. 한 줄 설명이 필요하면 "// " 또는 "# " 주석 줄로.
+- label에 파일 이름이나 창 이름(예: "main.zig", "zsh", "config.yaml"), highlight에 그 컷 대사가 가리키는 줄 번호(1부터).
+  highlight 줄로 커서와 카메라가 다가가므로 대사와 같은 줄을 고른다. 가리킬 줄이 없으면 highlight는 0.
+"""
+
+
+def editorial_mode():
+    """news/explain 스타일(잡지·다크 화면)을 쓰는지. classic이면 예전 먹색·3D 화면."""
+    return SHORTS_STYLE != "classic"
+
+
 def script_system_prompt():
-    return SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME, icons=", ".join(ICONS))
+    prompt = SCRIPT_SYSTEM_PROMPT.format(channel=CHANNEL_NAME, icons=", ".join(ICONS))
+
+    return prompt + "\n" + STYLE_PROMPT if editorial_mode() else prompt
+
+
+def script_style(script):
+    """이 영상의 화면 스타일. SHORTS_STYLE이 news/explain이면 그걸로 고정, auto면 대본이 고른 것 (없으면 news)."""
+    if SHORTS_STYLE in EDITORIAL_STYLES:
+        return SHORTS_STYLE
+
+    if SHORTS_STYLE == "classic":
+        return "classic"
+
+    return script.get("style") if script.get("style") in EDITORIAL_STYLES else "news"
 
 
 def write_candidate(article, source_text, angle):
@@ -1144,6 +1186,9 @@ def validate_script(script):
         cut["emphasis"] = [word for word in cut.get("emphasis") or [] if word and word in spoken_line(cut)]
         cut["visual"] = drop_duplicate_label(validate_visual(cut.get("visual")), spoken_line(cut))
 
+    if script.get("style") not in EDITORIAL_STYLES:
+        script["style"] = "news"
+
     # 모델이 줄바꿈을 글자 그대로 "\n"으로 쓰는 경우가 있다.
     script["cover"] = (script.get("cover") or script.get("title") or "").replace("\\n", "\n").strip()
     script["summary"] = (script.get("summary") or "").strip()
@@ -1207,6 +1252,15 @@ def validate_visual(visual):
 
     if kind == "scene3d":
         return validate_scene3d_beats(visual)
+
+    if kind == "code":
+        code_lines = visual["code"].strip("\n").split("\n")
+        visual["code"] = "\n".join(code_lines[:8])
+        highlight = visual.get("highlight")
+
+        # 범위 밖이거나 0이면 강조 줄 없음
+        if not isinstance(highlight, int) or not 1 <= highlight <= min(len(code_lines), 8):
+            visual.pop("highlight", None)
 
     return visual
 
@@ -1575,7 +1629,17 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
     shutil.copyfile(narration_path, os.path.join(public_dir, "narration.mp3"))
 
     total_frames = ms_to_frame(audio_duration(narration_path) * 1000 + END_PAD_MS)
-    cuts = add_scene3d_cut(script)["cuts"]
+    style = script_style(script)
+
+    if style == "classic":
+        cuts = add_scene3d_cut(script)["cuts"]
+    else:
+        # 잡지·다크 화면에서는 3D 장면을 쓰지 않는다 (대본이 써도 자막만)
+        cuts = script["cuts"]
+
+        for cut in cuts:
+            if cut["visual"].get("type") == "scene3d":
+                cut["visual"] = {"type": "none"}
 
     # 컷은 그 컷의 첫 단어를 말하기 시작할 때 바뀐다.
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
@@ -1617,8 +1681,9 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
 
     return {
         "channel": CHANNEL_NAME,
-        "theme": SHORTS_THEME,
-        "backdrop": pick_backdrop(script),
+        "theme": style if style in EDITORIAL_STYLES else SHORTS_THEME,
+        "style": style,
+        "backdrop": pick_backdrop(script) if style == "classic" else "glow",
         "cover": script["cover"],
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",
@@ -1865,9 +1930,10 @@ def pick_thumbnail_visual(cuts):
 def render_thumbnail(script, work_dir):
     """제목(cover) + 대표 그래픽으로 썸네일 PNG를 만든다."""
     npx = shutil.which("npx")
+    style = script_style(script)
     props = {
         "channel": CHANNEL_NAME,
-        "theme": SHORTS_THEME,
+        "theme": style if style in EDITORIAL_STYLES else SHORTS_THEME,
         "cover": script["cover"],
         # 그림이 없어도 null로 넘긴다(빼면 Remotion이 기본 예시 그림을 넣는다).
         "visual": pick_thumbnail_visual(script["cuts"]),

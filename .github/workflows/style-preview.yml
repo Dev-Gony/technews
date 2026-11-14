@@ -1,0 +1,55 @@
+# 임시: news/explain 스타일 스틸 확인용. 확인이 끝나면 지운다.
+name: Style preview (temporary)
+
+on:
+  push:
+    branches: ["claude/editorial-styles"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+      - name: Korean fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+      - name: Install
+        working-directory: video
+        run: |
+          npm ci
+          npx remotion browser ensure
+      - name: Type check
+        working-directory: video
+        run: npx tsc --noEmit 2>&1 | tee ../tsc.log
+      - name: Render stills
+        working-directory: video
+        run: |
+          mkdir -p ../preview
+          for f in 15 48 110 180 250 300; do
+            npx remotion still src/index.ts ShortNews ../preview/news-$f.png --frame=$f --log=error
+          done
+          for f in 15 48 80 130 215 300; do
+            npx remotion still src/index.ts ShortExplain ../preview/explain-$f.png --frame=$f --log=error
+          done
+      - name: Publish stills to preview branch
+        if: always()
+        run: |
+          cp tsc.log preview/ 2>/dev/null || true
+          cd preview
+          git init -q
+          git config user.name "tech-news-bot"
+          git config user.email "tech-news-bot@users.noreply.github.com"
+          git checkout -q -b preview/editorial-stills
+          git add -A
+          git commit -q -m "style preview stills ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" preview/editorial-stills
