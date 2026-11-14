@@ -5,12 +5,46 @@ on:
   push:
     branches: ["claude/editorial-styles"]
   workflow_dispatch:
+    inputs:
+      run_id:
+        description: "프레임을 뽑을 Daily Shorts 실행 ID (비우면 샘플 스틸)"
+        required: false
 
 permissions:
   contents: write
 
 jobs:
+  frames:
+    if: github.event.inputs.run_id != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: shorts
+          path: art
+          run-id: ${{ github.event.inputs.run_id }}
+          github-token: ${{ github.token }}
+      - name: Extract frames
+        run: |
+          mkdir -p out
+          video=$(find art -name short.mp4 | head -1)
+          cp "$(dirname "$video")/script.json" out/ || true
+          ffmpeg -loglevel error -i "$video" -vf "fps=1/2,scale=360:-1,tile=6x3" -frames:v 1 out/contact.png
+          for t in 1 4 8 12 16 20 24 28; do ffmpeg -loglevel error -ss $t -i "$video" -frames:v 1 -vf scale=540:-1 out/t$t.png; done
+          cd out
+          git init -q
+          git config user.name "tech-news-bot"
+          git config user.email "tech-news-bot@users.noreply.github.com"
+          git checkout -q -b preview/run-frames
+          git add -A
+          git commit -q -m "frames ${{ github.event.inputs.run_id }}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" preview/run-frames
+
   stills:
+    if: github.event.inputs.run_id == ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
