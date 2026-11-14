@@ -922,12 +922,20 @@ STYLE_PROMPT = """
 
 이 스타일에서는 scene3d를 쓰지 않는다 (위 scene3d 설명은 무시한다).
 
+화면을 비우지 않는다: 그래픽 없는 none은 영상 전체에서 3컷 이하(마지막 컷 포함).
+나머지 컷은 keywords, flow, number, compare, beforeafter, quote, diagram, code 중 대사에 맞는 것으로 채운다.
+기사에 나온 기술 이름·기능 이름(예: errdefer, comptime)은 keywords 카드로 보여 준다.
+"""
+STYLE_PROMPT_TAIL = """
 code 그래픽 (두 스타일 모두 에디터 창으로 보인다):
 - 원문에 실제로 나온 코드·명령어·설정·API 이름만 쓴다. 원문에 없는 코드를 지어내지 않는다. 원문에 코드가 없으면 code를 쓰지 않는다.
 - 8줄 이내, 한 줄 40자 이내. 쉘 명령은 "$ "로 시작한다. 한 줄 설명이 필요하면 "// " 또는 "# " 주석 줄로.
 - label에 파일 이름이나 창 이름(예: "main.zig", "zsh", "config.yaml"), highlight에 그 컷 대사가 가리키는 줄 번호(1부터).
   highlight 줄로 커서와 카메라가 다가가므로 대사와 같은 줄을 고른다. 가리킬 줄이 없으면 highlight는 0.
 """
+
+
+STYLE_PROMPT += STYLE_PROMPT_TAIL
 
 
 def editorial_mode():
