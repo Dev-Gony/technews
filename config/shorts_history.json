@@ -433,5 +433,13 @@
     "video_id": "3PkWQkPWfXU",
     "voice": "Leda",
     "publish_at": "2026-11-14T17:00:00+09:00"
+  },
+  {
+    "date": "2026-11-14",
+    "link": "https://news.hada.io/topic?id=37123",
+    "title": "C 언어 대신 Zig 쓰는 이유, 메모리 안전성과 생산성",
+    "video_id": "ePB-OYYEBEI",
+    "voice": "Leda",
+    "publish_at": "2026-11-15T07:00:00+09:00"
   }
 ]
