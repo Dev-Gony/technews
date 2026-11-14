@@ -29,6 +29,7 @@ jobs:
           github-token: ${{ github.token }}
       - name: Extract frames
         run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
           mkdir -p out
           video=$(find art -name short.mp4 | head -1)
           cp "$(dirname "$video")/script.json" out/ || true
