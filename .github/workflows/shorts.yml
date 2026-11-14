@@ -182,7 +182,7 @@ jobs:
           git config user.email "tech-news-bot@users.noreply.github.com"
           cp config/shorts_history.json /tmp/my_history.json
 
-          # 그사이 다른 실행이 기록을 올렸으면 충돌 대신 두 기록을 합친다 (video_id 기준). 최대 3번 시도.
+          # 그사이 다른 실행이 기록을 올렸으면 충돌 대신 두 기록을 합친다 (video_id, 없으면 링크 기준). 최대 3번 시도.
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
@@ -192,8 +192,10 @@ jobs:
           path = "config/shorts_history.json"
           latest = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else []
           mine = json.load(open("/tmp/my_history.json", encoding="utf-8"))
-          known = {entry.get("video_id") for entry in latest}
-          merged = latest + [entry for entry in mine if entry.get("video_id") not in known]
+          # 건너뛴 기사(팩트체크 실패)는 video_id가 없어 링크로 구분한다.
+          key = lambda entry: entry.get("video_id") or ("skip", entry.get("link"))
+          known = {key(entry) for entry in latest}
+          merged = latest + [entry for entry in mine if key(entry) not in known]
           with open(path, "w", encoding="utf-8") as file:
               json.dump(merged, file, ensure_ascii=False, indent=2)
               file.write("\n")

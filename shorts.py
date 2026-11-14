@@ -981,7 +981,11 @@ def judge_candidates(candidates, article, source_text):
     return claude_json(JUDGE_SYSTEM_PROMPT, prompt, JUDGE_SCHEMA)
 
 
-def factcheck_script(script, article, source_text):
+class FactCheckFailed(Exception):
+    """팩트체크를 끝내지 못한 대본. 사실 확인이 안 된 영상은 올리지 않는다."""
+
+
+def factcheck_script(script, article, source_text, writer="claude"):
     prompt = "\n".join(
         [
             "<<<원문",
@@ -992,9 +996,30 @@ def factcheck_script(script, article, source_text):
             json.dumps(script, ensure_ascii=False),
         ]
     )
-    result = claude_json(FACTCHECK_SYSTEM_PROMPT, prompt, factcheck_schema())
+    ask = gemini_json if writer == "gemini" else claude_json
+    result = ask(FACTCHECK_SYSTEM_PROMPT, prompt, factcheck_schema())
 
     return validate_script(result["script"]), result.get("changes") or []
+
+
+def verify_script(script, article, source_text, keep=lambda name, data: None):
+    """팩트체크: Claude → (안 되면) Gemini. 둘 다 실패하면 FactCheckFailed (업로드 건너뜀)."""
+    errors = []
+
+    for writer in ("claude", "gemini"):
+        try:
+            checked, changes = factcheck_script(script, article, source_text, writer)
+        except Exception as error:
+            errors.append(f"{writer}: {error}")
+            print(f"사실 검증 실패 ({writer}): {error}")
+            continue
+
+        keep("factcheck.json", {"writer": writer, "changes": changes})
+        print(f"사실 검증 ({writer}): {len(changes)}곳 수정")
+        return checked
+
+    keep("factcheck.json", {"failed": errors})
+    raise FactCheckFailed(" / ".join(errors))
 
 
 def generate_script(article, work_dir=None):
@@ -1038,7 +1063,7 @@ def generate_script(article, work_dir=None):
         script = write_candidate_with_gemini(article, source_text)
         keep("candidates.json", [script])
         keep("fallback.json", {"writer": GEMINI_SCRIPT_MODEL})
-        return script
+        return verify_script(script, article, source_text, keep)
 
     keep("candidates.json", candidates)
     print(f"대본 후보 {len(candidates)}개 작성")
@@ -1056,14 +1081,7 @@ def generate_script(article, work_dir=None):
         except Exception as error:
             print(f"심사 단계 실패, 첫 후보를 씁니다: {error}")
 
-    try:
-        checked, changes = factcheck_script(best, article, source_text)
-        keep("factcheck.json", {"changes": changes})
-        print(f"사실 검증: {len(changes)}곳 수정")
-        return checked
-    except Exception as error:
-        print(f"사실 검증 단계 실패, 심사 결과를 그대로 씁니다: {error}")
-        return best
+    return verify_script(best, article, source_text, keep)
 
 
 # 화면·제목·설명란에서 지울 글자: 깨진 글자, 제어 문자, 보이지 않는 문자(폭 없는 공백, 방향 표시, BOM, 소프트 하이픈)
@@ -2117,7 +2135,22 @@ def build_description(script, article, history=()):
 
     sections += ["이 영상의 대본과 음성은 AI로 생성되었습니다.", hashtags]
 
-    return clean_text("\n\n".join(sections))
+    return youtube_safe(clean_text("\n\n".join(sections)))
+
+
+# YouTube는 제목·설명란에 < > 가 있으면 업로드를 거절한다 (400 invalidDescription / invalidTitle).
+def youtube_safe(text):
+    return text.replace("->", "→").replace("<-", "←").replace("<", "‹").replace(">", "›")
+
+
+def cut_bytes(text, limit):
+    """UTF-8 바이트 기준으로 자른다. YouTube 한도는 글자 수가 아니라 바이트(설명란 5000)."""
+    data = text.encode("utf-8")
+
+    if len(data) <= limit:
+        return text
+
+    return data[:limit].decode("utf-8", errors="ignore").rstrip()
 
 
 YOUTUBE_ERROR_HINTS = {
@@ -2148,6 +2181,9 @@ def youtube_error_reason(error):
 # 렌더링 화질 (x264 crf, 낮을수록 고화질·큰 파일). 50초 영상 기준 약 30~60MB.
 RENDER_CRF = int(os.environ.get("SHORTS_RENDER_CRF", "14"))
 
+# 한 번 실행에서 팩트체크 실패 시 시도할 기사 수
+FACTCHECK_ATTEMPTS = int(os.environ.get("SHORTS_FACTCHECK_ATTEMPTS", "2"))
+
 
 def next_publish_slot(history, now=None):
     """아직 아무 영상도 예약하지 않은 가장 이른 공개 시각 (KST). 슬롯을 안 쓰면 None."""
@@ -2174,8 +2210,8 @@ def upload_youtube(video_path, script, article, history=(), publish_at=None):
     token = youtube_access_token()
     metadata = {
         "snippet": {
-            "title": script["title"][:100],
-            "description": build_description(script, article, history)[:5000],
+            "title": youtube_safe(script["title"])[:100],
+            "description": cut_bytes(build_description(script, article, history), 5000),
             "tags": script["hashtags"],
             "categoryId": "28",  # Science & Technology
             "defaultLanguage": "ko",
@@ -2422,34 +2458,56 @@ def main():
     used_links = {entry["link"] for entry in history}
     issues = [(date, load_issue(date)) for date in recent_issue_dates(args.date)]
 
-    if args.link:
-        article = next(
-            (
-                {**article, "issue_date": date}
-                for date, issue in issues
-                for article in issue_articles(issue)
-                if article["link"] == args.link
-            ),
-            None,
-        )
-    else:
-        article = pick_article(issues, used_links)
+    # 팩트체크에 실패한 기사는 올리지 않고 건너뛴 기록을 남긴 뒤 다음 기사로 한 번 더 시도한다.
+    attempts = 1 if (args.link or args.script) else FACTCHECK_ATTEMPTS
 
-    if not article:
-        print(f"{args.date} 기준 최근 {LOOKBACK_DAYS}일 이슈에 영상으로 만들 새 기사가 없습니다.")
+    for attempt in range(attempts):
+        if args.link:
+            article = next(
+                (
+                    {**article, "issue_date": date}
+                    for date, issue in issues
+                    for article in issue_articles(issue)
+                    if article["link"] == args.link
+                ),
+                None,
+            )
+        else:
+            article = pick_article(issues, used_links)
+
+        if not article:
+            print(f"{args.date} 기준 최근 {LOOKBACK_DAYS}일 이슈에 영상으로 만들 새 기사가 없습니다.")
+            return
+
+        print(f"선택한 기사: [{article['issue_date']}] {article['title']}")
+
+        # 같은 날 여러 편을 만들 수 있게 기사마다 작업 폴더를 나눈다.
+        slug = re.sub(r"[^0-9A-Za-z]+", "-", urllib.parse.urlsplit(article["link"]).path + urllib.parse.urlsplit(article["link"]).query)
+        work_dir = os.path.join(OUTPUT_DIR, f"{article['issue_date']}_{slug.strip('-')[-24:]}")
+        os.makedirs(work_dir, exist_ok=True)
+
+        if args.script:
+            script = validate_script(load_json(args.script, {}))
+            break
+
+        try:
+            script = generate_script(article, work_dir)
+            break
+        except FactCheckFailed as error:
+            print(f"팩트체크 실패로 이 기사는 업로드하지 않습니다: {error}")
+            notify_slack(
+                f"[{CHANNEL_NAME}] Shorts 건너뜀 (팩트체크 실패)\n*{article['title']}*\n{str(error)[:500]}\n원문: {article['link']}"
+            )
+            used_links.add(article["link"])
+
+            # 업로드 테스트가 아닐 때만 기록: 다음 실행에서 같은 기사를 또 고르지 않게 한다.
+            if not args.no_upload and not args.link:
+                history.append({"date": article["issue_date"], "link": article["link"], "title": article["title"],
+                                "skipped": "factcheck"})
+                save_json(SHORTS_HISTORY_FILE, history)
+    else:
+        print("팩트체크를 통과한 대본이 없어 이번 실행은 업로드하지 않습니다.")
         return
-
-    print(f"선택한 기사: [{article['issue_date']}] {article['title']}")
-
-    # 같은 날 여러 편을 만들 수 있게 기사마다 작업 폴더를 나눈다.
-    slug = re.sub(r"[^0-9A-Za-z]+", "-", urllib.parse.urlsplit(article["link"]).path + urllib.parse.urlsplit(article["link"]).query)
-    work_dir = os.path.join(OUTPUT_DIR, f"{article['issue_date']}_{slug.strip('-')[-24:]}")
-    os.makedirs(work_dir, exist_ok=True)
-
-    if args.script:
-        script = validate_script(load_json(args.script, {}))
-    else:
-        script = generate_script(article, work_dir)
 
     save_json(os.path.join(work_dir, "script.json"), script)
     print(f"대본 생성 완료: {script['title']} (컷 {len(script['cuts'])}개)")
