@@ -1,0 +1,169 @@
+{
+  "style": "explain",
+  "title": "C 언어 대신 Zig 선택하는 이유, 메모리 안전성과 생산성",
+  "question": "왜 시스템 프로그래머들은 C 대신 Zig를 선택할까?",
+  "cover": "C 언어 한계\nZig로 해결?",
+  "summary": "Zig는 C처럼 가비지 컬렉터 없는 고성능을 유지하면서도, errdefer, 슬라이스 범위 검사, comptime 등 현대적인 언어 기능으로 메모리 오류와 생산성 문제를 해결합니다.",
+  "tips": [
+    "복잡한 자원 정리는 errdefer로 간단히 처리하세요.",
+    "컴파일 타임 코드는 comptime으로 실행하세요.",
+    "기존 C 프로젝트는 zig cc로 점진적으로 전환하세요."
+  ],
+  "caution": "Zig도 해제 후 사용 등 메모리 오류를 완벽히 막지는 못하며, 버전 간 호환성 및 생태계는 C에 비해 제한적입니다.",
+  "hashtags": [
+    "Zig",
+    "C언어",
+    "시스템프로그래밍",
+    "개발자"
+  ],
+  "cuts": [
+    {
+      "line": "C 언어 쓰다가 / 메모리 꼬여서 / 밤새본 적 / 있죠?",
+      "emphasis": [
+        "메모리 꼬여서"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    },
+    {
+      "line": "이제는 / Zig로 / 갈아탈 때입니다.",
+      "emphasis": [
+        "Zig"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    },
+    {
+      "line": "이유가 뭐냐고요? / 빠르게 볼게요.",
+      "emphasis": [
+        "빠르게"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    },
+    {
+      "line": "C가 / 수동 관리라면 / Zig는 / 자동 정리죠.",
+      "emphasis": [
+        "수동 관리",
+        "자동 정리"
+      ],
+      "visual": {
+        "type": "metaphor",
+        "rooms": [
+          {
+            "place": "C 수동",
+            "actual": "goto/free",
+            "icon": "person"
+          },
+          {
+            "place": "Zig 자동",
+            "actual": "errdefer",
+            "icon": "robot"
+          }
+        ]
+      }
+    },
+    {
+      "line": "자원 할당 바로 아래에 / 정리 코드를 두면 / 알아서 처리해요.",
+      "emphasis": [],
+      "visual": {
+        "type": "keywords",
+        "items": [
+          "errdefer",
+          "역순 실행"
+        ]
+      }
+    },
+    {
+      "line": "배열 범위도 / C는 그냥 넘어가지만 / Zig는 칼같이 / 막아버려요.",
+      "emphasis": [],
+      "visual": {
+        "type": "diagram",
+        "nodes": [
+          {
+            "label": "배열 접근",
+            "icon": "laptop"
+          },
+          {
+            "label": "범위 검사",
+            "icon": "lock"
+          },
+          {
+            "label": "패닉 발생",
+            "icon": "server"
+          }
+        ],
+        "focus": 1
+      }
+    },
+    {
+      "line": "슬라이스가 / 길이를 들고 다니니 / 범위 검사가 / 원천 봉쇄되는 거죠.",
+      "emphasis": [
+        "슬라이스",
+        "길이"
+      ],
+      "visual": {
+        "type": "keywords",
+        "items": [
+          "Memory Safety",
+          "index out of bounds"
+        ]
+      }
+    },
+    {
+      "line": "전처리기 #ifdef 대신 / comptime을 써보세요.",
+      "emphasis": [
+        "comptime"
+      ],
+      "visual": {
+        "type": "code",
+        "code": "if (builtin.os.tag == .linux) {\n    // 컴파일 타임 분기\n} else {\n    // 실행되지 않음\n}",
+        "highlight": 1
+      }
+    },
+    {
+      "line": "컴파일 시간에 / 코드를 직접 실행해서 / 분기 처리까지 / 끝냅니다.",
+      "emphasis": [
+        "분기 처리"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    },
+    {
+      "line": "기존 C 프로젝트도 / zig cc 하나면 / 바로 전환 시작 가능해요.",
+      "emphasis": [
+        "zig cc"
+      ],
+      "visual": {
+        "type": "flow",
+        "items": [
+          "C 파일 호출",
+          "zig cc 빌드",
+          "점진적 전환"
+        ]
+      }
+    },
+    {
+      "line": "C가 / 익숙하다면 / 새 코드는 / Zig로 짜보세요.",
+      "emphasis": [
+        "새 코드"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    },
+    {
+      "line": "이런 개발 소식, / 매일 올라와요.",
+      "emphasis": [
+        "매일"
+      ],
+      "visual": {
+        "type": "none"
+      }
+    }
+  ]
+}
