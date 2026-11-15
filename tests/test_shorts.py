@@ -219,15 +219,16 @@ class ShortsTest(unittest.TestCase):
                 shorts.generate_script({"title": "t", "link": "l"})
 
     def test_fallback_quality_rules(self):
-        for weak in ["", "핵심 비결", "한 줄 요약", "구조 분석", "다음 소식", "핵심\n정리"]:
+        for weak in ["", "핵심 비결", "한 줄 요약", "구조 분석", "다음 소식", "핵심\n정리", "DB 구조", "유출 원인 분석"]:
             self.assertTrue(shorts.is_weak_heading(weak), weak)
-        for real in ["성공률 22%→85%", "정리 코드는\n할당 바로 아래", "샌드박스엔\n아무것도 없다", "어떻게 했을까"]:
+        for real in ["성공률 22%→85%", "정리 코드는\n할당 바로 아래", "샌드박스엔\n아무것도 없다", "어떻게 했을까",
+                     "접근 제어 오류", "Allocator로\n직접 구현", "리드 1 + 헬퍼 999"]:
             self.assertFalse(shorts.is_weak_heading(real), real)
 
         def cut(heading, kind):
             return {"heading": heading, "visual": {"type": kind}}
 
-        good = {"cuts": [cut("", "none")] + [cut("100만 건 호출\n차단 0건", "number")] * 10 + [cut("어떻게 했을까", "none")] * 4}
+        good = {"cuts": [cut("", "none")] + [cut("100만 건 호출\n차단 0건", "number")] * 10 + [cut("어떻게 했을까", "none")] * 3}
         self.assertEqual(shorts.fallback_quality_problems(good), [])
         # 1컷(훅)은 원래 헤드라인·카드가 없으므로 세지 않는다. 빈 헤드라인 1개까지는 통과
         one_weak = {"cuts": good["cuts"] + [cut("핵심 비결", "number")]}
@@ -235,7 +236,7 @@ class ShortsTest(unittest.TestCase):
         two_weak = {"cuts": one_weak["cuts"] + [cut("", "number")]}
         self.assertIn("내용 없는 헤드라인 2개", shorts.fallback_quality_problems(two_weak)[0])
         cardless = {"cuts": good["cuts"] + [cut("숫자 3배", "none")]}
-        self.assertIn("카드 없는 컷 5개", shorts.fallback_quality_problems(cardless)[0])
+        self.assertIn("카드 없는 컷 4개", shorts.fallback_quality_problems(cardless)[0])
 
     def test_speech_coverage_detects_cut_off_narration(self):
         text = "에이전트가 어제 한 실수 또 하죠 검색만 쓰면 53%였는데요 위키를 더하니 최대 61%예요"

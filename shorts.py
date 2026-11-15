@@ -1136,22 +1136,28 @@ class ScriptQualityFailed(Exception):
 
 # 예비(Gemini) 대본 품질 기준. Claude 대본(11/15 확인)은 빈 헤드라인 0개, 카드 없는 컷 2~4개였다.
 FALLBACK_MAX_WEAK_HEADINGS = 1   # 비었거나 내용 없는 헤드라인이 2개 이상이면 건너뜀
-FALLBACK_MAX_CARDLESS_CUTS = 4   # 카드 없는 컷이 5개 이상이면 건너뜀 (프롬프트 기준은 3개 이하)
+FALLBACK_MAX_CARDLESS_CUTS = 3   # 카드 없는 컷이 4개 이상이면 건너뜀 (프롬프트 기준이 3개 이하)
 
-# 이 낱말로만 된 헤드라인은 내용이 없다 ("핵심 비결", "한 줄 요약", "구조 분석", "다음 소식" 등)
+# 내용 없는 낱말 ("핵심 비결", "한 줄 요약", "구조 분석", "다음 소식", "DB 구조", "유출 원인 분석" 같은 헤드라인을 만든다)
 GENERIC_HEADING_WORDS = {
     "핵심", "핵심은", "주요", "중요", "중요한", "비결", "포인트", "정리", "총정리", "요약", "한", "줄", "한줄",
     "구조", "분석", "다음", "소식", "빠르게", "보기", "결론", "특징", "이유", "의미", "변화", "소개", "마무리",
     "살펴보기", "알아보기", "이야기", "내용", "개요", "관전", "포인트는", "오늘의", "이번", "뉴스", "새", "새로운",
+    "원인", "현황", "상세", "문제", "방법", "과정", "배경", "결과", "효과", "정체", "비밀",
 }
 
 
 def is_weak_heading(heading):
-    """헤드라인이 비었거나, 내용 없는 낱말로만 됐는지."""
+    """헤드라인이 비었거나 내용이 없는지: 숫자가 없고, 내용 없는 낱말이 나머지 낱말 수 이상이면 약하다.
+    "DB 구조"(1:1), "유출 원인 분석"(2:1)은 약하고, "접근 제어 오류"(0:3), "성공률 22%→85%"(숫자)는 괜찮다."""
+    if re.search(r"\d", heading or ""):
+        return False
+
     words = [re.sub(r"[^0-9A-Za-z가-힣]", "", word) for word in (heading or "").split()]
     words = [word for word in words if word]
+    generic = sum(word in GENERIC_HEADING_WORDS for word in words)
 
-    return not words or all(word in GENERIC_HEADING_WORDS for word in words)
+    return not words or generic * 2 >= len(words)
 
 
 def fallback_quality_problems(script):
