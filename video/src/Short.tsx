@@ -12,6 +12,7 @@ import {
 } from "remotion";
 import { Background, is3DBackdrop, Scene3DLayer } from "./Background";
 import { Captions } from "./Captions";
+import { EditorialPage } from "./editorial/Page";
 import { EditorialBackdrop, EditorialChrome, EditorialCover, EditorialOutro, isEditorial, StyleContext } from "./editorial/Editorial";
 import type { Cut, ShortProps } from "./schema";
 import { colors, fontFamily, layout, serifFamily, themeVars } from "./theme";
@@ -282,7 +283,14 @@ export const Short: React.FC<ShortProps> = ({
         {sfx.map((effect, index) => (
           <Audio key={`sfx-${index}`} name={effect.src} from={effect.from} src={staticFile(effect.src)} volume={effect.volume} />
         ))}
-        {cuts.map((cut, index) => (
+        {editorial
+          ? cuts.map((cut, index) => (
+              <Sequence key={`page-${index}`} name={`Page ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>
+                <EditorialPage cut={cut} index={index} style={editorial} emphasis={cut.emphasis ?? []} />
+              </Sequence>
+            ))
+          : null}
+        {editorial ? null : cuts.map((cut, index) => (
           <Sequence
             key={`visual-${index}`}
             name={`Visual ${index + 1}`}
@@ -292,7 +300,7 @@ export const Short: React.FC<ShortProps> = ({
             <VisualLayer cut={cut} index={index} />
           </Sequence>
         ))}
-        {cuts.map((cut, index) => (
+        {editorial ? null : cuts.map((cut, index) => (
           <Sequence key={`cut-${index}`} name={`Cut ${index + 1}`} from={cut.from} durationInFrames={cut.durationInFrames}>
             <CutView cut={cut} index={index} pill={use3D} />
           </Sequence>

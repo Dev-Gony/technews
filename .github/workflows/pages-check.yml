@@ -1,0 +1,86 @@
+# 임시: 잡지 페이지 레이아웃 확인용 (샘플 스틸 + 실제 파이프라인 업로드 없이 렌더). 확인 후 지운다.
+name: Pages check (temporary)
+on:
+  push:
+    branches: ["claude/editorial-pages"]
+permissions:
+  contents: write
+jobs:
+  stills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-cjk > /dev/null
+      - working-directory: video
+        run: |
+          npm ci
+          npx remotion browser ensure
+      - working-directory: video
+        run: npx tsc --noEmit 2>&1 | tee ../tsc.log
+      - working-directory: video
+        run: |
+          mkdir -p ../out
+          for f in 20 90 170 245 315 390 450; do npx remotion still src/index.ts ShortNews ../out/news-$f.png --frame=$f --log=error; done
+          for f in 20 90 225 275 345 410; do npx remotion still src/index.ts ShortExplain ../out/explain-$f.png --frame=$f --log=error; done
+      - if: always()
+        run: |
+          cp tsc.log out/ || true
+          cd out && git init -q && git config user.name bot && git config user.email bot@users.noreply.github.com
+          git checkout -q -b preview/pages-stills && git add -A && git commit -q -m stills
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" preview/pages-stills
+
+  real:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: news
+            link: https://news.hada.io/topic?id=37130
+          - name: explain
+            link: https://news.hada.io/topic?id=37123
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - working-directory: video
+        run: |
+          npm ci
+          npx remotion browser ensure
+      - run: npm install -g @anthropic-ai/claude-code
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+      - name: Make short (no upload)
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python shorts.py --link "${{ matrix.link }}" --no-upload
+      - name: Frames
+        if: always()
+        run: |
+          sudo apt-get install -y -qq ffmpeg > /dev/null || true
+          mkdir -p out
+          video=$(find runtime/shorts -name short.mp4 | head -1)
+          cp "$(dirname "$video")/script.json" out/ || true
+          ffmpeg -loglevel error -i "$video" -vf "fps=1/2,scale=300:-1,tile=8x3" -frames:v 1 out/contact.png || true
+          for t in 3 7 11 15 19 23 27 31 35; do ffmpeg -loglevel error -ss $t -i "$video" -frames:v 1 -vf scale=540:-1 out/t$t.png || true; done
+          cd out && git init -q && git config user.name bot && git config user.email bot@users.noreply.github.com
+          git checkout -q -b preview/pages-${{ matrix.name }} && git add -A && git commit -q -m frames
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" preview/pages-${{ matrix.name }}

@@ -200,16 +200,20 @@ const NewsCover: React.FC<{ text: string; heroFrames: number }> = ({ text, heroF
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
   const heroSize = longest > 9 ? 120 : 140;
-  const headerSize = longest > 10 ? 60 : 68;
+
+  // 훅이 끝나면 사라진다. 이후에는 컷마다 페이지 헤드라인이 그 자리를 쓴다.
+  if (shrink >= 1) {
+    return null;
+  }
 
   return (
     <div
       style={{
         position: "absolute",
-        top: interpolate(shrink, [0, 1], [520, 240]) + (shrink > 0 ? 0 : rise),
+        top: 520 + rise - shrink * 40,
         left: layout.side,
         width: width - layout.side * 2,
-        opacity: interpolate(frame, [0, 6], [0, 1], { extrapolateRight: "clamp" }),
+        opacity: interpolate(frame, [0, 6], [0, 1], { extrapolateRight: "clamp" }) * (1 - shrink),
       }}
     >
       <div
@@ -217,14 +221,14 @@ const NewsCover: React.FC<{ text: string; heroFrames: number }> = ({ text, heroF
           width: interpolate(frame, [4, 16], [0, 90], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
           height: 5,
           background: NEWS_RED,
-          marginBottom: interpolate(shrink, [0, 1], [34, 18]),
+          marginBottom: 34,
         }}
       />
       <div
         style={{
           fontFamily: serifFamily,
           fontWeight: 900,
-          fontSize: interpolate(shrink, [0, 1], [heroSize, headerSize]),
+          fontSize: heroSize,
           lineHeight: 1.16,
           letterSpacing: -2,
           color: colors.text,
@@ -368,9 +372,11 @@ const tokenize = (line: string): { text: string; color: string }[] => {
 
 const LINE_HEIGHT = 58;
 
-export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = ({ visual, sceneFrames }) => {
+const BareWrap: React.FC<{ children: React.ReactNode }> = ({ children }) => <>{children}</>;
+
+export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number; bare?: boolean }> = ({ visual, sceneFrames, bare = false }) => {
   const frame = useCurrentFrame();
-  const lines = (visual.code ?? "").split("\n").slice(0, 8);
+  const lines = (visual.code ?? "").split("\n").slice(0, 7);
   const longest = Math.max(...lines.map((line) => [...line].length), 1);
   // 창 안(가로 약 820px)에 가장 긴 줄이 들어가게 글자 크기를 줄인다. (고정폭 글자 폭 ≈ 0.6em)
   const fontSize = Math.max(24, Math.min(36, Math.floor(820 / (longest * 0.6))));
@@ -382,8 +388,11 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = 
   const filename = visual.label || (lines.some((line) => /^\s*\$ /.test(line)) ? "zsh" : "code");
   const rowTop = 72 + 34 + highlight * LINE_HEIGHT;
 
+  // bare: 잡지 페이지의 카드 자리에 그대로 넣는다 (Panel 위치 없이)
+  const Wrap = bare ? BareWrap : Panel;
+
   return (
-    <Panel>
+    <Wrap>
       <div
         style={{
           width: "100%",
@@ -483,7 +492,7 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number }> = 
           </svg>
         ) : null}
       </div>
-    </Panel>
+    </Wrap>
   );
 };
 

@@ -84,6 +84,11 @@ export const cutSchema = z.object({
   durationInFrames: z.number().int().positive(),
   visual: visualSchema,
   chunks: z.array(chunkSchema),
+  // news/explain 페이지: 큰 헤드라인(2줄 이내, "\n"으로 줄바꿈)과 섹션 이름(위의 "02 — ○○")
+  heading: z.string().optional(),
+  section: z.string().optional(),
+  // 헤드라인에서 강조색으로 칠할 단어 (대본 emphasis)
+  emphasis: z.array(z.string()).optional(),
 });
 
 export const sfxSchema = z.object({

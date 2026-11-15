@@ -589,7 +589,6 @@ VISUAL_SCHEMA = {
 SCRIPT_SCHEMA = {
     "type": "object",
     "properties": {
-        "style": {"type": "string", "enum": list(EDITORIAL_STYLES)},
         "title": {"type": "string"},
         "question": {"type": "string"},
         "cover": {"type": "string"},
@@ -604,14 +603,16 @@ SCRIPT_SCHEMA = {
                 "properties": {
                     "line": {"type": "string"},
                     "emphasis": {"type": "array", "items": {"type": "string"}},
+                    "heading": {"type": "string"},
+                    "section": {"type": "string"},
                     "visual": VISUAL_SCHEMA,
                 },
-                "required": ["line", "emphasis", "visual"],
+                "required": ["line", "emphasis", "heading", "section", "visual"],
                 "additionalProperties": False,
             },
         },
     },
-    "required": ["style", "title", "question", "cover", "summary", "tips", "caution", "hashtags", "cuts"],
+    "required": ["title", "question", "cover", "summary", "tips", "caution", "hashtags", "cuts"],
     "additionalProperties": False,
 }
 
@@ -913,54 +914,25 @@ def factcheck_schema():
 
 
 STYLE_PROMPT = """
-화면 스타일 (style, 꼭 고른다):
-- news: 크림색 잡지 화면. 신모델·제품 출시, 연구·벤치마크 결과, 회사 소식처럼 "무슨 일이 있었고 숫자가 어떻다"가 핵심인 기사.
-  number, beforeafter, compare, quote, flow 그래픽이 잘 어울린다.
-- explain: 남색 다크 + 코드 에디터 화면. 프로그래밍 언어, 개발 도구·CLI, DB·인프라, 설계 개념처럼 "어떻게·왜 동작하나"가 핵심인 기사.
-  1컷은 "왜 다들 X를 쓸까?", "A인데 왜 B?" 같은 질문형 훅이 잘 맞는다. code, diagram, flow 그래픽이 잘 어울린다.
-- 애매하면 기사에 코드·명령어·설정이 나오면 explain, 아니면 news.
+이 영상은 잡지 페이지처럼 만든다. 컷 하나 = 페이지 하나: 위에 섹션 이름, 그 아래 큰 헤드라인, 가운데 큰 카드 하나, 아래 자막.
+scene3d는 쓰지 않는다 (위 scene3d 설명은 무시한다). metaphor·diagram도 아이콘 없이 글자 표·단계 목록으로 보인다.
 
-이 스타일에서는 scene3d를 쓰지 않는다 (위 scene3d 설명은 무시한다).
+컷마다 heading과 section을 쓴다 (1컷은 cover가 훅이라 둘 다 빈 문자열):
+- heading: 그 페이지의 큰 헤드라인. 이 컷 대사의 핵심을 신문 제목처럼. 한 줄 10자 이내, 2줄까지("\\n"으로 줄바꿈).
+  대사와 원문에 있는 말·숫자만 쓴다. 새 사실·과장 금지. 강조 단어(emphasis)를 넣으면 그 단어가 강조색으로 보인다.
+- section: 페이지 위 "02 — ○○" 자리의 섹션 이름. 6자 이내 (예: "무엇이 바뀌나", "핵심 수치", "한계", "써 보기", "정리").
+  같은 이야기가 이어지는 컷은 같은 section을 써도 된다.
 
-화면을 비우지 않는다: 그래픽 없는 none은 영상 전체에서 3컷 이하(마지막 컷 포함).
-나머지 컷은 keywords, flow, number, compare, beforeafter, quote, diagram, code 중 대사에 맞는 것으로 채운다.
-기사에 나온 기술 이름·기능 이름(예: errdefer, comptime)은 keywords 카드로 보여 준다.
-"""
-STYLE_PROMPT_TAIL = """
-code 그래픽 (두 스타일 모두 에디터 창으로 보인다):
+카드: 그래픽 없는 none 컷은 헤드라인만 크게 보인다. none은 영상 전체에서 3컷 이하.
+나머지 컷은 number, beforeafter, compare, flow, keywords, quote, diagram, metaphor, code 중 대사에 맞는 카드로 채운다.
+keywords는 1~3개를 큰 글씨 줄로 보여 준다 (각 12자 이내). 기사에 나온 기술·기능 이름을 쓰기 좋다.
+
+code 카드 (에디터 창으로 보인다. 대본에 code 컷이 있으면 남색 다크 화면, 없으면 크림 잡지 화면이 된다):
 - 원문에 실제로 나온 코드·명령어·설정·API 이름만 쓴다. 원문에 없는 코드를 지어내지 않는다. 원문에 코드가 없으면 code를 쓰지 않는다.
-- 8줄 이내, 한 줄 40자 이내. 쉘 명령은 "$ "로 시작한다. 한 줄 설명이 필요하면 "// " 또는 "# " 주석 줄로.
+- 7줄 이내, 한 줄 40자 이내. 쉘 명령은 "$ "로 시작한다. 한 줄 설명이 필요하면 "// " 또는 "# " 주석 줄로.
 - label에 파일 이름이나 창 이름(예: "main.zig", "zsh", "config.yaml"), highlight에 그 컷 대사가 가리키는 줄 번호(1부터).
   highlight 줄로 커서와 카메라가 다가가므로 대사와 같은 줄을 고른다. 가리킬 줄이 없으면 highlight는 0.
 """
-
-
-STYLE_PROMPT += STYLE_PROMPT_TAIL
-
-
-EDITORIAL_MAX_EMPTY_CUTS = 3
-
-
-def fill_empty_cuts(cuts, limit=EDITORIAL_MAX_EMPTY_CUTS):
-    """잡지·다크 화면은 그래픽 없는 컷이 많으면 휑하다. 자막만 있는 컷이 limit개를 넘으면,
-    첫 컷·마지막 2컷을 뺀 자막 컷 중 강조 단어가 있는 컷(대사가 긴 컷부터)에 그 강조 단어를 키워드 카드로 띄운다.
-    대사에 이미 있는 말만 쓰므로 새 사실이 들어가지 않는다."""
-    empty = [index for index, cut in enumerate(cuts) if cut["visual"].get("type") in ("none", "hook")]
-    extra = len(empty) - limit
-
-    if extra <= 0:
-        return cuts
-
-    spots = [
-        index for index in empty
-        if 0 < index < len(cuts) - 2 and [word for word in cuts[index].get("emphasis") or [] if len(word) <= 8]
-    ]
-
-    for index in sorted(spots, key=lambda i: len(spoken_line(cuts[i])), reverse=True)[:extra]:
-        words = [word for word in cuts[index]["emphasis"] if len(word) <= 8][:3]
-        cuts[index]["visual"] = {"type": "keywords", "items": words}
-
-    return cuts
 
 
 def editorial_mode():
@@ -1219,8 +1191,13 @@ def validate_script(script):
         cut["emphasis"] = [word for word in cut.get("emphasis") or [] if word and word in spoken_line(cut)]
         cut["visual"] = drop_duplicate_label(validate_visual(cut.get("visual")), spoken_line(cut))
 
-    if script.get("style") not in EDITORIAL_STYLES:
-        script["style"] = "news"
+    # 화면 스타일은 모델이 고르지 않고 규칙으로: code 카드가 있으면 explain(다크 + 에디터), 없으면 news(크림 잡지)
+    script["style"] = "explain" if any(cut["visual"].get("type") == "code" for cut in cuts) else "news"
+
+    for index, cut in enumerate(cuts):
+        heading = re.sub(r"\\n", "\n", str(cut.get("heading") or "")).strip()
+        cut["heading"] = "" if index == 0 else "\n".join(line.strip() for line in heading.split("\n")[:2] if line.strip())
+        cut["section"] = "" if index == 0 else str(cut.get("section") or "").strip()[:10]
 
     # 모델이 줄바꿈을 글자 그대로 "\n"으로 쓰는 경우가 있다.
     script["cover"] = (script.get("cover") or script.get("title") or "").replace("\\n", "\n").strip()
@@ -1288,11 +1265,11 @@ def validate_visual(visual):
 
     if kind == "code":
         code_lines = visual["code"].strip("\n").split("\n")
-        visual["code"] = "\n".join(code_lines[:8])
+        visual["code"] = "\n".join(code_lines[:7])
         highlight = visual.get("highlight")
 
         # 범위 밖이거나 0이면 강조 줄 없음
-        if not isinstance(highlight, int) or not 1 <= highlight <= min(len(code_lines), 8):
+        if not isinstance(highlight, int) or not 1 <= highlight <= min(len(code_lines), 7):
             visual.pop("highlight", None)
 
     return visual
@@ -1674,8 +1651,6 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
             if cut["visual"].get("type") == "scene3d":
                 cut["visual"] = {"type": "none"}
 
-        fill_empty_cuts(cuts)
-
     # 컷은 그 컷의 첫 단어를 말하기 시작할 때 바뀐다.
     starts = [0] + [ms_to_frame(words[0]["startMs"]) if words else 0 for words in cut_words[1:]]
     ends = starts[1:] + [total_frames]
@@ -1702,6 +1677,9 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
                 "from": start,
                 "durationInFrames": end - start,
                 "visual": visual,
+                "heading": cut.get("heading") or "",
+                "section": cut.get("section") or "",
+                "emphasis": cut.get("emphasis") or [],
                 "chunks": [
                     {
                         "text": chunk["text"],
