@@ -1,3 +1,4 @@
+import json
 import unittest
 from datetime import datetime
 from pathlib import Path
@@ -284,22 +285,31 @@ class ShortsTest(unittest.TestCase):
     def test_script_style_and_prompt(self):
         from unittest import mock
 
-        cuts = [{"line": f"대사 {i}", "emphasis": [], "visual": {"type": "none"}} for i in range(8)]
+        cuts = [{"line": f"대사 {i}", "emphasis": [], "heading": f"제목 {i}\\n둘째 줄\\n셋째", "section": "아주 긴 섹션 이름입니다",
+                 "visual": {"type": "none"}} for i in range(8)]
         script = {"title": "t", "question": "", "cover": "c", "summary": "", "tips": [], "caution": "", "hashtags": [], "cuts": cuts}
 
-        # 대본에 style이 없거나 이상하면 news
-        self.assertEqual(shorts.validate_script({**script, "style": "weird"})["style"], "news")
-        self.assertEqual(shorts.validate_script({**script, "style": "explain"})["style"], "explain")
+        # 스타일은 모델이 아니라 규칙: code 카드가 있으면 explain, 없으면 news
+        checked = shorts.validate_script(json.loads(json.dumps({**script, "style": "explain"})))
+        self.assertEqual(checked["style"], "news")
+        with_code = json.loads(json.dumps(script))
+        with_code["cuts"][3]["visual"] = {"type": "code", "code": "$ zig cc -o sum sum.c"}
+        self.assertEqual(shorts.validate_script(with_code)["style"], "explain")
+
+        # 헤드라인: 1컷은 비우고, 나머지는 2줄까지 / 섹션은 10자까지
+        self.assertEqual(checked["cuts"][0]["heading"], "")
+        self.assertEqual(checked["cuts"][2]["heading"], "제목 2\n둘째 줄")
+        self.assertEqual(checked["cuts"][2]["section"], "아주 긴 섹션 이름")
 
         with mock.patch.object(shorts, "SHORTS_STYLE", "auto"):
             self.assertEqual(shorts.script_style({"style": "explain"}), "explain")
             self.assertEqual(shorts.script_style({}), "news")
-            self.assertIn("화면 스타일 (style", shorts.script_system_prompt())
+            self.assertIn("잡지 페이지처럼", shorts.script_system_prompt())
         with mock.patch.object(shorts, "SHORTS_STYLE", "explain"):
             self.assertEqual(shorts.script_style({"style": "news"}), "explain")
         with mock.patch.object(shorts, "SHORTS_STYLE", "classic"):
             self.assertEqual(shorts.script_style({"style": "news"}), "classic")
-            self.assertNotIn("화면 스타일 (style", shorts.script_system_prompt())
+            self.assertNotIn("잡지 페이지처럼", shorts.script_system_prompt())
 
     def test_code_visual_highlight_is_kept_only_in_range(self):
         code = "fn a() {\n  errdefer free(x);\n}"
@@ -307,18 +317,16 @@ class ShortsTest(unittest.TestCase):
         self.assertNotIn("highlight", shorts.validate_visual({"type": "code", "code": code, "highlight": 0}))
         self.assertNotIn("highlight", shorts.validate_visual({"type": "code", "code": code, "highlight": 9}))
         long_code = "\n".join(f"line {i}" for i in range(12))
-        self.assertEqual(len(shorts.validate_visual({"type": "code", "code": long_code})["code"].split("\n")), 8)
+        self.assertEqual(len(shorts.validate_visual({"type": "code", "code": long_code})["code"].split("\n")), 7)
 
-    def test_fill_empty_cuts_uses_spoken_emphasis_only(self):
-        cuts = [{"line": "대사" * (i + 1), "emphasis": [f"단어{i}"] if i % 2 else [], "visual": {"type": "none"}} for i in range(10)]
-        cuts[0]["visual"] = {"type": "hook"}
-        shorts.fill_empty_cuts(cuts, limit=3)
-        empty = [c for c in cuts if c["visual"]["type"] in ("none", "hook")]
-        # 강조 단어가 있는 컷(1,3,5,7)만 바뀐다. 마지막 2컷(8,9)과 첫 컷은 그대로
-        self.assertEqual([i for i, c in enumerate(cuts) if c["visual"]["type"] == "keywords"], [1, 3, 5, 7])
-        self.assertEqual(cuts[7]["visual"]["items"], ["단어7"])
-        self.assertEqual(len(empty), 6)
-        self.assertEqual(cuts[9]["visual"]["type"], "none")
+    def test_source_code_decides_explain_style(self):
+        zig = "#ifdef __linux__ 대신 if (builtin.os.tag == .linux)를 쓰면 됨. zig cc로 빌드: $ zig cc -o sum sum.c\n$ zig build run"
+        news = "JEPA 월드 모델 600번 실험, 성공률 22%에서 85%로. 재학습 없이 계획 방식만 바꿈."
+        self.assertTrue(shorts.source_has_code(zig))
+        self.assertFalse(shorts.source_has_code(news))
+        self.assertEqual(shorts.apply_source_style({"style": "news"}, zig)["style"], "explain")
+        self.assertEqual(shorts.apply_source_style({"style": "news"}, news)["style"], "news")
+        self.assertEqual(shorts.apply_source_style({"style": "explain"}, news)["style"], "explain")
 
     def test_youtube_safe_metadata(self):
         self.assertEqual(shorts.youtube_safe("A -> B, <폴더> 접근"), "A → B, ‹폴더› 접근")
