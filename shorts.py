@@ -1130,6 +1130,52 @@ class FactCheckFailed(Exception):
     """팩트체크를 끝내지 못한 대본. 사실 확인이 안 된 영상은 올리지 않는다."""
 
 
+class ScriptQualityFailed(Exception):
+    """예비(Gemini) 대본이 화면 품질 기준에 못 미침. 올리지 않고, 기록도 남기지 않아 다음 실행에서 Claude로 다시 시도한다."""
+
+
+# 예비(Gemini) 대본 품질 기준. Claude 대본(11/15 확인)은 빈 헤드라인 0개, 카드 없는 컷 2~4개였다.
+FALLBACK_MAX_WEAK_HEADINGS = 1   # 비었거나 내용 없는 헤드라인이 2개 이상이면 건너뜀
+FALLBACK_MAX_CARDLESS_CUTS = 3   # 카드 없는 컷이 4개 이상이면 건너뜀 (프롬프트 기준이 3개 이하)
+
+# 내용 없는 낱말 ("핵심 비결", "한 줄 요약", "구조 분석", "다음 소식", "DB 구조", "유출 원인 분석" 같은 헤드라인을 만든다)
+GENERIC_HEADING_WORDS = {
+    "핵심", "핵심은", "주요", "중요", "중요한", "비결", "포인트", "정리", "총정리", "요약", "한", "줄", "한줄",
+    "구조", "분석", "다음", "소식", "빠르게", "보기", "결론", "특징", "이유", "의미", "변화", "소개", "마무리",
+    "살펴보기", "알아보기", "이야기", "내용", "개요", "관전", "포인트는", "오늘의", "이번", "뉴스", "새", "새로운",
+    "원인", "현황", "상세", "문제", "방법", "과정", "배경", "결과", "효과", "정체", "비밀",
+}
+
+
+def is_weak_heading(heading):
+    """헤드라인이 비었거나 내용이 없는지: 숫자가 없고, 내용 없는 낱말이 나머지 낱말 수 이상이면 약하다.
+    "DB 구조"(1:1), "유출 원인 분석"(2:1)은 약하고, "접근 제어 오류"(0:3), "성공률 22%→85%"(숫자)는 괜찮다."""
+    if re.search(r"\d", heading or ""):
+        return False
+
+    words = [re.sub(r"[^0-9A-Za-z가-힣]", "", word) for word in (heading or "").split()]
+    words = [word for word in words if word]
+    generic = sum(word in GENERIC_HEADING_WORDS for word in words)
+
+    return not words or generic * 2 >= len(words)
+
+
+def fallback_quality_problems(script):
+    """예비(Gemini) 대본을 올려도 되는지. 문제 목록(비었으면 통과). 1컷(훅)은 헤드라인·카드가 원래 없어서 뺀다."""
+    cuts = (script.get("cuts") or [])[1:]
+    weak = [cut.get("heading") or "(빈 헤드라인)" for cut in cuts if is_weak_heading(cut.get("heading"))]
+    cardless = [cut for cut in cuts if (cut.get("visual") or {}).get("type", "none") == "none"]
+    problems = []
+
+    if len(weak) > FALLBACK_MAX_WEAK_HEADINGS:
+        problems.append(f"내용 없는 헤드라인 {len(weak)}개: " + ", ".join(text.replace("\n", " ") for text in weak[:5]))
+
+    if len(cardless) > FALLBACK_MAX_CARDLESS_CUTS:
+        problems.append(f"카드 없는 컷 {len(cardless)}개 / {len(cuts)}컷")
+
+    return problems
+
+
 def factcheck_script(script, article, source_text, writer="claude"):
     prompt = "\n".join(
         [
@@ -1208,7 +1254,14 @@ def generate_script(article, work_dir=None):
         script = write_candidate_with_gemini(article, source_text)
         keep("candidates.json", [script])
         keep("fallback.json", {"writer": GEMINI_SCRIPT_MODEL})
-        return finish_script(verify_script(script, article, source_text, keep), source_text, keep)
+        script = finish_script(verify_script(script, article, source_text, keep), source_text, keep)
+        problems = fallback_quality_problems(script)
+        keep("quality.json", {"writer": GEMINI_SCRIPT_MODEL, "problems": problems})
+
+        if problems:
+            raise ScriptQualityFailed(" / ".join(problems))
+
+        return script
 
     keep("candidates.json", candidates)
     print(f"대본 후보 {len(candidates)}개 작성")
@@ -2670,6 +2723,13 @@ def main():
         try:
             script = generate_script(article, work_dir)
             break
+        except ScriptQualityFailed as error:
+            # 예비 대본이 부실하면 이번 실행은 올리지 않는다. 기록에 안 남기므로 다음 실행에서 같은 기사를 다시 시도한다.
+            print(f"예비(Gemini) 대본 품질 미달로 이번 실행은 업로드하지 않습니다: {error}")
+            notify_slack(
+                f"[{CHANNEL_NAME}] Shorts 건너뜀 (Claude 사용 불가 + 예비 대본 품질 미달)\n*{article['title']}*\n{str(error)[:500]}"
+            )
+            return
         except FactCheckFailed as error:
             print(f"팩트체크 실패로 이 기사는 업로드하지 않습니다: {error}")
             notify_slack(
