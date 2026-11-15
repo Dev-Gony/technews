@@ -14,6 +14,7 @@ import subprocess
 import urllib.request
 import urllib.parse
 import urllib.error
+import time
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -992,6 +993,9 @@ def write_candidate(article, source_text, angle):
     )
 
 
+GEMINI_RETRIES = 4
+
+
 def gemini_json(system_prompt, user_prompt, schema):
     """Gemini(무료 등급)로 schema에 맞는 JSON을 받는다. Claude를 못 쓸 때의 예비 경로."""
     if not GEMINI_API_KEY:
@@ -1021,8 +1025,18 @@ def gemini_json(system_prompt, user_prompt, schema):
         method="POST",
     )
 
-    with urllib.request.urlopen(request, timeout=300) as response:
-        result = json.loads(response.read().decode("utf-8"))
+    # 무료 등급은 붐빌 때 503/429를 자주 준다. 잠깐 쉬었다가 몇 번 더 시도한다.
+    for attempt in range(GEMINI_RETRIES):
+        try:
+            with urllib.request.urlopen(request, timeout=300) as response:
+                result = json.loads(response.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as error:
+            if error.code not in (429, 500, 503) or attempt == GEMINI_RETRIES - 1:
+                raise
+            wait = 20 * (attempt + 1)
+            print(f"Gemini {error.code}, {wait}초 뒤 다시 시도 ({attempt + 1}/{GEMINI_RETRIES - 1})")
+            time.sleep(wait)
 
     text = "".join(part.get("text", "") for part in result["candidates"][0]["content"]["parts"])
     text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
