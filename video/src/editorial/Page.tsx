@@ -235,25 +235,39 @@ const BarsCard: React.FC<{ visual: Visual; p: Palette; frame: number }> = ({ vis
 // 단계·구조도: 번호 매긴 줄. 마지막(또는 focus) 줄을 강조
 const StepsCard: React.FC<{ items: string[]; focus: number; p: Palette; frame: number; arrows: boolean }> = ({ items, focus, p, frame, arrows }) => {
   const rows = items.slice(0, 4);
-  const size = fitSize(rows, WIDTH - 260, 52, 36);
+  // 화살표가 있는 3~4단계는 기본 크기로 쌓으면 카드(520~540px)를 넘어 위아래가 잘린다 → 촘촘하게
+  const compact = arrows && rows.length >= 3;
+  const size = fitSize(rows, WIDTH - 260, compact ? 44 : 52, 34);
 
   return (
-    <CardBox p={p} padding="44px 48px">
-      <div style={{ display: "flex", flexDirection: "column", gap: arrows ? 14 : 22 }}>
+    <CardBox p={p} padding={compact ? "30px 48px" : "44px 48px"}>
+      <div style={{ display: "flex", flexDirection: "column", gap: compact ? 0 : arrows ? 14 : 22 }}>
         {rows.map((item, index) => {
           const show = rise(frame, 2 + index * 6);
           const hot = index === focus;
           return (
             <div key={index}>
               {arrows && index > 0 ? (
-                <div style={{ fontFamily: `${monoFamily}, ${fontFamily}`, fontSize: 30, color: p.faint, paddingLeft: 30, marginBottom: 10, opacity: show }}>↓</div>
+                <div
+                  style={{
+                    fontFamily: `${monoFamily}, ${fontFamily}`,
+                    fontSize: compact ? 24 : 30,
+                    lineHeight: compact ? 1 : undefined,
+                    color: p.faint,
+                    paddingLeft: 30,
+                    margin: compact ? "4px 0" : "0 0 10px",
+                    opacity: show,
+                  }}
+                >
+                  ↓
+                </div>
               ) : null}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: 30,
-                  padding: "22px 30px",
+                  padding: compact ? "16px 30px" : "22px 30px",
                   borderRadius: 18,
                   background: hot ? p.hot : p.sub,
                   border: hot && p === P.explain ? "2px solid rgba(110,168,255,0.6)" : "none",
@@ -261,7 +275,7 @@ const StepsCard: React.FC<{ items: string[]; focus: number; p: Palette; frame: n
                   translate: `${interpolate(show, [0, 1], [40, 0])}px 0px`,
                 }}
               >
-                <div style={{ fontFamily: p === P.news ? serifFamily : `${monoFamily}, ${fontFamily}`, fontWeight: 900, fontSize: 44, color: hot ? p.hotAccent : p.faint, minWidth: 54 }}>
+                <div style={{ fontFamily: p === P.news ? serifFamily : `${monoFamily}, ${fontFamily}`, fontWeight: 900, fontSize: compact ? 38 : 44, color: hot ? p.hotAccent : p.faint, minWidth: 54 }}>
                   {String(index + 1).padStart(2, "0")}
                 </div>
                 <div style={{ fontFamily, fontWeight: 900, fontSize: size, color: hot ? p.hotText : p.ink, wordBreak: "keep-all", lineHeight: 1.25 }}>{item}</div>
