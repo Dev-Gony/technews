@@ -328,6 +328,33 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual(shorts.apply_source_style({"style": "news"}, news)["style"], "news")
         self.assertEqual(shorts.apply_source_style({"style": "explain"}, news)["style"], "explain")
 
+    def test_code_card_must_come_from_source(self):
+        source = (
+            "errdefer로 정리 코드를 할당 바로 아래에 둔다.\n"
+            "const user = try allocator.create(User);\n    errdefer allocator.destroy(user);\n"
+            "빌드: $ zig cc -target x86_64-linux-musl -o sum sum.c"
+        )
+        real = {"type": "code", "code": "// 할당 바로 아래 정리\nconst user = try allocator.create(User);\nerrdefer allocator.destroy(user);"}
+        shell = {"type": "code", "code": "$ zig cc -target x86_64-linux-musl \\\n    -o sum sum.c"}
+        made_up = {"type": "code", "code": "const user = try allocator.create(User);\ndefer allocator.free(buffer);\n}"}
+        self.assertEqual(shorts.unverified_code_lines(real, source), [])
+        self.assertEqual(shorts.unverified_code_lines(shell, source), [])
+        self.assertEqual(shorts.unverified_code_lines(made_up, source), ["defer allocator.free(buffer);"])
+
+        script = {"style": "explain", "cuts": [{"visual": dict(real)}, {"visual": dict(made_up)}, {"visual": {"type": "number", "value": "3"}}]}
+        kept = []
+        shorts.drop_unverified_code(script, source, lambda name, data: kept.append((name, data)))
+        self.assertEqual(script["cuts"][0]["visual"]["type"], "code")
+        self.assertEqual(script["cuts"][1]["visual"], {"type": "none"})
+        self.assertEqual(script["cuts"][2]["visual"]["type"], "number")
+        self.assertEqual(script["style"], "explain")
+        self.assertEqual(kept[0][0], "code_check.json")
+
+        # 원문을 못 가져왔거나 코드가 없으면 code 카드는 모두 빠지고 news 화면이 된다.
+        script = {"style": "explain", "cuts": [{"visual": dict(real)}]}
+        self.assertEqual(shorts.finish_script(script, "")["style"], "news")
+        self.assertEqual(script["cuts"][0]["visual"], {"type": "none"})
+
     def test_youtube_safe_metadata(self):
         self.assertEqual(shorts.youtube_safe("A -> B, <폴더> 접근"), "A → B, ‹폴더› 접근")
         self.assertEqual(shorts.cut_bytes("가나다", 7), "가나")
