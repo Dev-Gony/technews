@@ -101,11 +101,16 @@ const fitSize = (lines: string[], width: number, max: number, min: number) => {
 // ---------------------------------------------------------------------------
 // 카드
 
-const CardBox: React.FC<{ p: Palette; children: React.ReactNode; padding?: number | string }> = ({ p, children, padding = 56 }) => (
+const CardBox: React.FC<{ p: Palette; children: React.ReactNode; padding?: number | string; height?: number | string }> = ({
+  p,
+  children,
+  padding = 56,
+  height = "100%",
+}) => (
   <div
     style={{
       width: "100%",
-      height: "100%",
+      height,
       background: p.card,
       border: p.cardBorder,
       borderRadius: 30,
@@ -269,14 +274,64 @@ const StepsCard: React.FC<{ items: string[]; focus: number; p: Palette; frame: n
   );
 };
 
+// 핵심어가 하나뿐일 때: 큰 카드 가운데 한 줄만 있으면 비어 보인다.
+// 카드를 낮추고, 위에 "KEYWORD" 라벨, 단어 아래에 강조색 밑줄이 그어지는 한 장면으로.
+const SingleKeywordCard: React.FC<{ word: string; p: Palette; frame: number }> = ({ word, p, frame }) => {
+  const size = fitSize([word], WIDTH - 140, 132, 64);
+  const show = rise(frame, 2, 12);
+  const underline = rise(frame, 10, 14);
+  const news = p === P.news;
+
+  return (
+    <CardBox p={p} height="74%" padding="46px 56px 52px">
+      <div style={{ display: "flex", alignItems: "center", gap: 16, opacity: rise(frame, 0) }}>
+        <span style={{ width: 40, height: 4, background: p.accent }} />
+        <span style={{ fontFamily: `${monoFamily}, ${fontFamily}`, fontWeight: 700, fontSize: 30, letterSpacing: 4, color: news ? p.accent : "#6EA8FF" }}>
+          KEYWORD
+        </span>
+      </div>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "inline-flex",
+            flexDirection: "column",
+            alignItems: "stretch",
+            opacity: show,
+            translate: `0px ${interpolate(show, [0, 1], [24, 0])}px`,
+          }}
+        >
+          <div style={{ fontFamily: p.big, fontWeight: 900, fontSize: size, lineHeight: 1.15, color: p.ink, wordBreak: "keep-all", textAlign: "center" }}>
+            {word}
+          </div>
+          <div
+            style={{
+              marginTop: 18,
+              height: Math.max(8, Math.round(size / 11)),
+              borderRadius: 4,
+              background: p.accent,
+              transformOrigin: "left center",
+              scale: `${underline} 1`,
+            }}
+          />
+        </div>
+      </div>
+    </CardBox>
+  );
+};
+
 // 핵심어: 큰 글씨 줄 (작은 알약 X)
 const KeywordsCard: React.FC<{ items: string[]; p: Palette; frame: number }> = ({ items, p, frame }) => {
   const rows = items.slice(0, 3);
-  const size = rows.length === 1 ? fitSize(rows, WIDTH - 120, 120, 64) : fitSize(rows, WIDTH - 200, 76, 44);
+
+  if (rows.length === 1) {
+    return <SingleKeywordCard word={rows[0]} p={p} frame={frame} />;
+  }
+
+  const size = fitSize(rows, WIDTH - 200, 76, 44);
 
   return (
     <CardBox p={p}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 34, alignItems: rows.length === 1 ? "center" : "flex-start" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 34, alignItems: "flex-start" }}>
         {rows.map((item, index) => {
           const show = rise(frame, 2 + index * 7);
           return (
@@ -290,14 +345,14 @@ const KeywordsCard: React.FC<{ items: string[]; p: Palette; frame: number }> = (
                 translate: `0px ${interpolate(show, [0, 1], [24, 0])}px`,
               }}
             >
-              {rows.length > 1 ? <div style={{ width: 18, height: 18, borderRadius: 4, background: p.accent, flexShrink: 0 }} /> : null}
+              <div style={{ width: 18, height: 18, borderRadius: 4, background: p.accent, flexShrink: 0 }} />
               <div
                 style={{
-                  fontFamily: rows.length === 1 ? p.big : fontFamily,
+                  fontFamily,
                   fontWeight: 900,
                   fontSize: size,
                   lineHeight: 1.2,
-                  color: index === 0 || rows.length === 1 ? p.ink : p.ink,
+                  color: p.ink,
                   wordBreak: "keep-all",
                 }}
               >
