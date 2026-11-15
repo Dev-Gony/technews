@@ -218,6 +218,17 @@ class ShortsTest(unittest.TestCase):
             with self.assertRaises(shorts.ScriptQualityFailed):
                 shorts.generate_script({"title": "t", "link": "l"})
 
+    def test_markdown_bold_is_removed_except_code(self):
+        visual = {"type": "quote", "quote": "이용약관은 애플리케이션과 **데이터 처리 책임을 고객에게 부여**함"}
+        code = {"type": "code", "code": "x = a**2 + b**2\nf(**kwargs)"}
+        script = shorts.strip_markdown({"title": "__Lovable__ 노출", "cuts": [{"line": "**28만 건**", "visual": visual}, {"visual": code}]})
+
+        self.assertEqual(script["title"], "Lovable 노출")
+        self.assertEqual(script["cuts"][0]["line"], "28만 건")
+        self.assertEqual(script["cuts"][0]["visual"]["quote"], "이용약관은 애플리케이션과 데이터 처리 책임을 고객에게 부여함")
+        self.assertEqual(script["cuts"][1]["visual"]["code"], "x = a**2 + b**2\nf(**kwargs)")
+        self.assertEqual(shorts.strip_markdown("snake_case__name 그대로"), "snake_case__name 그대로")
+
     def test_fallback_quality_rules(self):
         for weak in ["", "핵심 비결", "한 줄 요약", "구조 분석", "다음 소식", "핵심\n정리", "DB 구조", "유출 원인 분석"]:
             self.assertTrue(shorts.is_weak_heading(weak), weak)

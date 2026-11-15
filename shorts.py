@@ -423,7 +423,7 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
    변화는 "줄었다"·"늘었다"로 뭉뚱그리지 말고 기사에 전후 숫자가 있으면 "처음엔 A, 지금은 B"로 말한다.
 5. 끝에서 두 번째 컷: 시청자가 이번 주에 할 행동을 뼈 때리는 한 마디로. (예: "청구서 보기 전에 / 구조부터 / 뜯어보세요.")
 6. 마지막 컷: 다음 영상으로 잇는 짧은 한 줄(12자 안팎). 매번 같은 문장을 쓰지 말고 주제에 맞게 바꾼다.
-   (예: "이런 소식, / 매일 올려요.", "AI 뉴스는 / 3시간마다 와요.")
+   (예: "이런 소식, / 매일 올려요.", "AI 뉴스는 / 출근·점심·퇴근길에 와요.")
 
 사실 규칙 (가장 중요):
 - 숫자, 회사명, 결과, 동작 방식은 반드시 주어진 기사에 있는 것만. 없는 사실·수치를 지어내지 않는다.
@@ -1300,6 +1300,27 @@ def clean_text(value):
     return value
 
 
+# 모델이 강조하려고 쓰는 마크다운 굵게(**글자**, __글자__). 화면·설명란에는 별표가 그대로 보인다.
+MARKDOWN_BOLD = re.compile(r"(\*\*|__)(?=\S)(.+?)(?<=\S)\1")
+
+
+def strip_markdown(value, key=None):
+    """대본 글자에서 마크다운 굵게 표시를 지운다. code 카드는 a**2, **kwargs 같은 실제 코드라서 그대로 둔다."""
+    if key == "code":
+        return value
+
+    if isinstance(value, str):
+        return MARKDOWN_BOLD.sub(r"\2", value).replace("**", "")
+
+    if isinstance(value, list):
+        return [strip_markdown(item) for item in value]
+
+    if isinstance(value, dict):
+        return {name: strip_markdown(item, name) for name, item in value.items()}
+
+    return value
+
+
 # "기사에 없어요", "원문엔 안 나와요"처럼 대본 밖 사정을 시청자에게 말하는 문장 (프롬프트로 막아도 가끔 나온다)
 META_TALK = re.compile(r"(기사|원문|자료|본문|보도)(에|엔|에는|에선|에서는)\s*(없|안\s*나|나오지\s*않|언급(이|은)?\s*없)")
 
@@ -1325,7 +1346,7 @@ def drop_meta_talk(script):
 
 
 def validate_script(script):
-    script = drop_meta_talk(clean_text(script))
+    script = drop_meta_talk(strip_markdown(clean_text(script)))
     cuts = script.get("cuts") or []
 
     if not 6 <= len(cuts) <= 20:
