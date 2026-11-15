@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "issue_number": 57,
+  "issue_date": "2026-11-15",
+  "generated_at": "2026-11-15T09:46:11.253372+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, Row Level Security, 범용 모델, Supply Chain Security, LLM Quantization\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무적 확장과 클라우드 보안의 기본 원칙이 기술 생태계의 핵심 과제로 떠오르고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트가 단순한 텍스트 생성을 넘어 복잡한 논리 증명과 물리적 로봇 제어까지 영역을 넓히며 실질적인 생산성 도구로 진화하고 있습니다. 동시에 클라우드 기반 서비스의 보안 사고와 의존성 문제가 빈번해짐에 따라, 기술 도입 시 보안 아키텍처와 다중화 전략을 재점검하는 것이 필수적인 시점입니다.\n\n[왜 이 글들을 골랐나]\n\n• 3번: Supabase 설정 오류로 인한 대규모 데이터 유출은 백엔드 보안의 기본인 RLS의 중요성을 극명하게 보여줍니다.\n• 1번: 1,000개의 에이전트가 협업하여 수학적 난제를 해결한 사례는 대규모 에이전트 워크플로의 실무적 가능성을 제시합니다.\n• 6번: OpenAI의 로보틱스 팀 개편은 범용 모델이 물리적 제어 영역까지 흡수하는 AI 기술의 최신 트렌드를 잘 보여줍니다.\n\n[오늘 공부해볼 것]\n\n• Supabase RLS(Row Level Security) 정책 설정: 데이터베이스 레벨에서 사용자별 접근 권한을 제어하는 방법을 익혀 보안 사고를 예방하기 위함입니다.\n• Multi-Agent Orchestration 패턴: 여러 에이전트가 작업을 분담하고 협업하는 구조를 이해하여 복잡한 업무 자동화 시스템을 설계하기 위함입니다.\n• PyPI 보안 탭과 패키지 증명(Attestation): 오픈소스 의존성 관리 시 보안 신호를 해석하고 안전한 패키지를 선택하는 기준을 세우기 위함입니다.",
+  "stats": {
+    "candidate_count": 20,
+    "detailed_count": 6,
+    "brief_count": 2,
+    "excluded_count": 12,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Lovable 앱에서 여권 정보와 20만 건 이상의 비공개 메시지 노출",
+      "link": "https://news.hada.io/topic?id=37169",
+      "published_at": "2026-11-15T04:43:32+09:00",
+      "selection_score": 15,
+      "selection_reason": "Supabase 설정 오류로 인한 대규모 데이터 유출 사고로, 보안 및 백엔드 아키텍처 운영 시 반드시 숙지해야 할 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Lovable 프로젝트의 Supabase 설정 오류로 인한 대규모 개인정보 및 메시지 유출 사고",
+      "key_points": [
+        "Supabase 연동 프로젝트 중 7,403개 사이트에서 데이터베이스 레코드가 무단 노출됨.",
+        "이메일, 채팅 메시지 20만 건, 여권 정보 등 민감한 개인정보가 로그인 없이 접근 가능한 상태였음.",
+        "초기 로딩 시 데이터베이스 레코드를 클라이언트로 전송하는 잘못된 아키텍처 설계가 주원인임."
+      ],
+      "topics": [
+        "Database Security",
+        "Row Level Security (RLS)",
+        "Backend Architecture"
+      ],
+      "recommended_for": "Supabase를 사용하거나 백엔드 API 보안을 담당하는 모든 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 운영 중인 Supabase 프로젝트의 RLS 및 공개 접근 권한 전수 점검",
+        "steps": [
+          "Supabase 대시보드에서 모든 테이블의 RLS(Row Level Security) 활성화 여부 확인",
+          "API 접근 로그를 분석하여 인증되지 않은 사용자의 데이터 접근 시도 여부 검토",
+          "클라이언트 사이드에서 DB 레코드를 직접 호출하는 로직을 서버 사이드 API로 전환"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude Fable 5.2로 에이전트 1,000개 팀 안전하게 돌리기 - 페르마의 마지막 정리 형식화 실험",
+      "link": "https://news.hada.io/topic?id=37159",
+      "published_at": "2026-11-14T23:39:02+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent와 Agentic Workflow를 활용한 대규모 협업의 실증 사례로, 현재 기술 트렌드와 매우 밀접합니다.",
+      "feedback_bias": 0,
+      "one_line": "Claude Fable 5.2를 활용한 1,000개 에이전트 협업으로 페르마의 마지막 정리 형식화 성공",
+      "key_points": [
+        "Claude Fable 5.2 기반의 리드 에이전트 1개와 헬퍼 999개가 28.7시간 만에 Lean 형식 증명을 완료함.",
+        "복잡한 정리를 2,418개의 작업으로 세분화하고, Git 브랜치와 공유 Postgres를 활용해 협업 효율을 극대화함.",
+        "이전 실험 대비 출력 토큰은 1/3, 증명 길이는 1/7로 줄어들어 에이전트 워크플로의 효율성이 크게 개선됨."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Formal Verification",
+        "Multi-Agent Orchestration"
+      ],
+      "recommended_for": "대규모 AI 에이전트 협업 시스템 구축에 관심 있는 백엔드 및 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI, 범용 모델이 로봇을 제어하기 시작하면서 로보틱스 팀 해체",
+      "link": "https://news.hada.io/topic?id=37180",
+      "published_at": "2026-11-15T08:34:39+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM이 로봇 제어 등 물리적 영역으로 확장되는 AI Agent의 최신 트렌드를 보여주는 매우 중요한 소식입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI가 로보틱스 팀을 해체하고, 범용 모델(GPT-6 Astra 등)을 활용한 로봇 제어 연구로 전략을 전환함.",
+      "key_points": [
+        "OpenAI는 로봇 전용 모델 개발 대신, 언어·코드·시각 능력을 갖춘 범용 모델을 로봇 제어에 직접 활용하는 방식으로 전략을 수정함.",
+        "이번 개편은 로봇 개발 철수가 아닌, 범용 모델의 역량을 통해 로보틱스 연구를 가속화하기 위한 조직 재배치임.",
+        "Nvidia 연구 결과, Astra 기반 에이전트가 시뮬레이션 환경에서 기존 로봇 특화 모델보다 높은 성공률(74.8%)을 기록하며 범용 모델의 가능성을 입증함."
+      ],
+      "topics": [
+        "범용 모델(General-purpose Model)",
+        "AI Agent",
+        "시뮬레이션 벤치마크"
+      ],
+      "recommended_for": "AI Agent의 물리적 세계 확장과 LLM의 로봇 제어 적용 가능성에 관심 있는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "Unsloth Qwen3.8-27B 양자화 모델, Dynamic v3.1 업데이트",
+      "link": "https://news.hada.io/topic?id=37162",
+      "published_at": "2026-11-15T00:36:16+09:00",
+      "selection_score": 13,
+      "selection_reason": "LLM 최적화 및 양자화 기술은 성능 개선과 비용 절감 측면에서 실무적 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Unsloth의 Dynamic v3.1 업데이트로 Qwen3.8-27B 모델의 양자화 성능 5~10% 향상",
+      "key_points": [
+        "Dynamic v3.1 프리뷰를 적용한 Qwen3.8-27B GGUF 모델이 기존 대비 벤치마크 정확도를 5~10% 개선함.",
+        "2~6비트 양자화 모델을 갱신하여 동일 크기 모델 대비 효율적인 추론 성능을 제공함.",
+        "컨텍스트 길이와 반복 측정 횟수에 따라 최적의 양자화 방식이 달라질 수 있음을 확인하여 실무적 튜닝의 중요성을 시사함."
+      ],
+      "topics": [
+        "LLM Quantization",
+        "GGUF",
+        "Model Optimization"
+      ],
+      "recommended_for": "LLM 서빙 비용 절감과 성능 최적화를 고민하는 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 운영 중인 모델에 최신 Unsloth 양자화 적용 테스트",
+        "steps": [
+          "Unsloth GitHub에서 Dynamic v3.1이 적용된 Qwen3.8-27B GGUF 모델 다운로드",
+          "기존 모델과 동일한 하드웨어 환경에서 추론 속도 및 정확도 벤치마크 측정",
+          "비용 대비 성능 향상 폭을 계산하여 프로덕션 적용 여부 결정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Microsoft 장애, 고객들에게 Microsoft 의존도를 뼈저리게 깨닫게 하다",
+      "link": "https://news.hada.io/topic?id=37175",
+      "published_at": "2026-11-15T06:33:00+09:00",
+      "selection_score": 13,
+      "selection_reason": "클라우드 서비스 의존도와 장애 대응 아키텍처의 중요성을 시사하는 중요한 실무적 교훈을 담고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Microsoft 365 대규모 장애로 드러난 단일 클라우드 공급업체 의존도의 위험성",
+      "key_points": [
+        "Microsoft 365의 장시간 장애로 인해 기업 업무 시스템이 마비되며 클라우드 의존도 문제가 부각됨.",
+        "단일 공급업체에 모든 시스템을 의존할 경우 장애 시 대체 수단 확보가 매우 어려움.",
+        "예비 시스템 가동 및 서비스 전환을 고려한 다중화 아키텍처의 필요성이 강조됨."
+      ],
+      "topics": [
+        "Cloud Dependency",
+        "Disaster Recovery",
+        "Redundancy"
+      ],
+      "recommended_for": "클라우드 아키텍처 설계 및 비즈니스 연속성 계획을 담당하는 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "PyPI, 보안 신호를 더 명확히 보여주는 개편된 프로젝트 페이지 공개",
+      "link": "https://news.hada.io/topic?id=37178",
+      "published_at": "2026-11-15T07:36:47+09:00",
+      "selection_score": 14,
+      "selection_reason": "Python 생태계의 핵심인 PyPI 보안 강화는 개발 생산성과 보안 워크플로에 직접적인 영향을 미치는 중요한 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "PyPI 프로젝트 페이지 개편, 보안 탭을 통한 릴리스 출처 검증 정보 제공",
+      "key_points": [
+        "PyPI 프로젝트 상세 페이지에 보안 탭이 추가되어 릴리스의 출처 상태와 증명 정보를 확인할 수 있음.",
+        "출처 경고를 통해 파일의 증명 누락이나 이전 릴리스 대비 출처 변경 등을 즉시 확인 가능함.",
+        "암호학적 검증을 통해 패키지 설치 전 보안 신뢰성을 높일 수 있는 환경을 제공함."
+      ],
+      "topics": [
+        "Supply Chain Security",
+        "PyPI",
+        "Cryptographic Verification"
+      ],
+      "recommended_for": "Python 패키지 의존성 관리와 보안을 중요시하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "프로젝트 의존성 패키지의 PyPI 보안 탭 검토 및 출처 확인",
+        "steps": [
+          "현재 프로젝트에서 사용하는 핵심 라이브러리들의 PyPI 페이지 방문",
+          "새로 추가된 보안 탭에서 출처 상태 및 경고 메시지 유무 확인",
+          "증명 정보가 없는 패키지에 대해 대안이 있는지 혹은 신뢰할 수 있는지 검토"
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Show HN: 오늘 밤 FAA 전국 이륙 중단 상황을 보여주는 미국 항공편 실시간 지도",
+      "link": "https://news.hada.io/topic?id=37167",
+      "published_at": "2026-11-15T03:32:06+09:00",
+      "selection_score": 9,
+      "selection_reason": "데이터 분석 및 실시간 시각화 사례로서, 공공 데이터 활용과 대규모 트래픽 대응 관점에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Google은 왜 AI를 쓰지 않는 학교의 검색 접근까지 차단하나? 몇 가지 가설",
+      "link": "https://news.hada.io/topic?id=37174",
+      "published_at": "2026-11-15T05:43:10+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 모델의 서비스 통합 정책과 반독점 이슈가 얽힌 사례로 업계 동향 파악에 참고할 만합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
