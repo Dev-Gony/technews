@@ -166,7 +166,7 @@ const ExplainChrome: React.FC<{ channel: string; source: string }> = ({ channel,
           color: colors.faint,
         }}
       >
-        <span style={{ fontFamily: monoFamily, fontSize: 30, fontWeight: 700 }}>
+        <span style={{ fontFamily: `${monoFamily}, ${fontFamily}`, fontSize: 30, fontWeight: 700 }}>
           <span style={{ color: "#28C840" }}>~/</span>
           <span style={{ color: colors.muted }}>{channel.toLowerCase()}</span>
         </span>
@@ -379,7 +379,8 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number; bare
   const lines = (visual.code ?? "").split("\n").slice(0, 7);
   const longest = Math.max(...lines.map((line) => [...line].length), 1);
   // 창 안(가로 약 820px)에 가장 긴 줄이 들어가게 글자 크기를 줄인다. (고정폭 글자 폭 ≈ 0.6em)
-  const fontSize = Math.max(24, Math.min(36, Math.floor(820 / (longest * 0.6))));
+  // 너무 작아지지 않게 34px 아래로는 줄이지 않고, 넘치는 긴 줄은 창 안에서 줄바꿈한다.
+  const fontSize = Math.max(34, Math.min(40, Math.floor(820 / (longest * 0.6))));
   const highlight = visual.highlight && visual.highlight >= 1 && visual.highlight <= lines.length ? visual.highlight - 1 : -1;
   const typingEnd = Math.max(sceneFrames * 0.45, 12);
   const perLine = typingEnd / Math.max(lines.length, 1);
@@ -424,7 +425,7 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number; bare
           {["#FF5F57", "#FEBC2E", "#28C840"].map((color) => (
             <div key={color} style={{ width: 22, height: 22, borderRadius: 11, background: color }} />
           ))}
-          <div style={{ position: "absolute", left: 0, right: 0, textAlign: "center", fontFamily: monoFamily, fontSize: 26, color: "#7D879C" }}>
+          <div style={{ position: "absolute", left: 0, right: 0, textAlign: "center", fontFamily: `${monoFamily}, ${fontFamily}`, fontSize: 26, color: "#7D879C" }}>
             {filename}
           </div>
         </div>
@@ -454,7 +455,8 @@ export const IdeCodeVisual: React.FC<{ visual: Visual; sceneFrames: number; bare
                 style={{
                   position: "relative",
                   padding: "0 44px",
-                  whiteSpace: "pre",
+                  whiteSpace: "pre-wrap",
+                  wordBreak: "break-all",
                   minHeight: LINE_HEIGHT,
                   opacity: highlight >= 0 && !isHighlight ? interpolate(focus, [0, 1], [1, 0.45]) : 1,
                   background: isHighlight ? `rgba(247,185,85,${0.16 * focus})` : "transparent",
@@ -527,7 +529,7 @@ const ExplainOutro: React.FC<{ channel: string }> = ({ channel }) => {
             <div key={color} style={{ width: 22, height: 22, borderRadius: 11, background: color }} />
           ))}
         </div>
-        <div style={{ padding: "40px 44px", fontFamily: monoFamily, fontSize: 52, color: SYNTAX.text, whiteSpace: "pre", fontVariantLigatures: "none" }}>
+        <div style={{ padding: "40px 44px", fontFamily: `${monoFamily}, ${fontFamily}`, fontSize: 52, color: SYNTAX.text, whiteSpace: "pre", fontVariantLigatures: "none" }}>
           <span style={{ color: SYNTAX.prompt }}>$ </span>
           {command.slice(0, typed)}
           <span style={{ opacity: cursorOn ? 1 : 0 }}>▌</span>

@@ -91,8 +91,10 @@ const accentWords = (text: string, emphasis: string[], color: string) => {
 };
 
 // 한글 글자 폭 ≈ 1em: 가장 긴 줄이 width 안에 들어가는 크기
+// 숫자·영문은 굵은 명조에서 0.6em 안팎이지만 %·→ 같은 기호는 넓다. 넘치는 것보다 작은 게 낫다.
+const charWidth = (char: string) => (/[%→←@#&MW]/.test(char) ? 1 : /[\x00-\x7F]/.test(char) ? 0.64 : 1);
 const fitSize = (lines: string[], width: number, max: number, min: number) => {
-  const longest = Math.max(...lines.map((line) => [...line].reduce((sum, char) => sum + (/[\x00-\x7F]/.test(char) ? 0.56 : 1), 0)), 1);
+  const longest = Math.max(...lines.map((line) => [...line].reduce((sum, char) => sum + charWidth(char), 0)), 1);
   return Math.max(min, Math.min(max, Math.floor(width / longest)));
 };
 
@@ -239,7 +241,7 @@ const StepsCard: React.FC<{ items: string[]; focus: number; p: Palette; frame: n
           return (
             <div key={index}>
               {arrows && index > 0 ? (
-                <div style={{ fontFamily: monoFamily, fontSize: 30, color: p.faint, paddingLeft: 30, marginBottom: 10, opacity: show }}>↓</div>
+                <div style={{ fontFamily: `${monoFamily}, ${fontFamily}`, fontSize: 30, color: p.faint, paddingLeft: 30, marginBottom: 10, opacity: show }}>↓</div>
               ) : null}
               <div
                 style={{
@@ -254,7 +256,7 @@ const StepsCard: React.FC<{ items: string[]; focus: number; p: Palette; frame: n
                   translate: `${interpolate(show, [0, 1], [40, 0])}px 0px`,
                 }}
               >
-                <div style={{ fontFamily: p === P.news ? serifFamily : monoFamily, fontWeight: 900, fontSize: 44, color: hot ? p.hotAccent : p.faint, minWidth: 54 }}>
+                <div style={{ fontFamily: p === P.news ? serifFamily : `${monoFamily}, ${fontFamily}`, fontWeight: 900, fontSize: 44, color: hot ? p.hotAccent : p.faint, minWidth: 54 }}>
                   {String(index + 1).padStart(2, "0")}
                 </div>
                 <div style={{ fontFamily, fontWeight: 900, fontSize: size, color: hot ? p.hotText : p.ink, wordBreak: "keep-all", lineHeight: 1.25 }}>{item}</div>
@@ -352,8 +354,8 @@ const PairsCard: React.FC<{ visual: Visual; p: Palette; frame: number }> = ({ vi
               <div style={{ flex: 1, padding: "26px 28px", borderRadius: 18, background: p.sub, fontFamily, fontWeight: 900, fontSize: 44, color: p.ink, wordBreak: "keep-all" }}>
                 {room.place}
               </div>
-              <div style={{ fontFamily: monoFamily, fontSize: 44, color: p.accent }}>→</div>
-              <div style={{ flex: 1, fontFamily: monoFamily, fontWeight: 700, fontSize: 40, color: p.accent, wordBreak: "break-all" }}>{room.actual}</div>
+              <div style={{ fontFamily: `${monoFamily}, ${fontFamily}`, fontSize: 44, color: p.accent }}>→</div>
+              <div style={{ flex: 1, fontFamily: `${monoFamily}, ${fontFamily}`, fontWeight: 700, fontSize: 40, color: p.accent, wordBreak: "break-all" }}>{room.actual}</div>
             </div>
           );
         })}
@@ -490,7 +492,7 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
               <span style={{ fontFamily, fontWeight: 700, fontSize: 36, color: p.muted }}>{section}</span>
             </>
           ) : (
-            <span style={{ fontFamily: monoFamily, fontWeight: 700, fontSize: 32, color: "#6EA8FF" }}>
+            <span style={{ fontFamily: `${monoFamily}, ${fontFamily}`, fontWeight: 700, fontSize: 32, color: "#6EA8FF" }}>
               <span style={{ color: p.faint }}>{"// "}</span>
               {number} · {section}
             </span>
