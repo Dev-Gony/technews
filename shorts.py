@@ -960,6 +960,66 @@ def apply_source_style(script, source_text):
     return script
 
 
+# code 카드에서 원문 대조를 하지 않는 줄: 설명 주석("// ", "# "), 괄호·생략 기호만 있는 줄
+CODE_COMMENT_LINE = re.compile(r"^\s*(//|#\s|--\s|/\*|\*(\s|/|$))")
+CODE_TRIVIAL_LINE = re.compile(r"^[\s{}()\[\];,.…]*$")
+
+
+def squash_code(text):
+    """공백을 모두 지운 글자열. 원문 추출 과정에서 줄바꿈·들여쓰기가 바뀌어도 같은 코드로 본다."""
+    return re.sub(r"\s+", "", text or "")
+
+
+def code_line_in_source(line, squashed_source):
+    """code 카드의 한 줄이 원문에 실제로 있는지. 쉘 프롬프트("$ "), 줄 끝 이음표(역슬래시)·생략 기호(...)는 떼고 본다."""
+    if CODE_COMMENT_LINE.match(line) or CODE_TRIVIAL_LINE.match(line):
+        return True
+
+    body = re.sub(r"^\s*\$\s+", "", line)
+    body = re.sub(r"(\\|\.\.\.|…)\s*$", "", body.rstrip())
+    body = squash_code(body)
+
+    return len(body) < 3 or body in squashed_source
+
+
+def unverified_code_lines(visual, source_text):
+    """code 카드에서 원문에 없는 코드 줄 목록."""
+    squashed_source = squash_code(source_text)
+
+    return [line for line in (visual.get("code") or "").split("\n") if not code_line_in_source(line, squashed_source)]
+
+
+def drop_unverified_code(script, source_text, keep=lambda name, data: None):
+    """원문에 없는 코드 줄이 하나라도 있는 code 카드는 빼고(그래픽 없음), 화면 스타일을 다시 정한다.
+    모델이 그럴듯한 코드를 지어내는 것을 막는다. 팩트체크 뒤에 한 번 더 기계적으로 대조한다."""
+    dropped = []
+
+    for index, cut in enumerate(script.get("cuts") or []):
+        visual = cut.get("visual") or {}
+
+        if visual.get("type") != "code":
+            continue
+
+        missing = unverified_code_lines(visual, source_text)
+
+        if missing:
+            dropped.append({"cut": index, "missing": missing, "code": visual.get("code")})
+            cut["visual"] = {"type": "none"}
+
+    if dropped:
+        print(f"원문에 없는 코드가 든 code 카드 {len(dropped)}개를 뺍니다: " + " / ".join(item["missing"][0] for item in dropped))
+        keep("code_check.json", dropped)
+        has_code = any((cut.get("visual") or {}).get("type") == "code" for cut in script.get("cuts") or [])
+        script["style"] = "explain" if has_code else "news"
+
+    return script
+
+
+def finish_script(script, source_text, keep=lambda name, data: None):
+    """팩트체크를 마친 대본의 마지막 손질: 원문에 없는 코드 카드 빼기 → 원문 기준 화면 스타일."""
+    return apply_source_style(drop_unverified_code(script, source_text, keep), source_text)
+
+
 def editorial_mode():
     """news/explain 스타일(잡지·다크 화면)을 쓰는지. classic이면 예전 먹색·3D 화면."""
     return SHORTS_STYLE != "classic"
@@ -1148,7 +1208,7 @@ def generate_script(article, work_dir=None):
         script = write_candidate_with_gemini(article, source_text)
         keep("candidates.json", [script])
         keep("fallback.json", {"writer": GEMINI_SCRIPT_MODEL})
-        return apply_source_style(verify_script(script, article, source_text, keep), source_text)
+        return finish_script(verify_script(script, article, source_text, keep), source_text, keep)
 
     keep("candidates.json", candidates)
     print(f"대본 후보 {len(candidates)}개 작성")
@@ -1166,7 +1226,7 @@ def generate_script(article, work_dir=None):
         except Exception as error:
             print(f"심사 단계 실패, 첫 후보를 씁니다: {error}")
 
-    return apply_source_style(verify_script(best, article, source_text, keep), source_text)
+    return finish_script(verify_script(best, article, source_text, keep), source_text, keep)
 
 
 # 화면·제목·설명란에서 지울 글자: 깨진 글자, 제어 문자, 보이지 않는 문자(폭 없는 공백, 방향 표시, BOM, 소프트 하이픈)
