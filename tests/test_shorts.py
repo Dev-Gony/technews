@@ -319,6 +319,15 @@ class ShortsTest(unittest.TestCase):
         long_code = "\n".join(f"line {i}" for i in range(12))
         self.assertEqual(len(shorts.validate_visual({"type": "code", "code": long_code})["code"].split("\n")), 7)
 
+    def test_source_code_decides_explain_style(self):
+        zig = "#ifdef __linux__ 대신 if (builtin.os.tag == .linux)를 쓰면 됨. zig cc로 빌드: $ zig cc -o sum sum.c\n$ zig build run"
+        news = "JEPA 월드 모델 600번 실험, 성공률 22%에서 85%로. 재학습 없이 계획 방식만 바꿈."
+        self.assertTrue(shorts.source_has_code(zig))
+        self.assertFalse(shorts.source_has_code(news))
+        self.assertEqual(shorts.apply_source_style({"style": "news"}, zig)["style"], "explain")
+        self.assertEqual(shorts.apply_source_style({"style": "news"}, news)["style"], "news")
+        self.assertEqual(shorts.apply_source_style({"style": "explain"}, news)["style"], "explain")
+
     def test_youtube_safe_metadata(self):
         self.assertEqual(shorts.youtube_safe("A -> B, <폴더> 접근"), "A → B, ‹폴더› 접근")
         self.assertEqual(shorts.cut_bytes("가나다", 7), "가나")

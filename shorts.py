@@ -920,6 +920,9 @@ scene3d는 쓰지 않는다 (위 scene3d 설명은 무시한다). metaphor·diag
 컷마다 heading과 section을 쓴다 (1컷은 cover가 훅이라 둘 다 빈 문자열):
 - heading: 그 페이지의 큰 헤드라인. 이 컷 대사의 핵심을 신문 제목처럼. 한 줄 10자 이내, 2줄까지("\\n"으로 줄바꿈).
   대사와 원문에 있는 말·숫자만 쓴다. 새 사실·과장 금지. 강조 단어(emphasis)를 넣으면 그 단어가 강조색으로 보인다.
+  "구조 분석", "한 줄 요약", "다음 소식", "빠르게 보기"처럼 내용 없는 안내 문구는 헤드라인으로 쓰지 않는다.
+  헤드라인만 봐도 이 컷의 사실 하나가 전달돼야 한다 (예: "성공률 22%→85%", "정리 코드는 할당 바로 아래").
+  마지막 컷(채널 안내)도 내용 정리 헤드라인으로 (예: "재학습 0번, 계획만 바꿨다").
 - section: 페이지 위 "02 — ○○" 자리의 섹션 이름. 6자 이내 (예: "무엇이 바뀌나", "핵심 수치", "한계", "써 보기", "정리").
   같은 이야기가 이어지는 컷은 같은 section을 써도 된다.
 
@@ -929,10 +932,31 @@ keywords는 1~3개를 큰 글씨 줄로 보여 준다 (각 12자 이내). 기사
 
 code 카드 (에디터 창으로 보인다. 대본에 code 컷이 있으면 남색 다크 화면, 없으면 크림 잡지 화면이 된다):
 - 원문에 실제로 나온 코드·명령어·설정·API 이름만 쓴다. 원문에 없는 코드를 지어내지 않는다. 원문에 코드가 없으면 code를 쓰지 않는다.
+- 원문에 코드·명령어가 나오면 code 카드를 1~2컷 꼭 쓴다 (개발자가 가장 반기는 화면이다).
 - 7줄 이내, 한 줄 40자 이내. 쉘 명령은 "$ "로 시작한다. 한 줄 설명이 필요하면 "// " 또는 "# " 주석 줄로.
 - label에 파일 이름이나 창 이름(예: "main.zig", "zsh", "config.yaml"), highlight에 그 컷 대사가 가리키는 줄 번호(1부터).
   highlight 줄로 커서와 카메라가 다가가므로 대사와 같은 줄을 고른다. 가리킬 줄이 없으면 highlight는 0.
 """
+
+
+# 원문에 코드·명령어가 있는지: 함수 호출+괄호/세미콜론, 쉘 프롬프트, 전처리기·import·함수 정의 같은 흔적
+SOURCE_CODE_PATTERN = re.compile(
+    r"(^\s*\$ \S)|(#include|#ifdef|#define)|(\b(def|fn|func|function|class|import|const|let|var)\s+\w+)"
+    r"|(\w+\([^()\n]*\)\s*[{;])|(\w+\.\w+\.\w+\s*==)|(```)",
+    re.MULTILINE,
+)
+
+
+def source_has_code(source_text):
+    return len(SOURCE_CODE_PATTERN.findall(source_text or "")) >= 2
+
+
+def apply_source_style(script, source_text):
+    """화면 스타일: 대본에 code 카드가 있거나 원문에 코드가 나오는 개발 기사면 explain(다크), 아니면 news(크림 잡지)."""
+    if script.get("style") != "explain" and source_has_code(source_text):
+        script["style"] = "explain"
+
+    return script
 
 
 def editorial_mode():
@@ -1110,7 +1134,7 @@ def generate_script(article, work_dir=None):
         script = write_candidate_with_gemini(article, source_text)
         keep("candidates.json", [script])
         keep("fallback.json", {"writer": GEMINI_SCRIPT_MODEL})
-        return verify_script(script, article, source_text, keep)
+        return apply_source_style(verify_script(script, article, source_text, keep), source_text)
 
     keep("candidates.json", candidates)
     print(f"대본 후보 {len(candidates)}개 작성")
@@ -1128,7 +1152,7 @@ def generate_script(article, work_dir=None):
         except Exception as error:
             print(f"심사 단계 실패, 첫 후보를 씁니다: {error}")
 
-    return verify_script(best, article, source_text, keep)
+    return apply_source_style(verify_script(best, article, source_text, keep), source_text)
 
 
 # 화면·제목·설명란에서 지울 글자: 깨진 글자, 제어 문자, 보이지 않는 문자(폭 없는 공백, 방향 표시, BOM, 소프트 하이픈)
