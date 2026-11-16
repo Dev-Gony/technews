@@ -481,5 +481,13 @@
     "video_id": "m5MEweyaYEU",
     "voice": "Leda",
     "publish_at": "2026-11-16T13:00:00+09:00"
+  },
+  {
+    "date": "2026-11-16",
+    "link": "https://news.hada.io/topic?id=37221",
+    "title": "GLM-5.3 vLLM 로컬 서빙, DGX Station 2대로 464GB 분산",
+    "video_id": "9N8YFp-e-gs",
+    "voice": "Leda",
+    "publish_at": "2026-11-16T17:00:00+09:00"
   }
 ]
