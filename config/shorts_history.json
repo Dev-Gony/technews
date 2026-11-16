@@ -489,5 +489,13 @@
     "video_id": "9N8YFp-e-gs",
     "voice": "Leda",
     "publish_at": "2026-11-16T17:00:00+09:00"
+  },
+  {
+    "date": "2026-11-16",
+    "link": "https://news.hada.io/topic?id=37234",
+    "title": "C 프로젝트 40개 메모리 관리 조사, malloc/free만 쓴 건 8개",
+    "video_id": "4ODkfzu9Vck",
+    "voice": "Leda",
+    "publish_at": "2026-11-17T07:00:00+09:00"
   }
 ]
