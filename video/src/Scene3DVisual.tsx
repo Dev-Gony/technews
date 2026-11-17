@@ -121,6 +121,7 @@ const textWidth = (text: string, size: number) =>
   [...text].reduce((sum, ch) => sum + (/[가-힣]/.test(ch) ? size : /\s/.test(ch) ? size * 0.3 : size * 0.58), 0);
 
 // area: 장면을 띄울 세로 영역(화면 px). 없으면 예전 화면(classic) 자리. accent·accentText: 링·이름표 색.
+// dimAmount: 대상 밖을 흐리게 하는 정도. 밝은 크림 화면에서는 흐린 부분이 배경색에 묻혀 장면이 바래 보이므로 낮춘다.
 export const Scene3DVisual: React.FC<{
   visual: Visual;
   sceneFrames?: number;
@@ -128,7 +129,8 @@ export const Scene3DVisual: React.FC<{
   area?: { top: number; bottom: number };
   accent?: string;
   accentText?: string;
-}> = ({ visual, sceneFrames = 120, chunks = [], area, accent = colors.accent, accentText = "#FFFFFF" }) => {
+  dimAmount?: number;
+}> = ({ visual, sceneFrames = 120, chunks = [], area, accent = colors.accent, accentText = "#FFFFFF", dimAmount = DIM }) => {
   const frame = useCurrentFrame();
   const scene = visual.scene as Scene3D | undefined;
   const valid = Boolean(scene && scene in SCENES_3D);
@@ -217,7 +219,7 @@ export const Scene3DVisual: React.FC<{
     easing: Easing.bezier(0.33, 1, 0.68, 1),
   }) : 0;
   // 흐리기는 첫 beat 에 들어가며 켜지고 끝까지 유지 (구멍만 대상에서 대상으로 옮겨 간다)
-  const dim = story ? DIM * interpolate(frame, [starts[0], starts[0] + MOVE], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : 0;
+  const dim = story ? dimAmount * interpolate(frame, [starts[0], starts[0] + MOVE], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : 0;
   const hole = focusScreen ?? { x: 540, y: centerY };
   const holeR = focus ? ringR * 1.15 : 400;
 

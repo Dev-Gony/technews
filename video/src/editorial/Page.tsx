@@ -627,6 +627,7 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
           area={sceneArea}
           accent={p.accent}
           accentText={style === "news" ? "#FFFFFF" : "#15130F"}
+          dimAmount={style === "news" ? 0.3 : 0.6}
         />
       ) : null}
       <PageCaption chunks={cut.chunks} style={style} top={hook ? 1180 : captionTop} />
