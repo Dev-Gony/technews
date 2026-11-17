@@ -777,6 +777,17 @@ class ShortsTest(unittest.TestCase):
             self.assertIn(f'"{scene}"', schema)
             self.assertIn(f'{scene}: "assets3d/{filename}"', background)
 
+    def test_render_falls_back_to_slower_then_without_scene3d(self):
+        props = {"cuts": [{"visual": {"type": "none"}}, {"visual": {"type": "scene3d", "scene": "desk3d", "beats": []}}]}
+        attempts = shorts.render_attempts(props)
+        self.assertEqual([extra for _, extra, _ in attempts], [[], ["--concurrency=1"], []])
+        self.assertEqual(attempts[2][2]["cuts"][1]["visual"], {"type": "none"})
+        # 원래 props는 그대로 (앞 시도들은 3D 장면을 쓴다)
+        self.assertEqual(props["cuts"][1]["visual"]["type"], "scene3d")
+
+        # 3D 장면이 없으면 마지막 시도는 없다
+        self.assertEqual(len(shorts.render_attempts({"cuts": [{"visual": {"type": "none"}}]})), 2)
+
     def test_scene3d_goes_to_a_cut_not_the_backdrop(self):
         def cut(kind="none", **extra):
             return {"line": "대사", "visual": {"type": kind, **extra}}
@@ -793,14 +804,16 @@ class ShortsTest(unittest.TestCase):
             self.assertEqual(script["cuts"][3]["visual"], {"type": "scene3d", "scene": "vault3d"})
             self.assertEqual(script["cuts"][2]["visual"]["type"], "none")
 
-            # 대본이 이미 썼으면 그대로 두되, 붙어 있는 컷 연달아와 세 번째부터는 지운다
+            # 대본이 이미 썼으면 그대로 두되, 붙어 있는 컷 연달아와 네 번째부터는 지운다
             written = {"cover": "x", "cuts": [cut("hook"), cut("scene3d", scene="coins3d"), cut("scene3d", scene="lab3d"),
-                                              cut("scene3d", scene="deploy3d"), cut(), cut("scene3d", scene="web3d"), cut()]}
+                                              cut("scene3d", scene="deploy3d"), cut(), cut("scene3d", scene="web3d"), cut(),
+                                              cut("scene3d", scene="chip3d"), cut()]}
             shorts.add_scene3d_cut(written)
             self.assertEqual(written["cuts"][1]["visual"]["scene"], "coins3d")
             self.assertEqual(written["cuts"][2]["visual"], {"type": "none"})
             self.assertEqual(written["cuts"][3]["visual"]["scene"], "deploy3d")
-            self.assertEqual(written["cuts"][5]["visual"], {"type": "none"})
+            self.assertEqual(written["cuts"][5]["visual"]["scene"], "web3d")
+            self.assertEqual(written["cuts"][7]["visual"], {"type": "none"})
 
             # 주제가 맞지 않으면 넣지 않는다
             plain = {"cover": "광고를 AI한테 물어보게 만든 당근", "cuts": [cut("hook"), cut(), cut(), cut()]}

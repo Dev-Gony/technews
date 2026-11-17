@@ -120,11 +120,17 @@ const ease = Easing.bezier(0.65, 0, 0.35, 1);
 const textWidth = (text: string, size: number) =>
   [...text].reduce((sum, ch) => sum + (/[가-힣]/.test(ch) ? size : /\s/.test(ch) ? size * 0.3 : size * 0.58), 0);
 
-export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chunks?: Chunk[] }> = ({
-  visual,
-  sceneFrames = 120,
-  chunks = [],
-}) => {
+// area: 장면을 띄울 세로 영역(화면 px). 없으면 예전 화면(classic) 자리. accent·accentText: 링·이름표 색.
+// dimAmount: 대상 밖을 흐리게 하는 정도. 밝은 크림 화면에서는 흐린 부분이 배경색에 묻혀 장면이 바래 보이므로 낮춘다.
+export const Scene3DVisual: React.FC<{
+  visual: Visual;
+  sceneFrames?: number;
+  chunks?: Chunk[];
+  area?: { top: number; bottom: number };
+  accent?: string;
+  accentText?: string;
+  dimAmount?: number;
+}> = ({ visual, sceneFrames = 120, chunks = [], area, accent = colors.accent, accentText = "#FFFFFF", dimAmount = DIM }) => {
   const frame = useCurrentFrame();
   const scene = visual.scene as Scene3D | undefined;
   const valid = Boolean(scene && scene in SCENES_3D);
@@ -142,8 +148,12 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
   const story = beats.length > 0 && anchors !== null;
 
   const label = story ? "" : (visual.label || "").trim();
-  const top = layout.visualTop + (label ? LABEL_HEIGHT : 0);
-  const bottom = layout.captionTop - BOTTOM_GAP;
+  const areaTop = area?.top ?? layout.visualTop;
+  const top = areaTop + (label ? LABEL_HEIGHT : 0);
+  const bottom = area?.bottom ?? layout.captionTop - BOTTOM_GAP;
+  // 확대한 장면을 잘라 보여 줄 영역 (예전 화면에서는 CLIP_TOP·CLIP_BOTTOM과 같다)
+  const clipTop = area ? top - 30 : CLIP_TOP;
+  const clipBottom = area ? bottom + 10 : CLIP_BOTTOM;
   const s0 = (bottom - top) / CONTENT_HEIGHT;
   const centerY = (top + bottom) / 2;
 
@@ -209,7 +219,7 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
     easing: Easing.bezier(0.33, 1, 0.68, 1),
   }) : 0;
   // 흐리기는 첫 beat 에 들어가며 켜지고 끝까지 유지 (구멍만 대상에서 대상으로 옮겨 간다)
-  const dim = story ? DIM * interpolate(frame, [starts[0], starts[0] + MOVE], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : 0;
+  const dim = story ? dimAmount * interpolate(frame, [starts[0], starts[0] + MOVE], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }) : 0;
   const hole = focusScreen ?? { x: 540, y: centerY };
   const holeR = focus ? ringR * 1.15 : 400;
 
@@ -236,7 +246,7 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
         <div style={{ ...sceneStyle, left: 540 - CONTENT_CENTER_X * s0, top: centerY - CONTENT_CENTER_Y * s0, transform: `scale(${s0 * interpolate(enter, [0, 1], [0.92, 1])})` }}>
           {video}
         </div>
-        {label ? <TopLabel text={label} progress={labelIn} /> : null}
+        {label ? <TopLabel text={label} progress={labelIn} top={areaTop} accent={accent} /> : null}
       </AbsoluteFill>
     );
   }
@@ -249,18 +259,18 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
   const gap = 26;
   let pillTop = hole.y - ringR - gap - pillH;
   let above = true;
-  if (pillTop < CLIP_TOP + 8) {
+  if (pillTop < clipTop + 8) {
     pillTop = hole.y + ringR + gap;
     above = false;
   }
   // 어떤 경우에도 자막 영역(captionTop)과 상단 제목을 가리지 않게
-  pillTop = Math.min(Math.max(pillTop, CLIP_TOP + 8), CLIP_BOTTOM - pillH - 8);
+  pillTop = Math.min(Math.max(pillTop, clipTop + 8), clipBottom - pillH - 8);
   const pillCenter = Math.min(Math.max(hole.x, pillW / 2 + 48), 1080 - pillW / 2 - 48);
   const lineFrom = { x: hole.x, y: above ? hole.y - ringR : hole.y + ringR };
   const lineTo = { x: pillCenter, y: above ? pillTop + pillH : pillTop };
 
   const fadeMask = `linear-gradient(to bottom, transparent 0px, black ${CLIP_FADE}px, black calc(100% - ${CLIP_FADE}px), transparent 100%)`;
-  const spot = `radial-gradient(circle at ${hole.x}px ${hole.y - CLIP_TOP}px, black ${holeR}px, rgba(0,0,0,${1 - dim}) ${holeR * 1.45}px)`;
+  const spot = `radial-gradient(circle at ${hole.x}px ${hole.y - clipTop}px, black ${holeR}px, rgba(0,0,0,${1 - dim}) ${holeR * 1.45}px)`;
 
   return (
     <AbsoluteFill>
@@ -268,16 +278,16 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
         style={{
           position: "absolute",
           left: 0,
-          top: CLIP_TOP,
+          top: clipTop,
           width: 1080,
-          height: CLIP_BOTTOM - CLIP_TOP,
+          height: clipBottom - clipTop,
           overflow: "hidden",
           maskImage: fadeMask,
           WebkitMaskImage: fadeMask,
         }}
       >
         <div style={{ position: "absolute", inset: 0, maskImage: spot, WebkitMaskImage: spot }}>
-          <div style={{ ...sceneStyle, top: sceneStyle.top - CLIP_TOP }}>{video}</div>
+          <div style={{ ...sceneStyle, top: sceneStyle.top - clipTop }}>{video}</div>
         </div>
       </div>
 
@@ -289,7 +299,7 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
               cy={hole.y}
               r={ringR}
               fill="none"
-              stroke={colors.accent}
+              stroke={accent}
               strokeWidth={6}
               strokeLinecap="round"
               pathLength={1}
@@ -303,7 +313,7 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
               y1={lineFrom.y}
               x2={lineFrom.x + (lineTo.x - lineFrom.x) * tagIn}
               y2={lineFrom.y + (lineTo.y - lineFrom.y) * tagIn}
-              stroke={colors.accent}
+              stroke={accent}
               strokeWidth={4}
               strokeLinecap="round"
               opacity={tagIn}
@@ -321,8 +331,8 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
               alignItems: "center",
               padding: "0 32px",
               borderRadius: 999,
-              backgroundColor: colors.accent,
-              color: "#FFFFFF",
+              backgroundColor: accent,
+              color: accentText,
               fontFamily,
               fontWeight: 900,
               fontSize,
@@ -338,11 +348,11 @@ export const Scene3DVisual: React.FC<{ visual: Visual; sceneFrames?: number; chu
   );
 };
 
-const TopLabel: React.FC<{ text: string; progress: number }> = ({ text, progress }) => (
+const TopLabel: React.FC<{ text: string; progress: number; top: number; accent: string }> = ({ text, progress, top, accent }) => (
   <div
     style={{
       position: "absolute",
-      top: layout.visualTop,
+      top,
       left: 0,
       width: 1080,
       display: "flex",
@@ -360,7 +370,7 @@ const TopLabel: React.FC<{ text: string; progress: number }> = ({ text, progress
         padding: "14px 30px",
         borderRadius: 999,
         color: colors.text,
-        border: `3px solid ${colors.accent}`,
+        border: `3px solid ${accent}`,
         wordBreak: "keep-all",
       }}
     >
