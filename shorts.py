@@ -488,7 +488,7 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   예: 대사 "나쁜 꼬마가 / 문틈으로 / 금고를 엿봤대요" → [{{red, "해커"}}, {{door, "뚫린 틈"}}, {{safe, "개인 정보"}}].
   꼬마(white·yellow·red·blue 등)는 사람·역할(사용자, 개발자, 해커, AI 일꾼)을 맡기기 좋다. 이름표는 아이도 아는 쉬운 말로.
   label은 그 컷 대사나 기사에 나오는 말만 쓰고, 대사에 나오는 순서대로 놓는다. 기사에 없는 비유·역할을 지어내지 않는다.
-  배역 목록이 없는 장면은 쓰지 않는다. 이름표를 읽을 시간이 필요하니 대사가 긴 컷(말하는 데 2.5초 이상, 15자 이상)에만 쓴다.
+  배역 목록이 없는 장면은 쓰지 않는다. 이름표를 읽을 시간이 필요하니 scene3d 컷 대사는 20자 이상(말하는 데 3초 이상)으로 쓴다.
   label(장면 위 문구)은 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에. 쉬운 문장일 때만 쓴다. label에 출처(예: "GeekNews 정리").
   원문에 없는 문장은 절대 만들지 않는다.
@@ -1884,7 +1884,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
 
         visual = cut["visual"]
 
-        # 3D 장면 이야기는 이름표를 읽을 시간이 필요하다. 2.5초보다 짧은 컷이면 자막만 둔다.
+        # 3D 장면 이야기는 이름표를 읽을 시간이 필요하다. 1.6초보다 짧은 컷이면 자막만 둔다.
         if visual.get("type") == "scene3d" and end - start < SCENE3D_MIN_FRAMES:
             visual = cut["visual"] = {"type": "none"}
 
@@ -1950,7 +1950,7 @@ def scene3d_ready(scene):
     return os.path.exists(os.path.join(root, VIDEO_PROJECT_DIR, "public", "assets3d", SCENE3D_FILES[scene]))
 
 
-SCENE3D_MIN_FRAMES = 75  # 3D 장면 컷 최소 길이 (2.5초): beat 이름표를 읽을 시간
+SCENE3D_MIN_FRAMES = 48  # 3D 장면 컷 최소 길이 (1.6초). 짧은 컷은 화면 쪽(fitBeats)이 들어가는 만큼만 이름표를 보여 준다
 SCENE3D_MAX_BEATS = 4
 SCENE3D_BEAT_LABEL_MAX = 12
 SCENE3D_ROLE_SCENES = 3  # 대본 요청에 배역 목록을 넣을 장면 수 (기사 주제와 가장 맞는 순)
