@@ -1148,6 +1148,24 @@ def judge_candidates(candidates, article, source_text):
 class FactCheckFailed(Exception):
     """팩트체크를 끝내지 못한 대본. 사실 확인이 안 된 영상은 올리지 않는다."""
 
+    reason = "factcheck"
+    label = "팩트체크 실패"
+
+
+class FactCheckRejected(Exception):
+    """팩트체커가 대본 대부분을 원문에 없다고 빼 버림. 다른 모델에게 다시 맡기지 않는다 (덜 엄격한 쪽이 통과시키는 것을 막는다)."""
+
+
+class SourceTooShort(FactCheckFailed):
+    """원문 본문을 거의 못 가져옴 (자바스크립트로 그리는 페이지 등). 사실을 대조할 수 없으니 이 기사로는 만들지 않는다."""
+
+    reason = "source"
+    label = "원문을 가져오지 못함"
+
+
+# 원문 본문이 이보다 짧으면 메뉴·꼬리말만 받은 것으로 본다 (11/17 D2 글: 메뉴만 136자)
+SOURCE_MIN_CHARS = int(os.environ.get("SHORTS_SOURCE_MIN_CHARS", "800"))
+
 
 class ScriptQualityFailed(Exception):
     """예비(Gemini) 대본이 화면 품질 기준에 못 미침. 올리지 않고, 기록도 남기지 않아 다음 실행에서 Claude로 다시 시도한다."""
@@ -1209,7 +1227,13 @@ def factcheck_script(script, article, source_text, writer="claude"):
     ask = gemini_json if writer == "gemini" else claude_json
     result = ask(FACTCHECK_SYSTEM_PROMPT, prompt, factcheck_schema())
 
-    return validate_script(result["script"]), result.get("changes") or []
+    try:
+        checked = validate_script(result["script"])
+    except ValueError as error:
+        # 팩트체커가 원문에 없는 내용을 빼다 보니 대본이 거의 남지 않았다 = 대본 대부분이 원문으로 확인되지 않는다
+        raise FactCheckRejected(f"{writer} 팩트체크가 대본 대부분을 뺐습니다 ({error})") from error
+
+    return checked, result.get("changes") or []
 
 
 def verify_script(script, article, source_text, keep=lambda name, data: None):
@@ -1219,6 +1243,10 @@ def verify_script(script, article, source_text, keep=lambda name, data: None):
     for writer in ("claude", "gemini"):
         try:
             checked, changes = factcheck_script(script, article, source_text, writer)
+        except FactCheckRejected as error:
+            errors.append(str(error))
+            print(f"사실 검증에서 대본 대부분이 빠짐 ({writer}): {error}")
+            break
         except Exception as error:
             errors.append(f"{writer}: {error}")
             print(f"사실 검증 실패 ({writer}): {error}")
@@ -1248,6 +1276,9 @@ def generate_script(article, work_dir=None):
 
     source_text = fetch_source_text(article)
     print(f"원문 취재: {len(source_text)}자")
+
+    if len(source_text) < SOURCE_MIN_CHARS:
+        raise SourceTooShort(f"원문 본문이 {len(source_text)}자뿐입니다 (기준 {SOURCE_MIN_CHARS}자). 대조할 원문 없이 만들지 않습니다.")
 
     if research_dir:
         os.makedirs(research_dir, exist_ok=True)
@@ -2763,16 +2794,16 @@ def main():
             )
             return
         except FactCheckFailed as error:
-            print(f"팩트체크 실패로 이 기사는 업로드하지 않습니다: {error}")
+            print(f"이 기사는 업로드하지 않습니다 ({error.label}): {error}")
             notify_slack(
-                f"[{CHANNEL_NAME}] Shorts 건너뜀 (팩트체크 실패)\n*{article['title']}*\n{str(error)[:500]}\n원문: {article['link']}"
+                f"[{CHANNEL_NAME}] Shorts 건너뜀 ({error.label})\n*{article['title']}*\n{str(error)[:500]}\n원문: {article['link']}"
             )
             used_links.add(article["link"])
 
             # 업로드 테스트가 아닐 때만 기록: 다음 실행에서 같은 기사를 또 고르지 않게 한다.
             if not args.no_upload and not args.link:
                 history.append({"date": article["issue_date"], "link": article["link"], "title": article["title"],
-                                "skipped": "factcheck"})
+                                "skipped": error.reason})
                 save_json(SHORTS_HISTORY_FILE, history)
     else:
         print("팩트체크를 통과한 대본이 없어 이번 실행은 업로드하지 않습니다.")
