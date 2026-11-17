@@ -551,5 +551,13 @@
     "video_id": "IUN77W56XtE",
     "voice": "Leda",
     "publish_at": "2026-11-18T07:00:00+09:00"
+  },
+  {
+    "date": "2026-11-17",
+    "link": "https://news.hada.io/topic?id=37317",
+    "title": "AVA 데이터 분석 프레임워크, 말로 물으면 SQL과 차트까지",
+    "video_id": "Zux1YJpvD18",
+    "voice": "Leda",
+    "publish_at": "2026-11-18T08:00:00+09:00"
   }
 ]
