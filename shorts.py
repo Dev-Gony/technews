@@ -2788,7 +2788,7 @@ def main():
             )
             return
         except FactCheckFailed as error:
-            print(f"{error.label}로 이 기사는 업로드하지 않습니다: {error}")
+            print(f"이 기사는 업로드하지 않습니다 ({error.label}): {error}")
             notify_slack(
                 f"[{CHANNEL_NAME}] Shorts 건너뜀 ({error.label})\n*{article['title']}*\n{str(error)[:500]}\n원문: {article['link']}"
             )
