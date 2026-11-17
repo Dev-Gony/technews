@@ -521,5 +521,19 @@
     "video_id": "edBiZoENOzY",
     "voice": "Leda",
     "publish_at": "2026-11-17T13:00:00+09:00"
+  },
+  {
+    "date": "2026-11-17",
+    "link": "https://d2.naver.com/helloworld/9994827",
+    "title": "Image AI 서빙 최적화: CPU와 GPU의 빈 시간을 줄여 H100 67장을 절감하기까지",
+    "skipped": "factcheck"
+  },
+  {
+    "date": "2026-11-17",
+    "link": "https://d2.naver.com/helloworld/5976687",
+    "title": "네이버 D2 자율 그래프 주도 개발, 백엔드 공수 86% 절감",
+    "video_id": "y_5UqhAN960",
+    "voice": "Leda",
+    "publish_at": "2026-11-17T17:00:00+09:00"
   }
 ]
