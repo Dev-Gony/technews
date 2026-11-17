@@ -6,6 +6,9 @@ from unittest import mock
 
 import shorts
 
+# 원문 길이 기준(SOURCE_MIN_CHARS)을 넘는 가짜 원문
+LONG_SOURCE = "원문 본문 " * 300
+
 
 def make_article(title, score, link, topics=None, rank=1):
     return {
@@ -176,6 +179,28 @@ class ShortsTest(unittest.TestCase):
         # 첫 컷(hook)만 있으면 그림 없이 제목만
         self.assertIsNone(shorts.pick_thumbnail_visual([{"visual": {"type": "hook"}}, {"visual": {"type": "none"}}]))
 
+    def test_short_source_and_gutted_factcheck_are_not_uploaded(self):
+        cuts = [{"line": f"대사 {i}", "emphasis": [], "heading": f"숫자 {i}", "visual": {"type": "number", "value": f"{i}개"}} for i in range(8)]
+        script = {"title": "t", "question": "", "cover": "c", "summary": "", "tips": [], "caution": "", "hashtags": [], "cuts": cuts}
+
+        # 원문을 메뉴만 받아 왔으면(11/17 D2 글) 대본을 만들지 않고 건너뛴다
+        with mock.patch.object(shorts, "fetch_source_text", return_value="naver D2\nHello world\nD2 News"), \
+                mock.patch.object(shorts, "claude_json") as claude:
+            with self.assertRaises(shorts.SourceTooShort) as caught:
+                shorts.generate_script({"title": "t", "link": "l"})
+        self.assertEqual(caught.exception.reason, "source")
+        claude.assert_not_called()
+
+        # Claude 팩트체크가 대본 대부분을 빼면(원문으로 확인 안 됨) Gemini에게 다시 맡기지 않는다
+        gutted = {"script": {**script, "cuts": cuts[:1]}, "changes": []}
+        with mock.patch.object(shorts, "claude_json", return_value=gutted), \
+                mock.patch.object(shorts, "gemini_json") as gemini:
+            with self.assertRaises(shorts.FactCheckFailed) as caught:
+                shorts.verify_script(script, {"title": "t"}, LONG_SOURCE)
+        self.assertIn("대본 대부분을 뺐습니다", str(caught.exception))
+        self.assertEqual(caught.exception.reason, "factcheck")
+        gemini.assert_not_called()
+
     def test_generate_script_falls_back_to_gemini_when_claude_is_limited(self):
         from unittest import mock
 
@@ -194,7 +219,7 @@ class ShortsTest(unittest.TestCase):
                 return {"script": {**gemini_script, "title": "제미나이 검증"}, "changes": []}
             return gemini_script
 
-        with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
+        with mock.patch.object(shorts, "fetch_source_text", return_value=LONG_SOURCE), \
                 mock.patch.object(shorts, "claude_json", side_effect=limited), \
                 mock.patch.object(shorts, "gemini_json", side_effect=fake_gemini) as gemini:
             script = shorts.generate_script({"title": "t", "link": "l"})
@@ -212,7 +237,7 @@ class ShortsTest(unittest.TestCase):
                 return {"script": weak_script, "changes": []}
             return weak_script
 
-        with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
+        with mock.patch.object(shorts, "fetch_source_text", return_value=LONG_SOURCE), \
                 mock.patch.object(shorts, "claude_json", side_effect=limited), \
                 mock.patch.object(shorts, "gemini_json", side_effect=fake_weak):
             with self.assertRaises(shorts.ScriptQualityFailed):
@@ -292,7 +317,7 @@ class ShortsTest(unittest.TestCase):
         def bad_gemini(system, prompt, schema):
             return {"script": {**fake_script("짧음"), "cuts": fake_script("짧음")["cuts"][:2]}, "changes": []}
 
-        with mock.patch.object(shorts, "fetch_source_text", return_value="원문"), \
+        with mock.patch.object(shorts, "fetch_source_text", return_value=LONG_SOURCE), \
                 mock.patch.object(shorts, "claude_json", side_effect=fake_claude), \
                 mock.patch.object(shorts, "gemini_json", side_effect=bad_gemini):
             with self.assertRaises(shorts.FactCheckFailed):
