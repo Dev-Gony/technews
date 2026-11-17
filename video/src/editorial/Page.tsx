@@ -1,6 +1,7 @@
 import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import type { Chunk, Cut, Visual } from "../schema";
 import { fontFamily, monoFamily, serifFamily } from "../theme";
+import { Scene3DVisual } from "../Scene3DVisual";
 import { IdeCodeVisual } from "./Editorial";
 
 // news(크림 잡지) / explain(남색 다크) 스타일의 한 컷 = 한 페이지.
@@ -524,6 +525,8 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
   const pos = POS[style];
   const hook = index === 0;
   const card = hook ? null : cardFor(cut.visual, p, frame, cut.durationInFrames);
+  // 3D 꼬마 캐릭터 장면: 카드 대신 헤드라인 아래부터 자막 위까지 크게
+  const scene3d = !hook && cut.visual.type === "scene3d" && Boolean(cut.visual.scene);
   const heading = (cut.heading ?? "").split("\n").slice(0, 2).filter(Boolean);
   const section = cut.section ?? "";
   const number = String(index).padStart(2, "0");
@@ -531,11 +534,17 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
   const cardShow = rise(frame, 4, 12);
   // 카드 위로 천천히 다가가는 카메라 (컷 내내)
   const push = interpolate(frame, [0, Math.max(cut.durationInFrames, 1)], [1, 1.035], { extrapolateRight: "clamp" });
-  const headingTop = card ? pos.heading : pos.card + 60;
-  const headingSize = card
-    ? fitSize(heading, style === "news" ? WIDTH : WIDTH, style === "news" ? 96 : 88, 60)
-    : fitSize(heading, WIDTH, 140, 80);
+  const headingTop = card || scene3d ? pos.heading : pos.card + 60;
+  const headingSize = scene3d
+    ? fitSize(heading, WIDTH, style === "news" ? 84 : 76, 56)
+    : card
+      ? fitSize(heading, style === "news" ? WIDTH : WIDTH, style === "news" ? 96 : 88, 60)
+      : fitSize(heading, WIDTH, 140, 80);
   const captionTop = pos.caption;
+  const sceneArea = {
+    top: heading.length ? Math.round(headingTop + heading.length * headingSize * 1.18 + 40) : pos.heading + 20,
+    bottom: captionTop - 30,
+  };
 
   return (
     <AbsoluteFill>
@@ -609,6 +618,16 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
         >
           {card}
         </div>
+      ) : null}
+      {scene3d ? (
+        <Scene3DVisual
+          visual={cut.visual}
+          sceneFrames={cut.durationInFrames}
+          chunks={cut.chunks}
+          area={sceneArea}
+          accent={p.accent}
+          accentText={style === "news" ? "#FFFFFF" : "#15130F"}
+        />
       ) : null}
       <PageCaption chunks={cut.chunks} style={style} top={hook ? 1180 : captionTop} />
     </AbsoluteFill>
