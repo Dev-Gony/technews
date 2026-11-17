@@ -2100,8 +2100,28 @@ def pick_sfx(cuts, starts):
     return sfx
 
 
-# 렌더링 시도 횟수 (3D 루프 프레임 추출이 가끔 일시적으로 멈춘다)
-RENDER_ATTEMPTS = 2
+def without_scene3d(props):
+    """3D 장면 컷을 자막·헤드라인만 있는 컷으로 바꾼 props (3D 루프 때문에 렌더가 계속 멈출 때 마지막 수단)."""
+    props = json.loads(json.dumps(props))
+
+    for cut in props.get("cuts", []):
+        if cut.get("visual", {}).get("type") == "scene3d":
+            cut["visual"] = {"type": "none"}
+
+    return props
+
+
+def render_attempts(props):
+    """렌더링 시도 순서: (설명, 추가 옵션, props).
+
+    3D 루프(투명 webm) 프레임 추출이 가끔 멈춘다. 장면 컷이 많을수록 잦다.
+    1) 그대로 2) 동시 작업 1개로 천천히 3) 3D 장면을 빼고 (업로드가 멈추지 않게)."""
+    attempts = [("기본", [], props), ("동시 작업 1개", ["--concurrency=1"], props)]
+
+    if any(cut.get("visual", {}).get("type") == "scene3d" for cut in props.get("cuts", [])):
+        attempts.append(("3D 장면 빼고", [], without_scene3d(props)))
+
+    return attempts
 
 
 def render_with_remotion(props, work_dir, output_path):
@@ -2111,22 +2131,22 @@ def render_with_remotion(props, work_dir, output_path):
         raise RuntimeError("Node.js(npx)가 없습니다. video/ 폴더에서 npm ci를 먼저 실행하세요.")
 
     props_path = os.path.abspath(os.path.join(work_dir, "props.json"))
-    save_json(props_path, props)
+    error = ""
 
-    command = [
-        npx, "remotion", "render", "src/index.ts", "Short",
-        os.path.abspath(output_path),
-        f"--props={props_path}",
-        # YouTube가 다시 압축해도 글자·3D 경계가 뭉개지지 않게 원본 화질을 높게 (기본 crf 18)
-        f"--crf={RENDER_CRF}",
-        "--x264-preset=slow",
-        # 3D 루프(OffthreadVideo) 프레임 추출이 가끔 기본 30초 delayRender 제한에 걸린다. 넉넉히 준다.
-        "--timeout=120000",
-        "--log=error",
-    ]
-
-    # 그래도 가끔 멈추는 일이 있어 한 번 더 시도한다 (다시 하면 통과하는 일시적 문제).
-    for attempt in range(1, RENDER_ATTEMPTS + 1):
+    for attempt, (name, extra, attempt_props) in enumerate(render_attempts(props), start=1):
+        save_json(props_path, attempt_props)
+        command = [
+            npx, "remotion", "render", "src/index.ts", "Short",
+            os.path.abspath(output_path),
+            f"--props={props_path}",
+            # YouTube가 다시 압축해도 글자·3D 경계가 뭉개지지 않게 원본 화질을 높게 (기본 crf 18)
+            f"--crf={RENDER_CRF}",
+            "--x264-preset=slow",
+            # 3D 루프(OffthreadVideo) 프레임 추출이 가끔 기본 30초 delayRender 제한에 걸린다. 넉넉히 준다.
+            "--timeout=120000",
+            "--log=error",
+            *extra,
+        ]
         result = subprocess.run(
             command,
             cwd=VIDEO_PROJECT_DIR,
@@ -2138,10 +2158,12 @@ def render_with_remotion(props, work_dir, output_path):
         )
 
         if result.returncode == 0:
+            if attempt > 1:
+                print(f"Remotion 렌더링: {attempt}번째 시도({name})로 성공")
             return output_path
 
         error = (result.stderr or result.stdout).strip()[-2000:]
-        print(f"Remotion 렌더링 {attempt}번째 실패: {error[-300:]}")
+        print(f"Remotion 렌더링 {attempt}번째 실패 ({name}): {error[-300:]}")
 
     raise RuntimeError(f"Remotion 렌더링 실패: {error}")
 

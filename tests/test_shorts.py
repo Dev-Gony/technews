@@ -777,6 +777,17 @@ class ShortsTest(unittest.TestCase):
             self.assertIn(f'"{scene}"', schema)
             self.assertIn(f'{scene}: "assets3d/{filename}"', background)
 
+    def test_render_falls_back_to_slower_then_without_scene3d(self):
+        props = {"cuts": [{"visual": {"type": "none"}}, {"visual": {"type": "scene3d", "scene": "desk3d", "beats": []}}]}
+        attempts = shorts.render_attempts(props)
+        self.assertEqual([extra for _, extra, _ in attempts], [[], ["--concurrency=1"], []])
+        self.assertEqual(attempts[2][2]["cuts"][1]["visual"], {"type": "none"})
+        # 원래 props는 그대로 (앞 시도들은 3D 장면을 쓴다)
+        self.assertEqual(props["cuts"][1]["visual"]["type"], "scene3d")
+
+        # 3D 장면이 없으면 마지막 시도는 없다
+        self.assertEqual(len(shorts.render_attempts({"cuts": [{"visual": {"type": "none"}}]})), 2)
+
     def test_scene3d_goes_to_a_cut_not_the_backdrop(self):
         def cut(kind="none", **extra):
             return {"line": "대사", "visual": {"type": kind, **extra}}
