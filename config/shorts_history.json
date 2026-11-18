@@ -589,5 +589,19 @@
     "video_id": "QzoTWm7aHNI",
     "voice": "Leda",
     "publish_at": "2026-11-18T17:00:00+09:00"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://medium.com/daangn/github-actions-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%EC%9D%98-%EB%B9%88%EC%B9%B8-exporter%EB%A1%9C-arc-runner-%EA%B4%80%EC%B8%A1%ED%95%98%EA%B8%B0-cbe1a46a9e71",
+    "title": "GitHub Actions 모니터링의 빈칸: Exporter로 ARC Runner 관측하기",
+    "skipped": "source"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://news.hada.io/topic?id=37368",
+    "title": "MAI Code 2·Flash 공개, GPT-6.1 Sol 성능 98%를 비용 40%로",
+    "video_id": "AUCIMF51UJE",
+    "voice": "Leda",
+    "publish_at": "2026-11-18T18:00:00+09:00"
   }
 ]
