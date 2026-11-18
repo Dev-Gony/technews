@@ -788,6 +788,43 @@ class ShortsTest(unittest.TestCase):
         # 3D 장면이 없으면 마지막 시도는 없다
         self.assertEqual(len(shorts.render_attempts({"cuts": [{"visual": {"type": "none"}}]})), 2)
 
+    def test_source_image_candidates_skip_logos_and_badges(self):
+        html = """<html><head><meta property="og:image" content="/static/hero.png"></head><body>
+        <header><img src="/logo.png"></header>
+        <article>
+          <img src="https://img.shields.io/badge/x.svg" alt="badge">
+          <img src="/shot.jpg" alt="편집기 화면">
+          <img src="/tiny.png" width="32" height="32">
+          <img src="/anim.gif">
+          <img src="/shot.jpg">
+        </article></body></html>"""
+        found = shorts.image_candidates(html, "https://example.com/post")
+        self.assertEqual([item["url"] for item in found], ["https://example.com/static/hero.png", "https://example.com/shot.jpg"])
+        self.assertEqual(found[1]["alt"], "편집기 화면")
+
+    def test_source_images_only_known_ones_and_one_added_when_unused(self):
+        def cut(kind="none", **extra):
+            return {"line": "대사", "visual": {"type": kind, **extra}}
+
+        images = [{"id": "img1", "file": "a.png", "url": "https://example.com/a.png", "alt": "", "width": 1080, "height": 600}]
+
+        # 대본이 안 썼으면 훅 다음 자막만 있는 컷에 대표 이미지
+        script = {"cuts": [cut("hook"), cut("number", value="3"), cut(), cut(), cut(), cut()]}
+        shorts.attach_source_images(script, images)
+        self.assertEqual(script["cuts"][2]["visual"], {"type": "image", "image": "img1", "label": ""})
+        self.assertEqual([image["id"] for image in script["images"]], ["img1"])
+
+        # 없는 이미지 이름은 지우고, 이미지가 없으면 아무것도 넣지 않는다
+        script = {"cuts": [cut("hook"), cut("image", image="img9"), cut(), cut(), cut()]}
+        shorts.attach_source_images(script, [])
+        self.assertEqual(script["cuts"][1]["visual"], {"type": "none"})
+        self.assertEqual(script["images"], [])
+
+        # 대본이 쓴 것은 그대로, 3번째부터는 지운다
+        script = {"cuts": [cut("hook")] + [cut("image", image="img1") for _ in range(3)] + [cut(), cut()]}
+        shorts.attach_source_images(script, images)
+        self.assertEqual([c["visual"]["type"] for c in script["cuts"][1:4]], ["image", "image", "none"])
+
     def test_scene3d_goes_to_a_cut_not_the_backdrop(self):
         def cut(kind="none", **extra):
             return {"line": "대사", "visual": {"type": kind, **extra}}

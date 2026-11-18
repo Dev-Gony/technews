@@ -47,7 +47,7 @@ export const visualSchema = z.object({
   // diagram: 사물 구조도(흐르는 화살표 + 카메라 줌인) / beforeafter: 전후 비교 / scale: 아이콘 격자로 규모 / quote: 원문 인용 카드
   type: z.enum([
     "hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none",
-    "diagram", "beforeafter", "scale", "quote", "scene3d",
+    "diagram", "beforeafter", "scale", "quote", "scene3d", "image",
   ]),
   value: z.string().optional(),
   label: z.string().optional(),
@@ -66,6 +66,9 @@ export const visualSchema = z.object({
   count: z.number().int().optional(),
   icon: z.string().optional(),
   quote: z.string().optional(),
+  // image: 원문 이미지 (image = 대본 속 이름 img1…, src = public 안 경로, value = 출처 사이트)
+  image: z.string().optional(),
+  src: z.string().optional(),
   // scene3d: 미리 렌더링한 3D 장면 (Background.tsx SCENES_3D)
   scene: z.enum(SCENE3D_NAMES).optional(),
   // scene3d 배역: 장면 속 사물·꼬마(public/assets3d/*_anchors.json 의 이름)에 대사 속 개념을 붙여 차례로 보여 준다
