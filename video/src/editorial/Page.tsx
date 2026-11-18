@@ -1,4 +1,4 @@
-import { AbsoluteFill, Easing, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import type { Chunk, Cut, Visual } from "../schema";
 import { fontFamily, monoFamily, serifFamily } from "../theme";
 import { Scene3DVisual } from "../Scene3DVisual";
@@ -445,6 +445,27 @@ const QuestionCard: React.FC<{ visual: Visual; p: Palette; frame: number }> = ({
   </CardBox>
 );
 
+// 원문 이미지: 원문에 실린 실제 사진·화면을 카드에 꽉 차게(잘리지 않게) 띄우고 천천히 다가간다. 아래에 출처.
+const ImageCard: React.FC<{ visual: Visual; p: Palette; frame: number; sceneFrames: number }> = ({ visual, p, frame, sceneFrames }) => {
+  const zoom = interpolate(frame, [0, Math.max(sceneFrames, 1)], [1, 1.06], { extrapolateRight: "clamp" });
+  const source = [visual.label, visual.value].filter(Boolean).join(" · ");
+
+  return (
+    <CardBox p={p} padding={18}>
+      <div style={{ position: "relative", flex: 1, borderRadius: 18, overflow: "hidden", background: p.sub }}>
+        <Img
+          src={staticFile(visual.src ?? "")}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", scale: String(zoom), opacity: rise(frame, 2, 10) }}
+        />
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 14, paddingTop: 14, paddingLeft: 8, fontFamily, fontWeight: 800, fontSize: 30, color: p.subText }}>
+        <span style={{ color: p.accent, flexShrink: 0, whiteSpace: "nowrap" }}>원문 이미지</span>
+        {source ? <span style={{ minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{source}</span> : null}
+      </div>
+    </CardBox>
+  );
+};
+
 // 카드 종류 고르기. 그릴 게 없으면 null (헤드라인만 크게)
 const cardFor = (visual: Visual, p: Palette, frame: number, sceneFrames: number) => {
   switch (visual.type) {
@@ -471,6 +492,8 @@ const cardFor = (visual: Visual, p: Palette, frame: number, sceneFrames: number)
       return <QuestionCard visual={visual} p={p} frame={frame} />;
     case "code":
       return visual.code ? <IdeCodeVisual visual={visual} sceneFrames={sceneFrames} bare /> : null;
+    case "image":
+      return visual.src ? <ImageCard visual={visual} p={p} frame={frame} sceneFrames={sceneFrames} /> : null;
     default:
       return null;
   }

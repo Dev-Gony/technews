@@ -7,6 +7,7 @@ import os
 import re
 import json
 import math
+import hashlib
 import shutil
 import asyncio
 import argparse
@@ -492,6 +493,10 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
   label(장면 위 문구)은 비워둔다. 주제가 어느 장면에도 맞지 않으면 쓰지 않는다.
 - quote: 원문 인용 카드. 원문의 핵심 문장 하나를 그대로(40자 이내) quote에. 쉬운 문장일 때만 쓴다. label에 출처(예: "GeekNews 정리").
   원문에 없는 문장은 절대 만들지 않는다.
+- image: 원문에 실린 실제 사진·화면을 크게 보여 준다. 대본 요청에 "원문 이미지" 목록이 있을 때만 쓰고, image에 그 이름(img1 등)을 쓴다.
+  무언가를 만들거나 공개한 기사(앱·도구·게임·서비스·모델의 결과물)는 시청자가 "그래서 뭘 만들었는데?"를 바로 보게
+  2컷(무슨 일)에 꼭 쓴다. 영상당 1~2번. 그림을 직접 볼 수 없으니 목록의 설명 말고는 그림 속 내용을 대사·label로 묘사하지 않는다
+  ("실제 화면은 / 이렇게 생겼대요"처럼). label은 원문에 나온 이름(12자 이내)이나 빈 문자열.
 visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 
 cover: 이 영상의 훅이자 썸네일. 1컷 동안 화면 가운데에 크게 나왔다가 위로 줄어들어 영상 내내 고정된다.
@@ -512,7 +517,7 @@ ICONS = [
 
 VISUAL_TYPES = [
     "hook", "metaphor", "diagram", "beforeafter", "scale", "quote", "scene3d",
-    "number", "compare", "flow", "keywords", "code", "question", "none",
+    "number", "compare", "flow", "keywords", "code", "question", "none", "image",
 ]
 
 # 전후 비교 한쪽 (video/src/schema.ts의 sideSchema)
@@ -581,6 +586,8 @@ VISUAL_SCHEMA = {
         "count": {"type": "integer"},
         "icon": {"type": "string", "enum": ICONS},
         "quote": {"type": "string"},
+        # image: 원문 이미지 이름 (대본 요청의 "원문 이미지" 목록에 있는 img1, img2 …)
+        "image": {"type": "string"},
         "scene": {"type": "string", "enum": list(SCENE3D_FILES)},
         "beats": {
             "type": "array",
@@ -665,6 +672,25 @@ def build_script_prompt(article, source_text="", angle=""):
 
     if roles:
         lines += ["", roles]
+
+    images = source_images_prompt(article.get("source_images") or [])
+
+    if images:
+        lines += ["", images]
+
+    return "\n".join(lines)
+
+
+def source_images_prompt(images):
+    """대본 요청에 붙일 원문 이미지 목록. 모델은 그림을 볼 수 없으니 원문의 이미지 설명(alt)만 알려 준다."""
+    if not images:
+        return ""
+
+    lines = ["원문 이미지 (원문에 실린 실제 사진·화면. visual type image로 띄울 수 있다. image에는 아래 이름만 쓴다):"]
+
+    for image in images:
+        shape = "가로형" if image["width"] >= image["height"] else "세로형"
+        lines.append(f"  - {image['id']}: {image.get('alt') or '설명 없음'} ({shape})")
 
     return "\n".join(lines)
 
@@ -848,6 +874,159 @@ def fetch_source_text(article):
     return clean_text("\n\n".join(part for part in parts if part.strip()))[:SOURCE_MAX_CHARS]
 
 
+# 원문 이미지: 원문에 실린 실제 사진·화면을 받아 두었다가 image 컷으로 크게 보여 준다.
+SOURCE_IMAGES = os.environ.get("SHORTS_SOURCE_IMAGES", "1") != "0"
+SOURCE_IMAGE_COUNT = 3  # 받아 둘 최대 장수
+SOURCE_IMAGE_MAX_CUTS = 2  # 영상 하나에 image 컷 최대 수
+SOURCE_IMAGE_MAX_BYTES = 8 * 1024 * 1024
+SOURCE_IMAGE_MIN_SIZE = (480, 270)  # 이보다 작으면 화면에서 뭉개진다
+# 로고·아이콘·배지·프로필 사진·자동 생성 저장소 카드는 "결과물"이 아니다
+IMAGE_SKIP_WORDS = (
+    "logo", "icon", "avatar", "badge", "shields.io", "emoji", "sprite", "favicon", "pixel", "tracking",
+    "spinner", "gravatar", "profile", "githubassets.com", "avatars.githubusercontent.com", "news.hada.io",
+)
+
+
+def image_candidates(html, base_url, use_meta=True):
+    """웹페이지에서 쓸 만한 이미지 주소와 설명(alt): 대표 이미지(og:image) → 본문 이미지 순."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, "html.parser")
+    found = []
+
+    if use_meta:
+        for key in ("og:image", "twitter:image"):
+            meta = soup.find("meta", attrs={"property": key}) or soup.find("meta", attrs={"name": key})
+
+            if meta and meta.get("content"):
+                found.append((meta["content"], "원문 대표 이미지"))
+
+    root = soup.select_one("#topic_contents") or soup.find("article") or soup.find("main") or soup.body or soup
+
+    for img in root.find_all("img"):
+        src = img.get("src") or img.get("data-src") or ""
+        sizes = [img.get("width"), img.get("height")]
+
+        # 크기가 적혀 있고 작으면(아이콘·배지) 건너뛴다
+        if any(str(size).isdigit() and int(size) < 200 for size in sizes):
+            continue
+
+        found.append((src, (img.get("alt") or "").strip()))
+
+    result, seen = [], set()
+
+    for src, alt in found:
+        url = urllib.parse.urljoin(base_url, src.strip())
+        path = urllib.parse.urlparse(url).path.lower()
+
+        if not url.startswith(("http://", "https://")) or url in seen:
+            continue
+
+        if path.endswith((".svg", ".gif", ".ico")) or any(word in url.lower() for word in IMAGE_SKIP_WORDS):
+            continue
+
+        seen.add(url)
+        result.append({"url": url, "alt": re.sub(r"\s+", " ", alt)[:80]})
+
+    return result
+
+
+def png_size(path):
+    with open(path, "rb") as file:
+        head = file.read(24)
+
+    if head[:8] != b"\x89PNG\r\n\x1a\n":
+        return 0, 0
+
+    return int.from_bytes(head[16:20], "big"), int.from_bytes(head[20:24], "big")
+
+
+def download_image(url, path):
+    """이미지를 받아 가로 1080 이하 PNG로 바꿔 저장한다. 이미지가 아니거나 너무 크거나 작으면 None."""
+    request = urllib.request.Request(url, headers={**BROWSER_HEADERS, "Accept": "image/avif,image/webp,image/png,image/jpeg,*/*;q=0.8"})
+
+    with urllib.request.urlopen(request, timeout=20) as response:
+        kind = (response.headers.get("Content-Type") or "").lower()
+        data = response.read(SOURCE_IMAGE_MAX_BYTES + 1)
+
+    if not kind.startswith("image/") or "svg" in kind or "gif" in kind or len(data) > SOURCE_IMAGE_MAX_BYTES:
+        return None
+
+    raw = path + ".raw"
+
+    with open(raw, "wb") as file:
+        file.write(data)
+
+    try:
+        subprocess.run(
+            [ffmpeg_exe(), "-v", "error", "-y", "-i", raw, "-vf", "scale='min(1080,iw)':-2", "-frames:v", "1", path],
+            check=True, capture_output=True, timeout=60,
+        )
+    finally:
+        os.remove(raw)
+
+    width, height = png_size(path)
+
+    if width < SOURCE_IMAGE_MIN_SIZE[0] or height < SOURCE_IMAGE_MIN_SIZE[1] or not 0.4 <= width / height <= 3:
+        os.remove(path)
+        return None
+
+    return {"width": width, "height": height, "hash": hashlib.sha1(data).hexdigest()}
+
+
+def fetch_source_images(article, out_dir):
+    """원문(GeekNews면 원본 글 + 정리 글)에 실린 이미지를 최대 SOURCE_IMAGE_COUNT장 받아 둔다. 실패해도 빈 목록."""
+    link = article.get("link") or ""
+    candidates = []
+
+    try:
+        html = download_page(link)
+
+        if "news.hada.io" in link:
+            from bs4 import BeautifulSoup
+
+            # GeekNews의 대표 이미지는 사이트 로고라 본문 이미지만
+            candidates += image_candidates(html, link, use_meta=False)
+            original = BeautifulSoup(html, "html.parser").select_one(".topictitle a")
+            original_url = original.get("href") if original else ""
+
+            if original_url and not any(host in original_url for host in UNFETCHABLE_HOSTS):
+                candidates = image_candidates(download_page(original_url), original_url) + candidates
+        else:
+            candidates += image_candidates(html, link)
+    except Exception as error:
+        print(f"원문 이미지 목록을 가져오지 못했습니다: {error}")
+
+    os.makedirs(out_dir, exist_ok=True)
+    images, hashes = [], set()
+
+    for candidate in candidates[:10]:
+        if len(images) >= SOURCE_IMAGE_COUNT:
+            break
+
+        image_id = f"img{len(images) + 1}"
+        path = os.path.join(out_dir, f"{image_id}.png")
+
+        try:
+            info = download_image(candidate["url"], path)
+        except Exception as error:
+            print(f"원문 이미지를 받지 못했습니다: {candidate['url']} ({error})")
+            continue
+
+        if not info:
+            continue
+
+        if info["hash"] in hashes:
+            os.remove(path)
+            continue
+
+        hashes.add(info["hash"])
+        images.append({"id": image_id, "file": os.path.abspath(path), "url": candidate["url"], "alt": candidate["alt"],
+                       "width": info["width"], "height": info["height"]})
+
+    return images
+
+
 # ---------------------------------------------------------------------------
 # 다단계 대본: 후보 여러 개 → 심사 → 사실 검증
 # ---------------------------------------------------------------------------
@@ -948,7 +1127,8 @@ metaphor·diagram은 아이콘 없이 글자 표·단계 목록으로 보인다.
   같은 이야기가 이어지는 컷은 같은 section을 써도 된다.
 
 카드: 그래픽 없는 none 컷은 헤드라인만 크게 보인다. none은 영상 전체에서 3컷 이하.
-나머지 컷은 scene3d, number, beforeafter, compare, flow, keywords, quote, diagram, metaphor, code 중 대사에 맞는 것으로 채운다.
+나머지 컷은 scene3d, image, number, beforeafter, compare, flow, keywords, quote, diagram, metaphor, code 중 대사에 맞는 것으로 채운다.
+image(원문 이미지)는 카드 자리에 원문의 실제 사진·화면을 크게 띄운다.
 숫자 카드(number·compare·beforeafter)는 영상 전체에서 2번까지 (숫자를 늘어놓으면 어렵다).
 keywords는 1~3개를 큰 글씨 줄로 보여 준다 (각 12자 이내). 기사에 나온 기술·기능 이름을 쓰기 좋다.
 
@@ -1036,9 +1216,39 @@ def drop_unverified_code(script, source_text, keep=lambda name, data: None):
     return script
 
 
-def finish_script(script, source_text, keep=lambda name, data: None):
-    """팩트체크를 마친 대본의 마지막 손질: 원문에 없는 코드 카드 빼기 → 원문 기준 화면 스타일."""
-    return apply_source_style(drop_unverified_code(script, source_text, keep), source_text)
+def finish_script(script, source_text, keep=lambda name, data: None, images=None):
+    """팩트체크를 마친 대본의 마지막 손질: 원문에 없는 코드 카드 빼기 → 원문 이미지 붙이기 → 원문 기준 화면 스타일."""
+    script = attach_source_images(drop_unverified_code(script, source_text, keep), images or [])
+    return apply_source_style(script, source_text)
+
+
+def attach_source_images(script, images):
+    """image 컷은 실제로 받아 둔 원문 이미지만 남긴다. 대본이 하나도 안 썼으면 2컷(무슨 일) 근처에 대표 이미지를 띄운다.
+
+    "그래서 뭘 만들었는데?"를 바로 보여 주려는 것 (댓글 피드백 11/17). 원문에 실린 이미지만 쓴다."""
+    known = {image["id"]: image for image in images}
+    cuts = script["cuts"]
+    used = 0
+
+    for cut in cuts:
+        visual = cut["visual"]
+
+        if visual.get("type") != "image":
+            continue
+
+        if visual.get("image") not in known or used >= SOURCE_IMAGE_MAX_CUTS:
+            cut["visual"] = {"type": "none"}
+        else:
+            used += 1
+
+    if images and not used:
+        spots = [index for index in range(1, len(cuts) - 2) if cuts[index]["visual"].get("type") in ("none", "keywords", "question")]
+
+        if spots:
+            cuts[spots[0]]["visual"] = {"type": "image", "image": images[0]["id"], "label": ""}
+
+    script["images"] = [image for image in images if any(cut["visual"].get("image") == image["id"] for cut in cuts)]
+    return script
 
 
 def editorial_mode():
@@ -1288,6 +1498,15 @@ def generate_script(article, work_dir=None):
         with open(os.path.join(research_dir, "source.txt"), "w", encoding="utf-8") as file:
             file.write(source_text)
 
+    # 원문에 실린 실제 사진·화면 (대본이 image 컷으로 쓴다)
+    images = fetch_source_images(article, os.path.join(research_dir, "images")) if research_dir and SOURCE_IMAGES else []
+
+    if research_dir:
+        keep("images.json", images)
+        print(f"원문 이미지: {len(images)}장")
+
+    article = {**article, "source_images": images}
+
     angles = SCRIPT_ANGLES[: max(SCRIPT_CANDIDATES, 1)] if SCRIPT_WRITER == "claude" else []
 
     with ThreadPoolExecutor(max_workers=max(len(angles), 1)) as pool:
@@ -1306,7 +1525,7 @@ def generate_script(article, work_dir=None):
         script = write_candidate_with_gemini(article, source_text)
         keep("candidates.json", [script])
         keep("fallback.json", {"writer": GEMINI_SCRIPT_MODEL})
-        script = finish_script(verify_script(script, article, source_text, keep), source_text, keep)
+        script = finish_script(verify_script(script, article, source_text, keep), source_text, keep, images)
         problems = fallback_quality_problems(script)
         keep("quality.json", {"writer": GEMINI_SCRIPT_MODEL, "problems": problems})
 
@@ -1331,7 +1550,7 @@ def generate_script(article, work_dir=None):
         except Exception as error:
             print(f"심사 단계 실패, 첫 후보를 씁니다: {error}")
 
-    return finish_script(verify_script(best, article, source_text, keep), source_text, keep)
+    return finish_script(verify_script(best, article, source_text, keep), source_text, keep, images)
 
 
 # 화면·제목·설명란에서 지울 글자: 깨진 글자, 제어 문자, 보이지 않는 문자(폭 없는 공백, 방향 표시, BOM, 소프트 하이픈)
@@ -1476,6 +1695,7 @@ def validate_visual(visual):
         "flow": len(visual.get("items") or []) >= 2,
         "keywords": len(visual.get("items") or []) >= 1,
         "code": bool((visual.get("code") or "").strip()),
+        "image": bool(re.fullmatch(r"img\d+", (visual.get("image") or "").strip())),
         # 질문 문구가 없어도 물음표 애니메이션만으로 장면이 성립한다.
         "question": True,
         "none": True,
@@ -1883,6 +2103,16 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         chunk_ends = chunk_starts[1:] + [end - start]
 
         visual = cut["visual"]
+
+        # 원문 이미지는 렌더용 폴더에 복사하고 그 경로를 넘긴다. 잡지·다크 화면에서만 그린다.
+        if visual.get("type") == "image":
+            image = next((item for item in script.get("images") or [] if item["id"] == visual.get("image")), None)
+
+            if image and style in EDITORIAL_STYLES and os.path.exists(image["file"]):
+                shutil.copyfile(image["file"], os.path.join(public_dir, f"{image['id']}.png"))
+                visual = {**visual, "src": f"{run_name}/{image['id']}.png", "value": urllib.parse.urlparse(image["url"]).netloc}
+            else:
+                visual = cut["visual"] = {"type": "none"}
 
         # 3D 장면 이야기는 이름표를 읽을 시간이 필요하다. 1.6초보다 짧은 컷이면 자막만 둔다.
         if visual.get("type") == "scene3d" and end - start < SCENE3D_MIN_FRAMES:
