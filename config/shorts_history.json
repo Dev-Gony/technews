@@ -611,5 +611,17 @@
     "video_id": "kE5445yXc2c",
     "voice": "Leda",
     "publish_at": "2026-11-19T07:00:00+09:00"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://github.blog/open-source/maintainers/maintainers-dont-need-more-ai-bug-reports-they-need-fixes",
+    "title": "Maintainers don’t need more AI bug reports. They need fixes.",
+    "skipped": "source"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://netflixtechblog.com/engineering-ai-discover-e244944cdc38",
+    "title": "Engineering AI Discover",
+    "skipped": "source"
   }
 ]
