@@ -575,5 +575,19 @@
     "video_id": "WUqeGlIQd1A",
     "voice": "Leda",
     "publish_at": "2026-11-18T13:00:00+09:00"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://github.blog/engineering/engineering-principles/building-the-agent-host-protocol-for-sessions-that-continue-across-devices",
+    "title": "Building the Agent Host Protocol for sessions that continue across devices",
+    "skipped": "source"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://news.hada.io/topic?id=37373",
+    "title": "Rebut MCP, AI가 짠 코드를 다른 AI가 검토해 준다",
+    "video_id": "QzoTWm7aHNI",
+    "voice": "Leda",
+    "publish_at": "2026-11-18T17:00:00+09:00"
   }
 ]
