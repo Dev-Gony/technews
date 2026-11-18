@@ -559,5 +559,13 @@
     "video_id": "Zux1YJpvD18",
     "voice": "Leda",
     "publish_at": "2026-11-18T08:00:00+09:00"
+  },
+  {
+    "date": "2026-11-17",
+    "link": "https://developers.googleblog.com/agents-are-sessions-not-requests-size-gke-node-pools-for-ai-agent-sessions",
+    "title": "GKE AI 에이전트 세션 파킹, 노드 비용 약 40% 절감",
+    "video_id": "Wl5w5tcJIOg",
+    "voice": "Leda",
+    "publish_at": "2026-11-18T12:00:00+09:00"
   }
 ]
