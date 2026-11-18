@@ -846,6 +846,12 @@ def fetch_source_text(article):
     parts = []
 
     try:
+        if d2_post_id(link):
+            # D2 글 페이지는 스크립트로 그려져 메뉴만 받아진다. 글 데이터 주소에서 본문을 받는다.
+            post = fetch_d2_post(link)
+            parts.append(f"{post.get('postTitle') or ''}\n" + page_text(post.get("postHtml") or ""))
+            return clean_text("\n\n".join(part for part in parts if part.strip()))[:SOURCE_MAX_CHARS]
+
         html = download_page(link)
 
         if "news.hada.io" in link:
@@ -974,35 +980,172 @@ def download_image(url, path):
     return {"width": width, "height": height, "hash": hashlib.sha1(data).hexdigest()}
 
 
+D2_POST = re.compile(r"https?://d2\.naver\.com/helloworld/(\d+)")
+YOUTUBE_ID = re.compile(r"(?:youtube\.com/(?:watch\?v=|embed/|shorts/)|youtu\.be/)([A-Za-z0-9_-]{11})")
+GITHUB_REPO = re.compile(r"https?://github\.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)/?(?:[#?].*)?$")
+
+
+def d2_post_id(link):
+    match = D2_POST.match(link or "")
+    return match.group(1) if match else ""
+
+
+def fetch_d2_post(link):
+    """네이버 D2 글은 화면을 스크립트로 그려서 페이지에는 메뉴뿐이다. 글 데이터 주소에서 제목·본문 HTML을 받는다."""
+    request = urllib.request.Request(
+        f"https://d2.naver.com/api/v1/contents/{d2_post_id(link)}",
+        headers={**BROWSER_HEADERS, "Accept": "application/json"},
+    )
+
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read().decode("utf-8", errors="ignore"))
+
+
+def d2_image_candidates(post):
+    """D2 글 본문에 실린 이미지와 발표 영상 썸네일(네이버 이미지 서버)."""
+    import html as html_lib
+
+    body = html_lib.unescape(post.get("postHtml") or "")
+    urls = re.findall(r"https://[a-z0-9.-]*pstatic\.net/[^\"'\s<>\\]+\.(?:png|jpe?g|webp)", body, flags=re.I)
+    result = []
+
+    for url in dict.fromkeys(urls):
+        result.append({"url": url, "alt": "원문(D2) 글에 실린 이미지·발표 영상 썸네일", "source": "d2.naver.com"})
+
+    return result
+
+
+def youtube_candidates(pages):
+    """원문에 걸린 YouTube 영상의 썸네일 (영상 제목·채널은 oEmbed로). 원문이 직접 건 영상만 쓴다."""
+    from bs4 import BeautifulSoup
+
+    ids = []
+
+    for html, _ in pages:
+        # 본문에서만 (사이드바·꼬리말의 다른 영상은 원문이 아니다)
+        soup = BeautifulSoup(html, "html.parser")
+
+        for tag in soup(["nav", "header", "footer", "aside"]):
+            tag.decompose()
+
+        root = soup.find("article") or soup.find("main") or soup.body or soup
+        ids += YOUTUBE_ID.findall(str(root).replace("&amp;", "&"))
+
+    result = []
+
+    for video_id in list(dict.fromkeys(ids))[:2]:
+        title, author = "", ""
+
+        try:
+            query = urllib.parse.urlencode({"url": f"https://www.youtube.com/watch?v={video_id}", "format": "json"})
+
+            with urllib.request.urlopen(f"https://www.youtube.com/oembed?{query}", timeout=15) as response:
+                meta = json.loads(response.read().decode("utf-8", errors="ignore"))
+
+            title, author = meta.get("title") or "", meta.get("author_name") or ""
+        except Exception:
+            pass
+
+        alt = f"원문에 걸린 YouTube 영상 썸네일: {title}".strip().rstrip(":")
+        source = f"YouTube · {author}" if author else "YouTube"
+
+        for size in ("maxresdefault", "hqdefault"):
+            # 큰 썸네일이 없는 영상이 있어 작은 것도 후보로 두되, 같은 영상(group)은 한 장만
+            result.append({"url": f"https://i.ytimg.com/vi/{video_id}/{size}.jpg", "alt": alt[:80], "source": source, "group": video_id})
+
+    return result
+
+
+def github_homepage_candidates(url):
+    """원문이 GitHub 저장소면, 저장소에 등록된 공식 홈페이지의 이미지."""
+    match = GITHUB_REPO.match(url or "")
+
+    if not match:
+        return []
+
+    request = urllib.request.Request(
+        f"https://api.github.com/repos/{match.group(1)}/{match.group(2)}",
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "itgony-shorts"},
+    )
+
+    with urllib.request.urlopen(request, timeout=20) as response:
+        homepage = (json.loads(response.read().decode("utf-8", errors="ignore")).get("homepage") or "").strip()
+
+    if not homepage.startswith(("http://", "https://")) or "github.com" in homepage:
+        return []
+
+    host = urllib.parse.urlparse(homepage).netloc
+    found = image_candidates(download_page(homepage), homepage)
+
+    return [{**item, "alt": f"공식 홈페이지 이미지: {item['alt']}"[:80], "source": f"공식 홈페이지 · {host}"} for item in found]
+
+
+def linked_image_candidates(url, pages):
+    """원문에 그림이 없을 때 쓸 예비 이미지: 원문이 직접 링크한 공식 자료에서만 찾는다.
+
+    검색으로 아무 데서나 가져오지 않는다 (저작권 신고 위험, 그 그림이 정말 그 프로젝트인지 보장 못 함)."""
+    result = []
+
+    try:
+        result += github_homepage_candidates(url)
+    except Exception as error:
+        print(f"저장소 홈페이지 이미지를 찾지 못했습니다: {error}")
+
+    return result + youtube_candidates(pages)
+
+
 def fetch_source_images(article, out_dir):
     """원문(GeekNews면 원본 글 + 정리 글)에 실린 이미지를 최대 SOURCE_IMAGE_COUNT장 받아 둔다. 실패해도 빈 목록."""
     link = article.get("link") or ""
     candidates = []
+    pages = []  # (html, 주소): 원문이 건 링크(YouTube 등)를 찾을 때 쓴다
+    original_url = ""
 
     try:
-        html = download_page(link)
-
-        if "news.hada.io" in link:
-            from bs4 import BeautifulSoup
-
-            # GeekNews의 대표 이미지는 사이트 로고라 본문 이미지만
-            candidates += image_candidates(html, link, use_meta=False)
-            original = BeautifulSoup(html, "html.parser").select_one(".topictitle a")
-            original_url = original.get("href") if original else ""
-
-            if original_url and not any(host in original_url for host in UNFETCHABLE_HOSTS):
-                candidates = image_candidates(download_page(original_url), original_url) + candidates
+        if d2_post_id(link):
+            post = fetch_d2_post(link)
+            pages.append((post["postHtml"], link))
+            candidates += d2_image_candidates(post)
         else:
-            candidates += image_candidates(html, link)
+            html = download_page(link)
+            pages.append((html, link))
+
+            if "news.hada.io" in link:
+                from bs4 import BeautifulSoup
+
+                # GeekNews의 대표 이미지는 사이트 로고라 본문 이미지만
+                candidates += image_candidates(html, link, use_meta=False)
+                soup = BeautifulSoup(html, "html.parser")
+                # YouTube 링크는 정리 글 본문에서만 찾는다 (댓글에 단 남의 영상은 원문이 아니다)
+                contents = soup.select_one("#topic_contents")
+                pages[-1] = (str(contents) if contents else "", link)
+                original = soup.select_one(".topictitle a")
+                original_url = original.get("href") if original else ""
+
+                if original_url and not any(host in original_url for host in UNFETCHABLE_HOSTS):
+                    original_html = download_page(original_url)
+                    pages.append((original_html, original_url))
+                    candidates = image_candidates(original_html, original_url) + candidates
+            else:
+                candidates += image_candidates(html, link)
     except Exception as error:
         print(f"원문 이미지 목록을 가져오지 못했습니다: {error}")
 
-    os.makedirs(out_dir, exist_ok=True)
-    images, hashes = [], set()
+    # 원문에 그림이 없을 때를 위한 예비: 원문이 직접 링크한 공식 자료 (뒤에 붙여서 원문 이미지가 먼저 쓰이게)
+    try:
+        candidates += linked_image_candidates(original_url or link, pages)
+    except Exception as error:
+        print(f"원문이 건 자료의 이미지를 찾지 못했습니다: {error}")
 
-    for candidate in candidates[:10]:
+    os.makedirs(out_dir, exist_ok=True)
+    images, hashes, groups = [], set(), set()
+
+    for candidate in candidates[:12]:
         if len(images) >= SOURCE_IMAGE_COUNT:
             break
+
+        if candidate.get("group") in groups:
+            continue
 
         image_id = f"img{len(images) + 1}"
         path = os.path.join(out_dir, f"{image_id}.png")
@@ -1021,7 +1164,9 @@ def fetch_source_images(article, out_dir):
             continue
 
         hashes.add(info["hash"])
+        groups.add(candidate.get("group") or candidate["url"])
         images.append({"id": image_id, "file": os.path.abspath(path), "url": candidate["url"], "alt": candidate["alt"],
+                       "source": candidate.get("source") or urllib.parse.urlparse(candidate["url"]).netloc,
                        "width": info["width"], "height": info["height"]})
 
     return images
@@ -2110,7 +2255,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
 
             if image and style in EDITORIAL_STYLES and os.path.exists(image["file"]):
                 shutil.copyfile(image["file"], os.path.join(public_dir, f"{image['id']}.png"))
-                visual = {**visual, "src": f"{run_name}/{image['id']}.png", "value": urllib.parse.urlparse(image["url"]).netloc}
+                visual = {**visual, "src": f"{run_name}/{image['id']}.png", "value": image.get("source") or urllib.parse.urlparse(image["url"]).netloc}
             else:
                 visual = cut["visual"] = {"type": "none"}
 

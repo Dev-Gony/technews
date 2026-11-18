@@ -802,6 +802,26 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual([item["url"] for item in found], ["https://example.com/static/hero.png", "https://example.com/shot.jpg"])
         self.assertEqual(found[1]["alt"], "편집기 화면")
 
+    def test_linked_youtube_and_d2_images(self):
+        page = """<html><body><nav><a href="https://www.youtube.com/watch?v=NAVNAVNAV11">메뉴 영상</a></nav>
+        <article><iframe src="https://www.youtube.com/embed/abcDEF12345"></iframe>
+        <a href="https://youtu.be/abcDEF12345">같은 영상</a></article></body></html>"""
+
+        with mock.patch.object(shorts.urllib.request, "urlopen", side_effect=OSError("offline")):
+            found = shorts.youtube_candidates([(page, "https://example.com")])
+
+        # 본문에 걸린 영상만, 큰 썸네일 → 작은 썸네일 (같은 group)
+        self.assertEqual([item["url"] for item in found], [
+            "https://i.ytimg.com/vi/abcDEF12345/maxresdefault.jpg",
+            "https://i.ytimg.com/vi/abcDEF12345/hqdefault.jpg",
+        ])
+        self.assertEqual({item["group"] for item in found}, {"abcDEF12345"})
+
+        post = {"postHtml": '<script data-module="{&quot;thumbnail&quot;: &quot;https://clip-service-phinf.pstatic.net/a/b/image.png&quot;}"></script>'}
+        self.assertEqual([item["url"] for item in shorts.d2_image_candidates(post)], ["https://clip-service-phinf.pstatic.net/a/b/image.png"])
+        self.assertEqual(shorts.d2_post_id("https://d2.naver.com/helloworld/5976687"), "5976687")
+        self.assertEqual(shorts.d2_post_id("https://news.hada.io/topic?id=1"), "")
+
     def test_source_images_only_known_ones_and_one_added_when_unused(self):
         def cut(kind="none", **extra):
             return {"line": "대사", "visual": {"type": kind, **extra}}
