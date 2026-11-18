@@ -459,8 +459,8 @@ const ImageCard: React.FC<{ visual: Visual; p: Palette; frame: number; sceneFram
         />
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 14, paddingTop: 14, paddingLeft: 8, fontFamily, fontWeight: 800, fontSize: 30, color: p.subText }}>
-        <span style={{ color: p.accent }}>원문 이미지</span>
-        {source ? <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{source}</span> : null}
+        <span style={{ color: p.accent, flexShrink: 0, whiteSpace: "nowrap" }}>원문 이미지</span>
+        {source ? <span style={{ minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{source}</span> : null}
       </div>
     </CardBox>
   );
