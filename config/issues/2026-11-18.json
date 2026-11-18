@@ -1,0 +1,721 @@
+{
+  "schema_version": 1,
+  "issue_number": 60,
+  "issue_date": "2026-11-18",
+  "generated_at": "2026-11-18T11:46:30.938329+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgent Host Protocol, MCP, ARC Runner, Observability, RCE 취약점\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 세션 연속성과 교차 검토를 위한 표준화가 진행되는 가운데, 인프라 운영의 가시성과 보안 대응이 실무의 핵심으로 떠오르고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트가 단순한 코드 생성을 넘어 복합적인 워크플로를 수행하면서, 에이전트 간의 상태 공유와 코드 품질 검증을 위한 새로운 프로토콜이 표준으로 자리 잡고 있습니다. 동시에 대규모 인프라 운영 환경에서는 관측성 확보와 치명적인 보안 취약점에 대한 즉각적인 대응이 개발 생산성을 유지하는 필수 요소가 되었습니다.\n\n[왜 이 글들을 골랐나]\n\n• 7번: 기기 간 에이전트 세션 연속성을 보장하는 오픈 표준인 AHP는 향후 AI 에이전트 기반 서비스의 아키텍처 표준이 될 가능성이 높습니다.\n• 17번: AI가 작성한 코드를 다른 모델로 교차 검토하는 Rebut은 AI 코딩 도구의 신뢰성 문제를 해결할 수 있는 매우 실용적인 도구입니다.\n• 3번: GitHub Actions와 Kubernetes 환경에서 모니터링 사각지대를 해소하는 Exporter 구축 사례는 백엔드 및 SRE 실무에 즉각적인 도움이 됩니다.\n\n[오늘 공부해볼 것]\n\n• Agent Host Protocol (AHP) 구조: 에이전트 세션이 어떻게 기기 간에 동기화되는지 이해하여 향후 멀티 디바이스 AI 서비스 설계에 대비합니다.\n• Model Context Protocol (MCP) 활용: 다양한 AI 도구와 데이터 소스를 연결하는 표준 인터페이스를 익혀 개발 워크플로 자동화 역량을 강화합니다.\n• OpenJDK RCE 취약점(CVE-2026-114938) 대응: 현재 운영 중인 Java 환경의 보안 상태를 점검하고 패치 프로세스를 확인하여 시스템 안정성을 확보합니다.",
+  "stats": {
+    "candidate_count": 34,
+    "detailed_count": 22,
+    "brief_count": 4,
+    "excluded_count": 8,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GitHub Blog",
+      "title": "Building the Agent Host Protocol for sessions that continue across devices",
+      "link": "https://github.blog/engineering/engineering-principles/building-the-agent-host-protocol-for-sessions-that-continue-across-devices",
+      "published_at": "Tue, 17 Nov 2026 18:20:40 +0000",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 세션 연속성을 보장하는 프로토콜은 에이전트 워크플로의 미래 표준을 제시하는 매우 중요한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "기기 간 세션 연속성을 보장하는 오픈 표준 'Agent Host Protocol(AHP)' 공개",
+      "key_points": [
+        "AHP는 에이전트 세션을 특정 애플리케이션에 종속시키지 않고 기기 간 이동이 가능하게 하는 오픈 표준 프로토콜임.",
+        "URI 기반 채널과 리듀서(Reducer) 기반 상태 관리 방식을 채택하여 네트워크 단절 시에도 안정적인 복구와 동기화를 지원함.",
+        "VS Code와 GitHub Copilot 앱 등 다양한 클라이언트에서 동일한 에이전트 상태와 기록을 공유할 수 있는 환경을 제공함."
+      ],
+      "topics": [
+        "Agent Host Protocol (AHP)",
+        "Session Continuity",
+        "Reducer-based state"
+      ],
+      "recommended_for": "AI 에이전트 기반 서비스를 개발하거나 멀티 디바이스 동기화 아키텍처에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "AHP 샘플 코드 분석 및 로컬 에이전트 호스트 실행",
+        "steps": [
+          "GitHub의 AHP 리포지토리에서 제공하는 샘플 코드 확인",
+          "터미널에서 'code agent host' 명령어를 실행하여 로컬 에이전트 호스트 환경 구성",
+          "제공된 라이브러리(Rust, TS 등)를 활용해 간단한 에이전트 클라이언트 연결 테스트"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Rebut - 구독 API 크레딧으로 AI가 작성한 코드를 독립 리뷰하는 MCP",
+      "link": "https://news.hada.io/topic?id=37373",
+      "published_at": "2026-11-18T08:15:07+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent, MCP, 코드 리뷰 자동화 등 사용자의 핵심 관심사를 모두 관통하는 매우 실용적인 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 작성한 코드를 다른 모델로 교차 검토하는 MCP 'Rebut' 공개",
+      "key_points": [
+        "Claude Code 등이 작성한 코드를 다른 LLM(GPT-6.2 등)이 검토하여 결함을 찾아내는 오픈소스 MCP임.",
+        "검토 모델에는 파일 시스템 접근 권한을 부여하지 않아 보안성을 확보함.",
+        "로컬 실행이 기본이며, Cloudflare Worker를 통해 검토 예산과 요청 장부를 공유할 수 있음."
+      ],
+      "topics": [
+        "MCP (Model Context Protocol)",
+        "LLM Agent",
+        "Code Review Automation"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 개발 워크플로를 구축 중인 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "현재 사용하는 AI 코딩 도구에 Rebut을 연동하여 코드 리뷰 자동화 테스트",
+        "steps": [
+          "Rebut 저장소를 클론하고 로컬 환경에 MCP 서버로 설정",
+          "Claude Code가 생성한 최근 PR이나 코드 변경 사항을 Rebut에 입력",
+          "다른 LLM 모델을 선택하여 교차 검토 결과를 확인하고 기존 방식과 비교"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "당근",
+      "title": "GitHub Actions 모니터링의 빈칸: Exporter로 ARC Runner 관측하기",
+      "link": "https://medium.com/daangn/github-actions-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81%EC%9D%98-%EB%B9%88%EC%B9%B8-exporter%EB%A1%9C-arc-runner-%EA%B4%80%EC%B8%A1%ED%95%98%EA%B8%B0-cbe1a46a9e71",
+      "published_at": "Tue, 17 Nov 2026 09:49:10 GMT",
+      "selection_score": 14,
+      "selection_reason": "GitHub Actions와 Kubernetes(ARC) 환경의 모니터링은 백엔드 아키텍처 및 개발 워크플로 최적화에 필수적인 기술적 가치를 지닙니다.",
+      "feedback_bias": 0,
+      "one_line": "ARC Runner의 Job 대기 현황과 리소스 사용량을 가시화하는 action-runner-job-exporter 개발",
+      "key_points": [
+        "ARC 환경에서 Runner Pod와 Job 정보를 매핑하고 대기 중인 Job을 추적하는 전용 Exporter를 구축함.",
+        "S3 스냅샷과 리컨사일 로직을 통해 웹훅 이벤트 유실이나 재시작 시에도 Job 상태의 정합성을 유지함.",
+        "Job별 리소스 사용량 메트릭을 통해 적절한 Runner 사양을 제안하고 ARC 컨트롤러 병목을 탐지함."
+      ],
+      "topics": [
+        "ARC (Actions Runner Controller)",
+        "Prometheus Exporter",
+        "Kubernetes Informer"
+      ],
+      "recommended_for": "SRE 및 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "GitHub Actions Runner의 리소스 사용량 모니터링 대시보드 구축",
+        "steps": [
+          "현재 운영 중인 Runner Pod의 메트릭과 GitHub Actions Job 실행 로그를 연결할 수 있는 공통 식별자를 확인한다.",
+          "Prometheus를 사용하여 Job별 CPU/메모리 사용량을 시각화하는 Grafana 대시보드를 생성한다.",
+          "리소스 요청량(request) 대비 실제 사용량이 높은 Job을 식별하여 Runner 사양 최적화 리스트를 작성한다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "토스",
+      "title": "판단에만 집중하세요: 토스 타겟팅 모델 개발 자동화",
+      "link": "https://toss.tech/article/targeting-model-automation",
+      "published_at": "Tue, 17 Nov 2026 07:14:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "모델 개발 파이프라인 자동화와 평가 프로세스 개선은 데이터 분석 및 업무 자동화 실무에 직접적인 인사이트를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "토스의 타겟팅 모델 개발 프레임워크 TASTE의 자동화 및 평가 프로세스 개선 사례",
+      "key_points": [
+        "피쳐 중요도와 성능 지표를 결합한 auto_k 알고리즘을 통해 피쳐 수를 최적화하고 모델 학습 효율을 높임.",
+        "퍼널 모델에 AITM 구조를 도입하고 단계별 라벨을 통합하여 모델 운영 복잡도를 낮추고 성능을 개선함.",
+        "미래 정보 유출 방지 및 데이터 결손 모니터링을 위해 모델 고정 및 평가 자동화 파이프라인을 구축함."
+      ],
+      "topics": [
+        "auto_k",
+        "AITM (Adaptive Information Transfer Multi-task)",
+        "Permutation Importance"
+      ],
+      "recommended_for": "데이터 분석가 및 머신러닝 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "모델 평가 파이프라인에 자동화된 성능 비교 보고서 추가하기",
+        "steps": [
+          "현재 모델의 평가 지표(AUROC, KS 등)를 계산하는 스크립트를 설정 파일 기반으로 모듈화한다.",
+          "기존 모델과 신규 모델의 예측값을 동일한 평가셋으로 조인하여 비교하는 자동화 태스크를 파이프라인에 추가한다.",
+          "피쳐 중요도 계산 시 방향성(d_proba)과 일관성을 함께 출력하도록 보고서 형식을 개선한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "토스",
+      "title": "지표 뒤에 숨은 맥락을 한눈에: New20 Timeline Hub 만들기",
+      "link": "https://toss.tech/article/new20-timeline-hub",
+      "published_at": "Tue, 17 Nov 2026 09:39:00 GMT",
+      "selection_score": 11,
+      "selection_reason": "데이터 분석 시 발생하는 맥락 파악의 어려움을 해결하기 위한 시스템 구축 사례로, 실무 생산성 향상에 큰 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "제품 변경 이력을 시간축으로 통합하여 분석 맥락을 제공하는 New20 Timeline Hub",
+      "key_points": [
+        "흩어진 제품 변경 기록(PR, 정책, 실험 등)을 하나의 시간축으로 연결하여 분석가의 맥락 파악 비용을 절감함.",
+        "자동 수집 스크립트를 통해 매일 기록을 업데이트하고, 실제 사건 발생 시점과 기록 시점을 분리하여 정확도를 높임.",
+        "데이터의 빈틈과 출처를 명시하여 분석가가 원문으로 돌아가 직접 검증할 수 있는 신뢰 체계를 구축함."
+      ],
+      "topics": [
+        "Timeline Hub",
+        "Contextual Analysis",
+        "Data Provenance"
+      ],
+      "recommended_for": "데이터 분석가 및 제품 관리자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "당근",
+      "title": "Closing the GitHub Actions Monitoring Gap: Observing ARC Runners with an Exporter",
+      "link": "https://medium.com/daangn/closing-the-github-actions-monitoring-gap-observing-arc-runners-with-an-exporter-0a8f39c3b70b",
+      "published_at": "Tue, 17 Nov 2026 09:49:49 GMT",
+      "selection_score": 14,
+      "selection_reason": "3번 기사의 영문 버전으로, 동일한 기술적 가치를 지니며 글로벌 표준 기술 스택을 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "ARC Runner 모니터링을 위한 action-runner-job-exporter의 기술적 구현 및 운영 개선(영문)",
+      "key_points": [
+        "ARC 환경에서 Runner Pod와 Job 정보를 매핑하고 대기 중인 Job을 추적하는 전용 Exporter를 구축함.",
+        "S3 스냅샷과 리컨사일 로직을 통해 웹훅 이벤트 유실이나 재시작 시에도 Job 상태의 정합성을 유지함.",
+        "Job별 리소스 사용량 메트릭을 통해 적절한 Runner 사양을 제안하고 ARC 컨트롤러 병목을 탐지함."
+      ],
+      "topics": [
+        "ARC (Actions Runner Controller)",
+        "Prometheus Exporter",
+        "Kubernetes Informer"
+      ],
+      "recommended_for": "SRE 및 백엔드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Build full-stack Android apps with Gemini in Google AI Studio",
+      "link": "https://developers.googleblog.com/build-full-stack-android-apps-with-gemini-in-google-ai-studio",
+      "published_at": "",
+      "selection_score": 11,
+      "selection_reason": "LLM을 활용한 풀스택 앱 개발 자동화는 개발 생산성 측면에서 매우 중요한 트렌드입니다.",
+      "feedback_bias": 0,
+      "one_line": "Google AI Studio를 통한 풀스택 Kotlin Android 앱 개발 자동화 기능",
+      "key_points": [
+        "단일 프롬프트로 Cloud Firestore, Firebase Auth 등이 포함된 풀스택 Android 앱을 생성할 수 있음.",
+        "HD 에뮬레이터, 시각적 스크린샷 디버깅 등 개발 생산성을 높이는 도구들이 통합됨.",
+        "개발된 앱을 개인 Google Play 라이브러리로 직접 배포하는 기능까지 지원함."
+      ],
+      "topics": [
+        "Google AI Studio",
+        "Firebase AI Logic",
+        "Full-stack Android Development"
+      ],
+      "recommended_for": "안드로이드 개발자 및 프로토타이핑이 필요한 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Accelerating development for massive Git repositories",
+      "link": "https://developers.googleblog.com/accelerating-development-for-massive-git-repositories",
+      "published_at": "",
+      "selection_score": 11,
+      "selection_reason": "대규모 리포지토리의 빌드 성능 개선은 대규모 프로젝트를 운영하는 개발자에게 실질적인 성능 최적화 가이드를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "대규모 Git 리포지토리의 빌드 및 체크아웃 속도를 획기적으로 개선하는 ABFS 오픈소스 공개",
+      "key_points": [
+        "ABFS는 가상 파일 시스템(CASFS)과 콘텐츠 주소 지정 방식을 활용해 대규모 Git 프로젝트의 체크아웃 및 빌드 시간을 분 단위에서 초 단위로 단축함.",
+        "Ninja-go를 통해 타임스탬프 기반 빌드 대신 2단계 콘텐츠 주소 지정 캐싱을 적용하여 CI와 로컬 환경 간 빌드 결과물을 100% 재사용함.",
+        "지연 로딩(Lazy-loading) 기술로 에이전트가 여러 워크스페이스를 동시에 마운트하고 병렬로 빌드 및 테스트를 수행할 수 있는 환경을 제공함."
+      ],
+      "topics": [
+        "CASFS (Content-Addressable Storage Filesystem)",
+        "Lazy-loading",
+        "Two-phase build caching"
+      ],
+      "recommended_for": "대규모 모노레포를 운영하거나 빌드 속도 최적화가 필요한 백엔드 및 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "ABFS GitHub 리포지토리 탐색 및 Bazel 통합 가능성 검토",
+        "steps": [
+          "ABFS GitHub 리포지토리에서 아키텍처 문서와 Ninja-go 캐싱 모델 확인",
+          "현재 운영 중인 프로젝트의 빌드 시스템(Bazel 등)과 ABFS의 호환성 검토",
+          "테스트 환경에서 소규모 리포지토리를 대상으로 ABFS 마운트 및 빌드 성능 테스트 수행"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "Maintainers don’t need more AI bug reports. They need fixes.",
+      "link": "https://github.blog/open-source/maintainers/maintainers-dont-need-more-ai-bug-reports-they-need-fixes",
+      "published_at": "Tue, 17 Nov 2026 18:29:29 +0000",
+      "selection_score": 12,
+      "selection_reason": "AI를 활용한 보안 취약점 대응의 올바른 방향성을 제시하며, 오픈소스 유지보수와 개발 워크플로에 중요한 시사점을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 보안 취약점 탐지 시 단순 보고가 아닌 '검증된 수정안' 제공의 중요성 강조",
+      "key_points": [
+        "오픈소스 유지보수자들은 AI가 생성한 대량의 중복/오탐 보고서로 인해 피로감을 느끼며, 실질적인 해결책이 필요함.",
+        "Codename MDASH 파일럿은 AI가 탐지하고 연구원이 검증한 뒤 수정안까지 포함된 보고서를 전달하여 유지보수자의 작업 효율을 크게 높임.",
+        "보안 보고는 비공개로 진행하고, 유지보수자가 수정안을 검토 및 적용할 수 있도록 지원하는 것이 오픈소스 생태계의 핵심임."
+      ],
+      "topics": [
+        "Private Vulnerability Reporting (PVR)",
+        "Agentic Autofix",
+        "Security Triage"
+      ],
+      "recommended_for": "오픈소스 프로젝트 유지보수자 및 보안 자동화 워크플로를 구축하려는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Netflix TechBlog",
+      "title": "Engineering AI Discover",
+      "link": "https://netflixtechblog.com/engineering-ai-discover-e244944cdc38",
+      "published_at": "Tue, 17 Nov 2026 17:01:02 GMT",
+      "selection_score": 12,
+      "selection_reason": "대규모 서비스에서 AI를 활용한 사용자 경험 개선 사례는 LLM 기반 서비스 아키텍처 설계에 큰 참고가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Netflix의 AI Discover를 통해 본 LLM 기반 서비스의 지능형 계층(Intelligence Layer) 설계",
+      "key_points": [
+        "AI Discover는 LLM과 기존 추천 시스템을 결합하여 사용자가 테마를 선택하고 결과를 조정할 수 있는 지능형 계층을 도입함.",
+        "LLM의 불확실성을 제어하기 위해 '계획 후 실행(Plan-and-Execute)' 아키텍처를 도입하여 코드 수준에서 안전성과 규칙을 강제함.",
+        "생성형 작업의 지연 시간을 해결하기 위해 비동기식 페이지 생성 방식을 채택하여 사용자 경험의 즉각성을 유지함."
+      ],
+      "topics": [
+        "Intelligence Layer",
+        "Agent Harness",
+        "Plan-and-Execute Agent"
+      ],
+      "recommended_for": "LLM을 실제 프로덕션 서비스에 안정적으로 통합하려는 백엔드 및 아키텍처 설계자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Airbnb Engineering",
+      "title": "De-identifying text at scale: How Airbnb protects personal data in AI training",
+      "link": "https://medium.com/airbnb-engineering/de-identifying-text-at-scale-how-airbnb-protects-personal-data-in-ai-training-32f3ff8ff7d0",
+      "published_at": "Tue, 17 Nov 2026 18:01:03 GMT",
+      "selection_score": 11,
+      "selection_reason": "AI 모델 학습 시 PII 제거를 위한 데이터 파이프라인 구축은 실무적인 데이터 엔지니어링 및 보안 관점에서 매우 가치 있는 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Airbnb의 AI 모델 학습을 위한 대규모 텍스트 데이터 비식별화(De-identification) 파이프라인",
+      "key_points": [
+        "Airbnb는 Microsoft의 오픈소스 라이브러리 'Presidio'를 기반으로 PII를 탐지하고 현실적인 가짜 데이터로 대체하는 파이프라인을 구축함.",
+        "GLiNER 모델을 활용해 PERSON, LOCATION 등 특정 엔티티를 정밀하게 탐지하며, 컨텍스트 기반의 phrase match로 오탐을 줄임.",
+        "데이터 비식별화 시 동일한 입력값에 대해 실행 단위 내 일관성을 유지하면서도 실행 간에는 다른 값을 생성하여 보안성을 확보함."
+      ],
+      "topics": [
+        "PII (Personally Identifiable Information)",
+        "De-identification",
+        "GLiNER (Generalist and Lightweight Named Entity Recognition)"
+      ],
+      "recommended_for": "개인정보 보호가 중요한 AI 모델 학습 파이프라인을 구축하는 데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Presidio 라이브러리 기반 데이터 비식별화 프로토타입 검토",
+        "steps": [
+          "Microsoft Presidio 공식 문서 및 Airbnb의 적용 사례(GLiNER 활용) 검토",
+          "현재 프로젝트의 데이터 스키마에서 PII 포함 필드 식별",
+          "Presidio를 사용하여 샘플 텍스트 데이터의 엔티티 탐지 및 가짜 데이터 대체 테스트 수행"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How Rakbank built centralized observability at scale with Amazon OpenSearch Service",
+      "link": "https://aws.amazon.com/blogs/architecture/how-rakbank-built-centralized-observability-at-scale-with-amazon-opensearch-service",
+      "published_at": "Tue, 17 Nov 2026 16:03:22 +0000",
+      "selection_score": 14,
+      "selection_reason": "대규모 로그 관측성 확보, 비용 절감, 아키텍처 최적화 등 백엔드 실무자에게 매우 유용한 아키텍처 패턴을 제시합니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon OpenSearch Service의 계층형 스토리지와 교차 계정 아키텍처를 활용한 대규모 로그 관측성 구축 사례",
+      "key_points": [
+        "Fluent Bit를 활용해 EKS 로그를 수집하고, Transit Gateway를 통해 중앙 집중식 OpenSearch 도메인으로 안전하게 전송함.",
+        "Hot/UltraWarm/Cold 계층화 전략을 통해 7년 보관 정책을 준수하면서도 올-핫(All-hot) 클러스터 대비 약 55%의 비용을 절감함.",
+        "데이터가 추가 전용(Append-only)인 특성을 활용해 인덱스 롤오버 시 강제 병합(Force-merge)을 수행하여 읽기 성능을 최적화함."
+      ],
+      "topics": [
+        "Index State Management (ISM)",
+        "UltraWarm Storage",
+        "Cross-account Observability"
+      ],
+      "recommended_for": "대규모 마이크로서비스 로그 관리 비용을 최적화하고 싶은 백엔드 및 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 로그 보관 정책과 OpenSearch 계층화 적용 가능성 검토",
+        "steps": [
+          "현재 운영 중인 로그 데이터의 일일 생성량과 보관 기간 확인",
+          "Hot/Warm/Cold 계층별 비용 효율성 계산 및 ISM 정책 적용 시 예상 절감액 산출",
+          "데이터 접근 빈도에 따른 인덱스 수명 주기 정책 설계"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Securing REST APIs with JWT authorizers in Amazon API Gateway",
+      "link": "https://aws.amazon.com/blogs/compute/securing-rest-apis-with-jwt-authorizers-in-amazon-api-gateway",
+      "published_at": "Tue, 17 Nov 2026 18:39:16 +0000",
+      "selection_score": 14,
+      "selection_reason": "API Gateway의 JWT authorizer 도입은 백엔드 보안 및 인증 아키텍처를 간소화할 수 있는 중요한 기능 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon API Gateway에서 Lambda 없이 JWT를 직접 검증하는 네이티브 인증 기능 도입",
+      "key_points": [
+        "API Gateway가 OIDC 공급자의 토큰을 직접 검증하여 Lambda Authorizer 없이도 인증 처리가 가능해짐.",
+        "발행자(Issuer), 대상(Audience), 서명 알고리즘 등을 설정하여 토큰 유효성을 인라인으로 검증함.",
+        "최대 10개의 신뢰할 수 있는 발행자를 설정할 수 있어 ID 공급자 마이그레이션 시 유연하게 대응 가능함."
+      ],
+      "topics": [
+        "JWT Authorizer",
+        "OIDC Discovery",
+        "OAuth 2.0 Scopes"
+      ],
+      "recommended_for": "API Gateway 인증 로직을 간소화하고 지연 시간을 줄이고 싶은 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "API Gateway JWT Authorizer를 활용한 인증 로직 교체 실험",
+        "steps": [
+          "현재 사용 중인 OIDC 공급자의 Discovery URL 확인",
+          "API Gateway 콘솔 또는 CLI를 통해 JWT Authorizer 생성 및 설정",
+          "기존 Lambda Authorizer를 제거하고 JWT Authorizer로 대체하여 응답 속도 및 인증 성공 여부 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "가중치 약 7GB LLM, \"26학년도 수능 표점 400점 초과 달성",
+      "link": "https://news.hada.io/topic?id=37366",
+      "published_at": "2026-11-18T06:15:46+09:00",
+      "selection_score": 11,
+      "selection_reason": "온디바이스 AI 및 경량 LLM의 성능 향상과 엣지 컴퓨팅의 가능성을 보여주는 흥미로운 기술적 지표입니다.",
+      "feedback_bias": 0,
+      "one_line": "7GB급 경량 LLM이 수능 표준점수 400점대를 기록하며 온디바이스 AI의 고성능화 입증",
+      "key_points": [
+        "Gemma 4 12B Q4 등 7~8GB 수준의 경량 모델이 수능 문제 풀이에서 메디컬 합격선 수준의 성적을 기록함.",
+        "엣지 디바이스에서 실행 가능한 모델의 지능이 비약적으로 향상되어 오프라인 환경에서의 활용 가능성이 커짐.",
+        "통신망 의존적인 기존 재난 대응 시스템을 넘어 엣지 AI 기반의 새로운 대응 체계 마련이 필요함."
+      ],
+      "topics": [
+        "On-device AI",
+        "Quantization",
+        "Edge Computing"
+      ],
+      "recommended_for": "온디바이스 AI 및 경량 LLM의 실무 적용 가능성을 탐색하는 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "MAI Code 2와 Code 2 Flash - 일상적인 기업 코딩의 가격 대비 성능에 초점을 맞춘 모델",
+      "link": "https://news.hada.io/topic?id=37368",
+      "published_at": "2026-11-18T06:41:05+09:00",
+      "selection_score": 14,
+      "selection_reason": "코딩 특화 LLM의 성능과 비용 효율성 비교는 개발 생산성 도구 선택에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Microsoft의 코딩 특화 모델 MAI Code 2 시리즈 공개: 성능과 비용 효율성 강조",
+      "key_points": [
+        "Code 2는 심층 디버깅과 다중 파일 구현에, Flash는 반복적인 코드 수정 및 설명 작업에 최적화됨.",
+        "Code 2는 GPT-6.1 Sol 성능의 98%를 40% 비용으로 제공하며, Flash는 경쟁 모델 대비 높은 통과율을 보임.",
+        "기업용 코딩 워크플로에서 비용 대비 성능을 극대화하기 위한 선택지로 설계됨."
+      ],
+      "topics": [
+        "Coding LLM",
+        "Cost-performance Optimization",
+        "Benchmark"
+      ],
+      "recommended_for": "코딩 보조 도구 도입을 고민 중이거나 LLM API 비용 절감이 필요한 개발 팀장",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Java4Shell: OpenJDK Base64 디코더에서 인증 없는 원격 코드 실행 취약점 발견 (CVE-2026-114938)",
+      "link": "https://news.hada.io/topic?id=37370",
+      "published_at": "2026-11-18T07:35:23+09:00",
+      "selection_score": 14,
+      "selection_reason": "OpenJDK의 치명적인 RCE 취약점은 백엔드 시스템 운영자에게 즉각적인 대응이 필요한 매우 중요한 보안 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenJDK Base64 디코더의 AVX-512 최적화 코드에서 치명적인 RCE 취약점(CVE-2026-114938) 발견",
+      "key_points": [
+        "OpenJDK의 Base64 디코더 내 네이티브 코드에서 잘못된 패딩 처리로 인한 메모리 손상 및 RCE 취약점이 발견됨.",
+        "Java 수준에서 예외 처리를 하더라도 네이티브 코드에서 이미 메모리 오염이 발생하여 보안 위험이 큼.",
+        "CVSS 4.0 기준 9.2점(Critical)으로, 서버 환경의 즉각적인 패치 및 보안 점검이 요구됨."
+      ],
+      "topics": [
+        "RCE (Remote Code Execution)",
+        "OpenJDK",
+        "Memory Corruption"
+      ],
+      "recommended_for": "Java 기반 백엔드 시스템을 운영하는 서버 엔지니어 및 보안 담당자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "운영 중인 Java 환경의 OpenJDK 버전 취약점 점검 및 업데이트",
+        "steps": [
+          "현재 서버에서 사용 중인 OpenJDK 버전 확인",
+          "CVE-2026-114938 대응 패치가 포함된 최신 버전으로 업데이트 계획 수립",
+          "Base64 디코딩을 외부 입력값에 직접 사용하는 코드 구간에 대한 보안 검토"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "jQuery 4.1.0 - 폼 연결 커스텀 요소 지원과 선택자 ReDoS 수정",
+      "link": "https://news.hada.io/topic?id=37372",
+      "published_at": "2026-11-18T07:40:23+09:00",
+      "selection_score": 11,
+      "selection_reason": "웹 개발의 표준인 jQuery의 업데이트와 보안 취약점 수정 사항은 백엔드 및 프론트엔드 실무자에게 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "jQuery 4.1.0 출시, 폼 커스텀 요소 지원 및 보안 취약점 수정",
+      "key_points": [
+        "직렬화 모듈에 폼 연결 커스텀 요소 지원이 추가되고 Ajax API가 개선됨.",
+        "선택자 식별자 매칭 시 발생하는 ReDoS 취약점을 수정하고 Safari 정규식 버그를 우회함.",
+        "코어 메서드에서 querySelectorAll을 활용하고 XML 문서 지원을 강화함."
+      ],
+      "topics": [
+        "ReDoS",
+        "Custom Elements",
+        "Ajax API"
+      ],
+      "recommended_for": "기존 jQuery 기반 레거시 프로젝트를 유지보수 중인 웹 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Solid 2.0 - 비동기를 반응형 그래프에 통합한 안정 버전 출시",
+      "link": "https://news.hada.io/topic?id=37376",
+      "published_at": "2026-11-18T08:38:42+09:00",
+      "selection_score": 13,
+      "selection_reason": "비동기 반응형 그래프와 AI 에이전트 지원 등 최신 웹 아키텍처 트렌드를 잘 반영하고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "Solid 2.0 출시, 비동기 작업과 반응형 그래프의 완벽 통합",
+      "key_points": [
+        "서버 데이터 비동기 작업을 반응형 상태와 연결하여 데이터 변경 시 자동 화면 갱신을 지원함.",
+        "서버 함수를 코어에 통합하여 클라이언트에서 서버 코드를 직접 호출하고 실시간 데이터를 처리함.",
+        "개발 빌드 진단 기능을 통해 비동기 워터폴 및 반응성 오류를 감지하고 AI 에이전트의 수정을 도움."
+      ],
+      "topics": [
+        "Reactive Graph",
+        "Async/Await Integration",
+        "RPC"
+      ],
+      "recommended_for": "고성능 웹 애플리케이션 아키텍처를 설계하는 프론트엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "Solid 2.0의 서버 함수 및 비동기 반응성 기능 학습",
+        "steps": [
+          "Solid 2.0 공식 문서의 비동기 반응성 가이드 확인",
+          "간단한 서버 함수 호출 예제를 작성하여 클라이언트-서버 간 데이터 흐름 테스트",
+          "개발 빌드 진단 도구가 비동기 오류를 어떻게 표시하는지 확인"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "실제로 등장한 curl의 Rust 재작성 프로젝트들",
+      "link": "https://news.hada.io/topic?id=37377",
+      "published_at": "2026-11-18T09:02:29+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI를 활용한 코드 재작성의 한계와 메모리 안전 언어의 중요성을 다루어 개발 생산성 관점에서 시사점이 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "curl의 Rust 재작성 프로젝트들, AI 에이전트 기반 재구현의 한계 직면",
+      "key_points": [
+        "curl을 Rust로 재작성하려는 시도가 있으나, 원본의 방대한 테스트와 지속적인 업데이트를 따라잡기 어려움.",
+        "AI 에이전트가 코드를 재작성하더라도 수십 년간 축적된 엣지 케이스와 버그 수정 이력을 반영하는 데 한계가 있음.",
+        "curl 취약점의 약 17%는 메모리 안전 언어 사용으로 예방 가능했음을 시사함."
+      ],
+      "topics": [
+        "Memory Safety",
+        "Legacy Code Migration",
+        "AI-assisted Refactoring"
+      ],
+      "recommended_for": "AI를 활용한 코드 마이그레이션이나 언어 전환을 고려 중인 백엔드 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "B2B 요금 모델: 사용자 수 기반 과금을 대체하는 3가지 방식",
+      "link": "https://news.hada.io/topic?id=37378",
+      "published_at": "2026-11-18T09:20:02+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트 도입에 따른 비즈니스 모델 변화는 IT 실무자가 향후 전략을 세울 때 반드시 고려해야 할 주제입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트 시대의 B2B 비즈니스 모델 변화: 사용자 수 과금에서 성과 과금으로",
+      "key_points": [
+        "AI 에이전트가 업무 효율을 높여 사용자 수를 줄임에 따라 기존 구독 모델의 매출 감소 위험이 발생함.",
+        "대안으로 사용량 과금, 작업 완료 과금, 성과 과금 모델이 부상하고 있음.",
+        "각 모델은 지출 예측, 완료 기준 정의, 인과관계 입증이라는 새로운 운영 과제를 안고 있음."
+      ],
+      "topics": [
+        "Usage-based Pricing",
+        "Outcome-based Pricing",
+        "AI Business Model"
+      ],
+      "recommended_for": "AI 기반 제품을 기획하거나 SaaS 비즈니스 모델을 고민하는 개발자 및 PM",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "chrome-capture - Chrome 탭의 화면과 소리를 최대 4K 120fps로 녹화하는 도구",
+      "link": "https://news.hada.io/topic?id=37379",
+      "published_at": "2026-11-18T09:30:02+09:00",
+      "selection_score": 12,
+      "selection_reason": "Playwright 등 자동화 도구와 연동 가능한 실무적인 개발 생산성 도구로 활용 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Chrome 153의 내장 API를 활용해 별도 FFmpeg 없이 브라우저 화면을 고화질로 녹화하는 도구",
+      "key_points": [
+        "Chrome 153의 내장 녹화 API를 사용하여 별도의 FFmpeg 설치 없이 AV1 MP4 형식으로 화면과 소리를 직접 인코딩한다.",
+        "Playwright, Puppeteer, CDP와 연동하여 특정 페이지 로딩이나 로그인 후 필요한 구간만 정밀하게 녹화할 수 있다.",
+        "테스트 자동화 시 마우스 커서와 클릭 위치를 포함한 녹화 영상을 테스트 리포트에 자동으로 첨부하여 디버깅 효율을 높일 수 있다."
+      ],
+      "topics": [
+        "Chrome Recording API",
+        "Browser Automation",
+        "AV1 Encoding"
+      ],
+      "recommended_for": "E2E 테스트 자동화 환경에서 디버깅 효율을 높이고 싶은 프론트엔드 및 QA 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Playwright 테스트 리포트에 자동 녹화 기능 통합하기",
+        "steps": [
+          "현재 운영 중인 Playwright 테스트 프로젝트에 chrome-capture 라이브러리를 설치한다.",
+          "테스트 실행 시 특정 실패 케이스에서만 녹화가 트리거되도록 테스트 훅(hook)을 설정한다.",
+          "생성된 MP4 파일을 테스트 리포트 HTML에 임베드하여 확인한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: Alloy CSS, JavaScript를 꺼도 작동하는 대화상자, 메뉴, 탭",
+      "link": "https://news.hada.io/topic?id=37385",
+      "published_at": "2026-11-18T10:32:22+09:00",
+      "selection_score": 13,
+      "selection_reason": "JavaScript 없이 CSS만으로 복잡한 UI 컴포넌트를 구현하는 방식은 웹 성능 개선 및 프론트엔드 아키텍처 관점에서 매우 높은 학습 가치를 가집니다.",
+      "feedback_bias": 0,
+      "one_line": "JavaScript 없이 CSS만으로 대화상자, 메뉴, 탭 등 복잡한 UI 컴포넌트를 구현하는 Alloy CSS",
+      "key_points": [
+        "Alloy CSS는 JavaScript 의존성 없이 순수 CSS만으로 대화상자, 메뉴, 탭과 같은 인터랙티브한 UI 컴포넌트를 구현한다.",
+        "단일 HTML 파일로 구성된 청구서 관리 앱 예제를 통해 복잡한 상태 관리 UI도 JS 없이 가능함을 증명한다.",
+        "JavaScript 실행이 차단된 환경에서도 UI가 정상 작동하므로 웹 접근성과 성능 최적화 측면에서 유리하다."
+      ],
+      "topics": [
+        "CSS-only UI",
+        "Web Accessibility",
+        "Zero-JS Architecture"
+      ],
+      "recommended_for": "웹 성능 최적화와 최소한의 의존성으로 UI를 구성하고자 하는 프론트엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "Google Developers",
+      "title": "Gemini 4 Hydrogen: a faster model for general purpose robotics",
+      "link": "https://developers.googleblog.com/gemini-hydrogen-for-robotics",
+      "published_at": "",
+      "selection_score": 10,
+      "selection_reason": "로보틱스 특화 모델과 새로운 SDK의 등장은 AI 에이전트 생태계의 확장을 보여주는 중요한 변화입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Phrack 73호 공개, 보안 연구와 해킹 문화를 다루는 매거진",
+      "link": "https://news.hada.io/topic?id=37371",
+      "published_at": "2026-11-18T07:37:23+09:00",
+      "selection_score": 10,
+      "selection_reason": "보안 연구와 AI 신뢰성 등 기술적 깊이가 있는 주제를 다루고 있어 보안 실무자에게 유익합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Quad9의 프랑스 철수: 탄광 속 카나리아가 보내는 경고",
+      "link": "https://news.hada.io/topic?id=37381",
+      "published_at": "2026-11-18T09:33:22+09:00",
+      "selection_score": 9,
+      "selection_reason": "DNS 및 네트워크 인프라 관련 정책 변화는 서버 및 클라우드 운영자에게 중요한 업계 이슈입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "“X는 죽었다”는 말은 죽었다",
+      "link": "https://news.hada.io/topic?id=37382",
+      "published_at": "2026-11-18T09:40:02+09:00",
+      "selection_score": 10,
+      "selection_reason": "도구의 파편화와 워크플로 변화에 대한 통찰은 개발 생산성 및 협업 도구 전략을 고민하는 실무자에게 유의미한 시사점을 제공합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
