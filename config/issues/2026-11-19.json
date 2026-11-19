@@ -1,0 +1,724 @@
+{
+  "schema_version": 1,
+  "issue_number": 61,
+  "issue_date": "2026-11-19",
+  "generated_at": "2026-11-19T11:17:19.278365+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\n원격 코드 실행(RCE), AI 에이전트 워크플로, 커널 취약점, 인프라 보안, GPU 가상화\n\n[오늘의 한줄 포인트]\n\n고성능 인프라의 효율적 운영을 위한 GPU 가상화 기술과, 시스템 전반을 위협하는 치명적 보안 취약점에 대한 즉각적인 대응이 필요한 시점입니다.\n\n[오늘 왜 중요한가]\n\n최근 Nginx와 Linux 커널 등 핵심 인프라 계층에서 원격 코드 실행이 가능한 치명적 취약점이 다수 발견되어 서버 보안 점검이 시급합니다. 동시에 AI 에이전트를 활용한 업무 자동화와 GPU 인프라 최적화 사례가 실무에 도입되고 있어, 보안과 성능이라는 두 마리 토끼를 잡는 기술적 통찰이 필수적입니다.\n\n[왜 이 글들을 골랐나]\n\n• 17번: Nginx와 Linux 커널 취약점은 서버 인프라의 근간을 흔들 수 있는 사안으로, 운영 중인 서비스의 즉각적인 보안 패치가 무엇보다 중요하기 때문입니다.\n• 6번: AI 에이전트를 활용해 수천 개의 모델을 관리하고 비용을 절감한 Meta의 사례는 에이전트 워크플로를 프로덕션 환경에 적용하려는 엔지니어에게 가장 실용적인 지침을 제공합니다.\n• 20번: 11년 된 TCP 취약점인 NoisyTCP는 네트워크 계층의 안정성을 위협하므로, 시스템 엔지니어라면 반드시 인지하고 방어책을 마련해야 합니다.\n\n[오늘 공부해볼 것]\n\n• Nginx 및 Linux 커널 보안 패치 절차: 운영 중인 서버의 취약점 노출 여부를 확인하고, 서비스 중단 없이 패치를 적용하는 무중단 배포 전략을 학습합니다.\n• AI 에이전트의 Fail-safe 설계: 에이전트가 도구 호출 실패 시 환각이나 오류를 일으키지 않고 안전하게 종료되도록 하는 시스템 프롬프트 및 예외 처리 로직을 연구합니다.\n• GPU 가상화와 NUMA 토폴로지: 대규모 GPU 인프라에서 성능 저하를 방지하기 위해 호스트와 게스트 간의 메모리 및 CPU 배치를 최적화하는 아키텍처를 이해합니다.",
+  "stats": {
+    "candidate_count": 33,
+    "detailed_count": 21,
+    "brief_count": 6,
+    "excluded_count": 6,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "nginx2root - nginx 원격 코드 실행 취약점 5개와 Linux 커널 권한 상승 취약점",
+      "link": "https://news.hada.io/topic?id=37438",
+      "published_at": "2026-11-19T09:08:42+09:00",
+      "selection_score": 14,
+      "selection_reason": "Nginx 및 Linux 커널의 치명적인 보안 취약점은 서버 운영 및 백엔드 보안 측면에서 즉각적인 대응이 필요한 핵심 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Nginx 원격 코드 실행 취약점 5개 및 Linux 커널 권한 상승 취약점 발견",
+      "key_points": [
+        "Nginx 1.9.5부터 1.31.8 버전에 영향을 주는 5개의 비인증 원격 코드 실행 취약점이 발견됨.",
+        "CVE-2026-123007은 HTTP/2가 활성화된 서버에서 워커 권한의 명령 실행을 허용함.",
+        "Nginx 취약점과 Linux SCTP 커널 취약점을 결합할 경우 루트 권한 획득 및 컨테이너 탈출이 가능함."
+      ],
+      "topics": [
+        "Remote Code Execution (RCE)",
+        "Container Escape",
+        "SCTP Kernel Vulnerability"
+      ],
+      "recommended_for": "Nginx를 운영 중인 서버 관리자 및 백엔드 인프라 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "운영 중인 Nginx 버전 확인 및 보안 패치 준비",
+        "steps": [
+          "현재 서버의 Nginx 버전이 1.9.5~1.31.8 범위에 해당하는지 확인",
+          "Nginx 공식 릴리스 1.31.9 업데이트 여부를 모니터링하고 즉시 패치 계획 수립",
+          "SCTP 모듈이 불필요한 경우 커널에서 비활성화하여 공격 표면 최소화"
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "How Meta Uses AI Agents to Scale ML Innovations Across Ads Ranking Models",
+      "link": "https://engineering.fb.com/2026/11/18/ml-applications/ai-agents-to-scale-ml-innovations-across-ads-ranking-models",
+      "published_at": "Wed, 18 Nov 2026 17:00:00 +0000",
+      "selection_score": 15,
+      "selection_reason": "AI Agent를 활용한 기술 전파 및 자동화는 Agentic Workflow의 실무 적용 사례로서 매우 높은 가치를 지닙니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta는 AI 에이전트를 활용해 광고 랭킹 모델의 기술 전파를 자동화하여 엔지니어링 생산성을 3배 높이고 4,500만 달러 이상의 컴퓨팅 비용을 절감했습니다.",
+      "key_points": [
+        "AI 에이전트가 가설 생성, 실험 설계, 하이퍼파라미터 튜닝 등 복잡한 의사결정을 자동화하여 엔지니어의 개입을 최소화했습니다.",
+        "표준화된 모델 템플릿과 에이전트의 결합으로 5,000개 이상의 기술-모델 조합을 성공적으로 배포했습니다.",
+        "에이전트는 과거 학습 기록을 공유하여 시행착오를 줄이고, 리소스 우선순위를 최적화하여 컴퓨팅 효율을 4배 개선했습니다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Technique Propagation",
+        "MLOps Automation"
+      ],
+      "recommended_for": "대규모 ML 모델 운영 및 엔지니어링 생산성 향상에 관심이 많은 백엔드/ML 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "NoisyTCP CVE-2026-99288: Linux 관리자가 알아야 할 사항",
+      "link": "https://news.hada.io/topic?id=37445",
+      "published_at": "2026-11-19T10:12:56+09:00",
+      "selection_score": 14,
+      "selection_reason": "Linux 서버의 원격 충돌을 유발하는 치명적인 TCP 취약점으로, 서버 관리자에게 매우 높은 우선순위의 보안 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Linux 커널의 11년 된 TCP 취약점 'NoisyTCP(CVE-2026-99288)' 주의",
+      "key_points": [
+        "조작된 TCP 패킷을 전송하는 것만으로 인증 없이 원격에서 Linux 서버를 충돌시킬 수 있는 취약점임.",
+        "Nginx, Apache, SSH 등 TCP를 사용하는 모든 서비스가 공격 대상이 될 수 있음.",
+        "11년 된 결함으로, 서버 관리자는 즉각적인 커널 패치 및 보안 업데이트가 필요함."
+      ],
+      "topics": [
+        "TCP Vulnerability",
+        "Kernel Panic",
+        "Denial of Service (DoS)"
+      ],
+      "recommended_for": "Linux 서버 인프라를 관리하는 백엔드 및 시스템 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Linux 서버 커널 보안 패치 적용 및 네트워크 방어 강화",
+        "steps": [
+          "현재 사용 중인 Linux 배포판의 보안 업데이트 공지 확인",
+          "패치 적용 전 스테이징 환경에서 커널 업데이트 후 서비스 안정성 테스트",
+          "운영 서버에 최신 커널 패치 적용 및 불필요한 포트 노출 차단"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "컨테이너처럼 쓰고, VM처럼 격리하기 1편 - 컨테이너와 VM의 차이, Kata Containers의 Pod 실행 구조",
+      "link": "https://d2.naver.com/helloworld/8055238",
+      "published_at": "2026-11-18T05:46:34Z",
+      "selection_score": 14,
+      "selection_reason": "고성능 GPU 환경에서의 컨테이너 격리 및 Kata Containers 활용은 백엔드 아키텍처와 성능 최적화 측면에서 매우 가치 있는 실무 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "Kata Containers를 활용해 GPU 서버에서 컨테이너를 VM 수준으로 격리하여 실행하는 구조와 네트워크 연결 방식",
+      "key_points": [
+        "컨테이너는 호스트 커널을 공유하여 취약점 노출 위험이 있으나, Kata Containers는 Pod마다 별도 커널을 가진 VM을 생성해 강력한 격리를 제공함.",
+        "VM 내부의 컨테이너는 virtio 장치(virtio-net, virtio-blk 등)를 통해 호스트와 통신하며, GPU는 PCI 패스스루를 통해 VM에 직접 연결됨.",
+        "Pod 네트워크는 호스트의 CNI가 만든 veth와 VM 내부의 virtio-net을 tap 장치와 tc 리다이렉트 규칙으로 연결하여 일반 Pod와 동일하게 동작함."
+      ],
+      "topics": [
+        "Kata Containers",
+        "VM exit",
+        "virtio"
+      ],
+      "recommended_for": "멀티 테넌트 환경에서 GPU 서버의 보안과 격리를 고민하는 백엔드 및 인프라 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "컨테이너처럼 쓰고, VM처럼 격리하기 2편 - GPU 패스스루 계층과 GPU 8장 VM의 부팅·메모리 구성",
+      "link": "https://d2.naver.com/helloworld/1376800",
+      "published_at": "2026-11-18T05:46:58Z",
+      "selection_score": 14,
+      "selection_reason": "GPU 패스스루와 대규모 VM 부팅 최적화는 클라우드 인프라 운영 및 성능 개선을 위한 핵심적인 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "GPU 8장 VM의 부팅 지연 문제를 THP와 대용량 페이지(Hugepages)로 해결하고 NUMA 토폴로지를 최적화하는 방법",
+      "key_points": [
+        "GPU의 대규모 BAR 영역 매핑 시 발생하는 페이지 폴트 문제를 THP(Transparent Huge Pages)로 최적화하여 부팅 시간을 단축함.",
+        "게스트 메모리 할당 시 1GiB 대용량 페이지를 사용하여 메모리 초기화 오버헤드를 줄이고 VM 부팅 성능을 개선함.",
+        "호스트의 NUMA 구조를 게스트에 반영하여 GPU와 메모리 간의 접근 거리를 최적화함으로써 성능 저하를 방지함."
+      ],
+      "topics": [
+        "IOMMU",
+        "VFIO",
+        "NUMA"
+      ],
+      "recommended_for": "대규모 GPU 인프라에서 VM 부팅 속도와 메모리 성능 최적화가 필요한 클라우드 운영자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "대규모 VM 환경에서 THP 및 Hugepages 설정 적용 테스트",
+        "steps": [
+          "현재 서버의 커널 부팅 옵션에 transparent_hugepage=always 및 hugepages 설정 추가",
+          "VM 생성 시 메모리 할당 속도와 부팅 시간 변화 측정",
+          "NUMA 토폴로지 설정(enable_numa) 활성화 후 GPU-메모리 간 대역폭 비교"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "컨테이너처럼 쓰고, VM처럼 격리하기 3편 - Fabric Manager 파티션과 DRA를 이용한 GPU 할당",
+      "link": "https://d2.naver.com/helloworld/6180316",
+      "published_at": "2026-11-18T05:47:12Z",
+      "selection_score": 14,
+      "selection_reason": "DRA를 활용한 동적 리소스 할당과 NVLink 최적화는 복잡한 AI 인프라를 구축하는 엔지니어에게 매우 실용적인 가이드를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Kubernetes DRA를 활용해 NVLink 기반 GPU 파티션을 동적으로 할당하고 VM에 연결하는 아키텍처",
+      "key_points": [
+        "기존 장치 플러그인은 NVLink 파티션 제약을 보장하지 못해, 스케줄러가 직접 자원을 할당하는 DRA(Dynamic Resource Allocation)로 전환함.",
+        "Fabric Manager가 정의한 GPU 파티션을 DRA 디바이스로 발행하고, SharedCounters를 통해 겹치는 파티션의 동시 할당을 방지함.",
+        "kata shim을 수정하여 DRA로 할당된 GPU 정보를 VM 부팅 시 콜드 플러그(cold-plug) 방식으로 연결하도록 구현함."
+      ],
+      "topics": [
+        "DRA (Dynamic Resource Allocation)",
+        "NVLink",
+        "Fabric Manager"
+      ],
+      "recommended_for": "Kubernetes에서 복잡한 하드웨어 자원 할당 및 스케줄링을 구현해야 하는 인프라 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 클러스터의 GPU 할당 방식 검토 및 DRA 도입 가능성 확인",
+        "steps": [
+          "현재 사용 중인 장치 플러그인의 한계점(파티션 제약 등) 리스트업",
+          "Kubernetes DRA 기능 게이트(DRAPartitionableDevices) 활성화 조건 확인",
+          "자체 DRA 드라이버 구현을 위한 기본 구조(ResourceSlice, ResourceClaim) 설계"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "컨테이너처럼 쓰고, VM처럼 격리하기 4편 - IB 네트워크와 로컬 NVMe, vCPU 배치, 베어메탈 대비 성능",
+      "link": "https://d2.naver.com/helloworld/5896967",
+      "published_at": "2026-11-18T05:48:06Z",
+      "selection_score": 14,
+      "selection_reason": "분산 학습을 위한 IB 네트워크 구성과 vCPU 배치 최적화는 고성능 컴퓨팅 환경의 성능 개선을 위한 필수적인 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "고성능 분산 학습을 위한 IB NIC 배치 최적화, SPDK 기반 NVMe 공유 및 vCPU 배치 전략",
+      "key_points": [
+        "GPU와 동일한 PCIe 스위치에 연결된 NIC를 매칭하는 레일셋(railset) 개념을 도입하고 NCCL 토폴로지 파일을 통해 성능을 극대화함.",
+        "SPDK와 vhost-user를 사용하여 호스트 커널을 거치지 않는 고성능 NVMe 공유 경로를 구축함.",
+        "vCPU와 SPDK 리액터 코어 간의 CPU 경합을 방지하기 위해 CPU 고정(pinning) 설정을 최적화하여 게스트 멈춤 현상을 해결함."
+      ],
+      "topics": [
+        "RDMA",
+        "SR-IOV",
+        "SPDK"
+      ],
+      "recommended_for": "분산 학습 성능 최적화와 고성능 스토리지 아키텍처를 설계하는 AI 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "vCPU 및 핵심 프로세스 CPU 고정(Pinning) 최적화",
+        "steps": [
+          "현재 실행 중인 VM의 vCPU와 호스트 프로세스 간의 CPU 점유 현황 모니터링",
+          "SPDK 리액터 코어와 vCPU가 동일한 물리 코어를 점유하지 않도록 CPU 고정 설정 적용",
+          "성능 안정성 및 게스트 응답성 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Meta Engineering",
+      "title": "Design Once, Deploy at Scale: Building a Template-Driven ML Ecosystem",
+      "link": "https://engineering.fb.com/2026/11/18/ml-applications/design-once-deploy-at-scale-template-driven-ml-ecosystem",
+      "published_at": "Wed, 18 Nov 2026 16:59:38 +0000",
+      "selection_score": 11,
+      "selection_reason": "템플릿 기반의 ML 생태계 구축은 개발 생산성 향상과 대규모 모델 운영 아키텍처를 이해하는 데 큰 도움이 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Meta의 템플릿 기반 ML 생태계(SMT)를 통한 모델 설계 표준화 및 개발 생산성 향상 전략",
+      "key_points": [
+        "모델 설계를 재사용 가능한 빌딩 블록인 '표준 모델 템플릿(SMT)'으로 표준화하여 개별 모델 단위의 반복 작업을 시스템 문제로 전환함.",
+        "템플릿 기반 반복을 통해 모델 엔지니어링 시간을 92% 단축하고, 수천 개의 기술-모델 조합을 효율적으로 배포함.",
+        "SMT는 에이전트 기반 ML 시스템에서 탐색 공간을 제한하고 품질 기준을 보장하는 구조적 토대를 제공함."
+      ],
+      "topics": [
+        "Standard Model Templates (SMT)",
+        "Multi-model Optimization",
+        "Agentic ML"
+      ],
+      "recommended_for": "대규모 모델 운영 환경에서 파편화된 모델 관리와 배포 효율성을 고민하는 ML 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "How Cloudflare WAF helps protect against Java4Shell (CVE-2026-114938)",
+      "link": "https://blog.cloudflare.com/java4shell-waf-protection",
+      "published_at": "Wed, 18 Nov 2026 14:52:10 GMT",
+      "selection_score": 11,
+      "selection_reason": "Java 생태계의 치명적인 보안 취약점(CVE-2026-114938)은 모든 백엔드 개발자가 즉시 인지해야 할 중요한 보안 이슈입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenJDK의 Base64 디코더 취약점(Java4Shell)이 발견되어 원격 코드 실행 위험이 있으므로 즉시 패치 및 WAF 규칙 적용이 필요합니다.",
+      "key_points": [
+        "OpenJDK의 Base64 디코더 내 메모리 손상 버그로 인해 원격 코드 실행(RCE)이 가능하며 CVSS 9.2점의 치명적 등급입니다.",
+        "x86-64 아키텍처의 AVX-512 명령어 사용 시 발생하며, 패치 전까지 JVM 플래그(-XX:-UseBASE64Intrinsics)로 임시 대응이 가능합니다.",
+        "Cloudflare WAF는 비정상적인 Base64 패턴을 탐지하는 규칙을 제공하며, RCE 탐지 점수를 활용한 다단계 방어 체계를 권장합니다."
+      ],
+      "topics": [
+        "CVE-2026-114938",
+        "Java4Shell",
+        "Heap Corruption"
+      ],
+      "recommended_for": "Java 기반 백엔드 시스템을 운영 중인 모든 보안 및 서버 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "Java4Shell 취약점 점검 및 패치 적용",
+        "steps": [
+          "운영 중인 모든 Java 서비스의 OpenJDK 버전을 확인하고 최신 패치 버전으로 업데이트 계획 수립",
+          "즉시 패치가 어려운 경우 JVM 시작 옵션에 -XX:-UseBASE64Intrinsics 추가하여 취약한 코드 경로 비활성화",
+          "WAF 또는 보안 장비에서 비정상적인 Base64 패턴 탐지 규칙 활성화 및 모니터링"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team",
+      "link": "https://blog.cloudflare.com/open-clairic",
+      "published_at": "Wed, 18 Nov 2026 22:00:00 GMT",
+      "selection_score": 11,
+      "selection_reason": "LLM 기반의 추출 모델 공개는 RAG 시스템 구축 및 데이터 처리 파이프라인 최적화에 활용할 수 있는 유용한 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare가 문서 및 이미지 데이터 추출에 특화된 고성능 오픈 웨이트 모델 'Clairic'과 경량 버전 'Clairic-flash'를 공개했습니다.",
+      "key_points": [
+        "Clairic은 복잡한 문서, 표, 이미지에서 데이터를 추출하는 데 최적화된 모델로, 기존 LLM 대비 빠르고 정확한 추출 성능을 제공합니다.",
+        "9B 파라미터의 Clairic-flash는 저지연 환경에 적합하며, 두 모델 모두 Hugging Face에 오픈 웨이트로 공개되었습니다.",
+        "입력 토큰 기반의 경제적인 가격 정책을 유지하며, Workers AI를 통해 즉시 API로 활용 가능합니다."
+      ],
+      "topics": [
+        "Data Extraction",
+        "Open-weight Model",
+        "Workers AI"
+      ],
+      "recommended_for": "문서 자동화, RAG 파이프라인 구축 및 데이터 추출 비용 절감을 고민하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Clairic 모델을 활용한 문서 데이터 추출 테스트",
+        "steps": [
+          "Hugging Face에서 Clairic 모델 가중치를 다운로드하거나 Cloudflare Workers AI 엔드포인트 확인",
+          "현재 사용 중인 문서 처리 파이프라인의 샘플 데이터를 Clairic API로 전송하여 추출 정확도 및 응답 속도 측정",
+          "기존 LLM 대비 비용 및 성능 이점 분석 후 프로덕션 적용 검토"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Resilience testing your agents on Amazon Bedrock AgentCore",
+      "link": "https://aws.amazon.com/blogs/architecture/resilience-testing-your-agents-on-amazon-bedrock-agentcore",
+      "published_at": "Wed, 18 Nov 2026 20:06:14 +0000",
+      "selection_score": 14,
+      "selection_reason": "AI Agent의 장애 복구 및 탄력성 테스트는 Agentic Workflow를 프로덕션 환경에 도입할 때 반드시 고려해야 할 핵심 방법론입니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS FIS를 활용해 AI 에이전트의 도구 호출 실패 및 데이터 오염 상황을 시뮬레이션하여 에이전트의 탄력성을 테스트하는 방법론입니다.",
+      "key_points": [
+        "에이전트가 도구 실패 시 무작정 추측하거나 잘못된 답변을 하지 않도록 '안전하게 실패(Fail safe)'하는 로직 검증이 핵심입니다.",
+        "AWS FIS와 SSM을 사용하여 에이전트 런타임 내부에 직접 장애를 주입함으로써 실제 운영 환경에서의 대응력을 테스트합니다.",
+        "시스템 프롬프트에 명확한 장애 대응 지침을 포함하고, LLM 기반 평가 도구로 에이전트의 복구 전략을 정량적으로 평가해야 합니다."
+      ],
+      "topics": [
+        "Fault Injection",
+        "Resilience Testing",
+        "Agentic Reliability"
+      ],
+      "recommended_for": "AI 에이전트를 프로덕션 환경에 배포하려는 백엔드 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "에이전트 장애 대응 시나리오 테스트",
+        "steps": [
+          "에이전트가 도구 호출 실패 시 '모른다'고 응답하도록 시스템 프롬프트 수정",
+          "AWS FIS 템플릿을 활용하여 특정 도구 호출에 타임아웃 또는 데이터 오염 장애 주입",
+          "장애 발생 시 에이전트의 답변이 환각(Hallucination) 없이 안전하게 처리되는지 로그 확인"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How United Airlines streams database changes to Apache Iceberg with Amazon Data Firehose",
+      "link": "https://aws.amazon.com/blogs/architecture/how-united-airlines-streams-database-changes-to-apache-iceberg-with-amazon-data-firehose",
+      "published_at": "Wed, 18 Nov 2026 20:37:39 +0000",
+      "selection_score": 11,
+      "selection_reason": "데이터 파이프라인 현대화와 Apache Iceberg 활용 사례는 백엔드 아키텍처 및 데이터 분석 실무에 직접적인 참고가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Amazon Data Firehose와 Apache Iceberg를 활용하여 트랜잭션 데이터베이스의 변경 사항을 실시간으로 분석 시스템에 동기화하는 아키텍처입니다.",
+      "key_points": [
+        "AWS DMS를 통해 CDC(Change Data Capture) 이벤트를 Kinesis Data Streams로 스트리밍하여 실시간 데이터 파이프라인을 구축합니다.",
+        "Firehose가 데이터를 Parquet 형식으로 변환하여 Iceberg 테이블에 저장함으로써 쿼리 성능을 5배 개선했습니다.",
+        "Iceberg의 ACID 트랜잭션 지원으로 데이터 일관성을 유지하며, Athena 및 Redshift 등 다양한 엔진에서 즉시 쿼리가 가능합니다."
+      ],
+      "topics": [
+        "CDC (Change Data Capture)",
+        "Apache Iceberg",
+        "Data Pipeline Modernization"
+      ],
+      "recommended_for": "데이터 분석 파이프라인의 실시간성 개선과 비용 절감을 고민하는 데이터/백엔드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "Aderant modernizes analytics data pipeline with Apache Iceberg and AWS Lambda",
+      "link": "https://aws.amazon.com/blogs/architecture/aderant-modernizes-analytics-data-pipeline-with-apache-iceberg-and-aws-lambda",
+      "published_at": "Thu, 19 Nov 2026 00:36:23 +0000",
+      "selection_score": 12,
+      "selection_reason": "메달리온 아키텍처와 CDC를 통한 성능 개선 및 비용 절감 사례는 실무 아키텍처 설계에 매우 유용한 가이드를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Apache Iceberg와 AWS Lambda를 활용한 이벤트 기반 메달리온 아키텍처로 데이터 파이프라인 성능과 비용 최적화",
+      "key_points": [
+        "AWS DMS와 Lambda를 활용한 CDC(Change Data Capture) 방식으로 배치 처리의 지연 시간을 제거하고 실시간에 가까운 데이터 가용성을 확보함.",
+        "Apache Iceberg의 ACID 트랜잭션과 스냅샷 기능을 활용해 복잡한 쿼리 성능을 10~26배 개선하고 인프라 비용을 77% 절감함.",
+        "Iceberg materialized views를 도입하여 윈도우 함수나 복잡한 조인이 포함된 쿼리도 효율적으로 증분 처리함."
+      ],
+      "topics": [
+        "Medallion Architecture",
+        "Apache Iceberg",
+        "Change Data Capture (CDC)"
+      ],
+      "recommended_for": "대규모 데이터 파이프라인의 지연 시간과 비용 문제로 고민하는 백엔드 및 데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 데이터 파이프라인에 Iceberg 도입 가능성 검토",
+        "steps": [
+          "현재 배치 처리 중인 데이터 파이프라인의 병목 구간을 식별함.",
+          "Iceberg의 스냅샷 및 증분 처리 기능이 기존 쿼리 성능 개선에 기여할 수 있는지 PoC 계획 수립."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Control your AWS Lambda runtimes with customer-managed runtimes",
+      "link": "https://aws.amazon.com/blogs/compute/control-your-aws-lambda-runtimes-with-customer-managed-runtimes",
+      "published_at": "Wed, 18 Nov 2026 18:53:02 +0000",
+      "selection_score": 11,
+      "selection_reason": "AWS Lambda의 커스텀 런타임 관리는 서버리스 환경의 제어권과 운영 효율성을 높이는 중요한 기술적 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS Lambda 커스텀 런타임 도입으로 조직 내 런타임 표준화 및 중앙 집중식 관리 가능",
+      "key_points": [
+        "조직이 직접 런타임 환경을 패키징하고 관리하여 보안 도구, 모니터링 에이전트, 비공식 언어(PHP 등)를 표준화할 수 있음.",
+        "런타임 버전과 별칭(Alias)을 통해 중앙에서 업데이트를 배포하고, 함수 재배포 없이 런타임 변경 사항을 즉시 적용 가능함.",
+        "런타임 게시자와 소비자 역할을 분리하여 플랫폼 팀은 보안과 패치를 관리하고, 개발자는 비즈니스 로직에만 집중할 수 있음."
+      ],
+      "topics": [
+        "Customer-managed Runtimes",
+        "Runtime Alias",
+        "Serverless Governance"
+      ],
+      "recommended_for": "다수의 Lambda 함수를 운영하며 런타임 보안 및 버전 관리에 어려움을 겪는 플랫폼 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "조직 내 런타임 표준화를 위한 커스텀 런타임 설계",
+        "steps": [
+          "현재 사용 중인 Lambda 런타임 환경의 공통 의존성 및 보안 요구사항을 정리함.",
+          "커스텀 런타임의 버전 관리 및 배포 전략(Alias 활용)을 수립함."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 에이전트, 감사 실험에서 KPMG 회계사보다 더 나은 질문 던져",
+      "link": "https://news.hada.io/topic?id=37429",
+      "published_at": "2026-11-19T06:32:41+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트가 전문 영역인 감사 업무에 투입되어 성과를 낸 사례로, 에이전트 워크플로의 미래를 보여주는 중요한 글입니다.",
+      "feedback_bias": 0,
+      "one_line": "KPMG의 감사 실험을 통해 확인된 AI 에이전트의 전문 영역 내 분석 및 질문 도출 능력",
+      "key_points": [
+        "100개 이상의 AI 에이전트를 투입한 재무제표 검토 실험에서 에이전트가 기존 감사팀보다 깊이 있는 분석과 새로운 질문을 제시함.",
+        "단순 보조를 넘어 정보 수집, 분석, 문서화, 후속 조치 제안까지 감사 프로세스 전반을 수행함.",
+        "이번 실험은 정식 법정감사는 아니나, 향후 대규모 감사 업무에 에이전트 워크플로를 도입할 가능성을 입증함."
+      ],
+      "topics": [
+        "AI Agent",
+        "Agentic Workflow",
+        "Domain-specific AI"
+      ],
+      "recommended_for": "AI 에이전트를 실제 비즈니스 프로세스에 어떻게 통합할지 고민하는 개발자 및 기술 리더",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Gemini 4 Neon - 복잡한 코딩과 분석에 추론 성능과 효율을 갖춘 AI 모델",
+      "link": "https://news.hada.io/topic?id=37432",
+      "published_at": "2026-11-19T07:22:19+09:00",
+      "selection_score": 14,
+      "selection_reason": "코딩 에이전트 지수 1위 모델의 등장은 개발 생산성 및 에이전트 워크플로 구축에 직접적인 영향을 미치는 핵심 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "코딩 에이전트 지수 1위를 기록한 Gemini 4 Neon 모델 공개",
+      "key_points": [
+        "Gemini 4 Neon은 추론 깊이와 효율성의 균형을 맞춘 모델로, 복잡한 코딩과 분석 작업에 최적화됨.",
+        "코딩 에이전트 지수 1위를 기록하며, 여러 파일의 디버깅 및 리팩터링을 수행하는 에이전트 작업에 특화됨.",
+        "Google Antigravity 환경에서 하위 에이전트들을 병렬로 지휘하는 등 고도화된 에이전트 워크플로를 지원함."
+      ],
+      "topics": [
+        "LLM",
+        "Coding Agent",
+        "Agentic Workflow"
+      ],
+      "recommended_for": "AI 기반 코딩 도구 및 에이전트 워크플로를 개발하거나 활용하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Gemini 4 Neon을 활용한 코드 리팩터링 및 디버깅 테스트",
+        "steps": [
+          "현재 진행 중인 프로젝트의 복잡한 모듈을 선정함.",
+          "Gemini 4 Neon을 사용하여 해당 모듈의 리팩터링 제안 및 디버깅을 수행하고 기존 모델과 성능 비교."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Google Gemini의 개인 비서 기능 ‘Tasks’, 이제 무료로 제공",
+      "link": "https://news.hada.io/topic?id=37433",
+      "published_at": "2026-11-19T07:24:26+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI Agent의 실생활 적용 사례이자 Agentic Workflow의 확장성을 보여주는 중요한 플랫폼 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "Google Gemini의 개인 비서 'Tasks' 무료 배포 및 에이전트 기반 업무 자동화 확장",
+      "key_points": [
+        "Gemini 4 Hydrogen 기반의 'Tasks' 기능이 한국을 포함한 주요 국가에 무료 배포됨.",
+        "이메일, 캘린더 등 개인 서비스와 연동하여 전화 예약, 청구서 분석, 쇼핑 등의 작업을 자동화함.",
+        "Agent Payments Protocol(AP2)을 도입하여 안전한 결제 환경과 지출 한도 설정 기능을 제공함."
+      ],
+      "topics": [
+        "AI Agent",
+        "Task Automation",
+        "Agent Payments Protocol"
+      ],
+      "recommended_for": "개인 생산성 향상을 위한 AI 에이전트 활용에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Tencent Hy4 Flash - 100만 토큰 컨텍스트를 지원하는 저비용 멀티모달 모델",
+      "link": "https://news.hada.io/topic?id=37434",
+      "published_at": "2026-11-19T07:33:07+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM의 비용 절감과 성능 개선을 동시에 달성한 기술적 성과로, 백엔드 아키텍처 설계 시 참고할 가치가 큽니다.",
+      "feedback_bias": 0,
+      "one_line": "Tencent, 비용 효율성과 100만 토큰 컨텍스트를 갖춘 멀티모달 모델 'Hy4 Flash' 공개",
+      "key_points": [
+        "2,200억 파라미터 규모의 모델로, 하이브리드 어텐션과 LatentMoE 기술을 통해 KV 캐시를 기존 대비 1/6로 절감함.",
+        "100만 토큰의 긴 컨텍스트를 지원하며, API 비용은 기존 Hy4 모델 대비 1/20 수준으로 낮춤.",
+        "가중치를 공개하여 일상적인 생산성 작업 및 대규모 데이터 처리에 최적화된 성능을 제공함."
+      ],
+      "topics": [
+        "LatentMoE",
+        "KV Cache Optimization",
+        "Native Multimodal"
+      ],
+      "recommended_for": "LLM API 비용 절감과 긴 컨텍스트 처리가 필요한 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "기존 LLM API 비용 및 성능과 Hy4 Flash 비교 분석",
+        "steps": [
+          "현재 사용 중인 LLM API의 토큰당 비용과 Hy4 Flash의 비용(입력 0.070달러/출력 0.281달러)을 비교",
+          "현재 프로젝트의 컨텍스트 요구사항이 100만 토큰을 필요로 하는지 검토",
+          "공개된 가중치를 활용해 로컬 환경에서 간단한 생산성 작업 테스트 수행"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Reticle - AI 코딩 에이전트가 웹/데스크톱 앱을 직접 조작해 검증하는 도구",
+      "link": "https://news.hada.io/topic?id=37440",
+      "published_at": "2026-11-19T09:30:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent를 활용한 테스트 자동화 도구로, 개발 생산성 향상과 워크플로 개선에 직접적인 실무 가치를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 에이전트가 실제 앱을 조작해 기능을 검증하는 도구 'Reticle'",
+      "key_points": [
+        "AI 에이전트가 실제 웹/데스크톱 앱에서 클릭, 입력 등 사용자 행동을 수행하며 기능을 검증함.",
+        "API 요청, 콘솔 오류, 화면 변화 등을 종합적으로 분석하여 중복 요청 등 논리적 오류를 탐지함.",
+        "검증 과정을 플로우로 저장하여 AI 모델 없이도 CI 환경에서 재실행 가능한 테스트 자동화 지원."
+      ],
+      "topics": [
+        "AI Agentic Workflow",
+        "Test Automation",
+        "End-to-End Testing"
+      ],
+      "recommended_for": "테스트 자동화 효율을 높이고 싶은 풀스택 및 프론트엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Reticle을 활용한 핵심 사용자 흐름(로그인/결제) 테스트 자동화",
+        "steps": [
+          "Reticle 도구의 설치 및 로컬 환경 설정",
+          "로그인 또는 결제 프로세스를 에이전트가 수행하도록 테스트 플로우 생성",
+          "CI 파이프라인에 해당 플로우를 통합하여 코드 변경 시 자동 검증 수행"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Java4Shell: Java 17의 인증 전 원격 코드 실행 취약점으로 서버 위험 노출(CVE-2026-114938)",
+      "link": "https://news.hada.io/topic?id=37442",
+      "published_at": "2026-11-19T09:37:30+09:00",
+      "selection_score": 14,
+      "selection_reason": "Java 환경의 심각한 원격 코드 실행 취약점으로, 백엔드 서버 보안을 위해 반드시 확인하고 조치해야 할 사안입니다.",
+      "feedback_bias": 0,
+      "one_line": "Java 17의 Base64 디코더 메모리 손상 취약점(CVE-2026-114938) 주의",
+      "key_points": [
+        "OpenJDK의 Base64 디코더에서 발생하는 메모리 손상 취약점으로, 인증 없는 원격 코드 실행 가능성이 제기됨.",
+        "AVX-512 VBMI 명령어를 지원하는 x86-64 CPU 환경에서만 발생하며 ARM64는 영향받지 않음.",
+        "Keycloak, Jira, Jenkins 등 주요 애플리케이션에서 잠재적 위험이 보고됨."
+      ],
+      "topics": [
+        "Memory Corruption",
+        "Base64 Decoder Vulnerability",
+        "AVX-512 VBMI"
+      ],
+      "recommended_for": "Java 17 기반의 서버를 운영 중인 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "서버 CPU 아키텍처 확인 및 Java 보안 업데이트 검토",
+        "steps": [
+          "운영 중인 서버의 CPU가 AVX-512 VBMI를 지원하는지 확인 (lscpu 명령어 활용)",
+          "사용 중인 Java 17 버전의 보안 패치 내역 확인 및 최신 배포판으로 업데이트",
+          "외부 입력을 Base64로 디코딩하는 로직에 대한 입력값 검증 강화"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show HN: ExitPath - Slack, Notion, Microsoft 365에서 벗어나는 오픈소스 대안",
+      "link": "https://news.hada.io/topic?id=37447",
+      "published_at": "2026-11-19T10:37:56+09:00",
+      "selection_score": 11,
+      "selection_reason": "업무 자동화 및 개발 워크플로 도구의 오픈소스 대안을 제시하여 비용 절감과 인프라 독립성을 고민하는 실무자에게 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Slack, Notion 등 주요 SaaS를 대체할 오픈소스 도구와 이전 경로를 제공하는 플랫폼 ExitPath 소개",
+      "key_points": [
+        "ExitPath는 문서, 채팅, 이메일 등 16개 대형 플랫폼에 대한 30개의 오픈소스 대안과 45개의 이전 경로를 제공한다.",
+        "이전 난이도를 100점 척도로 수치화하여 개인 사용자와 자체 호스팅 환경에서 가장 쉬운 경로를 가이드한다.",
+        "Slack(Mattermost, Zulip 등)과 Notion(AppFlowy, Outline 등)을 포함한 주요 업무 도구의 탈중앙화 및 인프라 독립성을 지원한다."
+      ],
+      "topics": [
+        "Self-hosting",
+        "Open Source Alternative",
+        "Data Sovereignty"
+      ],
+      "recommended_for": "SaaS 비용 절감과 데이터 주권 확보를 위해 자체 호스팅 환경으로의 전환을 고려하는 백엔드 및 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 사용 중인 SaaS 도구의 오픈소스 대안 검토 및 이전 난이도 확인",
+        "steps": [
+          "ExitPath 사이트에 접속하여 현재 팀에서 사용하는 SaaS(Slack, Notion 등)를 검색한다.",
+          "제시된 오픈소스 대안들의 기능적 요구사항 충족 여부와 자체 호스팅 난이도를 확인한다.",
+          "가장 낮은 난이도의 대안을 선정하여 로컬 환경에서 PoC(개념 증명)를 위한 설치를 시도한다."
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "AWS Architecture",
+      "title": "Block DNS threats with Infoblox rules in Amazon Route 53 Resolver DNS Firewall",
+      "link": "https://aws.amazon.com/blogs/architecture/block-dns-threats-with-infoblox-rules-in-amazon-route-53-resolver-dns-firewall",
+      "published_at": "Wed, 18 Nov 2026 18:35:14 +0000",
+      "selection_score": 9,
+      "selection_reason": "클라우드 보안 및 DNS 위협 방어는 인프라 운영자에게 실질적인 보안 강화 방안을 제시합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Redict 공식 지원 종료",
+      "link": "https://news.hada.io/topic?id=37430",
+      "published_at": "2026-11-19T07:01:00+09:00",
+      "selection_score": 9,
+      "selection_reason": "Redis 생태계의 변화와 Valky로의 전환 권고는 백엔드 인프라 운영자에게 중요한 정보입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "KVM: x86: INIT 에뮬레이션 시 MMU 컨텍스트를 무조건 초기화하도록 수정(CVE-2026-99312)",
+      "link": "https://news.hada.io/topic?id=37435",
+      "published_at": "2026-11-19T07:36:07+09:00",
+      "selection_score": 10,
+      "selection_reason": "Linux 커널 및 가상화 환경의 보안 취약점 수정으로 서버 운영 및 인프라 관리자에게 중요한 정보입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Claude는 대규모 단백질 서열로 학습됐다",
+      "link": "https://news.hada.io/topic?id=37436",
+      "published_at": "2026-11-19T08:34:03+09:00",
+      "selection_score": 9,
+      "selection_reason": "최신 LLM 모델의 학습 데이터 특성과 성능 차이를 보여주는 업계 동향으로 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI 모델로 칩 설계 발전시키기",
+      "link": "https://news.hada.io/topic?id=37441",
+      "published_at": "2026-11-19T09:34:30+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 모델이 하드웨어 설계 최적화에 기여한 사례로, 향후 컴퓨팅 자원 효율화 및 성능 개선의 새로운 방향성을 제시합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "우리에겐 진심으로 신경 쓰는 똑똑한 사람들이 필요하다",
+      "link": "https://news.hada.io/topic?id=37446",
+      "published_at": "2026-11-19T10:34:56+09:00",
+      "selection_score": 10,
+      "selection_reason": "복잡한 시스템 운영과 인적 자원의 중요성을 다루며, 백엔드 아키텍처 및 시스템 안정성 관점에서 실무자에게 통찰을 제공합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
