@@ -631,5 +631,19 @@
     "video_id": "et-jRt5aRcc",
     "voice": "Leda",
     "publish_at": "2026-11-19T12:00:00+09:00"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://medium.com/airbnb-engineering/de-identifying-text-at-scale-how-airbnb-protects-personal-data-in-ai-training-32f3ff8ff7d0",
+    "title": "De-identifying text at scale: How Airbnb protects personal data in AI training",
+    "skipped": "source"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://news.hada.io/topic?id=37366",
+    "title": "Gemma 4 12B 7GB 경량 LLM, 수능 399.2점 기록",
+    "video_id": "6O83po4Vqz8",
+    "voice": "Leda",
+    "publish_at": "2026-11-19T13:00:00+09:00"
   }
 ]
