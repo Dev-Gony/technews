@@ -669,5 +669,13 @@
     "video_id": "Tb9biY4cRac",
     "voice": "Leda",
     "publish_at": "2026-11-20T07:00:00+09:00"
+  },
+  {
+    "date": "2026-11-19",
+    "link": "https://aws.amazon.com/blogs/architecture/resilience-testing-your-agents-on-amazon-bedrock-agentcore",
+    "title": "Amazon Bedrock AgentCore 에이전트 장애 테스트, 15번 중 14번 알리지 않고 답했다",
+    "video_id": "PrPBf-XIBYg",
+    "voice": "Leda",
+    "publish_at": "2026-11-20T08:00:00+09:00"
   }
 ]
