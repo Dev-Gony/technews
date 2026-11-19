@@ -661,5 +661,13 @@
     "video_id": "Ql0ETV2fVnw",
     "voice": "Leda",
     "publish_at": "2026-11-19T18:00:00+09:00"
+  },
+  {
+    "date": "2026-11-19",
+    "link": "https://news.hada.io/topic?id=37445",
+    "title": "NoisyTCP CVE-2026-99288 리눅스 서버, 비밀번호 없이 충돌",
+    "video_id": "Tb9biY4cRac",
+    "voice": "Leda",
+    "publish_at": "2026-11-20T07:00:00+09:00"
   }
 ]
