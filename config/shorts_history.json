@@ -653,5 +653,13 @@
     "video_id": "s6qvAHkwwc0",
     "voice": "Leda",
     "publish_at": "2026-11-19T17:00:00+09:00"
+  },
+  {
+    "date": "2026-11-19",
+    "link": "https://news.hada.io/topic?id=37438",
+    "title": "nginx2root nginx 원격 코드 실행 취약점 5개, 서버 점검법",
+    "video_id": "Ql0ETV2fVnw",
+    "voice": "Leda",
+    "publish_at": "2026-11-19T18:00:00+09:00"
   }
 ]
