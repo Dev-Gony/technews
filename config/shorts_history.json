@@ -623,5 +623,13 @@
     "link": "https://netflixtechblog.com/engineering-ai-discover-e244944cdc38",
     "title": "Engineering AI Discover",
     "skipped": "source"
+  },
+  {
+    "date": "2026-11-18",
+    "link": "https://developers.googleblog.com/build-full-stack-android-apps-with-gemini-in-google-ai-studio",
+    "title": "구글 AI 스튜디오 Gemini, 프롬프트 한 줄로 안드로이드 앱 제작",
+    "video_id": "et-jRt5aRcc",
+    "voice": "Leda",
+    "publish_at": "2026-11-19T12:00:00+09:00"
   }
 ]
