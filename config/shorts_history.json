@@ -717,5 +717,13 @@
     "video_id": "FFoByWdbUsM",
     "voice": "Leda",
     "publish_at": "2026-11-21T07:00:00+09:00"
+  },
+  {
+    "date": "2026-11-20",
+    "link": "https://developers.googleblog.com/multi-turn-agentic-reinforcement-learning-with-tunix-and-gemma-4-on-google-tpus",
+    "title": "Tunix·Gemma 4 강화학습, 비행기 게임 승률 9%에서 95%로",
+    "video_id": "rS7eZzTy1MY",
+    "voice": "Leda",
+    "publish_at": "2026-11-21T08:00:00+09:00"
   }
 ]
