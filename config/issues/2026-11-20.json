@@ -1,0 +1,640 @@
+{
+  "schema_version": 1,
+  "issue_number": 62,
+  "issue_date": "2026-11-20",
+  "generated_at": "2026-11-20T11:01:30.137405+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI Agent, LLM, Observability, Local Reasoning, Serverless\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 자동화를 넘어 실제 금융 데이터 처리와 복잡한 시스템의 의사결정 영역으로 깊숙이 침투하고 있습니다.\n\n[오늘 왜 중요한가]\n\nAI 에이전트의 실무 적용 범위가 금융 인프라와 같은 고위험 영역으로 확장되고 있으며, 이를 안정적으로 운영하기 위한 관측 가능성과 코드 설계 원칙이 그 어느 때보다 중요해졌습니다. 개발자는 이제 AI가 생성한 코드를 유지보수하고, 에이전트의 동작을 제어하며, 시스템의 복잡성을 관리하는 새로운 역량을 요구받고 있습니다.\n\n[왜 이 글들을 골랐나]\n\n• 20번: 데이터 분석과 LLM을 결합하여 실질적인 비즈니스 가치를 창출하는 엔드투엔드 시스템 구현 사례를 보여줍니다.\n• 4번: AI 에이전트가 실제 금융 자금을 다룰 때 필요한 보안 제어와 인간 승인 워크플로의 표준을 제시합니다.\n• 17번: LLM 시대에 개발자가 코드 품질을 유지하고 인지 부하를 줄이기 위해 반드시 갖춰야 할 설계 철학을 다룹니다.\n\n[오늘 공부해볼 것]\n\n• Text-to-SQL 패턴: 자연어 쿼리를 데이터베이스 질의로 변환하는 기술은 LLM 기반 검색 시스템의 핵심입니다.\n• Human-in-the-loop 아키텍처: AI 에이전트의 자율성과 인간의 통제권 사이의 균형을 맞추는 설계 방식을 학습해야 합니다.\n• 국소적 추론(Local Reasoning)을 위한 리팩토링: LLM이 코드를 더 잘 이해하고 유지보수하기 쉽게 만드는 코드 구조화 기법을 익혀야 합니다.",
+  "stats": {
+    "candidate_count": 33,
+    "detailed_count": 20,
+    "brief_count": 1,
+    "excluded_count": 12,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Show GN: 법원 경매 예상 낙찰가 - 다음 매각기일 물건을 말로 찾고 지도로 보는 무료 사이트",
+      "link": "https://news.hada.io/topic?id=37502",
+      "published_at": "2026-11-20T10:22:32+09:00",
+      "selection_score": 15,
+      "selection_reason": "데이터 분석, LLM을 활용한 자연어 검색, 모델 기반의 예측 시스템을 구현한 사례로 기술적 관심사와 매우 밀접합니다.",
+      "feedback_bias": 0,
+      "one_line": "법원 경매 데이터를 LLM으로 자연어 검색하고 낙찰가를 예측하는 데이터 분석 서비스",
+      "key_points": [
+        "법원 경매 데이터를 수집하여 지난 낙찰 결과를 학습한 모델이 예상 낙찰가와 범위를 제공함.",
+        "자연어 처리(NLP)를 통해 '유찰 2회 이상 5억 이하'와 같은 복잡한 조건을 대화형으로 검색할 수 있음.",
+        "데이터 분석과 LLM을 결합하여 부동산 경매 정보를 직관적으로 시각화하고 분석함."
+      ],
+      "topics": [
+        "데이터 분석",
+        "자연어 검색(Natural Language Search)",
+        "예측 모델링"
+      ],
+      "recommended_for": "데이터 분석 파이프라인과 LLM을 활용한 검색 시스템 구현에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "자연어 검색을 활용한 데이터 필터링 로직 분석하기",
+        "steps": [
+          "사이트의 검색 인터페이스를 통해 자연어 쿼리가 어떤 필터링 조건으로 변환되는지 관찰하기",
+          "유사한 기능을 구현하기 위해 LangChain 등을 활용한 SQL 생성(Text-to-SQL) 패턴 학습하기"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "Stripe",
+      "title": "Give your agents controlled access to analyze your data and move funds",
+      "link": "https://stripe.com/blog/give-your-agents-controlled-access-to-analyze-your-data-and-move-funds",
+      "published_at": "Thu, 19 Nov 2026 00:00:00 +0000",
+      "selection_score": 14,
+      "selection_reason": "AI Agent가 실제 금융 데이터를 다루고 업무를 수행하는 실무적인 워크플로와 제어 방식을 제시하여 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Stripe Treasury를 통해 AI 에이전트가 금융 데이터 분석 및 자금 이체 업무를 안전하게 수행하도록 제어.",
+      "key_points": [
+        "에이전트에게 자금 이체, 환전, 벤더 결제 등 특정 금융 작업에 대한 권한을 부여함.",
+        "사용자 정의 제어 설정 및 인간의 승인 프로세스를 통해 보안성을 확보함.",
+        "비즈니스 운영 자동화를 위해 에이전트가 실제 금융 인프라와 상호작용할 수 있는 환경을 제공함."
+      ],
+      "topics": [
+        "AI Agent",
+        "Fintech Automation",
+        "Human-in-the-loop"
+      ],
+      "recommended_for": "금융 데이터 자동화 및 에이전트 기반의 비즈니스 워크플로를 구축하려는 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Stripe Treasury API를 활용한 에이전트 권한 제어 모델 검토",
+        "steps": [
+          "Stripe Treasury API 문서에서 에이전트 권한 범위(Scope) 설정 확인",
+          "인간 승인(Human-in-the-loop) 워크플로를 에이전트 로직에 통합하는 아키텍처 설계",
+          "테스트 환경에서 에이전트의 자금 이체 시뮬레이션 및 보안 제어 테스트"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "이해 가능성을 위한 설계",
+      "link": "https://news.hada.io/topic?id=37494",
+      "published_at": "2026-11-20T09:04:58+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM 시대의 코드 리뷰와 유지보수 전략을 다루며, 개발 생산성 향상에 직결되는 중요한 방법론입니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 시대의 코드 품질은 국소적 추론(local reasoning)을 가능하게 하는 설계 원칙 준수에 달려 있음",
+      "key_points": [
+        "LLM이 생성한 코드를 검토할 때 개발자의 인지 부담을 줄이려면 코드베이스 전체가 아닌 필요한 부분만 이해할 수 있어야 함.",
+        "계약에 의한 설계, 데이터 불변식, 부수 효과 격리 등의 기법은 코드의 국소적 추론을 가능하게 함.",
+        "인터페이스와 구현의 맥락을 최소화하는 설계는 LLM 활용 시 코드 복잡성을 제어하는 핵심 전략임."
+      ],
+      "topics": [
+        "국소적 추론(Local Reasoning)",
+        "계약에 의한 설계(Design by Contract)",
+        "부수 효과 격리(Side-effect Isolation)"
+      ],
+      "recommended_for": "LLM을 활용해 코드를 작성하고 유지보수하는 모든 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "현재 프로젝트의 코드베이스를 국소적 추론이 가능하도록 리팩토링하기",
+        "steps": [
+          "현재 작업 중인 모듈의 전역 상태 의존성을 식별하고 이를 매개변수로 주입하도록 변경하기",
+          "함수나 클래스에 명확한 불변식(Invariant)을 주석이나 코드로 명시하기"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "Google Developers",
+      "title": "Distributed LLM Training Across Metros: Streaming DiLoCo in MaxText",
+      "link": "https://developers.googleblog.com/distributed-llm-training-across-metros-streaming-diloco-in-maxtext",
+      "published_at": "",
+      "selection_score": 13,
+      "selection_reason": "대규모 언어 모델의 분산 학습 효율화 기술은 고성능 인프라 및 LLM 아키텍처 관점에서 매우 가치 있는 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "MaxText에서 Streaming DiLoCo를 사용하여 지리적으로 분산된 TPU 간 LLM 학습 효율을 극대화함.",
+      "key_points": [
+        "전체 모델 동기화 대신 파라미터 조각을 스트리밍하여 통신량을 60배 이상 절감함.",
+        "네트워크 지연(Stall)을 제거하여 다중 데이터센터 환경에서도 모델 성능 저하 없이 확장이 가능함.",
+        "지리적으로 분산된 TPU 슬라이스 간의 효율적인 분산 학습을 지원함."
+      ],
+      "topics": [
+        "DiLoCo",
+        "Distributed Training",
+        "MaxText"
+      ],
+      "recommended_for": "대규모 언어 모델의 분산 학습 인프라를 구축하거나 최적화하는 백엔드 및 인프라 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Multi-Turn Agentic Reinforcement Learning with Tunix and Gemma 4 on Google TPUs",
+      "link": "https://developers.googleblog.com/multi-turn-agentic-reinforcement-learning-with-tunix-and-gemma-4-on-google-tpus",
+      "published_at": "",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 Agentic Workflow를 위한 최신 강화학습 기법을 다루고 있어 실무 적용 가능성이 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Tunix와 Gemma 4를 활용하여 Cloud TPU에서 도구 사용이 가능한 멀티턴 AI 에이전트 강화학습 수행.",
+      "key_points": [
+        "Agentic GRPO(Group Relative Policy Optimization)를 사용하여 에이전트의 추론 및 도구 활용 능력을 향상함.",
+        "비동기 vLLM 롤아웃을 통해 상호작용 환경에서의 학습 효율을 개선함.",
+        "복잡한 도구 사용이 필요한 에이전트 워크플로를 Cloud TPU 환경에서 최적화함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "GRPO",
+        "vLLM"
+      ],
+      "recommended_for": "AI Agent의 성능 고도화와 강화학습 파이프라인 구축에 관심 있는 AI 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Gemma 4와 Tunix를 활용한 에이전트 강화학습 환경 구성",
+        "steps": [
+          "Tunix 라이브러리 문서를 확인하여 Cloud TPU 환경 설정",
+          "Gemma 4 모델을 로드하고 간단한 도구 호출(Tool-use) 태스크 정의",
+          "GRPO 알고리즘을 적용한 멀티턴 에이전트 학습 파이프라인 실행"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Spotify Engineering",
+      "title": "When Can You Ship on Offline Evals Alone?",
+      "link": "https://engineering.atspotify.com/2026/11/when-can-you-ship-on-offline-evals-alone",
+      "published_at": "Thu, 19 Nov 2026 13:34:19 +0000",
+      "selection_score": 12,
+      "selection_reason": "AI 기능 배포 시 오프라인 평가의 신뢰성을 다루는 내용은 AI 서비스 운영 및 품질 관리의 핵심적인 고민을 해결해 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 기능 배포 시 오프라인 평가만으로 의사결정을 내릴 수 있는 기준과 신뢰성 확보 전략.",
+      "key_points": [
+        "느린 A/B 테스트를 대체하기 위해 오프라인 평가의 정확도를 높이는 것이 핵심임.",
+        "오프라인 평가 결과가 실제 서비스 성능과 일치하는지 검증하는 프로세스가 필요함.",
+        "배포 전 오프라인 평가만으로 의사결정을 내릴 수 있는 조건과 한계를 명확히 해야 함."
+      ],
+      "topics": [
+        "Offline Evaluation",
+        "A/B Testing",
+        "AI Model Deployment"
+      ],
+      "recommended_for": "AI 서비스의 배포 프로세스를 개선하고 평가 자동화를 고민하는 엔지니어 및 PM.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "nginx2root: Five new nginx vulnerabilities, and how Cloudflare protects origins from the worst of them",
+      "link": "https://blog.cloudflare.com/nginx2root",
+      "published_at": "Fri, 20 Nov 2026 01:58:29 GMT",
+      "selection_score": 12,
+      "selection_reason": "널리 쓰이는 Nginx의 치명적인 보안 취약점 정보는 백엔드 서버 운영자에게 즉각적인 대응이 필요한 중요 사안입니다.",
+      "feedback_bias": 0,
+      "one_line": "Nginx의 치명적인 5가지 보안 취약점(nginx2root) 발표 및 서버 보호를 위한 즉각적인 패치 권고.",
+      "key_points": [
+        "HTTP/2, HTTP/3, 메일 프록시 등에서 메모리 오염 및 원격 코드 실행이 가능한 취약점이 발견됨.",
+        "Cloudflare 프록시 사용 시 일부 공격은 차단되나, 근본적인 해결을 위해 Nginx 업데이트가 필수적임.",
+        "Linux 커널의 SCTP 취약점과 결합 시 루트 권한 탈취가 가능하므로 주의가 필요함."
+      ],
+      "topics": [
+        "CVE",
+        "Nginx Security",
+        "Memory Corruption"
+      ],
+      "recommended_for": "Nginx를 운영하는 모든 백엔드 및 서버 엔지니어.",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "운영 중인 Nginx 서버 보안 업데이트 및 취약점 점검",
+        "steps": [
+          "nginx -V 명령어로 현재 버전 확인 및 취약점 영향 범위 파악",
+          "Nginx를 1.30.7 또는 1.31.9 이상으로 업데이트 후 서비스 재시작",
+          "SCTP 모듈 사용 여부 확인 및 불필요 시 커널 모듈 로드 차단 설정"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How Country Road Group built a pattern-driven integration solution on AWS",
+      "link": "https://aws.amazon.com/blogs/architecture/how-country-road-group-built-a-pattern-driven-integration-solution-on-aws",
+      "published_at": "Thu, 19 Nov 2026 23:07:30 +0000",
+      "selection_score": 12,
+      "selection_reason": "레거시 미들웨어에서 클라우드 네이티브 아키텍처로 전환하며 비용을 절감한 사례는 백엔드 설계에 큰 참고가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "레거시 미들웨어를 AWS 클라우드 네이티브 패턴 기반 통합 솔루션으로 전환하여 비용과 운영 복잡성을 해결한 사례",
+      "key_points": [
+        "BizTalk 등 노후화된 미들웨어를 AWS Lambda, Step Functions, EventBridge 기반의 패턴 중심 아키텍처로 교체함.",
+        "29개의 표준 통합 패턴을 CDK 라이브러리로 제공하여 인프라 프로비저닝을 자동화하고 개발 생산성을 높임.",
+        "실패한 트랜잭션을 운영자가 직접 관리할 수 있는 EMS(Error Management System)를 구축하여 개발자 개입을 최소화함."
+      ],
+      "topics": [
+        "Enterprise Integration Patterns",
+        "Infrastructure as Code (IaC)",
+        "Serverless Orchestration"
+      ],
+      "recommended_for": "레거시 미들웨어 운영 비용과 유지보수 인력 부족으로 고민하는 백엔드 아키텍트 및 플랫폼 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "제공된 오픈소스 CDK 라이브러리를 활용한 통합 패턴 학습",
+        "steps": [
+          "GitHub 저장소(aws-samples/sample-enterprise-integration-patterns-cdk)를 클론하여 29개 패턴 구조 확인",
+          "현재 운영 중인 시스템의 통합 인터페이스를 해당 패턴 중 하나로 매핑해보기",
+          "CDK 코드를 통해 인프라를 선언적으로 정의하는 방식 검토"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "AI coding agents on Amazon EC2 Mac: How Cognition scales Devin for macOS",
+      "link": "https://aws.amazon.com/blogs/architecture/ai-coding-agents-on-amazon-ec2-mac-how-cognition-scales-devin-for-macos",
+      "published_at": "Fri, 20 Nov 2026 01:10:14 +0000",
+      "selection_score": 13,
+      "selection_reason": "AI Coding Agent가 클라우드 환경에서 어떻게 확장되는지 보여주는 사례로, 개발 생산성 향상을 위한 최신 트렌드를 잘 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 에이전트 Devin이 macOS 환경에서 앱을 빌드/테스트할 수 있도록 EC2 Mac 인스턴스를 확장한 사례",
+      "key_points": [
+        "Devin이 iOS/macOS 앱을 직접 빌드하고 테스트하기 위해 EC2 Mac Dedicated Host를 활용한 가상화 환경을 구축함.",
+        "Apple Virtualization 프레임워크를 사용하여 하나의 호스트에서 여러 Devin 세션을 격리 실행하여 효율성을 극대화함.",
+        "디스크 스냅샷과 사용자 공간 이더넷 게이트웨이를 통해 세션 상태를 유지하고 네트워크 보안 정책을 적용함."
+      ],
+      "topics": [
+        "EC2 Mac Instances",
+        "Apple Virtualization Framework",
+        "AI Agentic Workflow"
+      ],
+      "recommended_for": "AI 에이전트의 클라우드 확장성 및 macOS 기반 자동화 테스트 환경 구축에 관심 있는 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Monitor the efficiency and availability of accelerated computing instances with Amazon EC2 Detailed Monitoring and performance status checks",
+      "link": "https://aws.amazon.com/blogs/compute/monitor-the-efficiency-and-availability-of-accelerated-computing-instances-with-amazon-ec2-detailed-monitoring-and-performance-status-checks",
+      "published_at": "Thu, 19 Nov 2026 18:34:57 +0000",
+      "selection_score": 11,
+      "selection_reason": "가속 컴퓨팅 인스턴스의 모니터링은 AI 모델 학습 및 추론 성능 최적화와 비용 관리에 필수적인 요소입니다.",
+      "feedback_bias": 0,
+      "one_line": "EC2 가속 컴퓨팅 인스턴스의 GPU 성능 및 상태를 에이전트 없이 모니터링하는 신규 기능",
+      "key_points": [
+        "EC2 Detailed Monitoring을 통해 GPU 활용률, 전력, 온도 등 상세 지표를 1분 단위로 CloudWatch에 게시함.",
+        "GPU 메모리 오류 등 하드웨어 문제를 감지하는 '성능 상태 체크(Performance Status Checks)' 기능 추가.",
+        "별도의 에이전트 설치 없이 API를 통해 메트릭 카테고리를 설정하고 인스턴스에 적용 가능함."
+      ],
+      "topics": [
+        "Accelerated Computing",
+        "CloudWatch Detailed Monitoring",
+        "GPU Telemetry"
+      ],
+      "recommended_for": "AI 모델 학습 및 추론 인프라를 운영하며 GPU 비용 최적화와 하드웨어 상태 관리가 필요한 팀",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "GPU 메트릭 카테고리 생성 및 인스턴스 모니터링 적용",
+        "steps": [
+          "aws ec2 create-metric-category 명령으로 GPU 활용률 및 메모리 지표 카테고리 생성",
+          "기존 GPU 인스턴스에 해당 카테고리를 연결하여 CloudWatch 지표 확인",
+          "StatusCheckFailed_Performance 지표에 대한 CloudWatch 알람 설정"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "AWS Lambda Durable Functions observability with OpenTelemetry",
+      "link": "https://aws.amazon.com/blogs/compute/aws-lambda-durable-functions-observability-with-opentelemetry",
+      "published_at": "Thu, 19 Nov 2026 19:09:43 +0000",
+      "selection_score": 14,
+      "selection_reason": "서버리스 아키텍처의 관측 가능성(Observability) 확보는 실무에서 매우 중요한 주제이며, OpenTelemetry 활용법은 기술적 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenTelemetry를 활용하여 분산된 AWS Lambda Durable Functions의 실행 흐름을 통합 추적하는 방법",
+      "key_points": [
+        "Durable Functions의 여러 호출 단계를 하나의 결정론적 Trace ID로 통합하여 전체 워크플로 가시성 확보.",
+        "OpenTelemetry 플러그인을 통해 로그에 traceId와 spanId를 자동 삽입하여 로그 상관관계 분석 지원.",
+        "Invocation view와 Execution view를 선택하여 워크플로의 전체 타임라인과 단계별 실행 상태를 모니터링 가능."
+      ],
+      "topics": [
+        "OpenTelemetry",
+        "Distributed Tracing",
+        "Observability"
+      ],
+      "recommended_for": "서버리스 워크플로의 복잡한 실행 과정을 디버깅하고 관측 가능성을 높이고 싶은 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "Durable Function에 OpenTelemetry 플러그인 적용",
+        "steps": [
+          "aws-durable-execution-sdk-python-otel 라이브러리 설치",
+          "Lambda 함수에 ADOT 레이어 추가 및 Tracing 활성화",
+          "@durable_execution 데코레이터에 OTel 플러그인 팩토리 추가"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Announcing 30-minute timeout for on-demand AWS Lambda Event Functions",
+      "link": "https://aws.amazon.com/blogs/compute/announcing-30-minute-timeout-for-on-demand-aws-lambda-event-functions",
+      "published_at": "Thu, 19 Nov 2026 19:28:52 +0000",
+      "selection_score": 14,
+      "selection_reason": "Lambda 타임아웃 30분 연장은 서버리스 백엔드 아키텍처 설계 및 비용 최적화 전략에 직접적인 영향을 주는 중요한 업데이트입니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS Lambda 이벤트 함수 타임아웃이 15분에서 30분으로 연장되어 복잡한 워크플로 처리 범위 확대",
+      "key_points": [
+        "동기/비동기 및 이벤트 소스 매핑 호출에 대해 Lambda 타임아웃이 30분으로 두 배 연장됨.",
+        "AI 추론, 대용량 미디어 트랜스코딩, 복잡한 ETL 작업 등 장시간 실행이 필요한 워크플로에 최적화됨.",
+        "Durable Functions와 결합하여 재시도 비용이 높은 작업의 안정성을 높이고 비용 효율적인 처리가 가능해짐."
+      ],
+      "topics": [
+        "AWS Lambda Timeout",
+        "Serverless Architecture",
+        "Event-Driven Design"
+      ],
+      "recommended_for": "기존 15분 타임아웃 제한으로 인해 아키텍처를 복잡하게 설계해야 했던 서버리스 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "기존 Lambda 함수의 타임아웃 설정 검토 및 최적화",
+        "steps": [
+          "15분 제한에 걸려 Step Functions 등으로 분할했던 함수 목록 확인",
+          "타임아웃을 30분으로 상향 조정하여 아키텍처 단순화 가능성 검토",
+          "네트워크 연결 타임아웃 및 DNS 캐시 설정이 30분 실행을 지원하는지 확인"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "AWS Compute",
+      "title": "Handling large volume of transactions with AWS Lambda Managed Instances",
+      "link": "https://aws.amazon.com/blogs/compute/handling-large-volume-of-transactions-with-aws-lambda-managed-instances",
+      "published_at": "Thu, 19 Nov 2026 21:20:28 +0000",
+      "selection_score": 14,
+      "selection_reason": "트래픽 급증 상황에서의 비용 효율적인 서버 운영과 Managed Instances 활용 사례는 실무 백엔드 엔지니어에게 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "AWS Lambda Managed Instances를 활용한 예측 가능한 트래픽 급증 대응 아키텍처",
+      "key_points": [
+        "Lambda Managed Instances는 EC2 기반의 인프라를 활용해 트래픽 급증 시 콜드 스타트 없이 즉각적인 대응이 가능함.",
+        "예약된 이벤트(티켓팅 등) 발생 전 미리 인스턴스를 워밍업하고, 이벤트 종료 후에는 다시 축소하여 비용 효율성을 극대화함.",
+        "상태 비저장(Stateless) 핸들러와 ElastiCache/DynamoDB의 원자적 연산을 조합하여 40,000 TPS의 고부하를 안정적으로 처리함."
+      ],
+      "topics": [
+        "Lambda Managed Instances",
+        "Execution Environments (EE)",
+        "Atomic Transactions"
+      ],
+      "recommended_for": "이벤트성 트래픽 급증으로 인한 서버 비용과 성능 문제로 고민하는 백엔드 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Lambda Managed Instances를 활용한 트래픽 버스트 시뮬레이션 환경 구축",
+        "steps": [
+          "GitHub 저장소에서 샘플 코드를 클론하여 AWS SAM으로 배포",
+          "제공된 demo-ui를 통해 특정 TPS 부하를 발생시켜 latency 및 처리량 측정",
+          "Min/Max Execution Environments 설정을 변경하며 비용 대비 성능 최적화 지점 확인"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "누군가 2026년 9월에 java4shell 버그를 보고함",
+      "link": "https://news.hada.io/topic?id=37480",
+      "published_at": "2026-11-20T03:36:14+09:00",
+      "selection_score": 13,
+      "selection_reason": "Java 생태계의 보안 취약점은 백엔드 개발자에게 즉각적인 대응이 필요한 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenJDK의 Base64 디코더에서 힙 손상을 유발하는 보안 취약점 발견",
+      "key_points": [
+        "x86_64 AVX-512 VBMI 명령어를 사용하는 Base64 디코더에서 잘못된 입력 처리 시 힙 손상 버그가 보고됨.",
+        "입력 데이터가 4바이트 미만일 때 출력 크기 계산 오류로 인해 메모리 오염이 발생할 수 있음.",
+        "유효한 입력은 항상 4의 배수이지만, 비정상적인 입력이 들어올 경우 보안 위협이 될 수 있음."
+      ],
+      "topics": [
+        "Heap Corruption",
+        "AVX-512 VBMI",
+        "Base64 Decoder"
+      ],
+      "recommended_for": "Java 기반의 고성능 데이터 처리 시스템을 운영하는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "PHP 치명적 취약점 보안 릴리스 예정 안내(2026년 11월 18일)",
+      "link": "https://news.hada.io/topic?id=37481",
+      "published_at": "2026-11-20T04:00:53+09:00",
+      "selection_score": 13,
+      "selection_reason": "PHP 환경의 치명적 보안 취약점 발표는 서버 운영 및 보안 관점에서 반드시 확인해야 할 필수 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "PHP 전 버전 대상 치명적(CRITICAL) 보안 취약점 릴리스 예고",
+      "key_points": [
+        "PHP 보안팀이 지원 중인 모든 버전에 영향을 미치는 치명적인 보안 취약점을 수정하는 릴리스를 발표함.",
+        "최고 심각도 등급인 CRITICAL로 분류되었으며, 특정 설정 환경에서 위험이 발생할 수 있음.",
+        "릴리스 직후 즉각적인 패치 적용이 권장됨."
+      ],
+      "topics": [
+        "Security Patch",
+        "Vulnerability Management"
+      ],
+      "recommended_for": "PHP 기반의 웹 서비스를 운영 중인 서버 관리자 및 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "너희 AI 안전장치 따위 엿 먹어라",
+      "link": "https://news.hada.io/topic?id=37484",
+      "published_at": "2026-11-20T04:47:32+09:00",
+      "selection_score": 12,
+      "selection_reason": "AI Agent 도구의 안전장치가 실제 보안 업무를 방해하는 사례는 AI 도입 시 고려해야 할 중요한 실무적 딜레마를 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 도구의 과도한 안전장치가 실제 보안 업무를 방해하는 딜레마",
+      "key_points": [
+        "Claude Code와 같은 AI 도구의 엄격한 안전장치가 보안 엔지니어의 취약점 수정 및 공격 시뮬레이션 작업을 차단함.",
+        "보안 예외 승인 절차가 지나치게 복잡하고 시간이 오래 걸려 실무 생산성을 저해함.",
+        "방어자는 도구의 제약을 받지만 공격자는 제약 없는 모델을 사용할 수 있다는 비대칭적 위험이 존재함."
+      ],
+      "topics": [
+        "AI Safety Guardrails",
+        "Security Engineering",
+        "Developer Productivity"
+      ],
+      "recommended_for": "AI 기반 개발 도구를 도입하려는 보안 팀 및 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "RAM을 사지 말고 압축하자",
+      "link": "https://news.hada.io/topic?id=37489",
+      "published_at": "2026-11-20T06:39:38+09:00",
+      "selection_score": 12,
+      "selection_reason": "서버 및 인프라 운영 시 메모리 효율화와 비용 절감을 위한 실무적인 기술 팁입니다.",
+      "feedback_bias": 0,
+      "one_line": "Linux 서버 메모리 효율을 높이는 zram 압축 기술 활용",
+      "key_points": [
+        "zram은 RAM 데이터를 압축하여 저장함으로써 물리적 메모리 부족 문제를 해결하고 비용을 절감함.",
+        "CPU 사용량과 지연 시간이 약간 증가하지만, 실제 체감 성능 저하는 적고 압축률은 매우 높음.",
+        "메모리 증설이 어려운 클라우드 환경이나 리소스 제한적인 서버에서 효과적인 최적화 수단임."
+      ],
+      "topics": [
+        "zram",
+        "Memory Compression",
+        "Linux Kernel Optimization"
+      ],
+      "recommended_for": "서버 메모리 비용 절감 및 리소스 최적화가 필요한 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "테스트 서버에 zram 적용 및 메모리 효율성 측정",
+        "steps": [
+          "현재 운영 중인 리눅스 서버의 메모리 사용량과 스왑 상태 확인",
+          "zram 모듈을 활성화하고 압축 알고리즘(zstd 등) 설정",
+          "적용 전후의 메모리 사용량 및 시스템 응답 속도 비교"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Pete Warden이 말하는 로컬 AI, 개방형 모델, 음성 인터페이스와 하드웨어의 미래",
+      "link": "https://news.hada.io/topic?id=37491",
+      "published_at": "2026-11-20T07:35:25+09:00",
+      "selection_score": 13,
+      "selection_reason": "로컬 AI, 하드웨어, 음성 인터페이스 등 AI 실무자에게 매우 유용한 통찰을 담고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "로컬 AI의 핵심은 모델 품질을 넘어선 사용성과 200ms 이하의 응답 속도를 갖춘 인터페이스 설계에 있음",
+      "key_points": [
+        "로컬 AI의 주요 장벽은 모델 성능보다 사용성 문제로 이동했으며, 양자화 기술로 하드웨어 진입 장벽이 낮아짐.",
+        "기업은 온프레미스나 직접 통제하는 클라우드에서 모델을 운영해 비용과 개인정보를 효과적으로 관리할 수 있음.",
+        "자연스러운 음성 인터페이스를 위해서는 200ms 이하의 낮은 지연 시간과 실패를 고려한 상호작용 설계가 필수적임."
+      ],
+      "topics": [
+        "로컬 AI(Local AI)",
+        "양자화(Quantization)",
+        "음성 인터페이스(VUI)"
+      ],
+      "recommended_for": "로컬 LLM을 서비스에 도입하거나 음성 기반 AI 에이전트를 개발하려는 백엔드 및 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Kiri - 무료 ngrok 대안을 내장한 경량 Docker Desktop 대체재",
+      "link": "https://news.hada.io/topic?id=37496",
+      "published_at": "2026-11-20T09:30:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "Docker 대체재 및 로컬 터널링 도구는 개발 생산성과 워크플로 개선에 즉각적인 가치를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Docker와 호환되면서 무료 터널링 기능을 내장한 경량 컨테이너 런타임 Kiri",
+      "key_points": [
+        "Kiri는 기존 Docker CLI 및 Compose와 호환되는 경량 컨테이너 런타임으로 별도의 설정 없이 즉시 사용 가능함.",
+        "Kiri Share 기능을 통해 로컬 컨테이너를 별도 배포 없이 외부 HTTPS 주소로 즉시 공유할 수 있음.",
+        "컨테이너별 실시간 로그 확인, 터미널 접속, 자원 모니터링 등 개발 생산성을 높이는 도구들을 내장함."
+      ],
+      "topics": [
+        "컨테이너 런타임",
+        "로컬 터널링(Local Tunneling)",
+        "Docker 호환성"
+      ],
+      "recommended_for": "로컬 개발 환경에서 웹훅 테스트나 데모 공유가 잦은 백엔드 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Kiri를 설치하여 로컬 컨테이너를 외부로 공유해보기",
+        "steps": [
+          "Kiri를 설치하고 기존 Docker Compose 프로젝트를 Kiri로 실행하기",
+          "Kiri Share 기능을 사용하여 로컬 서버를 외부 HTTPS 주소로 노출하고 웹훅 테스트 수행하기"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: OneHandy - 회원가입 없이 브라우저에서 쓰는 무료 웹 도구 123종 (계산기·변환기·텍스트·이미지)",
+      "link": "https://news.hada.io/topic?id=37499",
+      "published_at": "2026-11-20T09:59:44+09:00",
+      "selection_score": 14,
+      "selection_reason": "Astro 5 기반의 정적 사이트 구축 사례이자 개발자 유틸리티 모음으로, 실무 생산성 도구로서의 활용 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "브라우저 내에서 즉시 실행되는 123종의 무료 개발자 유틸리티 모음, OneHandy",
+      "key_points": [
+        "OneHandy는 회원가입 없이 텍스트 변환, 개발자 유틸리티, 이미지 처리 등 123종의 도구를 제공함.",
+        "모든 계산과 변환은 브라우저 내에서 처리되어 서버로 데이터가 전송되지 않아 보안상 안전함.",
+        "Astro 5를 기반으로 구축된 정적 사이트로 빠른 속도와 다국어 지원을 제공함."
+      ],
+      "topics": [
+        "정적 사이트 생성(SSG)",
+        "브라우저 기반 유틸리티",
+        "Astro 5"
+      ],
+      "recommended_for": "자주 사용하는 변환기나 계산기를 즐겨찾기에 추가해두고 싶은 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Claude, 블랙홀 물리학의 미해결 문제 두 가지 해결",
+      "link": "https://news.hada.io/topic?id=37487",
+      "published_at": "2026-11-20T05:33:40+09:00",
+      "selection_score": 10,
+      "selection_reason": "LLM이 과학적 난제를 해결하는 사례는 AI의 발전 방향과 잠재력을 보여주는 중요한 업계 변화입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": [
+    "네이버 D2"
+  ]
+}

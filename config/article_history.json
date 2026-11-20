@@ -1,6 +1,325 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "Google Developers",
+      "title": "Distributed LLM Training Across Metros: Streaming DiLoCo in MaxText",
+      "link": "https://developers.googleblog.com/distributed-llm-training-across-metros-streaming-diloco-in-maxtext",
+      "published_at": "",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "DiLoCo",
+        "Distributed Training",
+        "MaxText"
+      ],
+      "one_line": "MaxText에서 Streaming DiLoCo를 사용하여 지리적으로 분산된 TPU 간 LLM 학습 효율을 극대화함.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "Google Developers",
+      "title": "Multi-Turn Agentic Reinforcement Learning with Tunix and Gemma 4 on Google TPUs",
+      "link": "https://developers.googleblog.com/multi-turn-agentic-reinforcement-learning-with-tunix-and-gemma-4-on-google-tpus",
+      "published_at": "",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Agentic Workflow",
+        "GRPO",
+        "vLLM"
+      ],
+      "one_line": "Tunix와 Gemma 4를 활용하여 Cloud TPU에서 도구 사용이 가능한 멀티턴 AI 에이전트 강화학습 수행.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "Spotify Engineering",
+      "title": "When Can You Ship on Offline Evals Alone?",
+      "link": "https://engineering.atspotify.com/2026/11/when-can-you-ship-on-offline-evals-alone",
+      "published_at": "Thu, 19 Nov 2026 13:34:19 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Offline Evaluation",
+        "A/B Testing",
+        "AI Model Deployment"
+      ],
+      "one_line": "AI 기능 배포 시 오프라인 평가만으로 의사결정을 내릴 수 있는 기준과 신뢰성 확보 전략.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "Stripe",
+      "title": "Give your agents controlled access to analyze your data and move funds",
+      "link": "https://stripe.com/blog/give-your-agents-controlled-access-to-analyze-your-data-and-move-funds",
+      "published_at": "Thu, 19 Nov 2026 00:00:00 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent",
+        "Fintech Automation",
+        "Human-in-the-loop"
+      ],
+      "one_line": "Stripe Treasury를 통해 AI 에이전트가 금융 데이터 분석 및 자금 이체 업무를 안전하게 수행하도록 제어.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "Cloudflare",
+      "title": "nginx2root: Five new nginx vulnerabilities, and how Cloudflare protects origins from the worst of them",
+      "link": "https://blog.cloudflare.com/nginx2root",
+      "published_at": "Fri, 20 Nov 2026 01:58:29 GMT",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "CVE",
+        "Nginx Security",
+        "Memory Corruption"
+      ],
+      "one_line": "Nginx의 치명적인 5가지 보안 취약점(nginx2root) 발표 및 서버 보호를 위한 즉각적인 패치 권고.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "AWS Architecture",
+      "title": "How Country Road Group built a pattern-driven integration solution on AWS",
+      "link": "https://aws.amazon.com/blogs/architecture/how-country-road-group-built-a-pattern-driven-integration-solution-on-aws",
+      "published_at": "Thu, 19 Nov 2026 23:07:30 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Enterprise Integration Patterns",
+        "Infrastructure as Code (IaC)",
+        "Serverless Orchestration"
+      ],
+      "one_line": "레거시 미들웨어를 AWS 클라우드 네이티브 패턴 기반 통합 솔루션으로 전환하여 비용과 운영 복잡성을 해결한 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "AWS Architecture",
+      "title": "AI coding agents on Amazon EC2 Mac: How Cognition scales Devin for macOS",
+      "link": "https://aws.amazon.com/blogs/architecture/ai-coding-agents-on-amazon-ec2-mac-how-cognition-scales-devin-for-macos",
+      "published_at": "Fri, 20 Nov 2026 01:10:14 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "EC2 Mac Instances",
+        "Apple Virtualization Framework",
+        "AI Agentic Workflow"
+      ],
+      "one_line": "AI 코딩 에이전트 Devin이 macOS 환경에서 앱을 빌드/테스트할 수 있도록 EC2 Mac 인스턴스를 확장한 사례",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "AWS Compute",
+      "title": "Monitor the efficiency and availability of accelerated computing instances with Amazon EC2 Detailed Monitoring and performance status checks",
+      "link": "https://aws.amazon.com/blogs/compute/monitor-the-efficiency-and-availability-of-accelerated-computing-instances-with-amazon-ec2-detailed-monitoring-and-performance-status-checks",
+      "published_at": "Thu, 19 Nov 2026 18:34:57 +0000",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Accelerated Computing",
+        "CloudWatch Detailed Monitoring",
+        "GPU Telemetry"
+      ],
+      "one_line": "EC2 가속 컴퓨팅 인스턴스의 GPU 성능 및 상태를 에이전트 없이 모니터링하는 신규 기능",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "AWS Compute",
+      "title": "AWS Lambda Durable Functions observability with OpenTelemetry",
+      "link": "https://aws.amazon.com/blogs/compute/aws-lambda-durable-functions-observability-with-opentelemetry",
+      "published_at": "Thu, 19 Nov 2026 19:09:43 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "OpenTelemetry",
+        "Distributed Tracing",
+        "Observability"
+      ],
+      "one_line": "OpenTelemetry를 활용하여 분산된 AWS Lambda Durable Functions의 실행 흐름을 통합 추적하는 방법",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "AWS Compute",
+      "title": "Announcing 30-minute timeout for on-demand AWS Lambda Event Functions",
+      "link": "https://aws.amazon.com/blogs/compute/announcing-30-minute-timeout-for-on-demand-aws-lambda-event-functions",
+      "published_at": "Thu, 19 Nov 2026 19:28:52 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AWS Lambda Timeout",
+        "Serverless Architecture",
+        "Event-Driven Design"
+      ],
+      "one_line": "AWS Lambda 이벤트 함수 타임아웃이 15분에서 30분으로 연장되어 복잡한 워크플로 처리 범위 확대",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "AWS Compute",
+      "title": "Handling large volume of transactions with AWS Lambda Managed Instances",
+      "link": "https://aws.amazon.com/blogs/compute/handling-large-volume-of-transactions-with-aws-lambda-managed-instances",
+      "published_at": "Thu, 19 Nov 2026 21:20:28 +0000",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Lambda Managed Instances",
+        "Execution Environments (EE)",
+        "Atomic Transactions"
+      ],
+      "one_line": "AWS Lambda Managed Instances를 활용한 예측 가능한 트래픽 급증 대응 아키텍처",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "누군가 2026년 9월에 java4shell 버그를 보고함",
+      "link": "https://news.hada.io/topic?id=37480",
+      "published_at": "2026-11-20T03:36:14+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Heap Corruption",
+        "AVX-512 VBMI",
+        "Base64 Decoder"
+      ],
+      "one_line": "OpenJDK의 Base64 디코더에서 힙 손상을 유발하는 보안 취약점 발견",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "PHP 치명적 취약점 보안 릴리스 예정 안내(2026년 11월 18일)",
+      "link": "https://news.hada.io/topic?id=37481",
+      "published_at": "2026-11-20T04:00:53+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "Security Patch",
+        "Vulnerability Management"
+      ],
+      "one_line": "PHP 전 버전 대상 치명적(CRITICAL) 보안 취약점 릴리스 예고",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "너희 AI 안전장치 따위 엿 먹어라",
+      "link": "https://news.hada.io/topic?id=37484",
+      "published_at": "2026-11-20T04:47:32+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Safety Guardrails",
+        "Security Engineering",
+        "Developer Productivity"
+      ],
+      "one_line": "AI 코딩 도구의 과도한 안전장치가 실제 보안 업무를 방해하는 딜레마",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "RAM을 사지 말고 압축하자",
+      "link": "https://news.hada.io/topic?id=37489",
+      "published_at": "2026-11-20T06:39:38+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "zram",
+        "Memory Compression",
+        "Linux Kernel Optimization"
+      ],
+      "one_line": "Linux 서버 메모리 효율을 높이는 zram 압축 기술 활용",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "Pete Warden이 말하는 로컬 AI, 개방형 모델, 음성 인터페이스와 하드웨어의 미래",
+      "link": "https://news.hada.io/topic?id=37491",
+      "published_at": "2026-11-20T07:35:25+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "로컬 AI(Local AI)",
+        "양자화(Quantization)",
+        "음성 인터페이스(VUI)"
+      ],
+      "one_line": "로컬 AI의 핵심은 모델 품질을 넘어선 사용성과 200ms 이하의 응답 속도를 갖춘 인터페이스 설계에 있음",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "이해 가능성을 위한 설계",
+      "link": "https://news.hada.io/topic?id=37494",
+      "published_at": "2026-11-20T09:04:58+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "국소적 추론(Local Reasoning)",
+        "계약에 의한 설계(Design by Contract)",
+        "부수 효과 격리(Side-effect Isolation)"
+      ],
+      "one_line": "LLM 시대의 코드 품질은 국소적 추론(local reasoning)을 가능하게 하는 설계 원칙 준수에 달려 있음",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "Kiri - 무료 ngrok 대안을 내장한 경량 Docker Desktop 대체재",
+      "link": "https://news.hada.io/topic?id=37496",
+      "published_at": "2026-11-20T09:30:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "컨테이너 런타임",
+        "로컬 터널링(Local Tunneling)",
+        "Docker 호환성"
+      ],
+      "one_line": "Docker와 호환되면서 무료 터널링 기능을 내장한 경량 컨테이너 런타임 Kiri",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: OneHandy - 회원가입 없이 브라우저에서 쓰는 무료 웹 도구 123종 (계산기·변환기·텍스트·이미지)",
+      "link": "https://news.hada.io/topic?id=37499",
+      "published_at": "2026-11-20T09:59:44+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "정적 사이트 생성(SSG)",
+        "브라우저 기반 유틸리티",
+        "Astro 5"
+      ],
+      "one_line": "브라우저 내에서 즉시 실행되는 123종의 무료 개발자 유틸리티 모음, OneHandy",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-20T11:01:30.390658+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: 법원 경매 예상 낙찰가 - 다음 매각기일 물건을 말로 찾고 지도로 보는 무료 사이트",
+      "link": "https://news.hada.io/topic?id=37502",
+      "published_at": "2026-11-20T10:22:32+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "데이터 분석",
+        "자연어 검색(Natural Language Search)",
+        "예측 모델링"
+      ],
+      "one_line": "법원 경매 데이터를 LLM으로 자연어 검색하고 낙찰가를 예측하는 데이터 분석 서비스",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-19T11:17:19.420154+09:00",
       "company": "네이버 D2",
       "title": "컨테이너처럼 쓰고, VM처럼 격리하기 1편 - 컨테이너와 VM의 차이, Kata Containers의 Pod 실행 구조",
@@ -7670,327 +7989,7 @@
       ],
       "one_line": "Iroh 기반의 P2P 기술을 활용해 기기 간 지속적인 파일 및 텍스트 공유를 지원하는 도구, Flipflop",
       "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "토스",
-      "title": "토스뱅크가 패키지를 관리하는 방식 #1: 패키지를 ESM으로만 제공하기로 했어요",
-      "link": "https://toss.tech/article/package-management-1",
-      "published_at": "Thu, 15 Oct 2026 09:23:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Dual package hazard",
-        "ESM(ECMAScript Modules)",
-        "Tree Shaking"
-      ],
-      "one_line": "토스뱅크가 패키지 관리의 복잡성을 해결하기 위해 ESM-only 전략을 도입했습니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "뱅크샐러드",
-      "title": "AI 코딩 시대, DDD가 더 필요해진 이유",
-      "link": "https://blog.banksalad.com/tech/banksalad-ddd-in-ai-era",
-      "published_at": "Thu, 15 Oct 2026 00:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "DDD-lite",
-        "Clean Architecture",
-        "Bounded Context"
-      ],
-      "one_line": "AI 코딩 시대일수록 명확한 도메인 경계를 가진 DDD 구조가 필수적입니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Google Developers",
-      "title": "Evaluating AI agents: moving past the vibe check",
-      "link": "https://developers.googleblog.com/evaluating-ai-agents-moving-past-the-vibe-check",
-      "published_at": "",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Agent Evaluation",
-        "OpenInference",
-        "Multi-turn Agent"
-      ],
-      "one_line": "Gemini Enterprise Agent Platform 등을 활용한 AI 에이전트의 지속적 평가 파이프라인 구축 가이드입니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Google Developers",
-      "title": "Three layers, one repo: a tour of google/adk-recipes",
-      "link": "https://developers.googleblog.com/three-layers-one-repo-a-tour-of-googleadk-recipes",
-      "published_at": "",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "ADK(Agent Development Kit)",
-        "Reference Architecture",
-        "Agent Scaffolding"
-      ],
-      "one_line": "Google ADK 레시피를 통해 AI 에이전트 개발을 위한 3계층 구조 표준을 제공합니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Google Developers",
-      "title": "Announcing DPoP Support for Google OAuth: Securing Refresh Tokens",
-      "link": "https://developers.googleblog.com/announcing-dpop-support-for-google-oauth-securing-refresh-tokens",
-      "published_at": "",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "DPoP",
-        "OAuth 2.0",
-        "MCP(Model Context Protocol)"
-      ],
-      "one_line": "Google OAuth에 DPoP이 도입되어 리프레시 토큰 보안이 강화되었습니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GitHub Blog",
-      "title": "Staying Evergreen: How we automated secure access and repo hygiene in a shared org",
-      "link": "https://github.blog/engineering/platform-security/staying-evergreen-how-we-automated-secure-access-and-repo-hygiene-in-a-shared-org",
-      "published_at": "Thu, 15 Oct 2026 18:00:00 +0000",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "IssueOps",
-        "GitHub Actions",
-        "Infrastructure as Code(IaC)"
-      ],
-      "one_line": "GitHub App 'Evergreen'을 활용한 조직 내 리포지토리 및 외부 협력자 권한 자동 관리 체계 구축",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GitHub Blog",
-      "title": "The next developer interface is ambient intelligence",
-      "link": "https://github.blog/news-insights/company-news/the-next-developer-interface-is-ambient-intelligence",
-      "published_at": "Thu, 15 Oct 2026 19:39:27 +0000",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Ambient Intelligence",
-        "Contextual Computing"
-      ],
-      "one_line": "AI 에이전트와 물리적 제어 장치를 결합하여 개발자의 몰입(Flow)을 유지하는 'Ambient Intelligence' 인터페이스",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Meta Engineering",
-      "title": "How Meta Built Forum With AI-Native Engineering",
-      "link": "https://engineering.fb.com/2026/10/15/ml-applications/how-meta-built-forum-ai-native-engineering",
-      "published_at": "Thu, 15 Oct 2026 19:00:03 +0000",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Human-on-the-loop",
-        "Agentic Production Operations",
-        "Automated Verification"
-      ],
-      "one_line": "메타의 'Forum' 앱 개발 사례를 통해 본 AI 에이전트 기반의 Human-on-the-loop 엔지니어링 모델",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Stripe",
-      "title": "Sync real-time Stripe data to Postgres with Stripe Data Pipeline",
-      "link": "https://stripe.com/blog/real-time-stripe-data-postgres",
-      "published_at": "Thu, 15 Oct 2026 00:00:00 +0000",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Data Pipeline",
-        "Real-time Synchronization",
-        "Database Integration"
-      ],
-      "one_line": "Stripe 데이터를 Postgres로 실시간 동기화하여 데이터 파이프라인 복잡도 및 비용 절감",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Cloudflare",
-      "title": "Cloudflare and OpenAI: Making AI discovery better for everyone",
-      "link": "https://blog.cloudflare.com/cloudflare-openai-discovery-agentic-web",
-      "published_at": "Thu, 15 Oct 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Crawl Control",
-        "Search Engine Optimization (SEO)",
-        "Discoverability"
-      ],
-      "one_line": "Cloudflare와 OpenAI의 협업을 통한 AI 검색 엔진의 웹사이트 발견 가능성(Discoverability) 최적화",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Cloudflare",
-      "title": "Deploy with Void",
-      "link": "https://blog.cloudflare.com/deploy-with-void",
-      "published_at": "Thu, 15 Oct 2026 14:00:00 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Vite+",
-        "Cloudflare Workers",
-        "Full-stack Type Safety"
-      ],
-      "one_line": "Vite 기반 풀스택 개발과 Cloudflare 배포를 자동화하는 오픈소스 도구 체인 'Void' 공개",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "Cloudflare",
-      "title": "A fully programmable secure web gateway",
-      "link": "https://blog.cloudflare.com/programmable-gateway-dlp",
-      "published_at": "Thu, 15 Oct 2026 17:11:12 GMT",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "SASE(Secure Access Service Edge)",
-        "Cloudflare Workers",
-        "Programmable Gateway"
-      ],
-      "one_line": "Cloudflare Gateway에 Worker를 통합하여 보안 정책을 프로그래밍 방식으로 제어 가능",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "AWS Architecture",
-      "title": "How Dynata scaled AI across the development lifecycle with AI-DLC and Kiro IDE",
-      "link": "https://aws.amazon.com/blogs/architecture/how-dynata-scaled-ai-across-the-development-lifecycle-with-ai-dlc-and-kiro-ide",
-      "published_at": "Thu, 15 Oct 2026 15:50:31 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "AI-DLC(AI-Driven Development Lifecycle)",
-        "Spec-driven Development",
-        "AI-native IDE"
-      ],
-      "one_line": "Dynata가 AI-DLC 방법론과 Kiro IDE를 도입하여 개발 수명 주기를 3~4 스프린트에서 1 스프린트로 단축",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GeekNews",
-      "title": "LFM2.5-24B-A2B - 로컬 AI 에이전트에 특화한 고속 추론 모델",
-      "link": "https://news.hada.io/topic?id=35398",
-      "published_at": "2026-10-15T16:34:43+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "MoE(Mixture of Experts)",
-        "On-device AI",
-        "Agentic Workflow"
-      ],
-      "one_line": "로컬 AI 에이전트 실행에 최적화된 고속 추론 모델 'LFM2.5-24B-A2B' 공개",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GeekNews",
-      "title": "Show HN: Petal, 마침내 무료로 쓰는 오픈소스 CoScreen/ScreenHero 대안",
-      "link": "https://news.hada.io/topic?id=35405",
-      "published_at": "2026-10-15T18:32:08+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Pair Programming",
-        "Remote Collaboration",
-        "LiveKit"
-      ],
-      "one_line": "오픈소스 페어 프로그래밍 도구 'Petal' 공개, CoScreen/ScreenHero의 무료 대안",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GeekNews",
-      "title": "Voxel - 컴퓨터 한 대에서 Oxide 서버 랙을 재현하는 에뮬레이터",
-      "link": "https://news.hada.io/topic?id=35421",
-      "published_at": "2026-10-16T00:42:04+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "에뮬레이션(Emulation)",
-        "제어 플레인(Control Plane)",
-        "가상화(Virtualization)"
-      ],
-      "one_line": "Oxide 서버 랙의 하드웨어와 소프트웨어를 로컬에서 완벽하게 재현하는 에뮬레이터 'Voxel' 공개",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GeekNews",
-      "title": "신경망은 이미 깔끔하다 - 뉴런과 회로를 직접 읽는 AI 해석 연구",
-      "link": "https://news.hada.io/topic?id=35429",
-      "published_at": "2026-10-16T04:05:57+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "신경망 해석(Mechanistic Interpretability)",
-        "재귀적 일반화(Recursive Generalization)",
-        "다의성(Polysemanticity)"
-      ],
-      "one_line": "신경망 내부의 뉴런과 회로가 인간의 개념과 조직적으로 연결되어 있다는 AI 해석 연구 결과",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GeekNews",
-      "title": "Muse Spark Open - M5 Ultra Mac Studio 두 대에서 실행하는 멀티모달 오픈 웨이트 모델",
-      "link": "https://news.hada.io/topic?id=35431",
-      "published_at": "2026-10-16T04:11:57+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "MoE(Mixture of Experts)",
-        "멀티모달 모델(Multimodal Model)",
-        "오픈 웨이트(Open Weights)"
-      ],
-      "one_line": "Meta가 공개한 816B 파라미터 규모의 멀티모달 오픈 웨이트 모델 'Muse Spark Open'",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GeekNews",
-      "title": "Krea 3 - 필요한 부분만 바꾸는 고속 이미지 편집 모델",
-      "link": "https://news.hada.io/topic?id=35433",
-      "published_at": "2026-10-16T04:40:06+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "이미지 인페인팅(Inpainting)",
-        "참조 기반 생성(Reference-based Generation)",
-        "워크플로 자동화"
-      ],
-      "one_line": "이미지 전체를 다시 그리지 않고 변경 영역만 렌더링하여 속도와 비용을 최적화한 이미지 편집 모델 'Krea 3'",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-16T08:33:55.623719+09:00",
-      "company": "GeekNews",
-      "title": "의사결정 AI Jev, 트롤리 문제를 만나다",
-      "link": "https://news.hada.io/topic?id=35437",
-      "published_at": "2026-10-16T06:34:09+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "의사결정 모델(Decision Model)",
-        "프롬프트 민감도(Prompt Sensitivity)",
-        "AI 안전성(AI Safety)"
-      ],
-      "one_line": "의사결정 모델 Jev를 통해 본 AI의 윤리적 판단 일관성과 프롬프트 민감도 연구",
-      "actionability": 2
     }
   ],
-  "updated_at": "2026-11-19T11:17:19.420154+09:00"
+  "updated_at": "2026-11-20T11:01:30.390658+09:00"
 }
