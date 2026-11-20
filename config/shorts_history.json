@@ -701,5 +701,13 @@
     "video_id": "3WDPnvgxtms",
     "voice": "Leda",
     "publish_at": "2026-11-20T17:00:00+09:00"
+  },
+  {
+    "date": "2026-11-20",
+    "link": "https://stripe.com/blog/give-your-agents-controlled-access-to-analyze-your-data-and-move-funds",
+    "title": "Stripe Treasury AI 에이전트, 돈 보내기까지 맡긴다",
+    "video_id": "w_jkAUUfNaw",
+    "voice": "Leda",
+    "publish_at": "2026-11-20T18:00:00+09:00"
   }
 ]
