@@ -1,0 +1,622 @@
+{
+  "schema_version": 1,
+  "issue_number": 63,
+  "issue_date": "2026-11-21",
+  "generated_at": "2026-11-21T10:59:12.061167+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAgentic Workflow, External Guardrails, Consensus Algorithm, Event-driven Architecture, Behavioral Drift\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 실무 도입이 가속화됨에 따라, 단순한 모델 성능을 넘어 보안 가드레일과 안정적인 운영 아키텍처 구축이 핵심 경쟁력이 되고 있습니다.\n\n[오늘 왜 중요한가]\n\n이제 AI는 단순한 챗봇을 넘어 스스로 도구를 호출하고 장기 실행되는 에이전트 형태로 진화하고 있습니다. 이에 따라 에이전트의 동작을 제어하는 거버넌스와 시스템의 가용성을 보장하는 분산 아키텍처 설계 능력이 실무 엔지니어에게 필수적으로 요구됩니다.\n\n[왜 이 글들을 골랐나]\n\n• 13번: 상시 작동하는 에이전트를 위한 이벤트 기반 아키텍처와 메모리 관리 전략은 실무적인 에이전트 운영의 표준을 제시합니다.\n• 1번: LLM 서비스의 신뢰성을 확보하기 위해 필수적인 외부 가드레일 구축 방법론을 구체적으로 다루고 있습니다.\n• 18번: 분산 시스템의 고질적인 리더 의존성 문제를 해결한 새로운 합의 알고리즘 사례는 고성능 백엔드 설계의 중요한 통찰을 제공합니다.\n\n[오늘 공부해볼 것]\n\n• 에이전트 메모리 관리 전략: 에이전트가 장기 실행될 때 맥락을 유지하기 위한 영구 저장소(Redis 등) 활용법과 상태 관리 방식을 학습합니다.\n• 외부 가드레일 계층 설계: 시스템 프롬프트의 한계를 극복하기 위해 텍스트 모더레이션과 할루시네이션 탐지를 모델 외부에서 어떻게 분리하여 구현할지 연구합니다.\n• 분산 합의 알고리즘의 발전: Raft와 같은 기존 알고리즘과 QuePaxa와 같은 최신 알고리즘의 차이를 이해하여 시스템의 가용성 설계 능력을 높입니다.",
+  "stats": {
+    "candidate_count": 29,
+    "detailed_count": 20,
+    "brief_count": 1,
+    "excluded_count": 8,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "항상 작동하는 에이전트 구축하기",
+      "link": "https://news.hada.io/topic?id=37550",
+      "published_at": "2026-11-21T09:20:02+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent와 Agentic Workflow의 실무적 아키텍처를 다루며, 비용 절감과 상시 운영 전략을 제시하여 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "상시 작동 에이전트는 이벤트 기반 아키텍처와 메모리 관리를 통해 효율적으로 구축할 수 있습니다.",
+      "key_points": [
+        "상시 작동 에이전트는 이벤트 수신, 타이머, 메모리, 권한 관리 등 주변 아키텍처가 핵심입니다.",
+        "최신 모델의 성능 향상과 비용 절감으로 인해 장기 실행 에이전트 구현이 실용적인 단계에 진입했습니다.",
+        "에이전트의 맥락 유지를 위해 사용자 선호도와 작업 진행 상황을 영구 저장소에 관리해야 합니다."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Event-driven Architecture",
+        "Long-running Agents"
+      ],
+      "recommended_for": "AI Agent를 활용한 자동화 시스템을 설계하거나 운영 중인 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "에이전트 아키텍처를 위한 이벤트 루프 및 메모리 구조 설계",
+        "steps": [
+          "에이전트가 대기 상태에서 이벤트를 수신할 수 있는 메시지 큐 기반의 아키텍처를 구상합니다.",
+          "상태 유지를 위한 메모리 저장소(Redis 등)와 에이전트 간 맥락 전달 방식을 설계합니다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "LINE Engineering",
+      "title": "AI 시대 필수 보안: 외부 가드레일 완벽 가이드",
+      "link": "https://techblog.lycorp.co.jp/ko/external-guardrails-for-ai-security",
+      "published_at": "Fri, 20 Nov 2026 02:00:00 GMT",
+      "selection_score": 15,
+      "selection_reason": "AI 서비스 도입 시 필수적인 보안 가드레일 구축은 현재 실무에서 가장 중요한 이슈 중 하나입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 서비스의 안전성을 위해 모델 외부에서 입출력을 제어하는 '외부 가드레일' 구축 전략",
+      "key_points": [
+        "내부 가드레일(시스템 프롬프트)은 비용과 성능, 정책 관리의 한계가 있어 독립적인 외부 가드레일 계층이 필요하다.",
+        "텍스트 모더레이션, 프롬프트 인젝션 탐지, PII 필터, 토픽 컨트롤, 할루시네이션 탐지 등 5가지 핵심 가드레일을 조합해 운영한다.",
+        "할루시네이션 탐지는 하이브리드 검색과 문장 단위 근거 검증을 통해 정확도를 높이고 외부 호출 비용을 절감할 수 있다."
+      ],
+      "topics": [
+        "외부 가드레일(External Guardrails)",
+        "프롬프트 인젝션(Prompt Injection)",
+        "할루시네이션 디텍션(Hallucination Detection)"
+      ],
+      "recommended_for": "LLM 기반 서비스를 운영하며 보안과 신뢰성 확보를 고민하는 백엔드 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "현재 서비스의 할루시네이션 검증 파이프라인에 문장 단위 검증 도입하기",
+        "steps": [
+          "현재 RAG 파이프라인의 검색 결과를 문장 단위로 분할(Chunking)하는 전처리 로직을 추가한다.",
+          "검증 모델이 근거와 답변의 모순 여부를 판단할 때, 문장 단위로 비교하도록 로직을 수정한다.",
+          "부정문이나 식별자 충돌 케이스를 포함한 테스트 셋을 구성하여 정확도 변화를 측정한다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "Cloudflare가 Raft 대신 QuePaxa를 선택한 이유",
+      "link": "https://news.hada.io/topic?id=37555",
+      "published_at": "2026-11-21T09:40:02+09:00",
+      "selection_score": 15,
+      "selection_reason": "분산 시스템의 합의 알고리즘 개선 사례로, 고성능 백엔드 아키텍처 설계에 직접적인 참고가 됩니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare가 리더 의존성을 제거한 합의 알고리즘 QuePaxa를 도입함.",
+      "key_points": [
+        "기존 Raft나 Multi-Paxos는 리더 장애 시 가용성 저하 문제가 발생함.",
+        "QuePaxa는 리더가 선택 사항이며, 여러 제안자가 동시에 진행해도 우선순위에 따라 수렴함.",
+        "분산 제어 평면 서비스인 Meerkat의 안정성과 지연 시간 개선을 위해 채택됨."
+      ],
+      "topics": [
+        "합의 알고리즘",
+        "분산 시스템",
+        "제어 평면(Control Plane)"
+      ],
+      "recommended_for": "분산 시스템 아키텍처를 설계하거나 고가용성 백엔드 서비스를 구축하는 개발자.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "Google Developers",
+      "title": "How to handle user, connector, and agent auth in Gemini Enterprise with a custom UI",
+      "link": "https://developers.googleblog.com/how-to-handle-user-connector-and-agent-auth-in-gemini-enterprise-with-a-custom-ui",
+      "published_at": "",
+      "selection_score": 14,
+      "selection_reason": "Gemini Enterprise 환경에서 복잡한 인증 체계를 다루는 실무 가이드로, 백엔드 및 AI 아키텍처 설계에 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "Gemini Enterprise 커스텀 UI 구축 시 필요한 3단계 인증 체계 가이드",
+      "key_points": [
+        "사용자/워크로드 인증을 위해 Google Identity 또는 Workforce/Workload Identity Federation을 구현해야 한다.",
+        "Federated Connectors를 위해 Keystore를 통한 3-legged OAuth(3LO) 관리가 필수적이다.",
+        "Vertex AI Agent Engine 기반의 에이전트 사용 시 도구별(per-tool) 온디맨드 OAuth 설정이 필요하다."
+      ],
+      "topics": [
+        "3-legged OAuth(3LO)",
+        "Workload Identity Federation",
+        "Vertex AI Agent Engine"
+      ],
+      "recommended_for": "Gemini Enterprise를 활용해 엔터프라이즈급 AI 애플리케이션을 개발하는 백엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Check what your AI agents do before they do it, with Semantic governance policies",
+      "link": "https://developers.googleblog.com/check-what-your-ai-agents-do-before-they-do-it-with-semantic-governance-policies",
+      "published_at": "",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 동작을 제어하는 Semantic governance는 에이전트 워크플로의 안전성을 확보하는 핵심 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "Agent Gateway를 활용한 실시간 도구 호출 제어 및 시맨틱 거버넌스 정책 적용",
+      "key_points": [
+        "Semantic governance는 에이전트의 모든 도구 호출을 실행 전 인라인으로 평가하여 안전성을 확보한다.",
+        "Agent Gateway를 통해 사용자 의도와 자연어 규칙을 대조하여 데이터 유출 및 프롬프트 인젝션을 방지한다.",
+        "설정된 정책에 대한 위반 사항은 Cloud Logging을 통해 감사(Audit)가 가능하다."
+      ],
+      "topics": [
+        "Semantic Governance",
+        "Agent Gateway",
+        "Tool Call Validation"
+      ],
+      "recommended_for": "AI 에이전트의 동작 제어와 보안 정책 수립이 필요한 아키텍트",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "How to securely connect internal Cloud Run MCP servers to Gemini Enterprise",
+      "link": "https://developers.googleblog.com/how-to-securely-connect-internal-cloud-run-mcp-servers-to-gemini-enterprise",
+      "published_at": "",
+      "selection_score": 14,
+      "selection_reason": "MCP 서버와 클라우드 인프라를 안전하게 연결하는 아키텍처는 실무적인 인프라 설계에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloud Run 기반 MCP 서버와 Gemini Enterprise 간의 보안 연결 아키텍처",
+      "key_points": [
+        "내부 MCP 서버를 Gemini Enterprise에 안전하게 연결하기 위해 Egress Agent Gateway와 Private Service Connect를 활용한다.",
+        "FQDN 기반의 Private Cloud DNS를 사용하여 내부 네트워크 내에서 안전한 통신 경로를 확보한다.",
+        "이중 헤더(Dual-header) OAuth 2.0 인증을 통해 서비스 간 통신 보안을 강화한다."
+      ],
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "Private Service Connect",
+        "Egress Agent Gateway"
+      ],
+      "recommended_for": "클라우드 인프라 보안 및 LLM 연동 아키텍처를 설계하는 클라우드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Google Developers",
+      "title": "Agent Anomaly Detection: Safeguarding agents across other clouds",
+      "link": "https://developers.googleblog.com/agent-anomaly-detection-safeguarding-agents-across-other-clouds",
+      "published_at": "",
+      "selection_score": 14,
+      "selection_reason": "멀티 클라우드 환경에서의 AI 에이전트 이상 탐지는 엔터프라이즈급 AI 운영에서 매우 중요한 보안 요소입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenTelemetry를 활용한 멀티 클라우드 AI 에이전트 이상 탐지 및 모니터링",
+      "key_points": [
+        "AWS, Azure 등 타 클라우드에서 실행되는 에이전트의 로그와 트레이스를 Google Cloud로 통합 분석한다.",
+        "OpenTelemetry 데이터를 활용하여 에이전트의 런타임 접근 없이도 행동 드리프트(Behavioral Drift)를 감지한다.",
+        "비정상적인 도구 사용, 리소스 고갈 등 보안 위협을 중앙에서 통합 관리할 수 있다."
+      ],
+      "topics": [
+        "Agent Anomaly Detection",
+        "OpenTelemetry",
+        "Behavioral Drift"
+      ],
+      "recommended_for": "멀티 클라우드 환경에서 AI 에이전트를 운영하며 보안 관제를 담당하는 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "How Cloudflare WAF helps protect against phpAfterShell and other critical PHP flaws",
+      "link": "https://blog.cloudflare.com/phpaftershell-waf-protection",
+      "published_at": "Fri, 20 Nov 2026 20:00:45 GMT",
+      "selection_score": 13,
+      "selection_reason": "치명적인 PHP 보안 취약점(CVE-2026-126714)에 대한 대응책으로, 서버 및 보안 담당자에게 필수적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "PHP의 치명적 취약점(phpAfterShell 등)에 대응하기 위해 Cloudflare WAF 규칙 업데이트 및 PHP 버전 업그레이드가 필요합니다.",
+      "key_points": [
+        "CVE-2026-126714(phpAfterShell) 등 17개의 PHP 취약점이 공개되었으며, 일부는 원격 코드 실행(RCE)이 가능합니다.",
+        "Cloudflare WAF는 기존 규칙을 업데이트하여 phpAfterShell 공격 패턴을 차단하며, 유료 플랜 사용자는 추가된 3개의 신규 규칙을 검토 후 적용해야 합니다.",
+        "WAF는 방어의 보조 수단일 뿐이며, 근본적인 해결을 위해 PHP 8.2.36, 8.3.37, 8.4.28, 8.5.13 버전 등으로 즉시 업그레이드해야 합니다."
+      ],
+      "topics": [
+        "CVE-2026-126714",
+        "WAF(Web Application Firewall)",
+        "Remote Code Execution(RCE)"
+      ],
+      "recommended_for": "PHP 기반의 웹 서비스를 운영 중인 백엔드 개발자 및 서버 관리자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "운영 중인 PHP 환경의 보안 패치 적용 및 WAF 규칙 확인",
+        "steps": [
+          "현재 사용 중인 PHP 버전을 확인하고 최신 보안 패치 버전으로 업그레이드 계획 수립",
+          "Cloudflare 대시보드에서 'PHP Remote Code Execution Attack' 규칙이 'Block'으로 설정되어 있는지 확인",
+          "유료 플랜 사용자의 경우 신규 추가된 3개 규칙의 로그를 분석하여 차단 모드로 전환"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "How Cloudflare WAF protects against ruby2shell (CVE-2026-132825)",
+      "link": "https://blog.cloudflare.com/ruby2shell-waf-protection",
+      "published_at": "Fri, 20 Nov 2026 20:24:38 GMT",
+      "selection_score": 13,
+      "selection_reason": "Ruby의 치명적인 버퍼 오버플로우 취약점(CVE-2026-132825)은 주요 개발 도구 및 플랫폼에 영향을 미쳐 중요도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Ruby의 힙 버퍼 오버플로우 취약점(ruby2shell)이 공개되었으며, 즉각적인 패치와 WAF 차단 설정이 권장됩니다.",
+      "key_points": [
+        "CVE-2026-132825(ruby2shell)는 문자열 대소문자 변환 시 발생하는 힙 버퍼 오버플로우로, RCE로 이어질 수 있는 치명적 결함입니다.",
+        "Rails 및 Sinatra 프레임워크의 기본 설정이 공격에 노출되어 있으며, GitLab 등 Ruby를 번들링한 제품들도 영향을 받습니다.",
+        "Cloudflare WAF는 즉시 차단 규칙을 배포했으나, 근본 해결을 위해 Ruby 3.3.14, 3.4.13, 4.0.10 버전으로의 업그레이드가 필수입니다."
+      ],
+      "topics": [
+        "Heap Buffer Overflow",
+        "CVE-2026-132825",
+        "MethodOverride Middleware"
+      ],
+      "recommended_for": "Ruby on Rails 기반 서비스 운영자 및 Ruby 환경을 사용하는 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "Ruby 환경 보안 점검 및 패치 적용",
+        "steps": [
+          "인프라 내 모든 Ruby 런타임 버전 전수 조사",
+          "Ruby 3.3.14, 3.4.13, 4.0.10 버전으로 업데이트 및 컨테이너 이미지 재빌드",
+          "Cloudflare WAF 규칙 적용 여부 확인 및 필요 시 공격 점수(Attack Score) 기반 차단 규칙 추가"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "AWS Architecture",
+      "title": "How Bee implemented Zero Operator Access for personal AI on AWS",
+      "link": "https://aws.amazon.com/blogs/architecture/how-bee-implemented-zero-operator-access-for-personal-ai-on-aws",
+      "published_at": "Fri, 20 Nov 2026 18:49:05 +0000",
+      "selection_score": 13,
+      "selection_reason": "개인화 AI 서비스에서 Zero Operator Access를 구현한 아키텍처 사례는 보안과 AI 결합의 좋은 실무 레퍼런스입니다.",
+      "feedback_bias": 0,
+      "one_line": "Bee는 AWS Nitro System과 EC2 인스턴스 증명을 활용해 운영자조차 데이터에 접근할 수 없는 'Zero Operator Access'를 구현했습니다.",
+      "key_points": [
+        "사용자 기기가 검증된 소프트웨어가 실행 중인 인스턴스에만 복호화 키를 제공하는 '인스턴스 증명(Attestation)' 방식을 사용합니다.",
+        "네트워크 격리, 읽기 전용 파일 시스템, 휘발성 메모리 저장소 등을 통해 운영자의 물리적/논리적 접근 경로를 원천 차단합니다.",
+        "인프라 수준의 SCP(Service Control Policies)와 Sigstore 투명성 로그를 결합하여 특정 팀의 단독 권한 남용을 방지합니다."
+      ],
+      "topics": [
+        "Zero Operator Access(ZOA)",
+        "EC2 Instance Attestation",
+        "AWS Nitro System"
+      ],
+      "recommended_for": "보안이 중요한 AI 서비스 아키텍처를 설계하는 백엔드 및 클라우드 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "언어 모델은 자신의 가중치를 직접 다시 쓸 수 있다",
+      "link": "https://news.hada.io/topic?id=37540",
+      "published_at": "2026-11-21T03:38:36+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM이 스스로 가중치를 수정하는 자기 재작성 기술은 AI 에이전트와 모델 최적화 분야의 매우 중요한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Qwen3.5 27B 모델이 그래디언트 업데이트 없이 스스로 가중치를 수정하여 문제 해결 정확도를 6.6%p 향상시켰습니다.",
+      "key_points": [
+        "모델이 실패를 진단하고 직접 가중치를 재작성(self-rewriting)하는 방식으로, 추가 학습 없이 성능 개선이 가능합니다.",
+        "개선 사항이 가중치 자체에 반영되므로 배포 후 별도의 프롬프트 엔지니어링이나 추가 연산 비용이 발생하지 않습니다.",
+        "연습 문제를 통한 검증 세션을 거쳐 모델의 안정성을 유지하며, 기본 가중치에서 시작하는 세션 방식을 채택했습니다."
+      ],
+      "topics": [
+        "Self-rewriting",
+        "Model Weight Optimization",
+        "LLM Agent"
+      ],
+      "recommended_for": "LLM 최적화 및 에이전트 워크플로를 연구하는 AI 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Inkling 2 Mini - 노트북에서 실행하는 반복형 트랜스포머 모델",
+      "link": "https://news.hada.io/topic?id=37545",
+      "published_at": "2026-11-21T06:38:36+09:00",
+      "selection_score": 14,
+      "selection_reason": "로컬 환경에서 실행 가능한 고성능 추론 모델은 AI 에이전트 및 개발 생산성 도구 구축에 매우 유용한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Thinking Machines Lab이 공개한 Inkling 2 Mini는 노트북에서 실행 가능한 고성능 반복형 트랜스포머 모델입니다.",
+      "key_points": [
+        "264억 파라미터 규모로 약 20GB 메모리에서 로컬 실행이 가능하며, 중간 레이어를 토큰당 3회 반복하는 구조를 가집니다.",
+        "추론 품질이 중요한 코딩 작업에서 적은 토큰으로 높은 정확도를 기록하며, 오픈 웨이트 모델 중 선두권 성능을 보입니다.",
+        "다중 턴 대화나 복잡한 제약 조건 처리에는 상대적으로 약점이 있어 특정 작업 최적화에 적합합니다."
+      ],
+      "topics": [
+        "Recurrent Transformer",
+        "Local LLM",
+        "Inference Optimization"
+      ],
+      "recommended_for": "로컬 환경에서 고성능 AI 에이전트를 구축하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Inkling 2 Mini 로컬 환경 테스트",
+        "steps": [
+          "20GB 이상의 가용 메모리를 확보한 로컬 환경 준비",
+          "모델 가중치를 다운로드하여 로컬 추론 엔진(예: llama.cpp 등)에서 구동",
+          "코딩 작업 관련 프롬프트를 입력하여 기존 모델 대비 추론 효율성 비교"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "우리는 개발자들에게 알리지도 않고 아키텍트로 승진시켰다",
+      "link": "https://news.hada.io/topic?id=37548",
+      "published_at": "2026-11-21T07:33:30+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 코딩 도구 사용 시 아키텍처 설계의 중요성을 다루고 있어, 실무 개발 생산성과 아키텍처 관점에서 매우 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 코딩 도구 활용 시 성능과 보안을 위해 개발자가 직접 아키텍처를 설계해야 합니다.",
+      "key_points": [
+        "AI에게 요구사항만 전달하면 성능과 데이터 설계까지 AI가 결정하게 되어 비효율적인 코드가 생성될 수 있습니다.",
+        "아키텍트의 핵심 역할은 성능과 보안 사이의 절충안을 찾고, 비효율적인 요구사항을 제어하는 것입니다.",
+        "AI 코딩 도구 사용 시 사람이 먼저 데이터 모델과 아키텍처를 설계하고 변경 승인 프로세스를 명확히 해야 합니다."
+      ],
+      "topics": [
+        "AI-Assisted Development",
+        "Software Architecture"
+      ],
+      "recommended_for": "AI 코딩 도구를 실무에 적극적으로 도입하고 있는 백엔드 및 풀스택 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "AI 코딩 도구 활용을 위한 아키텍처 설계 가이드라인 수립",
+        "steps": [
+          "현재 진행 중인 프로젝트의 데이터 모델과 핵심 아키텍처 다이어그램을 먼저 작성합니다.",
+          "AI에게 코드를 생성시키기 전, 설계한 아키텍처 제약 사항을 프롬프트에 명시하는 규칙을 정합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "jj-musubi 공개: Jujutsu 저장소의 실시간 동기화",
+      "link": "https://news.hada.io/topic?id=37549",
+      "published_at": "2026-11-21T09:03:36+09:00",
+      "selection_score": 15,
+      "selection_reason": "Jujutsu 저장소의 실시간 동기화 도구로, 개발 생산성과 워크플로 최적화에 관심 있는 개발자에게 유용한 도구입니다.",
+      "feedback_bias": 0,
+      "one_line": "jj-musubi는 여러 머신 간 Jujutsu 저장소의 이력을 실시간으로 동기화하는 도구입니다.",
+      "key_points": [
+        "jj-musubi는 작업 복사본을 수정하지 않고 커밋, 리베이스 등 이력 정보만 실시간으로 동기화합니다.",
+        "허브-데몬 구조를 통해 SSH 기반으로 여러 머신 간의 작업 상태를 공유합니다.",
+        "개인 개발자가 여러 환경에서 작업할 때 빌드 파일을 건드리지 않고 작업 이력만 최신으로 유지할 수 있습니다."
+      ],
+      "topics": [
+        "Jujutsu (jj)",
+        "Version Control Workflow"
+      ],
+      "recommended_for": "여러 대의 개발 머신을 사용하며 Jujutsu를 도입했거나 고려 중인 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "다중 머신 환경에서 jj-musubi 동기화 테스트",
+        "steps": [
+          "메인 머신에 허브를 설정하고 보조 머신에 데몬을 설치합니다.",
+          "SSH 연결을 통해 커밋 이력이 실시간으로 동기화되는지 확인합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "SignuDoc - 내 계정에 배포해 운영하는 오픈소스 전자서명 앱",
+      "link": "https://news.hada.io/topic?id=37551",
+      "published_at": "2026-11-21T09:30:02+09:00",
+      "selection_score": 15,
+      "selection_reason": "업무 자동화 측면에서 유용한 오픈소스 도구이나, 사용자의 핵심 기술 관심사와는 다소 거리가 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "SignuDoc은 가입 없이 서명 가능한 오픈소스 전자서명 앱으로, 업무 자동화에 활용할 수 있습니다.",
+      "key_points": [
+        "SignuDoc은 DocuSign의 오픈소스 대안으로, 수신자가 가입 없이 링크를 통해 서명할 수 있습니다.",
+        "서명 순서 지정, 자동 알림, 템플릿 저장 등 비즈니스 프로세스에 필요한 기능을 제공합니다.",
+        "서명 완료 후 문서의 변조 여부를 확인할 수 있는 기능을 포함하고 있습니다."
+      ],
+      "topics": [
+        "Electronic Signature",
+        "Workflow Automation"
+      ],
+      "recommended_for": "문서 서명 프로세스를 자동화하고 싶은 개발자나 팀 리더",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "초대형 Git 저장소의 개발 속도 높이기",
+      "link": "https://news.hada.io/topic?id=37552",
+      "published_at": "2026-11-21T09:31:01+09:00",
+      "selection_score": 15,
+      "selection_reason": "대규모 저장소의 성능 개선과 빌드 워크플로 최적화 사례로, 백엔드 및 인프라 엔지니어에게 매우 중요한 기술적 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Google의 ABFS는 가상 파일 시스템과 2단계 캐싱을 통해 대규모 Git 저장소의 빌드 속도를 획기적으로 개선합니다.",
+      "key_points": [
+        "ABFS는 필요한 파일만 지연 로딩하는 가상 파일 시스템 CASFS를 사용하여 체크아웃 시간을 대폭 단축합니다.",
+        "콘텐츠 주소 기반 캐싱을 통해 소스부터 빌드 결과물까지 효율적으로 관리합니다.",
+        "2단계 빌드 캐싱은 선언된 입력뿐 아니라 실제 읽은 파일까지 검증하여 빌드 규칙의 숨은 의존성 문제를 해결합니다."
+      ],
+      "topics": [
+        "Build Caching",
+        "Virtual File System",
+        "Git Performance"
+      ],
+      "recommended_for": "대규모 코드베이스를 관리하며 빌드 성능 개선이 필요한 백엔드 및 인프라 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Nvidia 회계 처리, SEC가 조사 중이라고 소식통 전해",
+      "link": "https://news.hada.io/topic?id=37553",
+      "published_at": "2026-11-21T09:36:41+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 산업 전반에 큰 영향을 미칠 수 있는 Nvidia의 회계 이슈로, 업계 동향 파악을 위해 확인이 필요합니다.",
+      "feedback_bias": 0,
+      "one_line": "Nvidia의 잠재적 회계 부정 의혹에 대한 SEC 조사 소식으로 주가가 급락함.",
+      "key_points": [
+        "SEC가 Nvidia의 매출 인식 및 중국 우회 수출 등 잠재적 회계 문제를 조사 중임.",
+        "Nvidia는 10-Q 제출을 평소보다 늦추고 독립적인 이사회 조사를 진행하고 있음.",
+        "해당 이슈로 인해 Nvidia 주가가 1주일간 14% 하락하며 시장 전반에 영향을 미침."
+      ],
+      "topics": [
+        "10-Q",
+        "매출 인식",
+        "회계 감사"
+      ],
+      "recommended_for": "AI 산업의 시장 동향과 주요 기업의 리스크를 파악해야 하는 개발자 및 투자자.",
+      "actionability": 1,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "‘확률적 앵무새’가 리만 가설을 증명한 모양이다",
+      "link": "https://news.hada.io/topic?id=37554",
+      "published_at": "2026-11-21T09:39:41+09:00",
+      "selection_score": 15,
+      "selection_reason": "LLM의 수학적 증명 능력과 Lean 검증의 결합은 AI의 신뢰성과 미래 활용 가능성을 보여주는 중요한 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "Anthropic 모델을 활용해 1,740만 줄의 Lean 코드로 리만 가설 증명이 시도됨.",
+      "key_points": [
+        "Levent Alpöge가 AI를 활용해 일반화 리만 가설을 증명하고 Lean 코드로 검증함.",
+        "Lean 인증을 거친 AI 결과물은 신뢰도가 높으나, 수학적 이해를 위한 재구성이 추가로 필요함.",
+        "Lean 커널의 건전성 이슈가 존재하지만, 이번 증명 과정에서 이를 악용한 징후는 발견되지 않음."
+      ],
+      "topics": [
+        "Lean",
+        "형식 검증(Formal Verification)",
+        "리만 가설"
+      ],
+      "recommended_for": "AI의 논리적 추론 능력과 형식 검증 도구에 관심 있는 개발자.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Codex로 일하는 새로운 방식 [영상]",
+      "link": "https://news.hada.io/topic?id=37556",
+      "published_at": "2026-11-21T09:50:02+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI Agent와 개발 도구의 통합을 통한 생산성 향상 방식을 다루고 있어 사용자의 관심 분야와 매우 밀접합니다.",
+      "feedback_bias": 0,
+      "one_line": "Codex가 CLI, Slack, API 등과 통합되어 코딩부터 배포까지 자동화하는 에이전트 워크플로를 지원함.",
+      "key_points": [
+        "Codex는 로컬 코딩을 넘어 대화, 문서 검색, 배포 및 결과 확인까지 에이전트가 수행함.",
+        "저장소 외부의 컨텍스트(문서, 디자인 시스템 등)를 활용해 사용자의 세부 지시 없이도 작업 수행 가능.",
+        "빠른 반복 작업과 장기 실행 작업을 구분하여 효율적인 개발 워크플로를 제공함."
+      ],
+      "topics": [
+        "AI Agent",
+        "Agentic Workflow",
+        "Developer Tools"
+      ],
+      "recommended_for": "AI 에이전트를 활용해 개발 생산성을 극대화하고 싶은 엔지니어.",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 개발 워크플로에 AI 에이전트 통합 포인트 식별하기",
+        "steps": [
+          "현재 반복적으로 수행하는 CLI 작업이나 배포 확인 과정을 리스트업한다.",
+          "Codex 또는 유사한 에이전트 도구가 해당 컨텍스트(문서, Slack 메시지)에 접근 가능한지 확인한다.",
+          "가장 시간이 많이 소요되는 반복 작업 하나를 에이전트 워크플로로 자동화할 수 있는지 검토한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Anthropic, IPO 직후 주가 급락…Nasdaq은 2026년 상승분 반납",
+      "link": "https://news.hada.io/topic?id=37557",
+      "published_at": "2026-11-21T10:32:44+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 산업의 시장 상황을 반영하는 거시적 경제 뉴스이나, 기술적 실무 가치는 낮습니다.",
+      "feedback_bias": 0,
+      "one_line": "Anthropic 주가 급락과 함께 AI 투자 열풍에 대한 우려로 나스닥이 조정 국면에 진입함.",
+      "key_points": [
+        "Anthropic의 상장 후 주가 하락이 AI 섹터 전반의 매도세를 촉발함.",
+        "고금리, 인플레이션, 데이터센터 건설 둔화 우려가 시장의 주요 압박 요인임.",
+        "Nvidia를 포함한 주요 기술주가 하락하며 2026년 상승분을 반납하는 조정세가 나타남."
+      ],
+      "topics": [
+        "시장 조정",
+        "거시 경제",
+        "투자 심리"
+      ],
+      "recommended_for": "기술 산업의 거시적 경제 흐름을 파악하려는 개발자.",
+      "actionability": 1,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "iOS에 여전히 WebKit 이외의 엔진을 쓰는 브라우저가 없는 이유",
+      "link": "https://news.hada.io/topic?id=37539",
+      "published_at": "2026-11-21T03:35:36+09:00",
+      "selection_score": 9,
+      "selection_reason": "브라우저 엔진 제약은 웹 개발 환경과 플랫폼 정책 변화에 중요한 영향을 미치므로 확인할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": [
+    "네이버 D2"
+  ]
+}
