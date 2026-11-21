@@ -765,5 +765,13 @@
     "video_id": "UeN6-iEzr2Q",
     "voice": "Leda",
     "publish_at": "2026-11-22T07:00:00+09:00"
+  },
+  {
+    "date": "2026-11-21",
+    "link": "https://developers.googleblog.com/check-what-your-ai-agents-do-before-they-do-it-with-semantic-governance-policies",
+    "title": "Google Agent Gateway 시맨틱 거버넌스, AI 행동 실행 전 검사",
+    "video_id": "r2xd5YIYE9w",
+    "voice": "Leda",
+    "publish_at": "2026-11-22T08:00:00+09:00"
   }
 ]
