@@ -725,5 +725,13 @@
     "video_id": "rS7eZzTy1MY",
     "voice": "Leda",
     "publish_at": "2026-11-21T08:00:00+09:00"
+  },
+  {
+    "date": "2026-11-20",
+    "link": "https://developers.googleblog.com/distributed-llm-training-across-metros-streaming-diloco-in-maxtext",
+    "title": "Google MaxText Streaming DiLoCo, 먼 도시 TPU로 LLM 학습 통신량 65배 절감",
+    "video_id": "NZdDfZCVMEU",
+    "voice": "Leda",
+    "publish_at": "2026-11-21T12:00:00+09:00"
   }
 ]
