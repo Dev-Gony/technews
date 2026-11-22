@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "issue_number": 64,
+  "issue_date": "2026-11-22",
+  "generated_at": "2026-11-22T09:58:08.670037+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nRust, 메모리 안전성, AI 에이전트, 성능 최적화, 보안 취약점\n\n[오늘의 한줄 포인트]\n\n시스템 프로그래밍의 메모리 안전성 확보와 AI 에이전트를 활용한 성능 최적화가 개발 생태계의 핵심 흐름으로 자리 잡고 있습니다.\n\n[오늘 왜 중요한가]\n\n최근 기술 트렌드는 단순한 기능 구현을 넘어, C 언어 기반의 레거시를 Rust로 전환하여 메모리 안전성을 강화하고 AI 에이전트를 통해 복잡한 하드웨어 최적화까지 자동화하는 방향으로 나아가고 있습니다. 실무자들은 이러한 도구와 방법론을 익혀 개발 생산성과 시스템 안정성을 동시에 확보해야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 6번: 안드로이드 핵심 드라이버의 Rust 전환은 시스템 프로그래밍의 미래 표준을 보여주는 중요한 이정표입니다.\n• 2번: FPGA와 같은 복잡한 하드웨어 영역에서 AI 에이전트가 어떻게 실질적인 성능 향상을 이끌어내는지 보여주는 혁신적인 사례입니다.\n• 5번: GPGME 라이브러리의 치명적인 RCE 취약점은 백엔드 및 인프라 운영자에게 즉각적인 보안 패치가 필요한 필수 정보입니다.\n\n[오늘 공부해볼 것]\n\n• Rust의 메모리 안전성 모델: C 언어와 비교하여 Rust가 어떻게 메모리 오류를 컴파일 타임에 방지하는지 이해하기 위함입니다.\n• Agentic Workflow의 구성: 반복적인 코드 수정과 성능 피드백 루프를 에이전트에게 어떻게 위임할지 설계해보기 위함입니다.\n• CVE 대응 프로세스: 오픈소스 라이브러리 취약점 발견 시 프로젝트의 의존성을 점검하고 패치하는 표준 절차를 익히기 위함입니다.",
+  "stats": {
+    "candidate_count": 20,
+    "detailed_count": 8,
+    "brief_count": 4,
+    "excluded_count": 8,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "binder.c 제거, Android Binder의 C 구현을 Rust로 대체",
+      "link": "https://news.hada.io/topic?id=37594",
+      "published_at": "2026-11-22T05:02:02+09:00",
+      "selection_score": 15,
+      "selection_reason": "Rust로의 시스템 전환과 성능 최적화 사례는 백엔드 아키텍처 및 시스템 프로그래밍의 중요한 이정표입니다.",
+      "feedback_bias": 0,
+      "one_line": "Android의 핵심 IPC 드라이버인 Binder가 보안 및 성능 개선을 위해 C에서 Rust로 완전히 전환됨.",
+      "key_points": [
+        "Android Binder의 C 구현이 Linux 7.4에서 제거되며 5년간의 Rust 전환 작업이 완료됨.",
+        "C 언어의 메모리 안전성 문제로 인한 높은 CVE 발생률을 해결하기 위해 Rust로의 전환이 결정됨.",
+        "성능 최적화의 핵심은 처리량보다 화면 렌더링 지연을 유발하는 꼬리 지연 시간(Tail Latency) 감소에 집중함."
+      ],
+      "topics": [
+        "IPC(Inter-Process Communication)",
+        "Memory Safety",
+        "Tail Latency"
+      ],
+      "recommended_for": "시스템 프로그래밍의 안정성과 성능 최적화에 관심이 많은 백엔드 및 임베디드 개발자.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "추론 칩을 바이브 코딩하기",
+      "link": "https://news.hada.io/topic?id=37581",
+      "published_at": "2026-11-21T23:38:47+09:00",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트를 활용한 성능 최적화와 LLM 추론 가속화 사례로, 현재 가장 중요한 기술적 도전 과제를 다루고 있습니다.",
+      "feedback_bias": 0,
+      "one_line": "코딩 에이전트를 활용해 AWS FPGA에서 LLM 추론 성능을 33배 향상시킨 사례",
+      "key_points": [
+        "FPGA 비전문가가 코딩 에이전트를 활용해 300만 줄의 코드를 작성하며 LLM 추론을 최적화함.",
+        "메모리 접근 최적화, 병렬화, 추측 디코딩 등 점진적 개선을 통해 초당 213토큰의 성능을 달성함.",
+        "에이전트 기반의 반복적인 실험과 코드 분석이 복잡한 하드웨어 최적화 작업에 효과적임을 입증함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "추측 디코딩(Speculative Decoding)",
+        "FPGA 가속"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 성능 최적화 워크플로에 관심 있는 백엔드 및 AI 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "LLM 추론 최적화 워크플로에 에이전트 도입 실험",
+        "steps": [
+          "현재 수행 중인 성능 최적화 작업 중 반복적인 코드 수정이 필요한 부분을 식별한다.",
+          "에이전트에게 성능 지표(토큰/초 등)를 피드백으로 제공하며 점진적 코드 개선을 요청하는 루프를 구성한다."
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "GnuPG의 원격 코드 실행(RCE) 취약점",
+      "link": "https://news.hada.io/topic?id=37590",
+      "published_at": "2026-11-22T03:35:45+09:00",
+      "selection_score": 14,
+      "selection_reason": "보안 취약점(CVE)은 백엔드 및 인프라 운영자에게 즉각적인 대응이 필요한 매우 중요한 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "GPGME 2.3.1 미만 버전에서 발견된 치명적인 원격 코드 실행(RCE) 취약점(CVE-2026-129975) 주의",
+      "key_points": [
+        "조작된 OpenPGP 키를 통해 이중 해제(Double Free)를 유발하여 데이터 유출 및 RCE가 가능한 취약점임.",
+        "GPGME 2.3.0 이하를 사용하는 모든 소프트웨어가 영향을 받으므로 즉각적인 업데이트가 필요함.",
+        "버퍼 재할당 오류로 인한 메모리 포인터 관리 미흡이 근본 원인으로, 보안 패치가 필수적임."
+      ],
+      "topics": [
+        "CVE(보안 취약점)",
+        "이중 해제(Double Free)",
+        "원격 코드 실행(RCE)"
+      ],
+      "recommended_for": "GPGME 라이브러리를 사용하는 백엔드 시스템 및 인프라 운영자",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "프로젝트 내 GPGME 의존성 버전 점검 및 업데이트",
+        "steps": [
+          "프로젝트의 의존성 트리에서 GPGME 버전을 확인한다.",
+          "2.3.1 미만 버전 사용 시 즉시 최신 버전으로 업데이트하고 빌드 및 테스트를 수행한다."
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "GeekNews",
+      "title": "새 도메인으로 살펴보는 사람들이 만들고 있는 제품들",
+      "link": "https://news.hada.io/topic?id=37577",
+      "published_at": "2026-11-21T22:36:08+09:00",
+      "selection_score": 11,
+      "selection_reason": "다양한 SaaS와 AI 도구의 트렌드를 파악하고 시장 조사를 자동화하는 관점에서 실무적 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "신규 제품과 SaaS 트렌드를 도메인 및 운영 정보 기반으로 추적하는 플랫폼 NovumSignals 공개",
+      "key_points": [
+        "NovumSignals는 웹사이트와 공개 자료를 자동 분석하여 제품의 운영 회사, 팀 정보, 출시 상태 등을 수집함.",
+        "국가, 산업, 가격, 채용 여부 등 다양한 필터를 제공하여 특정 시장의 제품 트렌드를 파악하기 용이함.",
+        "출시 전 제품부터 사이드 프로젝트까지 광범위한 데이터를 추적하여 시장 조사 자동화에 활용 가능함."
+      ],
+      "topics": [
+        "시장 조사 자동화",
+        "SaaS 트렌드 분석"
+      ],
+      "recommended_for": "새로운 SaaS 아이디어를 찾거나 시장 조사를 효율화하고 싶은 개발자 및 기획자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: BerthNTFS – 커널 확장 없이 맥에서 NTFS 디스크에 쓰기 (FSKit + Rust)",
+      "link": "https://news.hada.io/topic?id=37582",
+      "published_at": "2026-11-21T23:55:03+09:00",
+      "selection_score": 11,
+      "selection_reason": "Rust를 활용한 시스템 프로그래밍과 macOS FSKit 활용 사례로, 백엔드 및 시스템 개발자에게 실질적인 학습 가치를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "macOS FSKit과 Rust를 사용하여 커널 확장 없이 NTFS 쓰기를 지원하는 BerthNTFS 개발",
+      "key_points": [
+        "기존의 커널 확장(kext)이나 macFUSE 방식 대신 Apple의 최신 FSKit을 활용하여 안정성을 확보함.",
+        "NTFS 엔진을 Rust로 직접 구현하여 메모리 안전성을 높이고 unsafe 코드 사용을 배제함.",
+        "복구 모드 설정 변경 없이 Finder에서 즉시 NTFS 디스크를 읽고 쓸 수 있는 사용자 경험을 제공함."
+      ],
+      "topics": [
+        "FSKit",
+        "Rust 시스템 프로그래밍",
+        "메모리 안전성"
+      ],
+      "recommended_for": "Rust를 활용한 시스템 프로그래밍과 macOS 아키텍처에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "차고 문 알림에 끼어든 스팸",
+      "link": "https://news.hada.io/topic?id=37583",
+      "published_at": "2026-11-22T00:01:15+09:00",
+      "selection_score": 11,
+      "selection_reason": "클라우드 의존성을 탈피한 로컬 자동화 및 아키텍처 구성 사례로, 업무 자동화와 서버 운영 관점에서 매우 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "클라우드 의존성을 제거하고 로컬 제어 보드(ratgdo32)를 활용한 차고 문 자동화 구현",
+      "key_points": [
+        "제조사의 API 차단에 대응하여 로컬 통신이 가능한 오픈소스 펌웨어 기반의 ratgdo32로 전환함.",
+        "Security+ 2.0 프로토콜을 사용하여 클라우드 없이 로컬 네트워크에서 차고 문을 제어함.",
+        "JSON 상태 엔드포인트를 활용해 HomeKit 연동 및 Slack 알림 등 커스텀 자동화 워크플로를 구축함."
+      ],
+      "topics": [
+        "로컬 자동화(Local Control)",
+        "IoT 아키텍처",
+        "업무 자동화"
+      ],
+      "recommended_for": "클라우드 의존성을 줄이고 로컬 서버 기반의 자동화를 선호하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "클라우드 의존적인 IoT 기기의 로컬 제어 전환 검토",
+        "steps": [
+          "현재 사용 중인 클라우드 기반 IoT 기기의 로컬 API 지원 여부를 확인한다.",
+          "로컬 제어가 가능한 오픈소스 대안(ratgdo, Home Assistant 등)을 찾아 아키텍처 변경 가능성을 검토한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "5.4 GB 메모리의 Inkling-2-Mini",
+      "link": "https://news.hada.io/topic?id=37595",
+      "published_at": "2026-11-22T05:34:21+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM 경량화 및 압축 기술은 비용 절감과 로컬 LLM 활용 측면에서 매우 실용적인 정보입니다.",
+      "feedback_bias": 0,
+      "one_line": "Inkling-2-Mini 모델이 새로운 압축 기법을 통해 5.38GB로 경량화되면서도 성능은 향상됨.",
+      "key_points": [
+        "출력 손상도 측정과 트렐리스 코드, 근접 미세조정(SQYFR)을 활용해 모델 가중치를 18.89GB에서 5.38GB로 압축함.",
+        "기존 Unsloth 모델 대비 파일 크기는 41% 작으면서도 GSM8K 및 HumanEval 벤치마크에서 더 높은 점수를 기록함.",
+        "Apple Silicon의 Metal 커널을 활용한 최적화로 로컬 환경에서의 LLM 실행 효율성을 극대화함."
+      ],
+      "topics": [
+        "Model Compression",
+        "SQYFR(근접 미세조정)",
+        "LLM Inference Optimization"
+      ],
+      "recommended_for": "로컬 LLM을 운영하거나 모델 경량화를 통해 추론 비용을 절감하려는 AI 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "UI SDK - AI 에이전트가 UI의 기본 동작을 조합해 컴포넌트를 만드는 라이브러리",
+      "link": "https://news.hada.io/topic?id=37600",
+      "published_at": "2026-11-22T09:30:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트를 활용한 UI 컴포넌트 생성은 Agentic Workflow와 개발 생산성 향상에 직결되는 핵심 주제입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트가 기본 UI 동작을 조합하여 접근성이 보장된 컴포넌트를 생성하는 라이브러리 등장.",
+      "key_points": [
+        "팝업, 선택, 입력 등 50개 이상의 기본 동작을 조합해 복잡한 UI 컴포넌트를 자동 생성함.",
+        "키보드 탐색, 포커스 관리, 스크린 리더 지원 등 구현이 까다로운 접근성 요소를 자동으로 처리함.",
+        "React, Vue, Svelte 등 다양한 프레임워크를 지원하며 완성된 컴포넌트의 접근성 검사 도구도 제공함."
+      ],
+      "topics": [
+        "Agentic UI Generation",
+        "Web Accessibility(A11y)",
+        "Component Composition"
+      ],
+      "recommended_for": "프론트엔드 개발 생산성을 높이고 접근성 준수 비용을 줄이고 싶은 웹 개발자.",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "UI SDK를 활용한 접근성 컴포넌트 프로토타이핑",
+        "steps": [
+          "라이브러리 공식 문서에서 제공하는 기본 동작(Primitive) 목록 확인",
+          "현재 프로젝트에서 자주 사용하는 복잡한 컴포넌트(예: 콤보박스)를 해당 라이브러리로 재구현",
+          "제공된 테스트 도구를 사용하여 접근성 점수 측정 및 기존 구현과 비교"
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Winedroid - Android 없이 Android 앱 실행하기, WASM 데모",
+      "link": "https://news.hada.io/topic?id=37580",
+      "published_at": "2026-11-21T23:35:47+09:00",
+      "selection_score": 9,
+      "selection_reason": "Rust와 WASM을 활용한 런타임 구현 사례로, 최신 웹 기술과 크로스 플랫폼 아키텍처에 관심 있는 개발자에게 유익합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "내 모니터가 다운로드 속도를 75% 떨어뜨리고 있었다",
+      "link": "https://news.hada.io/topic?id=37584",
+      "published_at": "2026-11-22T00:32:49+09:00",
+      "selection_score": 9,
+      "selection_reason": "하드웨어 병목 현상 분석 및 성능 트러블슈팅 사례로, 인프라 및 성능 최적화 실무에 큰 도움이 됩니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "GIMP에 UI 테스트 도입",
+      "link": "https://news.hada.io/topic?id=37592",
+      "published_at": "2026-11-22T03:41:45+09:00",
+      "selection_score": 10,
+      "selection_reason": "GUI 테스트 자동화 방법론은 개발 생산성 향상 측면에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "FBI, 범죄정보 데이터베이스 해킹 의심 사건 조사 중인 것으로 알려져",
+      "link": "https://news.hada.io/topic?id=37597",
+      "published_at": "2026-11-22T05:37:21+09:00",
+      "selection_score": 9,
+      "selection_reason": "주요 국가 기관의 보안 침해 사고는 업계 보안 트렌드 파악을 위해 확인할 가치가 있습니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": [
+    "네이버 D2"
+  ]
+}
