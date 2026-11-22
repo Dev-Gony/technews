@@ -789,5 +789,13 @@
     "video_id": "M6wyIME9ZYc",
     "voice": "Leda",
     "publish_at": "2026-11-22T13:00:00+09:00"
+  },
+  {
+    "date": "2026-11-22",
+    "link": "https://news.hada.io/topic?id=37581",
+    "title": "FPGA 칩에 코딩 에이전트로 LLM 추론, 33배 빨라졌다",
+    "video_id": "OipU5F7diow",
+    "voice": "Leda",
+    "publish_at": "2026-11-22T17:00:00+09:00"
   }
 ]
