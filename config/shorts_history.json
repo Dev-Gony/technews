@@ -821,5 +821,13 @@
     "video_id": "U6mInvCLCcE",
     "voice": "Leda",
     "publish_at": "2026-11-23T08:00:00+09:00"
+  },
+  {
+    "date": "2026-11-22",
+    "link": "https://news.hada.io/topic?id=37595",
+    "title": "Inkling-2-Mini 압축, 18.89GB를 5.38GB로 줄이고 비교 모델보다 점수 높아",
+    "video_id": "m-CVYzLfMC0",
+    "voice": "Leda",
+    "publish_at": "2026-11-23T12:00:00+09:00"
   }
 ]
