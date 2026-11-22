@@ -813,5 +813,13 @@
     "video_id": "2EP3EHmNkK0",
     "voice": "Leda",
     "publish_at": "2026-11-23T07:00:00+09:00"
+  },
+  {
+    "date": "2026-11-22",
+    "link": "https://news.hada.io/topic?id=37600",
+    "title": "Vercel UI SDK, AI가 접근성 갖춘 UI 컴포넌트 직접 조립",
+    "video_id": "U6mInvCLCcE",
+    "voice": "Leda",
+    "publish_at": "2026-11-23T08:00:00+09:00"
   }
 ]
