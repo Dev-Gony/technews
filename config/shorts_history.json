@@ -797,5 +797,13 @@
     "video_id": "OipU5F7diow",
     "voice": "Leda",
     "publish_at": "2026-11-22T17:00:00+09:00"
+  },
+  {
+    "date": "2026-11-22",
+    "link": "https://news.hada.io/topic?id=37594",
+    "title": "Android Binder C 코드 삭제, Rust로 5년 넘게 걸려 교체",
+    "video_id": "BLRdF9STKZo",
+    "voice": "Leda",
+    "publish_at": "2026-11-22T18:00:00+09:00"
   }
 ]
