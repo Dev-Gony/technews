@@ -805,5 +805,13 @@
     "video_id": "BLRdF9STKZo",
     "voice": "Leda",
     "publish_at": "2026-11-22T18:00:00+09:00"
+  },
+  {
+    "date": "2026-11-22",
+    "link": "https://news.hada.io/topic?id=37590",
+    "title": "GnuPG GPGME 취약점 CVE-2026-129975, 가짜 키로 이중 해제",
+    "video_id": "2EP3EHmNkK0",
+    "voice": "Leda",
+    "publish_at": "2026-11-23T07:00:00+09:00"
   }
 ]
