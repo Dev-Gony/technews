@@ -185,7 +185,7 @@ export const EditorialChrome: React.FC<{ style: "news" | "explain"; channel: str
 // 제목(cover): 첫 컷 동안 화면 가운데 크게(훅) → 상단에 고정
 
 // news: 왼쪽 정렬 명조. 위로 올라가면 빨간 줄 + 큰 제목 (잡지 헤드라인)
-const NewsCover: React.FC<{ text: string; heroFrames: number }> = ({ text, heroFrames }) => {
+const NewsCover: React.FC<{ text: string; heroFrames: number; raised?: boolean }> = ({ text, heroFrames, raised = false }) => {
   const frame = useCurrentFrame();
   const { width } = useVideoConfig();
   const lines = text.split("\n").slice(0, 2);
@@ -211,7 +211,7 @@ const NewsCover: React.FC<{ text: string; heroFrames: number }> = ({ text, heroF
     <div
       style={{
         position: "absolute",
-        top: 520 + rise - shrink * 40,
+        top: (raised ? 250 : 520) + rise - shrink * 40,
         left: layout.side,
         width: width - layout.side * 2,
         opacity: interpolate(frame, [0, 6], [0, 1], { extrapolateRight: "clamp" }) * (1 - shrink),
@@ -245,7 +245,7 @@ const NewsCover: React.FC<{ text: string; heroFrames: number }> = ({ text, heroF
 };
 
 // explain: 가운데 굵은 고딕 → 위로 올라가면 파란 알약 라벨 한 줄
-const ExplainCover: React.FC<{ text: string; heroFrames: number }> = ({ text, heroFrames }) => {
+const ExplainCover: React.FC<{ text: string; heroFrames: number; raised?: boolean }> = ({ text, heroFrames, raised = false }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const lines = text.split("\n").slice(0, 2);
@@ -264,7 +264,7 @@ const ExplainCover: React.FC<{ text: string; heroFrames: number }> = ({ text, he
         <div
           style={{
             position: "absolute",
-            top: 560,
+            top: raised ? 290 : 560,
             left: layout.side / 2,
             right: layout.side / 2,
             textAlign: "center",
@@ -317,7 +317,7 @@ const ExplainCover: React.FC<{ text: string; heroFrames: number }> = ({ text, he
   );
 };
 
-export const EditorialCover: React.FC<{ style: "news" | "explain"; text: string; heroFrames: number }> = ({ style, ...props }) =>
+export const EditorialCover: React.FC<{ style: "news" | "explain"; text: string; heroFrames: number; raised?: boolean }> = ({ style, ...props }) =>
   style === "news" ? <NewsCover {...props} /> : <ExplainCover {...props} />;
 
 // ---------------------------------------------------------------------------

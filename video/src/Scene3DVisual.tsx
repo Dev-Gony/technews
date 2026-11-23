@@ -131,7 +131,8 @@ export const Scene3DVisual: React.FC<{
   accent?: string;
   accentText?: string;
   dimAmount?: number;
-}> = ({ visual, sceneFrames = 120, chunks = [], area, accent = colors.accent, accentText = "#FFFFFF", dimAmount = DIM }) => {
+  overviewZoom?: number;
+}> = ({ visual, sceneFrames = 120, chunks = [], area, accent = colors.accent, accentText = "#FFFFFF", dimAmount = DIM, overviewZoom = 1 }) => {
   const frame = useCurrentFrame();
   const scene = visual.scene as Scene3D | undefined;
   const valid = Boolean(scene && scene in SCENES_3D);
@@ -251,7 +252,14 @@ export const Scene3DVisual: React.FC<{
   if (!story) {
     return (
       <AbsoluteFill>
-        <div style={{ ...sceneStyle, left: 540 - CONTENT_CENTER_X * s0, top: centerY - CONTENT_CENTER_Y * s0, transform: `scale(${s0 * interpolate(enter, [0, 1], [0.92, 1])})` }}>
+        <div
+          style={{
+            ...sceneStyle,
+            left: 540 - CONTENT_CENTER_X * s0 * overviewZoom,
+            top: centerY - CONTENT_CENTER_Y * s0 * overviewZoom,
+            transform: `scale(${s0 * overviewZoom * interpolate(enter, [0, 1], [0.92, 1])})`,
+          }}
+        >
           {video}
         </div>
         {label ? <TopLabel text={label} progress={labelIn} top={areaTop} accent={accent} /> : null}

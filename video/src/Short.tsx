@@ -308,7 +308,12 @@ export const Short: React.FC<ShortProps> = ({
         ))}
         {editorial ? (
           <>
-            <EditorialCover style={editorial} text={cover} heroFrames={heroFrames} />
+            <EditorialCover
+              style={editorial}
+              text={cover}
+              heroFrames={heroFrames}
+              raised={cuts[0]?.visual.type === "image" || cuts[0]?.visual.type === "scene3d"}
+            />
             <EditorialChrome style={editorial} channel={channel} source={source} series={series} />
           </>
         ) : (
