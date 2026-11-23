@@ -854,6 +854,14 @@ class ShortsTest(unittest.TestCase):
         self.assertEqual(shorts.d2_post_id("https://d2.naver.com/helloworld/5976687"), "5976687")
         self.assertEqual(shorts.d2_post_id("https://news.hada.io/topic?id=1"), "")
 
+    def test_news_media_images_are_not_used(self):
+        html = '<html><head><meta property="og:image" content="https://media.example-cdn.com/trader.jpg"></head><body><article><img src="/a.jpg"></article></body></html>'
+        self.assertEqual(shorts.image_candidates(html, "https://www.nbcnews.com/business/markets/x"), [])
+        self.assertEqual(shorts.image_candidates(html, "https://news.yna.co.kr/view/1"), [])
+        # 통신사 사진 주소도 뺀다
+        stock = '<html><body><article><img src="https://media.gettyimages.com/id/1/photo.jpg"><img src="/shot.png"></article></body></html>'
+        self.assertEqual([c["url"] for c in shorts.image_candidates(stock, "https://blog.example.com/p")], ["https://blog.example.com/shot.png"])
+
     def test_source_images_only_known_ones_and_one_added_when_unused(self):
         def cut(kind="none", **extra):
             return {"line": "대사", "visual": {"type": kind, **extra}}

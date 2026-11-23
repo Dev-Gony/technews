@@ -6,6 +6,7 @@ import { cardsSchema } from "./cards/schema";
 import { shortSchema } from "./schema";
 import { calculateShortMetadata, Short } from "./Short";
 import { SAMPLE_EXPLAIN, SAMPLE_NEWS } from "./editorial/samples";
+import { Weekly, weeklySchema } from "./weekly/Weekly";
 
 // 실제 렌더링은 shorts.py / cards.py가 --props로 내용을 넘겨준다.
 // defaultProps는 Studio 미리보기용 샘플이다. (효과음은 shorts.py 실행 시 public/sfx에 생성됨)
@@ -172,6 +173,34 @@ export const RemotionRoot: React.FC = () => {
         }}
       />
       {/* 채널 꾸미기 이미지: npx remotion still src/index.ts <id> out.png */}
+      {/* 주간 모음 영상 바탕(1920x1080)과 썸네일(1280x720). weekly.py가 --props로 내용을 넘긴다 */}
+      {[
+        { id: "WeeklyPanel", width: 1920, height: 1080, mode: "panel" as const },
+        { id: "WeeklyThumb", width: 1280, height: 720, mode: "thumb" as const },
+      ].map(({ id, width, height, mode }) => (
+        <Still
+          key={id}
+          id={id}
+          component={Weekly}
+          schema={weeklySchema}
+          width={width}
+          height={height}
+          defaultProps={{
+            mode,
+            heading: "이번 주 IT 소식 TOP 5",
+            range: "11/17 ~ 11/23",
+            current: 3,
+            cover: "이번 주\nAI 소식 TOP 5",
+            items: [
+              { rank: 5, title: "7GB짜리 AI가 수능 399점 받은 이유", series: "이게 된다고?" },
+              { rank: 4, title: "프롬프트 한 줄로 앱을 만들었다고?", series: "써먹는 AI" },
+              { rank: 3, title: "Anthropic 상장 하루 만에 증시가 휘청인 이유", series: "IT 드라마" },
+              { rank: 2, title: "AI가 고객 돈을 잘못 보냈다", series: "AI 사고일지" },
+              { rank: 1, title: "구글 검색이 바뀐다", series: "내 일상 IT" },
+            ],
+          }}
+        />
+      ))}
       <Still id="ProfilePaper" component={Profile} width={800} height={800} defaultProps={{ variant: "paper" as const }} />
       <Still id="ProfileInk" component={Profile} width={800} height={800} defaultProps={{ variant: "ink" as const }} />
       <Still id="Banner" component={Banner} width={2560} height={1440} />
