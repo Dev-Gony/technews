@@ -853,5 +853,163 @@
     "video_id": "gUhRLCKfN-M",
     "voice": "Leda",
     "publish_at": "2026-11-23T18:00:00+09:00"
+  },
+  {
+    "date": "2026-11-23",
+    "link": "https://news.hada.io/topic?id=37675",
+    "title": "AI한테 보낸 내 비밀, 몰래 읽혔다고?",
+    "video_id": "z13WuJz-35U",
+    "voice": "Leda",
+    "publish_at": "2026-11-24T18:00:00+09:00",
+    "series": "AI 사고일지",
+    "pick_score": 8,
+    "script": {
+      "title": "AI한테 보낸 내 비밀, 몰래 읽혔다고?",
+      "cover": "AI에 보낸 비밀\n몰래 열렸대요",
+      "style": "news",
+      "series": "AI 사고일지",
+      "cuts": [
+        {
+          "line": "내가 AI에 보낸 / 비밀이 / 몰래 열렸대요.",
+          "emphasis": [
+            "비밀이"
+          ],
+          "heading": "",
+          "section": "",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "연구자가 / 추적용 비밀을 / 담아 보냈대요.",
+          "emphasis": [
+            "추적용"
+          ],
+          "heading": "추적용 비밀\n200만 건",
+          "section": "무슨 일",
+          "visual": {
+            "type": "number",
+            "value": "약 200만 건",
+            "label": "추적용 비밀을 넣은 AI 요청"
+          }
+        },
+        {
+          "line": "중간 업체마다 / 내 글을 / 펼쳐 볼 수 있대요.",
+          "emphasis": [
+            "펼쳐"
+          ],
+          "heading": "중간마다\n글이 열린다",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "deploy3d",
+            "beats": [
+              {
+                "target": "white",
+                "label": "내 글"
+              },
+              {
+                "target": "belt",
+                "label": "중간 업체들"
+              },
+              {
+                "target": "gate",
+                "label": "열어 보는 곳"
+              }
+            ]
+          }
+        },
+        {
+          "line": "최소 세 곳은 / 해커한테 / 뚫렸대요.",
+          "emphasis": [
+            "세 곳"
+          ],
+          "heading": "업체 세 곳이\n뚫렸다",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "vault3d",
+            "beats": [
+              {
+                "target": "safe",
+                "label": "AI 업체"
+              },
+              {
+                "target": "door",
+                "label": "뚫린 입구"
+              },
+              {
+                "target": "red",
+                "label": "해커"
+              }
+            ]
+          }
+        },
+        {
+          "line": "한 중국 AI 연구소가 / 비밀 주소를 / 몰래 열었대요.",
+          "emphasis": [
+            "중국"
+          ],
+          "heading": "비밀 주소를\n몰래 열었다",
+          "section": "충격",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "'수집 안 함' 표시도 / 약 3분의 2가 / 열렸대요.",
+          "emphasis": [
+            "3분의"
+          ],
+          "heading": "'수집 안 함'도\n안 지켰다",
+          "section": "얼마나",
+          "visual": {
+            "type": "number",
+            "value": "약 3분의 2",
+            "label": "'수집 안 함' 요청 중 열린 비율"
+          }
+        },
+        {
+          "line": "주요 업체와 직접 계약하면 / 유출 가능성이 / 줄어든대요.",
+          "emphasis": [
+            "직접"
+          ],
+          "heading": "직접 계약하고\n직접 고른다",
+          "section": "나한테는",
+          "visual": {
+            "type": "scene3d",
+            "scene": "vault3d",
+            "beats": [
+              {
+                "target": "white",
+                "label": "나"
+              },
+              {
+                "target": "shield",
+                "label": "직접 계약"
+              },
+              {
+                "target": "lock",
+                "label": "직접 고른 업체"
+              }
+            ]
+          }
+        },
+        {
+          "line": "내 비밀은 / 함부로 / 못 보내겠어요.",
+          "emphasis": [
+            "비밀은"
+          ],
+          "heading": "비밀은 함부로\n못 보낸다",
+          "section": "정리",
+          "visual": {
+            "type": "none"
+          }
+        }
+      ],
+      "summary": "연구자 HD Moore가 약 200만 건의 AI 프롬프트에 고유한 추적용 비밀정보를 넣어 추적했더니, 최소 3개 AI 호스팅 업체 침해와 리셀러의 유출, 개인정보 보호 설정 위반이 확인됐다.",
+      "images": []
+    },
+    "source_label": "출처: GeekNews · news.hada.io"
   }
 ]
