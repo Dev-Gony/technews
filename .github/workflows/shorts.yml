@@ -119,12 +119,6 @@ jobs:
         run: |
           args=()
 
-          # TEMP: 주간 영상 시험 (머지 전에 지운다)
-          if [ "$INPUT_LINK" = "weekly-test" ]; then
-            python weekly.py --no-upload --date 2026-11-23 --history tests/fixtures/weekly_sample_history.json
-            exit 0
-          fi
-
           if [ -n "$INPUT_DATE" ]; then
             args+=(--date "$INPUT_DATE")
           fi
@@ -160,9 +154,6 @@ jobs:
             runtime/shorts/*/short.mp4
             runtime/shorts/*/script.json
             runtime/shorts/*/research/
-            runtime/weekly/*/weekly.mp4
-            runtime/weekly/*/weekly.json
-            runtime/weekly/*/thumbnail.png
           if-no-files-found: ignore
           retention-days: 14
 
