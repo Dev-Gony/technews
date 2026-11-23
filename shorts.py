@@ -3503,6 +3503,15 @@ def main():
                 "video_id": video_id,
                 "voice": voice,
                 **({"publish_at": publish_at.isoformat()} if publish_at else {}),
+                # 주간 모음 영상(weekly.py)이 팩트체크를 마친 이 대본을 다시 쓴다
+                "series": script.get("series") or "",
+                "pick_score": article.get("pick_score"),
+                "script": {
+                    **{key: script[key] for key in ("title", "cover", "style", "series", "cuts", "summary") if key in script},
+                    # 이미지 파일은 실행이 끝나면 사라지므로 주소만 (주간 영상에서 다시 받는다)
+                    "images": [{k: v for k, v in image.items() if k != "file"} for image in script.get("images") or []],
+                },
+                "source_label": source_label,
             }
         )
         save_json(SHORTS_HISTORY_FILE, history)
