@@ -1,0 +1,146 @@
+name: Weekly Roundup
+
+# 주간 모음 영상 (16:9): 그 주에 올린 쇼츠 중 시청자 점수가 높은 것 최대 7개를 순위로 묶는다 (weekly.py).
+# 대본은 매일 쇼츠에서 팩트체크를 마친 것을 그대로 다시 쓴다. 일요일 오전 11시 예약 공개.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "주의 마지막 날 (YYYY-MM-DD, 비우면 오늘)"
+        required: false
+      upload:
+        description: "YouTube에 업로드"
+        type: boolean
+        default: true
+      history:
+        description: "쇼츠 기록 파일 (시험용, 비우면 config/shorts_history.json)"
+        required: false
+  schedule:
+    # 일요일 05:47 KST에 만들어 11시 공개 (정각을 피해 예약 실행 지연을 줄인다)
+    - cron: "47 5 * * 0"
+      timezone: "Asia/Seoul"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tech-news-bot
+  cancel-in-progress: false
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v7
+
+      - name: Use the latest histories
+        run: |
+          git fetch --depth=1 origin main
+          git checkout origin/main -- config/shorts_history.json || echo "No shorts history on main yet."
+          git checkout origin/main -- config/weekly_history.json || echo "No weekly history on main yet."
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: video/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install video renderer (Remotion)
+        working-directory: video
+        run: |
+          npm ci
+          npx remotion browser ensure
+
+      - name: Cache speech recognition model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+
+      - name: Make weekly roundup
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          INPUT_DATE: ${{ github.event.inputs.date }}
+          INPUT_UPLOAD: ${{ github.event.inputs.upload }}
+          INPUT_HISTORY: ${{ github.event.inputs.history }}
+        run: |
+          args=()
+
+          if [ -n "$INPUT_DATE" ]; then
+            args+=(--date "$INPUT_DATE")
+          fi
+
+          if [ "$INPUT_UPLOAD" = "false" ]; then
+            args+=(--no-upload)
+          fi
+
+          if [ -n "$INPUT_HISTORY" ]; then
+            args+=(--history "$INPUT_HISTORY")
+          fi
+
+          python weekly.py "${args[@]}"
+
+      - name: Keep video as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly
+          path: |
+            runtime/weekly/*/weekly.mp4
+            runtime/weekly/*/weekly.json
+            runtime/weekly/*/thumbnail.png
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Save weekly history
+        if: github.ref == 'refs/heads/main'
+        run: |
+          if [ ! -f config/weekly_history.json ]; then
+            echo "No weekly history to save."
+            exit 0
+          fi
+
+          git config user.name "tech-news-bot"
+          git config user.email "tech-news-bot@users.noreply.github.com"
+          cp config/weekly_history.json /tmp/weekly_history.json
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/weekly_history.json config/weekly_history.json
+            git add config/weekly_history.json
+
+            if git diff --cached --quiet; then
+              echo "No weekly history changes to save."
+              exit 0
+            fi
+
+            git commit -m "Update weekly history"
+
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push failed, retrying ($attempt)"
+            sleep 5
+          done
+
+          exit 1

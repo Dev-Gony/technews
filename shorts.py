@@ -3164,6 +3164,13 @@ def upload_youtube(video_path, script, article, history=(), publish_at=None):
         # 예약 공개: 비공개로 올리고 publishAt(UTC)에 YouTube가 공개로 바꾼다.
         metadata["status"]["privacyStatus"] = "private"
         metadata["status"]["publishAt"] = publish_at.astimezone(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    return youtube_upload_file(video_path, metadata, token)
+
+
+def youtube_upload_file(video_path, metadata, token=None):
+    """영상 파일을 YouTube에 올린다(재개 가능 업로드). 돌려주는 값: (영상 ID, 실제 공개 상태). 쇼츠·주간 영상 공통."""
+    token = token or youtube_access_token()
     size = os.path.getsize(video_path)
 
     start = urllib.request.Request(
