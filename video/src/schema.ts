@@ -73,6 +73,9 @@ export const visualSchema = z.object({
   scene: z.enum(SCENE3D_NAMES).optional(),
   // scene3d 배역: 장면 속 사물·꼬마(public/assets3d/*_anchors.json 의 이름)에 대사 속 개념을 붙여 차례로 보여 준다
   beats: z.array(beatSchema).optional(),
+  // scene3d: 루프 영상을 미리 풀어 둔 PNG 프레임 폴더(public 안)와 장수. 있으면 영상 대신 그림을 읽는다.
+  frames: z.string().optional(),
+  frameCount: z.number().int().optional(),
 });
 
 export const chunkSchema = z.object({

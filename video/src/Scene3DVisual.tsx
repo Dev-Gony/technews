@@ -4,6 +4,7 @@ import {
   continueRender,
   delayRender,
   Easing,
+  Img,
   interpolate,
   Loop,
   OffthreadVideo,
@@ -234,7 +235,14 @@ export const Scene3DVisual: React.FC<{
     opacity: enter,
   };
 
-  const video = (
+  // 미리 풀어 둔 프레임이 있으면 그림 파일을 읽는다 (CI에서 webm 프레임 추출이 멈추는 문제를 피한다)
+  const frameCount = visual.frameCount ?? 0;
+  const video = visual.frames && frameCount > 0 ? (
+    <Img
+      src={staticFile(`${visual.frames}/${String((loopIndex % frameCount) + 1).padStart(3, "0")}.png`)}
+      style={{ width: 1080, height: 1920 }}
+    />
+  ) : (
     <Loop durationInFrames={SCENE3D_LOOP_FRAMES} name={`3D ${scene}`}>
       <OffthreadVideo src={staticFile(SCENES_3D[scene])} transparent muted style={{ width: 1080, height: 1920 }} />
     </Loop>

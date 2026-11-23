@@ -2414,6 +2414,54 @@ def caption_chunks(words, emphasis, segments=None):
     return result
 
 
+SCENE3D_LOOP_FRAMES = 360  # video/src/Background.tsx와 같은 값 (12초 루프)
+
+
+def extract_scene3d_frames(props_cuts, public_dir, run_name):
+    """3D 장면 컷마다 루프 영상(투명 webm)의 앞부분을 PNG 프레임으로 풀어 둔다.
+
+    렌더러가 webm에서 프레임을 직접 꺼내는 단계(OffthreadVideo)가 CI에서 계속 멈춰서(11/23 기본·동시 1개 모두 실패),
+    필요한 프레임만 미리 이미지로 만들어 화면이 그림 파일을 읽게 한다. 장면마다 그 장면이 쓰이는 가장 긴 컷 길이만큼만."""
+    needed = {}
+
+    for cut in props_cuts:
+        visual = cut["visual"]
+
+        if visual.get("type") == "scene3d" and visual.get("scene") in SCENE3D_FILES:
+            needed[visual["scene"]] = max(needed.get(visual["scene"], 0), min(cut["durationInFrames"], SCENE3D_LOOP_FRAMES))
+
+    folders = {}
+
+    for scene, count in needed.items():
+        folder = os.path.join(public_dir, f"s3d_{scene}")
+        os.makedirs(folder, exist_ok=True)
+
+        try:
+            # 기본 vp9 디코더는 투명도(알파)를 버리므로 libvpx로 푼다.
+            subprocess.run(
+                [ffmpeg_exe(), "-v", "error", "-y", "-c:v", "libvpx-vp9",
+                 "-i", os.path.join(VIDEO_PROJECT_DIR, "public", "assets3d", SCENE3D_FILES[scene]),
+                 "-frames:v", str(count), "-compression_level", "1", os.path.join(folder, "%03d.png")],
+                check=True, capture_output=True, timeout=300,
+            )
+            frames = len([name for name in os.listdir(folder) if name.endswith(".png")])
+
+            if frames:
+                folders[scene] = (f"{run_name}/s3d_{scene}", frames)
+        except Exception as error:
+            # 못 풀면 예전처럼 영상에서 직접 꺼낸다
+            print(f"3D 장면 프레임을 풀지 못했습니다 ({scene}): {error}")
+
+    for cut in props_cuts:
+        visual = cut["visual"]
+
+        if visual.get("type") == "scene3d" and visual.get("scene") in folders:
+            folder, frames = folders[visual["scene"]]
+            cut["visual"] = {**visual, "frames": folder, "frameCount": frames}
+
+    return props_cuts
+
+
 def build_props(script, narration_path, cut_words, source_label, run_name):
     """Remotion에 넘길 props를 만든다. 타이밍은 모두 프레임 단위로 계산해서 넘긴다."""
     public_dir = os.path.join(VIDEO_PROJECT_DIR, "public", run_name)
@@ -2475,6 +2523,8 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
                 ],
             }
         )
+
+    extract_scene3d_frames(props_cuts, public_dir, run_name)
 
     return {
         "channel": CHANNEL_NAME,
