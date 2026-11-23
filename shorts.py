@@ -571,7 +571,7 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
 - 한 컷 = 한 호흡 = 사실 하나. line은 짧은 문장 하나(20자 이내). 사실이 두 개면 두 컷으로 쪼갠다.
 - line 안에 화면 자막을 끊을 위치를 " / "로 표시한다. 한 조각은 1~3어절, 의미가 붙어 있는 말은 절대 떼지 않는다.
   좋은 예: "로봇한테 / 전용 뇌가 / 필요 없대요."  나쁜 예: "로봇한 / 테 전용"
-- 컷은 7~9개, 길이는 20~35초. 맥락(누가, 무엇을)은 빼지 않는다. 같은 말 반복과 군더더기는 뺀다.
+- 컷은 6~8개, 길이는 20~30초. 맥락(누가, 무엇을)은 빼지 않는다. 같은 말 반복과 군더더기는 뺀다.
 - 숫자는 소리 내어 읽기 자연스럽게 쓴다: 소수점 끝 0 금지("0.30달러" X → "0.3달러" O).
 - 숫자는 반드시 "무엇의" 숫자인지 같이 말한다. ("70% 개선" → "리드타임이 70% 줄었다")
 
@@ -591,8 +591,8 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
    (예: 원문에 "rustup update stable"이 있으면 "rustup update로 / 바로 올려 보세요.")
 6. 마지막 컷: 잇고니의 한 방 결말. 채널 소개·"구독해 주세요"·"매일 올려요" 금지.
    기사 사실을 듣고 친구가 할 법한 짧은 반응·농담·반전 한마디(15자 안팎)로 끝낸다. 시청자가 피식 웃거나 고개를 끄덕이게.
-   새 사실·숫자·예측·조언을 넣지 않는다 (반응은 감정·느낌만). 예: "솔직히 / 좀 무섭네요.", "AI도 / 퇴근은 하나 봐요.",
-   "저도 / 오늘 써 볼래요.", "숙제 검사는 / 사람이 해야겠네요."
+   새 사실·숫자·예측·조언을 넣지 않는다. 반응은 내 감정·느낌으로만 ("~할 것 같아요", "~인가 봐요"처럼 사실을 추측하는 말 금지).
+   예: "솔직히 / 좀 무섭네요.", "저 주식 / 없어서 다행이에요.", "저도 / 오늘 써 볼래요.", "이건 / 좀 부럽네요."
 
 사실 규칙 (가장 중요):
 - 숫자, 회사명, 결과, 동작 방식은 반드시 주어진 기사에 있는 것만. 없는 사실·수치를 지어내지 않는다.
@@ -1058,9 +1058,31 @@ IMAGE_SKIP_WORDS = (
 )
 
 
+# 언론사·사진 통신사: 기사 사진은 대부분 통신사(Getty·Reuters·AP 등) 저작물이라 쓰지 않는다 (저작권 신고 위험).
+# 이미지는 소식의 주인공이 직접 낸 자료(회사 블로그·프로젝트 사이트·GitHub·공식 영상)에서만.
+NEWS_MEDIA_HOSTS = (
+    "nbcnews.com", "cnbc.com", "reuters.com", "bloomberg.com", "nytimes.com", "wsj.com", "ft.com", "theguardian.com",
+    "bbc.co.uk", "bbc.com", "cnn.com", "apnews.com", "washingtonpost.com", "theverge.com", "techcrunch.com",
+    "arstechnica.com", "wired.com", "engadget.com", "zdnet.com", "businessinsider.com", "axios.com", "forbes.com",
+    "economist.com", "theinformation.com", "semafor.com", "fortune.com", "cnet.com", "404media.co", "theregister.com",
+    "yna.co.kr", "chosun.com", "joongang.co.kr", "donga.com", "hani.co.kr", "khan.co.kr", "mk.co.kr", "hankyung.com",
+    "etnews.com", "zdnet.co.kr", "bloter.net", "aitimes.com", "edaily.co.kr", "sedaily.com", "mt.co.kr", "news1.kr",
+    "newsis.com", "ytn.co.kr", "sbs.co.kr", "kbs.co.kr", "imbc.com", "jtbc.co.kr",
+)
+STOCK_PHOTO_WORDS = ("gettyimages", "getty", "reuters", "apimages", "ap.org", "shutterstock", "alamy", "istockphoto", "afp")
+
+
+def is_news_media(url):
+    host = urllib.parse.urlparse(url or "").netloc.lower()
+    return any(host == news or host.endswith("." + news) for news in NEWS_MEDIA_HOSTS)
+
+
 def image_candidates(html, base_url, use_meta=True):
-    """웹페이지에서 쓸 만한 이미지 주소와 설명(alt): 대표 이미지(og:image) → 본문 이미지 순."""
+    """웹페이지에서 쓸 만한 이미지 주소와 설명(alt): 대표 이미지(og:image) → 본문 이미지 순. 언론사 기사면 쓰지 않는다."""
     from bs4 import BeautifulSoup
+
+    if is_news_media(base_url):
+        return []
 
     soup = BeautifulSoup(html, "html.parser")
     found = []
@@ -1093,7 +1115,7 @@ def image_candidates(html, base_url, use_meta=True):
         if not url.startswith(("http://", "https://")) or url in seen:
             continue
 
-        if path.endswith((".svg", ".gif", ".ico")) or any(word in url.lower() for word in IMAGE_SKIP_WORDS):
+        if path.endswith((".svg", ".gif", ".ico")) or any(word in url.lower() for word in IMAGE_SKIP_WORDS + STOCK_PHOTO_WORDS):
             continue
 
         seen.add(url)
@@ -1186,7 +1208,10 @@ def youtube_candidates(pages):
 
     ids = []
 
-    for html, _ in pages:
+    for html, page_url in pages:
+        if is_news_media(page_url):
+            continue
+
         # 본문에서만 (사이드바·꼬리말의 다른 영상은 원문이 아니다)
         soup = BeautifulSoup(html, "html.parser")
 
@@ -1392,6 +1417,9 @@ FACTCHECK_SYSTEM_PROMPT = """너는 기술 뉴스 쇼츠의 팩트체커다. 대
 - 원문에 조건이 붙은 내용(예: "내부 지표 기준", "약")은 조건을 살린다.
 - 행동 제안(끝에서 두 번째 컷의 대사·그래픽, tips)도 대조한다. 원문에 나온 행동·명령어·설정·권고가 아니면
   (일반 상식 조언, 원문에 없는 절차·단계 포함) 원문에 있는 행동으로 고치고, 없으면 원문 사실로 의미를 정리하는 문장으로 바꾸거나 뺀다.
+- 마지막 컷은 진행자 "잇고니"의 한 방 결말(반응·농담)이다. 사실을 주장하지 않는 감정·느낌 표현("솔직히 좀 아찔하네요",
+  "저도 써 보고 싶어요")은 원문에 없어도 그대로 둔다. 새 사실·숫자·예측·조언을 담았거나 그렇게 읽히면
+  (예: "곧 회복되겠죠", "잠깐 쉬는 거예요") 사실을 주장하지 않는 감정 표현으로 바꾼다. 원문 사실 요약으로 바꾸지 않는다.
 - 맞는 내용은 그대로 둔다. 말투, 구조, 자막 끊기(" / "), 컷 순서, 그래픽 종류는 바꾸지 않는다.
 - "기사에 없어요" 같은 대본 밖 이야기를 넣지 않는다.
 script에 고친 대본 전체를, changes에 고친 곳마다 before / after / reason을 적는다. 고칠 게 없으면 changes는 빈 배열."""
