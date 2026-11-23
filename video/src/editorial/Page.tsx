@@ -467,7 +467,8 @@ const ImageCard: React.FC<{ visual: Visual; p: Palette; frame: number; sceneFram
 };
 
 // 훅 그림 자리 (제목이 위로 올라간 아래, 자막 위)
-const HOOK_AREA = { top: 660, bottom: 1140 };
+const HOOK_AREA = { top: 650, bottom: 1160 };
+const HOOK_CAPTION = 1260;
 
 // 카드 종류 고르기. 그릴 게 없으면 null (헤드라인만 크게)
 const cardFor = (visual: Visual, p: Palette, frame: number, sceneFrames: number) => {
@@ -667,6 +668,7 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
           accent={p.accent}
           accentText={style === "news" ? "#FFFFFF" : "#15130F"}
           dimAmount={0}
+          overviewZoom={1.2}
         />
       ) : null}
       {hookVisual?.type === "image" && hookVisual.src ? (
@@ -684,7 +686,7 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
           <ImageCard visual={hookVisual} p={p} frame={frame} sceneFrames={cut.durationInFrames} />
         </div>
       ) : null}
-      <PageCaption chunks={cut.chunks} style={style} top={hook ? 1180 : captionTop} />
+      <PageCaption chunks={cut.chunks} style={style} top={hook ? (hookVisual ? HOOK_CAPTION : 1180) : captionTop} />
     </AbsoluteFill>
   );
 };
