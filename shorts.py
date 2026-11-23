@@ -580,7 +580,7 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
    (예: "로봇한테 / 전용 뇌가 / 필요 없대요.", "AI가 / 수학 숙제를 / 혼자 끝냈대요.", "내 비밀 메시지가 / 다 보였대요.")
 2. 2컷: 무슨 일인지 한 문장으로 쉽게 (누가 무엇을 했는지).
    시청자에게 뭘 하라고 시키거나("끝까지 보세요") 내용을 미리 늘어놓지 않는다.
-3. 중간 2~4컷: 일상 비유 하나로 "어떻게, 왜"를 설명한다. 이 중 1~2컷은 3D 꼬마 캐릭터 장면(scene3d)으로 연기한다.
+3. 중간 2~4컷: 일상 비유 하나로 "어떻게, 왜"를 설명한다. 이 중 2~3컷은 3D 꼬마 캐릭터 장면(scene3d)으로 연기한다.
    - 비유는 영상 하나에 하나만 골라 끝까지 일관되게 쓴다. 비유와 실제 기술을 꼭 짝지어 말한다.
      예: "AI는 / 요리사, / 프롬프트는 / 주문서예요."
    - 비유로 설명하기 어려운 내용이면 억지로 쓰지 말고 쉬운 말과 flow로 설명한다.
@@ -628,7 +628,7 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
 - scale: 규모. 같은 사물을 격자로 깔아 숫자를 체감시킨다. count에 깔 개수(1~60), icon, value에 화면에 크게 쓸 말(예: "B200 56개"), label에 설명.
   실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
 - scene3d: 3D 꼬마 캐릭터 장면. 꼬마들과 사물이 있는 입체 장면을 크게 띄우고, 카메라가 대사 속 배역으로 다가간다.
-  쉬운 설명의 중심이다. 영상마다 꼭 1~2번 쓴다 (비유 컷은 metaphor·diagram보다 scene3d를 먼저 고른다):
+  쉬운 설명의 중심이다. 영상마다 꼭 2~3번 쓴다 (비유 컷은 metaphor·diagram보다 scene3d를 먼저 고른다):
   비유를 처음 꺼내는 컷(보통 3~4번째 컷)에 한 번, 비유가 이어지며 "어떻게" 되는지 보여 주는 컷에 한 번,
   결과나 "나한테 뭐가 달라지나"가 나오는 뒤쪽 컷에 한 번. 연달아 붙은 컷에는 쓰지 않는다(사이에 다른 컷 하나 이상).
   같은 장면을 다시 써도 되지만, 다시 쓸 때는 다른 배역(꼬마·사물)에 이름표를 붙여 이야기가 이어지게 한다.
@@ -1451,7 +1451,9 @@ def factcheck_schema():
 
 STYLE_PROMPT = """
 이 영상은 잡지 페이지처럼 만든다. 컷 하나 = 페이지 하나: 위에 섹션 이름, 그 아래 큰 헤드라인, 가운데 큰 카드 하나, 아래 자막.
-scene3d(꼬마 캐릭터 장면)는 카드 대신 헤드라인 아래를 크게 채운다. 위 scene3d 설명대로 영상마다 1~2번 꼭 쓴다.
+scene3d(꼬마 캐릭터 장면)는 카드 대신 헤드라인 아래를 크게 채운다. 위 scene3d 설명대로 영상마다 2~3번 꼭 쓴다.
+글자 목록 카드(keywords·flow·diagram·metaphor)는 영상 전체에서 합쳐 1번까지. 글자를 읽게 하는 화면은 넘긴다.
+나머지는 scene3d, image, number(숫자 하나 크게), none(헤드라인만 크게)으로 채운다.
 metaphor·diagram은 아이콘 없이 글자 표·단계 목록으로 보인다.
 
 컷마다 heading과 section을 쓴다 (1컷은 cover가 훅이라 둘 다 빈 문자열):
@@ -2462,6 +2464,23 @@ def extract_scene3d_frames(props_cuts, public_dir, run_name):
     return props_cuts
 
 
+def add_hook_visual(props_cuts, style):
+    """첫 컷(훅)에 이 영상의 대표 그림을 미리 보여 준다: 원문 이미지가 있으면 그것, 없으면 첫 3D 장면(이름표 없이 전체).
+
+    잘 되는 쇼츠는 첫 1초에 그림이 보인다. 글자만 있는 첫 화면은 넘기기 쉽다 (11/23 개선본)."""
+    if style not in EDITORIAL_STYLES or not props_cuts or props_cuts[0]["visual"].get("type") not in ("hook", "none"):
+        return props_cuts
+
+    later = [cut["visual"] for cut in props_cuts[1:]]
+    pick = next((visual for visual in later if visual.get("type") == "image" and visual.get("src")), None)
+    pick = pick or next((visual for visual in later if visual.get("type") == "scene3d" and visual.get("scene")), None)
+
+    if pick:
+        props_cuts[0]["visual"] = {**pick, "beats": []} if pick["type"] == "scene3d" else dict(pick)
+
+    return props_cuts
+
+
 def build_props(script, narration_path, cut_words, source_label, run_name):
     """Remotion에 넘길 props를 만든다. 타이밍은 모두 프레임 단위로 계산해서 넘긴다."""
     public_dir = os.path.join(VIDEO_PROJECT_DIR, "public", run_name)
@@ -2524,6 +2543,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
             }
         )
 
+    add_hook_visual(props_cuts, style)
     extract_scene3d_frames(props_cuts, public_dir, run_name)
 
     return {

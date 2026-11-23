@@ -466,6 +466,9 @@ const ImageCard: React.FC<{ visual: Visual; p: Palette; frame: number; sceneFram
   );
 };
 
+// 훅 그림 자리 (제목이 위로 올라간 아래, 자막 위)
+const HOOK_AREA = { top: 660, bottom: 1140 };
+
 // 카드 종류 고르기. 그릴 게 없으면 null (헤드라인만 크게)
 const cardFor = (visual: Visual, p: Palette, frame: number, sceneFrames: number) => {
   switch (visual.type) {
@@ -547,6 +550,8 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
   const p = P[style];
   const pos = POS[style];
   const hook = index === 0;
+  // 훅에 그림(원문 이미지·3D 장면)이 있으면 제목 아래에 바로 보여 준다: 첫 1초에 글자만 있으면 넘긴다
+  const hookVisual = hook && (cut.visual.type === "image" || cut.visual.type === "scene3d") ? cut.visual : null;
   const card = hook ? null : cardFor(cut.visual, p, frame, cut.durationInFrames);
   // 3D 꼬마 캐릭터 장면: 카드 대신 헤드라인 아래부터 자막 위까지 크게
   const scene3d = !hook && cut.visual.type === "scene3d" && Boolean(cut.visual.scene);
@@ -652,6 +657,32 @@ export const EditorialPage: React.FC<{ cut: Cut; index: number; style: Style; em
           accentText={style === "news" ? "#FFFFFF" : "#15130F"}
           dimAmount={style === "news" ? 0.3 : 0.6}
         />
+      ) : null}
+      {hookVisual?.type === "scene3d" && hookVisual.scene ? (
+        <Scene3DVisual
+          visual={{ ...hookVisual, beats: [] }}
+          sceneFrames={cut.durationInFrames}
+          chunks={cut.chunks}
+          area={HOOK_AREA}
+          accent={p.accent}
+          accentText={style === "news" ? "#FFFFFF" : "#15130F"}
+          dimAmount={0}
+        />
+      ) : null}
+      {hookVisual?.type === "image" && hookVisual.src ? (
+        <div
+          style={{
+            position: "absolute",
+            top: HOOK_AREA.top,
+            left: SIDE,
+            right: SIDE,
+            height: HOOK_AREA.bottom - HOOK_AREA.top,
+            opacity: rise(frame, 0, 6),
+            scale: String(interpolate(frame, [0, 8], [1.08, 1], { extrapolateRight: "clamp" })),
+          }}
+        >
+          <ImageCard visual={hookVisual} p={p} frame={frame} sceneFrames={cut.durationInFrames} />
+        </div>
       ) : null}
       <PageCaption chunks={cut.chunks} style={style} top={hook ? 1180 : captionTop} />
     </AbsoluteFill>
