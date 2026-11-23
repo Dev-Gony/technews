@@ -56,7 +56,7 @@ UPLOAD_PRIVACY = os.environ.get("SHORTS_PRIVACY", "public")
 # 공개 시각 (KST, 시). GitHub 예약 실행은 몇 시간씩 늦게 시작되기도 해서, 영상은 미리 만들어
 # 비공개로 올리고 YouTube 예약 공개(publishAt)로 이 시각에 정확히 공개한다. 비우면 올리자마자 공개.
 PUBLISH_SLOTS = [
-    int(hour) for hour in os.environ.get("SHORTS_PUBLISH_SLOTS", "7,8,12,13,17,18").split(",") if hour.strip()
+    int(hour) for hour in os.environ.get("SHORTS_PUBLISH_SLOTS", "18").split(",") if hour.strip()
 ]
 # 업로드·처리 시간을 감안해 지금부터 최소 이만큼 뒤의 시각에만 예약한다 (분).
 PUBLISH_LEAD_MINUTES = 20
@@ -387,6 +387,161 @@ def pick_article(issues, used_links):
     )
 
 
+# 시청자 기준 기사 고르기 (11/23 채널 방향 재설정)
+# 자동 요약 뉴스 쇼츠는 다른 채널도 조회수가 안 나온다. 개발자가 아닌 친구에게 보내고 싶은 소식만 고른다.
+PICK_POOL = int(os.environ.get("SHORTS_PICK_POOL", "20"))
+PICK_MIN_SCORE = int(os.environ.get("SHORTS_PICK_MIN_SCORE", "5"))
+
+# 기사 종류 → 시리즈 이름 (화면 위 채널 이름 옆, 해시태그)
+SERIES = {
+    "accident": "AI 사고일지",
+    "wow": "이게 된다고?",
+    "life": "내 일상 IT",
+    "tip": "써먹는 AI",
+    "drama": "IT 드라마",
+    "dev": "개발자 소식",
+}
+
+# 종류별로 시청자가 가져가야 할 것 (대본 요청에 붙인다)
+KIND_PAYOFF = {
+    "accident": "AI·기술이 사고 친 일. 무슨 일이 벌어졌는지 장면처럼 보여 주고, 마지막은 반전이나 웃픈 한마디로.",
+    "wow": "눈이 휘둥그레지는 결과·데모. 뭐가 신기한지 바로 보여 주고(원문 이미지가 있으면 2컷에), 마지막은 감탄이나 웃긴 한마디로.",
+    "life": "생활·돈·일자리에 닿는 소식. 내 하루·지갑에 뭐가 달라지는지 원문 사실로, 마지막은 공감 한마디로.",
+    "tip": "누구나 바로 써먹는 팁. 원문에 나온 방법을 따라 할 수 있게 쉬운 말로, 마지막은 '저도 해 볼래요' 같은 한마디로.",
+    "drama": "빅테크·유명인 업계 드라마. 누가 누구와 무엇으로 부딪쳤는지 이야기처럼, 마지막은 관전평 한마디로.",
+    "dev": "개발자 소식이지만 일반인도 알아들을 핵심 하나만. 마지막은 쉬운 한마디로.",
+}
+
+VIEWER_PICK_PROMPT = """너는 한국어 IT 쇼츠 채널의 편집장이다. 시청자는 개발자가 아닌 일반인(학생·직장인)이다.
+아래 후보 기사마다 "개발자가 아닌 친구에게 이 소식을 보내고 싶은가?"로 점수(1~10)와 종류를 매긴다.
+높은 점수(7~10): AI·기술이 사고 친 일, 눈이 휘둥그레지는 데모·결과, 생활·돈·일자리에 닿는 소식,
+  누구나 바로 써먹는 팁, 빅테크·유명인 드라마, 누구나 아는 서비스(챗GPT·구글·애플·삼성·카카오·유튜브 등)의 큰 변화.
+낮은 점수(1~3): 서버·인프라·CI·프로토콜·데이터베이스 내부·보안 취약점 번호(CVE)·라이브러리 버전·개발 방법론·논문 수식처럼
+  개발자끼리만 알아듣는 소식, 광고성 글, 의견 칼럼.
+kind: accident(사고) / wow(신기한 결과·데모) / life(생활·돈·일) / tip(써먹는 팁) / drama(업계 드라마) / dev(개발자 전용).
+reason은 한 줄. 모든 후보에 점수를 매긴다(index는 0부터)."""
+
+VIEWER_PICK_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "picks": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "index": {"type": "integer"},
+                    "score": {"type": "integer"},
+                    "kind": {"type": "string", "enum": list(SERIES)},
+                    "reason": {"type": "string"},
+                },
+                "required": ["index", "score", "kind", "reason"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["picks"],
+    "additionalProperties": False,
+}
+
+# 모델을 못 쓸 때: 제목·요약에 이런 말이 있으면 개발자 전용으로 보고 뒤로 미룬다
+DEV_ONLY_WORDS = (
+    "cve", "취약점", "nginx", "kubernetes", "k8s", "ci/cd", "github actions", "러너", "프로토콜", "합의 알고리즘",
+    "컴파일러", "런타임", "데이터베이스", "postgres", "redis", "kafka", "grpc", "임베딩", "게이트웨이", "rfc",
+)
+
+
+# 모델을 못 쓸 때: 누구나 아는 이름·사고·돈 이야기
+CONSUMER_WORDS = (
+    "챗gpt", "chatgpt", "openai", "오픈ai", "구글", "google", "애플", "apple", "아이폰", "삼성", "갤럭시", "테슬라", "tesla",
+    "유튜브", "youtube", "카카오", "네이버", "메타", "엔비디아", "nvidia", "anthropic", "앤트로픽", "클로드", "claude",
+    "제미나이", "gemini", "주가", "ipo", "개인정보", "해킹", "유출", "소송", "로봇", "스팸",
+)
+
+
+def viewer_pick_prompt(candidates):
+    lines = ["후보 기사:"]
+
+    for index, article in enumerate(candidates):
+        lines.append(f"[{index}] {article.get('title')}")
+        lines.append(f"    요약: {article.get('one_line') or ''}")
+
+    return "\n".join(lines)
+
+
+def rank_for_viewers(candidates):
+    """후보마다 (점수, 종류, 이유). Claude → Gemini → 단어 규칙 순서로 시도한다."""
+    prompt = viewer_pick_prompt(candidates)
+
+    for name, ask in (
+        ("claude", lambda: claude_json(VIEWER_PICK_PROMPT, prompt, VIEWER_PICK_SCHEMA, model=CANDIDATE_MODEL)),
+        ("gemini", lambda: gemini_json(VIEWER_PICK_PROMPT, prompt, VIEWER_PICK_SCHEMA)),
+    ):
+        try:
+            picks = ask()["picks"]
+            ranked = {pick["index"]: pick for pick in picks if 0 <= pick["index"] < len(candidates)}
+
+            if ranked:
+                return [ranked.get(index, {"score": 0, "kind": "dev", "reason": "점수 없음"}) for index in range(len(candidates))], name
+        except Exception as error:
+            print(f"기사 고르기({name}) 실패: {error}")
+
+    rules = []
+
+    for article in candidates:
+        title = (article.get("title") or "").lower()
+        dev = any(word in title for word in DEV_ONLY_WORDS)
+        known = any(word in title for word in CONSUMER_WORDS)
+        # 누구나 아는 이름·사고·돈 이야기만 기준을 넘긴다. 나머지는 모델 판단 없이 올리지 않는다.
+        score = 2 if dev else PICK_MIN_SCORE + 1 if known else PICK_MIN_SCORE - 1
+        rules.append({"score": score, "kind": "dev" if dev else "wow", "reason": "단어 규칙"})
+
+    return rules, "rules"
+
+
+def pick_article_for_viewers(issues, used_links, keep=lambda name, data: None):
+    """최근 기사 PICK_POOL개를 시청자 기준(보내고 싶은 소식)으로 점수 매겨 가장 높은 것 하나. 기준 미달이면 None."""
+    candidates = [
+        {**article, "issue_date": issue_date}
+        for issue_date, issue in issues
+        for article in issue_articles(issue)
+        if article["link"] not in used_links
+    ]
+
+    if not candidates:
+        return None
+
+    candidates.sort(
+        key=lambda article: (
+            article["issue_date"],
+            article["section"] == "top_stories",
+            article.get("selection_score") or 0,
+            -(article.get("editorial_rank") or 99),
+        ),
+        reverse=True,
+    )
+    candidates = candidates[:PICK_POOL]
+    ranks, judge = rank_for_viewers(candidates)
+    keep("pick.json", {
+        "judge": judge,
+        "candidates": [
+            {"title": article.get("title"), "link": article["link"], **rank}
+            for article, rank in zip(candidates, ranks)
+        ],
+    })
+
+    # 점수 → 최신 순 (정렬이 안정적이라 같은 점수면 앞쪽=최신·주요 기사)
+    best = max(range(len(candidates)), key=lambda index: ranks[index]["score"])
+    rank = ranks[best]
+
+    if rank["score"] < PICK_MIN_SCORE:
+        print(f"시청자 기준 {PICK_MIN_SCORE}점 넘는 기사가 없습니다 (최고 {rank['score']}점: {candidates[best].get('title')})")
+        return None
+
+    kind = rank.get("kind") if rank.get("kind") in SERIES else "wow"
+    print(f"기사 고르기({judge}): {rank['score']}점 {SERIES[kind]} — {rank.get('reason', '')}")
+    return {**candidates[best], "kind": kind, "series": SERIES[kind], "pick_score": rank["score"]}
+
+
 # ---------------------------------------------------------------------------
 # 대본 생성 (Claude)
 # ---------------------------------------------------------------------------
@@ -396,6 +551,8 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
 정확한 사실만 쓰되, 많고 깊은 정보보다 "아, 그런 거구나!" 하고 머릿속에 그림이 그려지는 게 우선이다.
 시청자는 1초 안에 넘길지 정하므로 첫 마디는 궁금해서 못 넘기게. 보고서·국어책처럼 읽히면 실패다.
 목소리는 AI 음성, 얼굴은 안 나온다. 화면에는 귀여운 3D 꼬마 캐릭터들이 나와서 이야기를 연기한다.
+진행자는 채널 마스코트 "잇고니": IT 소식을 제일 먼저 물어 오는 친구. 정보를 읽어 주는 게 아니라 친구한테 "야, 이거 봤어?" 하고 들려준다.
+영상마다 시청자가 확실히 가져가는 게 하나 있어야 한다: 웃음, 바로 써먹는 쓸모, 돈·생활 정보, 눈이 휘둥그레지는 신기함 중 하나.
 
 쉽게 말하기 (가장 중요한 연출 규칙):
 - 영상 하나 = 이야기 하나. 기사에서 가장 신기하거나 나와 상관있는 핵심 한 가지만 고르고 나머지는 과감히 버린다.
@@ -414,7 +571,7 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
 - 한 컷 = 한 호흡 = 사실 하나. line은 짧은 문장 하나(20자 이내). 사실이 두 개면 두 컷으로 쪼갠다.
 - line 안에 화면 자막을 끊을 위치를 " / "로 표시한다. 한 조각은 1~3어절, 의미가 붙어 있는 말은 절대 떼지 않는다.
   좋은 예: "로봇한테 / 전용 뇌가 / 필요 없대요."  나쁜 예: "로봇한 / 테 전용"
-- 컷은 9~12개, 길이는 30~45초. 맥락(누가, 무엇을)은 빼지 않는다. 같은 말 반복과 군더더기는 뺀다.
+- 컷은 7~9개, 길이는 20~35초. 맥락(누가, 무엇을)은 빼지 않는다. 같은 말 반복과 군더더기는 뺀다.
 - 숫자는 소리 내어 읽기 자연스럽게 쓴다: 소수점 끝 0 금지("0.30달러" X → "0.3달러" O).
 - 숫자는 반드시 "무엇의" 숫자인지 같이 말한다. ("70% 개선" → "리드타임이 70% 줄었다")
 
@@ -423,17 +580,19 @@ SCRIPT_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널 "{channel}"�
    (예: "로봇한테 / 전용 뇌가 / 필요 없대요.", "AI가 / 수학 숙제를 / 혼자 끝냈대요.", "내 비밀 메시지가 / 다 보였대요.")
 2. 2컷: 무슨 일인지 한 문장으로 쉽게 (누가 무엇을 했는지).
    시청자에게 뭘 하라고 시키거나("끝까지 보세요") 내용을 미리 늘어놓지 않는다.
-3. 중간 4~6컷: 일상 비유 하나로 "어떻게, 왜"를 설명한다. 이 중 2~3컷은 3D 꼬마 캐릭터 장면(scene3d)으로 연기한다.
+3. 중간 2~4컷: 일상 비유 하나로 "어떻게, 왜"를 설명한다. 이 중 1~2컷은 3D 꼬마 캐릭터 장면(scene3d)으로 연기한다.
    - 비유는 영상 하나에 하나만 골라 끝까지 일관되게 쓴다. 비유와 실제 기술을 꼭 짝지어 말한다.
      예: "AI는 / 요리사, / 프롬프트는 / 주문서예요."
    - 비유로 설명하기 어려운 내용이면 억지로 쓰지 말고 쉬운 말과 flow로 설명한다.
-4. 핵심 숫자 1컷: 가장 센 숫자 하나를 체감되게 ("처음엔 A, 지금은 B" 또는 "100번 중 몇 번").
+4. 핵심 숫자 1컷(원문에 센 숫자가 있을 때만): 가장 센 숫자 하나를 체감되게 ("처음엔 A, 지금은 B" 또는 "100번 중 몇 번").
 5. 끝에서 두 번째 컷: "그래서 나한테 뭐가 달라지나"를 쉬운 말 한 마디로. 단, 원문에 나온 사실·행동만 쓴다
    (원문의 설치·업데이트 방법, 명령어, 설정, 권고, 주의 사항). 원문에 없는 조언·절차·일반 상식은 지어내지 않는다.
    그래픽(flow 단계, keywords 등)도 원문에 나온 행동만. 원문에 행동이 없으면 이 컷은 원문 사실로 의미를 정리한다.
    (예: 원문에 "rustup update stable"이 있으면 "rustup update로 / 바로 올려 보세요.")
-6. 마지막 컷: 다음 영상으로 잇는 짧은 한 줄(12자 안팎). 매번 같은 문장을 쓰지 말고 주제에 맞게 바꾼다.
-   (예: "이런 소식, / 매일 올려요.", "AI 뉴스는 / 출근·점심·퇴근길에 와요.")
+6. 마지막 컷: 잇고니의 한 방 결말. 채널 소개·"구독해 주세요"·"매일 올려요" 금지.
+   기사 사실을 듣고 친구가 할 법한 짧은 반응·농담·반전 한마디(15자 안팎)로 끝낸다. 시청자가 피식 웃거나 고개를 끄덕이게.
+   새 사실·숫자·예측·조언을 넣지 않는다 (반응은 감정·느낌만). 예: "솔직히 / 좀 무섭네요.", "AI도 / 퇴근은 하나 봐요.",
+   "저도 / 오늘 써 볼래요.", "숙제 검사는 / 사람이 해야겠네요."
 
 사실 규칙 (가장 중요):
 - 숫자, 회사명, 결과, 동작 방식은 반드시 주어진 기사에 있는 것만. 없는 사실·수치를 지어내지 않는다.
@@ -469,7 +628,7 @@ visual: 컷마다 화면 가운데에 띄울 그래픽 하나. 같은 type을 �
 - scale: 규모. 같은 사물을 격자로 깔아 숫자를 체감시킨다. count에 깔 개수(1~60), icon, value에 화면에 크게 쓸 말(예: "B200 56개"), label에 설명.
   실제 숫자가 60보다 크면 count는 상징적인 개수(예: 40)로 두고 value와 label에 실제 숫자를 쓴다.
 - scene3d: 3D 꼬마 캐릭터 장면. 꼬마들과 사물이 있는 입체 장면을 크게 띄우고, 카메라가 대사 속 배역으로 다가간다.
-  쉬운 설명의 중심이다. 영상마다 꼭 2~3번 쓴다 (비유 컷은 metaphor·diagram보다 scene3d를 먼저 고른다):
+  쉬운 설명의 중심이다. 영상마다 꼭 1~2번 쓴다 (비유 컷은 metaphor·diagram보다 scene3d를 먼저 고른다):
   비유를 처음 꺼내는 컷(보통 3~4번째 컷)에 한 번, 비유가 이어지며 "어떻게" 되는지 보여 주는 컷에 한 번,
   결과나 "나한테 뭐가 달라지나"가 나오는 뒤쪽 컷에 한 번. 연달아 붙은 컷에는 쓰지 않는다(사이에 다른 컷 하나 이상).
   같은 장면을 다시 써도 되지만, 다시 쓸 때는 다른 배역(꼬마·사물)에 이름표를 붙여 이야기가 이어지게 한다.
@@ -502,8 +661,11 @@ visual의 숫자와 사실도 기사에 있는 것만 쓴다.
 cover: 이 영상의 훅이자 썸네일. 1컷 동안 화면 가운데에 크게 나왔다가 위로 줄어들어 영상 내내 고정된다.
   전문 용어 없이 궁금해지는 쉬운 말로, 기사에서 가장 놀라운 결과를 담는다(체감되는 숫자면 포함). 숫자가 든 어절은 자동으로 강조된다.
   2줄, 줄 사이에 \\n, 줄당 10자 이내. 예: "로봇 전용 뇌\\n필요 없대요", "비밀 메시지\\n20만 건 노출".
-title은 40자 이내, 해시태그 없이. 사람들이 실제로 검색할 말(회사명·제품명·기술명)을 앞쪽에 넣고 핵심 결과를 붙인다.
-  예: "Revolut 자체 호스팅 GLM, AI 비용 90% 절감" (O) / "AI 비용 이렇게 줄인다고?" (X, 검색어가 없음)
+title은 28자 이내, 해시태그 없이. 친구한테 말하듯 짧은 궁금증 제목 하나. 보고서식 "제품명, 수치, 기술 용어" 나열 금지.
+  잘 되는 형식: "~인 이유", "왜 다들 ~할까?", "~했더니 ~됨", "~가 ~했다고?", "결국 ~한 ~".
+  누구나 아는 이름(챗GPT·구글·애플·삼성·테슬라·유튜브 등)은 넣고, 일반인이 모르는 제품명·버전 번호는 빼거나 쉬운 말로 바꾼다.
+  제목의 사실·숫자도 원문에 있는 것만.
+  예: "7GB짜리 AI가 수능 399점 받은 이유" (O) / "Gemma 4 12B 7GB 경량 LLM, 수능 399.2점 기록" (X)
 question: 이 영상이 답하는 질문 한 줄(30자 이내). 설명란 첫 줄에 들어간다. 예: "Revolut은 어떻게 AI 비용을 90% 줄였나?"
 hashtags는 # 없이 3~5개.
 더보기란용: summary는 무슨 일인지 1~2문장. tips는 원문에 나온 행동(명령어·설정·권고) 1~3개, 원문 그대로. 원문에 행동이 없으면 빈 배열. caution은 비용·보안·개인정보 주의점 한 줄, 없으면 빈 문자열."""
@@ -667,6 +829,9 @@ def build_script_prompt(article, source_text="", angle=""):
 
     if angle:
         lines += ["", f"이번 대본의 각도: {angle}"]
+
+    if article.get("kind") in KIND_PAYOFF:
+        lines += ["", f"이 기사 종류: {SERIES[article['kind']]} — {KIND_PAYOFF[article['kind']]}"]
 
     roles = scene3d_roles_prompt(article)
 
@@ -1190,7 +1355,7 @@ JUDGE_SYSTEM_PROMPT = """너는 한국어 개발/AI 쇼츠 채널의 편집장�
 - accuracy: 모든 숫자·사실·동작 방식이 원문에 있는가. 원문에 없는 내용이 하나라도 있으면 크게 깎는다. 원문에 없는 행동 제안·조언도 원문에 없는 내용이다.
 - clarity: 처음 보는 사람이 끝까지 보고 정확히 이해하는가. 용어 설명, 한 컷에 사실 하나, 맥락(누가·무엇을·왜).
 - visual: 비유 그림·숫자·비교 그래픽이 내용을 직관적으로 보여주는가. 비유가 사실을 왜곡하지 않는가.
-- retention: 짧은 연결 컷, 리듬, 군더더기 없음, 마지막 행동·연결 한 줄.
+- retention: 짧은 연결 컷, 리듬, 군더더기 없음, 마지막 컷이 피식 웃거나 고개를 끄덕이게 하는 한 방 결말인가(채널 홍보·"매일 올려요"면 크게 깎는다).
 total은 accuracy와 easy를 2배로 쳐서 합산한다(accuracy*2 + easy*2 + 나머지). 가장 높은 후보를 best로 고른다(0부터 센 번호)."""
 
 JUDGE_SCHEMA = {
@@ -1258,7 +1423,7 @@ def factcheck_schema():
 
 STYLE_PROMPT = """
 이 영상은 잡지 페이지처럼 만든다. 컷 하나 = 페이지 하나: 위에 섹션 이름, 그 아래 큰 헤드라인, 가운데 큰 카드 하나, 아래 자막.
-scene3d(꼬마 캐릭터 장면)는 카드 대신 헤드라인 아래를 크게 채운다. 위 scene3d 설명대로 영상마다 2~3번 꼭 쓴다.
+scene3d(꼬마 캐릭터 장면)는 카드 대신 헤드라인 아래를 크게 채운다. 위 scene3d 설명대로 영상마다 1~2번 꼭 쓴다.
 metaphor·diagram은 아이콘 없이 글자 표·단계 목록으로 보인다.
 
 컷마다 heading과 section을 쓴다 (1컷은 cover가 훅이라 둘 다 빈 문자열):
@@ -1267,7 +1432,7 @@ metaphor·diagram은 아이콘 없이 글자 표·단계 목록으로 보인다.
   "구조 분석", "한 줄 요약", "다음 소식", "빠르게 보기"처럼 내용 없는 안내 문구는 헤드라인으로 쓰지 않는다.
   헤드라인만 봐도 이 컷의 사실 하나가 전달돼야 한다. 아이도 아는 쉬운 말로, 전문 용어는 빼고.
   (예: "100번 중 75번 성공", "로봇한테 따로 뇌가 필요 없다", "나쁜 꼬마가 문틈을 봤다")
-  마지막 컷(채널 안내)도 내용 정리 헤드라인으로 (예: "다시 안 배우고 계획만 바꿨다").
+  마지막 컷(한 방 결말)도 내용 정리 헤드라인으로 (예: "다시 안 배우고 계획만 바꿨다").
 - section: 페이지 위 "02 — ○○" 자리의 섹션 이름. 6자 이내, 쉬운 말 (예: "무슨 일", "어떻게", "얼마나", "나한테는", "정리").
   같은 이야기가 이어지는 컷은 같은 section을 써도 된다.
 
@@ -2289,6 +2454,7 @@ def build_props(script, narration_path, cut_words, source_label, run_name):
         "style": style,
         "backdrop": pick_backdrop(script) if style == "classic" else "glow",
         "cover": script["cover"],
+        "series": script.get("series") or "",
         "source": source_label,
         "audio": f"{run_name}/narration.mp3",
         "durationInFrames": total_frames,
@@ -3165,11 +3331,18 @@ def main():
                 None,
             )
         else:
-            article = pick_article(issues, used_links)
+            article = pick_article_for_viewers(issues, used_links, lambda name, data: save_json(os.path.join(OUTPUT_DIR, name), data))
 
         if not article:
             print(f"{args.date} 기준 최근 {LOOKBACK_DAYS}일 이슈에 영상으로 만들 새 기사가 없습니다.")
             return
+
+        if args.link and "kind" not in article:
+            # 시험 실행(기사 지정)도 종류·시리즈를 매겨 실제와 같은 대본이 나오게
+            rank = rank_for_viewers([article])[0][0]
+            kind = rank.get("kind") if rank.get("kind") in SERIES else "wow"
+            article = {**article, "kind": kind, "series": SERIES[kind], "pick_score": rank.get("score")}
+            print(f"지정한 기사 종류: {SERIES[kind]} ({rank.get('score')}점)")
 
         print(f"선택한 기사: [{article['issue_date']}] {article['title']}")
 
@@ -3184,6 +3357,12 @@ def main():
 
         try:
             script = generate_script(article, work_dir)
+            script["series"] = article.get("series") or ""
+
+            if script["series"]:
+                tag = re.sub(r"[^0-9A-Za-z가-힣]", "", script["series"])
+                script["hashtags"] = [tag, *[t for t in script["hashtags"] if t != tag]][:6]
+
             break
         except ScriptQualityFailed as error:
             # 예비 대본이 부실하면 이번 실행은 올리지 않는다. 기록에 안 남기므로 다음 실행에서 같은 기사를 다시 시도한다.

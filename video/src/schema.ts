@@ -108,6 +108,8 @@ export const shortSchema = z.object({
   style: z.enum(["classic", "news", "explain"]).optional(),
   // 영상 내내 상단에 고정되는 제목. 어느 장면이 썸네일로 잡혀도 무슨 영상인지 보이게.
   cover: z.string(),
+  // 시리즈 이름 (예: "AI 사고일지"). 화면 위 채널 이름 옆에 붙는다. 없으면 "AI NEWS".
+  series: z.string().optional(),
   source: z.string(),
   audio: z.string(),
   durationInFrames: z.number().int().positive(),

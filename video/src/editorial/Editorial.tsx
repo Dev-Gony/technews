@@ -118,7 +118,7 @@ const Progress: React.FC<{ top: number; color: string; track: string }> = ({ top
 };
 
 // news: 잡지 머리 — "ITGONY · AI NEWS" + 출처, 그 아래 두 줄 선(굵은 선이 진행 막대)
-const NewsChrome: React.FC<{ channel: string; source: string }> = ({ channel, source }) => {
+const NewsChrome: React.FC<{ channel: string; source: string; series?: string }> = ({ channel, source, series }) => {
   const { width } = useVideoConfig();
 
   return (
@@ -138,7 +138,7 @@ const NewsChrome: React.FC<{ channel: string; source: string }> = ({ channel, so
         }}
       >
         <span style={{ fontSize: 30 }}>
-          <span style={{ color: NEWS_RED, fontWeight: 900 }}>{channel.toUpperCase()}</span> · AI NEWS
+          <span style={{ color: NEWS_RED, fontWeight: 900 }}>{channel.toUpperCase()}</span> · {series || "AI NEWS"}
         </span>
         <span style={{ fontSize: 24, letterSpacing: 0, fontWeight: 500 }}>{source}</span>
       </div>
@@ -149,7 +149,7 @@ const NewsChrome: React.FC<{ channel: string; source: string }> = ({ channel, so
 };
 
 // explain: 터미널 프롬프트처럼 "~/itgony" + 출처
-const ExplainChrome: React.FC<{ channel: string; source: string }> = ({ channel, source }) => {
+const ExplainChrome: React.FC<{ channel: string; source: string; series?: string }> = ({ channel, source, series }) => {
   const { width } = useVideoConfig();
 
   return (
@@ -169,6 +169,7 @@ const ExplainChrome: React.FC<{ channel: string; source: string }> = ({ channel,
         <span style={{ fontFamily: `${monoFamily}, ${fontFamily}`, fontSize: 30, fontWeight: 700 }}>
           <span style={{ color: "#28C840" }}>~/</span>
           <span style={{ color: colors.muted }}>{channel.toLowerCase()}</span>
+          {series ? <span style={{ fontFamily, color: EXPLAIN_GOLD }}> · {series}</span> : null}
         </span>
         <span style={{ fontFamily, fontSize: 24, fontWeight: 500 }}>{source}</span>
       </div>
@@ -177,7 +178,7 @@ const ExplainChrome: React.FC<{ channel: string; source: string }> = ({ channel,
   );
 };
 
-export const EditorialChrome: React.FC<{ style: "news" | "explain"; channel: string; source: string }> = ({ style, ...props }) =>
+export const EditorialChrome: React.FC<{ style: "news" | "explain"; channel: string; source: string; series?: string }> = ({ style, ...props }) =>
   style === "news" ? <NewsChrome {...props} /> : <ExplainChrome {...props} />;
 
 // ---------------------------------------------------------------------------
@@ -548,9 +549,9 @@ const ExplainOutro: React.FC<{ channel: string }> = ({ channel }) => {
           translate: `0px ${interpolate(line, [0, 1], [16, 0])}px`,
         }}
       >
-        AI·개발 뉴스,
+        AI·IT 소식,
         <br />
-        출근·점심·퇴근길에 <span style={{ color: EXPLAIN_GOLD }}>{channel}</span>
+        매일 저녁 6시 <span style={{ color: EXPLAIN_GOLD }}>{channel}</span>
       </div>
     </AbsoluteFill>
   );
@@ -588,7 +589,7 @@ const NewsOutro: React.FC<{ channel: string }> = ({ channel }) => {
         {channel.toUpperCase()} · AI NEWS
       </div>
       <div style={{ marginTop: 18, fontFamily, fontWeight: 700, fontSize: 36, color: colors.muted, opacity: line }}>
-        AI·개발 뉴스, 출근·점심·퇴근길에
+        AI·IT 소식, 매일 저녁 6시
       </div>
     </AbsoluteFill>
   );

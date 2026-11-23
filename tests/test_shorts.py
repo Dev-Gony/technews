@@ -332,7 +332,7 @@ class ShortsTest(unittest.TestCase):
         articles = [{"title": f"기사{i}", "link": f"https://a/{i}", "issue_date": "2026-11-14"} for i in range(3)]
         picked = []
 
-        def fake_pick(issues, used):
+        def fake_pick(issues, used, keep=None):
             article = next(a for a in articles if a["link"] not in used)
             picked.append(article["link"])
             return article
@@ -341,7 +341,7 @@ class ShortsTest(unittest.TestCase):
         with mock.patch("sys.argv", ["shorts.py", "--date", "2026-11-14"]), \
                 mock.patch.object(shorts, "load_json", return_value=[]), \
                 mock.patch.object(shorts, "load_issue", return_value={}), \
-                mock.patch.object(shorts, "pick_article", side_effect=fake_pick), \
+                mock.patch.object(shorts, "pick_article_for_viewers", side_effect=fake_pick), \
                 mock.patch.object(shorts, "generate_script", side_effect=shorts.FactCheckFailed("컷 수가 이상합니다: 2")), \
                 mock.patch.object(shorts, "notify_slack") as slack, \
                 mock.patch.object(shorts, "save_json", side_effect=lambda path, data: saved.update({path: list(data)})), \
@@ -356,6 +356,38 @@ class ShortsTest(unittest.TestCase):
         history = saved[shorts.SHORTS_HISTORY_FILE]
         self.assertEqual([entry["skipped"] for entry in history], ["factcheck", "factcheck"])
         self.assertTrue(all("video_id" not in entry for entry in history))
+
+    def test_pick_article_for_viewers(self):
+        from unittest import mock
+
+        issue = {"top_stories": [
+            {"title": "nginx 취약점 CVE", "link": "https://a/0", "key_points": ["x"]},
+            {"title": "AI가 사고 쳤다", "link": "https://a/1", "key_points": ["x"]},
+            {"title": "이미 만든 기사", "link": "https://a/2", "key_points": ["x"]},
+        ]}
+        ranks = [{"score": 2, "kind": "dev", "reason": ""}, {"score": 8, "kind": "accident", "reason": "웃김"}]
+        kept = {}
+
+        with mock.patch.object(shorts, "rank_for_viewers", return_value=(ranks, "claude")) as rank:
+            article = shorts.pick_article_for_viewers([("2026-11-23", issue)], {"https://a/2"}, lambda name, data: kept.update({name: data}))
+
+        # 이미 만든 기사는 후보에서 빠지고, 시청자 점수가 높은 기사 + 시리즈
+        self.assertEqual([c["link"] for c in rank.call_args[0][0]], ["https://a/0", "https://a/1"])
+        self.assertEqual(article["link"], "https://a/1")
+        self.assertEqual(article["series"], "AI 사고일지")
+        self.assertEqual(kept["pick.json"]["judge"], "claude")
+
+        # 기준 점수 미달이면 만들지 않는다
+        low = [{"score": 2, "kind": "dev", "reason": ""}, {"score": 3, "kind": "dev", "reason": ""}]
+        with mock.patch.object(shorts, "rank_for_viewers", return_value=(low, "claude")):
+            self.assertIsNone(shorts.pick_article_for_viewers([("2026-11-23", issue)], {"https://a/2"}))
+
+        # 모델을 못 쓰면 단어 규칙: 개발자 전용 소식은 뒤로
+        with mock.patch.object(shorts, "claude_json", side_effect=RuntimeError("limit")), \
+                mock.patch.object(shorts, "gemini_json", side_effect=RuntimeError("no key")):
+            rules, judge = shorts.rank_for_viewers([{"title": "nginx 취약점 CVE"}, {"title": "AI가 사고 쳤다"}])
+        self.assertEqual(judge, "rules")
+        self.assertLess(rules[0]["score"], rules[1]["score"])
 
     def test_script_style_and_prompt(self):
         from unittest import mock

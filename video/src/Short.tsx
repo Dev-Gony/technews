@@ -244,7 +244,7 @@ const Outro: React.FC<{ channel: string }> = ({ channel }) => {
           translate: `0px ${interpolate(line, [0, 1], [16, 0])}px`,
         }}
       >
-        AI·개발 뉴스, 출근·점심·퇴근길에
+        AI·IT 소식, 매일 저녁 6시
       </div>
     </AbsoluteFill>
   );
@@ -255,6 +255,7 @@ export const Short: React.FC<ShortProps> = ({
   theme,
   style,
   cover,
+  series,
   source,
   audio,
   cuts,
@@ -308,7 +309,7 @@ export const Short: React.FC<ShortProps> = ({
         {editorial ? (
           <>
             <EditorialCover style={editorial} text={cover} heroFrames={heroFrames} />
-            <EditorialChrome style={editorial} channel={channel} source={source} />
+            <EditorialChrome style={editorial} channel={channel} source={source} series={series} />
           </>
         ) : (
           <>
