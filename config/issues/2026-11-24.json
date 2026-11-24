@@ -1,0 +1,692 @@
+{
+  "schema_version": 1,
+  "issue_number": 66,
+  "issue_date": "2026-11-24",
+  "generated_at": "2026-11-24T14:10:36.618068+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI Agent, RAG, Intent Hijacking, Evaluation, Token Optimization\n\n[오늘의 한줄 포인트]\n\nAI 에이전트의 도입을 넘어, 보안과 비용 효율성, 그리고 정교한 평가 체계를 갖춘 성숙한 에이전트 운영 단계로 진입하고 있습니다.\n\n[오늘 왜 중요한가]\n\n단순히 LLM을 연결하는 수준을 지나, 실제 서비스 환경에서 에이전트의 의도 하이재킹을 방어하고 토큰 비용을 최적화하는 기술적 역량이 실무의 핵심이 되었습니다. 이제는 에이전트의 성능을 정량적으로 평가하고 개선하는 피드백 루프를 구축하는 것이 엔지니어의 필수 경쟁력이 되었습니다.\n\n[왜 이 글들을 골랐나]\n\n• 10번: AI 에이전트의 도구 호출 시 발생하는 보안 위협을 시맨틱 정책으로 방어하는 구체적인 방법론을 제시하여 실무 보안 수준을 높여줍니다.\n• 6번: RAG 시스템에서 불필요한 토큰 낭비를 줄이고 메모리 아키텍처를 최적화하는 기술은 서비스 운영 비용 절감에 직결됩니다.\n• 18번: AI 엔지니어링에서 가장 간과하기 쉬운 평가 파이프라인과 실패 사례 분석의 중요성을 강조하여 개발 품질을 근본적으로 개선하게 합니다.\n\n[오늘 공부해볼 것]\n\n• AI 에이전트 가드레일 설계: 에이전트가 외부 도구를 호출할 때 사용자 의도와 일치하는지 검증하는 중간 레이어 구축 방안을 학습합니다.\n• RAG 메모리 아키텍처 최적화: 텍스트 덤프 방식에서 벗어나 판정 게이트를 활용한 선별적 정보 처리 구조를 이해합니다.\n• LLM 평가용 골든 데이터셋 구축: 실제 운영 로그에서 실패 사례를 추출하고 이를 버전 관리하여 평가 파이프라인을 자동화하는 프로세스를 익힙니다.",
+  "stats": {
+    "candidate_count": 33,
+    "detailed_count": 20,
+    "brief_count": 7,
+    "excluded_count": 6,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "Google Developers",
+      "title": "Did the user ask for this? Securing AI agents against intent hijacking with Semantic governance policies",
+      "link": "https://developers.googleblog.com/did-the-user-ask-for-this-securing-ai-agents-against-intent-hijacking-with-semantic-governance-policies",
+      "published_at": "",
+      "selection_score": 15,
+      "selection_reason": "AI Agent의 보안과 의도 검증은 실무에서 가장 중요한 이슈이며, 구글의 구체적인 방법론과 벤치마크 결과는 즉시 적용 가능한 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "시맨틱 거버넌스 정책을 통한 AI 에이전트 의도 하이재킹 방어",
+      "key_points": [
+        "AI 에이전트의 도구 호출 시 사용자 의도와 자연어 제약 조건을 검증하여 프롬프트 인젝션 공격을 방어함.",
+        "Gemini 2.5 Flash 모델 기반 테스트에서 공격 성공률을 48.7%에서 0.9%로 대폭 감소시킴.",
+        "Agent Gateway를 통해 개발자가 도구 사용 워크플로에 시맨틱 정책을 쉽게 적용할 수 있음."
+      ],
+      "topics": [
+        "Prompt Injection",
+        "Intent Hijacking",
+        "Semantic Governance"
+      ],
+      "recommended_for": "AI 에이전트의 보안과 도구 호출 안전성을 확보하려는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "에이전트 도구 호출 검증 정책 검토",
+        "steps": [
+          "현재 에이전트가 사용하는 도구 호출 리스트와 사용자 의도 간의 매핑 규칙 정의",
+          "Gemini 플랫폼의 Agent Gateway 기능을 활용한 시맨틱 정책 적용 가능성 검토",
+          "도구 호출 전 자연어 제약 조건을 검증하는 중간 레이어(Guardrail) 설계"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "네이버 D2",
+      "title": "뇌를 닮은 세컨드 브레인: 토큰 낭비 없는 RAG",
+      "link": "https://d2.naver.com/helloworld/5087915",
+      "published_at": "2026-11-23T06:19:13Z",
+      "selection_score": 15,
+      "selection_reason": "RAG의 토큰 비용 절감과 메모리 아키텍처 최적화는 현재 LLM 실무에서 가장 중요한 기술적 난제임.",
+      "feedback_bias": 0,
+      "one_line": "토큰 낭비를 줄이고 재현율을 높이는 Haema 메모리 아키텍처 도입",
+      "key_points": [
+        "기존 RAG의 텍스트 덤프 방식은 불필요한 토큰 소비와 비용 증가를 유발함.",
+        "Haema는 기억 저장, 불러오기, 작업 기억, 판정 게이트 등 층 구조를 통해 필요한 정보만 선별적으로 처리함.",
+        "판정 게이트를 통해 토큰 사용 효율을 최적화하고 긴 대화에서도 높은 재현율을 유지함."
+      ],
+      "topics": [
+        "RAG",
+        "AI Memory Architecture",
+        "Token Optimization"
+      ],
+      "recommended_for": "RAG의 검색 효율과 토큰 비용 절감을 고민하는 백엔드 및 AI 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "평가는 AI 엔지니어링에서 가장 과소평가된 역량이다",
+      "link": "https://news.hada.io/topic?id=37745",
+      "published_at": "2026-11-24T09:40:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 엔지니어링에서 가장 중요한 평가 및 데이터셋 관리 전략을 다루고 있어 실무 적용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 엔지니어링의 핵심은 평가이며, 실패 사례 분석과 버전 관리된 데이터셋이 필수적임",
+      "key_points": [
+        "평가 지표보다 실제 실패 사례 100개 이상을 분류하여 가장 빈번한 문제부터 해결하는 것이 우선임.",
+        "입력, 기대 결과, 평가 기준을 포함한 데이터셋을 버전 관리하고, 다양한 난도의 합성 데이터를 활용해야 함.",
+        "RAG는 검색과 생성을 분리하고, 에이전트는 도구 호출 경로와 효율까지 포함하여 평가해야 함."
+      ],
+      "topics": [
+        "Evaluation-driven Development",
+        "Synthetic Data",
+        "Deterministic Testing"
+      ],
+      "recommended_for": "LLM 및 에이전트 서비스의 품질 향상과 평가 파이프라인 구축이 필요한 AI 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "현재 운영 중인 LLM 서비스의 실패 사례 데이터셋 구축 및 평가 파이프라인 도입",
+        "steps": [
+          "최근 100개의 운영 로그에서 실패 사례를 추출하여 유형별로 분류",
+          "분류된 실패 사례를 기반으로 평가용 골든 데이터셋(Golden Dataset) 생성",
+          "결정론적 검사(Deterministic check)를 도입하여 핵심 실패 유형이 재발하지 않는지 테스트 자동화"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "부족한 건 모델이 아니라 팀 문서였다: 팀 공유 지식층 Third Brain 구축기",
+      "link": "https://d2.naver.com/helloworld/2622882",
+      "published_at": "2026-11-19T05:36:19Z",
+      "selection_score": 14,
+      "selection_reason": "AI Agent의 성능을 결정짓는 '지식층(Context)' 구축 전략을 다루어 실무 활용도가 매우 높음.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트의 성능을 극대화하기 위해 팀 내부 문서를 체계화한 'Third Brain' 구축 사례",
+      "key_points": [
+        "AI가 업무를 수행하지 못하는 근본 원인은 모델 성능보다 팀 문서의 부재에 있음.",
+        "팀 위키를 AI가 읽고 쓸 수 있는 구조로 재편하여 공유 지식층(Third Brain)을 구축함.",
+        "문서 업데이트 주체와 AI가 생성한 정보의 신뢰성 검증 체계를 마련하여 운영함."
+      ],
+      "topics": [
+        "Context Engineering",
+        "Knowledge Management",
+        "AI Agent"
+      ],
+      "recommended_for": "팀 내 지식 관리 체계가 부족해 AI 도입에 어려움을 겪는 개발자 및 팀장",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "팀 내 핵심 업무 문서의 AI 가독성 평가 및 구조화",
+        "steps": [
+          "현재 팀 위키의 문서 중 AI가 참조해야 할 핵심 문서 3개를 선정한다.",
+          "해당 문서들을 LLM에 입력하여 의도한 대로 답변이 생성되는지 테스트한다.",
+          "AI가 이해하기 어려운 모호한 표현이나 구조를 개선하여 문서화 가이드를 수립한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "Devops Agent 리포트 오이데~ 평가 야호~",
+      "link": "https://d2.naver.com/helloworld/0118355",
+      "published_at": "2026-11-19T06:47:44Z",
+      "selection_score": 14,
+      "selection_reason": "AI Agent의 운영 및 평가 시스템 구축은 현재 가장 중요한 실무 과제 중 하나임.",
+      "feedback_bias": 0,
+      "one_line": "통합검색 장애 진단 에이전트의 운영과 정확도 평가 시스템 구축 경험",
+      "key_points": [
+        "장애 발생 시 1분 내에 진단 리포트를 생성하는 에이전트를 도입하여 운영 효율을 높임.",
+        "에이전트의 결과물을 정량적으로 평가하기 위한 기준과 시스템을 별도로 구성함.",
+        "평가 시스템을 통해 에이전트의 정확도를 지속적으로 모니터링하고 개선함."
+      ],
+      "topics": [
+        "LLM Evaluation",
+        "Incident Response",
+        "AI Agent"
+      ],
+      "recommended_for": "LLM 기반의 이상 탐지 및 자동 진단 시스템을 운영 중인 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "온톨로지, 구축에서 활용까지. 질문이 답을 설계한다.",
+      "link": "https://d2.naver.com/helloworld/5037527",
+      "published_at": "2026-11-19T06:57:02Z",
+      "selection_score": 14,
+      "selection_reason": "RAG와 온톨로지를 결합한 데이터 연결 전략은 복잡한 엔터프라이즈 시스템의 핵심 아키텍처임.",
+      "feedback_bias": 0,
+      "one_line": "물류 도메인에서 RAG와 온톨로지를 결합해 데이터 연결성을 확보한 사례",
+      "key_points": [
+        "LLM 단독이나 RAG만으로는 해결하기 어려운 복잡한 데이터 관계를 온톨로지로 해결함.",
+        "고객의 질문(Pain Point)에서 시작하여 Object, Property, Link, Action으로 데이터를 구조화함.",
+        "FDE(Functional Domain Engineering)를 통해 요구사항을 기술 과제로 구체화하는 방법론을 제시함."
+      ],
+      "topics": [
+        "Ontology",
+        "RAG",
+        "Knowledge Graph"
+      ],
+      "recommended_for": "복잡한 레거시 데이터를 연결하여 AI 에이전트의 정확도를 높이고 싶은 백엔드 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "study",
+        "title": "업무 도메인 온톨로지 모델링 기초 설계",
+        "steps": [
+          "현재 담당하는 서비스의 핵심 엔티티 5개와 그들 간의 관계를 정의해 본다.",
+          "사용자가 자주 묻는 질문 3가지를 선정하고, 이를 해결하기 위해 필요한 데이터 속성을 매핑한다.",
+          "온톨로지 모델링 도구(또는 다이어그램)를 활용해 데이터 스키마를 시각화한다."
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "Spark 배치 파이프라인 Distributed Tracing 도입",
+      "link": "https://d2.naver.com/helloworld/2526679",
+      "published_at": "2026-11-23T05:02:11Z",
+      "selection_score": 13,
+      "selection_reason": "Spark 파이프라인의 관측성 확보와 AI Agent 진단 연결은 데이터 엔지니어링의 고도화된 사례임.",
+      "feedback_bias": 0,
+      "one_line": "Apache Spark 배치 파이프라인에 분산 추적(Distributed Tracing)을 도입하여 관측성 확보",
+      "key_points": [
+        "비즈니스 로직 수정 없이 플러그인 형태로 Spark에 분산 추적 기능을 통합함.",
+        "OpenTelemetry를 활용하여 애플리케이션 간의 흐름을 단일 관점에서 추적함.",
+        "확보된 관측 데이터를 성능 개선 및 AI 에이전트의 장애 진단에 활용함."
+      ],
+      "topics": [
+        "Distributed Tracing",
+        "Observability",
+        "OpenTelemetry"
+      ],
+      "recommended_for": "Spark 파이프라인의 성능 병목을 찾거나 관측성을 강화하고 싶은 데이터 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "Spark 파이프라인 관측성 도입 타당성 검토",
+        "steps": [
+          "현재 파이프라인의 로그 수집 현황과 병목 지점 파악의 어려움을 정리한다.",
+          "OpenTelemetry의 Spark 지원 범위와 기존 인프라와의 호환성을 검토한다.",
+          "테스트 환경에서 샘플 파이프라인에 추적 기능을 적용해 볼지 결정한다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "GPU 노드 검증 자동화: 상시 점검부터 부하 검증까지",
+      "link": "https://d2.naver.com/helloworld/7131556",
+      "published_at": "2026-11-23T05:33:36Z",
+      "selection_score": 11,
+      "selection_reason": "GPU 인프라 운영 및 자동화는 대규모 AI 모델을 다루는 실무자에게 필수적인 지식임.",
+      "feedback_bias": 0,
+      "one_line": "Kubernetes 기반 GPU 노드의 상시 점검 및 부하 검증 자동화 시스템",
+      "key_points": [
+        "워크로드 실행 전 GPU 하드웨어 고장을 사전에 탐지하는 검증 시스템을 구축함.",
+        "Kubernetes Operator를 활용하여 상시 점검과 부하 검증을 자동화함.",
+        "대규모 학습 환경에서 노드 장애로 인한 리소스 낭비를 최소화함."
+      ],
+      "topics": [
+        "Kubernetes Operator",
+        "GPU Monitoring",
+        "Infrastructure Automation"
+      ],
+      "recommended_for": "Kubernetes 위에서 대규모 GPU 클러스터를 운영하는 플랫폼 및 MLOps 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "새벽 3시 54분, Agent가 먼저 분석하고 처리했습니다",
+      "link": "https://d2.naver.com/helloworld/1126768",
+      "published_at": "2026-11-23T07:03:24Z",
+      "selection_score": 14,
+      "selection_reason": "온콜 업무의 AI 자동화는 업무 생산성 향상과 Agentic Workflow의 실제 적용 사례로 매우 가치 있음.",
+      "feedback_bias": 0,
+      "one_line": "온콜 업무 자동화를 위한 AI Agent 도입 및 안전망 구축 사례",
+      "key_points": [
+        "운영 업무의 효율화를 위해 알림 통합, 지식 베이스 구축, 조사 및 조치 자동화 단계를 거침.",
+        "AI Agent 도입 시 '무엇을 할 수 있는가(능력)', '언제 실행하는가(판정)', '실패 시 어떻게 대응하는가(안전망)'의 3가지 질문 해결이 핵심임.",
+        "단순 조사 단계를 넘어 실제 무인 조치까지 수행하여 운영 부담을 획기적으로 줄임."
+      ],
+      "topics": [
+        "AI Agent",
+        "Agentic Workflow",
+        "On-call Automation"
+      ],
+      "recommended_for": "온콜 업무 자동화와 AI 에이전트의 실무 적용을 검토 중인 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "AI 신입사원을 뉴스 데이터 시니어로 키우는 레포, news-data",
+      "link": "https://d2.naver.com/helloworld/3284900",
+      "published_at": "2026-11-23T07:51:06Z",
+      "selection_score": 14,
+      "selection_reason": "AI Agent를 도메인 전문가로 성장시키는 피드백 루프 설계는 에이전트 개발의 핵심 방법론임.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트를 도메인 전문가로 성장시키는 피드백 루프 설계",
+      "key_points": [
+        "도메인 지식이 부족한 AI 신입사원을 시니어로 키우기 위해 작업-회고-PR 반영 루프를 구축함.",
+        "규칙 로드, 스킬 선택, 실행, 검증, 회고의 5단계 작업 프로세스를 통해 에이전트의 업무 정합성을 높임.",
+        "중앙 집중식 데이터 관리와 회고 PR을 통해 에이전트의 작업 방식을 지속적으로 개선함."
+      ],
+      "topics": [
+        "AI Agent",
+        "Feedback Loop",
+        "Domain Expertise"
+      ],
+      "recommended_for": "사내 도메인 업무를 AI 에이전트에게 맡기고 싶은 데이터 엔지니어 및 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "에이전트 작업 회고 및 개선 루프 구축",
+        "steps": [
+          "현재 에이전트가 수행하는 작업의 결과와 실패 사례를 기록할 로그 포맷 정의",
+          "작업 완료 후 에이전트가 스스로 회고하고 개선 사항을 제안하는 프롬프트 설계",
+          "회고 내용을 기반으로 에이전트의 시스템 프롬프트나 스킬셋을 업데이트하는 PR 프로세스 도입"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "토스",
+      "title": "목적마다, 상품마다 늘던 모델을 하나로: 금융 도메인에 멀티태스크 학습 적용하기",
+      "link": "https://toss.tech/article/multi-task-learning-in-finance",
+      "published_at": "Mon, 23 Nov 2026 03:02:00 GMT",
+      "selection_score": 13,
+      "selection_reason": "모델 운영 효율화 및 멀티태스크 학습은 대규모 서비스의 비용 절감과 생산성 개선에 직결됨.",
+      "feedback_bias": 0,
+      "one_line": "수백 개의 모델을 하나로 통합하는 멀티태스크 학습(MTL) 적용",
+      "key_points": [
+        "목적별/상품별로 늘어나는 트리 모델의 운영 부담을 줄이기 위해 멀티태스크 학습 모델로 통합함.",
+        "공유 인코더와 PLE(Progressive Layered Extraction) 구조를 사용하여 과제 간 간섭을 줄이고 성능을 개선함.",
+        "새로운 상품이나 과제 추가 시 모델 재학습 없이 대응 가능한 확장성을 확보함."
+      ],
+      "topics": [
+        "Multi-Task Learning (MTL)",
+        "PLE (Progressive Layered Extraction)",
+        "Model Consolidation"
+      ],
+      "recommended_for": "모델 운영 비용 절감과 확장성 있는 ML 아키텍처를 고민하는 ML 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Probing DNS at Cloudflare",
+      "link": "https://blog.cloudflare.com/probing-dns-at-cloudflare",
+      "published_at": "Mon, 23 Nov 2026 14:00:00 GMT",
+      "selection_score": 13,
+      "selection_reason": "DNS 인프라의 안정성 테스트와 모니터링 기법은 대규모 서버 운영 및 백엔드 아키텍처 설계에 매우 실질적인 교훈을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare는 DNS 인프라의 안정성을 위해 Flamingo 테스트 프레임워크에 DNS 모듈을 도입하여 실시간 모니터링과 자동화된 롤백을 구현함.",
+      "key_points": [
+        "Flamingo는 모듈형 아키텍처를 통해 HTTP 외에도 DNS, TCP, UDP 등 다양한 프로토콜을 테스트할 수 있도록 확장됨.",
+        "DNS 전파 지연을 실시간으로 측정하고, SLO(서비스 수준 목표) 기반의 에러 버짓을 활용해 배포 자동화 여부를 결정함.",
+        "Rust의 강력한 타입 시스템을 활용해 테스트 로직과 실행 환경을 분리하여 개발자 경험과 시스템 안정성을 동시에 확보함."
+      ],
+      "topics": [
+        "SLO(Service Level Objective)",
+        "DSL(Domain-Specific Language)",
+        "Canary Deployment"
+      ],
+      "recommended_for": "대규모 분산 시스템의 안정적인 배포와 자동화된 모니터링 체계를 고민하는 백엔드 엔지니어.",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: WebDecoy Node SDK - Node.js에서 봇 탐지 규칙을 로컬로 검증",
+      "link": "https://news.hada.io/topic?id=37730",
+      "published_at": "2026-11-24T05:29:12+09:00",
+      "selection_score": 11,
+      "selection_reason": "Node.js 환경에서 봇 탐지 규칙을 로컬에서 검증하는 도구는 업무 자동화 및 웹 서비스 보안 강화에 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "WebDecoy Node SDK를 사용하면 프로덕션 환경에 적용하기 전 로컬에서 봇 탐지 규칙을 안전하게 테스트하고 검증할 수 있음.",
+      "key_points": [
+        "TypeScript 기반의 SDK로, Express 애플리케이션에서 봇 차단 규칙을 모니터링 모드와 차단 모드로 나누어 검증 가능함.",
+        "모니터 모드에서는 실제 차단 대신 로그나 응답을 통해 규칙의 반응을 미리 확인할 수 있어 오탐지를 방지함.",
+        "별도의 계정이나 API 키 없이 StackBlitz 예제를 통해 즉시 기능을 체험할 수 있음."
+      ],
+      "topics": [
+        "Bot Detection",
+        "Middleware",
+        "Security Testing"
+      ],
+      "recommended_for": "웹 서비스의 봇 트래픽 차단 규칙을 운영 중이거나 도입하려는 백엔드 개발자.",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "WebDecoy를 활용한 로컬 봇 탐지 규칙 테스트",
+        "steps": [
+          "제공된 StackBlitz 링크에 접속하여 Express 예제 코드 확인",
+          "모니터 모드와 차단 모드 간의 응답 차이 확인",
+          "로컬 프로젝트에 SDK를 설치하여 기존 API 엔드포인트에 적용 테스트"
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "SSH 키를 디스크에 보관하지 말자",
+      "link": "https://news.hada.io/topic?id=37734",
+      "published_at": "2026-11-24T07:32:46+09:00",
+      "selection_score": 13,
+      "selection_reason": "SSH 키 관리 보안은 모든 개발자에게 필수적인 워크플로이며, Bitwarden을 활용한 구체적인 개선 방안은 즉시 적용 가능합니다.",
+      "feedback_bias": 0,
+      "one_line": "디스크에 SSH 개인 키를 저장하는 대신 Bitwarden SSH 에이전트를 사용하여 보안성을 강화하고 키 유출 위험을 제거함.",
+      "key_points": [
+        "디스크에 저장된 SSH 키는 악성 코드 스캔에 취약하므로, 비밀번호 관리자 내부에 키를 보관하는 방식이 권장됨.",
+        "IdentityAgent와 SSH_AUTH_SOCK 설정을 통해 시스템이 Bitwarden 에이전트를 거쳐 인증하도록 구성함.",
+        "커밋 서명용 키와 저장소 푸시용 키를 분리하여 운영하는 보안 모범 사례를 적용함."
+      ],
+      "topics": [
+        "SSH Agent",
+        "IdentityAgent",
+        "Commit Signing"
+      ],
+      "recommended_for": "개발 환경의 보안을 강화하고 SSH 키 관리의 번거로움을 줄이고 싶은 모든 개발자.",
+      "actionability": 5,
+      "action": {
+        "type": "code_improvement",
+        "title": "SSH 키 관리 방식 개선 및 에이전트 전환",
+        "steps": [
+          "Bitwarden 데스크톱 앱에서 SSH 에이전트 설정 활성화",
+          "~/.ssh/config 파일에 IdentityAgent 경로 설정",
+          "기존 디스크 내 개인 키 파일 삭제 및 에이전트 정상 작동 확인"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "OpenAI와 Cisco, 실행 중인 Linux 시스템을 보호하는 오픈소스 런타임 Shirudo 공개",
+      "link": "https://news.hada.io/topic?id=37740",
+      "published_at": "2026-11-24T09:21:29+09:00",
+      "selection_score": 14,
+      "selection_reason": "eBPF 기반의 실시간 보안 패치 기술은 서버 운영 및 보안 아키텍처 측면에서 매우 중요한 혁신 사례입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI와 Cisco가 공동 개발한 Shirudo는 eBPF를 활용해 서비스 중단 없이 Linux 시스템의 취약점을 실시간으로 차단함.",
+      "key_points": [
+        "eBPF 기반의 실드(shield)를 통해 취약점 공격 동작만 정밀하게 차단하고 정상적인 서비스 트래픽은 허용함.",
+        "보안 패치 배포 전 영향을 미리 관찰할 수 있어 운영 안정성을 높임.",
+        "암호학적 서명과 TPM을 활용해 보호 기능의 무결성을 보장하고 악의적인 제거를 방지함."
+      ],
+      "topics": [
+        "eBPF",
+        "Runtime Security",
+        "TPM(Trusted Platform Module)"
+      ],
+      "recommended_for": "Linux 서버 보안 및 무중단 패치 전략에 관심이 많은 인프라/보안 엔지니어.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "shirudo - 에이전트 시대를 위한 BPF 라이브 패치 인프라",
+      "link": "https://news.hada.io/topic?id=37741",
+      "published_at": "2026-11-24T09:24:51+09:00",
+      "selection_score": 14,
+      "selection_reason": "에이전트와 BPF를 결합한 자동화된 취약점 완화 인프라는 최신 백엔드 및 보안 트렌드를 관통하는 핵심 기술입니다.",
+      "feedback_bias": 0,
+      "one_line": "Isovalent의 Shirudo는 에이전트가 취약점을 분석하고 BPF 마이크로 패치를 배포하여 커널 수준의 보안을 자동화함.",
+      "key_points": [
+        "재부팅이 필요한 기존 패치 방식의 한계를 극복하기 위해 서명된 BPF 마이크로 패치를 실시간으로 적용함.",
+        "에이전트가 취약점 재현 및 패치 검증을 수행하며, OCI 레지스트리를 통해 패치를 배포하는 파이프라인을 구축함.",
+        "부팅 시점부터 보호를 활성화하고 자산 봉인을 통해 보안 조치의 임의 제거를 방지함."
+      ],
+      "topics": [
+        "BPF Micro-patching",
+        "OCI Registry",
+        "Agentless Security"
+      ],
+      "recommended_for": "최신 클라우드 네이티브 보안 아키텍처와 자동화된 취약점 대응 체계에 관심 있는 백엔드/데브옵스 엔지니어.",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Pine - 파일과 메시지, 기기 변화에 반응해 작업하는 AI 에이전트 하네스",
+      "link": "https://news.hada.io/topic?id=37742",
+      "published_at": "2026-11-24T09:30:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 다양한 외부 도구를 연결하는 워크플로 자동화 도구로, 실무 생산성 향상에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "파일, 메시지, 센서 등 다양한 이벤트에 반응하여 작업을 자동화하는 AI 에이전트 하네스",
+      "key_points": [
+        "메일, Slack, 웹훅 등 외부 이벤트와 MQTT 센서 데이터를 트리거로 삼아 에이전트 작업을 시작할 수 있음.",
+        "사용자가 자연어로 감시 대상과 할 일을 지정하면 메인 에이전트가 적절한 도구와 스킬을 구성함.",
+        "여러 에이전트가 병렬로 작업하며 공유 보드를 통해 진행 상황을 관리하는 워크플로 자동화 환경을 제공함."
+      ],
+      "topics": [
+        "Agentic Workflow",
+        "Event-driven Automation",
+        "Multi-agent Orchestration"
+      ],
+      "recommended_for": "반복적인 업무 자동화와 에이전트 기반의 워크플로 구축에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Pine을 활용한 특정 폴더 감시 및 자동 요약 워크플로 구축",
+        "steps": [
+          "Pine 환경을 설치하고 로컬 스캔 폴더를 감시 대상으로 설정",
+          "특정 문서가 들어올 때 LLM을 호출하여 요약하고 결과물을 정리하는 에이전트 스킬 구성",
+          "실제 문서를 투입하여 에이전트가 의도대로 요약 및 분류를 수행하는지 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "FastFrames - 실시간 상호작용이 가능한 저지연 영상 생성",
+      "link": "https://news.hada.io/topic?id=37743",
+      "published_at": "2026-11-24T09:31:01+09:00",
+      "selection_score": 11,
+      "selection_reason": "영상 생성 모델의 지연 시간을 최적화하는 기술적 접근은 고성능 AI 서비스 아키텍처 설계에 중요한 통찰을 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "VAE 디코딩과 KV 캐시 최적화를 통해 실시간 상호작용이 가능한 저지연 영상 생성 모델",
+      "key_points": [
+        "Apple과 코넬대 연구진이 개발한 FastFrames는 사용자 입력에 즉각 반응하는 영상 생성 모델군임.",
+        "기존 모델의 지연 원인인 VAE 디코딩과 KV 캐시 갱신 과정을 경량화하여 추론 속도를 대폭 개선함.",
+        "1.3B 모델 기준 B200 GPU에서 프레임당 36ms의 속도로 고품질 영상을 생성함."
+      ],
+      "topics": [
+        "Latency Optimization",
+        "KV Cache",
+        "Generative Video Model"
+      ],
+      "recommended_for": "고성능 AI 서비스 아키텍처 설계 및 모델 추론 최적화에 관심 있는 백엔드 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "NariQ: BF16 수준의 Qwen3.8-27B를 10GB 파일에 담다",
+      "link": "https://news.hada.io/topic?id=37749",
+      "published_at": "2026-11-24T10:39:18+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM 양자화 기술은 고성능 모델을 로컬이나 제한된 자원에서 운영하기 위한 필수적인 성능 최적화 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "트렐리스 부호화 기반 양자화로 BF16 성능을 유지하며 용량을 획기적으로 줄인 Qwen3.8-27B 모델",
+      "key_points": [
+        "NariQ v1은 Qwen3.8-27B를 2~3비트로 양자화하여 BF16 수준의 성능을 유지하면서 모델 크기를 10GB 이하로 축소함.",
+        "실제 코딩 에이전트 실행 기록을 활용한 학습 후 양자화(PTQ) 방식을 적용하여 성능 저하를 최소화함.",
+        "사용을 위해서는 전용 llama.cpp 포크가 필요하며, 단일 GPU 환경에서도 고성능 모델 구동이 가능함."
+      ],
+      "topics": [
+        "Quantization",
+        "PTQ (Post-Training Quantization)",
+        "GGUF"
+      ],
+      "recommended_for": "제한된 자원에서 고성능 LLM을 로컬로 운영하거나 비용 절감을 고민하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "NariQ 모델을 활용한 로컬 코딩 에이전트 환경 구축 테스트",
+        "steps": [
+          "NariQ 전용 llama.cpp 포크를 빌드하여 로컬 환경에 설치",
+          "3비트 버전 모델을 다운로드하여 기존 BF16 모델 대비 추론 속도와 정확도 비교",
+          "로컬 코딩 에이전트 워크플로에 적용하여 메모리 점유율 및 응답 성능 측정"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Synology Markdown Note - Synology Note Station용 Markdown 편집기",
+      "link": "https://news.hada.io/topic?id=37757",
+      "published_at": "2026-11-24T12:50:19+09:00",
+      "selection_score": 11,
+      "selection_reason": "NAS를 활용한 개인 서버 환경에서 마크다운 기반의 문서 관리와 CLI를 통한 자동화 워크플로를 구축할 수 있어 실무적 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Synology NAS의 Note Station을 마크다운으로 관리하고 CLI로 자동화할 수 있는 편집기",
+      "key_points": [
+        "Synology Markdown Note는 기존 Note Station의 노트를 마크다운으로 편집하고 동기화할 수 있게 함.",
+        "Mermaid 다이어그램, 수식 렌더링, 내부 링크 및 백링크 기능을 지원하여 문서화 생산성을 높임.",
+        "CLI 도구인 synonote를 제공하여 스크립트를 통한 노트 업로드 및 다운로드 자동화가 가능함."
+      ],
+      "topics": [
+        "Markdown",
+        "NAS Automation",
+        "CLI Tooling"
+      ],
+      "recommended_for": "Synology NAS를 사용하며 마크다운 기반의 문서 관리 및 자동화 워크플로를 선호하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "synonote CLI를 이용한 로컬 문서 자동 백업 및 동기화 스크립트 작성",
+        "steps": [
+          "Synology Markdown Note 설치 및 NAS 연동",
+          "synonote CLI를 사용하여 로컬 마크다운 파일을 특정 노트 폴더로 자동 업로드하는 쉘 스크립트 작성",
+          "crontab에 등록하여 주기적인 문서 동기화 테스트"
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "네이버 D2",
+      "title": "Jetpack Compose 기반 커스텀 3D 캐러셀 개발기",
+      "link": "https://d2.naver.com/helloworld/2957037",
+      "published_at": "2026-11-19T04:22:58Z",
+      "selection_score": 10,
+      "selection_reason": "Jetpack Compose의 고급 UI 구현 및 성능 최적화 사례로, 안드로이드 개발자에게 실무적 가치가 높음.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "Stripe",
+      "title": "Custom software, specialized workflows, and other new growth paths from SaaS Platform Summit",
+      "link": "https://stripe.com/blog/custom-software-specialized-workflows-and-other-new-growth-paths-from-saas-platform-summit",
+      "published_at": "Mon, 23 Nov 2026 00:00:00 +0000",
+      "selection_score": 9,
+      "selection_reason": "SaaS 플랫폼의 비즈니스 전략을 다루고 있어 백엔드 아키텍처 및 서비스 설계 관점에서 참고할 만한 인사이트가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "얀 르쿤, “다리오 아모데이는 오픈 모델을 불법화하고 통제권을 유지하려 위험을 과장하고 있다”",
+      "link": "https://news.hada.io/topic?id=37729",
+      "published_at": "2026-11-24T04:37:26+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 업계의 오픈 모델 정책과 통제권에 관한 논쟁은 LLM 생태계의 향후 방향성을 이해하는 데 중요합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: PQ-Proof - PQC 전환이 끝났는지 전환 전후 코드를 비교해 판정하는 오프라인 도구",
+      "link": "https://news.hada.io/topic?id=37733",
+      "published_at": "2026-11-24T07:28:31+09:00",
+      "selection_score": 10,
+      "selection_reason": "PQC 전환 검증 도구는 보안 인프라를 다루는 개발자에게 실무적인 자동화 도구로서 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "경영진과 대화하는 법: 논쟁하기 전에 금액으로 환산하라",
+      "link": "https://news.hada.io/topic?id=37739",
+      "published_at": "2026-11-24T09:20:02+09:00",
+      "selection_score": 10,
+      "selection_reason": "기술적 의사결정을 비즈니스 가치로 환산하는 방법론은 실무 엔지니어와 리드급 개발자에게 매우 유용한 소프트 스킬입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Stalwart, 이제 Microsoft Exchange를 그대로 대체할 수 있음",
+      "link": "https://news.hada.io/topic?id=37744",
+      "published_at": "2026-11-24T09:34:19+09:00",
+      "selection_score": 9,
+      "selection_reason": "Exchange 호환 오픈소스 서버는 특정 엔터프라이즈 환경에서 비용 절감 및 인프라 독립성을 확보하는 데 유용합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: CRAMA FILE – 파일을 서버에 안 올리는 무료 PDF·이미지 도구 21종",
+      "link": "https://news.hada.io/topic?id=37753",
+      "published_at": "2026-11-24T11:56:43+09:00",
+      "selection_score": 9,
+      "selection_reason": "보안이 중요한 업무 환경에서 브라우저 기반의 로컬 처리 도구는 실무 생산성과 보안 측면에서 유용한 도구입니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
