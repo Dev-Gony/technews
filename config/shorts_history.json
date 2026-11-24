@@ -1011,5 +1011,166 @@
       "images": []
     },
     "source_label": "출처: GeekNews · news.hada.io"
+  },
+  {
+    "date": "2026-11-24",
+    "link": "https://news.hada.io/topic?id=37743",
+    "title": "키보드 누르는 대로 움직이는 AI 영상?",
+    "video_id": "JOLc9yvnJsI",
+    "voice": "Leda",
+    "publish_at": "2026-11-25T18:00:00+09:00",
+    "series": "이게 된다고?",
+    "pick_score": 6,
+    "script": {
+      "title": "키보드 누르는 대로 움직이는 AI 영상?",
+      "cover": "누르는 대로\n움직이는 영상",
+      "style": "news",
+      "series": "이게 된다고?",
+      "cuts": [
+        {
+          "line": "키보드를 누르면 / 영상이 / 바로 따라 움직여요.",
+          "emphasis": [
+            "키보드를"
+          ],
+          "heading": "",
+          "section": "",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "Apple과 코넬대 연구진이 / 바로 반응하는 / 영상 AI를 냈대요.",
+          "emphasis": [
+            "Apple과 코넬대"
+          ],
+          "heading": "입력에 바로\n반응하는 영상",
+          "section": "무슨 일",
+          "visual": {
+            "type": "image",
+            "image": "img1",
+            "label": "FastFrames"
+          }
+        },
+        {
+          "line": "기존 모델은 / 필요한 속도보다 / 최소 10배 느렸대요.",
+          "emphasis": [
+            "10배"
+          ],
+          "heading": "예전엔\n최소 10배 느렸다",
+          "section": "왜 느렸나",
+          "visual": {
+            "type": "scene3d",
+            "scene": "media3d",
+            "beats": [
+              {
+                "target": "white",
+                "label": "사용자"
+              },
+              {
+                "target": "clapper",
+                "label": "영상 만들기"
+              },
+              {
+                "target": "photo",
+                "label": "다음 장면"
+              }
+            ]
+          }
+        },
+        {
+          "line": "느린 이유의 / 절반 넘게가 / 딱 두 작업이었대요.",
+          "emphasis": [
+            "절반",
+            "두"
+          ],
+          "heading": "지연의 절반 넘게\n두 작업",
+          "section": "왜 느렸나",
+          "visual": {
+            "type": "scene3d",
+            "scene": "server3d",
+            "beats": [
+              {
+                "target": "gauge",
+                "label": "느린 속도"
+              },
+              {
+                "target": "racks",
+                "label": "두 작업"
+              }
+            ]
+          }
+        },
+        {
+          "line": "연구진은 이 두 작업을 / 가벼운 걸로 바꿨대요.",
+          "emphasis": [
+            "가벼운"
+          ],
+          "heading": "무거운 두 작업을\n가볍게 교체",
+          "section": "어떻게",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "그 결과 / 1초에 / 28번 반응한대요.",
+          "emphasis": [
+            "28번"
+          ],
+          "heading": "1초에\n28번 반응",
+          "section": "얼마나",
+          "visual": {
+            "type": "number",
+            "value": "28번",
+            "label": "1초당 응답 횟수 (1.3B 모델, B200 한 대)"
+          }
+        },
+        {
+          "line": "키보드로 걸어 다니고 / 물체를 끌어도 / 바로 따라온대요.",
+          "emphasis": [
+            "키보드로",
+            "끌어도"
+          ],
+          "heading": "걷고 끌어도\n바로 반응",
+          "section": "나한테는",
+          "visual": {
+            "type": "scene3d",
+            "scene": "media3d",
+            "beats": [
+              {
+                "target": "blue",
+                "label": "키보드 이동"
+              },
+              {
+                "target": "canvas",
+                "label": "끌어서 움직임"
+              }
+            ]
+          }
+        },
+        {
+          "line": "저도 / 한번 / 눌러 보고 싶네요.",
+          "emphasis": [
+            "눌러"
+          ],
+          "heading": "누르는 대로\n영상이 움직인다",
+          "section": "정리",
+          "visual": {
+            "type": "none"
+          }
+        }
+      ],
+      "summary": "Apple과 코넬대 연구진의 FastFrames는 키보드 이동이나 물체 드래그 같은 입력에 맞춰 다음 장면을 만드는 영상 모델이다. 지연의 절반 이상을 차지하던 두 작업을 가벼운 방식으로 바꿔, 1.3B 모델이 B200 GPU 한 대에서 초당 28회 응답한다.",
+      "images": [
+        {
+          "id": "img1",
+          "url": "https://apple-aiml-research.github.io/ml-fastframes/static/posters/interactive/fastframes_demo_923.jpg",
+          "alt": "원문 대표 이미지",
+          "source": "apple-aiml-research.github.io",
+          "width": 1080,
+          "height": 608
+        }
+      ]
+    },
+    "source_label": "출처: GeekNews · news.hada.io"
   }
 ]
