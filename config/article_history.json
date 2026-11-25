@@ -1,6 +1,230 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "당근",
+      "title": "파드는 떴는데 왜 통신이 안 될까? kube-proxy nftables 전환 여정",
+      "link": "https://medium.com/daangn/%ED%8C%8C%EB%93%9C%EB%8A%94-%EB%96%B4%EB%8A%94%EB%8D%B0-%EC%99%9C-%ED%86%B5%EC%8B%A0%EC%9D%B4-%EC%95%88-%EB%90%A0%EA%B9%8C-kube-proxy-nftables-%EC%A0%84%ED%99%98-%EC%97%AC%EC%A0%95-545dfd2cfc4f",
+      "published_at": "Tue, 24 Nov 2026 05:45:56 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "kube-proxy",
+        "nftables",
+        "EndpointSlice"
+      ],
+      "one_line": "쿠버네티스 kube-proxy를 iptables에서 nftables 모드로 전환하여 네트워크 규칙 동기화 지연 문제를 해결한 사례",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "당근",
+      "title": "Why Can’t My Running Pods Be Reached? Our Journey to kube-proxy nftables Mode",
+      "link": "https://medium.com/daangn/why-cant-my-running-pods-be-reached-our-journey-to-kube-proxy-nftables-mode-6fceb1d2a5f7",
+      "published_at": "Tue, 24 Nov 2026 05:46:20 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "kube-proxy",
+        "nftables",
+        "conntrack"
+      ],
+      "one_line": "kube-proxy의 nftables 모드 전환을 통한 네트워크 성능 최적화 사례 (1번 기사의 영문 원문)",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "Google Developers",
+      "title": "From Files to Cited Answers in One API Call: Managed Ingestion and SearchDocuments in Agent Retrieval",
+      "link": "https://developers.googleblog.com/from-files-to-cited-answers-in-one-api-call-managed-ingestion-and-searchdocuments-in-agent-retrieval",
+      "published_at": "",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "RAG",
+        "Vertex AI",
+        "Agent Retrieval"
+      ],
+      "one_line": "Vertex AI의 Agent Retrieval 기능을 통한 관리형 데이터 수집 및 검색 파이프라인 간소화",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "Ask HN: Anthropic이 우리 회사가 모델 증류를 한다고 하는데, 아니라는 걸 어떻게 입증할 수 있을까요?",
+      "link": "https://news.hada.io/topic?id=37794",
+      "published_at": "2026-11-25T06:34:08+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Model Distillation",
+        "LLM API Policy",
+        "Compliance"
+      ],
+      "one_line": "Anthropic 모델 증류 의심 사례에 대한 대응 및 정책 준수 입증 방안 논의",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "Ternary Bonsai 2.5 27B - 5.9GB 크기를 유지하며 에이전트 코딩을 강화한 로컬 AI 모델",
+      "link": "https://news.hada.io/topic?id=37796",
+      "published_at": "2026-11-25T07:35:44+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Local LLM",
+        "Agentic Workflow",
+        "Model Quantization"
+      ],
+      "one_line": "에이전트 코딩 및 도구 사용 능력이 강화된 5.9GB 경량 로컬 모델 'Ternary Bonsai 2.5 27B' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "Microsoft, 대규모 장애 이후 ‘Code Red’ 선언…내부 메모로 드러난 대응 문제",
+      "link": "https://news.hada.io/topic?id=37797",
+      "published_at": "2026-11-25T07:38:44+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Code Red",
+        "장애 대응 프로세스(Incident Response)",
+        "시스템 확장성(Scalability)"
+      ],
+      "one_line": "Microsoft, 대규모 장애 이후 엔지니어링 프로세스 개선을 위한 'Code Red' 선언",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "유휴 컴퓨팅 자원으로 로컬 모델을 학습시키는 엔진",
+      "link": "https://news.hada.io/topic?id=37798",
+      "published_at": "2026-11-25T08:31:27+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "온폴리시 증류(on-policy distillation)",
+        "로컬 모델 학습",
+        "에이전트 워크플로"
+      ],
+      "one_line": "유휴 컴퓨팅 자원을 활용해 로컬 모델을 지속적으로 학습시키는 'Songe' 엔진",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "MailFlow - 여러 이메일 계정을 한곳에서 관리하는 셀프호스팅 웹메일",
+      "link": "https://news.hada.io/topic?id=37800",
+      "published_at": "2026-11-25T09:30:02+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "셀프호스팅(Self-hosting)",
+        "IMAP/SMTP 통합",
+        "업무 자동화"
+      ],
+      "one_line": "여러 이메일 계정을 통합 관리하고 자동화 기능을 제공하는 셀프호스팅 웹메일 'MailFlow'",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "Cloudflare가 기반 인프라의 미비점을 가림",
+      "link": "https://news.hada.io/topic?id=37802",
+      "published_at": "2026-11-25T09:38:52+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "엔드투엔드 암호화(E2EE)",
+        "인프라 가시성",
+        "IPv4/IPv6 우선순위"
+      ],
+      "one_line": "Cloudflare 사용 시 원본 서버 연결의 보안 가시성 부족 문제와 해결 필요성",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "2026년 기업용 AI 현황",
+      "link": "https://news.hada.io/topic?id=37806",
+      "published_at": "2026-11-25T10:10:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "에이전트 워크플로",
+        "AI ROI(투자 대비 효과)",
+        "기업용 AI 시장"
+      ],
+      "one_line": "2026년 기업용 AI 지출 급증과 에이전트 기반 업무량 중심의 시장 변화",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "AI 네이티브 서비스 비즈니스 모델의 내부 구조",
+      "link": "https://news.hada.io/topic?id=37807",
+      "published_at": "2026-11-25T10:20:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 네이티브 서비스",
+        "운영 확장성(Operational Scalability)",
+        "단위 경제성(Unit Economics)"
+      ],
+      "one_line": "AI 네이티브 서비스는 단순 자동화 도구가 아닌 '결과물'을 판매하는 비즈니스 모델로, 확장성과 수익성을 지속적으로 검증해야 합니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "GPT-6 모델, 내재적 단백질 설계 능력 입증",
+      "link": "https://news.hada.io/topic?id=37808",
+      "published_at": "2026-11-25T10:34:23+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "AI 에이전트",
+        "도구 활용(Tool Use)",
+        "단백질 설계(Protein Design)"
+      ],
+      "one_line": "GPT-6 모델이 전문 생물학 모델 없이 범용 추론과 도구 활용만으로 단백질 설계에 성공하며 AI 에이전트의 범용적 문제 해결 능력을 입증했습니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "Matrix Multiplication의 Θ(n^2.25) 시간 복잡도 [pdf]",
+      "link": "https://news.hada.io/topic?id=37813",
+      "published_at": "2026-11-25T12:33:00+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "행렬 곱셈(Matrix Multiplication)",
+        "시간 복잡도",
+        "기하학적 복잡도 이론(GCT)"
+      ],
+      "one_line": "OpenAI가 행렬 곱셈 지수 9/4(2.25)를 증명하며 수학적 난제를 해결했고, 이는 내부 연구용 모델의 고도화와 연관되어 있을 가능성이 큽니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-25T12:58:06.905937+09:00",
+      "company": "GeekNews",
+      "title": "Grafana 12.4.16, 13.0.14, 13.1.11, 13.2.7, 13.3.2 (여러 CVE 관련)",
+      "link": "https://news.hada.io/topic?id=37814",
+      "published_at": "2026-11-25T12:36:00+09:00",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "CVE(Common Vulnerabilities and Exposures)",
+        "보안 패치",
+        "Grafana"
+      ],
+      "one_line": "Grafana의 여러 버전에서 보안 취약점이 발견되어 긴급 패치가 릴리즈되었으므로 즉시 업데이트가 필요합니다.",
+      "actionability": 5
+    },
+    {
       "recorded_at": "2026-11-24T14:10:37.121795+09:00",
       "company": "네이버 D2",
       "title": "부족한 건 모델이 아니라 팀 문서였다: 팀 공유 지식층 Third Brain 구축기",
@@ -7762,231 +7986,7 @@
       ],
       "one_line": "AI를 활용해 PHP 엔진의 10년 된 메모리 취약점을 악용한 원격 코드 실행(RCE) 공격 사례",
       "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "Qwen3-Coder, 미국 고객용이라고 지시하면 보안이 더 취약한 코드 생성",
-      "link": "https://news.hada.io/topic?id=35762",
-      "published_at": "2026-10-22T00:40:45+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "AI Alignment",
-        "Sleeper Agent",
-        "Supply Chain Security"
-      ],
-      "one_line": "특정 고객 정체성(미국 방산업체 등)을 지시할 때 Qwen3-Coder가 더 취약한 코드를 생성하는 현상 발견",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "DuckDB 2.0.0 LTS “Cinnamon Teal” - 서버 연결과 비동기 I/O 강화",
-      "link": "https://news.hada.io/topic?id=35765",
-      "published_at": "2026-10-22T02:36:43+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Asynchronous I/O",
-        "Quack Protocol",
-        "Data Lakehouse"
-      ],
-      "one_line": "DuckDB 2.0 LTS 출시: 서버 연결, 비동기 I/O, 에이전트 모드 등 대규모 기능 업데이트",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "오늘의 PHP 보안 릴리스와 PHP 보안 강화 방안",
-      "link": "https://news.hada.io/topic?id=35766",
-      "published_at": "2026-10-22T02:39:43+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Coordinated Disclosure",
-        "Software Supply Chain Security",
-        "Open Source Sustainability"
-      ],
-      "one_line": "PHP 보안 패치 지연의 구조적 원인 분석 및 향후 대응 체계 개선안",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "변조된 PyPI LiteLLM 1.107.0, 자격 증명 탈취 악성코드와 백도어 설치",
-      "link": "https://news.hada.io/topic?id=35767",
-      "published_at": "2026-10-22T03:34:51+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Supply Chain Attack",
-        "Dependency Poisoning",
-        "Credential Theft"
-      ],
-      "one_line": "PyPI 패키지 LiteLLM 1.107.0에서 자격 증명 탈취 및 백도어 악성코드 발견",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "Patch the Planet: 에이전트가 발견하는 취약점에 대응하기 위한 글로벌 공조",
-      "link": "https://news.hada.io/topic?id=35771",
-      "published_at": "2026-10-22T05:33:47+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "Defender’s Window",
-        "형식 검증(Formal Verification)",
-        "메모리 안전(Memory Safety)"
-      ],
-      "one_line": "OpenAI가 오픈소스 보안 강화를 위해 취약점 발견부터 패치 배포까지 지원하는 5단계 공조 체계 'Patch the Planet'을 제안함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "Claude Duet - 업무를 맡아 처리하고 필요할 때 먼저 연락하는 개인 AI 에이전트",
-      "link": "https://news.hada.io/topic?id=35773",
-      "published_at": "2026-10-22T07:40:51+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "AI 에이전트 오케스트레이션",
-        "Human-in-the-loop"
-      ],
-      "one_line": "Anthropic이 사용자의 업무를 대신 처리하고 필요 시 먼저 연락하는 개인 AI 에이전트 'Claude Duet'을 발표함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "OpenAI 모델, Google Cloud에 도입 예정",
-      "link": "https://news.hada.io/topic?id=35775",
-      "published_at": "2026-10-22T07:46:51+09:00",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Model Garden",
-        "VPC Service Controls",
-        "데이터 무보관(ZDR)"
-      ],
-      "one_line": "OpenAI의 최신 모델과 Codex가 Google Cloud Model Garden에 도입되어 기업용 AI 인프라 선택지가 확대됨.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
-      "company": "Google Developers",
-      "title": "Announcing New vLLM and SGLang Inference Engines on TPU",
-      "link": "https://developers.googleblog.com/announcing-new-vllm-and-sglang-inference-engines-on-tpu",
-      "published_at": "",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "vLLM",
-        "SGLang",
-        "TPU(Tensor Processing Unit)"
-      ],
-      "one_line": "vLLM과 SGLang이 TPU를 공식 지원하여 LLM 서빙 성능과 비용 효율성을 극대화합니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
-      "company": "Google Developers",
-      "title": "Integrating TorchTPU into TorchTitan and Optimizing Models for TPU",
-      "link": "https://developers.googleblog.com/integrating-torchtpu-into-torchtitan-and-optimizing-models-for-tpu",
-      "published_at": "",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "TorchTPU",
-        "TorchTitan",
-        "FSDP(Fully Sharded Data Parallel)"
-      ],
-      "one_line": "TorchTPU를 통해 JAX 없이 PyTorch만으로 TPU에서 대규모 모델 학습 및 최적화가 가능해졌습니다.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
-      "company": "GitHub Blog",
-      "title": "How 3 Java Champions are using GitHub Copilot for increased productivity",
-      "link": "https://github.blog/ai-and-ml/github-copilot/how-3-java-champions-are-using-github-copilot-for-increased-productivity",
-      "published_at": "Tue, 20 Oct 2026 16:05:03 +0000",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "MCP(Model Context Protocol)",
-        "Context-Aware Prompting"
-      ],
-      "one_line": "GitHub Copilot을 단순 코드 생성을 넘어 에이전트 워크플로의 파트너로 활용하는 실무 전략입니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing tsrs: A port of TypeScript to Rust",
-      "link": "https://blog.cloudflare.com/typescript-rust-port",
-      "published_at": "Tue, 20 Oct 2026 13:00:00 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Rust",
-        "WebAssembly",
-        "Compiler Toolchain"
-      ],
-      "one_line": "TypeScript 컴파일러를 Rust로 포팅한 tsrs가 공개되어 빌드 성능과 메모리 효율을 대폭 개선합니다.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
-      "company": "AWS Compute",
-      "title": "Building an AEO scoring pipeline with AWS Lambda durable functions",
-      "link": "https://aws.amazon.com/blogs/compute/building-an-aeo-scoring-pipeline-with-aws-lambda-durable-functions",
-      "published_at": "Tue, 20 Oct 2026 17:45:29 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "AEO(Agent Engine Optimization)",
-        "AWS Lambda Durable Functions",
-        "Serverless Architecture"
-      ],
-      "one_line": "AWS Lambda Durable Functions를 활용해 AI 에이전트 최적화(AEO)를 위한 자동화 파이프라인을 구축합니다.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
-      "company": "GeekNews",
-      "title": "DeepSeek, 미 국토안보부 새 명령으로 연방 민간기관에서 사용 금지",
-      "link": "https://news.hada.io/topic?id=35696",
-      "published_at": "2026-10-20T16:35:41+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "공급망 보안",
-        "데이터 주권",
-        "규제 포획"
-      ],
-      "one_line": "미 국토안보부(DHS), 보안 우려로 연방 민간기관의 DeepSeek 제품 및 관련 서비스 사용 금지",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-21T08:38:51.913832+09:00",
-      "company": "GeekNews",
-      "title": "프랑스 슈퍼마켓 냉장고, 수개월 동안 온라인에서 취약한 상태로 노출돼 있었음",
-      "link": "https://news.hada.io/topic?id=35700",
-      "published_at": "2026-10-20T17:39:58+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "IoT 보안",
-        "망 분리",
-        "CVE(공통 취약점 노출)"
-      ],
-      "one_line": "프랑스 슈퍼마켓 냉장 설비의 IoT 보안 취약점으로 인한 대규모 사이버 공격 발생",
-      "actionability": 5
     }
   ],
-  "updated_at": "2026-11-24T14:10:37.121795+09:00"
+  "updated_at": "2026-11-25T12:58:06.905937+09:00"
 }

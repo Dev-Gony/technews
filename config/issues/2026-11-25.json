@@ -1,0 +1,472 @@
+{
+  "schema_version": 1,
+  "issue_number": 67,
+  "issue_date": "2026-11-25",
+  "generated_at": "2026-11-25T12:58:06.660381+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nGrafana 보안 패치, kube-proxy nftables, Vertex AI Agent Retrieval, AI 에이전트 워크플로, 인프라 가시성\n\n[오늘의 한줄 포인트]\n\n시스템의 안정성을 위협하는 보안 취약점 대응부터 네트워크 성능 최적화, 그리고 AI 에이전트의 실무 도입까지 엔지니어링의 본질적인 효율을 다룹니다.\n\n[오늘 왜 중요한가]\n\n운영 중인 인프라의 보안과 성능은 서비스의 신뢰성을 결정짓는 가장 기초적인 요소입니다. 또한, 최근 AI 기술은 단순한 모델 활용을 넘어 에이전트 기반의 자동화와 워크플로 최적화 단계로 빠르게 진화하고 있어 실무적 대응이 필수적입니다.\n\n[왜 이 글들을 골랐나]\n\n• 14번: Grafana의 다수 보안 취약점 패치는 운영 환경의 즉각적인 안전을 위해 가장 우선적으로 확인해야 합니다.\n• 1번: 대규모 쿠버네티스 환경에서 네트워크 병목을 해결한 구체적인 트러블슈팅 사례는 인프라 엔지니어에게 실질적인 성능 개선 가이드를 제공합니다.\n• 3번: 복잡한 RAG 파이프라인을 단일 API로 간소화하는 기술은 AI 에이전트 개발 생산성을 획기적으로 높일 수 있습니다.\n\n[오늘 공부해볼 것]\n\n• Grafana 보안 업데이트 절차: 운영 중인 모니터링 시스템의 무중단 패치 전략을 수립하기 위해 필요합니다.\n• kube-proxy nftables 모드 전환: 대규모 클러스터의 네트워크 지연 문제를 해결하기 위한 기술적 요구사항과 제약 조건을 파악할 수 있습니다.\n• Vertex AI Agent Retrieval 활용법: 커스텀 RAG 파이프라인 구축 대비 관리형 서비스의 장점과 데이터 수집 자동화 과정을 학습할 수 있습니다.",
+  "stats": {
+    "candidate_count": 24,
+    "detailed_count": 14,
+    "brief_count": 3,
+    "excluded_count": 7,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Grafana 12.4.16, 13.0.14, 13.1.11, 13.2.7, 13.3.2 (여러 CVE 관련)",
+      "link": "https://news.hada.io/topic?id=37814",
+      "published_at": "2026-11-25T12:36:00+09:00",
+      "selection_score": 15,
+      "selection_reason": "널리 사용되는 모니터링 도구인 Grafana의 보안 취약점 패치 소식으로, 서버 운영 및 보안 관점에서 즉각적인 확인이 필수적입니다.",
+      "feedback_bias": 0,
+      "one_line": "Grafana의 여러 버전에서 보안 취약점이 발견되어 긴급 패치가 릴리즈되었으므로 즉시 업데이트가 필요합니다.",
+      "key_points": [
+        "Grafana 12.4.16, 13.0.14, 13.1.11, 13.2.7, 13.3.2 버전에서 보안 취약점이 수정되었습니다.",
+        "운영 중인 Grafana 인스턴스의 버전을 확인하고 최신 버전으로 업데이트하여 보안 위협을 방지해야 합니다.",
+        "Enterprise 및 OSS 버전 모두 해당하며, 공식 다운로드 페이지를 통해 패키지를 확보할 수 있습니다."
+      ],
+      "topics": [
+        "CVE(Common Vulnerabilities and Exposures)",
+        "보안 패치",
+        "Grafana"
+      ],
+      "recommended_for": "Grafana를 사용하여 모니터링 시스템을 운영 중인 서버 및 인프라 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "adoption_review",
+        "title": "운영 중인 Grafana 버전 확인 및 보안 업데이트 적용",
+        "steps": [
+          "현재 운영 중인 Grafana 서버의 버전 정보를 확인합니다.",
+          "공식 릴리즈 노트를 통해 패치된 CVE 상세 내용을 검토합니다.",
+          "스테이징 환경에서 최신 버전으로 업데이트를 테스트한 후 프로덕션 환경에 적용합니다."
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "당근",
+      "title": "파드는 떴는데 왜 통신이 안 될까? kube-proxy nftables 전환 여정",
+      "link": "https://medium.com/daangn/%ED%8C%8C%EB%93%9C%EB%8A%94-%EB%96%B4%EB%8A%94%EB%8D%B0-%EC%99%9C-%ED%86%B5%EC%8B%A0%EC%9D%B4-%EC%95%88-%EB%90%A0%EA%B9%8C-kube-proxy-nftables-%EC%A0%84%ED%99%98-%EC%97%AC%EC%A0%95-545dfd2cfc4f",
+      "published_at": "Tue, 24 Nov 2026 05:45:56 GMT",
+      "selection_score": 14,
+      "selection_reason": "쿠버네티스 네트워크 성능 최적화와 실무적인 트러블슈팅 사례를 다루고 있어 백엔드 및 인프라 엔지니어에게 매우 유익함.",
+      "feedback_bias": 0,
+      "one_line": "쿠버네티스 kube-proxy를 iptables에서 nftables 모드로 전환하여 네트워크 규칙 동기화 지연 문제를 해결한 사례",
+      "key_points": [
+        "iptables는 규칙이 많아질수록 조회 및 갱신 비용이 O(N)으로 증가하여 대규모 클러스터에서 병목이 발생함.",
+        "nftables는 map 기반 처리를 통해 조회 비용을 O(1)로 최적화하고 변경 사항만 반영하여 동기화 성능을 획기적으로 개선함.",
+        "실험 결과, 첫 규칙 동기화 시간이 4분 이상에서 1.3초 수준으로 단축되었으며 배포 중 지연도 크게 감소함."
+      ],
+      "topics": [
+        "kube-proxy",
+        "nftables",
+        "EndpointSlice"
+      ],
+      "recommended_for": "대규모 쿠버네티스 클러스터를 운영하며 네트워크 지연 및 배포 속도 문제를 겪고 있는 인프라/백엔드 엔지니어",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "테스트 클러스터에서 kube-proxy nftables 모드 전환 성능 검증",
+        "steps": [
+          "현재 클러스터의 kube-proxy 메트릭(rule sync latency)을 수집하여 기준선 확보",
+          "테스트 클러스터에서 EKS add-on 설정을 통해 nftables 모드로 변경 후 동일 부하 테스트 수행",
+          "첫 동기화 시간 및 변경 반영 지연 지표를 비교하여 개선 폭 확인"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "Google Developers",
+      "title": "From Files to Cited Answers in One API Call: Managed Ingestion and SearchDocuments in Agent Retrieval",
+      "link": "https://developers.googleblog.com/from-files-to-cited-answers-in-one-api-call-managed-ingestion-and-searchdocuments-in-agent-retrieval",
+      "published_at": "",
+      "selection_score": 14,
+      "selection_reason": "RAG 파이프라인을 간소화하는 Vertex AI의 신규 기능으로, AI 에이전트 및 데이터 검색 구현 시 실무 활용도가 매우 높음.",
+      "feedback_bias": 0,
+      "one_line": "Vertex AI의 Agent Retrieval 기능을 통한 관리형 데이터 수집 및 검색 파이프라인 간소화",
+      "key_points": [
+        "Cloud Storage의 문서와 영상을 직접 가져와 청킹 및 임베딩 과정을 자동화하는 관리형 수집 기능을 제공함.",
+        "단일 API 호출로 하이브리드 검색, 메타데이터 필터링, 리랭킹, 인용 출처 확인이 가능함.",
+        "복잡한 RAG 파이프라인 구축 없이도 멀티모달 데이터 검색과 에이전트 연동을 즉시 구현할 수 있음."
+      ],
+      "topics": [
+        "RAG",
+        "Vertex AI",
+        "Agent Retrieval"
+      ],
+      "recommended_for": "RAG 파이프라인 구축 시간을 단축하고 싶은 AI 에이전트 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Vertex AI Agent Retrieval을 활용한 문서 검색 프로토타입 구현",
+        "steps": [
+          "Cloud Storage에 테스트용 PDF/영상 파일 업로드",
+          "Vertex AI SearchDocuments API를 호출하여 특정 키워드에 대한 인용 답변 생성 테스트",
+          "기존 커스텀 RAG 파이프라인과 응답 정확도 및 구현 복잡도 비교"
+        ],
+        "effort": "30~60분"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "당근",
+      "title": "Why Can’t My Running Pods Be Reached? Our Journey to kube-proxy nftables Mode",
+      "link": "https://medium.com/daangn/why-cant-my-running-pods-be-reached-our-journey-to-kube-proxy-nftables-mode-6fceb1d2a5f7",
+      "published_at": "Tue, 24 Nov 2026 05:46:20 GMT",
+      "selection_score": 14,
+      "selection_reason": "1번 기사의 영문 버전으로, 동일한 기술적 가치를 지니며 글로벌 기술 스택 공유 측면에서 가치가 높음.",
+      "feedback_bias": 0,
+      "one_line": "kube-proxy의 nftables 모드 전환을 통한 네트워크 성능 최적화 사례 (1번 기사의 영문 원문)",
+      "key_points": [
+        "대규모 클러스터에서 iptables의 순차적 규칙 처리 방식이 서비스 안정성을 저해하는 지연을 유발함.",
+        "nftables 모드 도입으로 규칙 갱신 효율을 높여 노드 스케일링 및 배포 시 발생하는 통신 단절 문제를 해결함.",
+        "실험을 통해 버전별(v1.31 vs v1.34) 성능과 conntrack 이슈를 고려한 최적의 운영 전략을 수립함."
+      ],
+      "topics": [
+        "kube-proxy",
+        "nftables",
+        "conntrack"
+      ],
+      "recommended_for": "쿠버네티스 네트워크 아키텍처 최적화에 관심 있는 글로벌 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ask HN: Anthropic이 우리 회사가 모델 증류를 한다고 하는데, 아니라는 걸 어떻게 입증할 수 있을까요?",
+      "link": "https://news.hada.io/topic?id=37794",
+      "published_at": "2026-11-25T06:34:08+09:00",
+      "selection_score": 12,
+      "selection_reason": "LLM 서비스 정책 위반 의심 사례와 대응 방안은 AI API를 사용하는 실무자들에게 매우 중요한 실질적 가이드를 제공함.",
+      "feedback_bias": 0,
+      "one_line": "Anthropic 모델 증류 의심 사례에 대한 대응 및 정책 준수 입증 방안 논의",
+      "key_points": [
+        "AI 모델 API 사용 시 모델 증류(Distillation) 금지 정책 위반 의심을 받을 경우, 기술적 소명 자료가 필요함.",
+        "회귀 벤치마크 자동화 등 정상적인 개발 워크플로가 오해를 살 수 있으므로, 사용 로그의 투명한 관리가 중요함.",
+        "개인정보를 보호하면서 모델 학습에 사용되지 않았음을 증명하는 프로세스 수립이 필요함."
+      ],
+      "topics": [
+        "Model Distillation",
+        "LLM API Policy",
+        "Compliance"
+      ],
+      "recommended_for": "LLM API를 활용하여 서비스를 구축 중인 백엔드 개발자 및 아키텍트",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Ternary Bonsai 2.5 27B - 5.9GB 크기를 유지하며 에이전트 코딩을 강화한 로컬 AI 모델",
+      "link": "https://news.hada.io/topic?id=37796",
+      "published_at": "2026-11-25T07:35:44+09:00",
+      "selection_score": 14,
+      "selection_reason": "에이전트 코딩 성능이 강화된 로컬 모델 소식으로, AI 에이전트 및 개발 생산성 향상에 관심 있는 사용자에게 매우 유용함.",
+      "feedback_bias": 0,
+      "one_line": "에이전트 코딩 및 도구 사용 능력이 강화된 5.9GB 경량 로컬 모델 'Ternary Bonsai 2.5 27B' 공개",
+      "key_points": [
+        "Qwen3.8 27B 기반으로, 5.9GB의 작은 크기를 유지하면서도 에이전트 코딩과 다단계 작업 수행 능력을 대폭 개선함.",
+        "반복 루프를 줄이고 도구 호출 결과 해석 능력을 높여 추론 효율성과 정확도를 향상함.",
+        "SWE-bench 등 주요 벤치마크에서 성능 향상을 입증하여 로컬 환경에서의 에이전트 개발 생산성을 높임."
+      ],
+      "topics": [
+        "Local LLM",
+        "Agentic Workflow",
+        "Model Quantization"
+      ],
+      "recommended_for": "로컬 환경에서 AI 에이전트를 개발하거나 비용 효율적인 코딩 보조 도구를 찾는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Ternary Bonsai 2.5 27B 모델을 활용한 로컬 에이전트 테스트",
+        "steps": [
+          "Ollama 또는 vLLM을 사용하여 Ternary Bonsai 2.5 27B 모델 로컬 환경에 배포",
+          "기존에 사용하던 코딩 에이전트 프롬프트를 적용하여 도구 호출 정확도 테스트",
+          "이전 모델 대비 작업 완료 속도 및 토큰 효율성 측정"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Microsoft, 대규모 장애 이후 ‘Code Red’ 선언…내부 메모로 드러난 대응 문제",
+      "link": "https://news.hada.io/topic?id=37797",
+      "published_at": "2026-11-25T07:38:44+09:00",
+      "selection_score": 12,
+      "selection_reason": "대규모 장애 대응 체계와 엔지니어링 프로세스 개선은 백엔드 및 인프라 실무자에게 중요한 교훈을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "Microsoft, 대규모 장애 이후 엔지니어링 프로세스 개선을 위한 'Code Red' 선언",
+      "key_points": [
+        "Windows 확장성 결함으로 인해 Outlook, Teams 등 주요 서비스가 중단되는 대규모 장애가 발생함.",
+        "장애 대응 과정에서 다수의 채팅방으로 인력이 분산되는 등 내부 엔지니어링 체계의 취약점이 드러남.",
+        "Microsoft는 재발 방지와 복구 체계 개선을 최우선으로 하는 'Code Red'를 선언함."
+      ],
+      "topics": [
+        "Code Red",
+        "장애 대응 프로세스(Incident Response)",
+        "시스템 확장성(Scalability)"
+      ],
+      "recommended_for": "대규모 분산 시스템을 운영하거나 장애 대응 프로세스를 개선하고자 하는 백엔드 및 인프라 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "유휴 컴퓨팅 자원으로 로컬 모델을 학습시키는 엔진",
+      "link": "https://news.hada.io/topic?id=37798",
+      "published_at": "2026-11-25T08:31:27+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트의 워크플로 최적화와 로컬 모델 학습 기법은 현재 가장 주목받는 기술 트렌드입니다.",
+      "feedback_bias": 0,
+      "one_line": "유휴 컴퓨팅 자원을 활용해 로컬 모델을 지속적으로 학습시키는 'Songe' 엔진",
+      "key_points": [
+        "사용자의 도구 실행 결과와 수정 사항을 기록하여 에이전트가 유휴 시간에 학습에 활용함.",
+        "온폴리시 증류(on-policy distillation) 기법을 사용하여 실제 대화 데이터를 직접 훈련하지 않고 모델을 개선함.",
+        "모델 성능이 향상되고 기존 능력이 유지될 때만 업데이트를 적용하며, 롤백 기능을 지원함."
+      ],
+      "topics": [
+        "온폴리시 증류(on-policy distillation)",
+        "로컬 모델 학습",
+        "에이전트 워크플로"
+      ],
+      "recommended_for": "LLM을 활용한 에이전트 개발 및 개인화된 모델 학습에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "로컬 에이전트의 사용자 피드백 데이터 수집 및 학습 파이프라인 구축",
+        "steps": [
+          "현재 사용 중인 에이전트의 도구 실행 로그와 사용자 수정 사항을 JSON 형태로 기록하는 로깅 모듈 추가",
+          "수집된 데이터를 기반으로 모델의 지침(System Prompt)을 주기적으로 업데이트하는 스크립트 작성",
+          "업데이트된 모델의 성능을 기존 버전과 비교 테스트"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "MailFlow - 여러 이메일 계정을 한곳에서 관리하는 셀프호스팅 웹메일",
+      "link": "https://news.hada.io/topic?id=37800",
+      "published_at": "2026-11-25T09:30:02+09:00",
+      "selection_score": 11,
+      "selection_reason": "업무 자동화 및 셀프호스팅 도구로서 실무 생산성을 높이는 데 직접적인 도움을 줄 수 있는 프로젝트입니다.",
+      "feedback_bias": 0,
+      "one_line": "여러 이메일 계정을 통합 관리하고 자동화 기능을 제공하는 셀프호스팅 웹메일 'MailFlow'",
+      "key_points": [
+        "다양한 이메일 계정을 하나의 받은편지함으로 통합하여 관리할 수 있는 셀프호스팅 솔루션임.",
+        "메일 자동 분류, 뉴스레터 구독 해제, 예약 발송 등 업무 생산성을 높이는 자동화 기능을 제공함.",
+        "사용자 서버에 직접 설치하여 운영하며, 기존 IMAP/SMTP 서버와 연동하여 메일을 송수신함."
+      ],
+      "topics": [
+        "셀프호스팅(Self-hosting)",
+        "IMAP/SMTP 통합",
+        "업무 자동화"
+      ],
+      "recommended_for": "여러 이메일 계정을 효율적으로 관리하고 업무 자동화를 선호하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "개인 메일 관리 환경을 MailFlow로 통합하기 위한 기술 검토",
+        "steps": [
+          "MailFlow의 설치 요구 사항(Docker 등) 확인 및 테스트 서버 환경 구성",
+          "현재 사용하는 주요 이메일 계정의 IMAP/SMTP 설정값 추출",
+          "기존 메일함과의 동기화 테스트 및 자동 분류 규칙 설정"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Cloudflare가 기반 인프라의 미비점을 가림",
+      "link": "https://news.hada.io/topic?id=37802",
+      "published_at": "2026-11-25T09:38:52+09:00",
+      "selection_score": 14,
+      "selection_reason": "클라우드 인프라의 가시성과 보안 설정은 백엔드 아키텍처 설계 시 반드시 고려해야 할 핵심 요소입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare 사용 시 원본 서버 연결의 보안 가시성 부족 문제와 해결 필요성",
+      "key_points": [
+        "Cloudflare는 사용자-엣지 구간의 보안은 강화하지만, 엣지-원본 서버 구간의 암호화나 IPv6 지원은 미흡할 수 있음.",
+        "관리자가 원본 서버의 연결 상태를 종합적으로 파악할 수 있는 가시성 도구가 부족함.",
+        "Cloudflare가 IPv4를 우선 처리하는 경향이 있어, 관리자는 원본 서버 연결 설정을 직접 점검해야 함."
+      ],
+      "topics": [
+        "엔드투엔드 암호화(E2EE)",
+        "인프라 가시성",
+        "IPv4/IPv6 우선순위"
+      ],
+      "recommended_for": "Cloudflare를 인프라 앞단에 배치하여 운영 중인 백엔드 및 인프라 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "Cloudflare-원본 서버 간 연결 보안 및 IPv6 설정 점검",
+        "steps": [
+          "Cloudflare 대시보드에서 'Full (Strict)' SSL 모드가 활성화되어 있는지 확인",
+          "원본 서버의 접근 로그를 분석하여 IPv6 요청이 정상적으로 처리되는지 확인",
+          "원본 서버 연결에 대한 모니터링 경고 설정 추가"
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "2026년 기업용 AI 현황",
+      "link": "https://news.hada.io/topic?id=37806",
+      "published_at": "2026-11-25T10:10:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "기업용 AI 시장의 흐름과 에이전트 기반 지출 변화는 향후 기술 로드맵을 결정하는 데 중요한 지표입니다.",
+      "feedback_bias": 0,
+      "one_line": "2026년 기업용 AI 지출 급증과 에이전트 기반 업무량 중심의 시장 변화",
+      "key_points": [
+        "기업용 AI 지출이 전년 대비 5.4배 증가했으며, 사용자 수보다 수행 업무량에 연동되는 구조로 변화함.",
+        "Anthropic, OpenAI, Google이 시장의 69%를 점유하며 성능 중심의 지출이 지속됨.",
+        "코딩과 기업용 챗봇이 전체 AI 앱 시장의 76%를 차지하며, 명확한 성공 기준이 있는 분야에 투자가 집중됨."
+      ],
+      "topics": [
+        "에이전트 워크플로",
+        "AI ROI(투자 대비 효과)",
+        "기업용 AI 시장"
+      ],
+      "recommended_for": "AI 도입 전략을 수립하거나 에이전트 기반의 업무 자동화를 기획하는 기술 리더",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 네이티브 서비스 비즈니스 모델의 내부 구조",
+      "link": "https://news.hada.io/topic?id=37807",
+      "published_at": "2026-11-25T10:20:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 네이티브 서비스의 비즈니스 구조와 확장성 검증은 AI 에이전트 기반 서비스를 구축하는 개발자에게 필수적인 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 네이티브 서비스는 단순 자동화 도구가 아닌 '결과물'을 판매하는 비즈니스 모델로, 확장성과 수익성을 지속적으로 검증해야 합니다.",
+      "key_points": [
+        "AI 네이티브 서비스는 도구 판매가 아닌, 업무 수행 결과와 그에 따른 책임을 판매하는 모델입니다.",
+        "초기 매출 발생 이후에도 인력 증가 없이 품질과 업무량을 유지할 수 있는지 확장성을 검증해야 합니다.",
+        "고객의 반복 의뢰율, 건당 처리 비용, 재작업률 등을 지표로 삼아 운영 효율성을 지속적으로 모니터링해야 합니다."
+      ],
+      "topics": [
+        "AI 네이티브 서비스",
+        "운영 확장성(Operational Scalability)",
+        "단위 경제성(Unit Economics)"
+      ],
+      "recommended_for": "AI 에이전트 기반의 서비스를 기획하거나 운영 중인 백엔드 개발자 및 프로덕트 매니저",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "GPT-6 모델, 내재적 단백질 설계 능력 입증",
+      "link": "https://news.hada.io/topic?id=37808",
+      "published_at": "2026-11-25T10:34:23+09:00",
+      "selection_score": 12,
+      "selection_reason": "범용 LLM이 전문 영역에서 도구 활용만으로 성과를 내는 사례는 AI 에이전트의 잠재력을 보여주는 중요한 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "GPT-6 모델이 전문 생물학 모델 없이 범용 추론과 도구 활용만으로 단백질 설계에 성공하며 AI 에이전트의 범용적 문제 해결 능력을 입증했습니다.",
+      "key_points": [
+        "GPT-6는 전문 생물학 모델 호출 없이 자연어 프롬프트와 코딩 도구만으로 단백질 구조를 설계했습니다.",
+        "실험 결과, 설계된 미니바인더 중 약 10.9%가 표적에 결합하는 성과를 보였습니다.",
+        "이는 LLM이 특정 도메인 지식 없이도 에이전트 워크플로를 통해 전문적인 과학적 난제를 해결할 수 있음을 시사합니다."
+      ],
+      "topics": [
+        "AI 에이전트",
+        "도구 활용(Tool Use)",
+        "단백질 설계(Protein Design)"
+      ],
+      "recommended_for": "LLM의 추론 능력과 에이전트 워크플로의 확장성에 관심이 많은 개발자",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Matrix Multiplication의 Θ(n^2.25) 시간 복잡도 [pdf]",
+      "link": "https://news.hada.io/topic?id=37813",
+      "published_at": "2026-11-25T12:33:00+09:00",
+      "selection_score": 12,
+      "selection_reason": "행렬 곱셈 알고리즘의 복잡도 개선은 데이터 분석 및 고성능 컴퓨팅 분야의 근간이 되는 중요한 기술적 진보입니다.",
+      "feedback_bias": 0,
+      "one_line": "OpenAI가 행렬 곱셈 지수 9/4(2.25)를 증명하며 수학적 난제를 해결했고, 이는 내부 연구용 모델의 고도화와 연관되어 있을 가능성이 큽니다.",
+      "key_points": [
+        "OpenAI는 행렬 곱셈의 복잡도 지수가 2라는 기존 추측을 반박하고 9/4임을 증명했습니다.",
+        "이번 성과는 공개 모델이 아닌 내부 연구용 모델에서 도출되었으며, 이는 내부 연산 자원 비축과 고도화 전략을 시사합니다.",
+        "수학적 난제 해결은 모델의 훈련 및 평가 역량을 강화하는 누적적 순환 구조의 일부로 활용되고 있습니다."
+      ],
+      "topics": [
+        "행렬 곱셈(Matrix Multiplication)",
+        "시간 복잡도",
+        "기하학적 복잡도 이론(GCT)"
+      ],
+      "recommended_for": "알고리즘 최적화 및 AI 모델의 연구 개발 방향에 관심이 많은 백엔드/데이터 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "맥스 테그마크 “Anthropic 직원들, ‘세계 장악’을 공개적으로 이야기한다”",
+      "link": "https://news.hada.io/topic?id=37792",
+      "published_at": "2026-11-25T04:38:31+09:00",
+      "selection_score": 9,
+      "selection_reason": "AI 산업의 윤리 및 거버넌스에 관한 중요한 담론을 담고 있어 업계 동향 파악 차원에서 읽어볼 가치가 있음.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "데이터 표현을 위한 Lua",
+      "link": "https://news.hada.io/topic?id=37799",
+      "published_at": "2026-11-25T09:01:59+09:00",
+      "selection_score": 10,
+      "selection_reason": "Lua를 활용한 데이터 표현 방식은 특정 환경에서 유연한 설정 및 데이터 처리를 위한 실용적인 대안이 될 수 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "오픈 소스에서 월 반복 매출 2만 달러까지: EmailEngine의 여정",
+      "link": "https://news.hada.io/topic?id=37804",
+      "published_at": "2026-11-25T10:00:03+09:00",
+      "selection_score": 10,
+      "selection_reason": "오픈소스 소프트웨어의 비즈니스 모델 전환과 수익화 전략은 개발자에게 실무적인 인사이트를 제공합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}
