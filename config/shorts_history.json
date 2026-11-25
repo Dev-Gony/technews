@@ -1172,5 +1172,182 @@
       ]
     },
     "source_label": "출처: GeekNews · news.hada.io"
+  },
+  {
+    "date": "2026-11-25",
+    "link": "https://news.hada.io/topic?id=37808",
+    "title": "전문 AI 없이 단백질을 설계했다고?",
+    "video_id": "Q2urFj0KA8U",
+    "voice": "Leda",
+    "publish_at": "2026-11-26T18:00:00+09:00",
+    "series": "이게 된다고?",
+    "pick_score": 8,
+    "script": {
+      "title": "전문 AI 없이 단백질을 설계했다고?",
+      "cover": "전문 AI 없이\n단백질 설계",
+      "style": "news",
+      "series": "이게 된다고?",
+      "cuts": [
+        {
+          "line": "전문 AI 없이 / 단백질을 / 설계했대요.",
+          "emphasis": [
+            "단백질을"
+          ],
+          "heading": "",
+          "section": "",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "GPT-6가 / 새 단백질 모양을 / 설계했대요.",
+          "emphasis": [
+            "GPT-6가"
+          ],
+          "heading": "GPT-6가\n새 단백질을 설계",
+          "section": "무슨 일",
+          "visual": {
+            "type": "image",
+            "image": "img1",
+            "label": "GPT-6 단백질 설계"
+          }
+        },
+        {
+          "line": "말로 쓴 쪽지를 / 받은 일꾼이 / 코드를 짰대요.",
+          "emphasis": [
+            "쪽지를"
+          ],
+          "heading": "말로 쓴 쪽지만 받았다",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "desk3d",
+            "beats": [
+              {
+                "target": "yellow",
+                "label": "말로 쓴 쪽지"
+              },
+              {
+                "target": "white_code",
+                "label": "일꾼 AI"
+              },
+              {
+                "target": "laptop",
+                "label": "코드"
+              }
+            ]
+          }
+        },
+        {
+          "line": "전문 모델은 / 안 부르고 / 코드로 모양을 짰대요.",
+          "emphasis": [
+            "코드로"
+          ],
+          "heading": "전문 모델 없이\n코드로 설계",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "desk3d",
+            "beats": [
+              {
+                "target": "blue",
+                "label": "전문 모델 안 부름"
+              },
+              {
+                "target": "white_typer",
+                "label": "코드로 설계"
+              },
+              {
+                "target": "laptop",
+                "label": "단백질 모양"
+              }
+            ]
+          }
+        },
+        {
+          "line": "만든 322개 중 / 35개가 / 붙는 징후를 보였대요.",
+          "emphasis": [
+            "35개가"
+          ],
+          "heading": "322개 중 35개가 붙었다",
+          "section": "얼마나",
+          "visual": {
+            "type": "number",
+            "value": "35개",
+            "label": "322개 중 표적에 붙는 징후"
+          }
+        },
+        {
+          "line": "다만 실험엔 / 전문 모델의 / 도움도 필요했대요.",
+          "emphasis": [
+            "도움도"
+          ],
+          "heading": "실험엔 전문 모델 도움도 필요",
+          "section": "잠깐",
+          "visual": {
+            "type": "image",
+            "image": "img2",
+            "label": ""
+          }
+        },
+        {
+          "line": "쪽지만 바꾸면 / 다른 일도 / 시킬 수 있대요.",
+          "emphasis": [
+            "쪽지만"
+          ],
+          "heading": "쪽지만 바꿔도\n새 과제 가능",
+          "section": "나한테는",
+          "visual": {
+            "type": "scene3d",
+            "scene": "desk3d",
+            "beats": [
+              {
+                "target": "yellow",
+                "label": "새 쪽지"
+              },
+              {
+                "target": "white_code",
+                "label": "같은 일꾼"
+              },
+              {
+                "target": "blue",
+                "label": "다른 일 시킴"
+              }
+            ]
+          }
+        },
+        {
+          "line": "말 한마디로 / 된다니 / 신기하네요.",
+          "emphasis": [
+            "신기하네요."
+          ],
+          "heading": "말로 시켜 단백질을 설계",
+          "section": "정리",
+          "visual": {
+            "type": "none"
+          }
+        }
+      ],
+      "summary": "OpenAI의 GPT-6 계열 모델이 전문 생물학 모델을 부르지 않고, 추론과 범용 코딩 도구만으로 새 단백질의 구조를 설계했습니다. 실험에서 미니바인더 322개 중 35개(10.9%)가 표적에 결합하는 징후를 보였습니다.",
+      "images": [
+        {
+          "id": "img1",
+          "url": "https://images.ctfassets.net/kftzwdyauwt9/Eg5mCwwaA3KqnznOVCh0n/8e6deaef25fd508d9853ff86a95187c1/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities-social.png?w=1600&h=900&fit=fill",
+          "alt": "원문 대표 이미지",
+          "source": "images.ctfassets.net",
+          "width": 1080,
+          "height": 608
+        },
+        {
+          "id": "img2",
+          "url": "https://images.ctfassets.net/kftzwdyauwt9/4u7ogWwVXuqX5GRdnZxsLM/23d72378f6fea65debd91c914f32fb54/protein-workflows-intrinsic-desktop-light.png?w=3840&q=90&fm=webp",
+          "alt": "Diagram comparing a language model coordinating specialized tools with a single ",
+          "source": "images.ctfassets.net",
+          "width": 1080,
+          "height": 518
+        }
+      ]
+    },
+    "source_label": "출처: GeekNews · news.hada.io"
   }
 ]
