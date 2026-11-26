@@ -1,0 +1,500 @@
+{
+  "schema_version": 1,
+  "issue_number": 68,
+  "issue_date": "2026-11-26",
+  "generated_at": "2026-11-26T12:24:07.358451+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nAI 에이전트, MCP(Model Context Protocol), 돌연변이 테스팅, 운영 자동화, 지식 그래프\n\n[오늘의 한줄 포인트]\n\nAI 에이전트가 단순한 챗봇을 넘어, 시스템의 인터페이스를 재정의하고 운영과 개발의 신뢰성을 확보하는 핵심 엔진으로 진화하고 있습니다.\n\n[오늘 왜 중요한가]\n\n이제 AI 도입의 핵심은 모델 자체의 성능을 넘어, 에이전트가 외부 도구와 어떻게 상호작용하고 그 결과를 어떻게 검증하느냐로 옮겨가고 있습니다. 실무 엔지니어라면 MCP와 같은 표준 프로토콜을 이해하고, AI가 생성한 코드와 운영 로직을 시스템적으로 검증하는 체계를 갖추는 것이 필수적입니다.\n\n[왜 이 글들을 골랐나]\n\n• 4번: MCP를 활용한 토큰 최적화와 모델-코드 역할 분리 사례는 에이전트 아키텍처 설계의 실질적인 모범 답안을 제시합니다.\n• 2번: AI가 만든 코드의 신뢰성을 높이기 위한 돌연변이 테스팅과 에이전트 팀 구조는 실무 도입 시 겪는 불안감을 해소할 구체적인 방법론입니다.\n• 13번: 사용자가 기능을 직접 찾는 방식에서 AI가 의도를 파악해 API를 호출하는 방식으로의 패러다임 변화를 이해하는 것은 미래 제품 설계의 핵심입니다.\n\n[오늘 공부해볼 것]\n\n• MCP(Model Context Protocol) 사양: 에이전트가 외부 데이터와 도구에 안전하게 접근하는 표준 방식을 익혀 서비스 연동의 기초를 다집니다.\n• 돌연변이 테스팅(Mutation Testing) 개념: AI가 작성한 테스트 코드의 품질을 정량적으로 검증하여 시스템 안정성을 높이는 방법을 학습합니다.\n• 하이브리드 검색과 리랭킹: 지식 그래프와 결합된 검색 시스템을 통해 운영 이슈 해결의 정확도를 높이는 아키텍처를 이해합니다.",
+  "stats": {
+    "candidate_count": 29,
+    "detailed_count": 14,
+    "brief_count": 6,
+    "excluded_count": 9,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "네이버 D2",
+      "title": "운영자의 시간을 아끼는 AI 에이전트 2부 - MCP 부터 Agent 설계까지",
+      "link": "https://d2.naver.com/helloworld/5073599",
+      "published_at": "2026-11-25T07:01:41Z",
+      "selection_score": 14,
+      "selection_reason": "MCP(Model Context Protocol)를 활용한 에이전트 설계와 토큰 최적화 사례는 최신 에이전트 아키텍처를 학습하는 데 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "MCP와 에이전트 설계를 통한 운영 자동화 에이전트 'care-ai'의 시행착오와 개선 사례",
+      "key_points": [
+        "MCP 서버를 통해 원본 데이터를 무분별하게 전달하지 않고, 요약본을 먼저 제공하여 토큰 사용량을 26% 절감함.",
+        "모델은 탐색과 판단을, 코드는 근거 검증과 최종 판정을 담당하게 하여 에이전트의 정확도를 0회에서 3회(3회 평가 기준)로 개선함.",
+        "운영자의 답변 구조를 템플릿화하여 상태, 확인 값, 원인, 조치 순으로 전달함으로써 응답 시간을 47초로 단축함."
+      ],
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "토큰 최적화",
+        "에이전트 답변 설계"
+      ],
+      "recommended_for": "LLM 에이전트를 실제 운영 환경에 도입하려는 개발자 및 MCP 기반 도구 설계자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "MCP 서버 응답 최적화 및 모델-코드 역할 분리 적용",
+        "steps": [
+          "현재 에이전트가 사용하는 도구 응답 중 불필요하게 긴 데이터를 요약하여 전달하도록 MCP 서버 로직 수정",
+          "모델이 판단한 결과에 대해 코드로 검증 로직(예: 정규식, 데이터베이스 조회)을 추가하여 최종 판정 단계 구현"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "네이버 D2",
+      "title": "AI가 만든 결과를 그대로 믿고 계신가요?",
+      "link": "https://d2.naver.com/helloworld/5512498",
+      "published_at": "2026-11-25T05:19:42Z",
+      "selection_score": 14,
+      "selection_reason": "AI가 생성한 코드와 테스트를 검증하는 방법론은 에이전트 워크플로의 신뢰성을 높이는 핵심 기술로 실무 적용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI가 생성한 코드와 테스트의 신뢰성을 높이는 검증 방법론(돌연변이 테스팅, 훅, 에이전트 팀)",
+      "key_points": [
+        "AI가 작성한 테스트 코드를 맹신하지 말고, 코드의 일부를 의도적으로 삭제하여 테스트가 실패하는지 확인하는 돌연변이 테스팅을 권장함.",
+        "문서 기반의 규칙 준수는 강제성이 부족하므로, 시스템적으로 강제할 수 있는 '훅(Hook)'을 활용해야 함.",
+        "AI가 스스로 작성하고 검증하게 하지 말고, 에이전트 팀을 분리하여 저자와 검증자의 역할을 나누는 구조가 필요함."
+      ],
+      "topics": [
+        "돌연변이 테스팅",
+        "에이전트 팀 구조",
+        "자기 검증의 한계"
+      ],
+      "recommended_for": "AI 에이전트를 활용한 개발 자동화 워크플로를 구축 중이며, 생성된 코드의 품질과 신뢰성을 고민하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "우리가 알던 기능 발견 방식의 종말",
+      "link": "https://news.hada.io/topic?id=37870",
+      "published_at": "2026-11-26T10:50:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트와 MCP를 통한 소프트웨어 인터페이스의 근본적 변화를 다루고 있어 매우 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트와 MCP를 통한 소프트웨어 인터페이스의 패러다임 변화",
+      "key_points": [
+        "사용자가 기능을 직접 찾는 방식에서 AI가 사용자의 의도를 파악해 기능을 호출하는 방식으로 변화함.",
+        "소프트웨어의 복잡성을 줄이기 위해 기능을 추가하는 대신, AI가 API를 통해 기능을 실행하는 구조로 전환됨.",
+        "MCP(Model Context Protocol)를 활용하면 사용자가 앱을 직접 열지 않고도 외부 제품의 기능을 에이전트가 수행할 수 있음."
+      ],
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "에이전트 기반 인터페이스",
+        "API 오케스트레이션"
+      ],
+      "recommended_for": "AI 에이전트 기반의 제품 아키텍처를 설계하거나 MCP 도입을 고려하는 백엔드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 개발 중인 서비스에 MCP 도입 가능성 검토",
+        "steps": [
+          "MCP 공식 문서 및 사양을 확인하여 현재 서비스의 API를 MCP 서버로 노출할 수 있는지 검토",
+          "에이전트가 특정 기능을 호출할 수 있도록 API 엔드포인트의 명세(Schema) 정리",
+          "간단한 MCP 클라이언트와 연동하여 에이전트가 기능을 호출하는 테스트 수행"
+        ],
+        "effort": "1~2시간"
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "네이버 D2",
+      "title": "OmniEvaluator: AI 모델과 에이전트를 위한 통합 평가 프레임워크",
+      "link": "https://d2.naver.com/helloworld/4331341",
+      "published_at": "2026-11-25T04:38:18Z",
+      "selection_score": 15,
+      "selection_reason": "AI 에이전트 및 모델 평가를 위한 통합 프레임워크는 실무에서 LLM 도입 시 필수적인 도구로, 높은 활용 가치와 업계 표준화 가능성을 보여줍니다.",
+      "feedback_bias": 0,
+      "one_line": "다양한 AI 모델과 에이전트의 성능을 통합 평가하는 프레임워크 'OmniEvaluator' 공개",
+      "key_points": [
+        "추론 엔진 4종과 평가 프레임워크 4종을 통합하여 텍스트, 이미지, 비디오, 오디오 등 1,000개 이상의 벤치마크를 단일 인터페이스로 실행함.",
+        "모든 평가 과정은 아티팩트로 저장되어 재현 가능하며, 내장 Verifier를 통해 프레임워크 간 차이에 흔들리지 않는 채점 신호를 제공함.",
+        "2026년 추가된 Agent Harness를 통해 툴 호출 궤적까지 채점하는 에이전트 평가 기능을 지원함."
+      ],
+      "topics": [
+        "통합 평가 프레임워크",
+        "Agent Harness",
+        "벤치마크 아티팩트"
+      ],
+      "recommended_for": "AI 서비스 도입 전후로 모델과 에이전트의 성능을 정량적으로 비교·검증해야 하는 AI 엔지니어 및 서비스 기획자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "OmniEvaluator를 활용한 현재 사용 중인 LLM 모델 성능 평가",
+        "steps": [
+          "GitHub 저장소에서 OmniEvaluator를 클론하여 로컬 환경에 설치",
+          "현재 서비스 중인 프롬프트와 데이터셋을 중간 스키마 형식으로 변환",
+          "다양한 모델(API 및 로컬 모델)을 대상으로 동일한 벤치마크를 실행하여 결과 비교"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "네이버 D2",
+      "title": "운영자의 시간을 아끼는 AI 에이전트 1부 - RCA·Q&A 운영 지식그래프",
+      "link": "https://d2.naver.com/helloworld/6934862",
+      "published_at": "2026-11-25T06:35:15Z",
+      "selection_score": 14,
+      "selection_reason": "LLM을 활용한 RCA 및 지식 그래프 구축은 운영 자동화의 모범 사례로, 백엔드 운영 효율화에 직접적인 도움을 줍니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM과 지식 그래프를 활용한 운영 이슈 RCA 및 Q&A 자동화 시스템 구축",
+      "key_points": [
+        "운영 문의에서 LLM을 통해 RCA(근본 원인 분석)와 Q&A 데이터를 추출하여 Neo4j 지식 그래프에 구조화함.",
+        "단순 키워드 검색이 아닌 하이브리드 검색과 LLM 리랭킹을 적용하여 유사한 과거 운영 사례를 정확히 탐색함.",
+        "클러스터 상태 정보와 과거 대화 이력을 결합하여 Care AI 에이전트가 운영자 대신 답변을 생성하도록 구현함."
+      ],
+      "topics": [
+        "지식 그래프(Knowledge Graph)",
+        "RCA(Root Cause Analysis)",
+        "하이브리드 검색 및 리랭킹"
+      ],
+      "recommended_for": "반복되는 운영 문의와 장애 대응 업무를 효율화하고 싶은 백엔드 및 SRE 엔지니어",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GitHub Blog",
+      "title": "How to choose the next safe step in application modernization",
+      "link": "https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization",
+      "published_at": "Wed, 25 Nov 2026 15:00:00 +0000",
+      "selection_score": 13,
+      "selection_reason": "애플리케이션 현대화 과정에서의 검증 방법론과 이를 GitHub Copilot 에이전트로 구현하는 방식은 실무 생산성에 큰 가치를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "애플리케이션 현대화를 위한 증거 기반 방법론과 GitHub Copilot 에이전트 활용",
+      "key_points": [
+        "현대화 전 애플리케이션의 동작을 검증할 수 있는 '증거 인벤토리'를 구축하여 무분별한 재작성을 방지함.",
+        "기존 시스템의 동작을 캡처한 뒤 업그레이드하는 방식과, 작은 단위로 현대화된 조각을 먼저 만드는 방식을 상황에 맞게 선택함.",
+        "현대화 절차를 GitHub Copilot 에이전트 스킬로 인코딩하여 팀 내에서 반복 가능한 프로세스로 정착시킴."
+      ],
+      "topics": [
+        "애플리케이션 현대화",
+        "증거 기반 방법론",
+        "GitHub Copilot Agent Skill"
+      ],
+      "recommended_for": "레거시 시스템의 현대화를 계획 중이거나, 팀 내 개발 워크플로를 자동화하고 싶은 리드 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "레거시 프로젝트 현대화를 위한 증거 인벤토리 체크리스트 작성",
+        "steps": [
+          "대상 애플리케이션의 빌드, 테스트, 의존성, 외부 계약(API/DB) 정보를 정리한 인벤토리 문서 작성",
+          "현재 시스템의 동작을 검증할 수 있는 최소한의 테스트 셋(Smoke test)을 식별하고 CI에 통합"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "Cloudflare",
+      "title": "Introducing Search for Agents",
+      "link": "https://blog.cloudflare.com/search-for-agents",
+      "published_at": "Wed, 25 Nov 2026 14:00:00 GMT",
+      "selection_score": 14,
+      "selection_reason": "클라우드 인프라 수준에서 에이전트를 위한 검색 기능을 제공하는 것은 RAG 구현 비용을 획기적으로 줄여주는 중요한 기술 변화입니다.",
+      "feedback_bias": 0,
+      "one_line": "Cloudflare가 웹사이트를 AI 에이전트가 쉽게 검색할 수 있도록 표준화된 검색 엔드포인트를 자동 생성하는 'Search for Agents'를 출시했습니다.",
+      "key_points": [
+        "웹사이트의 콘텐츠를 자동으로 크롤링하고 인덱싱하여 에이전트가 검색할 수 있는 API를 도메인 내에 즉시 생성합니다.",
+        "HTML 메타 태그와 .well-known/search 경로를 통해 에이전트가 검색 기능을 스스로 발견하고 활용할 수 있도록 표준화된 가이드를 제공합니다.",
+        "IETF 표준인 QUERY 메서드를 지원하여 에이전트가 상태 변경 없이 안전하게 검색 쿼리를 수행할 수 있습니다."
+      ],
+      "topics": [
+        "AI Search",
+        "Agentic Discovery",
+        "HTTP QUERY Method"
+      ],
+      "recommended_for": "자신의 웹사이트나 문서를 AI 에이전트가 더 잘 활용하게 만들고 싶은 백엔드 및 웹 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "Cloudflare 대시보드에서 Search for Agents 활성화 및 에이전트 연동 테스트",
+        "steps": [
+          "Cloudflare 대시보드 'Quick Actions'에서 Search for Agents를 활성화합니다.",
+          "curl 명령어를 사용하여 /.well-known/search 엔드포인트가 정상적으로 응답하는지 확인합니다.",
+          "사용 중인 LLM 에이전트(예: Cursor, OpenCode)에게 해당 사이트의 검색 API를 사용하도록 프롬프트를 작성해 테스트합니다."
+        ],
+        "effort": "15~30분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "똑똑하고 진심으로 책임지는 사람들은 도구를 쓴다",
+      "link": "https://news.hada.io/topic?id=37851",
+      "published_at": "2026-11-26T05:43:13+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI Agent와 LLM을 활용한 개발 생산성 향상 및 책임 있는 엔지니어링 관점을 다루어 매우 유익합니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM은 엔지니어의 태도를 증폭하는 도구이므로, 책임감 있는 엔지니어는 이를 활용해 설계 검증과 테스트 범위를 넓혀야 합니다.",
+      "key_points": [
+        "LLM은 엔지니어의 역량과 태도를 증폭시키며, 무책임한 사용은 검증 없는 코드 배포라는 위험을 초래합니다.",
+        "책임감 있는 엔지니어는 AI를 통해 시간 부족으로 미뤄왔던 설계 검증, API 시뮬레이션, 경계 조건 테스트를 수행할 수 있습니다.",
+        "초급 엔지니어는 모델의 오류를 판단할 수 있는 비판적 사고를 기르기 위해 직접 버그와 씨름하는 과정이 반드시 필요합니다."
+      ],
+      "topics": [
+        "Responsible AI Engineering",
+        "AI-Augmented Development"
+      ],
+      "recommended_for": "AI 도구를 활용해 생산성을 높이면서도 코드 품질과 책임감을 유지하고 싶은 모든 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "LLM으로 문서 없는 9달러 AliExpress ‘YP3’ MP3 플레이어에 Rockbox 포팅하기",
+      "link": "https://news.hada.io/topic?id=37853",
+      "published_at": "2026-11-26T06:34:31+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM과 에이전트를 활용한 임베디드 역공학 및 자동화 사례로, 실무적 활용 가치가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "LLM 에이전트를 활용해 문서화되지 않은 저가형 하드웨어의 펌웨어를 역공학하고 오픈소스 펌웨어를 이식한 사례입니다.",
+      "key_points": [
+        "512 KiB RAM의 제한적인 환경에서도 LLM의 도움을 받아 Rockbox 펌웨어를 성공적으로 이식했습니다.",
+        "에이전트가 Ghidra, 웹캠, 오디오 입력 등 외부 도구를 제어하며 하드웨어 상태를 관찰하고 검증하는 자동화 워크플로를 구축했습니다.",
+        "사람은 전체적인 개발 방향과 테스트를 담당하고, LLM은 코드 작성과 역공학 분석을 수행하여 개발 속도를 획기적으로 높였습니다."
+      ],
+      "topics": [
+        "Reverse Engineering",
+        "Agentic Workflow",
+        "Embedded Systems"
+      ],
+      "recommended_for": "임베디드 개발자 및 AI 에이전트를 활용한 자동화 워크플로에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Relax - Rust 코드를 바로 실행하고 수정 사항을 반영하는 JIT 컴파일러",
+      "link": "https://news.hada.io/topic?id=37860",
+      "published_at": "2026-11-26T09:30:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "Rust 개발 생산성을 획기적으로 높이는 도구로, 백엔드 및 시스템 프로그래밍 실무에 즉시 적용 가능합니다.",
+      "feedback_bias": 0,
+      "one_line": "Rust 개발 시 전체 빌드 대기 시간을 획기적으로 줄여주는 JIT 컴파일러 'Relax'가 공개되었습니다.",
+      "key_points": [
+        "함수 단위로 컴파일하고 실행 중에 코드를 교체하는 방식을 통해 빌드 대기 시간을 수 분에서 수 초 단위로 단축합니다.",
+        "상태를 유지한 채 함수를 교체하므로 앱을 재시작하거나 이전 화면으로 이동하는 반복 작업을 최소화합니다.",
+        "구조체 메모리 배치나 매크로 변경 등 일부 복잡한 변경 사항을 제외하고는 즉각적인 코드 반영이 가능합니다."
+      ],
+      "topics": [
+        "JIT Compilation",
+        "Developer Productivity",
+        "Rust Tooling"
+      ],
+      "recommended_for": "Rust로 대규모 프로젝트를 개발하며 긴 빌드 시간으로 생산성 저하를 겪는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "현재 진행 중인 Rust 프로젝트에 Relax 도입 가능성 검토",
+        "steps": [
+          "Relax 공식 저장소에서 프로젝트의 빌드 시스템과 호환되는지 확인합니다.",
+          "개발 환경에 Relax를 설치하고 기존 프로젝트의 빌드 타임과 비교 테스트를 수행합니다.",
+          "구조체 변경 등 재시작이 필요한 제약 사항이 워크플로에 미치는 영향을 평가합니다."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "락 포이즈닝을 폐지하자",
+      "link": "https://news.hada.io/topic?id=37863",
+      "published_at": "2026-11-26T10:03:32+09:00",
+      "selection_score": 11,
+      "selection_reason": "Rust 백엔드 개발 시 안정성과 직결되는 중요한 아키텍처적 논의로 실무적 가치가 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "Rust의 뮤텍스 포이즈닝(Mutex Poisoning)이 실제 개발 환경에서 교착 상태와 연쇄 실패를 유발한다는 비판과 함께 개선 논의가 진행 중입니다.",
+      "key_points": [
+        "뮤텍스 포이즈닝은 패닉 시 불변식을 보호하려 하지만, 실제로는 복구 불가능한 교착 상태를 유발하는 경우가 많습니다.",
+        "PoisonError가 락 가드를 소유하여 오류 처리 중에도 락이 유지되는 구조적 문제가 존재합니다.",
+        "표준 라이브러리 내에서 lock().unwrap() 사용은 프로세스 종료 없이 시스템을 불안정한 상태로 방치할 위험이 있습니다."
+      ],
+      "topics": [
+        "Mutex Poisoning",
+        "Rust Concurrency",
+        "Error Handling"
+      ],
+      "recommended_for": "Rust로 멀티스레드 백엔드 시스템을 설계하거나 안정적인 동시성 처리를 고민하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "AI 검색 메타 분석 - 2026년 4분기",
+      "link": "https://news.hada.io/topic?id=37867",
+      "published_at": "2026-11-26T10:30:02+09:00",
+      "selection_score": 11,
+      "selection_reason": "AI 검색의 확산이 웹 생태계와 데이터 활용 방식에 미치는 영향을 분석하여 업계 흐름 파악에 중요합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 검색 확산이 웹 트래픽과 브랜드 인지도에 미치는 영향 분석",
+      "key_points": [
+        "AI 검색 이용이 늘고 있으나, 기존 검색엔진을 완전히 대체하기보다는 상호 보완적으로 사용됨.",
+        "AI 답변(AI Overview)은 외부 사이트로의 클릭을 최대 39.8%까지 감소시킬 수 있음.",
+        "AI가 출처를 인용하더라도 브랜드 언급이나 실제 방문으로 이어지지 않을 수 있어 단계별 성과 측정이 필요함."
+      ],
+      "topics": [
+        "AI Overview",
+        "검색 의도(Search Intent)",
+        "제로 클릭 검색(Zero-click Search)"
+      ],
+      "recommended_for": "검색 엔진 최적화(SEO) 전략을 고민하거나 웹 트래픽 분석을 담당하는 개발자 및 마케터",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "지금 효과를 내는 B2B GTM 전략 5가지와 실제 사례",
+      "link": "https://news.hada.io/topic?id=37868",
+      "published_at": "2026-11-26T10:40:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트와 자동화를 활용한 실무 사례를 다루고 있어 사용자의 관심 분야와 매우 밀접합니다.",
+      "feedback_bias": 0,
+      "one_line": "AI와 자동화를 활용한 B2B 고객 확보 및 마케팅 효율화 사례",
+      "key_points": [
+        "Claude 기반의 자율 광고 에이전시를 도입해 캠페인 준비 시간을 2~3일에서 3분으로 단축함.",
+        "제품 실무자 앰배서더를 활용한 콘텐츠 확산이 일반 광고 대비 10배 높은 참여도를 기록함.",
+        "기존의 성공적인 고객 확보 채널에 AI 자동화를 결합하여 운영 효율을 극대화하는 전략이 유효함."
+      ],
+      "topics": [
+        "GTM(Go-To-Market) 전략",
+        "AI 에이전트",
+        "워크플로 자동화"
+      ],
+      "recommended_for": "B2B 서비스의 마케팅 자동화와 운영 효율 개선에 관심 있는 백엔드 및 자동화 엔지니어",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "반복적인 마케팅/운영 업무의 AI 에이전트 자동화 실험",
+        "steps": [
+          "현재 수행 중인 반복적인 마케팅/운영 업무 중 하나를 선정하여 단계별 프로세스 정의",
+          "Claude API 또는 관련 에이전트 프레임워크를 활용해 해당 프로세스를 자동화하는 프로토타입 구현",
+          "기존 수동 작업 시간과 자동화 후 소요 시간 비교 측정"
+        ],
+        "effort": "1~2시간"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "1인 조직이 온다",
+      "link": "https://news.hada.io/topic?id=37871",
+      "published_at": "2026-11-26T11:00:02+09:00",
+      "selection_score": 14,
+      "selection_reason": "AI 에이전트 기반의 워크플로 자동화와 1인 조직의 생산성 극대화 방안을 다루어 실무 활용도가 매우 높습니다.",
+      "feedback_bias": 0,
+      "one_line": "AI 에이전트 시스템을 활용한 1인 조직의 생산성 극대화 전략",
+      "key_points": [
+        "AI 에이전트를 활용하면 조사, 정리, 발행 등 반복적인 지식 생산 업무를 자동화하여 1인 조직도 대규모 운영이 가능함.",
+        "전문가의 역할은 결과물을 직접 만드는 것에서 시스템의 규칙과 판단 기준을 설계하는 것으로 변화함.",
+        "반복 가능한 시스템을 구축함으로써 뉴스 수만 건을 처리하거나 방대한 데이터를 체계적으로 관리할 수 있음."
+      ],
+      "topics": [
+        "지식 생산 시스템",
+        "에이전트 워크플로",
+        "시스템 사고(Systems Thinking)"
+      ],
+      "recommended_for": "개인 생산성 도구 개발자 및 AI를 활용한 자동화 워크플로 구축에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "code_improvement",
+        "title": "개인 지식 관리 및 데이터 수집 워크플로 자동화",
+        "steps": [
+          "매일 반복하는 정보 수집 및 정리 업무 중 규칙화 가능한 프로세스 선정",
+          "Python 기반의 스크립트나 에이전트 프레임워크를 사용하여 데이터 수집부터 요약까지의 파이프라인 구축",
+          "결과물의 품질을 결정하는 프롬프트와 규칙을 시스템화하여 자동화 파이프라인에 적용"
+        ],
+        "effort": "1~2시간"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Lean으로 Clojure 코어를 검사해 미보고 버그 17개를 발견함",
+      "link": "https://news.hada.io/topic?id=37848",
+      "published_at": "2026-11-26T04:03:06+09:00",
+      "selection_score": 10,
+      "selection_reason": "Lean 모델 검증을 통한 언어 코어 버그 발견 사례는 고수준의 소프트웨어 품질 관리와 테스트 방법론 측면에서 참고할 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "GitHub 제품 전반의 서비스 저하 조사",
+      "link": "https://news.hada.io/topic?id=37849",
+      "published_at": "2026-11-26T04:31:24+09:00",
+      "selection_score": 10,
+      "selection_reason": "GitHub의 서비스 장애 대응 사례는 백엔드 아키텍처와 운영 안정성 측면에서 실무적인 참고 가치가 있습니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "세상에, 세상에, 세상에, 세상에: 지금 벌어지는 일의 엄청난 규모",
+      "link": "https://news.hada.io/topic?id=37850",
+      "published_at": "2026-11-26T05:40:13+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI가 수학적 난제를 해결하는 흐름은 LLM의 추론 능력과 과학적 연구 방식의 근본적인 변화를 보여줍니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Anthropic의 일반화 리만 가설 Lean 증명, 7만 6,000줄로 압축",
+      "link": "https://news.hada.io/topic?id=37854",
+      "published_at": "2026-11-26T08:31:57+09:00",
+      "selection_score": 10,
+      "selection_reason": "LLM을 활용한 복잡한 수학 증명 검증은 AI의 논리적 추론 능력을 보여주는 중요한 사례입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Jev는 아마도 Qwen3.5-35B-A3B 기반일 것",
+      "link": "https://news.hada.io/topic?id=37859",
+      "published_at": "2026-11-26T09:18:27+09:00",
+      "selection_score": 10,
+      "selection_reason": "LLM 기반 모델 추론 및 성능 분석 기법은 최신 AI 기술 트렌드를 파악하는 데 유용합니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Show GN: Herdr Git Mods - 레이아웃은 그대로, Git 작업은 하나의 Pane에",
+      "link": "https://news.hada.io/topic?id=37873",
+      "published_at": "2026-11-26T11:06:59+09:00",
+      "selection_score": 10,
+      "selection_reason": "개발 생산성을 높이는 구체적인 도구 활용 사례로, 워크플로 개선에 관심 있는 사용자에게 유용합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

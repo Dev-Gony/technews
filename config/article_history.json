@@ -1,6 +1,229 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "네이버 D2",
+      "title": "OmniEvaluator: AI 모델과 에이전트를 위한 통합 평가 프레임워크",
+      "link": "https://d2.naver.com/helloworld/4331341",
+      "published_at": "2026-11-25T04:38:18Z",
+      "selection_score": 15,
+      "feedback_bias": 0,
+      "topics": [
+        "통합 평가 프레임워크",
+        "Agent Harness",
+        "벤치마크 아티팩트"
+      ],
+      "one_line": "다양한 AI 모델과 에이전트의 성능을 통합 평가하는 프레임워크 'OmniEvaluator' 공개",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "네이버 D2",
+      "title": "AI가 만든 결과를 그대로 믿고 계신가요?",
+      "link": "https://d2.naver.com/helloworld/5512498",
+      "published_at": "2026-11-25T05:19:42Z",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "돌연변이 테스팅",
+        "에이전트 팀 구조",
+        "자기 검증의 한계"
+      ],
+      "one_line": "AI가 생성한 코드와 테스트의 신뢰성을 높이는 검증 방법론(돌연변이 테스팅, 훅, 에이전트 팀)",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "네이버 D2",
+      "title": "운영자의 시간을 아끼는 AI 에이전트 1부 - RCA·Q&A 운영 지식그래프",
+      "link": "https://d2.naver.com/helloworld/6934862",
+      "published_at": "2026-11-25T06:35:15Z",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "지식 그래프(Knowledge Graph)",
+        "RCA(Root Cause Analysis)",
+        "하이브리드 검색 및 리랭킹"
+      ],
+      "one_line": "LLM과 지식 그래프를 활용한 운영 이슈 RCA 및 Q&A 자동화 시스템 구축",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "네이버 D2",
+      "title": "운영자의 시간을 아끼는 AI 에이전트 2부 - MCP 부터 Agent 설계까지",
+      "link": "https://d2.naver.com/helloworld/5073599",
+      "published_at": "2026-11-25T07:01:41Z",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "토큰 최적화",
+        "에이전트 답변 설계"
+      ],
+      "one_line": "MCP와 에이전트 설계를 통한 운영 자동화 에이전트 'care-ai'의 시행착오와 개선 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GitHub Blog",
+      "title": "How to choose the next safe step in application modernization",
+      "link": "https://github.blog/ai-and-ml/github-copilot/how-to-choose-the-next-safe-step-in-application-modernization",
+      "published_at": "Wed, 25 Nov 2026 15:00:00 +0000",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "애플리케이션 현대화",
+        "증거 기반 방법론",
+        "GitHub Copilot Agent Skill"
+      ],
+      "one_line": "애플리케이션 현대화를 위한 증거 기반 방법론과 GitHub Copilot 에이전트 활용",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "Cloudflare",
+      "title": "Introducing Search for Agents",
+      "link": "https://blog.cloudflare.com/search-for-agents",
+      "published_at": "Wed, 25 Nov 2026 14:00:00 GMT",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Search",
+        "Agentic Discovery",
+        "HTTP QUERY Method"
+      ],
+      "one_line": "Cloudflare가 웹사이트를 AI 에이전트가 쉽게 검색할 수 있도록 표준화된 검색 엔드포인트를 자동 생성하는 'Search for Agents'를 출시했습니다.",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "똑똑하고 진심으로 책임지는 사람들은 도구를 쓴다",
+      "link": "https://news.hada.io/topic?id=37851",
+      "published_at": "2026-11-26T05:43:13+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Responsible AI Engineering",
+        "AI-Augmented Development"
+      ],
+      "one_line": "LLM은 엔지니어의 태도를 증폭하는 도구이므로, 책임감 있는 엔지니어는 이를 활용해 설계 검증과 테스트 범위를 넓혀야 합니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "LLM으로 문서 없는 9달러 AliExpress ‘YP3’ MP3 플레이어에 Rockbox 포팅하기",
+      "link": "https://news.hada.io/topic?id=37853",
+      "published_at": "2026-11-26T06:34:31+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Reverse Engineering",
+        "Agentic Workflow",
+        "Embedded Systems"
+      ],
+      "one_line": "LLM 에이전트를 활용해 문서화되지 않은 저가형 하드웨어의 펌웨어를 역공학하고 오픈소스 펌웨어를 이식한 사례입니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "Relax - Rust 코드를 바로 실행하고 수정 사항을 반영하는 JIT 컴파일러",
+      "link": "https://news.hada.io/topic?id=37860",
+      "published_at": "2026-11-26T09:30:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "JIT Compilation",
+        "Developer Productivity",
+        "Rust Tooling"
+      ],
+      "one_line": "Rust 개발 시 전체 빌드 대기 시간을 획기적으로 줄여주는 JIT 컴파일러 'Relax'가 공개되었습니다.",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "락 포이즈닝을 폐지하자",
+      "link": "https://news.hada.io/topic?id=37863",
+      "published_at": "2026-11-26T10:03:32+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "Mutex Poisoning",
+        "Rust Concurrency",
+        "Error Handling"
+      ],
+      "one_line": "Rust의 뮤텍스 포이즈닝(Mutex Poisoning)이 실제 개발 환경에서 교착 상태와 연쇄 실패를 유발한다는 비판과 함께 개선 논의가 진행 중입니다.",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "AI 검색 메타 분석 - 2026년 4분기",
+      "link": "https://news.hada.io/topic?id=37867",
+      "published_at": "2026-11-26T10:30:02+09:00",
+      "selection_score": 11,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Overview",
+        "검색 의도(Search Intent)",
+        "제로 클릭 검색(Zero-click Search)"
+      ],
+      "one_line": "AI 검색 확산이 웹 트래픽과 브랜드 인지도에 미치는 영향 분석",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "지금 효과를 내는 B2B GTM 전략 5가지와 실제 사례",
+      "link": "https://news.hada.io/topic?id=37868",
+      "published_at": "2026-11-26T10:40:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "GTM(Go-To-Market) 전략",
+        "AI 에이전트",
+        "워크플로 자동화"
+      ],
+      "one_line": "AI와 자동화를 활용한 B2B 고객 확보 및 마케팅 효율화 사례",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "우리가 알던 기능 발견 방식의 종말",
+      "link": "https://news.hada.io/topic?id=37870",
+      "published_at": "2026-11-26T10:50:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "MCP(Model Context Protocol)",
+        "에이전트 기반 인터페이스",
+        "API 오케스트레이션"
+      ],
+      "one_line": "AI 에이전트와 MCP를 통한 소프트웨어 인터페이스의 패러다임 변화",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-26T12:24:07.873571+09:00",
+      "company": "GeekNews",
+      "title": "1인 조직이 온다",
+      "link": "https://news.hada.io/topic?id=37871",
+      "published_at": "2026-11-26T11:00:02+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "지식 생산 시스템",
+        "에이전트 워크플로",
+        "시스템 사고(Systems Thinking)"
+      ],
+      "one_line": "AI 에이전트 시스템을 활용한 1인 조직의 생산성 극대화 전략",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-25T12:58:06.905937+09:00",
       "company": "당근",
       "title": "파드는 떴는데 왜 통신이 안 될까? kube-proxy nftables 전환 여정",
@@ -7762,231 +7985,7 @@
       ],
       "one_line": "LLM 프롬프트 캐싱의 원리와 비용 최적화 전략: 구분점(breakpoint) 설정의 중요성",
       "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "Google Developers",
-      "title": "Powering the Agent Development Lifecycle with any framework, from ADK to LangChain and beyond",
-      "link": "https://developers.googleblog.com/powering-the-agent-development-lifecycle-with-any-framework-from-adk-to-langchain-and-beyond",
-      "published_at": "",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agent Development Lifecycle",
-        "SBOM",
-        "Agentic Workflow"
-      ],
-      "one_line": "프레임워크 독립적인 AI 에이전트 개발 워크플로와 배포 표준화",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GitHub Blog",
-      "title": "The bridge to agent-scale Git infrastructure",
-      "link": "https://github.blog/engineering/architecture-optimization/the-bridge-to-agent-scale-git-infrastructure",
-      "published_at": "Wed, 21 Oct 2026 16:00:00 +0000",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Distributed Systems",
-        "Quorum Serialization",
-        "Decoupling Storage from Compute"
-      ],
-      "one_line": "대규모 Git 인프라의 스토리지 아키텍처 개선: 참조(reference) 단위 직렬화로 처리량 극대화",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "Cloudflare",
-      "title": "How Commerce.com and Cloudflare are getting storefronts ready for AI agents",
-      "link": "https://blog.cloudflare.com/webmcp-commerce",
-      "published_at": "Wed, 21 Oct 2026 13:00:00 GMT",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "WebMCP",
-        "Agentic Shopping",
-        "Edge Computing"
-      ],
-      "one_line": "AI 에이전트와 웹 상호작용을 위한 브라우저 표준, WebMCP 도입",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "Cloudflare",
-      "title": "Cloudflare deploys protections against php2shell vulnerability",
-      "link": "https://blog.cloudflare.com/php-vulnerabilities-waf-protection",
-      "published_at": "Wed, 21 Oct 2026 13:56:45 GMT",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "php2shell",
-        "Full Transaction Detection",
-        "RCE(Remote Code Execution)"
-      ],
-      "one_line": "PHP 런타임의 치명적 취약점(php2shell)에 대한 Cloudflare의 대응 및 보안 가이드",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "Cloudflare",
-      "title": "Introducing full transaction detection for Cloudflare WAF",
-      "link": "https://blog.cloudflare.com/full-transaction-waf",
-      "published_at": "Wed, 21 Oct 2026 14:10:42 GMT",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "Full Transaction Detection",
-        "Response Rules",
-        "WAF(Web Application Firewall)"
-      ],
-      "one_line": "Cloudflare WAF의 'Full Transaction Detection' 도입으로 요청과 응답을 결합한 정교한 보안 강화",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "AWS Architecture",
-      "title": "Automate medical coding with Step Functions and Amazon Bedrock AgentCore",
-      "link": "https://aws.amazon.com/blogs/architecture/automate-medical-coding-with-step-functions-and-amazon-bedrock-agentcore",
-      "published_at": "Wed, 21 Oct 2026 21:26:23 +0000",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "Deterministic Orchestration",
-        "MCP(Model Context Protocol)"
-      ],
-      "one_line": "AWS Step Functions와 Bedrock AgentCore를 활용한 결정론적 의료 코딩 자동화 워크플로",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "2026년 JavaScript 동향",
-      "link": "https://news.hada.io/topic?id=35745",
-      "published_at": "2026-10-21T16:18:40+09:00",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "TypeScript 7",
-        "WinterCG",
-        "Supply Chain Security"
-      ],
-      "one_line": "2026년 JavaScript 생태계: 표준화, 네이티브 도구 전환, 그리고 AI의 영향력 확대",
-      "actionability": 2
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "Tell HN: CVSS 10.0인 PHP 원격 코드 실행 CVE 2건 공개 예정",
-      "link": "https://news.hada.io/topic?id=35746",
-      "published_at": "2026-10-21T16:34:45+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "CVE-2026-109618",
-        "RCE(Remote Code Execution)",
-        "Security Patching"
-      ],
-      "one_line": "PHP 런타임의 치명적 RCE 취약점(CVE-2026-109618/19) 공개 및 긴급 대응 권고",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "PHP, 중대 취약점 대응 보안 릴리스 예정",
-      "link": "https://news.hada.io/topic?id=35748",
-      "published_at": "2026-10-21T17:01:01+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "CVSS v4.0",
-        "원격 코드 실행(RCE)",
-        "보안 릴리스"
-      ],
-      "one_line": "PHP 보안팀이 CVSS 9.2점의 중대 취약점 2건을 수정하는 보안 릴리스를 예고함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "Show HN: VoidAccess - 검색 질의에서 그래프까지, 오픈소스 다크웹 OSINT",
-      "link": "https://news.hada.io/topic?id=35749",
-      "published_at": "2026-10-21T17:31:18+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "OSINT",
-        "위협 인텔리전스(Threat Intelligence)",
-        "관계 그래프(Relationship Graph)"
-      ],
-      "one_line": "다크웹 OSINT 수집부터 관계 매핑까지 자동화하는 오픈소스 도구 'VoidAccess' 공개.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "크래프톤, 자체 개발 30B급 고효율 LLM 'Raon-1 mini' 프리뷰 공개",
-      "link": "https://news.hada.io/topic?id=35752",
-      "published_at": "2026-10-21T19:00:19+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "MoE(Mixture of Experts)",
-        "LLM 추론 최적화",
-        "오픈웨이트 모델"
-      ],
-      "one_line": "크래프톤이 30B급 고효율 오픈웨이트 LLM 'Raon-1 mini' 프리뷰를 공개함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "Meta Muse, 공유한 대화의 개인정보 노출로 공유 기능 중단",
-      "link": "https://news.hada.io/topic?id=35754",
-      "published_at": "2026-10-21T19:32:34+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "패시브 DNS(Passive DNS)",
-        "보안 설계 결함(Security Design Flaw)",
-        "AI 에이전트 보안"
-      ],
-      "one_line": "Meta의 AI 에이전트 'Muse'가 공유 대화의 개인정보 노출 문제로 공유 기능을 중단함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "PHP, 원격 코드 실행이 가능한 치명적 취약점 2건 수정. 즉시 업데이트 권고",
-      "link": "https://news.hada.io/topic?id=35759",
-      "published_at": "2026-10-21T23:38:44+09:00",
-      "selection_score": 13,
-      "feedback_bias": 0,
-      "topics": [
-        "원격 코드 실행(RCE)",
-        "보안 패치(Security Patch)",
-        "백포트(Backport)"
-      ],
-      "one_line": "PHP가 원격 코드 실행(RCE)이 가능한 치명적 취약점 2건을 수정하는 보안 패치를 배포함.",
-      "actionability": 5
-    },
-    {
-      "recorded_at": "2026-10-22T08:57:18.301014+09:00",
-      "company": "GeekNews",
-      "title": "PHP2Shell - AI로 PHP의 오래된 취약점을 실제 공격으로 구현",
-      "link": "https://news.hada.io/topic?id=35761",
-      "published_at": "2026-10-22T00:37:45+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "Use-After-Free (UAF)",
-        "Remote Code Execution (RCE)",
-        "Memory Corruption"
-      ],
-      "one_line": "AI를 활용해 PHP 엔진의 10년 된 메모리 취약점을 악용한 원격 코드 실행(RCE) 공격 사례",
-      "actionability": 5
     }
   ],
-  "updated_at": "2026-11-25T12:58:06.905937+09:00"
+  "updated_at": "2026-11-26T12:24:07.873571+09:00"
 }
