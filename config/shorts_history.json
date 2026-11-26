@@ -1349,5 +1349,148 @@
       ]
     },
     "source_label": "출처: GeekNews · news.hada.io"
+  },
+  {
+    "date": "2026-11-26",
+    "link": "https://news.hada.io/topic?id=37853",
+    "title": "9달러 MP3 플레이어가 게임기가 된 이유",
+    "video_id": "QbJWoIFRzC4",
+    "voice": "Leda",
+    "publish_at": "2026-11-27T18:00:00+09:00",
+    "series": "이게 된다고?",
+    "pick_score": 6,
+    "script": {
+      "title": "9달러 MP3 플레이어가 게임기가 된 이유",
+      "cover": "9달러 MP3로\n게임까지 했대요",
+      "style": "news",
+      "series": "이게 된다고?",
+      "cuts": [
+        {
+          "line": "9달러짜리 / 플레이어가 / 게임기가 됐대요.",
+          "emphasis": [
+            "9달러짜리"
+          ],
+          "heading": "",
+          "section": "",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "알리에서 산 / 9달러 MP3예요.",
+          "emphasis": [
+            "9달러"
+          ],
+          "heading": "알리에서 산\n9달러 MP3",
+          "section": "무슨 일",
+          "visual": {
+            "type": "image",
+            "image": "img1",
+            "label": "AliExpress"
+          }
+        },
+        {
+          "line": "AI 일꾼이 / 코드를 쓰고, / 사람은 방향과 / 테스트를 맡았대요.",
+          "emphasis": [
+            "AI 일꾼이"
+          ],
+          "heading": "AI가 쓰고\n사람은 방향·테스트",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "desk3d",
+            "beats": [
+              {
+                "target": "white_typer",
+                "label": "코드 쓰는 AI"
+              },
+              {
+                "target": "blue",
+                "label": "사람"
+              },
+              {
+                "target": "yellow_sitter",
+                "label": "방향·테스트 맡은 쪽"
+              }
+            ]
+          }
+        },
+        {
+          "line": "사람이 잠든 밤에도 / AI 일꾼은 / 계속 시험했대요.",
+          "emphasis": [
+            "잠든"
+          ],
+          "heading": "사람이 자는 밤에도\nAI는 시험 중",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "desk3d",
+            "beats": [
+              {
+                "target": "blue",
+                "label": "잠든 사람"
+              },
+              {
+                "target": "white_typer",
+                "label": "시험하는 AI"
+              },
+              {
+                "target": "laptop",
+                "label": "결과 화면"
+              }
+            ]
+          }
+        },
+        {
+          "line": "약 일주일 만에 / 음악이 나왔대요.",
+          "emphasis": [
+            "일주일"
+          ],
+          "heading": "약 일주일 만에\n음악이 나왔다",
+          "section": "얼마나",
+          "visual": {
+            "type": "number",
+            "value": "약 1주일",
+            "label": "부팅과 음악 재생까지"
+          }
+        },
+        {
+          "line": "게임 같은 / 프로그램도 / 357개나 넣었대요.",
+          "emphasis": [
+            "357개나"
+          ],
+          "heading": "프로그램 357개를\n더했다",
+          "section": "결과",
+          "visual": {
+            "type": "number",
+            "value": "357개",
+            "label": "새로 넣은 플러그인"
+          }
+        },
+        {
+          "line": "9달러가 / 이렇게 잘 놀다니요.",
+          "emphasis": [
+            "9달러가"
+          ],
+          "heading": "9달러 플레이어가\n게임까지 한다",
+          "section": "정리",
+          "visual": {
+            "type": "none"
+          }
+        }
+      ],
+      "summary": "한 개발자가 AliExpress에서 산 9달러대 MP3 플레이어(YP3)에 오픈소스 음악 펌웨어 Rockbox를 이식했습니다. LLM이 코드를 쓰고 사람은 방향과 테스트를 맡아 약 일주일 만에 부팅과 음악 재생에 성공했고, 플러그인 357개도 추가했습니다.",
+      "images": [
+        {
+          "id": "img1",
+          "url": "https://jayd.ml/assets/posts/2026-11-14-rockbox-on-yp3/listing.png",
+          "alt": "listing from aliexpress",
+          "source": "jayd.ml",
+          "width": 676,
+          "height": 664
+        }
+      ]
+    },
+    "source_label": "출처: GeekNews · news.hada.io"
   }
 ]
