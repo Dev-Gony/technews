@@ -1492,5 +1492,171 @@
       ]
     },
     "source_label": "출처: GeekNews · news.hada.io"
+  },
+  {
+    "date": "2026-11-27",
+    "link": "https://news.hada.io/topic?id=37923",
+    "title": "정보 파는 회사들한테 보낼 삭제 요청서, 자동으로 작성",
+    "video_id": "UpO7wOIZF_Q",
+    "voice": "Leda",
+    "publish_at": "2026-11-28T18:00:00+09:00",
+    "series": "써먹는 AI",
+    "pick_score": 8,
+    "script": {
+      "title": "정보 파는 회사들한테 보낼 삭제 요청서, 자동으로 작성",
+      "cover": "정보 파는 회사\n750곳 넘게 요청",
+      "style": "news",
+      "series": "써먹는 AI",
+      "cuts": [
+        {
+          "line": "개인정보를 / 파는 등록 업체가 / 750곳이 넘는대요.",
+          "emphasis": [
+            "750곳이 넘는대요."
+          ],
+          "heading": "",
+          "section": "",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "파이썬 파일 하나가 / 삭제 요청을 / 대신 써 준대요.",
+          "emphasis": [
+            "파일"
+          ],
+          "heading": "요청서를\n대신 써 준다",
+          "section": "무슨 일",
+          "visual": {
+            "type": "image",
+            "image": "img1",
+            "label": "fuck_data_brokers.py"
+          }
+        },
+        {
+          "line": "이름 이메일 도시를 / 적으면 / 편지가 만들어져요.",
+          "emphasis": [
+            "편지가"
+          ],
+          "heading": "편지 20개씩\n만들어진다",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "work3d",
+            "beats": [
+              {
+                "target": "white",
+                "label": "이름·이메일·도시"
+              },
+              {
+                "target": "note",
+                "label": "요청서 20개"
+              },
+              {
+                "target": "board",
+                "label": "보낼 편지"
+              }
+            ]
+          }
+        },
+        {
+          "line": "편지는 사는 곳 법에 맞춰서 / 단호하게 써 준대요.",
+          "emphasis": [
+            "법에"
+          ],
+          "heading": "사는 곳 법에\n맞춘 편지",
+          "section": "어떻게",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "일주일에 한 번 돌리면 / 몇 달 뒤 / 전체 목록이 끝나요.",
+          "emphasis": [
+            "일주일에",
+            "몇 달"
+          ],
+          "heading": "매주 한 번이면\n몇 달에 끝",
+          "section": "써먹기",
+          "visual": {
+            "type": "scene3d",
+            "scene": "work3d",
+            "beats": [
+              {
+                "target": "calendar",
+                "label": "매주 한 번"
+              },
+              {
+                "target": "blue",
+                "label": "auto 실행"
+              },
+              {
+                "target": "board",
+                "label": "전체 목록"
+              }
+            ]
+          }
+        },
+        {
+          "line": "다만 진짜 지워졌는지는 / 확인 못 하고 / 업체 말만 기록해요.",
+          "emphasis": [
+            "확인"
+          ],
+          "heading": "삭제했다고 함\n으로만 기록",
+          "section": "주의",
+          "visual": {
+            "type": "scene3d",
+            "scene": "vault3d",
+            "beats": [
+              {
+                "target": "white",
+                "label": "업체 답변"
+              },
+              {
+                "target": "safe",
+                "label": "내 정보"
+              },
+              {
+                "target": "shield",
+                "label": "직접 확인 못 함"
+              }
+            ]
+          }
+        },
+        {
+          "line": "요청하다 / 내 정보가 새로 / 넘어갈 수도 있대요.",
+          "emphasis": [
+            "새로"
+          ],
+          "heading": "몰랐던 업체에\n알려질 수도",
+          "section": "나한테는",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "저도 / 이미 내 정보 있을 곳부터 / 해 볼래요.",
+          "emphasis": [
+            "해 볼래요."
+          ],
+          "heading": "이미 정보 가진 곳부터\n시작하기",
+          "section": "정리",
+          "visual": {
+            "type": "none"
+          }
+        }
+      ],
+      "summary": "Python 파일 하나로 750개 이상의 데이터 브로커에게 법에 맞춘 개인정보 삭제 요청서를 작성하고 답변 대응까지 돕는 무료 도구가 공개됐습니다. 실제 삭제 여부는 검증하지 않고, 요청 과정에서 이름·이메일·도시가 새로 전달될 수 있습니다.",
+      "images": [
+        {
+          "id": "img1",
+          "url": "https://agent.garrettstimpson.ca/og/remove.png?v=7f8f13a230e9",
+          "alt": "공식 홈페이지 이미지: 원문 대표 이미지",
+          "source": "공식 홈페이지 · agent.garrettstimpson.ca",
+          "width": 1080,
+          "height": 568
+        }
+      ]
+    },
+    "source_label": "출처: GeekNews · news.hada.io"
   }
 ]
