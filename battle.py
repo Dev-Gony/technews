@@ -48,7 +48,8 @@ def clean_answer(text):
 def ask_both(prompt):
     """같은 문제를 두 AI에게. 돌려주는 값: {"Claude": 답, "Gemini": 답}. 하나라도 못 받으면 예외."""
     claude = shorts.claude_json(ANSWER_SYSTEM, prompt, ANSWER_SCHEMA, model=shorts.CANDIDATE_MODEL)["answer"]
-    gemini = shorts.gemini_json(ANSWER_SYSTEM, prompt, ANSWER_SCHEMA)["answer"]
+    # 짧은 답이라 오래 기다릴 필요가 없다 (응답이 안 오면 60초 만에 다시 시도)
+    gemini = shorts.gemini_json(ANSWER_SYSTEM, prompt, ANSWER_SCHEMA, timeout=60)["answer"]
     return {CLAUDE_LABEL: clean_answer(claude), GEMINI_LABEL: clean_answer(gemini)}
 
 

@@ -1635,7 +1635,7 @@ def write_candidate(article, source_text, angle):
 GEMINI_RETRIES = 4
 
 
-def gemini_json(system_prompt, user_prompt, schema):
+def gemini_json(system_prompt, user_prompt, schema, timeout=300):
     """Gemini(무료 등급)로 schema에 맞는 JSON을 받는다. Claude를 못 쓸 때의 예비 경로."""
     if not GEMINI_API_KEY:
         raise RuntimeError("GEMINI_API_KEY가 없어 Gemini 예비 경로를 쓸 수 없습니다.")
@@ -1667,15 +1667,24 @@ def gemini_json(system_prompt, user_prompt, schema):
     # 무료 등급은 붐빌 때 503/429를 자주 준다. 잠깐 쉬었다가 몇 번 더 시도한다.
     for attempt in range(GEMINI_RETRIES):
         try:
-            with urllib.request.urlopen(request, timeout=300) as response:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
                 result = json.loads(response.read().decode("utf-8"))
             break
-        except urllib.error.HTTPError as error:
-            if error.code not in (429, 500, 503) or attempt == GEMINI_RETRIES - 1:
+        except (TimeoutError, urllib.error.URLError) as error:
+            # 붐빌 때(503/429/500)와 응답이 아예 안 오는 경우(읽기 시간 초과)는 잠깐 쉬고 다시. 그 밖의 HTTP 오류는 바로 실패.
+            if isinstance(error, urllib.error.HTTPError) and error.code not in (429, 500, 503):
+                raise
+            if attempt == GEMINI_RETRIES - 1:
                 raise
             wait = 20 * (attempt + 1)
-            print(f"Gemini {error.code}, {wait}초 뒤 다시 시도 ({attempt + 1}/{GEMINI_RETRIES - 1})")
+            print(f"Gemini {getattr(error, 'code', '응답 없음')}, {wait}초 뒤 다시 시도 ({attempt + 1}/{GEMINI_RETRIES - 1})")
             time.sleep(wait)
+        except OSError as error:
+            if attempt == GEMINI_RETRIES - 1:
+                raise
+            print(f"Gemini 연결 문제({error}), 다시 시도")
+            time.sleep(20)
+            continue
 
     text = "".join(part.get("text", "") for part in result["candidates"][0]["content"]["parts"])
     text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
