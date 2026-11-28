@@ -407,6 +407,51 @@ const QuoteCard: React.FC<{ visual: Visual; p: Palette; frame: number }> = ({ vi
   );
 };
 
+// AI 대결 답 말풍선: 위에 AI 이름, 아래 말풍선에 실제 답이 타자 치듯 써진다 (battle.py)
+const AI_COLORS: Record<string, string> = { Claude: "#D97757", Gemini: "#4C8DFF" };
+
+const ChatCard: React.FC<{ visual: Visual; p: Palette; frame: number; sceneFrames: number }> = ({ visual, p, frame, sceneFrames }) => {
+  const name = visual.label ?? "";
+  const color = AI_COLORS[name] ?? p.accent;
+  const text = visual.quote ?? "";
+  const typed = Math.round(interpolate(frame, [6, Math.max(sceneFrames * 0.6, 12)], [0, text.length], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  const size = text.length > 50 ? 48 : text.length > 28 ? 56 : 66;
+
+  return (
+    <CardBox p={p} padding={44}>
+      <div style={{ display: "flex", alignItems: "center", gap: 18, opacity: rise(frame, 0) }}>
+        <div style={{ width: 64, height: 64, borderRadius: 999, background: color, display: "flex", alignItems: "center", justifyContent: "center", color: "#FFFFFF", fontFamily, fontWeight: 900, fontSize: 34 }}>
+          {name.slice(0, 1)}
+        </div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ fontFamily, fontWeight: 900, fontSize: 44, color: p.ink, lineHeight: 1.1 }}>{name}</div>
+          {visual.value ? <div style={{ fontFamily, fontWeight: 600, fontSize: 26, color: p.faint }}>{visual.value}</div> : null}
+        </div>
+      </div>
+      <div
+        style={{
+          marginTop: 30,
+          padding: "28px 34px",
+          borderRadius: 28,
+          borderTopLeftRadius: 6,
+          background: p.sub,
+          borderLeft: `8px solid ${color}`,
+          fontFamily,
+          fontWeight: 800,
+          fontSize: size,
+          lineHeight: 1.4,
+          color: p.ink,
+          wordBreak: "keep-all",
+          minHeight: size * 1.4 * 2 + 56,
+        }}
+      >
+        {text.slice(0, typed)}
+        {typed < text.length ? <span style={{ color }}>▍</span> : null}
+      </div>
+    </CardBox>
+  );
+};
+
 // 비유: "무엇 → 실제로는" 두 칸 표
 const PairsCard: React.FC<{ visual: Visual; p: Palette; frame: number }> = ({ visual, p, frame }) => {
   const rooms = (visual.rooms ?? []).slice(0, 3);
@@ -498,6 +543,8 @@ const cardFor = (visual: Visual, p: Palette, frame: number, sceneFrames: number)
       return visual.code ? <IdeCodeVisual visual={visual} sceneFrames={sceneFrames} bare /> : null;
     case "image":
       return visual.src ? <ImageCard visual={visual} p={p} frame={frame} sceneFrames={sceneFrames} /> : null;
+    case "chat":
+      return visual.quote ? <ChatCard visual={visual} p={p} frame={frame} sceneFrames={sceneFrames} /> : null;
     default:
       return null;
   }
