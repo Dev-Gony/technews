@@ -90,7 +90,8 @@ def build_script(battle, answers):
          "section": "대결", "visual": {"type": "scene3d", "scene": "chat3d",
                                       "beats": [{"target": "white", "label": "Claude"}, {"target": "blue", "label": "Gemini"},
                                                 {"target": "typing", "label": "생각 중"}]}},
-        {"line": f"문제는요, / {chunk_line(battle['prompt'])}", "emphasis": [], "heading": "오늘의 문제", "section": "문제",
+        # 대사는 짧게(커버 문구), 화면 카드에는 두 AI에게 준 문제 원문 그대로
+        {"line": f"문제는요, / {chunk_line(battle['cover'].replace(chr(10), ' '))}", "emphasis": [], "heading": "오늘의 문제", "section": "문제",
          "visual": {"type": "quote", "quote": battle["prompt"], "label": "같은 문제를 그대로 줬어요"}},
         {"line": f"먼저 클로드. / {chunk_line(claude)}", "emphasis": [], "heading": "클로드의 답", "section": "Claude",
          "visual": {"type": "chat", "label": CLAUDE_LABEL, "value": f"Claude {shorts.CANDIDATE_MODEL.title()}", "quote": claude}},
@@ -102,7 +103,8 @@ def build_script(battle, answers):
         winners = [name for name, ok in result.items() if ok]
         verdict = "둘 다 맞혔어요." if len(winners) == 2 else "둘 다 틀렸어요." if not winners else f"{'클로드' if winners[0] == CLAUDE_LABEL else '제미나이'} 승!"
         cuts.append({"line": f"정답은 / {truth}. / {verdict}", "emphasis": [truth], "heading": f"정답 {truth}", "section": "채점",
-                     "visual": {"type": "number", "value": truth, "label": "정답"}})
+                     # 숫자가 0부터 올라가는 카드는 중간에 틀린 숫자가 보여서, 정답은 처음부터 그대로 보이는 카드로
+                     "visual": {"type": "keywords", "items": [f"정답 {truth}"]}})
         cuts.append({"line": "여러분은 / 바로 맞히셨나요? / 댓글로 알려 주세요.", "emphasis": [], "heading": "여러분은\n맞혔나요?",
                      "section": "정리", "visual": {"type": "none"}})
     else:
