@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "issue_number": 70,
+  "issue_date": "2026-11-28",
+  "generated_at": "2026-11-28T12:06:10.710245+09:00",
+  "profile_name": "default",
+  "editorial": "[오늘의 기술 키워드]\n\nSecurity Audit, Model Uncertainty, WebRTC, Data Exfiltration, System Reliability\n\n[오늘의 한줄 포인트]\n\n시스템의 안정성과 보안을 위협하는 신종 공격 경로를 파악하고, AI 모델의 불확실성을 제어하는 실무적 통찰이 필요한 시점입니다.\n\n[오늘 왜 중요한가]\n\n최근 웹 서비스와 AI 에이전트를 타겟으로 한 보안 위협이 더욱 정교해지고 있습니다. 개발자는 단순히 기능을 구현하는 것을 넘어, 배포된 서비스의 취약점을 상시 점검하고 AI 모델의 예측 한계를 이해하여 안전한 시스템을 설계해야 합니다.\n\n[왜 이 글들을 골랐나]\n\n• 2번: 배포된 서비스의 보안 취약점을 즉시 점검할 수 있는 실용적인 도구를 소개하여 개발 생산성과 보안 실무에 즉각적인 도움을 줍니다.\n• 5번: LLM 및 데이터 분석 모델의 불확실성을 구분하고 모델링하는 법을 다루어, AI 기술을 실무에 도입할 때 발생할 수 있는 잘못된 확신을 방지합니다.\n• 3번: 기존 보안망을 우회하는 WebRTC 기반의 신종 데이터 탈취 공격 사례를 통해 결제 시스템 및 웹 보안의 새로운 위협 요소를 경고합니다.\n\n[오늘 공부해볼 것]\n\n• Supabase RLS 설정 및 보안 점검: 배포된 서비스의 데이터 접근 제어가 올바르게 설정되었는지 확인하고, 권한 분리 원칙을 다시 점검하기 위함입니다.\n• 머신러닝 모델의 불확실성 측정 기법: 모델이 예측 결과와 함께 신뢰도를 반환하도록 설계하여, AI 서비스의 의사결정 안정성을 높이기 위함입니다.\n• WebRTC 데이터 채널 보안 정책: 실시간 통신을 활용한 서비스에서 데이터 유출을 방지하기 위한 클라이언트 사이드 보안 및 CSP 정책을 학습하기 위함입니다.",
+  "stats": {
+    "candidate_count": 21,
+    "detailed_count": 7,
+    "brief_count": 5,
+    "excluded_count": 9,
+    "unresolved_count": 0
+  },
+  "top_stories": [
+    {
+      "company": "GeekNews",
+      "title": "Show GN: 틈 - 배포한 사이트를 밖에서 열어 보는 노출 점검 (Supabase 공개 테이블, /.env, 번들 속 키)",
+      "link": "https://news.hada.io/topic?id=37963",
+      "published_at": "2026-11-28T02:24:27+09:00",
+      "selection_score": 14,
+      "selection_reason": "보안 취약점 점검 도구는 개발 생산성과 보안 실무 측면에서 매우 높은 활용 가치를 가집니다.",
+      "feedback_bias": 0,
+      "one_line": "배포된 웹 서비스의 보안 취약점을 자동으로 점검하는 도구 '틈' 소개",
+      "key_points": [
+        "배포된 사이트의 노출된 .env 파일, Supabase 공개 테이블, 번들 내 민감 키를 탐지하는 웹 도구임.",
+        "가입 없이 도메인 입력만으로 즉시 보안 상태를 점검할 수 있는 편의성을 제공함.",
+        "개발자가 흔히 실수하는 RLS 설정 누락이나 민감 정보 하드코딩을 방지하는 데 목적이 있음."
+      ],
+      "topics": [
+        "Security Audit",
+        "Supabase RLS",
+        "Secret Management"
+      ],
+      "recommended_for": "웹 서비스를 배포하고 운영 중인 모든 개발자",
+      "actionability": 5,
+      "action": {
+        "type": "experiment",
+        "title": "운영 중인 서비스의 보안 노출 여부 즉시 점검",
+        "steps": [
+          "도구 사이트에 접속하여 운영 중인 서비스 도메인을 입력함.",
+          "결과 리포트를 확인하여 노출된 환경 변수나 공개된 DB 테이블이 있는지 검토함.",
+          "발견된 취약점이 있다면 즉시 RLS 설정 및 환경 변수 관리 방식을 수정함."
+        ],
+        "effort": "15~30분"
+      },
+      "editorial_rank": 1
+    },
+    {
+      "company": "GeekNews",
+      "title": "머신러닝의 불확실성 입문",
+      "link": "https://news.hada.io/topic?id=37976",
+      "published_at": "2026-11-28T08:46:25+09:00",
+      "selection_score": 14,
+      "selection_reason": "LLM 및 데이터 분석 모델의 불확실성을 이해하는 것은 AI 에이전트 설계와 데이터 분석 실무에 필수적인 지식입니다.",
+      "feedback_bias": 0,
+      "one_line": "머신러닝 모델의 불확실성(Uncertainty) 이해와 데이터 분석 전략",
+      "key_points": [
+        "모델이 학습하지 못한 영역(인식적)과 입력 데이터의 한계(우연적)에서 발생하는 불확실성을 구분해야 함.",
+        "단순 평균 예측 모델은 데이터 분포가 복잡할 때 잘못된 확신을 가질 수 있음을 경고함.",
+        "모델의 성능 향상을 위해서는 데이터 양뿐만 아니라 불확실성을 모델링하는 구조적 접근이 필요함."
+      ],
+      "topics": [
+        "Epistemic Uncertainty",
+        "Aleatoric Uncertainty",
+        "Model Calibration"
+      ],
+      "recommended_for": "LLM 및 데이터 분석 모델을 설계하거나 활용하는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 2
+    },
+    {
+      "company": "GeekNews",
+      "title": "인기 쇼핑 사이트에서 WebRTC를 이용한 신용카드 정보 탈취 스크립트 발견",
+      "link": "https://news.hada.io/topic?id=37967",
+      "published_at": "2026-11-28T04:35:50+09:00",
+      "selection_score": 13,
+      "selection_reason": "WebRTC를 이용한 신종 보안 공격 사례는 백엔드 및 웹 개발자에게 매우 중요한 보안 경고입니다.",
+      "feedback_bias": 0,
+      "one_line": "WebRTC 데이터 채널을 악용한 신종 신용카드 정보 탈취 공격 주의",
+      "key_points": [
+        "일부 쇼핑몰 결제 페이지에서 WebRTC 데이터 채널을 통해 카드 정보를 외부로 전송하는 스크립트가 발견됨.",
+        "기존 보안 감시망을 우회하기 위해 일반적인 HTTP 요청 대신 WebRTC 통신 경로를 활용함.",
+        "모바일 결제 환경을 타겟으로 하며, 데스크톱 검사 시에는 공격 코드가 실행되지 않도록 설계됨."
+      ],
+      "topics": [
+        "WebRTC",
+        "Data Exfiltration",
+        "Client-side Security"
+      ],
+      "recommended_for": "결제 시스템을 운영하거나 웹 보안을 담당하는 백엔드/프론트엔드 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      },
+      "editorial_rank": 3
+    }
+  ],
+  "more_detailed": [
+    {
+      "company": "Spotify Engineering",
+      "title": "September 29 Outage Incident Report: What we learnt",
+      "link": "https://engineering.atspotify.com/2026/11/september-29-outage-incident-report-what-we-learnt",
+      "published_at": "Fri, 27 Nov 2026 14:00:11 +0000",
+      "selection_score": 12,
+      "selection_reason": "백엔드 아키텍처와 장애 대응 사례는 실무자에게 매우 중요한 학습 자료입니다.",
+      "feedback_bias": 0,
+      "one_line": "Spotify의 9월 장애 사례를 통해 배운 시스템 안정성 및 복구 전략",
+      "key_points": [
+        "9월 29일 발생한 Spotify의 플랫폼 접속 장애 원인과 대응 과정을 분석함.",
+        "대규모 분산 시스템에서 발생하는 장애의 전파 경로와 복구 시 고려해야 할 아키텍처적 교훈을 공유함.",
+        "장애 대응 프로세스의 투명성과 사후 분석(Post-mortem)의 중요성을 강조함."
+      ],
+      "topics": [
+        "Incident Response",
+        "System Reliability",
+        "Post-mortem"
+      ],
+      "recommended_for": "백엔드 아키텍처 설계 및 장애 대응 프로세스에 관심 있는 개발자",
+      "actionability": 3,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Convex 스킬, 사용자에게 알리지 않고 앱 아이디어를 원격 서버로 전송",
+      "link": "https://news.hada.io/topic?id=37973",
+      "published_at": "2026-11-28T07:32:40+09:00",
+      "selection_score": 13,
+      "selection_reason": "AI 에이전트 및 플러그인 보안과 데이터 프라이버시 이슈를 다루고 있어 실무자에게 매우 중요한 경고를 제공합니다.",
+      "feedback_bias": 0,
+      "one_line": "Convex 플러그인의 사용자 데이터 무단 전송 및 원격 스크립트 실행 논란",
+      "key_points": [
+        "Claude 마켓플레이스의 Convex 플러그인이 사용자 아이디어를 외부 서버로 무단 전송하고 원격 스크립트를 실행함.",
+        "온보딩 안정화를 위한 의도였으나, 보안 및 프라이버시 측면에서 투명성 결여 문제가 제기됨.",
+        "안전 분류기를 우회하려는 코드 주석과 설계 방식이 개발자 커뮤니티에서 비판받음."
+      ],
+      "topics": [
+        "AI Agent Security",
+        "Supply Chain Security",
+        "Data Privacy"
+      ],
+      "recommended_for": "AI 에이전트 및 외부 플러그인을 업무에 활용하는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "adoption_review",
+        "title": "사용 중인 AI 플러그인 및 외부 라이브러리 보안 검토",
+        "steps": [
+          "현재 사용 중인 AI 에이전트 플러그인 목록을 정리함.",
+          "각 플러그인이 외부로 데이터를 전송하는지, 권한 범위가 적절한지 공식 문서를 통해 확인함.",
+          "불투명한 데이터 처리가 의심되는 플러그인은 사용을 중단하거나 대안을 검토함."
+        ],
+        "effort": "30~60분"
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "모두가 모든 것을 만들고 있다",
+      "link": "https://news.hada.io/topic?id=37978",
+      "published_at": "2026-11-28T09:10:02+09:00",
+      "selection_score": 12,
+      "selection_reason": "개발 도구 시장의 확장 트렌드와 제품 전략을 분석하여, 개발 생산성 도구 생태계의 변화를 파악하는 데 유용합니다.",
+      "feedback_bias": 0,
+      "one_line": "개발 도구 시장이 기존 영역을 넘어 인접 분야로 기능을 확장하며 생태계 통합 경쟁이 심화되고 있습니다.",
+      "key_points": [
+        "WorkOS, Depot, Linear, Warp 등 주요 개발 도구 기업들이 기존 핵심 기능을 넘어 사내 앱 플랫폼, Git 호스팅, AI 코딩 등으로 제품군을 확장하고 있습니다.",
+        "AI 기술로 기능 구현은 쉬워졌으나, 보안, 규제 준수, SLA 등 엔터프라이즈급 운영 부담이 증가하고 있습니다.",
+        "단순 기능 추가보다 기존 고객 기반을 활용해 실제 사용률을 높이는 제품 시장 적합성(PMF) 확보가 더욱 중요해졌습니다."
+      ],
+      "topics": [
+        "제품 확장 전략(Product Expansion)",
+        "개발자 경험(DX) 플랫폼화"
+      ],
+      "recommended_for": "제품 전략을 고민하는 백엔드 개발자 및 개발 도구 생태계에 관심 있는 엔지니어",
+      "actionability": 2,
+      "action": {
+        "type": "none",
+        "title": "",
+        "steps": [],
+        "effort": ""
+      }
+    },
+    {
+      "company": "GeekNews",
+      "title": "Jolt - C와 대화하는 Clojure",
+      "link": "https://news.hada.io/topic?id=37979",
+      "published_at": "2026-11-28T09:30:02+09:00",
+      "selection_score": 12,
+      "selection_reason": "JVM 없이 Clojure를 네이티브로 실행하는 기술은 백엔드 아키텍처의 경량화와 성능 개선 측면에서 흥미로운 대안입니다.",
+      "feedback_bias": 0,
+      "one_line": "Jolt는 JVM 없이 Clojure를 네이티브로 실행하고 C 라이브러리와 직접 연동할 수 있게 해주는 새로운 구현체입니다.",
+      "key_points": [
+        "Jolt는 Clojure 코드를 Scheme으로 변환하여 JVM 의존성 없이 단일 실행 파일로 배포할 수 있는 네이티브 환경을 제공합니다.",
+        "SQLite, PostgreSQL, OpenSSL 등 기존 C 라이브러리를 Clojure 함수처럼 직접 호출하여 시스템 수준의 기능을 활용할 수 있습니다.",
+        "Clojure의 불변 자료구조와 매크로 등 핵심 기능을 유지하면서도, Chez Scheme 기반의 고성능 네이티브 실행과 JavaScript 출력을 지원합니다."
+      ],
+      "topics": [
+        "네이티브 컴파일(Native Compilation)",
+        "FFI(Foreign Function Interface)",
+        "Clojure"
+      ],
+      "recommended_for": "JVM의 무거운 런타임을 피하고 싶은 백엔드 개발자 및 고성능 시스템 프로그래밍에 관심 있는 개발자",
+      "actionability": 4,
+      "action": {
+        "type": "experiment",
+        "title": "Jolt를 활용한 간단한 네이티브 CLI 도구 프로토타이핑",
+        "steps": [
+          "Jolt 공식 저장소에서 설치 가이드를 확인하고 로컬 환경에 런타임을 설치합니다.",
+          "기존 C 라이브러리(예: SQLite)를 연동하는 간단한 Clojure 스크립트를 작성합니다.",
+          "jolt build 명령어를 통해 의존성이 포함된 단일 실행 파일을 생성하고 실행 속도를 테스트합니다."
+        ],
+        "effort": "30~60분"
+      }
+    }
+  ],
+  "brief_articles": [
+    {
+      "company": "GeekNews",
+      "title": "Rust의 락 오염을 옹호하며 (2025)",
+      "link": "https://news.hada.io/topic?id=37962",
+      "published_at": "2026-11-28T02:04:23+09:00",
+      "selection_score": 10,
+      "selection_reason": "Rust의 락 오염 개념은 안정적인 백엔드 시스템 구축을 위해 알아두면 좋은 기술적 지식입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "Kimi for Science: 더 많은 과학적 아이디어를 실현 가능하게",
+      "link": "https://news.hada.io/topic?id=37965",
+      "published_at": "2026-11-28T02:35:28+09:00",
+      "selection_score": 10,
+      "selection_reason": "LLM API 활용 연구 지원 프로그램은 AI 기술을 실무에 적용하려는 사용자에게 유용한 정보입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "미국 주정부들, Grok의 비동의 성적 이미지 생성 및 유통 문제로 SpaceX 제소",
+      "link": "https://news.hada.io/topic?id=37974",
+      "published_at": "2026-11-28T08:40:25+09:00",
+      "selection_score": 10,
+      "selection_reason": "AI 생성 콘텐츠의 윤리적, 법적 책임에 관한 중요한 업계 이슈로, AI 서비스 개발 시 반드시 고려해야 할 사안입니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "컴퓨터 검증을 통과한 거짓 증명",
+      "link": "https://news.hada.io/topic?id=37975",
+      "published_at": "2026-11-28T08:43:25+09:00",
+      "selection_score": 10,
+      "selection_reason": "컴퓨터 검증 시스템의 한계와 보안 취약점을 다루어, 신뢰성 높은 시스템 아키텍처 설계에 시사점을 줍니다.",
+      "feedback_bias": 0
+    },
+    {
+      "company": "GeekNews",
+      "title": "BUI: BlenderUI를 사용하는 세계 최대 2D 차트 라이브러리",
+      "link": "https://news.hada.io/topic?id=37980",
+      "published_at": "2026-11-28T09:31:35+09:00",
+      "selection_score": 9,
+      "selection_reason": "데이터 시각화 및 UI 컴포넌트 구현에 관심 있는 개발자에게 실질적인 라이브러리 활용 사례를 제공합니다.",
+      "feedback_bias": 0
+    }
+  ],
+  "failed_sources": []
+}

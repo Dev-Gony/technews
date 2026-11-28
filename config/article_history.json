@@ -1,6 +1,117 @@
 {
   "articles": [
     {
+      "recorded_at": "2026-11-28T12:06:10.847791+09:00",
+      "company": "Spotify Engineering",
+      "title": "September 29 Outage Incident Report: What we learnt",
+      "link": "https://engineering.atspotify.com/2026/11/september-29-outage-incident-report-what-we-learnt",
+      "published_at": "Fri, 27 Nov 2026 14:00:11 +0000",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "Incident Response",
+        "System Reliability",
+        "Post-mortem"
+      ],
+      "one_line": "Spotify의 9월 장애 사례를 통해 배운 시스템 안정성 및 복구 전략",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-28T12:06:10.847791+09:00",
+      "company": "GeekNews",
+      "title": "Show GN: 틈 - 배포한 사이트를 밖에서 열어 보는 노출 점검 (Supabase 공개 테이블, /.env, 번들 속 키)",
+      "link": "https://news.hada.io/topic?id=37963",
+      "published_at": "2026-11-28T02:24:27+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Security Audit",
+        "Supabase RLS",
+        "Secret Management"
+      ],
+      "one_line": "배포된 웹 서비스의 보안 취약점을 자동으로 점검하는 도구 '틈' 소개",
+      "actionability": 5
+    },
+    {
+      "recorded_at": "2026-11-28T12:06:10.847791+09:00",
+      "company": "GeekNews",
+      "title": "인기 쇼핑 사이트에서 WebRTC를 이용한 신용카드 정보 탈취 스크립트 발견",
+      "link": "https://news.hada.io/topic?id=37967",
+      "published_at": "2026-11-28T04:35:50+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "WebRTC",
+        "Data Exfiltration",
+        "Client-side Security"
+      ],
+      "one_line": "WebRTC 데이터 채널을 악용한 신종 신용카드 정보 탈취 공격 주의",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-28T12:06:10.847791+09:00",
+      "company": "GeekNews",
+      "title": "Convex 스킬, 사용자에게 알리지 않고 앱 아이디어를 원격 서버로 전송",
+      "link": "https://news.hada.io/topic?id=37973",
+      "published_at": "2026-11-28T07:32:40+09:00",
+      "selection_score": 13,
+      "feedback_bias": 0,
+      "topics": [
+        "AI Agent Security",
+        "Supply Chain Security",
+        "Data Privacy"
+      ],
+      "one_line": "Convex 플러그인의 사용자 데이터 무단 전송 및 원격 스크립트 실행 논란",
+      "actionability": 4
+    },
+    {
+      "recorded_at": "2026-11-28T12:06:10.847791+09:00",
+      "company": "GeekNews",
+      "title": "머신러닝의 불확실성 입문",
+      "link": "https://news.hada.io/topic?id=37976",
+      "published_at": "2026-11-28T08:46:25+09:00",
+      "selection_score": 14,
+      "feedback_bias": 0,
+      "topics": [
+        "Epistemic Uncertainty",
+        "Aleatoric Uncertainty",
+        "Model Calibration"
+      ],
+      "one_line": "머신러닝 모델의 불확실성(Uncertainty) 이해와 데이터 분석 전략",
+      "actionability": 3
+    },
+    {
+      "recorded_at": "2026-11-28T12:06:10.847791+09:00",
+      "company": "GeekNews",
+      "title": "모두가 모든 것을 만들고 있다",
+      "link": "https://news.hada.io/topic?id=37978",
+      "published_at": "2026-11-28T09:10:02+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "제품 확장 전략(Product Expansion)",
+        "개발자 경험(DX) 플랫폼화"
+      ],
+      "one_line": "개발 도구 시장이 기존 영역을 넘어 인접 분야로 기능을 확장하며 생태계 통합 경쟁이 심화되고 있습니다.",
+      "actionability": 2
+    },
+    {
+      "recorded_at": "2026-11-28T12:06:10.847791+09:00",
+      "company": "GeekNews",
+      "title": "Jolt - C와 대화하는 Clojure",
+      "link": "https://news.hada.io/topic?id=37979",
+      "published_at": "2026-11-28T09:30:02+09:00",
+      "selection_score": 12,
+      "feedback_bias": 0,
+      "topics": [
+        "네이티브 컴파일(Native Compilation)",
+        "FFI(Foreign Function Interface)",
+        "Clojure"
+      ],
+      "one_line": "Jolt는 JVM 없이 Clojure를 네이티브로 실행하고 C 라이브러리와 직접 연동할 수 있게 해주는 새로운 구현체입니다.",
+      "actionability": 4
+    },
+    {
       "recorded_at": "2026-11-27T12:29:52.271920+09:00",
       "company": "네이버 D2",
       "title": "Jetpack Compose 기반 커스텀 3D 캐러셀 개발기",
@@ -7876,118 +7987,7 @@
       ],
       "one_line": "OpenSSL 4.1.0 출시: DTLS 1.3 및 GREASE 지원 추가",
       "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-23T08:55:22.425110+09:00",
-      "company": "왓챠",
-      "title": "감으로 맞추던 값을 식을 세워서 kubernetes 최적화하기",
-      "link": "https://medium.com/watcha/kubernetes-%EB%B0%B0%EC%B9%98-%EC%9B%8C%ED%81%AC%EB%A1%9C%EB%93%9C%EC%9D%98-%EB%B9%84%EC%9A%A9-%EB%AA%A8%EB%8D%B8%EA%B3%BC-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0-%EA%B2%B0%EC%A0%95-3724d2c4ad99",
-      "published_at": "Thu, 22 Oct 2026 00:30:10 GMT",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "모델 기반 최적화",
-        "트레이드오프 분석",
-        "확률적 마감 기한 관리"
-      ],
-      "one_line": "Kubernetes 인코딩 플랫폼의 비용과 성능 최적화를 위해 경험적 방법 대신 수학적 모델 기반 접근 방식을 도입함.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-23T08:55:22.425110+09:00",
-      "company": "Google Developers",
-      "title": "Architecting Governed, Self-Evolving AI Agents on Google Cloud",
-      "link": "https://developers.googleblog.com/architecting-governed-self-evolving-ai-agents-on-gemini-agent-platform",
-      "published_at": "",
-      "selection_score": 15,
-      "feedback_bias": 0,
-      "topics": [
-        "Agentic Workflow",
-        "심층 방어(Defense-in-depth)",
-        "AI 거버넌스"
-      ],
-      "one_line": "Google Cloud의 Gemini Enterprise Agent Platform을 활용한 거버넌스 기반의 자가 진화형 AI 에이전트 아키텍처 소개.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-23T08:55:22.425110+09:00",
-      "company": "Google Developers",
-      "title": "Streaming comes to API Gateway: real-time and AI-ready APIs, without changing your spec",
-      "link": "https://developers.googleblog.com/streaming-comes-to-api-gateway-real-time-and-ai-ready-apis-without-changing-your-spec",
-      "published_at": "",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "API Gateway",
-        "Real-time Streaming",
-        "Observability"
-      ],
-      "one_line": "API Gateway가 기존 스펙 변경 없이 실시간 스트리밍(SSE, WebSockets, gRPC)을 지원하여 AI 워크로드 처리가 용이해짐.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-23T08:55:22.425110+09:00",
-      "company": "Netflix TechBlog",
-      "title": "Single-tenant Titus: VM-level isolation on a multi-tenant container platform",
-      "link": "https://netflixtechblog.com/single-tenant-titus-vm-level-isolation-on-a-multi-tenant-container-platform-6d8b1909d163",
-      "published_at": "Thu, 22 Oct 2026 22:19:12 GMT",
-      "selection_score": 12,
-      "feedback_bias": 0,
-      "topics": [
-        "Multi-tenancy",
-        "Noisy Neighbor",
-        "하드웨어 격리"
-      ],
-      "one_line": "Netflix Titus 플랫폼에서 공유 커널의 한계를 극복하기 위해 단일 테넌트 VM 격리 모드를 도입함.",
-      "actionability": 3
-    },
-    {
-      "recorded_at": "2026-10-23T08:55:22.425110+09:00",
-      "company": "AWS Compute",
-      "title": "OS patching and upgrades with Amazon EC2 root volume replacement",
-      "link": "https://aws.amazon.com/blogs/compute/os-patching-and-upgrades-with-amazon-ec2-root-volume-replacement",
-      "published_at": "Thu, 22 Oct 2026 17:30:32 +0000",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "EC2 Root Volume Replacement",
-        "OS 패치 자동화",
-        "인프라 유지보수"
-      ],
-      "one_line": "Amazon EC2 루트 볼륨 교체(RRV) 기능을 통해 인스턴스 ID와 리소스를 유지하며 OS 패치 및 업그레이드를 수행하는 방법.",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-23T08:55:22.425110+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: Brello Scan – AI API 비용 속 새는 곳을 찾아 주는 무료 스캐너",
-      "link": "https://news.hada.io/topic?id=35805",
-      "published_at": "2026-10-22T17:20:18+09:00",
-      "selection_score": 14,
-      "feedback_bias": 0,
-      "topics": [
-        "API 비용 최적화",
-        "LLM 토큰 효율화"
-      ],
-      "one_line": "OpenAI 및 Anthropic API 사용량을 분석해 비용 절감 포인트를 찾아주는 브라우저 기반 무료 스캐너",
-      "actionability": 4
-    },
-    {
-      "recorded_at": "2026-10-23T08:55:22.425110+09:00",
-      "company": "GeekNews",
-      "title": "Show GN: Rollipop: 현대적인 React Native 빌드 도구",
-      "link": "https://news.hada.io/topic?id=35807",
-      "published_at": "2026-10-22T18:06:11+09:00",
-      "selection_score": 11,
-      "feedback_bias": 0,
-      "topics": [
-        "React Native 빌드 최적화",
-        "Rolldown",
-        "MCP(Model Context Protocol)"
-      ],
-      "one_line": "Rust 기반 번들러 Rolldown을 활용해 빌드 속도와 성능을 대폭 개선한 현대적인 React Native 빌드 도구",
-      "actionability": 3
     }
   ],
-  "updated_at": "2026-11-27T12:29:52.271920+09:00"
+  "updated_at": "2026-11-28T12:06:10.847791+09:00"
 }
