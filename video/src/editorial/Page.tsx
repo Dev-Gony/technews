@@ -208,7 +208,8 @@ const BeforeAfterCard: React.FC<{ visual: Visual; p: Palette; frame: number }> =
 const BarsCard: React.FC<{ visual: Visual; p: Palette; frame: number }> = ({ visual, p, frame }) => {
   const bars = (visual.bars ?? []).slice(0, 4);
   const max = Math.max(...bars.map((bar) => bar.value), 1);
-  const top = bars.reduce((best, bar, index) => (bar.value > bars[best].value ? index : best), 0);
+  // 강조할 막대: focus가 있으면 그것(예: AI 대결의 더 빠른 쪽), 없으면 가장 큰 값
+  const top = visual.focus ?? bars.reduce((best, bar, index) => (bar.value > bars[best].value ? index : best), 0);
 
   return (
     <CardBox p={p}>

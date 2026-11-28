@@ -89,6 +89,15 @@ def speak_seconds(value):
     return f"{value:g}초"
 
 
+def speed_bars(times):
+    """둘 다 맞혔을 때 화면: 두 AI의 걸린 시간 막대 (짧을수록 빠름)."""
+    names = (CLAUDE_LABEL, GEMINI_LABEL)
+    return {"type": "compare", "label": "답 받기까지 걸린 시간",
+            "bars": [{"label": name, "value": times[name], "display": speak_seconds(times[name])} for name in names],
+            # 짧을수록 빠르다: 더 빠른 쪽을 강조
+            "focus": min(range(len(names)), key=lambda index: times[names[index]])}
+
+
 def build_script(battle, answers, times):
     truth, result = grade(battle.get("check"), answers)
     claude, gemini = answers[CLAUDE_LABEL], answers[GEMINI_LABEL]
@@ -124,8 +133,8 @@ def build_script(battle, answers, times):
         else:
             verdict = "둘 다 틀렸어요."
         cuts.append({"line": f"정답은 / {truth}. / {verdict}", "emphasis": [truth], "heading": f"정답 {truth}", "section": "채점",
-                     # 숫자가 0부터 올라가는 카드는 중간에 틀린 숫자가 보여서, 정답은 처음부터 그대로 보이는 카드로
-                     "visual": {"type": "keywords", "items": [f"정답 {truth}"]}})
+                     # 둘 다 맞히면 걸린 시간 막대로 빠르기를 보여 주고, 아니면 정답을 처음부터 그대로 (숫자 카운트업은 중간에 틀린 숫자가 보임)
+                     "visual": speed_bars(times) if len(winners) == 2 else {"type": "keywords", "items": [f"정답 {truth}"]}})
         cuts.append({"line": "여러분은 / 바로 맞히셨나요? / 댓글로 알려 주세요.", "emphasis": [], "heading": "여러분은\n맞혔나요?",
                      "section": "정리", "visual": {"type": "none"}})
     else:

@@ -44,6 +44,8 @@ class BattleTest(unittest.TestCase):
         # 둘 다 맞히면 빠른 쪽이 이긴다
         script, _ = battle.build_script(checked, {"Claude": "3", "Gemini": "3개"}, {"Claude": 3.4, "Gemini": 1.2})
         self.assertTrue(any("제미나이가" in cut["line"] and "2.2초 더 빨랐어요" in cut["line"] for cut in script["cuts"]))
+        bars = next(cut["visual"] for cut in script["cuts"] if cut["visual"]["type"] == "compare")
+        self.assertEqual([(bar["label"], bar["display"]) for bar in bars["bars"]], [("Claude", "3.4초"), ("Gemini", "1.2초")])
 
     def test_pick_unused_battle(self):
         items = [{"id": "a"}, {"id": "b"}]
