@@ -1658,5 +1658,175 @@
       ]
     },
     "source_label": "출처: GeekNews · news.hada.io"
+  },
+  {
+    "date": "2026-11-27",
+    "link": "https://news.hada.io/topic?id=37934",
+    "title": "맥북 한 대로 테슬라 화면을 만들었다고?",
+    "video_id": "CYo10-xFESE",
+    "voice": "Leda",
+    "publish_at": "2026-11-29T18:00:00+09:00",
+    "series": "이게 된다고?",
+    "pick_score": 6,
+    "script": {
+      "title": "맥북 한 대로 테슬라 화면을 만들었다고?",
+      "cover": "맥북 한 대로\n테슬라 화면 재현",
+      "style": "news",
+      "series": "이게 된다고?",
+      "cuts": [
+        {
+          "line": "맥북 한 대로 / 테슬라 화면을 / 만들었대요.",
+          "emphasis": [
+            "맥북"
+          ],
+          "heading": "",
+          "section": "",
+          "visual": {
+            "type": "none"
+          }
+        },
+        {
+          "line": "머스크가 / 밝힌 방법을 / 그대로 따라 했대요.",
+          "emphasis": [
+            "머스크가"
+          ],
+          "heading": "머스크 방법을\n그대로 따라 했다",
+          "section": "무슨 일",
+          "visual": {
+            "type": "image",
+            "image": "img1",
+            "label": "RealView"
+          }
+        },
+        {
+          "line": "그림 로봇은 / 카메라 없이 / 메모만 보고 / 그린대요.",
+          "emphasis": [
+            "메모만"
+          ],
+          "heading": "카메라 없이\n메모만 보고 그린다",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "robot3d",
+            "beats": [
+              {
+                "target": "robot",
+                "label": "그림 로봇"
+              },
+              {
+                "target": "white",
+                "label": "본 걸 적은 메모"
+              },
+              {
+                "target": "car",
+                "label": "그려질 길"
+              }
+            ]
+          }
+        },
+        {
+          "line": "직전 그림에 / 얼룩을 섞고 / 지우며 8장면을 그려요.",
+          "emphasis": [
+            "8장면을"
+          ],
+          "heading": "얼룩을 지우며\n8장면을 그린다",
+          "section": "어떻게",
+          "visual": {
+            "type": "scene3d",
+            "scene": "robot3d",
+            "beats": [
+              {
+                "target": "blue",
+                "label": "직전 그림"
+              },
+              {
+                "target": "robot",
+                "label": "얼룩 지우기"
+              },
+              {
+                "target": "car",
+                "label": "다음 8장면"
+              }
+            ]
+          }
+        },
+        {
+          "line": "처음 본 길도 / 100번 중 / 약 64번 맞췄대요.",
+          "emphasis": [
+            "64번"
+          ],
+          "heading": "처음 본 길도\n100번 중 약 64번",
+          "section": "얼마나",
+          "visual": {
+            "type": "number",
+            "value": "63.8%",
+            "label": "실제 주행 같은 순간과 일치"
+          }
+        },
+        {
+          "line": "학습은 맥북으로 / 1시간 46분 걸렸대요.",
+          "emphasis": [
+            "1시간",
+            "46분"
+          ],
+          "heading": "학습은 맥북으로\n1시간 46분",
+          "section": "얼마나",
+          "visual": {
+            "type": "number",
+            "value": "1시간 46분",
+            "label": "1만 스텝 학습 시간"
+          }
+        },
+        {
+          "line": "코드도 공개해서 / 명령 세 줄로 / 샘플 주행을 돌려 볼 수 있어요.",
+          "emphasis": [
+            "세 줄로"
+          ],
+          "heading": "명령 세 줄이면\n샘플 주행 완성",
+          "section": "나한테는",
+          "visual": {
+            "type": "scene3d",
+            "scene": "robot3d",
+            "beats": [
+              {
+                "target": "blue",
+                "label": "나"
+              },
+              {
+                "target": "robot",
+                "label": "공개된 코드"
+              },
+              {
+                "target": "car",
+                "label": "60초 샘플 주행"
+              }
+            ]
+          }
+        },
+        {
+          "line": "제 맥북은 / 영상만 보는데요.",
+          "emphasis": [
+            "맥북은"
+          ],
+          "heading": "맥북 한 대로\n길을 그렸다",
+          "section": "정리",
+          "visual": {
+            "type": "none"
+          }
+        }
+      ],
+      "summary": "머스크가 X에 공개한 테슬라 차량 화면(Reality View) 방식을 한 개발팀이 코드로 옮겨, 맥북 한 대로 학습하고 코드와 가중치를 Apache-2.0으로 공개했습니다. 테슬라와 무관한 비공식 구현입니다.",
+      "images": [
+        {
+          "id": "img1",
+          "url": "https://repository-images.githubusercontent.com/1473606977/e1699711-89af-4b1f-8471-ab7be93bee59",
+          "alt": "원문 대표 이미지",
+          "source": "repository-images.githubusercontent.com",
+          "width": 1080,
+          "height": 540
+        }
+      ]
+    },
+    "source_label": "출처: GeekNews · news.hada.io"
   }
 ]
