@@ -46,11 +46,16 @@ def clean_answer(text):
 
 
 def ask_both(prompt):
-    """같은 문제를 두 AI에게. 돌려주는 값: {"Claude": 답, "Gemini": 답}. 하나라도 못 받으면 예외."""
-    claude = shorts.claude_json(ANSWER_SYSTEM, prompt, ANSWER_SCHEMA, model=shorts.CANDIDATE_MODEL)["answer"]
+    """같은 문제를 두 AI에게. 돌려주는 값: ({"Claude": 답, "Gemini": 답}, {"Claude": 초, "Gemini": 초}).
+
+    시간은 답을 받기까지 걸린 API 시간이다 (Claude는 Claude Code가 잰 API 시간, Gemini는 성공한 요청 왕복 시간)."""
+    claude_meta, gemini_meta = {}, {}
+    claude = shorts.claude_json(ANSWER_SYSTEM, prompt, ANSWER_SCHEMA, model=shorts.CANDIDATE_MODEL, meta=claude_meta)["answer"]
     # 짧은 답이라 오래 기다릴 필요가 없다 (응답이 안 오면 60초 만에 다시 시도)
-    gemini = shorts.gemini_json(ANSWER_SYSTEM, prompt, ANSWER_SCHEMA, timeout=60)["answer"]
-    return {CLAUDE_LABEL: clean_answer(claude), GEMINI_LABEL: clean_answer(gemini)}
+    gemini = shorts.gemini_json(ANSWER_SYSTEM, prompt, ANSWER_SCHEMA, timeout=60, meta=gemini_meta)["answer"]
+    answers = {CLAUDE_LABEL: clean_answer(claude), GEMINI_LABEL: clean_answer(gemini)}
+    times = {CLAUDE_LABEL: round(claude_meta.get("seconds", 0), 1), GEMINI_LABEL: round(gemini_meta.get("seconds", 0), 1)}
+    return answers, times
 
 
 def first_number(text):
@@ -80,7 +85,11 @@ def chunk_line(text, words=3):
     return " / ".join(" ".join(parts[index:index + words]) for index in range(0, len(parts), words))
 
 
-def build_script(battle, answers):
+def speak_seconds(value):
+    return f"{value:g}초"
+
+
+def build_script(battle, answers, times):
     truth, result = grade(battle.get("check"), answers)
     claude, gemini = answers[CLAUDE_LABEL], answers[GEMINI_LABEL]
     cuts = [
@@ -94,14 +103,26 @@ def build_script(battle, answers):
         {"line": f"문제는요, / {chunk_line(battle['cover'].replace(chr(10), ' '))}", "emphasis": [], "heading": "오늘의 문제", "section": "문제",
          "visual": {"type": "quote", "quote": battle["prompt"], "label": "같은 문제를 그대로 줬어요"}},
         {"line": f"먼저 클로드. / {chunk_line(claude)}", "emphasis": [], "heading": "클로드의 답", "section": "Claude",
-         "visual": {"type": "chat", "label": CLAUDE_LABEL, "value": f"Claude {shorts.CANDIDATE_MODEL.title()}", "quote": claude}},
+         "visual": {"type": "chat", "label": CLAUDE_LABEL, "quote": claude,
+                    "value": f"Claude {shorts.CANDIDATE_MODEL.title()} · {speak_seconds(times[CLAUDE_LABEL])} 걸림"}},
         {"line": f"제미나이는요, / {chunk_line(gemini)}", "emphasis": [], "heading": "제미나이의 답", "section": "Gemini",
-         "visual": {"type": "chat", "label": GEMINI_LABEL, "value": shorts.GEMINI_SCRIPT_MODEL, "quote": gemini}},
+         "visual": {"type": "chat", "label": GEMINI_LABEL, "quote": gemini,
+                    "value": f"{shorts.GEMINI_SCRIPT_MODEL} · {speak_seconds(times[GEMINI_LABEL])} 걸림"}},
     ]
 
     if truth is not None:
         winners = [name for name, ok in result.items() if ok]
-        verdict = "둘 다 맞혔어요." if len(winners) == 2 else "둘 다 틀렸어요." if not winners else f"{'클로드' if winners[0] == CLAUDE_LABEL else '제미나이'} 승!"
+        spoken = {CLAUDE_LABEL: "클로드", GEMINI_LABEL: "제미나이"}
+
+        if len(winners) == 2:
+            # 둘 다 맞히면 승부는 빠르기로 (11/28 사용자: 둘 다 정답이면 걸린 시간으로)
+            fast, slow = sorted(winners, key=lambda name: times[name])
+            gap = round(times[slow] - times[fast], 1)
+            verdict = f"둘 다 정답! / 그런데 {spoken[fast]}가 / {speak_seconds(gap)} 더 빨랐어요." if gap > 0 else "둘 다 정답, / 시간도 똑같았어요."
+        elif winners:
+            verdict = f"{spoken[winners[0]]} 승!"
+        else:
+            verdict = "둘 다 틀렸어요."
         cuts.append({"line": f"정답은 / {truth}. / {verdict}", "emphasis": [truth], "heading": f"정답 {truth}", "section": "채점",
                      # 숫자가 0부터 올라가는 카드는 중간에 틀린 숫자가 보여서, 정답은 처음부터 그대로 보이는 카드로
                      "visual": {"type": "keywords", "items": [f"정답 {truth}"]}})
@@ -126,18 +147,19 @@ def build_script(battle, answers):
     return script, {"truth": truth, "result": result}
 
 
-def build_description(script, battle, answers, grading):
+def build_description(script, battle, answers, grading, times):
     lines = [
         f"문제: {battle['prompt']}",
         "",
-        f"Claude ({shorts.CANDIDATE_MODEL}): {answers[CLAUDE_LABEL]}",
-        f"Gemini ({shorts.GEMINI_SCRIPT_MODEL}): {answers[GEMINI_LABEL]}",
+        f"Claude ({shorts.CANDIDATE_MODEL}, {speak_seconds(times[CLAUDE_LABEL])}): {answers[CLAUDE_LABEL]}",
+        f"Gemini ({shorts.GEMINI_SCRIPT_MODEL}, {speak_seconds(times[GEMINI_LABEL])}): {answers[GEMINI_LABEL]}",
     ]
 
     if grading["truth"] is not None:
         lines += ["", f"정답: {grading['truth']}"]
 
-    lines += ["", "두 AI에게 같은 문제를 그대로 주고, 받은 답을 고치지 않고 보여 줍니다.", "누가 이겼는지 댓글로 알려 주세요!", "",
+    lines += ["", "두 AI에게 같은 문제를 그대로 주고, 받은 답을 고치지 않고 보여 줍니다.",
+              "걸린 시간은 답을 받기까지의 API 시간입니다 (Claude는 Claude Code가 잰 시간, Gemini는 요청 왕복 시간).", "누가 이겼는지 댓글로 알려 주세요!", "",
               "이 영상의 음성은 AI로 생성되었습니다.", "#shorts #AI대결 #Claude #Gemini #AI"]
     return shorts.youtube_safe("\n".join(lines))
 
@@ -172,17 +194,17 @@ def main():
     os.makedirs(work_dir, exist_ok=True)
     print(f"AI 대결: {battle['id']} — {battle['prompt']}")
 
-    answers = ask_both(battle["prompt"])
-    print(f"Claude: {answers[CLAUDE_LABEL]}\nGemini: {answers[GEMINI_LABEL]}")
-    script, grading = build_script(battle, answers)
-    shorts.save_json(os.path.join(work_dir, "answers.json"), {"battle": battle, "answers": answers, "grading": grading})
+    answers, times = ask_both(battle["prompt"])
+    print(f"Claude ({times[CLAUDE_LABEL]}초): {answers[CLAUDE_LABEL]}\nGemini ({times[GEMINI_LABEL]}초): {answers[GEMINI_LABEL]}")
+    script, grading = build_script(battle, answers, times)
+    shorts.save_json(os.path.join(work_dir, "answers.json"), {"battle": battle, "answers": answers, "times": times, "grading": grading})
     shorts.save_json(os.path.join(work_dir, "script.json"), script)
 
     voice = shorts.GEMINI_TTS_VOICES[0]
     narration, cut_words, voice = shorts.synthesize_narration(script["cuts"], work_dir, voice)
     source_label = "AI 대결 · 실제 답 그대로"
     video = shorts.build_video(script, narration, cut_words, source_label, work_dir, os.path.join(work_dir, "short.mp4"))
-    description = build_description(script, battle, answers, grading)
+    description = build_description(script, battle, answers, grading, times)
     report = shorts.probe_video(video)
     problems = shorts.find_video_problems(report, [("제목", script["title"]), ("설명란", description),
                                                    ("자막", " ".join(cut["line"] for cut in script["cuts"]))])
