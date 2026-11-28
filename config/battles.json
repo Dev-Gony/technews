@@ -1,42 +1,332 @@
 [
-  {"id": "dadjoke-cat", "hook": "아재개그 대결을", "cover": "AI 아재개그\n누가 더 웃길까", "title": "Claude vs Gemini 아재개그 대결ㅋㅋ", "prompt": "고양이로 아재개그 하나만 해 줘."},
-  {"id": "dadjoke-coffee", "hook": "커피 아재개그를", "cover": "커피 아재개그\nAI 대결", "title": "AI한테 커피 아재개그 시켰더니ㅋㅋ", "prompt": "커피로 아재개그 하나만 해 줘."},
-  {"id": "monday-excuse", "hook": "월요일 지각 핑계를", "cover": "월요일 지각 핑계\nAI가 만들면?", "title": "AI가 만든 월요일 지각 핑계 대결", "prompt": "월요일 아침 회사에 늦었을 때 댈 그럴듯한 핑계 하나만 만들어 줘."},
-  {"id": "cat-name", "hook": "고양이 이름 짓기를", "cover": "고양이 이름\nAI가 지으면?", "title": "AI한테 고양이 이름 지어 달라 했더니", "prompt": "치즈색 아기 고양이 이름 하나만 지어 주고 이유를 한 문장으로 말해 줘."},
-  {"id": "ramen-review", "hook": "라면 한 줄 평을", "cover": "라면 한 줄 평\nAI 대결", "title": "AI가 쓴 라면 한 줄 평, 누가 이겼을까", "prompt": "라면 맛을 영화 평론가처럼 한 줄로 평가해 줘."},
-  {"id": "breakup-text", "hook": "헤어진 냉장고한테 문자를", "cover": "냉장고한테\n이별 문자 보내기", "title": "AI한테 냉장고 이별 문자 시켰더니ㅋㅋ", "prompt": "고장 난 냉장고와 헤어지는 이별 문자 한 통을 짧게 써 줘."},
-  {"id": "alarm-poem", "hook": "알람 시계 시 짓기를", "cover": "알람 시계로\n시 짓기", "title": "Claude vs Gemini 알람 시계 시 짓기", "prompt": "아침 알람 시계를 주제로 두 줄짜리 시를 써 줘."},
-  {"id": "boss-reply", "hook": "부장님 카톡 답장을", "cover": "부장님 카톡\nAI가 답하면?", "title": "AI가 쓴 부장님 카톡 답장 대결", "prompt": "금요일 밤 10시에 부장님이 '내일 잠깐 나올 수 있나?'라고 보냈을 때 예의 있게 거절하는 답장을 한 문장으로 써 줘."},
-  {"id": "pigeon-ad", "hook": "비둘기 광고 문구를", "cover": "비둘기 광고\nAI가 쓰면?", "title": "AI한테 비둘기 광고 문구 시켰더니", "prompt": "비둘기를 홍보하는 광고 문구를 한 줄로 써 줘."},
-  {"id": "excuse-homework", "hook": "숙제 안 한 핑계를", "cover": "숙제 안 한 핑계\nAI 대결", "title": "AI가 만든 숙제 핑계, 누가 더 그럴듯할까", "prompt": "숙제를 안 해 온 학생이 선생님께 할 기발한 핑계를 한 문장으로 만들어 줘."},
-  {"id": "rename-monday", "hook": "월요일 새 이름 짓기를", "cover": "월요일 이름\n바꾼다면?", "title": "AI한테 월요일 새 이름 지어 달라 했더니", "prompt": "월요일의 새 이름을 하나 지어 주고 이유를 한 문장으로 말해 줘."},
-  {"id": "robot-greeting", "hook": "로봇 첫인사를", "cover": "로봇이 처음 하는\n인사는?", "title": "AI가 상상한 로봇의 첫인사", "prompt": "막 만들어진 로봇이 세상에 하는 첫인사를 한 문장으로 써 줘."},
-  {"id": "sock-mystery", "hook": "양말 한 짝 미스터리를", "cover": "사라진 양말 한 짝\nAI의 추리", "title": "사라진 양말 한 짝, AI의 추리 대결", "prompt": "세탁기에서 양말 한 짝이 사라지는 이유를 탐정처럼 한 문장으로 추리해 줘."},
-  {"id": "kimchi-english", "hook": "김치를 외국인에게 설명하기를", "cover": "김치를 한 문장으로\n설명하면?", "title": "AI가 외국인에게 김치를 설명하는 법", "prompt": "김치를 처음 보는 외국인에게 한국어 한 문장으로 설명해 줘."},
-  {"id": "tiny-horror", "hook": "두 문장 공포 이야기를", "cover": "두 문장\n공포 이야기", "title": "AI가 쓴 두 문장 공포 이야기 대결", "prompt": "무섭지만 잔인하지 않은 두 문장짜리 공포 이야기를 써 줘."},
-  {"id": "pet-rock", "hook": "돌멩이 자기소개를", "cover": "돌멩이가\n자기소개하면?", "title": "AI한테 돌멩이 자기소개 시켰더니ㅋㅋ", "prompt": "길가의 돌멩이가 하는 자기소개를 한 문장으로 써 줘."},
-  {"id": "nap-law", "hook": "낮잠 법 만들기를", "cover": "낮잠 법을\n만든다면?", "title": "AI가 만든 낮잠 법, 누가 이겼을까", "prompt": "모든 직장인을 위한 낮잠 법 조항 하나를 한 문장으로 만들어 줘."},
-  {"id": "weather-rap", "hook": "날씨 랩을", "cover": "오늘 날씨로\n랩 하기", "title": "Claude vs Gemini 날씨 랩 대결", "prompt": "비 오는 날을 주제로 두 줄짜리 랩 가사를 써 줘."},
-  {"id": "save-money", "hook": "돈 아끼는 팁을", "cover": "돈 아끼는 팁\n하나만!", "title": "AI한테 돈 아끼는 팁 물어봤더니", "prompt": "자취생이 오늘 바로 할 수 있는 돈 아끼는 팁 하나를 한 문장으로 알려 줘."},
-  {"id": "sleep-tip", "hook": "빨리 잠드는 법을", "cover": "빨리 잠드는 법\nAI가 알려 주면?", "title": "AI가 알려 준 빨리 잠드는 법 대결", "prompt": "잠이 안 올 때 바로 해 볼 수 있는 방법 하나를 한 문장으로 알려 줘."},
-  {"id": "focus-tip", "hook": "집중하는 법을", "cover": "공부 집중법\nAI 대결", "title": "AI한테 공부 집중하는 법 물어봤더니", "prompt": "공부할 때 휴대폰을 덜 보는 방법 하나를 한 문장으로 알려 줘."},
-  {"id": "strawberry-r", "hook": "글자 세기 문제를", "cover": "strawberry에\nr은 몇 개?", "title": "strawberry에 r이 몇 개냐고 AI한테 물어봤더니", "prompt": "영어 단어 strawberry에 알파벳 r이 몇 개 있는지 숫자로만 답해 줘.", "check": {"type": "count", "text": "strawberry", "char": "r"}},
-  {"id": "banana-a", "hook": "글자 세기 문제를", "cover": "banana에\na는 몇 개?", "title": "banana에 a가 몇 개냐고 AI한테 물어봤더니", "prompt": "영어 단어 banana에 알파벳 a가 몇 개 있는지 숫자로만 답해 줘.", "check": {"type": "count", "text": "banana", "char": "a"}},
-  {"id": "mississippi-s", "hook": "글자 세기 문제를", "cover": "mississippi에\ns는 몇 개?", "title": "mississippi에 s가 몇 개? AI 대결", "prompt": "영어 단어 mississippi에 알파벳 s가 몇 개 있는지 숫자로만 답해 줘.", "check": {"type": "count", "text": "mississippi", "char": "s"}},
-  {"id": "mul-big", "hook": "암산 문제를", "cover": "37 × 43은?\nAI 암산 대결", "title": "37 곱하기 43, AI가 암산하면?", "prompt": "37 곱하기 43은 얼마인지 숫자로만 답해 줘.", "check": {"type": "number", "value": 1591}},
-  {"id": "mul-big2", "hook": "암산 문제를", "cover": "123 × 9는?\nAI 암산 대결", "title": "123 곱하기 9, AI 암산 대결", "prompt": "123 곱하기 9는 얼마인지 숫자로만 답해 줘.", "check": {"type": "number", "value": 1107}},
-  {"id": "decimal-compare", "hook": "숫자 비교 문제를", "cover": "9.11 vs 9.9\n뭐가 더 클까?", "title": "9.11과 9.9 중 뭐가 더 크냐고 AI한테 물어봤더니", "prompt": "9.11과 9.9 중 더 큰 수를 숫자로만 답해 줘.", "check": {"type": "number", "value": 9.9}},
-  {"id": "hangul-count", "hook": "글자 세기 문제를", "cover": "'안녕하세요'는\n몇 글자?", "title": "'안녕하세요'가 몇 글자냐고 AI한테 물어봤더니", "prompt": "'안녕하세요'는 한글 몇 글자인지 숫자로만 답해 줘.", "check": {"type": "number", "value": 5}},
-  {"id": "days-feb", "hook": "달력 문제를", "cover": "2028년 2월은\n며칠까지?", "title": "2028년 2월은 며칠까지? AI 대결", "prompt": "2028년 2월은 며칠까지 있는지 숫자로만 답해 줘.", "check": {"type": "number", "value": 29}},
-  {"id": "pizza-slice", "hook": "피자 나누기 문제를", "cover": "피자 8조각\n3명이 나누면?", "title": "피자 8조각을 3명이 나누면? AI 대결", "prompt": "피자 8조각을 3명이 똑같이 나누면 한 사람이 몇 조각을 먹는지 분수나 소수로 답해 줘."},
-  {"id": "space-snack", "hook": "우주 간식 메뉴를", "cover": "우주에서 먹을\n간식 메뉴", "title": "AI가 짠 우주 간식 메뉴 대결", "prompt": "우주 정거장에서 먹고 싶은 새로운 간식 하나를 이름과 함께 한 문장으로 만들어 줘."},
-  {"id": "superpower", "hook": "쓸모없는 초능력을", "cover": "제일 쓸모없는\n초능력은?", "title": "AI가 생각한 제일 쓸모없는 초능력ㅋㅋ", "prompt": "세상에서 제일 쓸모없는 초능력 하나를 한 문장으로 만들어 줘."},
-  {"id": "slogan-subway", "hook": "지하철 응원 문구를", "cover": "출근길 지하철\n응원 한마디", "title": "AI가 쓴 출근길 응원 한마디 대결", "prompt": "출근길 지하철에 붙일 짧은 응원 문구를 한 문장으로 써 줘."},
-  {"id": "laptop-diary", "hook": "노트북 일기를", "cover": "노트북이\n일기를 쓴다면?", "title": "AI가 쓴 노트북의 일기ㅋㅋ", "prompt": "주인이 하루 종일 켜 둔 노트북이 쓰는 일기 한 문장을 써 줘."},
-  {"id": "emoji-movie", "hook": "영화 소개를", "cover": "영화를\n한 줄로 소개하면?", "title": "AI가 지어낸 영화 한 줄 소개 대결", "prompt": "주인공이 고양이인 가상의 액션 영화를 한 문장으로 소개해 줘."},
-  {"id": "plant-talk", "hook": "화분의 속마음을", "cover": "화분이\n말을 한다면?", "title": "AI한테 화분의 속마음을 물어봤더니", "prompt": "물을 한 달째 못 받은 화분이 주인에게 하는 말을 한 문장으로 써 줘."},
-  {"id": "game-tip", "hook": "게임 진 친구 위로를", "cover": "게임 진 친구\n위로하기", "title": "AI가 하는 게임 진 친구 위로 대결", "prompt": "게임에서 크게 진 친구를 웃기게 위로하는 말을 한 문장으로 해 줘."},
-  {"id": "future-phone", "hook": "미래 스마트폰 기능을", "cover": "10년 뒤 폰에\n생길 기능은?", "title": "AI가 상상한 10년 뒤 스마트폰 기능", "prompt": "10년 뒤 스마트폰에 생기면 좋을 재미있는 기능 하나를 한 문장으로 상상해 줘."},
-  {"id": "teacher-ai", "hook": "AI 선생님 첫마디를", "cover": "AI 선생님\n첫 수업 첫마디", "title": "AI 선생님의 첫 수업 첫마디 대결", "prompt": "AI 선생님이 첫 수업에서 학생들에게 하는 첫마디를 한 문장으로 써 줘."},
-  {"id": "pun-korea", "hook": "지명 말장난을", "cover": "지역 이름\n말장난 대결", "title": "Claude vs Gemini 지역 이름 말장난ㅋㅋ", "prompt": "한국 지역 이름으로 말장난 하나만 해 줘."}
+ {
+  "id": "dadjoke-cat",
+  "hook": "아재개그 대결을",
+  "cover": "AI 아재개그\n누가 더 웃길까",
+  "title": "Claude vs Gemini 아재개그 대결ㅋㅋ",
+  "prompt": "고양이로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-dog",
+  "hook": "강아지 아재개그를",
+  "cover": "강아지 아재개그\nAI 대결",
+  "title": "Claude vs Gemini 강아지 아재개그ㅋㅋ",
+  "prompt": "강아지로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-chicken",
+  "hook": "치킨 아재개그를",
+  "cover": "치킨 아재개그\n누가 더 웃길까",
+  "title": "AI한테 치킨 아재개그 시켰더니ㅋㅋ",
+  "prompt": "치킨으로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-phone",
+  "hook": "스마트폰 아재개그를",
+  "cover": "스마트폰 아재개그\nAI 대결",
+  "title": "AI가 만든 스마트폰 아재개그ㅋㅋ",
+  "prompt": "스마트폰으로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-banana",
+  "hook": "바나나 아재개그를",
+  "cover": "바나나 아재개그\n누가 이길까",
+  "title": "Claude vs Gemini 바나나 아재개그",
+  "prompt": "바나나로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-computer",
+  "hook": "컴퓨터 아재개그를",
+  "cover": "컴퓨터 아재개그\nAI 대결",
+  "title": "AI한테 컴퓨터 아재개그 시켰더니ㅋㅋ",
+  "prompt": "컴퓨터로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-winter",
+  "hook": "겨울 아재개그를",
+  "cover": "겨울 아재개그\n누가 더 추울까",
+  "title": "AI 겨울 아재개그 대결, 누가 더 썰렁할까",
+  "prompt": "겨울로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-coffee",
+  "hook": "커피 아재개그를",
+  "cover": "커피 아재개그\nAI 대결",
+  "title": "AI한테 커피 아재개그 시켰더니ㅋㅋ",
+  "prompt": "커피로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-school",
+  "hook": "학교 아재개그를",
+  "cover": "학교 아재개그\nAI 대결",
+  "title": "AI한테 학교 아재개그 시켰더니ㅋㅋ",
+  "prompt": "학교로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-ai",
+  "hook": "AI 아재개그를",
+  "cover": "AI가 하는\nAI 아재개그",
+  "title": "AI가 AI로 아재개그 하면?ㅋㅋ",
+  "prompt": "인공지능으로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-ramen",
+  "hook": "라면 아재개그를",
+  "cover": "라면 아재개그\nAI 대결",
+  "title": "Claude vs Gemini 라면 아재개그ㅋㅋ",
+  "prompt": "라면으로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-sea",
+  "hook": "바다 아재개그를",
+  "cover": "바다 아재개그\n누가 더 웃길까",
+  "title": "AI한테 바다 아재개그 시켰더니",
+  "prompt": "바다로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-fruit",
+  "hook": "과일 아재개그를",
+  "cover": "과일 아재개그\nAI 대결",
+  "title": "AI 과일 아재개그 대결ㅋㅋ",
+  "prompt": "과일로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "dadjoke-company",
+  "hook": "회사 아재개그를",
+  "cover": "회사 아재개그\n직장인 공감?",
+  "title": "AI가 만든 회사 아재개그ㅋㅋ",
+  "prompt": "회사 생활로 아재개그 하나만 해 줘."
+ },
+ {
+  "id": "monday-excuse",
+  "hook": "월요일 지각 핑계를",
+  "cover": "월요일 지각 핑계\nAI가 만들면?",
+  "title": "AI가 만든 월요일 지각 핑계 대결",
+  "prompt": "월요일 아침 회사에 늦었을 때 댈 그럴듯한 핑계 하나만 만들어 줘."
+ },
+ {
+  "id": "cat-name",
+  "hook": "고양이 이름 짓기를",
+  "cover": "고양이 이름\nAI가 지으면?",
+  "title": "AI한테 고양이 이름 지어 달라 했더니",
+  "prompt": "치즈색 아기 고양이 이름 하나만 지어 주고 이유를 한 문장으로 말해 줘."
+ },
+ {
+  "id": "ramen-review",
+  "hook": "라면 한 줄 평을",
+  "cover": "라면 한 줄 평\nAI 대결",
+  "title": "AI가 쓴 라면 한 줄 평, 누가 이겼을까",
+  "prompt": "라면 맛을 영화 평론가처럼 한 줄로 평가해 줘."
+ },
+ {
+  "id": "breakup-text",
+  "hook": "헤어진 냉장고한테 문자를",
+  "cover": "냉장고한테\n이별 문자 보내기",
+  "title": "AI한테 냉장고 이별 문자 시켰더니ㅋㅋ",
+  "prompt": "고장 난 냉장고와 헤어지는 이별 문자 한 통을 짧게 써 줘."
+ },
+ {
+  "id": "alarm-poem",
+  "hook": "알람 시계 시 짓기를",
+  "cover": "알람 시계로\n시 짓기",
+  "title": "Claude vs Gemini 알람 시계 시 짓기",
+  "prompt": "아침 알람 시계를 주제로 두 줄짜리 시를 써 줘."
+ },
+ {
+  "id": "boss-reply",
+  "hook": "부장님 카톡 답장을",
+  "cover": "부장님 카톡\nAI가 답하면?",
+  "title": "AI가 쓴 부장님 카톡 답장 대결",
+  "prompt": "금요일 밤 10시에 부장님이 '내일 잠깐 나올 수 있나?'라고 보냈을 때 예의 있게 거절하는 답장을 한 문장으로 써 줘."
+ },
+ {
+  "id": "pigeon-ad",
+  "hook": "비둘기 광고 문구를",
+  "cover": "비둘기 광고\nAI가 쓰면?",
+  "title": "AI한테 비둘기 광고 문구 시켰더니",
+  "prompt": "비둘기를 홍보하는 광고 문구를 한 줄로 써 줘."
+ },
+ {
+  "id": "excuse-homework",
+  "hook": "숙제 안 한 핑계를",
+  "cover": "숙제 안 한 핑계\nAI 대결",
+  "title": "AI가 만든 숙제 핑계, 누가 더 그럴듯할까",
+  "prompt": "숙제를 안 해 온 학생이 선생님께 할 기발한 핑계를 한 문장으로 만들어 줘."
+ },
+ {
+  "id": "rename-monday",
+  "hook": "월요일 새 이름 짓기를",
+  "cover": "월요일 이름\n바꾼다면?",
+  "title": "AI한테 월요일 새 이름 지어 달라 했더니",
+  "prompt": "월요일의 새 이름을 하나 지어 주고 이유를 한 문장으로 말해 줘."
+ },
+ {
+  "id": "robot-greeting",
+  "hook": "로봇 첫인사를",
+  "cover": "로봇이 처음 하는\n인사는?",
+  "title": "AI가 상상한 로봇의 첫인사",
+  "prompt": "막 만들어진 로봇이 세상에 하는 첫인사를 한 문장으로 써 줘."
+ },
+ {
+  "id": "sock-mystery",
+  "hook": "양말 한 짝 미스터리를",
+  "cover": "사라진 양말 한 짝\nAI의 추리",
+  "title": "사라진 양말 한 짝, AI의 추리 대결",
+  "prompt": "세탁기에서 양말 한 짝이 사라지는 이유를 탐정처럼 한 문장으로 추리해 줘."
+ },
+ {
+  "id": "kimchi-english",
+  "hook": "김치를 외국인에게 설명하기를",
+  "cover": "김치를 한 문장으로\n설명하면?",
+  "title": "AI가 외국인에게 김치를 설명하는 법",
+  "prompt": "김치를 처음 보는 외국인에게 한국어 한 문장으로 설명해 줘."
+ },
+ {
+  "id": "tiny-horror",
+  "hook": "두 문장 공포 이야기를",
+  "cover": "두 문장\n공포 이야기",
+  "title": "AI가 쓴 두 문장 공포 이야기 대결",
+  "prompt": "무섭지만 잔인하지 않은 두 문장짜리 공포 이야기를 써 줘."
+ },
+ {
+  "id": "pet-rock",
+  "hook": "돌멩이 자기소개를",
+  "cover": "돌멩이가\n자기소개하면?",
+  "title": "AI한테 돌멩이 자기소개 시켰더니ㅋㅋ",
+  "prompt": "길가의 돌멩이가 하는 자기소개를 한 문장으로 써 줘."
+ },
+ {
+  "id": "nap-law",
+  "hook": "낮잠 법 만들기를",
+  "cover": "낮잠 법을\n만든다면?",
+  "title": "AI가 만든 낮잠 법, 누가 이겼을까",
+  "prompt": "모든 직장인을 위한 낮잠 법 조항 하나를 한 문장으로 만들어 줘."
+ },
+ {
+  "id": "weather-rap",
+  "hook": "날씨 랩을",
+  "cover": "오늘 날씨로\n랩 하기",
+  "title": "Claude vs Gemini 날씨 랩 대결",
+  "prompt": "비 오는 날을 주제로 두 줄짜리 랩 가사를 써 줘."
+ },
+ {
+  "id": "save-money",
+  "hook": "돈 아끼는 팁을",
+  "cover": "돈 아끼는 팁\n하나만!",
+  "title": "AI한테 돈 아끼는 팁 물어봤더니",
+  "prompt": "자취생이 오늘 바로 할 수 있는 돈 아끼는 팁 하나를 한 문장으로 알려 줘."
+ },
+ {
+  "id": "sleep-tip",
+  "hook": "빨리 잠드는 법을",
+  "cover": "빨리 잠드는 법\nAI가 알려 주면?",
+  "title": "AI가 알려 준 빨리 잠드는 법 대결",
+  "prompt": "잠이 안 올 때 바로 해 볼 수 있는 방법 하나를 한 문장으로 알려 줘."
+ },
+ {
+  "id": "focus-tip",
+  "hook": "집중하는 법을",
+  "cover": "공부 집중법\nAI 대결",
+  "title": "AI한테 공부 집중하는 법 물어봤더니",
+  "prompt": "공부할 때 휴대폰을 덜 보는 방법 하나를 한 문장으로 알려 줘."
+ },
+ {
+  "id": "pizza-slice",
+  "hook": "피자 나누기 문제를",
+  "cover": "피자 8조각\n3명이 나누면?",
+  "title": "피자 8조각을 3명이 나누면? AI 대결",
+  "prompt": "피자 8조각을 3명이 똑같이 나누면 한 사람이 몇 조각을 먹는지 분수나 소수로 답해 줘."
+ },
+ {
+  "id": "space-snack",
+  "hook": "우주 간식 메뉴를",
+  "cover": "우주에서 먹을\n간식 메뉴",
+  "title": "AI가 짠 우주 간식 메뉴 대결",
+  "prompt": "우주 정거장에서 먹고 싶은 새로운 간식 하나를 이름과 함께 한 문장으로 만들어 줘."
+ },
+ {
+  "id": "superpower",
+  "hook": "쓸모없는 초능력을",
+  "cover": "제일 쓸모없는\n초능력은?",
+  "title": "AI가 생각한 제일 쓸모없는 초능력ㅋㅋ",
+  "prompt": "세상에서 제일 쓸모없는 초능력 하나를 한 문장으로 만들어 줘."
+ },
+ {
+  "id": "slogan-subway",
+  "hook": "지하철 응원 문구를",
+  "cover": "출근길 지하철\n응원 한마디",
+  "title": "AI가 쓴 출근길 응원 한마디 대결",
+  "prompt": "출근길 지하철에 붙일 짧은 응원 문구를 한 문장으로 써 줘."
+ },
+ {
+  "id": "laptop-diary",
+  "hook": "노트북 일기를",
+  "cover": "노트북이\n일기를 쓴다면?",
+  "title": "AI가 쓴 노트북의 일기ㅋㅋ",
+  "prompt": "주인이 하루 종일 켜 둔 노트북이 쓰는 일기 한 문장을 써 줘."
+ },
+ {
+  "id": "emoji-movie",
+  "hook": "영화 소개를",
+  "cover": "영화를\n한 줄로 소개하면?",
+  "title": "AI가 지어낸 영화 한 줄 소개 대결",
+  "prompt": "주인공이 고양이인 가상의 액션 영화를 한 문장으로 소개해 줘."
+ },
+ {
+  "id": "plant-talk",
+  "hook": "화분의 속마음을",
+  "cover": "화분이\n말을 한다면?",
+  "title": "AI한테 화분의 속마음을 물어봤더니",
+  "prompt": "물을 한 달째 못 받은 화분이 주인에게 하는 말을 한 문장으로 써 줘."
+ },
+ {
+  "id": "game-tip",
+  "hook": "게임 진 친구 위로를",
+  "cover": "게임 진 친구\n위로하기",
+  "title": "AI가 하는 게임 진 친구 위로 대결",
+  "prompt": "게임에서 크게 진 친구를 웃기게 위로하는 말을 한 문장으로 해 줘."
+ },
+ {
+  "id": "future-phone",
+  "hook": "미래 스마트폰 기능을",
+  "cover": "10년 뒤 폰에\n생길 기능은?",
+  "title": "AI가 상상한 10년 뒤 스마트폰 기능",
+  "prompt": "10년 뒤 스마트폰에 생기면 좋을 재미있는 기능 하나를 한 문장으로 상상해 줘."
+ },
+ {
+  "id": "teacher-ai",
+  "hook": "AI 선생님 첫마디를",
+  "cover": "AI 선생님\n첫 수업 첫마디",
+  "title": "AI 선생님의 첫 수업 첫마디 대결",
+  "prompt": "AI 선생님이 첫 수업에서 학생들에게 하는 첫마디를 한 문장으로 써 줘."
+ },
+ {
+  "id": "pun-korea",
+  "hook": "지명 말장난을",
+  "cover": "지역 이름\n말장난 대결",
+  "title": "Claude vs Gemini 지역 이름 말장난ㅋㅋ",
+  "prompt": "한국 지역 이름으로 말장난 하나만 해 줘."
+ },
+ {
+  "id": "decimal-compare",
+  "hook": "숫자 비교 문제를",
+  "cover": "9.11 vs 9.9\n뭐가 더 클까?",
+  "title": "9.11과 9.9 중 뭐가 더 크냐고 AI한테 물어봤더니",
+  "prompt": "9.11과 9.9 중 더 큰 수를 숫자로만 답해 줘.",
+  "check": {
+   "type": "number",
+   "value": 9.9
+  }
+ },
+ {
+  "id": "mul-big",
+  "hook": "암산 문제를",
+  "cover": "37 × 43은?\nAI 암산 대결",
+  "title": "37 곱하기 43, AI가 암산하면?",
+  "prompt": "37 곱하기 43은 얼마인지 숫자로만 답해 줘.",
+  "check": {
+   "type": "number",
+   "value": 1591
+  }
+ }
 ]

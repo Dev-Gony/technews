@@ -917,7 +917,7 @@ def describe_oauth_token(token):
     )
 
 
-def claude_json(system_prompt, user_prompt, schema, model=None):
+def claude_json(system_prompt, user_prompt, schema, model=None, meta=None):
     """Claude Code CLI(claude -p)로 schema에 맞는 JSON을 받는다.
 
     API 키 대신 Claude 구독 계정으로 실행된다. 로컬은 로그인된 상태를 쓰고,
@@ -969,6 +969,10 @@ def claude_json(system_prompt, user_prompt, schema, model=None):
             message += f" (CLAUDE_CODE_OAUTH_TOKEN: {describe_oauth_token(token)})"
 
         raise RuntimeError(f"Claude 생성 실패: {message}")
+
+    if meta is not None:
+        # AI 대결(battle.py)이 화면에 보여 줄 응답 시간: Claude Code가 잰 API 시간 (CLI 시작 시간 제외)
+        meta["seconds"] = (output.get("duration_api_ms") or output.get("duration_ms") or 0) / 1000
 
     return output["structured_output"]
 
@@ -1635,7 +1639,7 @@ def write_candidate(article, source_text, angle):
 GEMINI_RETRIES = 4
 
 
-def gemini_json(system_prompt, user_prompt, schema, timeout=300):
+def gemini_json(system_prompt, user_prompt, schema, timeout=300, meta=None):
     """Gemini(무료 등급)로 schema에 맞는 JSON을 받는다. Claude를 못 쓸 때의 예비 경로."""
     if not GEMINI_API_KEY:
         raise RuntimeError("GEMINI_API_KEY가 없어 Gemini 예비 경로를 쓸 수 없습니다.")
@@ -1667,8 +1671,14 @@ def gemini_json(system_prompt, user_prompt, schema, timeout=300):
     # 무료 등급은 붐빌 때 503/429를 자주 준다. 잠깐 쉬었다가 몇 번 더 시도한다.
     for attempt in range(GEMINI_RETRIES):
         try:
+            started = time.monotonic()
+
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 result = json.loads(response.read().decode("utf-8"))
+
+            if meta is not None:
+                # 성공한 요청 한 번의 왕복 시간 (다시 시도한 대기 시간은 빼고)
+                meta["seconds"] = time.monotonic() - started
             break
         except (TimeoutError, urllib.error.URLError) as error:
             # 붐빌 때(503/429/500)와 응답이 아예 안 오는 경우(읽기 시간 초과)는 잠깐 쉬고 다시. 그 밖의 HTTP 오류는 바로 실패.
