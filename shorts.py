@@ -402,12 +402,16 @@ SERIES = {
     "dev": "개발자 소식",
 }
 
+# 기사 고를 때 종류별 가산점 (11/28 국내 IT 채널 100곳 조사: 실용 팁 > 신기한 결과 > 뉴스형)
+KIND_BONUS = {"tip": 2, "wow": 1, "accident": -1, "drama": -1}
+
 # 종류별로 시청자가 가져가야 할 것 (대본 요청에 붙인다)
 KIND_PAYOFF = {
     "accident": "AI·기술이 사고 친 일. 무슨 일이 벌어졌는지 장면처럼 보여 주고, 마지막은 반전이나 웃픈 한마디로.",
     "wow": "눈이 휘둥그레지는 결과·데모. 뭐가 신기한지 바로 보여 주고(원문 이미지가 있으면 2컷에), 마지막은 감탄이나 웃긴 한마디로.",
     "life": "생활·돈·일자리에 닿는 소식. 내 하루·지갑에 뭐가 달라지는지 원문 사실로, 마지막은 공감 한마디로.",
-    "tip": "누구나 바로 써먹는 팁. 원문에 나온 방법을 따라 할 수 있게 쉬운 말로, 마지막은 '저도 해 볼래요' 같은 한마디로.",
+    "tip": "모르면 손해인 실용 팁. 원문에 나온 방법을 '1, 2, 3' 단계로 따라 할 수 있게 쉬운 말로 (flow 카드 1번 써도 된다), "
+           "제목은 '모르면 손해', 'N가지', '~하는 법', '아직도 ~하세요?' 같은 공식으로. 마지막은 '저도 오늘 해 볼래요' 같은 한마디로.",
     "drama": "빅테크·유명인 업계 드라마. 누가 누구와 무엇으로 부딪쳤는지 이야기처럼, 마지막은 관전평 한마디로.",
     "dev": "개발자 소식이지만 일반인도 알아들을 핵심 하나만. 마지막은 쉬운 한마디로.",
 }
@@ -419,6 +423,7 @@ VIEWER_PICK_PROMPT = """너는 한국어 IT 쇼츠 채널의 편집장이다. �
 낮은 점수(1~3): 서버·인프라·CI·프로토콜·데이터베이스 내부·보안 취약점 번호(CVE)·라이브러리 버전·개발 방법론·논문 수식처럼
   개발자끼리만 알아듣는 소식, 광고성 글, 의견 칼럼.
 kind: accident(사고) / wow(신기한 결과·데모) / life(생활·돈·일) / tip(써먹는 팁) / drama(업계 드라마) / dev(개발자 전용).
+tip은 일반인이 오늘 바로 따라 할 수 있는 무료 도구·설정·단축키·사용법이 원문에 있을 때만 (개발자용 설치·명령어는 dev).
 reason은 한 줄. 모든 후보에 점수를 매긴다(index는 0부터)."""
 
 VIEWER_PICK_SCHEMA = {
@@ -529,8 +534,9 @@ def pick_article_for_viewers(issues, used_links, keep=lambda name, data: None):
         ],
     })
 
-    # 점수 → 최신 순 (정렬이 안정적이라 같은 점수면 앞쪽=최신·주요 기사)
-    best = max(range(len(candidates)), key=lambda index: ranks[index]["score"])
+    # 점수 → 최신 순 (정렬이 안정적이라 같은 점수면 앞쪽=최신·주요 기사).
+    # 11/28 조사: "모르면 손해" 실용 팁은 잘 퍼지고 사고·드라마 같은 뉴스형은 가장 덜 퍼져서 종류별로 가산·감산한다.
+    best = max(range(len(candidates)), key=lambda index: ranks[index]["score"] + KIND_BONUS.get(ranks[index].get("kind"), 0))
     rank = ranks[best]
 
     if rank["score"] < PICK_MIN_SCORE:
@@ -680,7 +686,7 @@ ICONS = [
 
 VISUAL_TYPES = [
     "hook", "metaphor", "diagram", "beforeafter", "scale", "quote", "scene3d",
-    "number", "compare", "flow", "keywords", "code", "question", "none", "image",
+    "number", "compare", "flow", "keywords", "code", "question", "none", "image", "chat",
 ]
 
 # 전후 비교 한쪽 (video/src/schema.ts의 sideSchema)
@@ -2038,6 +2044,8 @@ def validate_visual(visual):
         "keywords": len(visual.get("items") or []) >= 1,
         "code": bool((visual.get("code") or "").strip()),
         "image": bool(re.fullmatch(r"img\d+", (visual.get("image") or "").strip())),
+        # chat: AI 대결(battle.py)의 답 말풍선. 대본 작성 모델은 쓰지 않는다.
+        "chat": bool((visual.get("quote") or "").strip()) and bool((visual.get("label") or "").strip()),
         # 질문 문구가 없어도 물음표 애니메이션만으로 장면이 성립한다.
         "question": True,
         "none": True,

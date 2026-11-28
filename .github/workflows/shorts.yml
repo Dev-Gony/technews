@@ -119,6 +119,12 @@ jobs:
         run: |
           args=()
 
+          # TEMP: AI 대결 시험 (머지 전에 지운다)
+          if [[ "$INPUT_LINK" == battle-test:* ]]; then
+            python battle.py --no-upload --id "${INPUT_LINK#battle-test:}"
+            exit 0
+          fi
+
           if [ -n "$INPUT_DATE" ]; then
             args+=(--date "$INPUT_DATE")
           fi
@@ -154,6 +160,8 @@ jobs:
             runtime/shorts/*/short.mp4
             runtime/shorts/*/script.json
             runtime/shorts/*/research/
+            runtime/battle/*/short.mp4
+            runtime/battle/*/answers.json
           if-no-files-found: ignore
           retention-days: 14
 

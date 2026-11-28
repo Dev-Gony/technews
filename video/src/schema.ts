@@ -47,7 +47,7 @@ export const visualSchema = z.object({
   // diagram: 사물 구조도(흐르는 화살표 + 카메라 줌인) / beforeafter: 전후 비교 / scale: 아이콘 격자로 규모 / quote: 원문 인용 카드
   type: z.enum([
     "hook", "metaphor", "number", "compare", "flow", "keywords", "code", "question", "none",
-    "diagram", "beforeafter", "scale", "quote", "scene3d", "image",
+    "diagram", "beforeafter", "scale", "quote", "scene3d", "image", "chat",
   ]),
   value: z.string().optional(),
   label: z.string().optional(),
